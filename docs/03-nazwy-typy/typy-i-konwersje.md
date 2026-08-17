@@ -17,12 +17,20 @@ Dla funkcji `isinstance()` drugim argumentem może być również kolekcja typó
 
 Nazwa w języku Python to swego rodzaju „uchwyt”, referencja. Generalnie nic nas nie może powstrzymać przed przypisaniem wartości czy wyrażeń różnych typów do tej samej nazwy:
 
-```python
+```{ .python .no-copy }
 x = 2
 x = "abcd"
 ```
 
 I jest to poprawny kod Pythona.
+
+Zmienne można ponadto tworzyć, wykonując przypisanie wielu wartości jednocześnie — także wartości różnych typów:
+
+```{ .python .no-copy }
+>>> x, y, z = 1, 2.5, "trzy"
+```
+
+Ta sama składnia pozwala zamienić wartości dwóch zmiennych bez zmiennej pomocniczej: `a, b = b, a`. Stojący za tym mechanizm rozpakowywania zostanie omówiony szerzej przy krotkach (rozdział [4. Typy złożone](../04-typy-zlozone/krotka.md)).
 
 ## Adnotacje typów (type hinting)
 

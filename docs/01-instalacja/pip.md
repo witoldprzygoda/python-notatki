@@ -1,6 +1,6 @@
 # Pip — zarządzanie pakietami
 
-W praktyce niemal zawsze istnieje konieczność doinstalowania pakietów. Służy do tego **pip** — oficjalny menedżer pakietów Pythona, który pozwala instalować, aktualizować oraz usuwać biblioteki. pip pobiera pakiety z Python Package Index ([PyPI](https://pypi.org/)), czyli największego repozytorium oprogramowania open source dla Pythona.
+W praktyce niemal zawsze istnieje konieczność doinstalowania pakietów. Służy do tego **pip** — oficjalny menedżer pakietów Pythona, który pozwala instalować, aktualizować oraz usuwać biblioteki. Pakiety pobierane są z Python Package Index ([PyPI](https://pypi.org/)), czyli największego repozytorium oprogramowania open source dla Pythona.
 
 ## Najważniejsza zasada: pip poprzez interpreter
 
@@ -16,7 +16,7 @@ ponieważ powstaje wówczas pytanie, który plik `pip.exe` został odnaleziony p
 python -m pip install requests
 ```
 
-Dla jawnie wskazanych interpreterów (składnia `py -V:<TAG>` opisana w podrozdziale [Instalacja klasyczna](instalacja-klasyczna.md)):
+Dla jawnie wskazanych interpreterów (składnia `py -V:<TAG>` opisana w podrozdziale [Instalacja Pythona](instalacja.md)):
 
 ```powershell title="Terminal"
 py -V:3.14 -m pip install requests
@@ -25,7 +25,7 @@ py -V:3.14t -m pip install requests
 
 Dokumentacja Python Install Managera również rekomenduje formę `python -m pip` w przypadku problemów z globalnym poleceniem `pip`. Wszystkie przykłady w niniejszym podrozdziale stosują tę konwencję.
 
-## Który pip należy do którego interpretera?
+## Przypisanie pip do interpretera
 
 Po świeżej instalacji warto zweryfikować przypisanie:
 
@@ -49,22 +49,22 @@ py -V:3.14t -m pip
 
 Nie należy zakładać, że biblioteka zainstalowana dla jednego interpretera jest automatycznie dostępna dla drugiego — każdy interpreter dysponuje własnym, odrębnym zestawem pakietów.
 
-## Gdzie instalować pakiety?
+## Miejsce instalowania pakietów
 
 !!! warning "Zalecenie: pakiety instalujemy w środowisku venv"
     Zdecydowanie zaleca się nieinstalowanie pakietów w globalnej instalacji interpretera,
     lecz w utworzonym dla projektu środowisku wirtualnym (opis w podrozdziale
-    [Wirtualne środowisko pracy venv](venv.md)). Przemawiają za tym dwa względy:
+    [Wirtualne środowisko venv](venv.md)). Przemawiają za tym dwa względy:
     globalna instalacja jest współdzielona przez wszystkie projekty, co prowadzi do
     konfliktów wersji bibliotek, a ponadto aktualizacja interpretera przez managera
     może usunąć globalnie doinstalowane pakiety (opis w podrozdziale
-    [Instalacja klasyczna](instalacja-klasyczna.md)). Po aktywacji środowiska polecenie
-    `python -m pip install ...` instaluje pakiety wyłącznie do katalogu `.venv`
-    danego projektu.
+    [Ścieżki i utrzymanie interpreterów](sciezki-i-utrzymanie.md)). Po aktywacji
+    środowiska polecenie `python -m pip install ...` instaluje pakiety wyłącznie
+    do katalogu `.venv` danego projektu.
 
 ## Przykład instalacji
 
-Zainstalujmy rozszerzenie [IPython](https://ipython.org/) (*An enhanced Interactive Python*), które m.in. numeruje kolejne wykonywane polecenia:
+Zainstalujmy rozszerzenie [IPython](https://ipython.org/) (ang. *An enhanced Interactive Python*), które m.in. numeruje kolejne wykonywane polecenia. Przykład najlepiej wykonać w aktywnym środowisku wirtualnym projektu (opis w podrozdziale [Wirtualne środowisko venv](venv.md)):
 
 ```powershell title="Terminal"
 python -m pip install ipython
@@ -94,26 +94,33 @@ python -m pip install --upgrade pip
 
 ## Przydatne polecenia
 
-Na przykładzie pakietu `pygame`:
+Na przykładzie pakietu `requests`:
 
-- `python -m pip show pygame` — sprawdzenie, czy pygame jest zainstalowane; wersja i inne informacje,
-- `python -m pip install pygame==2.6.0` — zainstalowanie konkretnej wersji pakietu, tutaj 2.6.0,
-- `python -m pip uninstall pygame` — usunięcie pakietu,
-- `python -m pip index versions pygame` — sprawdzenie dostępnych wersji,
-- `python -m pip install --upgrade pygame` — aktualizacja do najnowszej wersji,
+- `python -m pip show requests` — sprawdzenie, czy requests jest zainstalowane; wersja i inne informacje,
+- `python -m pip install requests==2.32.3` — zainstalowanie konkretnej wersji pakietu, tutaj 2.32.3,
+- `python -m pip uninstall requests` — usunięcie pakietu,
+- `python -m pip index versions requests` — sprawdzenie dostępnych wersji,
+- `python -m pip install --upgrade requests` — aktualizacja do najnowszej wersji,
 - `python -m pip list` — wypisanie wszystkich zainstalowanych pakietów.
 
 Jeżeli instalacja pakietu ulegnie uszkodzeniu (zdarza się tak np. w wyniku ręcznych manipulacji zainstalowanymi wersjami Pythona), można wymusić jego ponowną instalację:
 
 ```powershell title="Terminal"
-python -m pip install --force-reinstall pygame
+python -m pip install --force-reinstall requests
 ```
 
 albo dodatkowo z pominięciem pamięci podręcznej (wymuszeniem ponownego pobrania pakietu):
 
 ```powershell title="Terminal"
-python -m pip install --force-reinstall --no-cache-dir pygame
+python -m pip install --force-reinstall --no-cache-dir requests
 ```
+
+!!! note "Zgodność pakietu z wersją interpretera"
+    Pakiety z rozszerzeniami kompilowanymi (np. NumPy) publikują gotowe pliki binarne
+    (ang. *wheel*) osobno dla każdej wersji interpretera. Starsze wydania pakietu mogą
+    nie obsługiwać najnowszego Pythona — próba instalacji kończy się wtedy komunikatem
+    o braku pasującej dystrybucji. Dostępność wersji dla używanego interpretera
+    sprawdzamy poleceniem `python -m pip index versions <pakiet>`.
 
 ## Plik requirements.txt
 
@@ -126,17 +133,17 @@ python -m pip freeze > requirements.txt
 Pisząc projekt wymagający określonych bibliotek, warto załączyć do niego taki plik wymagań. Przykładowo, podstawowy zestaw do obliczeń numerycznych, manipulacji danymi oraz wizualizacji:
 
 ```text title="requirements.txt"
-numpy==1.26.4
-pandas==2.2.3
-matplotlib==3.9.2
+numpy==2.5.2
+pandas==3.0.3
+matplotlib==3.11.1
 ```
 
-Można podać samą nazwę pakietu, maskę wersji głównej (np. `1.*` dla numpy, aby nie zainstalowała się wersja 2.x), wersję minimalną, jak i maksymalną. Ilustruje to poniższy przykład:
+Można podać samą nazwę pakietu, maskę wersji głównej (np. `2.*` dla numpy, aby nie zainstalowała się przyszła wersja 3.x), wersję minimalną, jak i maksymalną. Ilustruje to poniższy przykład:
 
 ```text title="requirements.txt"
-numpy==1.*
-pandas>=1.0.0,<2.0.0
-matplotlib>=3.3.0
+numpy==2.*
+pandas>=2.0.0,<3.0.0
+matplotlib>=3.10.0
 scipy          # dowolna wersja
 ```
 

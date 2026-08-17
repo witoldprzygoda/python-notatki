@@ -2,7 +2,19 @@
 
 ## Typ bool
 
-Typ logiczny, posiada dwa stany `True` i `False`. Choć Python pozwala na elastyczne podejście do operacji na obiektach, nie piszmy składni, która jest jakościowo fatalna i nieczytelna.
+Typ logiczny, posiada dwa stany `True` i `False` (zapisywane wielką literą). Wartość `True` odpowiada umownie liczbie 1, a `False` — liczbie 0. Co istotne, w kontekście logicznym oceniane są także obiekty innych typów: wszystko, co nie jest zerem, obiektem pustym lub `None`, jest traktowane jako prawda:
+
+```{ .python .no-copy }
+>>> logika = True
+>>> if logika:
+...     print("to jest prawda")
+```
+
+!!! info "Słowo kluczowe None"
+    Słowo kluczowe `None` oznacza brak wartości. `None` to **nie** to samo co `0`,
+    `False` lub pusty ciąg — jest wartością własnego, odrębnego typu (`NoneType`).
+
+Choć Python pozwala na elastyczne podejście do operacji na obiektach, nie piszmy składni, która jest jakościowo fatalna i nieczytelna.
 
 <!-- TODO: przykłady z PDF (zrzuty): „niepoważne” pomysły składniowe; kreatywne
      podejścia do zmiennych logicznych; warunek zwracający tekst dla None -->
@@ -122,7 +134,7 @@ Surowy (*raw*) string jest poprzedzony literą `r`:
 
 Stringi rozciągnięte na wiele linii za pomocą `"""..."""` lub `'''...'''` można również wydrukować:
 
-```python
+```{ .python .no-copy }
 print("""\
 Usage: thingy [OPTIONS]
      -h                        Display this usage message

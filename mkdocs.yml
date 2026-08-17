@@ -67,15 +67,19 @@ nav:
   - Strona główna: index.md
   - 1. Instalacja i środowisko pracy:
       - Wprowadzenie: 01-instalacja/index.md
-      - Instalacja klasyczna: 01-instalacja/instalacja-klasyczna.md
-      - Wirtualne środowisko venv: 01-instalacja/venv.md
+      - Instalacja Pythona: 01-instalacja/instalacja.md
+      - Ścieżki i utrzymanie interpreterów: 01-instalacja/sciezki-i-utrzymanie.md
       - Pip — zarządzanie pakietami: 01-instalacja/pip.md
+      - Wirtualne środowisko venv: 01-instalacja/venv.md
       - Konfigurowanie narzędzi: 01-instalacja/konfiguracja.md
       - Notebook: 01-instalacja/notebook.md
       - Google Colab: 01-instalacja/colab.md
       - Python w przeglądarce: 01-instalacja/przegladarka.md
       - Narzędzia AI: 01-instalacja/ai-tools.md
-  - 2. Konsola: 02-konsola/index.md
+  - 2. Konsola:
+      - Wprowadzenie: 02-konsola/index.md
+      - Konsola w praktyce: 02-konsola/konsola-w-praktyce.md
+      - Pierwszy skrypt: 02-konsola/pierwszy-skrypt.md
   - 3. Nazwy i typy:
       - Wprowadzenie: 03-nazwy-typy/index.md
       - Typy i konwersje: 03-nazwy-typy/typy-i-konwersje.md

@@ -1,6 +1,6 @@
 # Python w przeglądarce
 
-Istnieje szereg serwisów, które umożliwiają pisanie i testowanie programów Pythona wprost w przeglądarce. Jest to wygodne rozwiązanie w przypadku, gdy akurat nie dysponujemy komputerem z odpowiednio zainstalowanym programem i środowiskiem. Dzięki temu możemy się uczyć praktycznie „zawsze i wszędzie”.
+Istnieje szereg serwisów, które umożliwiają pisanie i testowanie programów Pythona wprost w przeglądarce. Jest to wygodne rozwiązanie w sytuacji, gdy nie dysponujemy komputerem z zainstalowanym interpreterem i skonfigurowanym środowiskiem — naukę można wówczas kontynuować na dowolnym urządzeniu z dostępem do sieci.
 
 ## Serwisy warte zainteresowania
 

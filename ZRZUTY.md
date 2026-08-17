@@ -34,14 +34,27 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 
 ### index.md (Konsola)
 
-7. `img/idle-print-podpowiedz.png` — IDLE, dymek z sygnaturą podczas wpisywania
-   `print(`; kadr: linia edycji + dymek.
-8. `img/repl-kolorowanie.png` — nowy REPL (Python 3.14) w Windows Terminal
+7. `img/repl-kolorowanie.png` — nowy REPL (Python 3.14) w Windows Terminal
    z widocznym kolorowaniem składni; wpisać np. definicję krótkiej funkcji
    i wyrażenie z łańcuchem, liczbą i komentarzem. Jedyne miejsce, gdzie blok
    tekstowy nie odda treści (kolory).
 
+### konsola-w-praktyce.md
+
+8. `img/idle-print-podpowiedz.png` — IDLE, dymek z sygnaturą podczas wpisywania
+   `print(`; kadr: linia edycji + dymek.
+
+## Do wykonania — rozdział 03
+
+### typy-i-konwersje.md
+
+9. `img/vsc-type-hint.png` — podpowiedź rozszerzenia Python Type Hint w VSC
+   podczas pisania adnotacji typu; kadr: linia kodu + dymek podpowiedzi.
+10. `img/vsc-mypy-ostrzezenie.png` — ostrzeżenie mypy w VSC przy przypisaniu
+    wartości o typie innym niż zadeklarowany; kadr: linia kodu + podkreślenie
+    i treść ostrzeżenia.
+
 ## Wykonane
 
-- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera (venv.md)
-- `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (venv.md)
+- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera (konfiguracja.md)
+- `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (konfiguracja.md)

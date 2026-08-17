@@ -1,18 +1,12 @@
-# 1. Instalacja i środowisko pracy
+# Python Notatki
 
-Istnieją różne implementacje języka Python; w niniejszych notatkach używamy implementacji klasycznej — **CPython**, napisanej w języku C. Kod źródłowy jest najpierw przetwarzany na drzewo składniowe AST (ang. *Abstract Syntax Tree*, [docs.python.org/3/library/ast.html](https://docs.python.org/3/library/ast.html)), a następnie kompilowany do kodu bajtowego, zapisywanego w tymczasowych plikach `*.pyc` — można go podejrzeć za pomocą modułu [dis](https://docs.python.org/3/library/dis.html). Kolejne fragmenty kodu bajtowego są tworzone lub odczytywane z plików i przekazywane do wykonania maszynie wirtualnej Pythona (PVM, ang. *Python Virtual Machine*), która dokonuje ostatecznej konwersji na kod maszynowy i uruchamia go na konkretnym sprzęcie. Maszyna wirtualna stanowi ostatni etap interpretera Pythona.
+Niniejsze notatki stanowią materiał pomocniczy do laboratorium języka Python (rok akademicki 2025/2026). Prowadzą one czytelnika od instalacji interpretera i przygotowania środowiska pracy, przez pierwsze eksperymenty w konsoli, po systematyczne omówienie typów danych i konstrukcji języka.
 
-Interpreter Pythona może zostać zainstalowany również przy okazji innych produktów, np. środowiska PyCharm czy popularnego pakietu Anaconda, a na jednym komputerze może współistnieć wiele wersji języka. Do ich instalowania i zarządzania nimi służy obecnie oficjalne narzędzie **Python Install Manager** wraz z poleceniem `py` (opis w podrozdziale [Instalacja klasyczna](instalacja-klasyczna.md)); zastąpiło ono dawny program uruchomieniowy *py launcher*, instalowany wraz z klasycznym instalatorem. W projekcie można ponadto skonfigurować izolowane wirtualne środowisko pracy z wybraną wersją interpretera (opis w podrozdziale [Wirtualne środowisko venv](venv.md)) — różne środowiska IDE tworzą właśnie takie środowiska (venv), zawierające konkretny plik binarny interpretera Pythona.
+Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Python Install Manager** w systemie Windows.
 
----
+## Spis rozdziałów
 
-## W tym rozdziale
-
-1. [Instalacja klasyczna](instalacja-klasyczna.md) — Python Install Manager, instalacja interpreterów, PATH i sys.path
-2. [Pip — zarządzanie pakietami](pip.md) — instalowanie bibliotek, PyPI, plik requirements.txt
-3. [Wirtualne środowisko venv](venv.md) — izolowane środowiska projektów
-4. [Konfigurowanie narzędzi](konfiguracja.md) — przygotowanie edytora i środowiska pracy
-5. [Notebook](notebook.md) — Jupyter Notebook, edycja kodu w przeglądarce
-6. [Google Colab](colab.md) — notebooki w chmurze, dostęp do GPU/TPU, praca zespołowa
-7. [Python w przeglądarce](przegladarka.md) — serwisy umożliwiające naukę bez instalacji
-8. [Narzędzia AI](ai-tools.md) — GitHub Copilot i asystenci AI w nauce programowania
+1. [Instalacja i środowisko pracy](01-instalacja/index.md) — Python Install Manager, pip, środowiska wirtualne, konfiguracja narzędzi
+2. [Konsola](02-konsola/index.md) — praca w konsoli interaktywnej i pierwszy skrypt
+3. [Nazwy i typy](03-nazwy-typy/index.md) — typy proste, obiekty i pamięć, operatory, instrukcje sterujące
+4. [Typy złożone](04-typy-zlozone/index.md) — lista, krotka, słownik, zbiory

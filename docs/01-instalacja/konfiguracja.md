@@ -1,21 +1,21 @@
-# Konfigurowanie narzędzi do pracy
+# Konfigurowanie narzędzi
 
-Zasadniczo można pisać program w Pythonie w prostym, interaktywnym środowisku programowania, w powłoce (konsoli), czyli realizując **REPL** (ang. *read-eval-print loop*) — użytkownik może wprowadzać polecenia, które zostaną wykonane, a ich wynik wypisany na ekran. Nie jest to wydajny sposób pracy. Do pisania kodu potrzebny jest edytor, lub lepiej — środowisko pracy wspomagające proces tworzenia kodu (**IDE**, *integrated development environment*).
+Program w Pythonie można zasadniczo pisać w prostym, interaktywnym środowisku programowania — w konsoli interpretera, realizującej pętlę **REPL** (ang. *read-eval-print loop*; opis w rozdziale [2. Konsola](../02-konsola/index.md)): użytkownik wprowadza polecenia, które zostają wykonane, a ich wynik jest wypisywany na ekran. Nie jest to jednak wydajny sposób pracy nad większym kodem. Do pisania programów potrzebny jest edytor, a najlepiej — zintegrowane środowisko programistyczne (**IDE**, ang. *integrated development environment*), wspomagające cały proces tworzenia kodu.
 
 ## Wybór edytora / IDE
 
-Można wybrać według własnych preferencji (niektórzy, znając i używając wcześniej, trwają przy edytorach **vim** lub **emacs**). Niektórzy używają załączonego w pythonowym pakiecie instalacyjnym **IDLE**.
+Wybór można dostosować do własnych preferencji — część programistów pozostaje przy edytorach **vim** lub **emacs**, inni korzystają z dołączanego do dystrybucji Pythona środowiska **IDLE**.
 
-Bardzo dużo możliwości dają lekkie edytory:
+Duże możliwości dają lekkie edytory:
 
 - [Sublime Text](https://www.sublimetext.com/)
 - [Zed](https://zed.dev/)
 
-Z drugiej strony, w pełni wyposażony pakiet IDE dedykowany dla Pythona to [**PyCharm**](https://www.jetbrains.com/pycharm/) (bezpłatny do użytku niekomercyjnego; istnieje także licencja akademicka). Całkowicie darmowym produktem jest [**Spyder**](https://www.spyder-ide.org/), używany w analizie danych, naukach przyrodniczych oraz inżynierii, głównie ze względu na swoją integrację z popularnymi bibliotekami Pythona, takimi jak NumPy, SciPy czy Matplotlib.
+Z drugiej strony, w pełni wyposażonym pakietem IDE dedykowanym dla Pythona jest [**PyCharm**](https://www.jetbrains.com/pycharm/) (bezpłatny do użytku niekomercyjnego; istnieje także licencja akademicka). Całkowicie darmowym produktem jest [**Spyder**](https://www.spyder-ide.org/), używany w analizie danych, naukach przyrodniczych oraz inżynierii, głównie ze względu na swoją integrację z popularnymi bibliotekami Pythona, takimi jak NumPy, SciPy czy Matplotlib.
 
 ## Rekomendacja: Visual Studio Code
 
-Bardzo wiele osób używa obecnie **Visual Studio Code** (firmy Microsoft — ale jest to produkt wieloplatformowy), ze względu na wydajne działanie, dużą elastyczność, konfigurowalność oraz ciągłe wsparcie i aktualizacje. Za pomocą wybranych dodatków można szybko skonfigurować VSC do wydajnej pracy z Pythonem. Oto jak to zrobić.
+Bardzo wiele osób używa obecnie **Visual Studio Code** (produktu firmy Microsoft, dostępnego na wielu platformach) ze względu na wydajne działanie, dużą elastyczność, konfigurowalność oraz ciągłe wsparcie i aktualizacje. Za pomocą wybranych rozszerzeń można szybko skonfigurować VSC do wydajnej pracy z Pythonem — opisują to kolejne sekcje.
 
 ### Instalacja i rozszerzenia
 
@@ -26,20 +26,22 @@ Bardzo wiele osób używa obecnie **Visual Studio Code** (firmy Microsoft — al
 **Linter** to moduł sprawdzający i podpowiadający składnię. Dawniej wybierało się go poleceniem palety *Python: Select Linter* — polecenie to zostało wycofane, a lintery są obecnie osobnymi rozszerzeniami VSC. Po zainstalowaniu rozszerzenia Pylint linter jest od razu aktywny, bez dodatkowej konfiguracji.
 
 !!! note "Wersja pylinta"
-    Rozszerzenie zawiera wbudowaną kopię pylinta. Jeżeli jednak w wybranym
-    interpreterze (środowisku) jest zainstalowana własna wersja — poleceniem
-    `python -m pip install pylint` — to zostanie użyta właśnie ona, co daje
-    kontrolę nad wersją lintera w projekcie.
+    Rozszerzenie zawiera wbudowaną kopię pylinta i domyślnie używa właśnie jej
+    (ustawienie `pylint.importStrategy` o wartości domyślnej `useBundled`). Kontrolę
+    nad wersją lintera w projekcie daje instalacja własnej wersji w środowisku —
+    poleceniem `python -m pip install pylint` — wraz z wpisem
+    `"pylint.importStrategy": "fromEnvironment"` w pliku `settings.json`; wówczas
+    używana jest wersja ze środowiska, a wbudowana pozostaje rezerwą.
 
 ### Test lintera
 
-Utwórzmy plik `main.py` (w jakimś podkatalogu, który też można utworzyć) i wpiszmy celowo błędną składnię (z punktu widzenia Python3), na przykład:
+Utwórzmy w katalogu projektu plik `main.py` i wpiszmy składnię celowo błędną z punktu widzenia Pythona 3, na przykład:
 
 ```python title="main.py"
 print "hello wrong"
 ```
 
-Powinien się pojawić problem oraz podpowiedź.
+Powinien pojawić się problem oraz podpowiedź.
 
 <!-- TODO: screenshot — podkreślenie błędu przez pylint -->
 
@@ -49,9 +51,9 @@ Albo (++ctrl+shift+m++) zakładka **Problems**:
 
 ### Usuwanie Pylance
 
-Może być tak, że zobaczymy dwie „porady” — druga pochodzi od **Pylance**, który nie jest linterem, lecz serwerem językowym zapewniającym IntelliSense; jego diagnostyka może się dublować z pylintem. Powiedzmy, że chcemy go wyłączyć. Prostą operację (udać się do rozszerzeń, odszukać Pylance — i można np. dezaktywować, albo odinstalować) trzeba jednak uzupełnić wpisem w pliku konfiguracyjnym VSC.
+Możliwe, że wyświetlone zostaną dwie „porady" — druga pochodzi od **Pylance**, który nie jest linterem, lecz serwerem językowym zapewniającym IntelliSense; jego diagnostyka może się dublować z pylintem. Aby go wyłączyć, prostą operację (odszukanie Pylance na liście rozszerzeń i jego dezaktywacja albo odinstalowanie) trzeba uzupełnić wpisem w pliku konfiguracyjnym VSC.
 
-W tym celu idziemy do Command Palette (++ctrl+shift+p++) i szukamy **Preferences: Open User Settings (JSON)** (nie *Default*).
+W tym celu otwieramy Command Palette (++ctrl+shift+p++) i wyszukujemy **Preferences: Open User Settings (JSON)** (nie *Default*).
 
 <!-- TODO: screenshot — otwieranie settings.json -->
 
@@ -61,43 +63,43 @@ Otwieramy plik `settings.json` do edycji i np. na końcu dopisujemy (jeśli nie 
 "python.languageServer": "None"
 ```
 
-Po przeładowaniu powinniśmy widzieć podpowiedź tylko z Pylint.
+Po przeładowaniu podpowiedź powinna pochodzić wyłącznie od Pylint.
 
 ## PEP 8 i formatowanie kodu
 
-W języku Python szereg opisów jak ma działać oraz propozycji usprawnień zawarta jest w tak zwanych **PEPs** (Python Enhancement Proposals): [peps.python.org](https://peps.python.org/). Jeden z najbardziej znanych to [**PEP 8 — Style Guide for Python Code**](https://peps.python.org/pep-0008/), czyli jak powinien być formatowany kod Pythona.
+Opisy działania języka Python oraz propozycje jego usprawnień są gromadzone w dokumentach **PEP** (ang. *Python Enhancement Proposals*): [peps.python.org](https://peps.python.org/). Jednym z najbardziej znanych jest [**PEP 8 — Style Guide for Python Code**](https://peps.python.org/pep-0008/), określający zasady formatowania kodu Pythona. Katalog PEP obejmuje także m.in. filozofię języka (PEP 20, opis w rozdziale [2. Konsola](../02-konsola/konsola-w-praktyce.md)) oraz konwencje dokumentowania kodu (PEP 257).
 
-Formatery — podobnie jak lintery — są obecnie osobnymi rozszerzeniami VSC. W **Extensions** wyszukujemy **autopep8** (wydawca Microsoft) i instalujemy. W naszym pliku napiszmy teraz np.:
+Formatery — podobnie jak lintery — są obecnie osobnymi rozszerzeniami VSC. W **Extensions** wyszukujemy **autopep8** (wydawca Microsoft) i instalujemy. W naszym pliku zapiszmy teraz np.:
 
 ```python title="main.py"
 x=0
 ```
 
-a następnie w Command Palette (++ctrl+shift+p++) **Format Document With** i wybierzmy **autopep8** (opcja *Configure Default Formatter* pozwala ustawić go jako domyślny formater dla plików Pythona).
+a następnie w Command Palette (++ctrl+shift+p++) wybierzmy **Format Document With** i wskażmy **autopep8** (opcja *Configure Default Formatter* pozwala ustawić go jako domyślny formater dla plików Pythona).
 
-Teraz możemy wykonać formatowanie — albo idąc do *Format Document* jak wyżej, albo lepiej, korzystając ze skrótu klawiszowego ++shift+alt+f++. W tym przypadku zobaczymy:
+Formatowanie wykonujemy poleceniem *Format Document* jak wyżej albo — wygodniej — skrótem klawiszowym ++shift+alt+f++. W tym przypadku zobaczymy:
 
 ```{ .python .no-copy }
 x = 0
 ```
 
-ponieważ w PEP8 jest rekomendacja, aby przed i za operatorem były spacje.
+ponieważ PEP 8 zaleca, aby przed i za operatorem znajdowały się spacje.
 
 !!! warning "Formatowanie ≠ poprawianie błędów"
     Nie należy formatowania mylić z poprawianiem błędów — do tego celu służy
     linter (wcześniej opisany pylint).
 
-Jeśli chcemy, aby formatowanie nastąpiło automatycznie podczas zapisu pliku, można w **File → Preferences → Settings** (albo skrót ++ctrl+comma++) wyszukać `formatOnSave` i zaznaczyć opcję **Editor: Format On Save**.
+Aby formatowanie następowało automatycznie podczas zapisu pliku, można w **File → Preferences → Settings** (albo skrótem ++ctrl+comma++) wyszukać `formatOnSave` i zaznaczyć opcję **Editor: Format On Save**.
 
 ## Wyciszanie ostrzeżeń pylint
 
-Załóżmy, że mamy z powrotem w pliku prostą instrukcję:
+Załóżmy, że w pliku znajduje się z powrotem prosta instrukcja:
 
 ```python title="main.py"
 print("pierwszy program")
 ```
 
-Pylint, w zależności od ustawień, ostrzeże nas: *Missing module docstring* (czyli że nie ma w naszym pliku–module żadnego opisu komentarza). Jeśli ostrzeżenia nas irytują, można je wyłączyć. W tym celu idziemy do pliku `settings.json` (jak poprzednio) i dodajmy linię:
+Pylint, w zależności od ustawień, zgłosi ostrzeżenie *Missing module docstring* — w pliku-module brakuje opisu dokumentacyjnego. **Docstring** (ang. *documentation string*) to łańcuch znakowy umieszczany na początku modułu, klasy lub funkcji, pełniący rolę ich dokumentacji; konwencje jego pisania określa PEP 257, a szersze omówienie nastąpi przy funkcjach. Jeżeli tego rodzaju ostrzeżenia mają zostać wyłączone, w pliku `settings.json` (otwieranym jak poprzednio) dodajemy linię:
 
 ```json title="settings.json"
 "pylint.args": ["--errors-only"]
@@ -106,23 +108,52 @@ Pylint, w zależności od ustawień, ostrzeże nas: *Missing module docstring* (
 Dawne ustawienie `python.linting.pylintArgs` zostało wycofane wraz z wbudowanym lintowaniem — konfigurację przekazuje się obecnie przez ustawienia rozszerzenia Pylint (`pylint.args`).
 
 !!! note "Odczytanie znaczenia komunikatu"
-    Można odczytać konkretny kod komunikatu, żeby się zorientować, o co linterowi
-    chodzi — w terminalu piszemy:
+    Znaczenie konkretnego kodu komunikatu można sprawdzić w terminalu (przy pylincie
+    zainstalowanym w środowisku):
 
-    ```bash title="Terminal"
-    pylint --help-msg=missing-module-docstring
+    ```powershell title="Terminal"
+    python -m pylint --help-msg=missing-module-docstring
     ```
 
 ## Uruchamianie kodu — Code Runner
 
-Mamy zatem plik z instrukcją `print` i chcemy go uruchomić z VSC. W tym celu dodamy jeszcze jedno rozszerzenie: idziemy do **Extensions** i szukamy `code runner`, wybieramy ten z pomarańczową ikonką **.run** i instalujemy.
+Plik z instrukcją `print` chcemy teraz uruchomić z poziomu VSC. W tym celu dodajemy jeszcze jedno rozszerzenie: w **Extensions** wyszukujemy `code runner`, wybieramy pozycję z pomarańczową ikoną **.run** i instalujemy.
 
 Od tej pory uruchomienie kodu to ++ctrl+alt+n++ (a zatrzymanie ++ctrl+alt+m++).
 
 <!-- TODO: screenshot — wynik działania Code Runner w terminalu VSC -->
 
-!!! tip "Terminal w VSC"
-    Jeśli ta sekcja na dole nam się przypadkiem zamknie, to:
-    **Terminal → New Terminal** (lub skrót klawiszowy ++ctrl+grave++).
+!!! note "Wariant bez dodatkowego rozszerzenia"
+    Rozszerzenie Code Runner nie jest już aktywnie rozwijane (ostatnie wydanie
+    pochodzi z 2024 roku), choć nadal działa poprawnie. Równoważne uruchamianie
+    zapewnia samo rozszerzenie Python od Microsoftu — przycisk **Run Python File**
+    w prawym górnym rogu edytora wykonuje plik w terminalu zintegrowanym.
 
-W ten sposób mamy przygotowane środowisko pracy w VSC.
+!!! tip "Terminal w VSC"
+    Jeżeli sekcja terminala w dolnej części okna zostanie zamknięta, otwieramy ją
+    ponownie: **Terminal → New Terminal** (lub skrótem klawiszowym ++ctrl+grave++).
+
+Warte odnotowania jest również uruchamianie w trybie debugowania: klawisz ++f5++ wykonuje program pod kontrolą **debuggera**, z możliwością wstawiania pułapek (ang. *breakpoint*) zatrzymujących wykonanie we wskazanej linii. Szersze omówienie debugowania nastąpi w dalszych rozdziałach.
+
+## Interpreter i środowisko venv w VSC
+
+Visual Studio Code pozwala na utworzenie wirtualnego środowiska (opisanego w podrozdziale [Wirtualne środowisko venv](venv.md)) przy okazji wyboru interpretera.
+
+Po skrócie klawiszowym ++ctrl+shift+p++ wpisujemy **Python: Select Interpreter**. Pojawi się lista dostępnych interpreterów wraz z opcją utworzenia nowego środowiska:
+
+![Lista wyboru interpretera w Visual Studio Code](img/vsc-select-interpreter.png)
+
+Wybierzmy **Create Virtual Environment**, a następnie menedżera środowiska **venv**:
+
+![Wybór menedżera środowiska w Visual Studio Code](img/vsc-environment-manager.png)
+
+Po wskazaniu wersji interpretera zostanie lokalnie utworzony podkatalog `.venv` wraz z wirtualnym środowiskiem dla danego projektu.
+
+Po wskazaniu interpretera pochodzącego ze środowiska Visual Studio Code aktywuje `.venv` automatycznie w każdym nowo otwieranym terminalu zintegrowanym — dodatkowa konfiguracja nie jest potrzebna. Odpowiada za to domyślnie włączona opcja `python.terminal.activateEnvironment`.
+
+!!! note "Wygląd a wersja VSC"
+    Szczegóły wyglądu okien Visual Studio Code mogą się nieznacznie różnić między
+    wersjami — stałe pozostają natomiast nazwy poleceń palety (**Python: Select
+    Interpreter**, **Create Virtual Environment**) i to nimi należy się kierować.
+
+W ten sposób środowisko pracy w VSC jest przygotowane.

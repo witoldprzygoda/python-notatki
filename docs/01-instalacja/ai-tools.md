@@ -1,22 +1,24 @@
 # Narzędzia AI
 
-Temat używania narzędzi AI do pisania kodu, a przede wszystkim w nauce, jest bardzo dynamiczny.
+Zastosowanie narzędzi AI w programowaniu, a zwłaszcza w jego nauce, jest obszarem rozwijającym się bardzo szybko — poniższe informacje wymagają okresowej weryfikacji.
 
-Powszechną wiedzą jest, że narzędzia typu ChatGPT bezproblemowo wygenerują dowolny kod, który np. będzie rozwiązaniem zadania, czy wręcz gotowym kodem projektu.
+Narzędzia typu ChatGPT czy Claude wygenerują bez trudu dowolny kod, który będzie np. rozwiązaniem zadania, a nawet gotowym kodem projektu.
 
 !!! warning "W ten sposób niczego się nie nauczymy"
-    W ten sposób jednak niczego nie zyskamy i nie nauczymy się.
-    Nie oznacza to, że mamy takich narzędzi czy pomocy unikać — wręcz przeciwnie.
+    Korzystanie z gotowych rozwiązań nie buduje jednak umiejętności programowania.
+    Nie oznacza to, że takich narzędzi należy unikać — wręcz przeciwnie; istotny
+    jest sposób ich używania: jako pomocy w zrozumieniu materiału, nie jako
+    zastępstwa własnej pracy.
 
 ## GitHub Copilot — licencja akademicka
 
-Należy skorzystać z faktu, że serwis **GitHub** oferuje darmowe licencje akademickie, w tym dla **GitHub Copilot**. Wszelkie informacje znajdziemy na stronie [github.com/education](https://github.com/education).
+Warto skorzystać z faktu, że serwis **GitHub** oferuje bezpłatny dostęp akademicki, w tym do narzędzia **GitHub Copilot**. Wszelkie informacje dostępne są na stronie [github.com/education](https://github.com/education). Od marca 2026 roku zweryfikowani studenci otrzymują bezpłatny plan **GitHub Copilot Student**, obejmujący nielimitowane uzupełnianie kodu w edytorze oraz miesięczną pulę tzw. kredytów AI na funkcje czatu i agentów.
 
-Bardzo polecam lekturę [realpython.com/github-copilot-python](https://realpython.com/github-copilot-python/) — znajdziemy tam opis instalacji w różnych IDE, skrótów klawiszowych i sposobów używania Copilot.
+Wartą polecenia lekturą jest [realpython.com/github-copilot-python](https://realpython.com/github-copilot-python/) — opis instalacji w różnych IDE, skrótów klawiszowych i sposobów używania Copilota (część zrzutów ekranu w artykule może odbiegać od bieżącego interfejsu).
 
-!!! note "Paragraf w rozbudowie"
-    Zapewne ten paragraf będzie poszerzony w swoim czasie, aby przekazać ciekawe
-    i pożyteczne wskazówki.
+!!! note "Podrozdział w rozbudowie"
+    Podrozdział zostanie w przyszłości poszerzony o praktyczne wskazówki
+    dotyczące pracy z asystentami AI.
 
 <!-- TODO-AKTUALIZACJA: krajobraz narzędzi AI mocno się zmienił (Copilot, Claude,
      Cursor, agenty kodujące) — sekcja do rozbudowy na rok 2026/2027 -->
