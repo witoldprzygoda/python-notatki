@@ -1,0 +1,93 @@
+site_name: Python Notatki
+site_description: Laboratorium Python — rok akademicki 2025/2026, WFAIS UJ
+site_author: Witold Przygoda
+
+theme:
+  name: material
+  language: pl
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Przełącz na tryb ciemny
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Przełącz na tryb jasny
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: material/language-python
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - toc.follow
+    - content.code.copy
+    - content.tabs.link
+    # ── WARIANTY UKŁADU (odkomentuj JEDNĄ linię i przeładuj) ──
+    # - toc.integrate      # WARIANT B: prawy spis wjeżdża do lewego panelu
+    # - navigation.tabs    # WARIANT C: rozdziały jako zakładki w górnym pasku
+
+plugins:
+  - search:
+      lang: pl
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Strona główna: index.md
+  - 1. Instalacja i środowisko pracy:
+      - Wprowadzenie: 01-instalacja/index.md
+      - Instalacja klasyczna: 01-instalacja/instalacja-klasyczna.md
+      - Wirtualne środowisko venv: 01-instalacja/venv.md
+      - Pip — zarządzanie pakietami: 01-instalacja/pip.md
+      - Konfigurowanie narzędzi: 01-instalacja/konfiguracja.md
+      - Notebook: 01-instalacja/notebook.md
+      - Google Colab: 01-instalacja/colab.md
+      - Python w przeglądarce: 01-instalacja/przegladarka.md
+      - Narzędzia AI: 01-instalacja/ai-tools.md
+  - 2. Konsola: 02-konsola/index.md
+  - 3. Nazwy i typy:
+      - Wprowadzenie: 03-nazwy-typy/index.md
+      - Typy i konwersje: 03-nazwy-typy/typy-i-konwersje.md
+      - Typy proste: 03-nazwy-typy/typy-proste.md
+      - Obiekty i pamięć: 03-nazwy-typy/obiekty-i-pamiec.md
+      - Operatory: 03-nazwy-typy/operatory.md
+      - Wyrażenia warunkowe: 03-nazwy-typy/wyrazenia-warunkowe.md
+      - Pętle i iteratory: 03-nazwy-typy/petle-i-iteratory.md
+  - 4. Typy złożone:
+      - Wprowadzenie: 04-typy-zlozone/index.md
+      - Lista: 04-typy-zlozone/lista.md
+      - Referencje i kopiowanie: 04-typy-zlozone/referencje-i-kopiowanie.md
+      - Krotka (tuple): 04-typy-zlozone/krotka.md
+      - Słownik (dict): 04-typy-zlozone/slownik.md
+      - Zbiory (set, frozenset): 04-typy-zlozone/zbiory.md

@@ -1,0 +1,3 @@
+# Material instaluje automatycznie kompatybilne zależności:
+# mkdocs (<2), pymdown-extensions, pygments, markdown
+mkdocs-material==9.7.7

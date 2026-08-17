@@ -1,0 +1,261 @@
+/* ============================================================
+   Python Notatki — docs/stylesheets/extra.css
+   WERSJA CSS: 3.0   ← sprawdź tę linię pod adresem:
+   http://127.0.0.1:8000/stylesheets/extra.css
+   Nowość 3.0: przeprojektowana nawigacja (lewy panel + prawy
+   spis), szersza kolumna treści. Plik skonsolidowany.
+   ============================================================ */
+
+/* ---------- 1. Kolory motywu (tryb jasny) ---------- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:         #1976d2;
+  --md-primary-fg-color--light:  #42a5f5;
+  --md-primary-fg-color--dark:   #1565c0;
+  --md-accent-fg-color:          #42a5f5;   /* akcent: jasny błękit */
+
+  --md-default-bg-color: #fafafa;
+
+  --md-code-bg-color: #263238;
+  --md-code-fg-color: #eeffff;
+  --md-code-hl-color: rgba(255, 235, 59, .12);
+  --md-code-hl-comment-color:     #8a9ba8;
+  --md-code-hl-keyword-color:     #c792ea;
+  --md-code-hl-string-color:      #c3e88d;
+  --md-code-hl-number-color:      #f78c6c;
+  --md-code-hl-function-color:    #82aaff;
+  --md-code-hl-name-color:        #eeffff;
+  --md-code-hl-constant-color:    #89ddff;
+  --md-code-hl-special-color:     #f07178;
+  --md-code-hl-operator-color:    #89ddff;
+  --md-code-hl-punctuation-color: #89ddff;
+  --md-code-hl-variable-color:    #ffcb6b;
+  --md-code-hl-generic-color:     #c3e88d;
+
+  --md-footer-bg-color:          transparent;
+  --md-footer-bg-color--dark:    transparent;
+  --md-footer-fg-color:          rgba(0, 0, 0, .75);
+  --md-footer-fg-color--light:   rgba(0, 0, 0, .50);
+  --md-footer-fg-color--lighter: rgba(0, 0, 0, .40);
+}
+
+/* ---------- 1b. Tryb ciemny: ten sam błękitny akcent ---------- */
+[data-md-color-scheme="slate"] {
+  --md-accent-fg-color: #42a5f5;
+}
+
+/* ---------- 2. Treść na białej karcie z cieniem ---------- */
+[data-md-color-scheme="default"] .md-content {
+  background: transparent;
+}
+[data-md-color-scheme="default"] .md-content__inner {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .10), 0 4px 16px rgba(0, 0, 0, .05);
+  padding: 2rem 2.6rem 2.6rem;
+  margin: 1rem .8rem 1.6rem;
+}
+@media screen and (max-width: 76.1875em) {
+  [data-md-color-scheme="default"] .md-content__inner {
+    padding: 1.2rem 1rem 1.6rem;
+    margin: .6rem .4rem 1.2rem;
+  }
+}
+
+/* ---------- 3. Typografia ---------- */
+.md-typeset h1 { font-weight: 400; margin-bottom: 1.2em; }
+[data-md-color-scheme="default"] .md-typeset h1 { color: rgba(0, 0, 0, .87); }
+.md-typeset h2 {
+  font-weight: 500;
+  margin-top: 2rem;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+.md-typeset h3 { font-weight: 500; }
+
+/* ---------- 4. Kod: inline ---------- */
+[data-md-color-scheme="default"] .md-typeset :not(pre) > code {
+  background-color: #f5f5f5;
+  color: #c7254e;
+  border-radius: 3px;
+  padding: .1em .4em;
+}
+
+/* ---------- 5. Kod: bloki ---------- */
+.md-typeset .highlight,
+.md-typeset pre { border-radius: 6px; }
+.md-typeset .highlight { position: relative; margin: 1.2em 0; }
+.md-typeset pre > code { padding-right: 2.2em; }
+
+/* 5a. Pasek tytułu (title="...") */
+.md-typeset .highlight span.filename {
+  display: flex;
+  align-items: center;
+  height: 1.7rem;
+  border-radius: 6px 6px 0 0;
+  padding: 0 2.6em 0 .9em;
+  font-weight: 600;
+  font-size: .68rem;
+}
+[data-md-color-scheme="default"] .md-typeset .highlight span.filename {
+  background-color: #eceff1;
+  color: #37474f;
+}
+.md-typeset .highlight span.filename + pre {
+  border-radius: 0 0 6px 6px;
+  margin-top: 0;
+}
+
+/* 5b. Przycisk kopiowania (Material 9.7: nav.md-code__nav + button.md-code__button) */
+.md-typeset .md-code__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem !important;
+  height: 1rem !important;
+}
+.md-typeset .md-code__button::after {
+  width: .62rem !important;
+  height: .62rem !important;
+  margin: 0 !important;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+.md-typeset .highlight:not(:has(span.filename)) .md-code__nav {
+  opacity: 0;
+  transition: opacity .15s;
+}
+.md-typeset .highlight:not(:has(span.filename)):hover .md-code__nav { opacity: 1; }
+.md-typeset .highlight:not(:has(span.filename)) .md-code__button { color: rgba(255,255,255,.6); }
+.md-typeset .highlight:not(:has(span.filename)) .md-code__button:hover,
+.md-typeset .highlight:not(:has(span.filename)) .md-code__button:focus {
+  color: var(--md-accent-fg-color);
+}
+
+/* przycisk w pasku tytułu */
+.md-typeset .highlight:has(span.filename) > pre { position: static !important; }
+.md-typeset .highlight:has(span.filename) .md-code__nav {
+  position: absolute !important;
+  top: .85rem !important;
+  right: .45rem !important;
+  transform: translateY(-50%);
+  margin: 0 !important;
+  padding: 0 !important;
+}
+[data-md-color-scheme="default"] .md-typeset .highlight:has(span.filename) .md-code__button { color: #546e7a; }
+[data-md-color-scheme="default"] .md-typeset .highlight:has(span.filename) .md-code__button:hover,
+[data-md-color-scheme="default"] .md-typeset .highlight:has(span.filename) .md-code__button:focus {
+  color: var(--md-accent-fg-color);
+}
+
+/* 5c. Bloki .no-copy: bez przycisku */
+.md-typeset .no-copy .md-code__nav,
+.md-typeset .highlight:has(code.no-copy) .md-code__nav { display: none; }
+
+/* 5d. Suwak przewijania w blokach kodu */
+.md-typeset pre code::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,.25); }
+.md-typeset pre code::-webkit-scrollbar-thumb:hover { background-color: var(--md-accent-fg-color); }
+
+/* ---------- 6. Admonitions ---------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 0 0 0 4px;
+  border-radius: 6px;
+  box-shadow: none;
+  font-size: .76rem;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition > .admonition-title,
+[data-md-color-scheme="default"] .md-typeset details > summary { background-color: transparent; }
+[data-md-color-scheme="default"] .md-typeset .admonition.note,
+[data-md-color-scheme="default"] .md-typeset .admonition.info,
+[data-md-color-scheme="default"] .md-typeset details.note,
+[data-md-color-scheme="default"] .md-typeset details.info { background: #e3f2fd; border-color: #448aff; }
+[data-md-color-scheme="default"] .md-typeset .admonition.warning,
+[data-md-color-scheme="default"] .md-typeset details.warning { background: #fff3e0; border-color: #ff9800; }
+[data-md-color-scheme="default"] .md-typeset .admonition.tip,
+[data-md-color-scheme="default"] .md-typeset details.tip { background: #e0f2f1; border-color: #00bfa5; }
+[data-md-color-scheme="default"] .md-typeset .admonition.danger,
+[data-md-color-scheme="default"] .md-typeset details.danger { background: #ffebee; border-color: #f44336; }
+[data-md-color-scheme="default"] .md-typeset .admonition.success,
+[data-md-color-scheme="default"] .md-typeset details.success { background: #e8f5e9; border-color: #4caf50; }
+
+/* ---------- 7. Układ i nawigacja (WARIANT A) ---------- */
+@media screen and (min-width: 76.25em) {
+  /* szersza kolumna treści (domyślnie 61rem) i węższe panele */
+  .md-grid { max-width: 84rem; }
+  .md-sidebar { width: 10.6rem; }
+
+  /* mniejsza, lżejsza typografia menu */
+  .md-nav { font-size: .64rem; }
+  .md-nav__title {
+    font-size: .56rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    opacity: .65;
+  }
+
+  /* pozycje jako pigułki z hoverem */
+  .md-nav__link {
+    border-radius: 6px;
+    padding: .15rem .4rem;
+    margin: .05rem 0;
+    transition: background .12s, color .12s;
+  }
+  .md-nav__link:hover { background: rgba(66, 165, 245, .12); }
+  .md-nav__link--active {
+    background: rgba(66, 165, 245, .16);
+    border-left: 3px solid var(--md-primary-fg-color);
+    font-weight: 600;
+  }
+
+  /* prawy spis (secondary): delikatna szyna po lewej */
+  .md-sidebar--secondary .md-nav__link {
+    border-left: 2px solid rgba(0, 0, 0, .08);
+    border-radius: 0 6px 6px 0;
+    margin: 0;
+  }
+  .md-sidebar--secondary .md-nav__link--active {
+    border-left: 2px solid var(--md-primary-fg-color);
+    background: rgba(66, 165, 245, .12);
+  }
+
+  /* smukłe suwaki paneli */
+  .md-sidebar__scrollwrap::-webkit-scrollbar { width: 4px; }
+  .md-sidebar__scrollwrap::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); border-radius: 2px; }
+}
+
+/* ---------- 8. Stopka: Poprzedni / Następny jako przyciski ---------- */
+[data-md-color-scheme="default"] .md-footer__link {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, .12);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+  margin: .8rem .4rem 1.2rem;
+  padding: .3rem .6rem;
+  transition: background .15s, transform .15s, box-shadow .15s;
+}
+[data-md-color-scheme="default"] .md-footer__link:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
+}
+[data-md-color-scheme="default"] .md-footer__link:hover .md-footer__title,
+[data-md-color-scheme="default"] .md-footer__link:hover .md-footer__direction,
+[data-md-color-scheme="default"] .md-footer__link:hover .md-footer__button { color: #ffffff; }
+[data-md-color-scheme="default"] .md-footer-meta { background: transparent; }
+
+/* ---------- 9. Tabele ---------- */
+[data-md-color-scheme="default"] .md-typeset table:not([class]) th {
+  background-color: #1976d2;
+  color: #ffffff;
+}
+
+/* ---------- 10. Skróty klawiszowe ---------- */
+.md-typeset .keys { white-space: nowrap; }
+.md-typeset .keys::before,
+.md-typeset .keys::after { content: "\2060"; }
+
+/* ---------- 11. Pasek przewijania strony ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, .05); }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, .22); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, .35); }
