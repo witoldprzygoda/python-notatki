@@ -98,3 +98,4 @@ nav:
       - Krotka (tuple): 05-typy-zlozone/krotka.md
       - Słownik (dict): 05-typy-zlozone/slownik.md
       - Zbiory (set, frozenset): 05-typy-zlozone/zbiory.md
+      - Złożenia: 05-typy-zlozone/zlozenia.md

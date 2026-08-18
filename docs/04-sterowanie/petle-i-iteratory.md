@@ -42,7 +42,7 @@ for i in enumerate(a):
     print(i, end="; ")
 ```
 
-Kod jest nadal całkowicie poprawny, ale obiektowi `i` będą przypisane krotki (class 'tuple'), czyli pary wartości: `(0, 'a'); (1, 'b'); …`, które można również „rozpakować” poprzez przypisanie do dwóch nazwanych obiektów, czyli np. `x, y = i`. Typ tuple omówimy w rozdziale [5. Typy złożone](../05-typy-zlozone/krotka.md). Bliźniaczą funkcją jest `zip()`, łącząca elementy kilku sekwencji w pary — przedstawimy ją przy typach złożonych.
+Kod jest nadal całkowicie poprawny, ale obiektowi `i` będą przypisane krotki (class 'tuple'), czyli pary wartości: `(0, 'a'); (1, 'b'); …`, które można również „rozpakować” poprzez przypisanie do dwóch nazwanych obiektów, czyli np. `x, y = i`. Typ tuple omówimy w rozdziale [5. Typy złożone](../05-typy-zlozone/krotka.md). Bliźniaczą funkcją jest `zip()`, łącząca elementy kilku sekwencji w pary — opisujemy ją w rozdziale [5. Typy złożone](../05-typy-zlozone/krotka.md).
 
 Iterator zwracany przez `enumerate()` jest **jednorazowy**: każdy odczyt konsumuje kolejny element, a po pełnym przejściu iterator jest wyczerpany (obiekt źródłowy pozostaje przy tym nietknięty):
 
@@ -96,7 +96,8 @@ Kolejność sekwencji można odwrócić również za pomocą wbudowanej funkcji 
     next() — najpierw trzeba z niej uzyskać iterator funkcją `iter()`.
     Terminem **generator** określa się w Pythonie szczególny rodzaj iteratora,
     tworzony wyrażeniami generatorowymi i funkcjami ze słowem kluczowym `yield` —
-    wrócimy do niego w dalszych rozdziałach.
+    wracamy do niego przy złożeniach (rozdział
+    [5. Typy złożone](../05-typy-zlozone/zlozenia.md)) oraz przy funkcjach.
 
 ```{ .python .no-copy }
 >>> r = range(5)
