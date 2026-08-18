@@ -1,6 +1,6 @@
 # Google Colab
 
-Jupyter Notebook w chmurze to właśnie **Google Colab** (skrót od „Colaboratory"): [colab.research.google.com](https://colab.research.google.com/).
+Jupyter Notebook w chmurze to właśnie **Google Colab** (skrót od „Colaboratory”): [colab.research.google.com](https://colab.research.google.com/).
 
 Jako że jest to narzędzie oparte na chmurze, użytkownicy nie muszą (ale mogą) instalować ani konfigurować żadnego oprogramowania na swoich komputerach. Pliki zapisywane są na dysku **Google Drive**, z możliwością zespołowej pracy.
 

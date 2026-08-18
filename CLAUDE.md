@@ -10,11 +10,11 @@ Polskojęzyczne notatki do kursu Pythona (podręcznik kursowy). Framework: **MkD
 
 ## Styl tekstu
 
-- Rejestr książkowy, formalny — bez potocznych sformułowań, kolokwializmów i metafor (np. nie: „w ciemno", „czysty komputer", „interpreter mieszka"). Autor zwraca na to szczególną uwagę.
-- Narracja w 1. osobie liczby mnogiej: „instalujemy", „sprawdzamy". Dopuszczalna też forma bezokolicznikowa.
-- Nagłówki sekcji w formie rzeczownikowej („Kontrola po instalacji", nie „Sprawdzamy co się zainstalowało").
-- Terminy angielskie przy pierwszym użyciu: kursywa z dopiskiem, np. „przestarzały (ang. *deprecated*)".
-- Terminologia ustalona: „interpreter" (słowa „runtime" używamy tylko przy wprowadzeniu pojęcia), „manager" dla Python Install Managera, „środowisko wirtualne / venv".
+- Rejestr książkowy, formalny — bez potocznych sformułowań, kolokwializmów i metafor (np. nie: „w ciemno”, „czysty komputer”, „interpreter mieszka”). Autor zwraca na to szczególną uwagę.
+- Narracja w 1. osobie liczby mnogiej: „instalujemy”, „sprawdzamy”. Dopuszczalna też forma bezokolicznikowa.
+- Nagłówki sekcji w formie rzeczownikowej („Kontrola po instalacji”, nie „Sprawdzamy co się zainstalowało”).
+- Terminy angielskie przy pierwszym użyciu: kursywa z dopiskiem, np. „przestarzały (ang. *deprecated*)”.
+- Terminologia ustalona: „interpreter” (słowa „runtime” używamy tylko przy wprowadzeniu pojęcia), „manager” dla Python Install Managera, „środowisko wirtualne / venv”.
 
 ## Konwencje bloków kodu (krytyczne — nie odstępować)
 
@@ -30,7 +30,7 @@ Polskojęzyczne notatki do kursu Pythona (podręcznik kursowy). Framework: **MkD
 - Klawisze przez pymdownx.keys: `++ctrl+shift+p++`.
 - Admonitions `!!! note/tip/warning/info "Polski tytuł"` z treścią wciętą 4 spacje.
 - Obrazki: per rozdział w `docs/<rozdział>/img/`, nazwy od treści bez wersji (np. `vsc-select-interpreter.png`). Miejsca na przyszłe zrzuty oznaczaj `<!-- TODO: screenshot — opis -->` i dopisuj do `ZRZUTY.md` (kadr ciasny, stały motyw; szczegóły w tym pliku). Treści terminalowe i listowe odtwarzamy jako bloki tekstowe zamiast zrzutów; prawdziwe zrzuty tylko tam, gdzie obraz niesie informację niewyrażalną tekstem (kolory, układ okna).
-- Odsyłacze wewnętrzne: względne do plików `.md`; tytuły H1 zgodne z etykietami nav w `mkdocs.yml`. Wyjątki: strony `index.md` rozdziałów mają w nav etykietę „Wprowadzenie", a ich H1 nazywa cały rozdział (np. „1. Instalacja i środowisko pracy"); strona główna `docs/index.md` ma etykietę nav „Strona główna", a jej H1 nosi tytuł serwisu.
+- Odsyłacze wewnętrzne: względne do plików `.md`; tytuły H1 zgodne z etykietami nav w `mkdocs.yml`. Wyjątki: strony `index.md` rozdziałów mają w nav etykietę „Wprowadzenie”, a ich H1 nazywa cały rozdział (np. „1. Instalacja i środowisko pracy”); strona główna `docs/index.md` ma etykietę nav „Strona główna”, a jej H1 nosi tytuł serwisu.
 - Stan odniesienia treści: Python 3.14 z Python Install Managerem (klasyczny instalator deprecated), nowy REPL 3.13/3.14, lintery i formatery VSC jako osobne rozszerzenia. Przy nazwach produktów, wersjach i instrukcjach narzędzi weryfikuj aktualność w sieci przed napisaniem.
 
 ## Zasady współpracy

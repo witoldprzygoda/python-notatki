@@ -15,7 +15,7 @@ Do konsoli wchodzimy poleceniem `python` (lub `py`) — pojawi się znak zachęt
 
 ## Nowa konsola interaktywna
 
-Konsola interaktywna (**REPL**, ang. *read-eval-print loop* — pętla „czytaj, wykonaj, wypisz") została w ostatnich wydaniach Pythona gruntownie unowocześniona. Od wersji 3.13 domyślna powłoka opiera się na kodzie projektu PyPy i oferuje:
+Konsola interaktywna (**REPL**, ang. *read-eval-print loop* — pętla „czytaj, wykonaj, wypisz”) została w ostatnich wydaniach Pythona gruntownie unowocześniona. Od wersji 3.13 domyślna powłoka opiera się na kodzie projektu PyPy i oferuje:
 
 - **edycję wieloliniową** — bloki kodu (np. funkcje, pętle) można poprawiać w całości, poruszając się strzałkami, zamiast wpisywać je od nowa,
 - **kolorowe znaki zachęty i komunikaty błędów**,

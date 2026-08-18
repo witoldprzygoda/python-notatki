@@ -116,4 +116,4 @@ Readability counts.
 ...
 ```
 
-Jest to **Zen of Python** — zbiór dziewiętnastu aforyzmów opisujących filozofię języka, opublikowany jako [PEP 20](https://peps.python.org/pep-0020/). Do najczęściej przywoływanych należą: „czytelność się liczy" (ang. *readability counts*) oraz „powinien istnieć jeden — i najlepiej tylko jeden — oczywisty sposób zrobienia danej rzeczy". Zasady te wyjaśniają wiele konwencji, które pojawią się w dalszych rozdziałach.
+Jest to **Zen of Python** — zbiór dziewiętnastu aforyzmów opisujących filozofię języka, opublikowany jako [PEP 20](https://peps.python.org/pep-0020/). Do najczęściej przywoływanych należą: „czytelność się liczy” (ang. *readability counts*) oraz „powinien istnieć jeden — i najlepiej tylko jeden — oczywisty sposób zrobienia danej rzeczy”. Zasady te wyjaśniają wiele konwencji, które pojawią się w dalszych rozdziałach.

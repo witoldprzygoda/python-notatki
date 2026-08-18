@@ -9,7 +9,7 @@ O popularności języka decyduje kilka cech:
 - **czytelność** — składnia bliska pseudokodowi, bloki kodu wyznaczane wcięciami,
 - **dynamiczne typowanie** oraz automatyczne zarządzanie pamięcią (szerzej w rozdziale [3. Nazwy i typy](../03-nazwy-typy/index.md)),
 - **wieloparadygmatowość** — styl proceduralny, obiektowy i funkcyjny w jednym języku,
-- **bogata biblioteka standardowa** („baterie w zestawie") oraz ekosystem kilkuset tysięcy pakietów zewnętrznych w repozytorium PyPI (opis w podrozdziale [Pip — zarządzanie pakietami](pip.md)),
+- **bogata biblioteka standardowa** („baterie w zestawie”) oraz ekosystem kilkuset tysięcy pakietów zewnętrznych w repozytorium PyPI (opis w podrozdziale [Pip — zarządzanie pakietami](pip.md)),
 - **otwarta licencja** Python Software Foundation, dopuszczająca także zastosowania komercyjne.
 
 ## Interpreter i implementacje

@@ -35,9 +35,9 @@ py install 3.14t
 
 jego wariant free-threaded.
 
-!!! note "Przyrostek „t" — wariant free-threaded"
+!!! note "Przyrostek „t” — wariant free-threaded"
     Przyrostek `t` oznacza oficjalną kompilację **free-threaded** („o swobodnych
-    wątkach") — wariant interpretera pozbawiony globalnej blokady GIL
+    wątkach”) — wariant interpretera pozbawiony globalnej blokady GIL
     (ang. *Global Interpreter Lock*), w którym wątki mogą być wykonywane w pełni
     równolegle. Zmianę tę wprowadza dokument [PEP 703](https://peps.python.org/pep-0703/).
     Prekompilowane wersje free-threaded dla systemu Windows są udostępniane pod tagami

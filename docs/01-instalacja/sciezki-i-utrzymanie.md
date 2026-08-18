@@ -2,7 +2,7 @@
 
 Podrozdział [Instalacja Pythona](instalacja.md) opisuje czynności instalacyjne, wykonywane zazwyczaj jednorazowo. Niniejszy podrozdział gromadzi zagadnienia, do których wraca się w trakcie dalszej pracy: diagnostykę ścieżek systemowych oraz aktualizowanie i usuwanie interpreterów.
 
-## PATH — pierwsze znaczenie „ścieżki"
+## PATH — pierwsze znaczenie „ścieżki”
 
 Systemowa zmienna `PATH` odpowiada na pytanie, który program `.exe` zostanie uruchomiony po wpisaniu danej nazwy. Sprawdzenie:
 
@@ -36,7 +36,7 @@ W diagnostyce instalacji Pythona istotniejsza jest zazwyczaj odpowiedź na pytan
     Nie należy natomiast ręcznie dodawać do `PATH` katalogów samych interpreterów
     (`...\pythoncore-3.14-64\` itd.) — ich obsługą zajmuje się manager.
 
-## sys.path — drugie znaczenie „ścieżki"
+## sys.path — drugie znaczenie „ścieżki”
 
 Systemowa zmienna `PATH` określa, **który program** zostanie uruchomiony. Pythonowa lista `sys.path` określa natomiast, **w których katalogach** interpreter poszukuje modułów podczas wykonywania instrukcji `import`. Sprawdzenie:
 
@@ -144,4 +144,4 @@ Najważniejsze zalety:
 5. **Manager aktualizuje się samodzielnie** — niezależnie od interpreterów. Komunikat w rodzaju `Python install manager was successfully updated to 26.3.` nie oznacza aktualizacji samego Pythona; interpretery aktualizujemy w sposób kontrolowany poleceniem `py install --update`.
 6. **Łatwiejsza diagnostyka stanu systemu** — warianty polecenia `py list` (`--only-managed`, `--format=json`, `--format=prefix`, `--online`) odpowiadają na pytania: co jest zainstalowane, co jest zarządzane przez managera, co pochodzi z zewnątrz, gdzie się znajduje i co można zainstalować.
 7. **Instalacje zarządzane mają pierwszeństwo** — manager rozróżnia własne interpretery od zainstalowanych innymi metodami i preferuje zarządzane, co zapewnia przewidywalne zachowanie podczas migracji.
-8. **Manager jest oficjalnym kierunkiem rozwoju Pythona na Windows** — dokumentacja zaleca uzyskiwanie Pythona od zespołu CPython poprzez Install Manager; klasyczny instalator jest przestarzały od wersji 3.14 i nie będzie publikowany od wersji 3.16, a dawny *Python Launcher* również oznaczono jako przestarzały. Wybór pliku „Windows installer (64-bit)" jako pozornie najprostszej drogi oznacza dziś wybór modelu wygaszanego.
+8. **Manager jest oficjalnym kierunkiem rozwoju Pythona na Windows** — dokumentacja zaleca uzyskiwanie Pythona od zespołu CPython poprzez Install Manager; klasyczny instalator jest przestarzały od wersji 3.14 i nie będzie publikowany od wersji 3.16, a dawny *Python Launcher* również oznaczono jako przestarzały. Wybór pliku „Windows installer (64-bit)” jako pozornie najprostszej drogi oznacza dziś wybór modelu wygaszanego.

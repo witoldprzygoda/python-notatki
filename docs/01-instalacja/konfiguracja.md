@@ -51,7 +51,7 @@ Albo (++ctrl+shift+m++) zakładka **Problems**:
 
 ### Usuwanie Pylance
 
-Możliwe, że wyświetlone zostaną dwie „porady" — druga pochodzi od **Pylance**, który nie jest linterem, lecz serwerem językowym zapewniającym IntelliSense; jego diagnostyka może się dublować z pylintem. Aby go wyłączyć, prostą operację (odszukanie Pylance na liście rozszerzeń i jego dezaktywacja albo odinstalowanie) trzeba uzupełnić wpisem w pliku konfiguracyjnym VSC.
+Możliwe, że wyświetlone zostaną dwie „porady” — druga pochodzi od **Pylance**, który nie jest linterem, lecz serwerem językowym zapewniającym IntelliSense; jego diagnostyka może się dublować z pylintem. Aby go wyłączyć, prostą operację (odszukanie Pylance na liście rozszerzeń i jego dezaktywacja albo odinstalowanie) trzeba uzupełnić wpisem w pliku konfiguracyjnym VSC.
 
 W tym celu otwieramy Command Palette (++ctrl+shift+p++) i wyszukujemy **Preferences: Open User Settings (JSON)** (nie *Default*).
 

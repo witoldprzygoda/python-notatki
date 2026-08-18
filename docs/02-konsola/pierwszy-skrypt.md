@@ -41,7 +41,7 @@ py -V:3.14 hello.py
 Bloki kodu w Pythonie wyznacza się za pomocą `:` (dwukropka) oraz odpowiednich wcięć. Standard **PEP 8** zaleca wcięcia o szerokości **4 spacji** na każdy poziom. W praktyce najwygodniej skonfigurować edytor tak, aby klawisz ++tab++ wstawiał 4 spacje — Visual Studio Code robi tak w plikach Pythona domyślnie.
 
 !!! tip "Tab size w Visual Studio Code"
-    W Visual Studio Code (skrót ++ctrl+comma++) po wpisaniu „tab size" dostępne
+    W Visual Studio Code (skrót ++ctrl+comma++) po wpisaniu „tab size” dostępne
     jest pole, w którym ustawiamy odpowiednią wartość.
 
 **Nie można mieszać rodzaju wcięć.**
@@ -70,7 +70,7 @@ zapisany w wielu liniach
 
 Interpreter przyjmuje opcje wiersza poleceń, dzięki którym krótkie zadania wykonamy bez otwierania konsoli interaktywnej.
 
-Opcja **`-c`** wykonuje przekazany kod i kończy działanie — „kalkulator" mieści się wtedy w jednym poleceniu terminala:
+Opcja **`-c`** wykonuje przekazany kod i kończy działanie — „kalkulator” mieści się wtedy w jednym poleceniu terminala:
 
 ```powershell title="Terminal"
 python -c "print(2 ** 10)"
