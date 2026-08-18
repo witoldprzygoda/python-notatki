@@ -15,6 +15,7 @@ Polskojęzyczne notatki do kursu Pythona (podręcznik kursowy). Framework: **MkD
 - Nagłówki sekcji w formie rzeczownikowej („Kontrola po instalacji”, nie „Sprawdzamy co się zainstalowało”).
 - Terminy angielskie przy pierwszym użyciu: kursywa z dopiskiem, np. „przestarzały (ang. *deprecated*)”.
 - Terminologia ustalona: „interpreter” (słowa „runtime” używamy tylko przy wprowadzeniu pojęcia), „manager” dla Python Install Managera, „środowisko wirtualne / venv”.
+- Cudzysłowy w prozie: wyłącznie polskie typograficzne „…” (dotyczy także cytowanych terminów obcych). Proste znaki `"` tylko tam, gdzie wymaga ich składnia: wnętrza bloków kodu i wstawek `...`, atrybuty `title="..."`, ograniczniki tytułów admonitions `!!! note "..."`, zakładki `=== "..."`; robocze komentarze `<!-- TODO -->` również prostymi znakami.
 
 ## Konwencje bloków kodu (krytyczne — nie odstępować)
 
