@@ -1,4 +1,4 @@
-# 4. Typy złożone
+# 5. Typy złożone
 
 Typy złożone to **kontenery** — obiekty przechowujące kolekcje innych obiektów. W Pythonie należą do nich: lista (`list`), krotka (`tuple`), słownik (`dict`) oraz zbiory (`set`, `frozenset`). Różnią się modyfikowalnością (lista, słownik i set są modyfikowalne; krotka i frozenset — nie), sposobem dostępu do elementów oraz zastosowaniami.
 

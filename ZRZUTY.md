@@ -46,13 +46,13 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 
 ## Do wykonania — rozdział 03
 
-### typy-i-konwersje.md
+### konwersje-i-adnotacje.md
 
-9. `img/vsc-type-hint.png` — podpowiedź rozszerzenia Python Type Hint w VSC
-   podczas pisania adnotacji typu; kadr: linia kodu + dymek podpowiedzi.
-10. `img/vsc-mypy-ostrzezenie.png` — ostrzeżenie mypy w VSC przy przypisaniu
-    wartości o typie innym niż zadeklarowany; kadr: linia kodu + podkreślenie
-    i treść ostrzeżenia.
+9. `img/vsc-pylance-inlay-hint.png` — podpowiedź typu (inlay hint) serwera Pylance
+   w VSC przy zmiennej z wywnioskowanym typem; kadr: linia kodu + wyświetlony typ.
+10. `img/vsc-mypy-ostrzezenie.png` — ostrzeżenie rozszerzenia Mypy Type Checker
+    przy przypisaniu wartości o typie innym niż zadeklarowany; kadr: linia kodu
+    + podkreślenie i treść ostrzeżenia.
 
 ## Wykonane
 

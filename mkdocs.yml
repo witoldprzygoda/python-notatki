@@ -82,16 +82,19 @@ nav:
       - Pierwszy skrypt: 02-konsola/pierwszy-skrypt.md
   - 3. Nazwy i typy:
       - Wprowadzenie: 03-nazwy-typy/index.md
-      - Typy i konwersje: 03-nazwy-typy/typy-i-konwersje.md
+      - Nazwy i słowa kluczowe: 03-nazwy-typy/nazwy-i-slowa-kluczowe.md
       - Typy proste: 03-nazwy-typy/typy-proste.md
+      - Konwersje i adnotacje typów: 03-nazwy-typy/konwersje-i-adnotacje.md
       - Obiekty i pamięć: 03-nazwy-typy/obiekty-i-pamiec.md
       - Operatory: 03-nazwy-typy/operatory.md
-      - Wyrażenia warunkowe: 03-nazwy-typy/wyrazenia-warunkowe.md
-      - Pętle i iteratory: 03-nazwy-typy/petle-i-iteratory.md
-  - 4. Typy złożone:
-      - Wprowadzenie: 04-typy-zlozone/index.md
-      - Lista: 04-typy-zlozone/lista.md
-      - Referencje i kopiowanie: 04-typy-zlozone/referencje-i-kopiowanie.md
-      - Krotka (tuple): 04-typy-zlozone/krotka.md
-      - Słownik (dict): 04-typy-zlozone/slownik.md
-      - Zbiory (set, frozenset): 04-typy-zlozone/zbiory.md
+  - 4. Sterowanie przepływem:
+      - Wprowadzenie: 04-sterowanie/index.md
+      - Wyrażenia warunkowe: 04-sterowanie/wyrazenia-warunkowe.md
+      - Pętle i iteratory: 04-sterowanie/petle-i-iteratory.md
+  - 5. Typy złożone:
+      - Wprowadzenie: 05-typy-zlozone/index.md
+      - Lista: 05-typy-zlozone/lista.md
+      - Referencje i kopiowanie: 05-typy-zlozone/referencje-i-kopiowanie.md
+      - Krotka (tuple): 05-typy-zlozone/krotka.md
+      - Słownik (dict): 05-typy-zlozone/slownik.md
+      - Zbiory (set, frozenset): 05-typy-zlozone/zbiory.md

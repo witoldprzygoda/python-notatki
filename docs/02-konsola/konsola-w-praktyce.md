@@ -56,7 +56,7 @@ Podaj imie: Anna
 Witaj, Anna
 ```
 
-Istotna właściwość: `input` **zawsze zwraca łańcuch znakowy** (typ `str`) — nawet jeżeli wprowadzone zostały cyfry. Aby otrzymać liczbę, wynik należy jawnie przekonwertować, np. `int(input("Podaj liczbe: "))`; konwersje typów omawia rozdział [3. Nazwy i typy](../03-nazwy-typy/typy-i-konwersje.md).
+Istotna właściwość: `input` **zawsze zwraca łańcuch znakowy** (typ `str`) — nawet jeżeli wprowadzone zostały cyfry. Aby otrzymać liczbę, wynik należy jawnie przekonwertować, np. `int(input("Podaj liczbe: "))`; konwersje typów omawia rozdział [3. Nazwy i typy](../03-nazwy-typy/konwersje-i-adnotacje.md).
 
 ## Typ obiektu — funkcja type
 
