@@ -46,6 +46,21 @@ function requireState(state) {
   ) {
     throw new TypeError("Stan wymaga poprawnych pól version i status.");
   }
+  if (
+    "score" in state
+    && (typeof state.score !== "number" || !Number.isFinite(state.score))
+  ) {
+    throw new TypeError("Pole score musi być skończoną liczbą.");
+  }
+  if (
+    "attempts" in state
+    && (!Number.isInteger(state.attempts) || state.attempts < 0)
+  ) {
+    throw new TypeError("Pole attempts musi być nieujemną liczbą całkowitą.");
+  }
+  if ("payload" in state && !isRecord(state.payload)) {
+    throw new TypeError("Pole payload musi być obiektem.");
+  }
 }
 
 
@@ -83,8 +98,17 @@ export class BrowserProgressStore extends ProgressStore {
       activity_id: activityId,
       version: state.version,
       status: state.status,
-      updated_at: new Date().toISOString(),
     };
+    if ("score" in state) {
+      savedState.score = state.score;
+    }
+    if ("attempts" in state) {
+      savedState.attempts = state.attempts;
+    }
+    savedState.updated_at = new Date().toISOString();
+    if ("payload" in state) {
+      savedState.payload = { ...state.payload };
+    }
     document.activities[activityId] = savedState;
     this.storage.setItem(this.storageKey, JSON.stringify(document));
     return { ...savedState };

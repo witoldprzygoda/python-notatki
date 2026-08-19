@@ -7,3 +7,21 @@ activities:
     slot_id: flow-for-basics
     type: acknowledgement
     label: "Zapoznałem się z podstawami pętli for"
+
+  - activity_id: flow-for-quiz-001
+    version: 1
+    slot_id: flow-for-basics
+    type: single_choice
+    label: "Sprawdzenie zrozumienia pętli for"
+    prompt: "Ile razy wykona się ciało pętli for przechodzącej po łańcuchu „abc”?"
+    options:
+      - option_id: a
+        label: "Dwa razy"
+      - option_id: b
+        label: "Trzy razy"
+      - option_id: c
+        label: "Cztery razy"
+    correct_option_id: b
+    feedback:
+      correct: "Poprawnie. Pętla wykona się raz dla każdego z trzech znaków."
+      incorrect: "Niepoprawnie. Łańcuch „abc” zawiera trzy znaki, a pętla wykona się raz dla każdego z nich."

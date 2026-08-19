@@ -122,3 +122,31 @@ test("reset usuwa wyłącznie dokument postępu aplikacji", async () => {
   assert.equal(storage.getItem(DEFAULT_PROGRESS_STORAGE_KEY), null);
   assert.equal(storage.getItem("inny-klucz"), "pozostaje");
 });
+
+
+test("zachowuje pola postępu specyficzne dla aktywności", async () => {
+  const storage = new MemoryStorage();
+  const store = new BrowserProgressStore(storage);
+
+  const savedState = await store.save("flow-for-quiz-001", {
+    version: 1,
+    status: "completed",
+    score: 1,
+    attempts: 2,
+    payload: {
+      selected_option_id: "b",
+      last_result: "correct",
+    },
+  });
+
+  assert.equal(savedState.score, 1);
+  assert.equal(savedState.attempts, 2);
+  assert.deepEqual(savedState.payload, {
+    selected_option_id: "b",
+    last_result: "correct",
+  });
+  assert.deepEqual(
+    await new BrowserProgressStore(storage).get("flow-for-quiz-001"),
+    savedState,
+  );
+});

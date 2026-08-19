@@ -1,5 +1,6 @@
 import { ActivityEngine } from "./activity-engine.js";
 import { renderAcknowledgement } from "./activities/acknowledgement.js";
+import { renderSingleChoice } from "./activities/single-choice.js";
 import { BrowserProgressStore } from "./browser-progress-store.js";
 
 
@@ -8,7 +9,10 @@ const manifestUrl = new URL("../../assets/generated/activities.json", scriptUrl)
 const store = new BrowserProgressStore();
 const engine = new ActivityEngine({
   store,
-  renderers: new Map([["acknowledgement", renderAcknowledgement]]),
+  renderers: new Map([
+    ["acknowledgement", renderAcknowledgement],
+    ["single_choice", renderSingleChoice],
+  ]),
 });
 
 let manifestPromise;

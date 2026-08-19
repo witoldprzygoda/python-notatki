@@ -102,13 +102,81 @@ def _validate_activity(
 
     label = _require_non_empty_string(activity["label"], "label", source)
 
-    return {
+    validated_activity = {
         "page": page,
         "activity_id": activity_id,
         "version": version,
         "slot_id": slot_id,
         "type": activity_type,
         "label": label,
+    }
+
+    if activity_type == "single_choice":
+        validated_activity.update(_validate_single_choice(activity, source))
+
+    return validated_activity
+
+
+def _validate_single_choice(activity: dict[str, Any], source: Path) -> dict[str, Any]:
+    prompt = _require_non_empty_string(activity.get("prompt"), "prompt", source)
+
+    options = activity.get("options")
+    if not isinstance(options, list) or len(options) < 2:
+        raise ValueError(
+            f"{source}: pole 'options' aktywności single_choice musi zawierać "
+            "co najmniej dwa warianty"
+        )
+
+    validated_options: list[dict[str, str]] = []
+    option_ids: set[str] = set()
+    for option in options:
+        if not isinstance(option, dict):
+            raise ValueError(f"{source}: każdy wariant odpowiedzi musi być mapą YAML")
+
+        option_id = _require_non_empty_string(
+            option.get("option_id"), "option_id", source
+        )
+        if option_id in option_ids:
+            raise ValueError(f"{source}: powtórzony option_id {option_id!r}")
+        option_ids.add(option_id)
+
+        option_label = _require_non_empty_string(
+            option.get("label"), "label wariantu odpowiedzi", source
+        )
+        validated_options.append(
+            {
+                "option_id": option_id,
+                "label": option_label,
+            }
+        )
+
+    correct_option_id = _require_non_empty_string(
+        activity.get("correct_option_id"), "correct_option_id", source
+    )
+    if correct_option_id not in option_ids:
+        raise ValueError(
+            f"{source}: correct_option_id {correct_option_id!r} nie wskazuje "
+            "istniejącego wariantu"
+        )
+
+    feedback = activity.get("feedback")
+    if not isinstance(feedback, dict):
+        raise ValueError(
+            f"{source}: pole 'feedback' aktywności single_choice musi być mapą"
+        )
+
+    return {
+        "prompt": prompt,
+        "options": validated_options,
+        "correct_option_id": correct_option_id,
+        "feedback": {
+            "correct": _require_non_empty_string(
+                feedback.get("correct"), "feedback.correct", source
+            ),
+            "incorrect": _require_non_empty_string(
+                feedback.get("incorrect"), "feedback.incorrect", source
+            ),
+        },
     }
 
 
