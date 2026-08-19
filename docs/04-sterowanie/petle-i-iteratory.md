@@ -13,6 +13,8 @@ for i in a:
 
 Obiekt o nazwie `i` (przyzwyczajenie — możemy użyć dowolnej nazwy) staje się na moment jednej iteracji referencją do poszczególnych obiektów (tu jednoliterowych łańcuchów znakowych); każdy z nich ma swoje (chwilowe) miejsce w pamięci.
 
+<div data-activity-slot="flow-for-basics"></div>
+
 Pętla for w Pythonie posiada również wersję **for… else**, gdzie blok else wykonany zostanie, gdy pętla całkowicie zakończy swoje działanie (nie zostanie przerwana np. przez break). `else` powinien być w takim samym wcięciu co `for` — na co trzeba uważać zwłaszcza, gdy dana pętla for jest zagnieżdżona wewnątrz innej pętli.
 
 ```python title="for-else.py"

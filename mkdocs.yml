@@ -44,6 +44,12 @@ plugins:
   - search:
       lang: pl
 
+hooks:
+  - scripts/build_activities.py
+
+watch:
+  - activities
+
 markdown_extensions:
   - admonition
   - attr_list
@@ -62,6 +68,10 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+
+extra_javascript:
+  - path: javascripts/interactive/bootstrap.js
+    type: module
 
 nav:
   - Strona główna: index.md
