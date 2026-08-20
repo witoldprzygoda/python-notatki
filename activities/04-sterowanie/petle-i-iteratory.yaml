@@ -25,3 +25,23 @@ activities:
     feedback:
       correct: "Poprawnie. Pętla wykona się raz dla każdego z trzech znaków."
       incorrect: "Niepoprawnie. Łańcuch „abc” zawiera trzy znaki, a pętla wykona się raz dla każdego z nich."
+
+  - activity_id: flow-for-code-001
+    version: 1
+    slot_id: flow-for-basics
+    type: code
+    label: "Ćwiczenie: iteracja po łańcuchu"
+    prompt: "Uzupełnij ciało pętli tak, aby wypisać każdy znak w osobnym wierszu."
+    starter_code: |
+      for znak in "abc":
+          # Wypisz bieżący znak.
+          pass
+    checker:
+      type: stdout_lines_exact
+      expected_lines:
+        - "a"
+        - "b"
+        - "c"
+    feedback:
+      correct: "Poprawnie. Program wypisał wszystkie znaki w oczekiwanej kolejności."
+      incorrect: "Niepoprawnie. Wynik powinien zawierać znaki a, b i c, każdy w osobnym wierszu."

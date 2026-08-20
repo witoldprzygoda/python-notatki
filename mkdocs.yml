@@ -68,6 +68,7 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/interactive.css
 
 extra_javascript:
   - path: javascripts/interactive/bootstrap.js

@@ -1,21 +1,26 @@
 import { ActivityEngine } from "./activity-engine.js";
 import { renderAcknowledgement } from "./activities/acknowledgement.js";
+import { createCodeRenderer } from "./activities/code.js";
 import { renderSingleChoice } from "./activities/single-choice.js";
 import { BrowserProgressStore } from "./browser-progress-store.js";
+import { PyodideRuntime } from "./pyodide-runtime.js";
 
 
 const scriptUrl = new URL(import.meta.url);
 const manifestUrl = new URL("../../assets/generated/activities.json", scriptUrl);
 const store = new BrowserProgressStore();
+const pyodideRuntime = new PyodideRuntime();
 const engine = new ActivityEngine({
   store,
   renderers: new Map([
     ["acknowledgement", renderAcknowledgement],
     ["single_choice", renderSingleChoice],
+    ["code", createCodeRenderer({ runtime: pyodideRuntime })],
   ]),
 });
 
 let manifestPromise;
+let renderedDocument = false;
 
 
 function loadManifest() {
@@ -32,6 +37,11 @@ function loadManifest() {
 
 
 async function renderActivities() {
+  if (renderedDocument) {
+    pyodideRuntime.reset();
+  }
+  renderedDocument = true;
+
   if (!document.querySelector("[data-activity-slot]")) {
     return;
   }

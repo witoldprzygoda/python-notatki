@@ -35,6 +35,7 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 - Konfiguracja i nawigacja: `mkdocs.yml`.
 - Podstawowy build: `mkdocs build`.
 - Podgląd lokalny: `mkdocs serve`.
+- Po zmianie kodu hooków MkDocs w `scripts/` należy zrestartować `mkdocs serve`; sam rebuild może nadal używać modułu zaimportowanego przy starcie procesu.
 - Istniejące zasady redakcyjne i konwencje bloków kodu znajdują się w `CLAUDE.md`; przed modyfikacją treści **przeczytaj ten plik i stosuj jego reguły**.
 - Nie wykonuj reorganizacji nawigacji ani większych zmian treści tylko po to, aby ułatwić implementację interaktywności.
 

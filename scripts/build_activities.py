@@ -113,6 +113,8 @@ def _validate_activity(
 
     if activity_type == "single_choice":
         validated_activity.update(_validate_single_choice(activity, source))
+    elif activity_type == "code":
+        validated_activity.update(_validate_code(activity, source))
 
     return validated_activity
 
@@ -169,6 +171,70 @@ def _validate_single_choice(activity: dict[str, Any], source: Path) -> dict[str,
         "prompt": prompt,
         "options": validated_options,
         "correct_option_id": correct_option_id,
+        "feedback": {
+            "correct": _require_non_empty_string(
+                feedback.get("correct"), "feedback.correct", source
+            ),
+            "incorrect": _require_non_empty_string(
+                feedback.get("incorrect"), "feedback.incorrect", source
+            ),
+        },
+    }
+
+
+def _validate_code(activity: dict[str, Any], source: Path) -> dict[str, Any]:
+    prompt = _require_non_empty_string(activity.get("prompt"), "prompt", source)
+
+    starter_code = activity.get("starter_code")
+    if not isinstance(starter_code, str) or not starter_code.strip():
+        raise ValueError(
+            f"{source}: pole 'starter_code' aktywności code musi być "
+            "niepustym tekstem"
+        )
+
+    checker = activity.get("checker")
+    if not isinstance(checker, dict):
+        raise ValueError(f"{source}: pole 'checker' aktywności code musi być mapą")
+
+    checker_type = _require_non_empty_string(
+        checker.get("type"), "checker.type", source
+    )
+    if checker_type != "stdout_lines_exact":
+        raise ValueError(
+            f"{source}: nieobsługiwany checker code {checker_type!r}; "
+            "dozwolony: 'stdout_lines_exact'"
+        )
+
+    expected_lines = checker.get("expected_lines")
+    if not isinstance(expected_lines, list) or not expected_lines:
+        raise ValueError(
+            f"{source}: pole 'checker.expected_lines' musi być niepustą listą"
+        )
+
+    validated_lines: list[str] = []
+    for line in expected_lines:
+        if not isinstance(line, str):
+            raise ValueError(
+                f"{source}: każdy element 'checker.expected_lines' musi być tekstem"
+            )
+        if "\n" in line or "\r" in line:
+            raise ValueError(
+                f"{source}: element 'checker.expected_lines' nie może zawierać "
+                "znaku końca linii"
+            )
+        validated_lines.append(line)
+
+    feedback = activity.get("feedback")
+    if not isinstance(feedback, dict):
+        raise ValueError(f"{source}: pole 'feedback' aktywności code musi być mapą")
+
+    return {
+        "prompt": prompt,
+        "starter_code": starter_code,
+        "checker": {
+            "type": checker_type,
+            "expected_lines": validated_lines,
+        },
         "feedback": {
             "correct": _require_non_empty_string(
                 feedback.get("correct"), "feedback.correct", source
