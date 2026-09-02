@@ -124,6 +124,69 @@ test("reset usuwa wyłącznie dokument postępu aplikacji", async () => {
 });
 
 
+test("częściowy reset usuwa tylko wskazane aktywności", async () => {
+  const storage = new MemoryStorage();
+  const store = new BrowserProgressStore(storage);
+  await store.save("flow-for-quiz-001", {
+    version: 1,
+    status: "completed",
+  });
+  const retainedState = await store.save("flow-for-code-001", {
+    version: 1,
+    status: "in_progress",
+  });
+
+  await store.reset(["flow-for-quiz-001", "nieistniejaca-aktywnosc"]);
+
+  assert.equal(await store.get("flow-for-quiz-001"), null);
+  assert.deepEqual(await store.get("flow-for-code-001"), retainedState);
+  assert.deepEqual(await store.getSummary(), {
+    total: 1,
+    completed: 0,
+  });
+});
+
+
+test("pusta lista resetu nie modyfikuje magazynu", async () => {
+  const storage = new MemoryStorage();
+  const store = new BrowserProgressStore(storage);
+  const savedState = await store.save("flow-for-quiz-001", {
+    version: 1,
+    status: "completed",
+  });
+  const documentBeforeReset = storage.getItem(DEFAULT_PROGRESS_STORAGE_KEY);
+
+  await store.reset([]);
+
+  assert.equal(
+    storage.getItem(DEFAULT_PROGRESS_STORAGE_KEY),
+    documentBeforeReset,
+  );
+  assert.deepEqual(await store.get("flow-for-quiz-001"), savedState);
+});
+
+
+test("odrzuca niepoprawny zakres częściowego resetu bez zmiany danych", async () => {
+  const storage = new MemoryStorage();
+  const store = new BrowserProgressStore(storage);
+  const savedState = await store.save("flow-for-quiz-001", {
+    version: 1,
+    status: "completed",
+  });
+
+  await assert.rejects(
+    store.reset("flow-for-quiz-001"),
+    /activityIds musi być tablicą identyfikatorów albo null/,
+  );
+  await assert.rejects(
+    store.reset(["flow-for-quiz-001", ""]),
+    /activityId musi być niepustym tekstem/,
+  );
+
+  assert.deepEqual(await store.get("flow-for-quiz-001"), savedState);
+});
+
+
 test("zachowuje pola postępu specyficzne dla aktywności", async () => {
   const storage = new MemoryStorage();
   const store = new BrowserProgressStore(storage);

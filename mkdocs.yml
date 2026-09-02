@@ -74,6 +74,9 @@ extra_javascript:
   - path: javascripts/interactive/bootstrap.js
     type: module
 
+extra:
+  presentation_mode: interactive
+
 nav:
   - Strona główna: index.md
   - 1. Instalacja i środowisko pracy:

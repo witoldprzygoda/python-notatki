@@ -1,0 +1,45 @@
+schema_version: 2
+page: 04-sterowanie/wyrazenia-warunkowe.md
+slot_id: wyrazenia-warunkowe-activities
+
+activities:
+  - activity_id: flow-if-quiz-001
+    version: 1
+    section_id: wyrazenie-if-elif-else
+    type: single_choice
+    label: "Sprawdzenie testu pustości"
+    prompt: "Który warunek wykona swój blok, gdy data jest pustym łańcuchem?"
+    options:
+      - option_id: a
+        label: "if data:"
+      - option_id: b
+        label: "if not data:"
+      - option_id: c
+        label: "if data is True:"
+    correct_option_id: b
+    feedback:
+      correct: "Pusty łańcuch jest fałszywy w kontekście logicznym, więc not data ma wartość prawdziwą."
+      incorrect: "Pusty łańcuch jest fałszywy w kontekście logicznym."
+
+  - activity_id: flow-match-code-001
+    version: 1
+    section_id: pola-wyboru-match
+    type: code
+    label: "Ćwiczenie: dopasowanie match"
+    prompt: "Uzupełnij przypadek case 2 tak, aby program dla wartości 2 wypisał tekst „dwa”."
+    starter_code: |
+      wartosc = 2
+
+      match wartosc:
+          case 1:
+              print("jeden")
+          case 2:
+              # Wypisz tekst dwa.
+              pass
+    checker:
+      type: stdout_lines_exact
+      expected_lines:
+        - "dwa"
+    feedback:
+      correct: "Wartość 2 została obsłużona przez odpowiadający jej przypadek."
+      incorrect: "Program powinien wypisać jeden wiersz zawierający tekst „dwa”."

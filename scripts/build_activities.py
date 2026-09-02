@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import logging
 import re
+from collections.abc import Mapping
+from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -11,18 +13,56 @@ import yaml
 
 log = logging.getLogger("mkdocs.hooks.activities")
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 SUPPORTED_TYPES = {"acknowledgement", "single_choice", "code"}
 REQUIRED_ACTIVITY_FIELDS = {
     "activity_id",
     "version",
-    "slot_id",
+    "section_id",
     "type",
     "label",
 }
-SLOT_PATTERN = re.compile(r'data-activity-slot\s*=\s*["\']([^"\']+)["\']')
+SECTION_ID_PATTERN = re.compile(r"^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$")
+PRESENTATION_MODES = {"clean", "interactive"}
 
 _validated_manifest: dict[str, Any] | None = None
+_page_contracts: dict[str, dict[str, Any]] = {}
+_validated_pages: set[str] = set()
+_physical_slot_pages: dict[str, str] = {}
+_page_urls: dict[str, str] = {}
+
+
+class _PageActivityMarkupParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.slots: list[str] = []
+        self.section_markers: list[tuple[str, str | None, str | None]] = []
+        self.ids: list[str] = []
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self._collect(tag, attrs)
+
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self._collect(tag, attrs)
+
+    def _collect(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if attributes.get("id"):
+            self.ids.append(attributes["id"] or "")
+        if "data-activity-slot" in attributes:
+            self.slots.append(attributes["data-activity-slot"] or "")
+        if "data-activity-section" in attributes:
+            self.section_markers.append(
+                (
+                    tag,
+                    attributes.get("id"),
+                    attributes.get("data-activity-section"),
+                )
+            )
 
 
 def _require_non_empty_string(value: Any, field: str, source: Path) -> str:
@@ -65,11 +105,22 @@ def _validate_activity(
     *,
     source: Path,
     page: str,
-    available_slots: set[str],
+    slot_id: str,
     activity_ids: set[str],
 ) -> dict[str, Any]:
     if not isinstance(activity, dict):
         raise ValueError(f"{source}: każda aktywność musi być mapą YAML")
+
+    if "slot_id" in activity:
+        raise ValueError(
+            f"{source}: w schema_version 2 pole 'slot_id' należy umieścić "
+            "na poziomie dokumentu, nie aktywności"
+        )
+    if "page_url" in activity:
+        raise ValueError(
+            f"{source}: pole 'page_url' jest generowane przez MkDocs i nie może "
+            "występować w definicji aktywności"
+        )
 
     missing_fields = REQUIRED_ACTIVITY_FIELDS - activity.keys()
     if missing_fields:
@@ -87,11 +138,18 @@ def _validate_activity(
     if isinstance(version, bool) or not isinstance(version, int) or version < 1:
         raise ValueError(f"{source}: pole 'version' musi być liczbą całkowitą >= 1")
 
-    slot_id = _require_non_empty_string(activity["slot_id"], "slot_id", source)
-    if slot_id not in available_slots:
-        raise ValueError(
-            f"{source}: slot {slot_id!r} nie istnieje na stronie {page!r}"
+    section_value = activity["section_id"]
+    if section_value is None:
+        section_id = None
+    else:
+        section_id = _require_non_empty_string(
+            section_value, "section_id", source
         )
+        if not SECTION_ID_PATTERN.fullmatch(section_id):
+            raise ValueError(
+                f"{source}: pole 'section_id' musi być stabilnym identyfikatorem "
+                "złożonym z małych liter, cyfr i łączników"
+            )
 
     activity_type = _require_non_empty_string(activity["type"], "type", source)
     if activity_type not in SUPPORTED_TYPES:
@@ -107,6 +165,7 @@ def _validate_activity(
         "activity_id": activity_id,
         "version": version,
         "slot_id": slot_id,
+        "section_id": section_id,
         "type": activity_type,
         "label": label,
     }
@@ -257,6 +316,8 @@ def _build_manifest(config: Any) -> dict[str, Any]:
 
     manifest_activities: list[dict[str, Any]] = []
     activity_ids: set[str] = set()
+    definition_pages: dict[str, Path] = {}
+    slot_pages: dict[str, str] = {}
 
     for source in definition_files:
         try:
@@ -270,10 +331,31 @@ def _build_manifest(config: Any) -> dict[str, Any]:
             raise ValueError(
                 f"{source}: schema_version musi mieć wartość {SCHEMA_VERSION}"
             )
+        if "page_url" in document:
+            raise ValueError(
+                f"{source}: pole 'page_url' jest generowane przez MkDocs i nie "
+                "może występować w źródłowym YAML"
+            )
 
-        page, source_page = _source_page_path(document.get("page"), docs_dir, source)
-        page_text = source_page.read_text(encoding="utf-8")
-        available_slots = set(SLOT_PATTERN.findall(page_text))
+        page, _ = _source_page_path(document.get("page"), docs_dir, source)
+        previous_source = definition_pages.get(page)
+        if previous_source is not None:
+            raise ValueError(
+                f"{source}: strona {page!r} ma już definicję aktywności "
+                f"w {previous_source}"
+            )
+        definition_pages[page] = source
+
+        slot_id = _require_non_empty_string(
+            document.get("slot_id"), "slot_id", source
+        )
+        previous_page = slot_pages.get(slot_id)
+        if previous_page is not None:
+            raise ValueError(
+                f"slot {slot_id!r} jest przypisany do więcej niż jednej strony: "
+                f"{previous_page!r} i {page!r}"
+            )
+        slot_pages[slot_id] = page
 
         activities = document.get("activities")
         if not isinstance(activities, list) or not activities:
@@ -285,7 +367,7 @@ def _build_manifest(config: Any) -> dict[str, Any]:
                     activity,
                     source=source,
                     page=page,
-                    available_slots=available_slots,
+                    slot_id=slot_id,
                     activity_ids=activity_ids,
                 )
             )
@@ -296,16 +378,250 @@ def _build_manifest(config: Any) -> dict[str, Any]:
     }
 
 
+def _contracts_from_manifest(
+    manifest: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    contracts: dict[str, dict[str, Any]] = {}
+    for activity in manifest["activities"]:
+        page = activity["page"]
+        contract = contracts.setdefault(
+            page,
+            {
+                "slot_id": activity["slot_id"],
+                "section_ids": set(),
+            },
+        )
+        if activity["section_id"] is not None:
+            contract["section_ids"].add(activity["section_id"])
+    return contracts
+
+
+def _presentation_mode(config: Any) -> str:
+    extra = getattr(config, "extra", None)
+    if extra is None and hasattr(config, "get"):
+        extra = config.get("extra", {})
+    if not isinstance(extra, Mapping):
+        extra = {}
+
+    mode = extra.get("presentation_mode", "interactive")
+    if mode not in PRESENTATION_MODES:
+        supported = ", ".join(sorted(PRESENTATION_MODES))
+        raise ValueError(
+            f"Nieobsługiwany tryb prezentacji {mode!r}; dozwolone: {supported}"
+        )
+    return mode
+
+
+def _page_source_name(page: Any) -> str:
+    page_file = getattr(page, "file", None)
+    for attribute in ("src_uri", "src_path"):
+        value = getattr(page_file, attribute, None)
+        if value:
+            return str(value).replace("\\", "/")
+    raise RuntimeError("Nie można ustalić ścieżki źródłowej strony MkDocs")
+
+
+def _manifest_with_page_urls(
+    manifest: dict[str, Any], page_urls: Mapping[str, str]
+) -> dict[str, Any]:
+    """Return a published-manifest copy enriched with MkDocs page URLs."""
+    source_pages = sorted({activity["page"] for activity in manifest["activities"]})
+    missing_pages = [page for page in source_pages if page not in page_urls]
+    if missing_pages:
+        raise RuntimeError(
+            "Nie ustalono page.url MkDocs dla strony z aktywnościami: "
+            f"{missing_pages[0]!r}"
+        )
+
+    source_pages_by_url: dict[str, str] = {}
+    for source_page in source_pages:
+        page_url = page_urls[source_page]
+        if not isinstance(page_url, str):
+            raise RuntimeError(
+                f"{source_page}: page.url MkDocs musi być tekstem"
+            )
+
+        previous_page = source_pages_by_url.get(page_url)
+        if previous_page is not None and previous_page != source_page:
+            raise ValueError(
+                f"page_url {page_url!r} jest przypisany do więcej niż jednej "
+                f"strony: {previous_page!r} i {source_page!r}"
+            )
+        source_pages_by_url[page_url] = source_page
+
+    published_activities: list[dict[str, Any]] = []
+    for activity in manifest["activities"]:
+        published_activity = dict(activity)
+        published_activity["page_url"] = page_urls[activity["page"]]
+        published_activities.append(published_activity)
+
+    return {
+        **manifest,
+        "activities": published_activities,
+    }
+
+
+def _parse_page_activity_markup(
+    html: str,
+) -> tuple[
+    list[str],
+    list[tuple[str, str | None, str | None]],
+    list[str],
+]:
+    parser = _PageActivityMarkupParser()
+    parser.feed(html)
+    parser.close()
+    return parser.slots, parser.section_markers, parser.ids
+
+
+def _validate_rendered_page(
+    *,
+    html: str,
+    page: str,
+    page_contracts: dict[str, dict[str, Any]],
+    physical_slot_pages: dict[str, str],
+) -> None:
+    slots, section_markers, page_ids = _parse_page_activity_markup(html)
+    contract = page_contracts.get(page)
+    configured_slot_pages = {
+        details["slot_id"]: source_page
+        for source_page, details in page_contracts.items()
+    }
+
+    for slot_id in slots:
+        if not slot_id or slot_id != slot_id.strip():
+            raise ValueError(
+                f"{page}: data-activity-slot musi mieć niepustą wartość bez "
+                "skrajnych spacji"
+            )
+
+        configured_page = configured_slot_pages.get(slot_id)
+        if configured_page is not None and configured_page != page:
+            raise ValueError(
+                f"slot {slot_id!r} występuje na więcej niż jednej stronie "
+                f"Markdown: {configured_page!r} i {page!r}"
+            )
+
+        previous_page = physical_slot_pages.get(slot_id)
+        if previous_page is not None and previous_page != page:
+            raise ValueError(
+                f"slot {slot_id!r} występuje na więcej niż jednej stronie "
+                f"Markdown: {previous_page!r} i {page!r}"
+            )
+        physical_slot_pages[slot_id] = page
+
+    duplicate_slots = sorted(
+        slot_id for slot_id in set(slots) if slots.count(slot_id) > 1
+    )
+    if duplicate_slots:
+        raise ValueError(
+            f"{page}: slot {duplicate_slots[0]!r} występuje więcej niż raz"
+        )
+
+    if contract is None:
+        if slots:
+            raise ValueError(
+                f"{page}: slot {slots[0]!r} nie ma definicji strony w activities/"
+            )
+    else:
+        expected_slot = contract["slot_id"]
+        if slots != [expected_slot]:
+            if expected_slot not in slots:
+                raise ValueError(
+                    f"{page}: brakuje wymaganego slotu {expected_slot!r}"
+                )
+            unexpected = next(slot for slot in slots if slot != expected_slot)
+            raise ValueError(
+                f"{page}: znaleziono nieoczekiwany dodatkowy slot {unexpected!r}"
+            )
+
+    marked_section_ids: set[str] = set()
+    for tag, section_id, marker_value in section_markers:
+        if tag not in {"h2", "h3", "h4", "h5", "h6"}:
+            raise ValueError(
+                f"{page}: data-activity-section może oznaczać tylko nagłówek "
+                "od h2 do h6"
+            )
+        if marker_value != "true":
+            raise ValueError(
+                f"{page}: data-activity-section musi mieć wartość 'true'"
+            )
+        if section_id is None or not SECTION_ID_PATTERN.fullmatch(section_id):
+            raise ValueError(
+                f"{page}: oznaczony nagłówek musi mieć stabilne id złożone "
+                "z małych liter, cyfr i łączników"
+            )
+        if section_id in marked_section_ids:
+            raise ValueError(
+                f"{page}: oznaczony section_id {section_id!r} występuje więcej "
+                "niż raz"
+            )
+        marked_section_ids.add(section_id)
+        if page_ids.count(section_id) > 1:
+            raise ValueError(
+                f"{page}: id {section_id!r} oznaczonej sekcji nie jest unikalne "
+                "w wyrenderowanym HTML"
+            )
+
+    if contract is not None:
+        missing_sections = sorted(contract["section_ids"] - marked_section_ids)
+        if missing_sections:
+            raise ValueError(
+                f"{page}: section_id {missing_sections[0]!r} nie wskazuje "
+                "oznaczonego nagłówka"
+            )
+
+
 def on_pre_build(*, config: Any, **kwargs: Any) -> None:
     """Parse and validate activity definitions before MkDocs builds the site."""
     del kwargs
-    global _validated_manifest
+    global _validated_manifest, _page_contracts
+    global _validated_pages, _physical_slot_pages, _page_urls
     _validated_manifest = None
+    _page_contracts = {}
+    _validated_pages = set()
+    _physical_slot_pages = {}
+    _page_urls = {}
+    _presentation_mode(config)
     _validated_manifest = _build_manifest(config)
+    _page_contracts = _contracts_from_manifest(_validated_manifest)
     log.info(
         "Validated %d activity definition(s)",
         len(_validated_manifest["activities"]),
     )
+
+
+def on_page_content(
+    html: str, *, page: Any, config: Any, **kwargs: Any
+) -> str:
+    """Validate activity slots and stable section anchors after Markdown renders."""
+    del config, kwargs
+    if _validated_manifest is None:
+        raise RuntimeError("Manifest aktywności nie został zwalidowany w on_pre_build")
+
+    page_name = _page_source_name(page)
+    _validate_rendered_page(
+        html=html,
+        page=page_name,
+        page_contracts=_page_contracts,
+        physical_slot_pages=_physical_slot_pages,
+    )
+    if page_name in _page_contracts:
+        page_url = getattr(page, "url", None)
+        if not isinstance(page_url, str):
+            raise RuntimeError(
+                f"{page_name}: MkDocs nie udostępnił tekstowego page.url"
+            )
+
+        previous_url = _page_urls.get(page_name)
+        if page_name in _page_urls and previous_url != page_url:
+            raise RuntimeError(
+                f"{page_name}: page.url zmienił się podczas jednego buildu "
+                f"z {previous_url!r} na {page_url!r}"
+            )
+        _page_urls[page_name] = page_url
+    _validated_pages.add(page_name)
+    return html
 
 
 def on_post_build(*, config: Any, **kwargs: Any) -> None:
@@ -314,10 +630,26 @@ def on_post_build(*, config: Any, **kwargs: Any) -> None:
     if _validated_manifest is None:
         raise RuntimeError("Manifest aktywności nie został zwalidowany w on_pre_build")
 
+    missing_pages = sorted(set(_page_contracts) - _validated_pages)
+    if missing_pages:
+        raise RuntimeError(
+            "Nie zwalidowano wyrenderowanej strony z aktywnościami: "
+            f"{missing_pages[0]!r}"
+        )
+
+    published_manifest = _manifest_with_page_urls(
+        _validated_manifest,
+        _page_urls,
+    )
+
+    if _presentation_mode(config) == "clean":
+        log.info("Clean presentation: activity manifest was not published")
+        return
+
     output_path = Path(config.site_dir) / "assets" / "generated" / "activities.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
-        json.dumps(_validated_manifest, ensure_ascii=False, indent=2) + "\n",
+        json.dumps(published_manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     log.info("Wrote activity manifest to %s", output_path)

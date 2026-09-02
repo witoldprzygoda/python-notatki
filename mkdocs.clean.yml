@@ -1,0 +1,13 @@
+INHERIT: mkdocs.yml
+
+extra:
+  presentation_mode: clean
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript: []
+
+exclude_docs: |
+  javascripts/interactive/**
+  stylesheets/interactive.css

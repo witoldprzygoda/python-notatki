@@ -4,10 +4,12 @@
 
 Projekt `python-notatki` jest rozwijanym podręcznikiem do kursu języka Python. Źródłowa treść pozostaje w Markdown i jest publikowana przez MkDocs Material. Rozbudowujemy serwis o lekką warstwę interaktywną, która ma zwiększać aktywność studenta podczas pracy z tekstem, ale nie ma zastępować Moodle ani formalnego systemu oceniania kursu.
 
-System powinien działać w dwóch sytuacjach:
+System ma dwie niezależne osie konfiguracji:
 
-1. **tryb kursowy** — dostęp przez Moodle/LTI, trwały postęp przypisany do studenta;
-2. **tryb publiczny** — okresowo udostępniony pełny podręcznik, bez kont, z lokalnym postępem w przeglądarce.
+1. **prezentacja** — `clean` publikuje czysty podręcznik, a `interactive` dodaje warstwę ćwiczeń;
+2. **dostęp i tożsamość** — `MOODLE_ONLY` używa Moodle/LTI, a `PUBLIC_FULL` udostępnia podręcznik bez kont.
+
+Wariant prezentacji nie wybiera trybu dostępu i odwrotnie. Te same źródła Markdown służą do wszystkich wariantów wdrożenia.
 
 Formalne zestawy zadań, kolokwia, większe quizy oceniane i repozytoria studentów są równoległą częścią kursu i pozostają poza zakresem tej aplikacji.
 
@@ -49,11 +51,11 @@ python-notatki-service
 - poprawianie fragmentów kodu;
 - pytania typu „co się stanie?”;
 - małe quizy towarzyszące sekcjom;
-- aktywności typu „zapoznałem się z materiałem”;
+- jeden zwijany blok ćwiczeń i pytań na końcu strony;
 - podpowiedzi;
 - lokalny postęp anonimowego użytkownika;
 - trwały postęp użytkownika Moodle;
-- zbiorczy stan ukończenia fragmentu/modułu;
+- wskaźniki postępu ćwiczeń dla stron i sekcji w nawigacji wariantu `interactive`;
 - opcjonalne raportowanie lekkiego postępu do Moodle.
 
 ### Poza zakresem
@@ -100,7 +102,7 @@ python-notatki-service
                                             Moodle
 ```
 
-Warstwa aktywności działa niezależnie od źródła tożsamości. Moodle nie jest wywoływany bezpośrednio z komponentów quizu lub ćwiczenia.
+Diagram opisuje wariant `interactive`. Wariant `clean` publikuje ten sam Markdown bez uruchamiania Activity Engine i ProgressStore. Warstwa aktywności działa niezależnie od źródła tożsamości. Moodle nie jest wywoływany bezpośrednio z komponentów quizu lub ćwiczenia.
 
 ---
 
@@ -122,6 +124,19 @@ Za reverse proxy:
 
 Pozwala to uniknąć zbędnej konfiguracji CORS i upraszcza sesję użytkownika.
 
+### Wariant prezentacji `clean` / `interactive`
+
+Domyślny `mkdocs.yml` buduje wariant `interactive`. Nakładka `mkdocs.clean.yml` dziedziczy wspólną konfigurację, ale nie publikuje manifestu, JavaScriptu ani CSS warstwy interaktywnej:
+
+```text
+mkdocs build                         # interactive
+mkdocs build -f mkdocs.clean.yml     # clean
+```
+
+Oba buildy walidują wspólne definicje YAML, sloty i stabilne anchory. `clean` nie jest synonimem `PUBLIC_FULL`, a `interactive` nie implikuje `MOODLE_ONLY`.
+
+Przy przełączaniu wariantu trzeba zrestartować `mkdocs serve`. Buildów clean i interactive nie należy mieszać przez `--dirty` w tym samym `site_dir`; CI powinno używać pełnego builda albo osobnych katalogów wynikowych, aby nie pozostawić starych assetów.
+
 ### Tryb MOODLE_ONLY
 
 ```text
@@ -133,6 +148,7 @@ Anonimowe żądanie treści powinno zostać zatrzymane przez warstwę dostępu.
 ### Tryb PUBLIC_FULL
 
 ```text
+PUBLIC_FULL + interactive:
 Internet -> podręcznik -> aktywności -> BrowserProgressStore
 ```
 
@@ -144,75 +160,76 @@ Przełączenie trybu dostępu powinno odbywać się konfiguracją wdrożenia, ni
 
 ## 6. Kontrakt między tekstem a aktywnością
 
-Treść Markdown nie powinna zawierać właściwej definicji quizu lub rozwiązania. Powinna jedynie zapewnić stabilne miejsce osadzenia.
+Treść Markdown nie zawiera definicji quizu ani rozwiązania. Strona z aktywnościami zapewnia wyłącznie:
+
+1. jawne, stabilne identyfikatory sekcji, których dotyczą ćwiczenia;
+2. dokładnie jeden globalnie unikalny slot na końcu strony.
 
 Przykład:
 
-```html
-<div data-activity-slot="flow-for-basics"></div>
+```markdown
+## Pętla for {#petla-for data-activity-section="true"}
+
+<!-- treść podrozdziału -->
+
+<div data-activity-slot="petle-i-iteratory-activities"></div>
 ```
 
-Alternatywnie można użyć stabilnych identyfikatorów sekcji, jeśli MkDocs/Markdown pozwala zagwarantować ich trwałość.
+Anchor oznaczony `data-activity-section="true"` jest decyzją autora i nie może być automatycznym slugiem zależnym od tekstu nagłówka. `slot_id` identyfikuje fizyczne miejsce renderowania; może wystąpić tylko na jednej stronie. W wariancie `interactive` Activity Engine umieszcza w nim jedno domyślnie zamknięte `<details>` z nagłówkiem „Ćwiczenia i pytania” i renderuje aktywności w kolejności YAML. W wariancie `clean` pusty slot pozostaje niewidoczny.
 
-Nie wolno wiązać aktywności z:
+Nie wolno wiązać aktywności z numerem linii, tekstem nagłówka ani pozycją elementu DOM. Aktywność dotycząca całej strony używa jawnego `section_id: null`.
 
-- numerem linii;
-- wygenerowanym automatycznie slugiem nagłówka, który zmieni się po korekcie tytułu;
-- pozycją typu „trzeci blok kodu na stronie”.
-
-Definicja aktywności znajduje się w osobnym pliku:
-
-```text
-activities/04-sterowanie/petle-i-iteratory.yaml
-```
-
-Przykład schematu roboczego:
+Definicja schema v2 znajduje się poza `docs/`, na przykład w `activities/04-sterowanie/petle-i-iteratory.yaml`:
 
 ```yaml
-schema_version: 1
-page: 04-sterowanie/petle-i-iteratory
+schema_version: 2
+page: 04-sterowanie/petle-i-iteratory.md
+slot_id: petle-i-iteratory-activities
 
 activities:
-  - id: flow-for-read-001
+  - activity_id: flow-for-quiz-001
     version: 1
-    slot: flow-for-basics
-    type: acknowledgement
-    required: true
-    label: "Zapoznałem się z opisem pętli for"
-
-  - id: flow-for-quiz-001
-    version: 1
-    slot: flow-for-basics
+    section_id: petla-for
     type: single_choice
-    required: false
-    prompt: "Ile razy wykona się ciało pętli?"
+    label: "Sprawdzenie zrozumienia pętli for"
+    prompt: "Ile razy wykona się ciało pętli po łańcuchu abc?"
     options:
-      - id: a
-        text: "2"
-      - id: b
-        text: "3"
-      - id: c
-        text: "4"
-    answer: b
+      - option_id: a
+        label: "Dwa razy"
+      - option_id: b
+        label: "Trzy razy"
+    correct_option_id: b
     feedback:
-      correct: "Tak. range(3) dostarcza wartości 0, 1, 2."
-      incorrect: "Sprawdź, jakie wartości dostarcza range(3)."
+      correct: "Pętla wykona się raz dla każdego z trzech znaków."
+      incorrect: "Łańcuch abc zawiera trzy znaki."
 
-  - id: flow-for-code-001
+  - activity_id: flow-for-code-001
     version: 1
-    slot: flow-for-practice
+    section_id: petla-for
     type: code
-    required: true
+    label: "Ćwiczenie: iteracja po łańcuchu"
+    prompt: "Wypisz każdy znak w osobnym wierszu."
     starter_code: |
-      for i in range(3):
-          # uzupełnij
-          pass
-    checks:
-      - type: stdout_contains
-        value: "0\n1\n2"
+      for znak in "abc":
+          print(znak)
+    checker:
+      type: stdout_lines_exact
+      expected_lines: ["a", "b", "c"]
+    feedback:
+      correct: "Program wypisał znaki w oczekiwanej kolejności."
+      incorrect: "Sprawdź kolejność wypisanych wierszy."
 ```
 
-Schemat jest punktem startowym, nie zamkniętym standardem. Przed rozszerzeniem należy najpierw wdrożyć trzy podstawowe typy.
+Pola `feedback.correct` i `feedback.incorrect` zawierają wyłącznie wyjaśnienie dydaktyczne, a nie etykietę wyniku. Jednolitą etykietę „✓ Poprawnie” albo „! Niepoprawnie” dodaje renderer. Pola te nie powinny rozpoczynać się od „Poprawnie.” ani „Niepoprawnie.”; komunikaty błędów technicznych pozostają odrębną kategorią.
+
+Build waliduje schema v2 przed renderowaniem, a po konwersji Markdown sprawdza dokładnie jeden właściwy slot oraz istnienie wszystkich oznaczonych `section_id`.
+
+Autor podaje wyłącznie źródłową ścieżkę `page`. Podczas pełnego buildu hook
+MkDocs odczytuje rzeczywiste `page.url` dla wyrenderowanej strony i dodaje do
+publikowanego manifestu pochodne pole `page_url`. Pole uwzględnia konfigurację
+URL-i MkDocs, nie należy do źródłowego schema YAML i nie może być wpisywane
+ręcznie. Frontend używa go do powiązania aktywności z linkiem strony w
+nawigacji bez odtwarzania reguł Markdown → URL.
 
 ---
 
@@ -220,9 +237,9 @@ Schemat jest punktem startowym, nie zamkniętym standardem. Przed rozszerzeniem 
 
 ### 7.1 `acknowledgement`
 
-Najprostsza aktywność. Jej celem jest zarejestrowanie, że użytkownik świadomie oznaczył fragment jako przeczytany/obejrzany.
+Typ został zweryfikowany w historycznym POC. Bieżące definicje treści schema v2 nie używają aktywności polegających wyłącznie na potwierdzeniu przeczytania; renderer może pozostać do osobnego etapu porządkowania kodu.
 
-Przykładowe zastosowania:
+Historyczne przykłady zastosowania:
 
 - „Przeczytaj uwagę o mutowalności i zaznacz jako wykonane.”
 - „Obejrzyj krótką animację i przejdź dalej.”
@@ -232,7 +249,7 @@ Nie wymuszamy pytania kontrolnego, jeżeli autor materiału nie uważa go za pot
 
 ### 7.2 `single_choice`
 
-Małe pytanie osadzone przy treści. Nie jest formalnym quizem Moodle.
+Małe pytanie powiązane z sekcją treści przez `section_id` i renderowane w końcowym bloku ćwiczeń strony. Nie jest formalnym quizem Moodle.
 
 Powinno wspierać:
 
@@ -240,6 +257,13 @@ Powinno wspierać:
 - możliwość ponownej próby, jeśli autor na to pozwala;
 - zapis wyniku i liczby prób;
 - opcjonalne oznaczenie jako wymagane do postępu w podręczniku.
+
+Status `completed` pozostaje monotoniczny podczas zwykłych prób. Jedynym
+świadomym wyjątkiem jest akcja użytkownika „Zacznij od nowa”, która dla
+zapisanego stanu wywołuje `reset([activityId])` i przywraca aktywność do stanu
+początkowego bez rekordu, wyniku i liczby prób. Jeżeli użytkownik jedynie
+wybrał odpowiedź, ale jeszcze jej nie sprawdził, renderer czyści wybór lokalnie
+bez wywoływania magazynu i bez powiadomienia centralnego modelu postępu.
 
 ### 7.3 `code`
 
@@ -254,6 +278,21 @@ Powinna wspierać:
 - proste sprawdzenie;
 - zapis stanu ukończenia;
 - możliwość późniejszego dodania stopniowanych podpowiedzi.
+
+„Resetuj interpreter” jest operacją techniczną: kończy bieżący Worker, ale
+zachowuje kod i postęp ćwiczenia. Akcja jest dostępna tylko wtedy, gdy renderer
+utworzył Worker w swoim bieżącym cyklu życia; sam odtworzony zapis `completed`
+nie oznacza istnienia interpretera. Osobna akcja „Zacznij od nowa” kończy
+ewentualne wykonanie, resetuje interpreter, przywraca dokładny `starter_code`,
+czyści wyjście i informację zwrotną oraz wywołuje `reset([activityId])`, jeśli
+aktywność miała zapisany stan. Bez zapisanego stanu reset pozostaje lokalny.
+Poza tą jawną akcją status `completed` pozostaje monotoniczny.
+
+### 7.4 Znaczenie zaliczenia aktywności `code`
+
+Zaliczenie aktywności przez mechanizm sprawdzający (ang. *checker*) oznacza wyłącznie, że sprawdzane wykonanie spełniło jawne kryterium zapisane w definicji aktywności. Nie stanowi ono pełnej oceny poprawności, jakości, stylu, wydajności ani ogólności rozwiązania. Status `completed` oznacza postęp w podręczniku, nie formalną ocenę kursową.
+
+W szczególności kryterium oparte na oczekiwanym wyjściu potwierdza zgodność wyniku tylko w sprawdzanym przypadku. Nie dowodzi użycia oczekiwanej konstrukcji ani poprawności dla innych danych. Polecenie i informacja zwrotna powinny precyzyjnie opisywać zakres faktycznie sprawdzany przez checker.
 
 ---
 
@@ -285,12 +324,15 @@ Wszystkie komponenty używają wspólnego interfejsu:
 class ProgressStore {
   async get(activityId) {}
   async save(activityId, state) {}
-  async getSummary(scope) {}
-  async reset(scope) {}
+  async getSummary() {}
+  async reset(activityIds = null) {}
 }
 ```
 
-Dokładna składnia może być inna, ale semantyka ma pozostać wspólna.
+`reset(null)` usuwa cały postęp należący do magazynu, natomiast
+`reset([activityId, ...])` usuwa wyłącznie stan wskazanych aktywności. Pusta
+lista nie zmienia magazynu. Implementacja nie może interpretować braku
+argumentu inaczej niż jawnego `null`.
 
 ### 9.2 BrowserProgressStore
 
@@ -306,19 +348,15 @@ Przykładowy stan:
 
 ```json
 {
-  "schemaVersion": 1,
+  "schema_version": 1,
   "activities": {
-    "flow-for-read-001": {
-      "version": 1,
-      "status": "completed",
-      "updatedAt": "2026-08-19T12:00:00Z"
-    },
     "flow-for-quiz-001": {
+      "activity_id": "flow-for-quiz-001",
       "version": 1,
       "status": "completed",
       "score": 1,
       "attempts": 2,
-      "updatedAt": "2026-08-19T12:05:00Z"
+      "updated_at": "2026-08-19T12:05:00Z"
     }
   }
 }
@@ -326,9 +364,81 @@ Przykładowy stan:
 
 Nie zapisujemy imienia, nazwiska, e-maila ani innych danych identyfikujących.
 
+Wersja dokumentu `localStorage` jest niezależna od schema v2 definicji aktywności. Usunięcie definicji z manifestu nie usuwa automatycznie jej starego, osieroconego wpisu z magazynu i nie powoduje jego renderowania.
+
 ### 9.3 RemoteProgressStore
 
 Późniejsza implementacja komunikuje się z backendem. UI nie powinno wymagać zmian przy zamianie magazynu.
+
+### 9.4 Centralny model postępu ćwiczeń
+
+W wariancie `interactive` moduł `global-progress.js` działa jako bezgłowy
+centralny model statusów aktywności z aktualnego manifestu. Utrzymuje jedyną
+mapę `activity_id → completed`, gdzie wartość `completed` jest prawdziwa
+wyłącznie wtedy, gdy `ProgressStore.get(activityId)` zwraca stan o
+`status === "completed"`. Model nie tworzy żadnego widocznego komponentu,
+procentu ani elementu `<progress>`. Jego dane służą wyłącznie wskaźnikom stron
+i sekcji opisanym w sekcji 9.5.
+
+Do modelu nie wchodzą `score`, `attempts`, odwiedzone strony, stan rozwinięcia
+bloku ćwiczeń ani osierocone rekordy nieobecne w manifeście.
+
+Aktualizacje zapewnia neutralny względem DOM dekorator `NotifyingProgressStore`.
+Zachowuje on pełny interfejs magazynu i dodaje subskrypcję zmian. Po udanym
+`save(activityId, state)` emituje `{ type: "save", activityId }`; odbiorca
+odczytuje kanoniczny stan przez `get(activityId)`. Po udanym resecie emituje
+`{ type: "reset", activityIds }`, gdzie `null` oznacza reset całego magazynu,
+a tablica — reset częściowy. Nieudana operacja nie emituje powiadomienia.
+Dekorator przekazuje wywołującemu niezmieniony wynik właściwego magazynu, ale
+nie interpretuje go i nie umieszcza go w zdarzeniu.
+Dekorator nie korzysta z `window`, `document`, `EventTarget` ani zdarzeń DOM,
+dzięki czemu może opakować zarówno `BrowserProgressStore`, jak i przyszły
+`RemoteProgressStore`.
+
+Manifest jest pobierany raz w ramach życia dokumentu i współdzielony między
+nawigacjami `navigation.instant`. Model jest hydratowany raz, a po `save` oraz
+resecie aktualizuje cache przed powiadomieniem subskrybentów. Wariant `clean`
+nie publikuje modelu ani kodu wskaźników.
+
+### 9.5 Wskaźniki stron i sekcji w nawigacji
+
+W wariancie `interactive` rzeczywiste linki stron w lewej nawigacji kursu oraz
+jawnie oznaczone sekcje w obu kopiach lokalnego spisu treści mogą mieć
+dyskretny pionowy rail postępu. Rail jest osobnym elementem DOM umieszczonym w
+własnej kolumnie po lewej stronie nazwy. Nie przejmuje ani nie modyfikuje
+istniejącego niebieskiego markera aktywnej pozycji Material/`extra.css`: marker
+aktywny oznacza bieżące położenie, a rail wyłącznie stan ćwiczeń.
+
+Lewy rail agreguje wszystkie aktywności o danym `page`, korzystając z
+generowanego `page_url`. Otrzymują go wyłącznie rzeczywiste linki `<a>` do stron;
+organizacyjne etykiety i grupy nawigacji pozostają bez statusu. Prawy rail
+używa `slot_id` bieżącej strony oraz `section_id`; aktywność z
+`section_id: null` nie zasila wskaźnika sekcji. Wskaźników nie umieszcza się
+przy nagłówkach artykułu.
+
+Dla strony lub sekcji oblicza się liczbę przypisanych aktywności `N` oraz liczbę
+stanów `status === "completed"` równą `C`. Stany to: `none` dla `N == 0`,
+`none_completed` dla `N > 0` i `C == 0`, `partial` dla `0 < C < N` oraz
+`completed` dla `C == N`. Oprócz szarego, czerwonego, pomarańczowego i
+zielonego koloru stany rozróżnia kształt: subtelne szare wypełnienie z
+przerywanym obrysem, ciągły pusty obrys, częściowe wypełnienie albo pełne
+wypełnienie. Pełny tekst dostępny w obrębie linku przekazuje znaczenie
+niezależnie od koloru, a rail nie tworzy osobnego punktu Tab.
+
+Jedynym cache'em statusów pozostaje mapa należąca do centralnego modelu
+postępu. Udostępnia on wyłącznie odczyt pojedynczego statusu i subskrypcję
+identyfikatorów zmienionych po zaktualizowaniu cache'u. Dekoratory lewej
+nawigacji i lokalnego ToC nie czytają bezpośrednio `ProgressStore` i nie
+przechowują własnych map ukończeń. Mogą przechowywać jedynie statyczne indeksy
+manifestu oraz referencje do markerów aktualnego dokumentu. Po `save`, resecie
+częściowym lub pełnym przeliczają tylko odpowiednie strony i sekcje.
+
+Brak slotu oznacza pusty zbiór aktywności bieżącej strony, dlatego jawnie
+oznaczone sekcje mogą otrzymać stan `none`. Brak spisu treści albo oznaczonych
+sekcji jest bezpiecznym brakiem działania. Niedostępny manifest lub nieudana
+hydratacja postępu nie są żadnym ze stanów strony ani sekcji: w takim przypadku
+markerów nie tworzy się albo usuwa się markery utworzone wcześniej. Wariant
+`clean` nie publikuje modułów ani stylów wskaźników.
 
 ---
 
@@ -347,18 +457,18 @@ Zmiana poprawnej odpowiedzi, kryterium zaliczenia lub istotnej treści zadania p
 
 Polityka dotycząca starego ukończenia zostanie zaprojektowana później. MVP ma jedynie przechowywać wersję, aby nie zamknąć drogi do migracji.
 
+`schema_version` opisuje strukturę dokumentu YAML i manifestu, natomiast `version` opisuje semantykę konkretnej aktywności. Przeniesienie niezmienionej aktywności do nowego slotu lub przejście definicji na schema v2 nie zmienia jej `activity_id`, `version` ani zapisanego postępu.
+
 ---
 
 ## 11. Reagowanie na zmiany podręcznika
 
-Mechanizm zależności i hashy jest wartościowy, ale **nie należy go implementować w pierwszym kroku**.
+Obowiązujący kontrakt to `page` + top-level `slot_id` + per-activity `section_id` + `activity_id`. Build sprawdza globalną unikalność slotu, jego pojedyncze wystąpienie na właściwej stronie oraz istnienie jawnie oznaczonego anchora dla każdego niepustego `section_id`.
 
-Najpierw potrzebujemy działającego kontraktu `slot_id` + `activity_id`.
+Mechanizm hashy treści jest wartościowy, ale nie należy go jeszcze implementować.
 
 Etap późniejszy może dodać:
 
-- walidację, czy wszystkie sloty istnieją;
-- wykrywanie osieroconych aktywności;
 - zapisywanie hasha fragmentu treści przy ostatnim przeglądzie aktywności;
 - raport `REVIEW`, gdy powiązana treść uległa zmianie.
 
@@ -381,8 +491,14 @@ python-notatki/
 │   │   └── interactive/
 │   │       ├── bootstrap.js
 │   │       ├── activity-engine.js
+│   │       ├── page-activities.js
 │   │       ├── progress-store.js
 │   │       ├── browser-progress-store.js
+│   │       ├── notifying-progress-store.js
+│   │       ├── global-progress.js       # bezgłowy centralny model statusów
+│   │       ├── page-progress.js
+│   │       ├── section-progress.js
+│   │       ├── progress-rail.js
 │   │       ├── pyodide-runtime.js
 │   │       ├── pyodide-worker.js
 │   │       └── activities/
@@ -400,22 +516,29 @@ python-notatki/
 ├── AGENTS.md
 ├── INTERACTIVE_SYSTEM_SPEC.md
 ├── CLAUDE.md
-└── mkdocs.yml
+├── mkdocs.yml
+└── mkdocs.clean.yml
 ```
 
 ### Uwaga o generowanym manifeście
 
-Pliki YAML nie powinny być parsowane w przeglądarce. `build_activities.py` powinien walidować definicje i generować JSON umieszczany w katalogu publikowanym przez MkDocs, np.:
+Pliki YAML nie są parsowane w przeglądarce. `build_activities.py` waliduje definicje w obu wariantach prezentacji, a w wariancie `interactive` zapisuje JSON bezpośrednio do katalogu wynikowego MkDocs:
 
 ```text
-docs/assets/generated/activities.json
+<site_dir>/assets/generated/activities.json
 ```
 
-Plik generowany nie powinien być ręcznie edytowany.
+Manifest nie powstaje w `docs/`, nie powinien być ręcznie edytowany i nie jest publikowany w wariancie `clean`. Clean build wyklucza również `docs/javascripts/interactive/**` oraz `docs/stylesheets/interactive.css`.
+
+Każdy wpis publikowanego manifestu zawiera pochodne `page_url` odczytane z
+`Page.url` MkDocs. Pole służy wyłącznie frontendowi i nie jest częścią
+autorskiego pliku YAML.
 
 ---
 
 ## 13. Pierwszy pionowy wycinek (MVP-0)
+
+Ta sekcja dokumentuje historyczny zakres POC. Bieżący kontrakt autorski znajduje się w sekcji 6 i używa schema v2, jednego końcowego slotu na stronę oraz dwóch aktywnych typów treści: `single_choice` i `code`.
 
 ### Cel
 
@@ -586,21 +709,21 @@ W `PUBLIC_FULL`:
 - brak kont;
 - brak LTI;
 - pełny tekst;
-- pełne mikroaktywności;
-- postęp w `localStorage`;
-- jasna informacja, że postęp jest lokalny dla tej przeglądarki.
+- w prezentacji `interactive`: pełne mikroaktywności i postęp w `localStorage`;
+- w prezentacji `clean`: statyczny tekst bez warstwy postępu;
+- przy lokalnym postępie: jasna informacja, że jest właściwy dla tej przeglądarki.
 
 W `MOODLE_ONLY`:
 
 - serwer/reverse proxy nie udostępnia materiału bez poprawnej sesji kursowej;
-- frontend korzysta z `RemoteProgressStore`;
+- frontend wariantu `interactive` korzysta z `RemoteProgressStore`;
 - żadnego formularza logowania lokalnego.
 
 ---
 
-## 18. Zasada „publiczny i kursowy frontend to ten sam produkt”
+## 18. Zasada „publiczny i kursowy frontend interactive to ten sam produkt”
 
-Nie tworzymy dwóch paczek JavaScript i dwóch wersji strony.
+Nie tworzymy osobnych paczek JavaScript dla dostępu publicznego i kursowego. Wariant `interactive` używa tego samego Activity Engine, a źródło postępu wynika z trybu dostępu. Osobny statyczny wariant `clean` powstaje z tych samych źródeł Markdown przez konfigurację builda.
 
 Uruchomienie powinno wyglądać ideowo tak:
 
@@ -613,7 +736,7 @@ const engine = new ActivityEngine({ store });
 engine.start();
 ```
 
-Różnica jest w konfiguracji i magazynie postępu, nie w treści aktywności.
+Różnica publiczny/kursowy jest w konfiguracji i magazynie postępu, nie w treści aktywności. Jest to oś niezależna od wyboru `clean`/`interactive`.
 
 ---
 
@@ -648,19 +771,19 @@ Po MVP-0 warto dodać GitHub Actions, które wykonują:
 
 ```text
 1. walidację YAML aktywności
-2. generowanie manifestu
-3. mkdocs build
+2. walidację pojedynczych slotów i jawnych section_id w schema v2
+3. osobne buildy MkDocs clean oraz interactive
 4. testy JavaScript / testy przeglądarkowe
-5. kontrolę, czy wszystkie sloty wskazane przez aktywności istnieją
+5. kontrolę, że tylko interactive publikuje manifest i zasoby interaktywne
 ```
 
 W późniejszym etapie CI może raportować aktywności wymagające przeglądu po zmianie powiązanej treści.
 
 ---
 
-## 21. Sugerowany sposób pracy z Codex w VS Code
+## 21. Historyczna sekwencja prac MVP-0 (archiwum)
 
-Codex powinien być używany do małych, dobrze ograniczonych etapów. Nie należy zaczynać od polecenia „zbuduj cały system”.
+Poniższa sekwencja dokumentuje sposób, w jaki powstał pierwszy POC. Nie jest bieżącą instrukcją autorską; aktualny kontrakt znajduje się w sekcji 6.
 
 Przykładowa sekwencja zadań:
 
@@ -688,9 +811,9 @@ Taki sposób pracy ogranicza ryzyko dużego, trudnego do oceny patcha.
 
 ---
 
-## 22. Definicja zakończenia etapu MVP-0
+## 22. Historyczna definicja zakończenia etapu MVP-0 (archiwum)
 
-Etap jest zakończony, kiedy można pokazać jedną stronę istniejącego podręcznika, która:
+Pierwotny etap uznawaliśmy za zakończony, kiedy można było pokazać jedną stronę istniejącego podręcznika, która:
 
 - nadal jest zwykłą stroną MkDocs;
 - zawiera trzy różne mikroaktywności;
@@ -711,12 +834,15 @@ Dopiero po tym etapie rozpoczynamy osobny spike LTI i tworzenie `python-notatki-
 Po obejrzeniu działającego prototypu należy świadomie zdecydować:
 
 - czy YAML jest wygodnym formatem autorskim;
-- czy aktywności powinny być ładowane per strona czy z jednego manifestu;
 - czy prosty edytor kodu wystarcza;
 - jaki poziom postępu ma trafiać do Moodle;
 - czy backend ma korzystać z Flask/Django/innego frameworka na podstawie aktualnej kompatybilności LTI;
 - czy potrzebny jest osobny panel prowadzącego;
 - jak dokładnie działa sezonowe `PUBLIC_FULL`;
 - kiedy wdrożyć wykrywanie zmian treści zależnych od aktywności.
+- jak odizolować cykl życia runtime'u wielu aktywności `code`: obecna
+  implementacja współdzieli jedną instancję `PyodideRuntime`, więc reset Workera
+  z jednej aktywności może przerwać wykonanie uruchomione w innej; MVP nie
+  rozwiązuje jeszcze tego przypadku.
 
 Te decyzje nie powinny blokować pierwszego pionowego wycinka.

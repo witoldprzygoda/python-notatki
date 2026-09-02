@@ -1,16 +1,11 @@
-schema_version: 1
+schema_version: 2
 page: 04-sterowanie/petle-i-iteratory.md
+slot_id: petle-i-iteratory-activities
 
 activities:
-  - activity_id: flow-for-read-001
-    version: 1
-    slot_id: flow-for-basics
-    type: acknowledgement
-    label: "Zapoznałem się z podstawami pętli for"
-
   - activity_id: flow-for-quiz-001
     version: 1
-    slot_id: flow-for-basics
+    section_id: petla-for
     type: single_choice
     label: "Sprawdzenie zrozumienia pętli for"
     prompt: "Ile razy wykona się ciało pętli for przechodzącej po łańcuchu „abc”?"
@@ -23,12 +18,12 @@ activities:
         label: "Cztery razy"
     correct_option_id: b
     feedback:
-      correct: "Poprawnie. Pętla wykona się raz dla każdego z trzech znaków."
-      incorrect: "Niepoprawnie. Łańcuch „abc” zawiera trzy znaki, a pętla wykona się raz dla każdego z nich."
+      correct: "Pętla wykona się raz dla każdego z trzech znaków."
+      incorrect: "Łańcuch „abc” zawiera trzy znaki, a pętla wykona się raz dla każdego z nich."
 
   - activity_id: flow-for-code-001
     version: 1
-    slot_id: flow-for-basics
+    section_id: petla-for
     type: code
     label: "Ćwiczenie: iteracja po łańcuchu"
     prompt: "Uzupełnij ciało pętli tak, aby wypisać każdy znak w osobnym wierszu."
@@ -43,5 +38,5 @@ activities:
         - "b"
         - "c"
     feedback:
-      correct: "Poprawnie. Program wypisał wszystkie znaki w oczekiwanej kolejności."
-      incorrect: "Niepoprawnie. Wynik powinien zawierać znaki a, b i c, każdy w osobnym wierszu."
+      correct: "Program wypisał wszystkie znaki w oczekiwanej kolejności."
+      incorrect: "Wynik powinien zawierać znaki a, b i c, każdy w osobnym wierszu."

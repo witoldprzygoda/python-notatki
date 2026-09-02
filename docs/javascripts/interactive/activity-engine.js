@@ -1,3 +1,6 @@
+import { createPageActivities } from "./page-activities.js";
+
+
 export class ActivityEngine {
   constructor({ store, renderers }) {
     this.store = store;
@@ -21,7 +24,8 @@ export class ActivityEngine {
       const matchingActivities = activities.filter(
         (activity) => activity.slot_id === slot.dataset.activitySlot,
       );
-      const fragment = slot.ownerDocument.createDocumentFragment();
+      const pageActivities = createPageActivities(slot.ownerDocument);
+      let renderedActivityCount = 0;
 
       for (const activity of matchingActivities) {
         const renderer = this.renderers.get(activity.type);
@@ -29,16 +33,19 @@ export class ActivityEngine {
           console.warn(`Brak renderera aktywności typu ${activity.type}.`);
           continue;
         }
-        fragment.append(
+        pageActivities.content.append(
           await renderer({
             activity,
             store: this.store,
             document: slot.ownerDocument,
           }),
         );
+        renderedActivityCount += 1;
       }
 
-      slot.replaceChildren(fragment);
+      slot.replaceChildren(
+        ...(renderedActivityCount > 0 ? [pageActivities.root] : []),
+      );
       this.renderedSlots.add(slot);
     } finally {
       this.pendingSlots.delete(slot);

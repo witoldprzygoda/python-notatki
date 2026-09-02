@@ -34,6 +34,17 @@ function requireActivityId(activityId) {
 }
 
 
+function requireResetActivityIds(activityIds) {
+  if (activityIds === null) {
+    return;
+  }
+  if (!Array.isArray(activityIds)) {
+    throw new TypeError("activityIds musi być tablicą identyfikatorów albo null.");
+  }
+  activityIds.forEach(requireActivityId);
+}
+
+
 function requireState(state) {
   if (!isRecord(state)) {
     throw new TypeError("Stan aktywności musi być obiektem.");
@@ -123,8 +134,23 @@ export class BrowserProgressStore extends ProgressStore {
     };
   }
 
-  async reset() {
-    this.storage.removeItem(this.storageKey);
+  async reset(activityIds = null) {
+    requireResetActivityIds(activityIds);
+
+    if (activityIds === null) {
+      this.storage.removeItem(this.storageKey);
+      return;
+    }
+
+    if (activityIds.length === 0) {
+      return;
+    }
+
+    const document = this.#readDocument();
+    for (const activityId of new Set(activityIds)) {
+      delete document.activities[activityId];
+    }
+    this.storage.setItem(this.storageKey, JSON.stringify(document));
   }
 
   #readDocument() {

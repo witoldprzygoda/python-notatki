@@ -20,7 +20,8 @@ export class ProgressStore {
     throw new Error("Metoda getSummary() nie została zaimplementowana.");
   }
 
-  async reset() {
+  async reset(activityIds = null) {
+    void activityIds;
     throw new Error("Metoda reset() nie została zaimplementowana.");
   }
 }

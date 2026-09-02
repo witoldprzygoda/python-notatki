@@ -1,3 +1,6 @@
+import { createActivityShell } from "../activity-dom.js";
+
+
 function previousAttempts(state) {
   return Number.isInteger(state?.attempts) && state.attempts >= 0
     ? state.attempts
@@ -14,15 +17,24 @@ export function deriveCodeControlState({
   preparing,
   running,
   checking,
+  restarting = false,
   executionIsCurrent,
+  workerAvailable = false,
+  activityCanRestart = false,
 }) {
-  const busy = preparing || running || checking;
+  const busy = preparing || running || checking || restarting;
   return {
     editorDisabled: busy,
     runDisabled: busy,
-    stopDisabled: !running,
-    resetDisabled: preparing || checking,
+    stopDisabled: restarting || !running,
+    resetDisabled:
+      preparing || checking || restarting || !workerAvailable,
     checkDisabled: busy || !executionIsCurrent,
+    restartActivityDisabled:
+      preparing
+      || checking
+      || restarting
+      || (!running && !activityCanRestart),
   };
 }
 
@@ -175,9 +187,7 @@ export function checkCodeResult(activity, execution) {
 
 
 function setProgressSummary(element, state) {
-  const completion = wasCompleted(state) ? " Aktywność ukończona." : "";
-  element.textContent =
-    `Liczba prób sprawdzenia: ${previousAttempts(state)}.${completion}`;
+  element.textContent = `Próby: ${previousAttempts(state)}`;
 }
 
 
@@ -190,11 +200,45 @@ function appendError(stderrElement, message) {
 }
 
 
+function clearFeedback(feedback) {
+  feedback.className = "interactive-activity__message";
+  feedback.textContent = "";
+  feedback.hidden = true;
+}
+
+
+function showFeedback(activity, result, feedback) {
+  const correct = result === "correct";
+  feedback.className =
+    `interactive-activity__message interactive-activity__message--${result}`;
+
+  const resultLabel = feedback.ownerDocument.createElement("strong");
+  resultLabel.className = "interactive-activity__message-result";
+  resultLabel.textContent = correct ? "✓ Poprawnie" : "! Niepoprawnie";
+
+  const explanation = feedback.ownerDocument.createElement("span");
+  explanation.className = "interactive-activity__message-explanation";
+  explanation.textContent = correct
+    ? activity.feedback.correct
+    : activity.feedback.incorrect;
+
+  feedback.replaceChildren(resultLabel, explanation);
+  feedback.hidden = false;
+}
+
+
+function showTechnicalError(feedback, text) {
+  feedback.className =
+    "interactive-activity__message interactive-activity__message--error";
+  feedback.textContent = `Błąd techniczny: ${text}`;
+  feedback.hidden = false;
+}
+
+
 function restoreFeedback(activity, state, feedback) {
   const lastResult = state?.payload?.last_result;
   if (lastResult === "correct" || lastResult === "incorrect") {
-    feedback.textContent = activity.feedback[lastResult];
-    feedback.hidden = false;
+    showFeedback(activity, lastResult, feedback);
   }
 }
 
@@ -215,117 +259,198 @@ export function createCodeRenderer({ runtime }) {
   requireRuntime(runtime);
 
   return async function renderCode({ activity, store, document }) {
-    const section = document.createElement("section");
-    section.className = "interactive-activity interactive-activity--code";
-    section.dataset.activityId = activity.activity_id;
-
-    const heading = document.createElement("h3");
-    heading.textContent = activity.label;
-
-    const prompt = document.createElement("p");
-    prompt.className = "interactive-activity__prompt";
-    const promptLabel = document.createElement("strong");
-    promptLabel.textContent = "Polecenie:";
-    prompt.append(promptLabel, ` ${activity.prompt}`);
+    const shell = createActivityShell({
+      document,
+      activity,
+      type: "code",
+      typeLabel: "Ćwiczenie z kodem",
+      title: activity.label,
+      prompt: activity.prompt,
+    });
 
     const editorLabel = document.createElement("label");
-    const editorId = `code-editor-${activity.activity_id}`;
+    editorLabel.className = "interactive-activity__editor-label";
+    const editorId = `${shell.promptId}-editor`;
     editorLabel.htmlFor = editorId;
     editorLabel.textContent = "Kod Python";
 
+    const editorHelp = document.createElement("p");
+    const editorHelpId = `${editorId}-help`;
+    editorHelp.id = editorHelpId;
+    editorHelp.className = "interactive-activity__editor-help";
+    editorHelp.textContent = "Tab — wcięcie · Esc — przejście do przycisków";
+
     const editor = document.createElement("textarea");
     editor.id = editorId;
-    editor.rows = 8;
+    editor.className = "interactive-activity__editor";
+    editor.rows = 6;
     editor.spellcheck = false;
     editor.setAttribute("autocapitalize", "off");
     editor.setAttribute("autocomplete", "off");
+    editor.setAttribute(
+      "aria-describedby",
+      `${shell.promptId} ${editorHelpId}`,
+    );
     editor.value = activity.starter_code;
 
-    const controls = document.createElement("div");
-    controls.className = "interactive-activity__controls";
+    const executionControls = document.createElement("div");
+    executionControls.className = "interactive-activity__actions";
+    executionControls.setAttribute("role", "group");
+    executionControls.setAttribute(
+      "aria-label",
+      "Uruchamianie i sprawdzanie kodu",
+    );
 
     const runButton = document.createElement("button");
     runButton.type = "button";
+    runButton.className =
+      "interactive-activity__button interactive-activity__button--primary";
     runButton.textContent = "Uruchom";
 
     const stopButton = document.createElement("button");
     stopButton.type = "button";
+    stopButton.className = "interactive-activity__button";
     stopButton.textContent = "Zatrzymaj";
     stopButton.disabled = true;
 
     const resetButton = document.createElement("button");
     resetButton.type = "button";
+    resetButton.className = "interactive-activity__button";
     resetButton.textContent = "Resetuj interpreter";
+    resetButton.disabled = true;
 
     const checkButton = document.createElement("button");
     checkButton.type = "button";
+    checkButton.className =
+      "interactive-activity__button interactive-activity__button--primary";
     checkButton.textContent = "Sprawdź";
     checkButton.disabled = true;
 
-    controls.append(runButton, stopButton, resetButton, checkButton);
+    executionControls.append(runButton, stopButton, checkButton);
+
+    const resetControls = document.createElement("div");
+    resetControls.className = "interactive-activity__actions";
+    resetControls.setAttribute("role", "group");
+    resetControls.setAttribute(
+      "aria-label",
+      "Resetowanie interpretera lub ćwiczenia",
+    );
+
+    const restartActivityButton = document.createElement("button");
+    restartActivityButton.type = "button";
+    restartActivityButton.className = "interactive-activity__button";
+    restartActivityButton.textContent = "Zacznij od nowa";
+    restartActivityButton.disabled = true;
+
+    resetControls.append(resetButton, restartActivityButton);
 
     const status = document.createElement("p");
+    status.className = "interactive-activity__runtime-status";
     status.setAttribute("aria-live", "polite");
+    status.setAttribute("aria-atomic", "true");
     status.textContent = "Interpreter nie został jeszcze uruchomiony.";
 
-    const stdoutLabel = document.createElement("p");
+    const outputs = document.createElement("div");
+    outputs.className = "interactive-activity__outputs";
+
+    const stdoutGroup = document.createElement("div");
+    stdoutGroup.className = "interactive-activity__output-group";
+    const stdoutLabel = document.createElement("div");
+    const stdoutLabelId = `${editorId}-stdout-label`;
+    stdoutLabel.id = stdoutLabelId;
+    stdoutLabel.className = "interactive-activity__output-title";
     stdoutLabel.textContent = "Standardowe wyjście (stdout)";
     const stdout = document.createElement("pre");
     stdout.className = "interactive-activity__output";
+    stdout.setAttribute("aria-labelledby", stdoutLabelId);
+    stdoutGroup.append(stdoutLabel, stdout);
 
-    const stderrLabel = document.createElement("p");
+    const stderrGroup = document.createElement("div");
+    stderrGroup.className =
+      "interactive-activity__output-group interactive-activity__output-group--stderr";
+    const stderrLabel = document.createElement("div");
+    const stderrLabelId = `${editorId}-stderr-label`;
+    stderrLabel.id = stderrLabelId;
+    stderrLabel.className = "interactive-activity__output-title";
     stderrLabel.textContent = "Błędy i komunikaty diagnostyczne (stderr)";
     const stderr = document.createElement("pre");
     stderr.className = "interactive-activity__output";
+    stderr.setAttribute("aria-labelledby", stderrLabelId);
+    stderrGroup.append(stderrLabel, stderr);
+    outputs.append(stdoutGroup, stderrGroup);
 
     const feedback = document.createElement("p");
+    feedback.className = "interactive-activity__message";
     feedback.setAttribute("aria-live", "polite");
+    feedback.setAttribute("aria-atomic", "true");
     feedback.hidden = true;
 
     const summary = document.createElement("p");
+    summary.className = "interactive-activity__meta";
     let savedState = null;
+    let hasSavedState = false;
+    let progressReadFailed = false;
     try {
       savedState = await store.get(activity.activity_id);
+      hasSavedState = savedState !== null;
       const sourceCode = savedState?.payload?.source_code;
       if (typeof sourceCode === "string") {
         editor.value = sourceCode;
       }
       restoreFeedback(activity, savedState, feedback);
       setProgressSummary(summary, savedState);
+      shell.setProgressState(wasCompleted(savedState) ? "completed" : "pending");
     } catch (error) {
-      summary.textContent = "Nie można odczytać lokalnego stanu aktywności.";
+      progressReadFailed = true;
+      shell.setProgressState("unknown");
+      setProgressSummary(summary, null);
+      showTechnicalError(
+        feedback,
+        "nie można odczytać lokalnego stanu aktywności.",
+      );
       console.warn("Nie udało się odczytać postępu aktywności code.", error);
     }
 
     let preparing = false;
     let running = false;
     let checking = false;
+    let restarting = false;
+    let workerAvailable = false;
+    let localStateChanged = false;
     let lastExecution = null;
+    let activeRunPromise = null;
 
     function updateControls() {
       const controlState = deriveCodeControlState({
         preparing,
         running,
         checking,
+        restarting,
         executionIsCurrent:
           Boolean(lastExecution)
           && lastExecution.sourceCode === editor.value,
+        workerAvailable,
+        activityCanRestart:
+          !progressReadFailed
+          && (hasSavedState || localStateChanged),
       });
       editor.disabled = controlState.editorDisabled;
       runButton.disabled = controlState.runDisabled;
       stopButton.disabled = controlState.stopDisabled;
       resetButton.disabled = controlState.resetDisabled;
       checkButton.disabled = controlState.checkDisabled;
+      restartActivityButton.disabled =
+        controlState.restartActivityDisabled;
     }
 
     function invalidateExecution() {
       lastExecution = null;
-      feedback.textContent = "";
-      feedback.hidden = true;
+      clearFeedback(feedback);
       updateControls();
     }
 
     function handleEditorChange() {
+      localStateChanged = true;
       if (lastExecution?.sourceCode !== editor.value) {
         invalidateExecution();
         status.textContent = "Kod zmieniono. Uruchom go ponownie przed sprawdzeniem.";
@@ -335,6 +460,21 @@ export function createCodeRenderer({ runtime }) {
     editor.addEventListener("input", handleEditorChange);
 
     editor.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        const firstAvailableButton = [
+          runButton,
+          stopButton,
+          checkButton,
+          resetButton,
+          restartActivityButton,
+        ].find((button) => !button.disabled);
+        if (firstAvailableButton) {
+          event.preventDefault();
+          firstAvailableButton.focus();
+        }
+        return;
+      }
+
       if (event.key !== "Tab") {
         return;
       }
@@ -361,8 +501,9 @@ export function createCodeRenderer({ runtime }) {
       }
     });
 
-    runButton.addEventListener("click", async () => {
+    async function performRun() {
       const sourceCode = editor.value;
+      localStateChanged = true;
       invalidateExecution();
       stdout.textContent = "";
       stderr.textContent = "";
@@ -377,10 +518,15 @@ export function createCodeRenderer({ runtime }) {
           activity.activity_id,
           createCodeRunProgressState(activity, currentState, sourceCode),
         );
+        hasSavedState = true;
         setProgressSummary(summary, savedState);
+        shell.setProgressState(wasCompleted(savedState) ? "completed" : "pending");
       } catch (error) {
         progressSaved = false;
-        summary.textContent = "Nie udało się zapisać kodu i postępu aktywności.";
+        showTechnicalError(
+          feedback,
+          "nie udało się zapisać kodu i postępu aktywności.",
+        );
         console.warn("Nie udało się zapisać postępu aktywności code.", error);
       }
 
@@ -388,7 +534,7 @@ export function createCodeRenderer({ runtime }) {
       running = true;
       updateControls();
       try {
-        const result = await runtime.run(sourceCode, {
+        const runtimePromise = runtime.run(sourceCode, {
           onState: (runtimeState) => {
             status.textContent = runtimeState === "loading"
               ? "Ładowanie interpretera Python…"
@@ -399,6 +545,9 @@ export function createCodeRenderer({ runtime }) {
             output.textContent += chunk;
           },
         });
+        workerAvailable = true;
+        updateControls();
+        const result = await runtimePromise;
         stdout.textContent = result.stdout;
         stderr.textContent = result.stderr;
         lastExecution = {
@@ -411,6 +560,12 @@ export function createCodeRenderer({ runtime }) {
           : "Wykonanie zakończone, ale nie zapisano lokalnego postępu.";
       } catch (error) {
         lastExecution = null;
+        workerAvailable = error?.code === "execution_error";
+
+        if (restarting && error?.code === "reset") {
+          return;
+        }
+
         if (error?.code === "reset") {
           stdout.textContent = "";
           stderr.textContent = "";
@@ -436,20 +591,101 @@ export function createCodeRenderer({ runtime }) {
         running = false;
         updateControls();
       }
+    }
+
+    runButton.addEventListener("click", () => {
+      if (preparing || running || checking || restarting) {
+        return undefined;
+      }
+
+      const operation = performRun();
+      const trackedOperation = operation.finally(() => {
+        if (activeRunPromise === trackedOperation) {
+          activeRunPromise = null;
+        }
+      });
+      activeRunPromise = trackedOperation;
+      return trackedOperation;
     });
 
     stopButton.addEventListener("click", () => {
       runtime.stop();
+      workerAvailable = false;
       invalidateExecution();
       status.textContent = "Zatrzymywanie wykonania…";
     });
 
     resetButton.addEventListener("click", () => {
+      if (!workerAvailable || preparing || checking || restarting) {
+        return;
+      }
       runtime.reset();
+      workerAvailable = false;
       invalidateExecution();
       stdout.textContent = "";
       stderr.textContent = "";
       status.textContent = "Interpreter zresetowano. Następny Run załaduje go ponownie.";
+    });
+
+    restartActivityButton.addEventListener("click", async () => {
+      if (
+        preparing
+        || checking
+        || restarting
+        || progressReadFailed
+        || (!running && !hasSavedState && !localStateChanged)
+      ) {
+        return;
+      }
+
+      restarting = true;
+      updateControls();
+      const interruptedRun = activeRunPromise;
+      let runtimeWasReset = false;
+      let restartSucceeded = false;
+
+      try {
+        runtime.reset();
+        runtimeWasReset = true;
+        workerAvailable = false;
+        lastExecution = null;
+        updateControls();
+
+        if (interruptedRun) {
+          await interruptedRun;
+        }
+
+        if (hasSavedState) {
+          await store.reset([activity.activity_id]);
+        }
+
+        savedState = null;
+        hasSavedState = false;
+        localStateChanged = false;
+        editor.value = activity.starter_code;
+        stdout.textContent = "";
+        stderr.textContent = "";
+        clearFeedback(feedback);
+        setProgressSummary(summary, null);
+        shell.setProgressState("pending");
+        status.textContent = "Interpreter nie został jeszcze uruchomiony.";
+        restartSucceeded = true;
+      } catch (error) {
+        showTechnicalError(
+          feedback,
+          "nie udało się rozpocząć aktywności od nowa.",
+        );
+        status.textContent = runtimeWasReset
+          ? "Interpreter zresetowano, ale nie udało się wyzerować postępu aktywności."
+          : "Nie udało się zresetować interpretera ani rozpocząć aktywności od nowa.";
+        console.warn("Nie udało się rozpocząć aktywności code od nowa.", error);
+      } finally {
+        restarting = false;
+        updateControls();
+        if (restartSucceeded) {
+          editor.focus();
+        }
+      }
     });
 
     checkButton.addEventListener("click", async () => {
@@ -465,9 +701,10 @@ export function createCodeRenderer({ runtime }) {
         try {
           isCorrect = checkCodeResult(activity, lastExecution);
         } catch (error) {
-          feedback.textContent =
-            "Nie można sprawdzić rozwiązania z powodu błędu konfiguracji aktywności.";
-          feedback.hidden = false;
+          showTechnicalError(
+            feedback,
+            "nie można sprawdzić rozwiązania z powodu błędu konfiguracji aktywności.",
+          );
           console.error("Błąd konfiguracji checkera aktywności code.", error);
           return;
         }
@@ -481,12 +718,17 @@ export function createCodeRenderer({ runtime }) {
             isCorrect,
           );
           savedState = await store.save(activity.activity_id, nextState);
-          feedback.textContent = activity.feedback[nextState.payload.last_result];
-          feedback.hidden = false;
+          hasSavedState = true;
+          showFeedback(activity, nextState.payload.last_result, feedback);
           setProgressSummary(summary, savedState);
+          shell.setProgressState(
+            wasCompleted(savedState) ? "completed" : "pending",
+          );
         } catch (error) {
-          feedback.textContent = "Nie udało się zapisać wyniku sprawdzenia.";
-          feedback.hidden = false;
+          showTechnicalError(
+            feedback,
+            "nie udało się zapisać wyniku sprawdzenia.",
+          );
           console.warn("Nie udało się zapisać postępu aktywności code.", error);
         }
       } finally {
@@ -495,20 +737,17 @@ export function createCodeRenderer({ runtime }) {
       }
     });
 
-    section.append(
-      heading,
-      prompt,
+    updateControls();
+
+    shell.interaction.append(
       editorLabel,
+      editorHelp,
       editor,
-      controls,
-      status,
-      stdoutLabel,
-      stdout,
-      stderrLabel,
-      stderr,
-      feedback,
-      summary,
+      executionControls,
+      resetControls,
+      outputs,
     );
-    return section;
+    shell.messages.append(status, feedback, summary);
+    return shell.root;
   };
 }
