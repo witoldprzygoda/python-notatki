@@ -45,6 +45,7 @@ test("poprawna próba kończy aktywność", () => {
       score: 1,
       attempts: 2,
       payload: {
+        completion_method: "checked",
         selected_option_id: "b",
         last_result: "correct",
       },
@@ -72,6 +73,7 @@ test("późniejsza błędna próba nie cofa ukończenia ani wyniku", () => {
       score: 1,
       attempts: 3,
       payload: {
+        completion_method: "checked",
         selected_option_id: "c",
         last_result: "incorrect",
       },

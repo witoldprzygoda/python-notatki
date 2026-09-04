@@ -11,6 +11,7 @@ export function createActivityShell({
   typeLabel,
   title,
   prompt,
+  stateAction = false,
 }) {
   const root = document.createElement("section");
   root.className = `interactive-activity interactive-activity--${type}`;
@@ -39,11 +40,29 @@ export function createActivityShell({
   titleElement.textContent = title;
 
   const progress = document.createElement("div");
-  progress.className = "interactive-activity__progress";
+  progress.className =
+    "interactive-activity__header-control interactive-activity__progress";
   progress.textContent = "○ Do wykonania";
 
+  let stateActionButton = null;
+  let headerState = null;
+  if (stateAction) {
+    headerState = document.createElement("div");
+    headerState.className = "interactive-activity__header-state";
+
+    stateActionButton = document.createElement("button");
+    stateActionButton.type = "button";
+    stateActionButton.setAttribute("type", "button");
+    stateActionButton.className =
+      "interactive-activity__button interactive-activity__header-control "
+      + "interactive-activity__state-action";
+    stateActionButton.textContent = "Oznacz jako wykonane";
+
+    headerState.append(stateActionButton, progress);
+  }
+
   heading.append(typeElement, titleElement);
-  header.append(heading, progress);
+  header.append(heading, headerState ?? progress);
 
   const body = document.createElement("div");
   body.className = "interactive-activity__body";
@@ -70,10 +89,19 @@ export function createActivityShell({
     root.dataset.progressState = state;
     if (state === "completed") {
       progress.textContent = "✓ Wykonano";
+      if (stateActionButton) {
+        stateActionButton.textContent = "Zacznij od nowa";
+      }
     } else if (state === "unknown") {
       progress.textContent = "— Stan niedostępny";
+      if (stateActionButton) {
+        stateActionButton.textContent = "Oznacz jako wykonane";
+      }
     } else {
       progress.textContent = "○ Do wykonania";
+      if (stateActionButton) {
+        stateActionButton.textContent = "Oznacz jako wykonane";
+      }
     }
   }
 
@@ -83,6 +111,7 @@ export function createActivityShell({
     interaction,
     messages,
     progress,
+    stateActionButton,
     prompt: promptElement,
     promptId,
     title: titleElement,

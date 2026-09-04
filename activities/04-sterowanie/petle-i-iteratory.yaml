@@ -1,42 +1,180 @@
-schema_version: 2
+schema_version: 3
 page: 04-sterowanie/petle-i-iteratory.md
 slot_id: petle-i-iteratory-activities
 
 activities:
   - activity_id: flow-for-quiz-001
-    version: 1
+    version: 2
     section_id: petla-for
     type: single_choice
-    label: "Sprawdzenie zrozumienia pętli for"
-    prompt: "Ile razy wykona się ciało pętli for przechodzącej po łańcuchu „abc”?"
+    label: "Break a blok else pętli"
+    prompt: "Pętla for przechodzi po łańcuchu „abc” i zostaje przerwana przez break dla znaku „b”. Blok else związany z pętlą wypisuje „koniec”, a instrukcja znajdująca się już po całej pętli wypisuje „dalej”. Co zostanie wypisane?"
     options:
       - option_id: a
-        label: "Dwa razy"
+        label: "Najpierw „koniec”, potem „dalej”"
       - option_id: b
-        label: "Trzy razy"
+        label: "Tylko „dalej”"
       - option_id: c
-        label: "Cztery razy"
+        label: "Tylko „koniec”"
+      - option_id: d
+        label: "Nic"
     correct_option_id: b
     feedback:
-      correct: "Pętla wykona się raz dla każdego z trzech znaków."
-      incorrect: "Łańcuch „abc” zawiera trzy znaki, a pętla wykona się raz dla każdego z nich."
+      correct: "break pomija blok else związany z pętlą, ale nie kończy całego programu. Instrukcja umieszczona po pętli nadal zostanie wykonana."
+      incorrect: "Blok else pętli wykonuje się tylko po jej normalnym zakończeniu bez break. Samo przerwanie pętli nie pomija kodu znajdującego się po niej."
+    solution:
+      discussion: >-
+        Blok else jest związany z pętlą i wykonuje się tylko po jej normalnym
+        wyczerpaniu. break dla znaku „b” kończy pętlę przed tym momentem, więc
+        „koniec” nie zostanie wypisane. Sterowanie przechodzi jednak do
+        instrukcji po pętli, która wypisuje „dalej”.
 
   - activity_id: flow-for-code-001
-    version: 1
+    version: 2
     section_id: petla-for
     type: code
-    label: "Ćwiczenie: iteracja po łańcuchu"
-    prompt: "Uzupełnij ciało pętli tak, aby wypisać każdy znak w osobnym wierszu."
+    label: "Numerowanie elementów przez enumerate"
+    prompt: "Zmodyfikuj ciało pętli tak, aby wykorzystać oba elementy każdej pary zwracanej przez enumerate i wypisać znaki w formacie „1: a”, „2: b”, „3: c”. Nie zmieniaj wartości tekst ani nagłówka pętli."
     starter_code: |
-      for znak in "abc":
-          # Wypisz bieżący znak.
-          pass
+      tekst = "abc"
+
+      for para in enumerate(tekst, start=1):
+          print(para)
     checker:
       type: stdout_lines_exact
       expected_lines:
-        - "a"
-        - "b"
-        - "c"
+        - "1: a"
+        - "2: b"
+        - "3: c"
     feedback:
-      correct: "Program wypisał wszystkie znaki w oczekiwanej kolejności."
-      incorrect: "Wynik powinien zawierać znaki a, b i c, każdy w osobnym wierszu."
+      correct: "enumerate(..., start=1) zwraca pary zawierające kolejno numer i znak. Po rozpakowaniu lub odczytaniu obu elementów można zbudować wymagany format."
+      incorrect: "print(para) wypisuje zapis całej krotki. Trzeba osobno wykorzystać numer i znak oraz umieścić między nimi dwukropek ze spacją."
+    solution:
+      code: |
+        tekst = "abc"
+
+        for para in enumerate(tekst, start=1):
+            numer, znak = para
+            print(f"{numer}: {znak}")
+      discussion: >-
+        enumerate zwraca kolejno krotki (1, "a"), (2, "b") i (3, "c").
+        Rozpakowanie każdej krotki oddziela numer od znaku, dzięki czemu można
+        je sformatować bez wypisywania nawiasów i przecinka należących do
+        zapisu krotki.
+      alternatives:
+        - label: "Odczyt elementów krotki przez indeks"
+          code: |
+            tekst = "abc"
+
+            for para in enumerate(tekst, start=1):
+                print(para[0], para[1], sep=": ")
+          discussion: >-
+            Ten wariant nie rozpakowuje krotki do nazw, lecz pobiera jej dwa
+            elementy przez indeksy. Argument sep określa dokładny separator
+            użyty przez print.
+
+  - activity_id: flow-range-quiz-001
+    version: 1
+    section_id: leniwa-sekwencja-range
+    type: single_choice
+    label: "Odczytanie sekwencji range"
+    prompt: 'Po wykonaniu r = range(1, 8, 2) jaką wartość ma wyrażenie (len(r), r[-1], list(r[::-1]))?'
+    options:
+      - option_id: a
+        label: "(4, 7, [7, 5, 3, 1])"
+      - option_id: b
+        label: "(3, 7, [7, 5, 3])"
+      - option_id: c
+        label: "(4, 7, [1, 3, 5, 7])"
+      - option_id: d
+        label: "Powstanie TypeError, ponieważ range jest leniwy"
+    correct_option_id: a
+    feedback:
+      correct: "range(1, 8, 2) reprezentuje liczby 1, 3, 5 i 7. Ma więc długość 4, ostatni element równy 7, a wycinek z krokiem -1 odwraca kolejność."
+      incorrect: "Leniwa natura range nie odbiera mu cech sekwencji: obsługuje długość, indeksowanie i wycinki. Granica 8 pozostaje wyłączona."
+    solution:
+      discussion: >-
+        range(1, 8, 2) reprezentuje wartości 1, 3, 5 i 7, ponieważ granica 8
+        jest wyłączona. Dlatego długość wynosi 4, indeks -1 wskazuje 7, a
+        wycinek z krokiem -1 daje te same wartości w odwrotnej kolejności.
+        Leniwa reprezentacja nie odbiera obiektowi range operacji
+        sekwencyjnych.
+
+  - activity_id: flow-iterator-quiz-001
+    version: 1
+    section_id: iteratory
+    type: single_choice
+    label: "Stan iteratora po odczycie"
+    prompt: 'Wykonano kolejno: it = iter("abc"), pierwszy = next(it), reszta_1 = "".join(it) oraz reszta_2 = "".join(it). Jakie wartości mają trzy ostatnie zmienne?'
+    options:
+      - option_id: a
+        label: 'pierwszy == "a", reszta_1 == "bc", reszta_2 == ""'
+      - option_id: b
+        label: 'pierwszy == "a", reszta_1 == "abc", reszta_2 == "abc"'
+      - option_id: c
+        label: 'pierwszy == "a", reszta_1 == "bc", reszta_2 == "bc"'
+      - option_id: d
+        label: "Drugie join zgłosi StopIteration"
+    correct_option_id: a
+    feedback:
+      correct: "next zużywa pierwszy element, a pierwsze join konsumuje dwa pozostałe. Drugie join otrzymuje wyczerpany iterator i zwraca pusty łańcuch."
+      incorrect: "Iterator zachowuje własny stan. Nie rozpoczyna automatycznie nowego przejścia po źródłowym łańcuchu, a join pustego iteratora zwraca pusty tekst zamiast zgłaszać StopIteration."
+    solution:
+      discussion: >-
+        Iterator przechowuje pozycję niezależną od źródłowego łańcucha. next
+        zużywa „a”, a pierwsze join pobiera „b” i „c” aż do końca iteratora.
+        Drugie join nie ma już elementów do połączenia i zwraca pusty łańcuch;
+        StopIteration jest obsługiwane wewnętrznie przez join.
+
+  - activity_id: flow-continue-code-001
+    version: 1
+    section_id: break-continue-pass
+    type: code
+    label: "Naprawa sterowania pętlą"
+    prompt: "Program powinien wypisać nieparzyste liczby od 7 do 1, ale obecnie zaczyna od 5. Nie zmieniaj początkowej wartości liczba. Popraw kolejność lub logikę instrukcji tak, aby pętla zakończyła się i wypisała wszystkie wymagane liczby."
+    starter_code: |
+      liczba = 7
+
+      while liczba > 0:
+          liczba -= 1
+          if liczba % 2 == 0:
+              continue
+          print(liczba)
+    checker:
+      type: stdout_lines_exact
+      expected_lines:
+        - "7"
+        - "5"
+        - "3"
+        - "1"
+    feedback:
+      correct: "Liczba jest teraz sprawdzana przed pominięciem lub wypisaniem, a każda ścieżka pętli ostatecznie prowadzi do jej zmniejszenia."
+      incorrect: "W obecnym kodzie licznik jest zmniejszany przed pierwszym sprawdzeniem, dlatego wartość 7 nigdy nie trafia do print. Uważaj też, aby continue nie omijało jedynej instrukcji zmniejszającej licznik."
+    solution:
+      code: |
+        liczba = 7
+
+        while liczba > 0:
+            if liczba % 2 == 0:
+                liczba -= 1
+                continue
+            print(liczba)
+            liczba -= 1
+      discussion: >-
+        Pierwsze sprawdzenie odbywa się dla początkowej wartości 7. Wartości
+        parzyste nie są wypisywane, ale przed continue licznik zostaje
+        zmniejszony; dzięki temu żadna ścieżka nie pomija aktualizacji i pętla
+        może się zakończyć.
+      alternatives:
+        - label: "Jedna aktualizacja licznika na końcu iteracji"
+          code: |
+            liczba = 7
+
+            while liczba > 0:
+                if liczba % 2 != 0:
+                    print(liczba)
+                liczba -= 1
+          discussion: >-
+            Warunek dodatni eliminuje potrzebę użycia continue. Aktualizacja
+            znajduje się poza instrukcją if, więc wykonuje się przy każdej
+            wartości licznika.

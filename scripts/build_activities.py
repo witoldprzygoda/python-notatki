@@ -13,7 +13,7 @@ import yaml
 
 log = logging.getLogger("mkdocs.hooks.activities")
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SUPPORTED_TYPES = {"acknowledgement", "single_choice", "code"}
 REQUIRED_ACTIVITY_FIELDS = {
     "activity_id",
@@ -73,6 +73,40 @@ def _require_non_empty_string(value: Any, field: str, source: Path) -> str:
     return value
 
 
+def _require_plain_text(value: Any, field: str, source: Path) -> str:
+    """Validate author-facing prose and return a stable manifest value."""
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{source}: pole {field!r} musi być niepustym tekstem")
+    return value.replace("\r\n", "\n").replace("\r", "\n").strip()
+
+
+def _require_code(value: Any, field: str, source: Path) -> str:
+    """Validate code without changing author-provided whitespace."""
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{source}: pole {field!r} musi zawierać niepusty kod")
+    return value
+
+
+def _require_exact_fields(
+    value: dict[str, Any],
+    *,
+    required: set[str],
+    optional: set[str] | None = None,
+    field: str,
+    source: Path,
+) -> None:
+    allowed = required | (optional or set())
+    missing = required - value.keys()
+    if missing:
+        names = ", ".join(sorted(missing))
+        raise ValueError(f"{source}: pole {field!r} nie zawiera pól: {names}")
+
+    unexpected = value.keys() - allowed
+    if unexpected:
+        names = ", ".join(sorted(unexpected))
+        raise ValueError(f"{source}: pole {field!r} zawiera nieznane pola: {names}")
+
+
 def _source_page_path(page: Any, docs_dir: Path, source: Path) -> tuple[str, Path]:
     page_value = _require_non_empty_string(page, "page", source)
     page_path = PurePosixPath(page_value)
@@ -113,7 +147,7 @@ def _validate_activity(
 
     if "slot_id" in activity:
         raise ValueError(
-            f"{source}: w schema_version 2 pole 'slot_id' należy umieścić "
+            f"{source}: w schema_version {SCHEMA_VERSION} pole 'slot_id' należy umieścić "
             "na poziomie dokumentu, nie aktywności"
         )
     if "page_url" in activity:
@@ -226,30 +260,135 @@ def _validate_single_choice(activity: dict[str, Any], source: Path) -> dict[str,
             f"{source}: pole 'feedback' aktywności single_choice musi być mapą"
         )
 
+    validated_feedback = {
+        "correct": _require_non_empty_string(
+            feedback.get("correct"), "feedback.correct", source
+        ),
+        "incorrect": _require_non_empty_string(
+            feedback.get("incorrect"), "feedback.incorrect", source
+        ),
+    }
+    solution = _validate_solution(
+        activity,
+        source=source,
+        activity_type="single_choice",
+        feedback_correct=validated_feedback["correct"],
+    )
+
     return {
         "prompt": prompt,
         "options": validated_options,
         "correct_option_id": correct_option_id,
-        "feedback": {
-            "correct": _require_non_empty_string(
-                feedback.get("correct"), "feedback.correct", source
-            ),
-            "incorrect": _require_non_empty_string(
-                feedback.get("incorrect"), "feedback.incorrect", source
-            ),
-        },
+        "feedback": validated_feedback,
+        "solution": solution,
     }
+
+
+def _validate_solution(
+    activity: dict[str, Any],
+    *,
+    source: Path,
+    activity_type: str,
+    feedback_correct: str,
+) -> dict[str, Any]:
+    solution = activity.get("solution")
+    if not isinstance(solution, dict):
+        raise ValueError(
+            f"{source}: pole 'solution' aktywności {activity_type} musi być mapą"
+        )
+
+    if activity_type == "single_choice":
+        _require_exact_fields(
+            solution,
+            required={"discussion"},
+            field="solution",
+            source=source,
+        )
+    elif activity_type == "code":
+        _require_exact_fields(
+            solution,
+            required={"code", "discussion"},
+            optional={"alternatives"},
+            field="solution",
+            source=source,
+        )
+    else:  # pragma: no cover - callers are limited to the two active types
+        raise ValueError(f"{source}: rozwiązanie nie obsługuje typu {activity_type!r}")
+
+    discussion = _require_plain_text(
+        solution.get("discussion"), "solution.discussion", source
+    )
+    normalized_feedback_correct = feedback_correct.replace("\r\n", "\n").replace(
+        "\r", "\n"
+    )
+    if discussion == normalized_feedback_correct:
+        raise ValueError(
+            f"{source}: pole 'solution.discussion' nie może powtarzać dokładnie "
+            "treści 'feedback.correct'"
+        )
+
+    validated_solution: dict[str, Any] = {"discussion": discussion}
+    if activity_type == "single_choice":
+        return validated_solution
+
+    validated_solution["code"] = _require_code(
+        solution.get("code"), "solution.code", source
+    )
+
+    if "alternatives" not in solution:
+        return validated_solution
+
+    alternatives = solution["alternatives"]
+    if not isinstance(alternatives, list) or not alternatives:
+        raise ValueError(
+            f"{source}: pole 'solution.alternatives' musi być niepustą listą"
+        )
+
+    validated_alternatives: list[dict[str, str]] = []
+    alternative_labels: set[str] = set()
+    for index, alternative in enumerate(alternatives):
+        field = f"solution.alternatives[{index}]"
+        if not isinstance(alternative, dict):
+            raise ValueError(f"{source}: pole {field!r} musi być mapą")
+        _require_exact_fields(
+            alternative,
+            required={"label", "code", "discussion"},
+            field=field,
+            source=source,
+        )
+
+        label = _require_non_empty_string(
+            alternative.get("label"), f"{field}.label", source
+        )
+        if label in alternative_labels:
+            raise ValueError(
+                f"{source}: powtórzona etykieta alternatywnego rozwiązania "
+                f"{label!r}"
+            )
+        alternative_labels.add(label)
+
+        validated_alternatives.append(
+            {
+                "label": label,
+                "code": _require_code(
+                    alternative.get("code"), f"{field}.code", source
+                ),
+                "discussion": _require_plain_text(
+                    alternative.get("discussion"),
+                    f"{field}.discussion",
+                    source,
+                ),
+            }
+        )
+
+    validated_solution["alternatives"] = validated_alternatives
+    return validated_solution
 
 
 def _validate_code(activity: dict[str, Any], source: Path) -> dict[str, Any]:
     prompt = _require_non_empty_string(activity.get("prompt"), "prompt", source)
 
-    starter_code = activity.get("starter_code")
-    if not isinstance(starter_code, str) or not starter_code.strip():
-        raise ValueError(
-            f"{source}: pole 'starter_code' aktywności code musi być "
-            "niepustym tekstem"
-        )
+    starter_code = _require_code(activity.get("starter_code"), "starter_code", source)
 
     checker = activity.get("checker")
     if not isinstance(checker, dict):
@@ -287,6 +426,21 @@ def _validate_code(activity: dict[str, Any], source: Path) -> dict[str, Any]:
     if not isinstance(feedback, dict):
         raise ValueError(f"{source}: pole 'feedback' aktywności code musi być mapą")
 
+    validated_feedback = {
+        "correct": _require_non_empty_string(
+            feedback.get("correct"), "feedback.correct", source
+        ),
+        "incorrect": _require_non_empty_string(
+            feedback.get("incorrect"), "feedback.incorrect", source
+        ),
+    }
+    solution = _validate_solution(
+        activity,
+        source=source,
+        activity_type="code",
+        feedback_correct=validated_feedback["correct"],
+    )
+
     return {
         "prompt": prompt,
         "starter_code": starter_code,
@@ -294,14 +448,8 @@ def _validate_code(activity: dict[str, Any], source: Path) -> dict[str, Any]:
             "type": checker_type,
             "expected_lines": validated_lines,
         },
-        "feedback": {
-            "correct": _require_non_empty_string(
-                feedback.get("correct"), "feedback.correct", source
-            ),
-            "incorrect": _require_non_empty_string(
-                feedback.get("incorrect"), "feedback.incorrect", source
-            ),
-        },
+        "feedback": validated_feedback,
+        "solution": solution,
     }
 
 

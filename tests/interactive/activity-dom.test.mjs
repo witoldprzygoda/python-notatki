@@ -43,6 +43,53 @@ test("tworzy wspólną, opisaną powłokę w stałej kolejności", () => {
   assert.equal(shell.prompt.id, shell.promptId);
   assert.equal(shell.progress.getAttribute("aria-live"), null);
   assert.equal(shell.progress.textContent, "○ Do wykonania");
+  assert.equal(shell.stateActionButton, null);
+});
+
+
+test("tworzy jeden stanowy przycisk nagłówka przed wskaźnikiem", () => {
+  const document = createFakeDocument();
+  const shell = createActivityShell({
+    document,
+    activity: { activity_id: "flow-for-code-001" },
+    type: "code",
+    typeLabel: "Ćwiczenie z kodem",
+    title: "Praca z pętlą",
+    prompt: "Uzupełnij kod.",
+    stateAction: true,
+  });
+
+  const headerState = findByClass(
+    shell.root,
+    "interactive-activity__header-state",
+  );
+  const stateActionButton = shell.stateActionButton;
+
+  assert.ok(headerState);
+  assert.ok(stateActionButton);
+  assert.equal(stateActionButton.tagName, "button");
+  assert.equal(stateActionButton.getAttribute("type"), "button");
+  assert.equal(
+    hasClass(stateActionButton, "interactive-activity__header-control"),
+    true,
+  );
+  assert.equal(
+    hasClass(shell.progress, "interactive-activity__header-control"),
+    true,
+  );
+  assert.deepEqual(headerState.children, [stateActionButton, shell.progress]);
+  assert.equal(stateActionButton.textContent, "Oznacz jako wykonane");
+  assert.equal(shell.progress.textContent, "○ Do wykonania");
+
+  shell.setProgressState("completed");
+  assert.equal(shell.stateActionButton, stateActionButton);
+  assert.equal(stateActionButton.textContent, "Zacznij od nowa");
+  assert.equal(shell.progress.textContent, "✓ Wykonano");
+
+  shell.setProgressState("unknown");
+  assert.equal(shell.stateActionButton, stateActionButton);
+  assert.equal(stateActionButton.textContent, "Oznacz jako wykonane");
+  assert.equal(shell.progress.textContent, "— Stan niedostępny");
 });
 
 

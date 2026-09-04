@@ -1,4 +1,10 @@
 import { createActivityShell } from "../activity-dom.js";
+import { createActivityHelp } from "../activity-help.js";
+import {
+  createCheckedProgressState,
+  createManualCompletionProgressState,
+  isCompleted,
+} from "../activity-progress-state.js";
 
 
 function previousAttempts(state) {
@@ -12,22 +18,53 @@ export function createSingleChoiceProgressState(
   activity,
   previousState,
   selectedOptionId,
+  payloadPatch = {},
 ) {
   const isCorrect = selectedOptionId === activity.correct_option_id;
-  const wasCompleted =
-    previousState?.status === "completed" || previousState?.score === 1;
-  const completed = wasCompleted || isCorrect;
-
-  return {
-    version: activity.version,
-    status: completed ? "completed" : "in_progress",
-    score: completed ? 1 : 0,
-    attempts: previousAttempts(previousState) + 1,
-    payload: {
+  return createCheckedProgressState(activity, previousState, {
+    isCorrect,
+    payloadPatch: {
+      ...payloadPatch,
       selected_option_id: selectedOptionId,
       last_result: isCorrect ? "correct" : "incorrect",
     },
-  };
+  });
+}
+
+
+function createSingleChoiceSolutionContent(document, activity) {
+  const content = document.createElement("div");
+  content.className = "interactive-activity__solution";
+
+  const label = document.createElement("strong");
+  label.className = "interactive-activity__solution-heading";
+  label.textContent = "Poprawna odpowiedź";
+
+  const answer = document.createElement("p");
+  answer.className = "interactive-activity__solution-answer";
+  answer.textContent = activity.options.find(
+    (option) => option.option_id === activity.correct_option_id,
+  )?.label ?? "";
+
+  content.append(label, answer);
+  return content;
+}
+
+
+function createSingleChoiceDiscussionContent(document, activity) {
+  const content = document.createElement("div");
+  content.className = "interactive-activity__discussion";
+
+  const label = document.createElement("strong");
+  label.className = "interactive-activity__solution-heading";
+  label.textContent = "Dlaczego ta odpowiedź jest poprawna";
+
+  const discussion = document.createElement("p");
+  discussion.className = "interactive-activity__discussion-text";
+  discussion.textContent = activity.solution.discussion;
+
+  content.append(label, discussion);
+  return content;
 }
 
 
@@ -89,13 +126,14 @@ function restoreState(activity, state, radioButtons, feedback, summary) {
 }
 
 
-function clearLocalState(radioButtons, feedback, summary, shell) {
+function clearLocalState(radioButtons, feedback, summary, shell, help) {
   for (const radio of radioButtons) {
     radio.checked = false;
   }
   clearFeedback(feedback);
   setProgressSummary(summary, null);
   shell.setProgressState("pending");
+  help.resetLocalRevealState();
 }
 
 
@@ -107,6 +145,7 @@ export async function renderSingleChoice({ activity, store, document }) {
     typeLabel: "Pytanie jednokrotnego wyboru",
     title: activity.label,
     prompt: activity.prompt,
+    stateAction: true,
   });
 
   const form = document.createElement("form");
@@ -146,11 +185,7 @@ export async function renderSingleChoice({ activity, store, document }) {
   checkButton.className =
     "interactive-activity__button interactive-activity__button--primary";
   checkButton.textContent = "Sprawdź";
-  const restartButton = document.createElement("button");
-  restartButton.type = "button";
-  restartButton.className = "interactive-activity__button";
-  restartButton.textContent = "Zacznij od nowa";
-  actions.append(checkButton, restartButton);
+  actions.append(checkButton);
 
   const feedback = document.createElement("p");
   feedback.className = "interactive-activity__message";
@@ -160,27 +195,54 @@ export async function renderSingleChoice({ activity, store, document }) {
 
   const summary = document.createElement("p");
   summary.className = "interactive-activity__meta";
+  const help = createActivityHelp({
+    document,
+    activityId: activity.activity_id,
+    solutionContent: createSingleChoiceSolutionContent(document, activity),
+    discussionContent: createSingleChoiceDiscussionContent(document, activity),
+  });
+  actions.append(help.actions);
   let busy = false;
   let readFailed = false;
   let hasSavedState = false;
+  let savedState = null;
+  let localSolutionRevealed = false;
+  let localDiscussionRevealed = false;
 
-  function hasSelectedOption() {
-    return radioButtons.some((radio) => radio.checked);
+  function currentPayloadPatch(extra = {}) {
+    const selectedRadio = radioButtons.find((radio) => radio.checked);
+    return {
+      ...(selectedRadio
+        ? { selected_option_id: selectedRadio.value }
+        : {}),
+      ...(localSolutionRevealed ? { solution_revealed: true } : {}),
+      ...(localDiscussionRevealed ? { discussion_revealed: true } : {}),
+      ...extra,
+    };
   }
 
   function updateControls() {
     fieldset.disabled = readFailed || busy;
     checkButton.disabled = readFailed || busy;
-    restartButton.disabled =
-      readFailed || busy || (!hasSavedState && !hasSelectedOption());
+    help.setBusy(busy);
+    shell.stateActionButton.disabled = readFailed || busy;
   }
 
   try {
-    const savedState = await store.get(activity.activity_id);
+    savedState = await store.get(activity.activity_id);
     hasSavedState = savedState !== null;
     restoreState(activity, savedState, radioButtons, feedback, summary);
+    localSolutionRevealed =
+      savedState?.payload?.solution_revealed === true
+      || savedState?.payload?.discussion_revealed === true;
+    localDiscussionRevealed =
+      savedState?.payload?.discussion_revealed === true;
+    help.restoreRevealState({
+      solutionRevealed: localSolutionRevealed,
+      discussionRevealed: localDiscussionRevealed,
+    });
     shell.setProgressState(
-      savedState?.status === "completed" ? "completed" : "pending",
+      isCompleted(savedState) ? "completed" : "pending",
     );
   } catch (error) {
     readFailed = true;
@@ -220,12 +282,12 @@ export async function renderSingleChoice({ activity, store, document }) {
         currentState,
         selectedRadio.value,
       );
-      const savedState = await store.save(activity.activity_id, nextState);
+      savedState = await store.save(activity.activity_id, nextState);
       hasSavedState = true;
       showFeedback(activity, nextState.payload.last_result, feedback);
       setProgressSummary(summary, savedState);
       shell.setProgressState(
-        savedState.status === "completed" ? "completed" : "pending",
+        isCompleted(savedState) ? "completed" : "pending",
       );
     } catch (error) {
       showTechnicalError(
@@ -239,15 +301,66 @@ export async function renderSingleChoice({ activity, store, document }) {
     }
   });
 
-  restartButton.addEventListener("click", async () => {
-    if (busy || readFailed || (!hasSavedState && !hasSelectedOption())) {
+  async function saveManualCompletion(completionMethod) {
+    if (busy || readFailed) {
       return;
     }
 
-    if (!hasSavedState) {
-      clearLocalState(radioButtons, feedback, summary, shell);
+    busy = true;
+    updateControls();
+    try {
+      const currentState = await store.get(activity.activity_id);
+      const selectedRadio = radioButtons.find((radio) => radio.checked);
+      const selectionChanged = Boolean(selectedRadio)
+        && selectedRadio.value !== currentState?.payload?.selected_option_id;
+      const nextState = createManualCompletionProgressState(
+        activity,
+        currentState,
+        {
+          completionMethod,
+          payloadPatch: currentPayloadPatch(),
+          removePayloadKeys: selectionChanged ? ["last_result"] : [],
+        },
+      );
+      savedState = await store.save(activity.activity_id, nextState);
+      hasSavedState = true;
+      setProgressSummary(summary, savedState);
+      shell.setProgressState(
+        isCompleted(savedState) ? "completed" : "pending",
+      );
+      if (feedback.className.includes("interactive-activity__message--error")) {
+        clearFeedback(feedback);
+      }
+    } catch (error) {
+      showTechnicalError(feedback, "nie udało się zapisać postępu.");
+      console.warn("Nie udało się zapisać postępu aktywności.", error);
+    } finally {
+      busy = false;
       updateControls();
-      radioButtons[0]?.focus?.();
+    }
+  }
+
+  help.solutionButton.addEventListener("click", async () => {
+    localSolutionRevealed = true;
+    updateControls();
+    if (savedState?.payload?.solution_revealed === true) {
+      return;
+    }
+    await saveManualCompletion("solution_shown");
+  });
+
+  help.discussionButton.addEventListener("click", async () => {
+    localSolutionRevealed = true;
+    localDiscussionRevealed = true;
+    updateControls();
+    if (savedState?.payload?.discussion_revealed === true) {
+      return;
+    }
+    await saveManualCompletion("solution_shown");
+  });
+
+  async function restartActivity() {
+    if (busy || readFailed || !hasSavedState || !isCompleted(savedState)) {
       return;
     }
 
@@ -257,7 +370,10 @@ export async function renderSingleChoice({ activity, store, document }) {
     try {
       await store.reset([activity.activity_id]);
       hasSavedState = false;
-      clearLocalState(radioButtons, feedback, summary, shell);
+      savedState = null;
+      localSolutionRevealed = false;
+      localDiscussionRevealed = false;
+      clearLocalState(radioButtons, feedback, summary, shell, help);
       resetSucceeded = true;
     } catch (error) {
       showTechnicalError(
@@ -272,10 +388,25 @@ export async function renderSingleChoice({ activity, store, document }) {
         radioButtons[0]?.focus?.();
       }
     }
+  }
+
+  shell.stateActionButton.addEventListener("click", async () => {
+    if (busy || readFailed) {
+      return;
+    }
+    if (isCompleted(savedState)) {
+      await restartActivity();
+      return;
+    }
+
+    await saveManualCompletion("self_marked");
+    if (isCompleted(savedState)) {
+      shell.stateActionButton.focus?.();
+    }
   });
 
-  fieldset.append(legend, options, actions);
-  form.append(fieldset);
+  fieldset.append(legend, options);
+  form.append(fieldset, actions, help.panels);
   shell.interaction.append(form);
   shell.messages.append(feedback, summary);
   return shell.root;

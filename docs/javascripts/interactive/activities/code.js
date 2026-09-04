@@ -1,4 +1,11 @@
 import { createActivityShell } from "../activity-dom.js";
+import { createActivityHelp } from "../activity-help.js";
+import {
+  createCheckedProgressState,
+  createCodeRunProgressState as createSharedCodeRunProgressState,
+  createManualCompletionProgressState,
+  isCompleted,
+} from "../activity-progress-state.js";
 
 
 function previousAttempts(state) {
@@ -8,32 +15,34 @@ function previousAttempts(state) {
 }
 
 
-function wasCompleted(state) {
-  return state?.status === "completed" || state?.score === 1;
-}
-
-
 export function deriveCodeControlState({
   preparing,
   running,
   checking,
   restarting = false,
+  savingCompletion = false,
   executionIsCurrent,
   workerAvailable = false,
   activityCanRestart = false,
 }) {
-  const busy = preparing || running || checking || restarting;
+  const busy =
+    preparing || running || checking || restarting || savingCompletion;
   return {
     editorDisabled: busy,
     runDisabled: busy,
     stopDisabled: restarting || !running,
     resetDisabled:
-      preparing || checking || restarting || !workerAvailable,
+      preparing
+      || checking
+      || restarting
+      || savingCompletion
+      || !workerAvailable,
     checkDisabled: busy || !executionIsCurrent,
     restartActivityDisabled:
       preparing
       || checking
       || restarting
+      || savingCompletion
       || (!running && !activityCanRestart),
   };
 }
@@ -118,16 +127,11 @@ export function createCodeRunProgressState(
   previousState,
   sourceCode,
 ) {
-  const completed = wasCompleted(previousState);
-  return {
-    version: activity.version,
-    status: completed ? "completed" : "in_progress",
-    score: completed ? 1 : 0,
-    attempts: previousAttempts(previousState),
-    payload: {
-      source_code: sourceCode,
-    },
-  };
+  return createSharedCodeRunProgressState(
+    activity,
+    previousState,
+    sourceCode,
+  );
 }
 
 
@@ -136,18 +140,16 @@ export function createCodeCheckProgressState(
   previousState,
   sourceCode,
   isCorrect,
+  payloadPatch = {},
 ) {
-  const completed = wasCompleted(previousState) || isCorrect;
-  return {
-    version: activity.version,
-    status: completed ? "completed" : "in_progress",
-    score: completed ? 1 : 0,
-    attempts: previousAttempts(previousState) + 1,
-    payload: {
+  return createCheckedProgressState(activity, previousState, {
+    isCorrect,
+    payloadPatch: {
+      ...payloadPatch,
       source_code: sourceCode,
       last_result: isCorrect ? "correct" : "incorrect",
     },
-  };
+  });
 }
 
 
@@ -243,6 +245,78 @@ function restoreFeedback(activity, state, feedback) {
 }
 
 
+function createReadonlyCodeBlock(document, sourceCode) {
+  const pre = document.createElement("pre");
+  pre.className = "interactive-activity__solution-code";
+  const code = document.createElement("code");
+  code.textContent = sourceCode;
+  pre.append(code);
+  return pre;
+}
+
+
+function createCodeSolutionContent(document, activity) {
+  const content = document.createElement("div");
+  content.className = "interactive-activity__solution";
+
+  const label = document.createElement("strong");
+  label.className = "interactive-activity__solution-heading";
+  label.textContent = "Przykładowe rozwiązanie";
+
+  content.append(
+    label,
+    createReadonlyCodeBlock(document, activity.solution.code),
+  );
+  return content;
+}
+
+
+function createCodeDiscussionContent(document, activity) {
+  const content = document.createElement("div");
+  content.className = "interactive-activity__discussion";
+
+  const explanationLabel = document.createElement("strong");
+  explanationLabel.className = "interactive-activity__solution-heading";
+  explanationLabel.textContent = "Dlaczego działa";
+
+  const explanation = document.createElement("p");
+  explanation.className = "interactive-activity__discussion-text";
+  explanation.textContent = activity.solution.discussion;
+  content.append(explanationLabel, explanation);
+
+  const alternatives = activity.solution.alternatives ?? [];
+  if (alternatives.length > 0) {
+    const alternativesLabel = document.createElement("strong");
+    alternativesLabel.className = "interactive-activity__solution-heading";
+    alternativesLabel.textContent = "Inne poprawne rozwiązania";
+    content.append(alternativesLabel);
+
+    for (const alternative of alternatives) {
+      const alternativeElement = document.createElement("div");
+      alternativeElement.className = "interactive-activity__alternative";
+
+      const alternativeLabel = document.createElement("div");
+      alternativeLabel.className = "interactive-activity__alternative-label";
+      alternativeLabel.textContent = alternative.label;
+
+      const alternativeDiscussion = document.createElement("p");
+      alternativeDiscussion.className =
+        "interactive-activity__discussion-text";
+      alternativeDiscussion.textContent = alternative.discussion;
+
+      alternativeElement.append(
+        alternativeLabel,
+        createReadonlyCodeBlock(document, alternative.code),
+        alternativeDiscussion,
+      );
+      content.append(alternativeElement);
+    }
+  }
+
+  return content;
+}
+
+
 function requireRuntime(runtime) {
   if (
     !runtime
@@ -266,6 +340,7 @@ export function createCodeRenderer({ runtime }) {
       typeLabel: "Ćwiczenie z kodem",
       title: activity.label,
       prompt: activity.prompt,
+      stateAction: true,
     });
 
     const editorLabel = document.createElement("label");
@@ -319,6 +394,12 @@ export function createCodeRenderer({ runtime }) {
     resetButton.textContent = "Resetuj interpreter";
     resetButton.disabled = true;
 
+    const restoreCodeButton = document.createElement("button");
+    restoreCodeButton.type = "button";
+    restoreCodeButton.className = "interactive-activity__button";
+    restoreCodeButton.textContent = "Przywróć kod początkowy";
+    restoreCodeButton.disabled = true;
+
     const checkButton = document.createElement("button");
     checkButton.type = "button";
     checkButton.className =
@@ -329,20 +410,13 @@ export function createCodeRenderer({ runtime }) {
     executionControls.append(runButton, stopButton, checkButton);
 
     const resetControls = document.createElement("div");
-    resetControls.className = "interactive-activity__actions";
+    resetControls.className = "interactive-activity__technical-actions";
     resetControls.setAttribute("role", "group");
     resetControls.setAttribute(
       "aria-label",
-      "Resetowanie interpretera lub ćwiczenia",
+      "Operacje techniczne kodu i interpretera",
     );
-
-    const restartActivityButton = document.createElement("button");
-    restartActivityButton.type = "button";
-    restartActivityButton.className = "interactive-activity__button";
-    restartActivityButton.textContent = "Zacznij od nowa";
-    restartActivityButton.disabled = true;
-
-    resetControls.append(resetButton, restartActivityButton);
+    resetControls.append(restoreCodeButton, resetButton);
 
     const status = document.createElement("p");
     status.className = "interactive-activity__runtime-status";
@@ -387,9 +461,18 @@ export function createCodeRenderer({ runtime }) {
 
     const summary = document.createElement("p");
     summary.className = "interactive-activity__meta";
+    const help = createActivityHelp({
+      document,
+      activityId: activity.activity_id,
+      solutionContent: createCodeSolutionContent(document, activity),
+      discussionContent: createCodeDiscussionContent(document, activity),
+    });
+    executionControls.append(help.actions);
     let savedState = null;
     let hasSavedState = false;
     let progressReadFailed = false;
+    let localSolutionRevealed = false;
+    let localDiscussionRevealed = false;
     try {
       savedState = await store.get(activity.activity_id);
       hasSavedState = savedState !== null;
@@ -399,7 +482,16 @@ export function createCodeRenderer({ runtime }) {
       }
       restoreFeedback(activity, savedState, feedback);
       setProgressSummary(summary, savedState);
-      shell.setProgressState(wasCompleted(savedState) ? "completed" : "pending");
+      localSolutionRevealed =
+        savedState?.payload?.solution_revealed === true
+        || savedState?.payload?.discussion_revealed === true;
+      localDiscussionRevealed =
+        savedState?.payload?.discussion_revealed === true;
+      help.restoreRevealState({
+        solutionRevealed: localSolutionRevealed,
+        discussionRevealed: localDiscussionRevealed,
+      });
+      shell.setProgressState(isCompleted(savedState) ? "completed" : "pending");
     } catch (error) {
       progressReadFailed = true;
       shell.setProgressState("unknown");
@@ -415,10 +507,40 @@ export function createCodeRenderer({ runtime }) {
     let running = false;
     let checking = false;
     let restarting = false;
+    let savingCompletion = false;
     let workerAvailable = false;
-    let localStateChanged = false;
     let lastExecution = null;
     let activeRunPromise = null;
+
+    function currentHelpPayload() {
+      return {
+        ...(localSolutionRevealed ? { solution_revealed: true } : {}),
+        ...(localDiscussionRevealed
+          ? { discussion_revealed: true }
+          : {}),
+      };
+    }
+
+    function hasRestorableInitialState() {
+      const savedSourceCode = savedState?.payload?.source_code;
+      const savedSourceNeedsRestore = hasSavedState
+        && typeof savedSourceCode === "string"
+        && savedSourceCode !== activity.starter_code;
+      const savedResultNeedsClear = hasSavedState
+        && Object.prototype.hasOwnProperty.call(
+          savedState?.payload ?? {},
+          "last_result",
+        );
+
+      return savedSourceNeedsRestore
+        || savedResultNeedsClear
+        || editor.value !== activity.starter_code
+        || Boolean(lastExecution)
+        || workerAvailable
+        || stdout.textContent !== ""
+        || stderr.textContent !== ""
+        || !feedback.hidden;
+    }
 
     function updateControls() {
       const controlState = deriveCodeControlState({
@@ -426,21 +548,33 @@ export function createCodeRenderer({ runtime }) {
         running,
         checking,
         restarting,
+        savingCompletion,
         executionIsCurrent:
           Boolean(lastExecution)
           && lastExecution.sourceCode === editor.value,
         workerAvailable,
         activityCanRestart:
-          !progressReadFailed
-          && (hasSavedState || localStateChanged),
+          !progressReadFailed && hasSavedState && isCompleted(savedState),
       });
       editor.disabled = controlState.editorDisabled;
       runButton.disabled = controlState.runDisabled;
       stopButton.disabled = controlState.stopDisabled;
       resetButton.disabled = controlState.resetDisabled;
       checkButton.disabled = controlState.checkDisabled;
-      restartActivityButton.disabled =
-        controlState.restartActivityDisabled;
+      const busy =
+        preparing || running || checking || restarting || savingCompletion;
+      const completed = isCompleted(savedState);
+      shell.stateActionButton.disabled = completed
+        ? controlState.restartActivityDisabled
+        : progressReadFailed || busy;
+      restoreCodeButton.disabled = completed
+        || progressReadFailed
+        || preparing
+        || checking
+        || restarting
+        || savingCompletion
+        || (!running && !hasRestorableInitialState());
+      help.setBusy(busy);
     }
 
     function invalidateExecution() {
@@ -450,7 +584,6 @@ export function createCodeRenderer({ runtime }) {
     }
 
     function handleEditorChange() {
-      localStateChanged = true;
       if (lastExecution?.sourceCode !== editor.value) {
         invalidateExecution();
         status.textContent = "Kod zmieniono. Uruchom go ponownie przed sprawdzeniem.";
@@ -465,8 +598,9 @@ export function createCodeRenderer({ runtime }) {
           runButton,
           stopButton,
           checkButton,
+          restoreCodeButton,
           resetButton,
-          restartActivityButton,
+          shell.stateActionButton,
         ].find((button) => !button.disabled);
         if (firstAvailableButton) {
           event.preventDefault();
@@ -503,7 +637,6 @@ export function createCodeRenderer({ runtime }) {
 
     async function performRun() {
       const sourceCode = editor.value;
-      localStateChanged = true;
       invalidateExecution();
       stdout.textContent = "";
       stderr.textContent = "";
@@ -516,11 +649,17 @@ export function createCodeRenderer({ runtime }) {
         const currentState = await store.get(activity.activity_id);
         savedState = await store.save(
           activity.activity_id,
-          createCodeRunProgressState(activity, currentState, sourceCode),
+          createCodeRunProgressState(
+            activity,
+            currentState,
+            sourceCode,
+          ),
         );
         hasSavedState = true;
         setProgressSummary(summary, savedState);
-        shell.setProgressState(wasCompleted(savedState) ? "completed" : "pending");
+        shell.setProgressState(
+          isCompleted(savedState) ? "completed" : "pending",
+        );
       } catch (error) {
         progressSaved = false;
         showTechnicalError(
@@ -594,7 +733,7 @@ export function createCodeRenderer({ runtime }) {
     }
 
     runButton.addEventListener("click", () => {
-      if (preparing || running || checking || restarting) {
+      if (preparing || running || checking || restarting || savingCompletion) {
         return undefined;
       }
 
@@ -616,7 +755,13 @@ export function createCodeRenderer({ runtime }) {
     });
 
     resetButton.addEventListener("click", () => {
-      if (!workerAvailable || preparing || checking || restarting) {
+      if (
+        !workerAvailable
+        || preparing
+        || checking
+        || restarting
+        || savingCompletion
+      ) {
         return;
       }
       runtime.reset();
@@ -627,69 +772,249 @@ export function createCodeRenderer({ runtime }) {
       status.textContent = "Interpreter zresetowano. Następny Run załaduje go ponownie.";
     });
 
-    restartActivityButton.addEventListener("click", async () => {
-      if (
-        preparing
-        || checking
-        || restarting
-        || progressReadFailed
-        || (!running && !hasSavedState && !localStateChanged)
-      ) {
-        return;
-      }
-
+    async function restoreInitialState({
+      clearHelp,
+      alwaysResetRuntime,
+      resetProgress,
+      technicalError,
+      warning,
+      resetFailureStatus,
+      failureStatus,
+    }) {
       restarting = true;
       updateControls();
       const interruptedRun = activeRunPromise;
       let runtimeWasReset = false;
-      let restartSucceeded = false;
+      let restoreSucceeded = false;
 
       try {
-        runtime.reset();
-        runtimeWasReset = true;
-        workerAvailable = false;
-        lastExecution = null;
-        updateControls();
+        if (
+          alwaysResetRuntime
+          || workerAvailable
+          || running
+          || interruptedRun
+        ) {
+          runtime.reset();
+          runtimeWasReset = true;
+          workerAvailable = false;
+          lastExecution = null;
+          updateControls();
+        }
 
         if (interruptedRun) {
           await interruptedRun;
         }
 
-        if (hasSavedState) {
+        if (hasSavedState && resetProgress) {
           await store.reset([activity.activity_id]);
+          savedState = null;
+          hasSavedState = false;
+        } else if (hasSavedState) {
+          const currentState = await store.get(activity.activity_id);
+          if (currentState === null) {
+            savedState = null;
+            hasSavedState = false;
+          } else {
+            savedState = await store.save(
+              activity.activity_id,
+              createCodeRunProgressState(
+                activity,
+                currentState,
+                activity.starter_code,
+              ),
+            );
+            hasSavedState = true;
+          }
         }
 
-        savedState = null;
-        hasSavedState = false;
-        localStateChanged = false;
+        lastExecution = null;
         editor.value = activity.starter_code;
         stdout.textContent = "";
         stderr.textContent = "";
         clearFeedback(feedback);
-        setProgressSummary(summary, null);
-        shell.setProgressState("pending");
-        status.textContent = "Interpreter nie został jeszcze uruchomiony.";
-        restartSucceeded = true;
-      } catch (error) {
-        showTechnicalError(
-          feedback,
-          "nie udało się rozpocząć aktywności od nowa.",
+        if (clearHelp) {
+          localSolutionRevealed = false;
+          localDiscussionRevealed = false;
+          help.resetLocalRevealState();
+        }
+        setProgressSummary(summary, savedState);
+        shell.setProgressState(
+          isCompleted(savedState) ? "completed" : "pending",
         );
+        status.textContent = "Interpreter nie został jeszcze uruchomiony.";
+        restoreSucceeded = true;
+      } catch (error) {
+        showTechnicalError(feedback, technicalError);
         status.textContent = runtimeWasReset
-          ? "Interpreter zresetowano, ale nie udało się wyzerować postępu aktywności."
-          : "Nie udało się zresetować interpretera ani rozpocząć aktywności od nowa.";
-        console.warn("Nie udało się rozpocząć aktywności code od nowa.", error);
+          ? resetFailureStatus
+          : failureStatus;
+        console.warn(warning, error);
       } finally {
         restarting = false;
         updateControls();
-        if (restartSucceeded) {
+        if (restoreSucceeded) {
           editor.focus();
         }
+      }
+    }
+
+    async function restartActivity() {
+      if (
+        preparing
+        || checking
+        || restarting
+        || savingCompletion
+        || progressReadFailed
+        || !hasSavedState
+        || !isCompleted(savedState)
+      ) {
+        return;
+      }
+
+      await restoreInitialState({
+        clearHelp: true,
+        alwaysResetRuntime: true,
+        resetProgress: true,
+        technicalError: "nie udało się rozpocząć aktywności od nowa.",
+        warning: "Nie udało się rozpocząć aktywności code od nowa.",
+        resetFailureStatus:
+          "Interpreter zresetowano, ale nie udało się wyzerować postępu aktywności.",
+        failureStatus:
+          "Nie udało się zresetować interpretera ani rozpocząć aktywności od nowa.",
+      });
+    }
+
+    async function restoreStarterCode() {
+      if (
+        isCompleted(savedState)
+        || progressReadFailed
+        || preparing
+        || checking
+        || restarting
+        || savingCompletion
+        || (!running && !hasRestorableInitialState())
+      ) {
+        return;
+      }
+
+      await restoreInitialState({
+        clearHelp: false,
+        alwaysResetRuntime: false,
+        resetProgress: false,
+        technicalError: "nie udało się przywrócić kodu początkowego.",
+        warning: "Nie udało się przywrócić kodu początkowego aktywności code.",
+        resetFailureStatus:
+          "Interpreter zresetowano, ale nie udało się przywrócić kodu początkowego.",
+        failureStatus: "Nie udało się przywrócić kodu początkowego.",
+      });
+    }
+
+    async function saveManualCompletion(completionMethod) {
+      if (
+        preparing
+        || running
+        || checking
+        || restarting
+        || savingCompletion
+        || progressReadFailed
+      ) {
+        return;
+      }
+
+      savingCompletion = true;
+      updateControls();
+      try {
+        const currentState = await store.get(activity.activity_id);
+        const sourceChanged =
+          editor.value !== currentState?.payload?.source_code;
+        const nextState = createManualCompletionProgressState(
+          activity,
+          currentState,
+          {
+            completionMethod,
+            payloadPatch: {
+              source_code: editor.value,
+              ...currentHelpPayload(),
+            },
+            removePayloadKeys: sourceChanged ? ["last_result"] : [],
+          },
+        );
+        savedState = await store.save(activity.activity_id, nextState);
+        hasSavedState = true;
+        setProgressSummary(summary, savedState);
+        shell.setProgressState(
+          isCompleted(savedState) ? "completed" : "pending",
+        );
+        if (
+          feedback.className.includes(
+            "interactive-activity__message--error",
+          )
+        ) {
+          clearFeedback(feedback);
+        }
+      } catch (error) {
+        showTechnicalError(feedback, "nie udało się zapisać postępu.");
+        console.warn("Nie udało się zapisać postępu aktywności code.", error);
+      } finally {
+        savingCompletion = false;
+        updateControls();
+      }
+    }
+
+    help.solutionButton.addEventListener("click", async () => {
+      localSolutionRevealed = true;
+      updateControls();
+      if (savedState?.payload?.solution_revealed === true) {
+        return;
+      }
+      await saveManualCompletion("solution_shown");
+    });
+
+    help.discussionButton.addEventListener("click", async () => {
+      localSolutionRevealed = true;
+      localDiscussionRevealed = true;
+      updateControls();
+      if (savedState?.payload?.discussion_revealed === true) {
+        return;
+      }
+      await saveManualCompletion("solution_shown");
+    });
+
+    restoreCodeButton.addEventListener("click", () => restoreStarterCode());
+
+    shell.stateActionButton.addEventListener("click", async () => {
+      if (
+        preparing
+        || checking
+        || restarting
+        || savingCompletion
+        || progressReadFailed
+      ) {
+        return;
+      }
+
+      if (isCompleted(savedState)) {
+        await restartActivity();
+        return;
+      }
+
+      if (running) {
+        return;
+      }
+      await saveManualCompletion("self_marked");
+      if (isCompleted(savedState)) {
+        shell.stateActionButton.focus?.();
       }
     });
 
     checkButton.addEventListener("click", async () => {
-      if (!lastExecution || lastExecution.sourceCode !== editor.value) {
+      if (
+        checking
+        || restarting
+        || savingCompletion
+        || !lastExecution
+        || lastExecution.sourceCode !== editor.value
+      ) {
         return;
       }
 
@@ -722,7 +1047,7 @@ export function createCodeRenderer({ runtime }) {
           showFeedback(activity, nextState.payload.last_result, feedback);
           setProgressSummary(summary, savedState);
           shell.setProgressState(
-            wasCompleted(savedState) ? "completed" : "pending",
+            isCompleted(savedState) ? "completed" : "pending",
           );
         } catch (error) {
           showTechnicalError(
@@ -745,6 +1070,7 @@ export function createCodeRenderer({ runtime }) {
       editor,
       executionControls,
       resetControls,
+      help.panels,
       outputs,
     );
     shell.messages.append(status, feedback, summary);

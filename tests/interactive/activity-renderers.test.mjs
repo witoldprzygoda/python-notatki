@@ -45,11 +45,27 @@ function singleChoiceActivity(activityId = "flow-for-quiz-001") {
       correct: "Łańcuch zawiera trzy znaki.",
       incorrect: "Łańcuch zawiera trzy znaki.",
     },
+    solution: {
+      discussion: "Pętla wykonuje ciało raz dla każdego znaku łańcucha.",
+    },
   };
 }
 
 
-function mutableStore(initialStates = {}, { resetError = null } = {}) {
+function findStateAction(root) {
+  const buttons = findElements(
+    root,
+    (element) => hasClass(element, "interactive-activity__state-action"),
+  );
+  assert.equal(buttons.length, 1);
+  return buttons[0];
+}
+
+
+function mutableStore(
+  initialStates = {},
+  { resetError = null, saveError = null } = {},
+) {
   const states = new Map(Object.entries(initialStates));
   const resetCalls = [];
   const saveCalls = [];
@@ -64,6 +80,9 @@ function mutableStore(initialStates = {}, { resetError = null } = {}) {
     },
     async save(activityId, nextState) {
       saveCalls.push({ activityId, state: nextState });
+      if (saveError) {
+        throw saveError;
+      }
       const savedState = {
         activity_id: activityId,
         ...nextState,
@@ -185,6 +204,26 @@ test("single choice zachowuje formularz, legendę i natywne radio bez br", async
   );
   const progress = findByClass(root, "interactive-activity__progress");
   const summary = findByClass(root, "interactive-activity__meta");
+  const header = findByClass(root, "interactive-activity__header");
+  const headerState = findByClass(root, "interactive-activity__header-state");
+  const stateAction = findStateAction(root);
+  const actions = findByClass(root, "interactive-activity__actions");
+  const solutionActions = findByClass(
+    root,
+    "interactive-activity__solution-actions",
+  );
+  const solutionLabel = findByClass(
+    root,
+    "interactive-activity__solution-label",
+  );
+  const solutionButton = findElement(
+    root,
+    (element) => element.tagName === "button" && element.textContent === "Pokaż",
+  );
+  const discussionButton = findElement(
+    root,
+    (element) => element.tagName === "button" && element.textContent === "Omów",
+  );
 
   assert.equal(form.children[0], fieldset);
   assert.equal(fieldset.children[0], legend);
@@ -216,10 +255,32 @@ test("single choice zachowuje formularz, legendę i natywne radio bez br", async
   assert.equal(feedback.getAttribute("aria-atomic"), "true");
   assert.equal(summary.textContent, "Próby: 3");
   assert.equal(summary.getAttribute("aria-live"), null);
+  assert.equal(headerState.parentNode, header);
+  assert.deepEqual(headerState.children, [stateAction, progress]);
+  assert.equal(stateAction.getAttribute("type"), "button");
+  assert.equal(stateAction.textContent, "Zacznij od nowa");
+  assert.equal(
+    findElements(
+      root,
+      (element) => element.tagName === "button"
+        && element.textContent === "Zacznij od nowa",
+    ).length,
+    1,
+  );
+  assert.deepEqual(actions.children, [checkButton, solutionActions]);
+  assert.equal(solutionLabel.textContent, "Rozwiązanie:");
+  assert.equal(solutionButton.getAttribute("type"), "button");
+  assert.equal(solutionButton.getAttribute("aria-label"), "Pokaż rozwiązanie");
+  assert.equal(discussionButton.getAttribute("type"), "button");
+  assert.equal(discussionButton.getAttribute("aria-label"), "Omów rozwiązanie");
+  assert.equal(findByClass(root, "interactive-activity__help-heading"), undefined);
+  assert.equal(root.textContent.includes("Pomoc"), false);
+  assert.equal(root.textContent.includes("Pokaż rozwiązanie"), false);
+  assert.equal(root.textContent.includes("Omów rozwiązanie"), false);
 });
 
 
-test("single choice czyści niezapisany wybór bez resetowania store", async () => {
+test("Pokaż rozwiązanie kończy single choice bez zmiany wyboru ani wyniku Check", async () => {
   const document = createFakeDocument();
   const activity = singleChoiceActivity();
   const store = mutableStore();
@@ -228,37 +289,341 @@ test("single choice czyści niezapisany wybór bez resetowania store", async () 
     root,
     (element) => element.tagName === "input" && element.type === "radio",
   );
-  const restartButton = findElement(
+  const solutionButton = findElement(
     root,
     (element) => element.tagName === "button"
-      && element.textContent === "Zacznij od nowa",
+      && element.textContent === "Pokaż",
+  );
+  const solutionPanel = findElement(
+    root,
+    (element) => element.dataset.helpPanel === "solution",
+  );
+  const progress = findByClass(root, "interactive-activity__progress");
+  const summary = findByClass(root, "interactive-activity__meta");
+  const stateAction = findStateAction(root);
+
+  radios[0].checked = true;
+  await dispatch(radios[0], "change");
+  assert.equal(stateAction.textContent, "Oznacz jako wykonane");
+  await dispatch(solutionButton, "click");
+
+  const saved = store.states.get(activity.activity_id);
+  assert.equal(radios[0].checked, true);
+  assert.equal(radios[1].checked, false);
+  assert.equal(solutionPanel.hidden, false);
+  assert.equal(solutionPanel.textContent.includes("Trzy razy"), true);
+  assert.equal(saved.status, "completed");
+  assert.equal(saved.attempts, 0);
+  assert.equal(Object.hasOwn(saved, "score"), false);
+  assert.deepEqual(saved.payload, {
+    selected_option_id: "a",
+    solution_revealed: true,
+    completion_method: "solution_shown",
+  });
+  assert.equal(progress.textContent, "✓ Wykonano");
+  assert.equal(summary.textContent, "Próby: 0");
+  assert.equal(findStateAction(root), stateAction);
+  assert.equal(stateAction.textContent, "Zacznij od nowa");
+});
+
+
+test("błąd zapisu po Pokaż rozwiązanie nie ukrywa treści ani nie udaje completed", async (t) => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore({}, { saveError: new Error("save failed") });
+  t.mock.method(console, "warn", () => {});
+  const root = await renderSingleChoice({ activity, store, document });
+  const solutionButton = findElement(
+    root,
+    (element) => element.tagName === "button"
+      && element.textContent === "Pokaż",
+  );
+  const solutionPanel = findElement(
+    root,
+    (element) => element.dataset.helpPanel === "solution",
   );
   const feedback = findByClass(root, "interactive-activity__message");
   const progress = findByClass(root, "interactive-activity__progress");
-  const summary = findByClass(root, "interactive-activity__meta");
-  let firstRadioFocused = false;
-  radios[0].focus = () => {
-    firstRadioFocused = true;
-  };
+  const stateAction = findStateAction(root);
 
-  assert.equal(restartButton.type, "button");
-  assert.equal(restartButton.disabled, true);
-  radios[0].checked = true;
-  await dispatch(radios[0], "change");
-  assert.equal(restartButton.disabled, false);
+  await dispatch(solutionButton, "click");
 
-  await dispatch(restartButton, "click");
-
-  assert.deepEqual(store.resetCalls, []);
-  assert.deepEqual(store.saveCalls, []);
-  assert.equal(radios.every((radio) => !radio.checked), true);
-  assert.equal(feedback.hidden, true);
-  assert.equal(feedback.textContent, "");
-  assert.equal(summary.textContent, "Próby: 0");
+  assert.equal(solutionPanel.hidden, false);
+  assert.equal(store.states.has(activity.activity_id), false);
   assert.equal(root.dataset.progressState, "pending");
   assert.equal(progress.textContent, "○ Do wykonania");
-  assert.equal(restartButton.disabled, true);
-  assert.equal(firstRadioFocused, true);
+  assert.equal(stateAction.textContent, "Oznacz jako wykonane");
+  assert.equal(
+    hasClass(feedback, "interactive-activity__message--error"),
+    true,
+  );
+  assert.equal(
+    feedback.textContent,
+    "Błąd techniczny: nie udało się zapisać postępu.",
+  );
+});
+
+
+test("niezapisane ujawnienie nie trafia do późniejszego Check", async (t) => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore();
+  const successfulSave = store.save.bind(store);
+  let rejectNextSave = true;
+  store.save = async (...args) => {
+    if (rejectNextSave) {
+      rejectNextSave = false;
+      throw new Error("save failed");
+    }
+    return successfulSave(...args);
+  };
+  t.mock.method(console, "warn", () => {});
+  const root = await renderSingleChoice({ activity, store, document });
+  const solutionButton = findElement(
+    root,
+    (element) => element.tagName === "button"
+      && element.textContent === "Pokaż",
+  );
+  const solutionPanel = findElement(
+    root,
+    (element) => element.dataset.helpPanel === "solution",
+  );
+  const form = findElement(root, (element) => element.tagName === "form");
+  const radios = findElements(
+    root,
+    (element) => element.tagName === "input" && element.type === "radio",
+  );
+
+  await dispatch(solutionButton, "click");
+  radios[0].checked = true;
+  await dispatch(radios[0], "change");
+  await dispatch(form, "submit", { preventDefault() {} });
+
+  const saved = store.states.get(activity.activity_id);
+  assert.equal(solutionPanel.hidden, false);
+  assert.equal(saved.status, "in_progress");
+  assert.equal(saved.payload.last_result, "incorrect");
+  assert.equal(saved.payload.solution_revealed, undefined);
+  assert.equal(saved.payload.completion_method, undefined);
+
+  const reloaded = await renderSingleChoice({
+    activity,
+    store,
+    document: createFakeDocument(),
+  });
+  assert.equal(
+    findElement(
+      reloaded,
+      (element) => element.dataset.helpPanel === "solution",
+    ).hidden,
+    true,
+  );
+});
+
+
+test("ręczne ukończenie po zmianie odpowiedzi usuwa feedback starego Check", async () => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore({
+    [activity.activity_id]: {
+      status: "in_progress",
+      score: 0,
+      attempts: 1,
+      payload: {
+        selected_option_id: "a",
+        last_result: "incorrect",
+        unknown_future_field: "zachowaj",
+      },
+    },
+  });
+  const root = await renderSingleChoice({ activity, store, document });
+  const radios = findElements(
+    root,
+    (element) => element.tagName === "input" && element.type === "radio",
+  );
+  const completionButton = findStateAction(root);
+
+  radios[0].checked = false;
+  radios[1].checked = true;
+  await dispatch(radios[1], "change");
+  await dispatch(completionButton, "click");
+
+  const saved = store.states.get(activity.activity_id);
+  assert.equal(saved.payload.selected_option_id, "b");
+  assert.equal(saved.payload.last_result, undefined);
+  assert.equal(saved.payload.unknown_future_field, "zachowaj");
+  assert.equal(saved.payload.completion_method, "self_marked");
+});
+
+
+test("self_marked pozostaje pierwszą metodą po późniejszym poprawnym Check", async () => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore();
+  const root = await renderSingleChoice({ activity, store, document });
+  const form = findElement(root, (element) => element.tagName === "form");
+  const radios = findElements(
+    root,
+    (element) => element.tagName === "input" && element.type === "radio",
+  );
+  const completionButton = findStateAction(root);
+
+  assert.equal(completionButton.textContent, "Oznacz jako wykonane");
+  await dispatch(completionButton, "click");
+  const manuallyCompleted = store.states.get(activity.activity_id);
+  assert.equal(manuallyCompleted.status, "completed");
+  assert.equal(manuallyCompleted.attempts, 0);
+  assert.equal(Object.hasOwn(manuallyCompleted, "score"), false);
+  assert.equal(manuallyCompleted.payload.completion_method, "self_marked");
+  assert.equal(findStateAction(root), completionButton);
+  assert.equal(completionButton.textContent, "Zacznij od nowa");
+
+  radios[1].checked = true;
+  await dispatch(radios[1], "change");
+  await dispatch(form, "submit", { preventDefault() {} });
+
+  const checked = store.states.get(activity.activity_id);
+  assert.equal(checked.status, "completed");
+  assert.equal(checked.score, 1);
+  assert.equal(checked.attempts, 1);
+  assert.equal(checked.payload.completion_method, "self_marked");
+  assert.equal(checked.payload.last_result, "correct");
+});
+
+
+test("historyczne completed jest odtwarzane bez zapisu i zachowuje implicit checked", async () => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore({
+    [activity.activity_id]: {
+      status: "completed",
+      score: 1,
+      attempts: 2,
+      payload: {
+        selected_option_id: "b",
+        last_result: "correct",
+      },
+    },
+  });
+  const root = await renderSingleChoice({ activity, store, document });
+  const solutionButton = findElement(
+    root,
+    (element) => element.tagName === "button"
+      && element.textContent === "Pokaż",
+  );
+
+  assert.deepEqual(store.saveCalls, []);
+  assert.equal(
+    Object.hasOwn(
+      store.states.get(activity.activity_id).payload,
+      "completion_method",
+    ),
+    false,
+  );
+
+  await dispatch(solutionButton, "click");
+
+  const saved = store.states.get(activity.activity_id);
+  assert.equal(saved.payload.completion_method, "checked");
+  assert.equal(saved.payload.solution_revealed, true);
+  assert.equal(saved.attempts, 2);
+  assert.equal(saved.score, 1);
+});
+
+
+test("Zacznij od nowa usuwa ujawnienia i metadane ukończenia single choice", async () => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore({
+    [activity.activity_id]: {
+      status: "completed",
+      attempts: 0,
+      payload: {
+        completion_method: "solution_shown",
+        solution_revealed: true,
+        discussion_revealed: true,
+        unknown_future_field: "preserved-before-reset",
+      },
+    },
+  });
+  const root = await renderSingleChoice({ activity, store, document });
+  const solutionPanel = findElement(
+    root,
+    (element) => element.dataset.helpPanel === "solution",
+  );
+  const discussionPanel = findElement(
+    root,
+    (element) => element.dataset.helpPanel === "discussion",
+  );
+  const restartButton = findStateAction(root);
+
+  assert.equal(solutionPanel.hidden, false);
+  assert.equal(discussionPanel.hidden, false);
+  assert.equal(restartButton.textContent, "Zacznij od nowa");
+  await dispatch(restartButton, "click");
+
+  assert.equal(store.states.has(activity.activity_id), false);
+  assert.equal(solutionPanel.hidden, true);
+  assert.equal(discussionPanel.hidden, true);
+  assert.equal(root.dataset.progressState, "pending");
+  assert.equal(findByClass(root, "interactive-activity__meta").textContent, "Próby: 0");
+  assert.equal(findStateAction(root), restartButton);
+  assert.equal(restartButton.textContent, "Oznacz jako wykonane");
+  assert.equal(
+    findElements(
+      root,
+      (element) => element.tagName === "button"
+        && element.textContent === "Zacznij od nowa",
+    ).length,
+    0,
+  );
+});
+
+
+test("akcja nagłówka w pending zapisuje self_marked bez resetowania wyboru", async () => {
+  const document = createFakeDocument();
+  const activity = singleChoiceActivity();
+  const store = mutableStore();
+  const root = await renderSingleChoice({ activity, store, document });
+  const radios = findElements(
+    root,
+    (element) => element.tagName === "input" && element.type === "radio",
+  );
+  const stateAction = findStateAction(root);
+  const progress = findByClass(root, "interactive-activity__progress");
+  const summary = findByClass(root, "interactive-activity__meta");
+  let stateActionFocused = false;
+  stateAction.focus = () => {
+    stateActionFocused = true;
+  };
+
+  assert.equal(stateAction.type, "button");
+  assert.equal(stateAction.textContent, "Oznacz jako wykonane");
+  assert.equal(stateAction.disabled, false);
+  radios[0].checked = true;
+  await dispatch(radios[0], "change");
+
+  await dispatch(stateAction, "click");
+
+  assert.deepEqual(store.resetCalls, []);
+  assert.equal(store.saveCalls.length, 1);
+  assert.equal(radios[0].checked, true);
+  assert.equal(store.states.get(activity.activity_id).status, "completed");
+  assert.equal(store.states.get(activity.activity_id).attempts, 0);
+  assert.equal(
+    Object.hasOwn(store.states.get(activity.activity_id), "score"),
+    false,
+  );
+  assert.deepEqual(store.states.get(activity.activity_id).payload, {
+    selected_option_id: "a",
+    completion_method: "self_marked",
+  });
+  assert.equal(summary.textContent, "Próby: 0");
+  assert.equal(root.dataset.progressState, "completed");
+  assert.equal(progress.textContent, "✓ Wykonano");
+  assert.equal(findStateAction(root), stateAction);
+  assert.equal(stateAction.textContent, "Zacznij od nowa");
+  assert.equal(stateActionFocused, true);
 });
 
 
@@ -283,11 +648,7 @@ test("single choice po resecie odtwarza pusty stan i następną próbę liczy od
     root,
     (element) => element.tagName === "input" && element.type === "radio",
   );
-  const restartButton = findElement(
-    root,
-    (element) => element.tagName === "button"
-      && element.textContent === "Zacznij od nowa",
-  );
+  const restartButton = findStateAction(root);
   const feedback = findByClass(root, "interactive-activity__message");
   const progress = findByClass(root, "interactive-activity__progress");
   const summary = findByClass(root, "interactive-activity__meta");
@@ -325,17 +686,14 @@ test("single choice po resecie odtwarza pusty stan i następną próbę liczy od
     reloadedRoot,
     "interactive-activity__meta",
   );
-  const reloadedRestartButton = findElement(
-    reloadedRoot,
-    (element) => element.tagName === "button"
-      && element.textContent === "Zacznij od nowa",
-  );
+  const reloadedStateAction = findStateAction(reloadedRoot);
 
   assert.equal(reloadedRadios.every((radio) => !radio.checked), true);
   assert.equal(reloadedFeedback.hidden, true);
   assert.equal(reloadedSummary.textContent, "Próby: 0");
   assert.equal(reloadedRoot.dataset.progressState, "pending");
-  assert.equal(reloadedRestartButton.disabled, true);
+  assert.equal(reloadedStateAction.textContent, "Oznacz jako wykonane");
+  assert.equal(reloadedStateAction.disabled, false);
 
   reloadedRadios[0].checked = true;
   await dispatch(reloadedRadios[0], "change");
@@ -371,11 +729,7 @@ test("błąd resetu zachowuje stan single choice i pozostaje błędem techniczny
     root,
     (element) => element.tagName === "input" && element.type === "radio",
   );
-  const restartButton = findElement(
-    root,
-    (element) => element.tagName === "button"
-      && element.textContent === "Zacznij od nowa",
-  );
+  const restartButton = findStateAction(root);
   const feedback = findByClass(root, "interactive-activity__message");
   const progress = findByClass(root, "interactive-activity__progress");
   const summary = findByClass(root, "interactive-activity__meta");
@@ -402,6 +756,7 @@ test("błąd resetu zachowuje stan single choice i pozostaje błędem techniczny
   );
   assert.equal(fieldset.disabled, false);
   assert.equal(restartButton.disabled, false);
+  assert.equal(restartButton.textContent, "Zacznij od nowa");
 });
 
 
@@ -436,11 +791,7 @@ test("single choice nie uruchamia Check równolegle z trwającym resetem", async
     root,
     (element) => element.tagName === "button" && element.textContent === "Sprawdź",
   );
-  const restartButton = findElement(
-    root,
-    (element) => element.tagName === "button"
-      && element.textContent === "Zacznij od nowa",
-  );
+  const restartButton = findStateAction(root);
 
   const pendingReset = dispatch(restartButton, "click");
   await Promise.resolve();

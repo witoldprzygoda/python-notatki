@@ -182,6 +182,9 @@ test("reset single choice przez notifier aktualizuje centralny model", async () 
       correct: "To właściwa odpowiedź.",
       incorrect: "Sprawdź odpowiedzi ponownie.",
     },
+    solution: {
+      discussion: "Druga odpowiedź wynika z przebiegu pokazanego w materiale.",
+    },
   };
   const delegate = new MemoryProgressStore({
     first: {
@@ -230,6 +233,10 @@ test("Zacznij od nowa w code aktualizuje model i nie rusza innych aktywności", 
     feedback: {
       correct: "Program wypisał oczekiwany tekst.",
       incorrect: "Sprawdź wypisywany tekst.",
+    },
+    solution: {
+      code: "print('start')\n",
+      discussion: "Wywołanie print wypisuje oczekiwany tekst.",
     },
   };
   const delegate = new MemoryProgressStore({

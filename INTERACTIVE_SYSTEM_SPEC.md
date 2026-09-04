@@ -179,10 +179,10 @@ Anchor oznaczony `data-activity-section="true"` jest decyzją autora i nie może
 
 Nie wolno wiązać aktywności z numerem linii, tekstem nagłówka ani pozycją elementu DOM. Aktywność dotycząca całej strony używa jawnego `section_id: null`.
 
-Definicja schema v2 znajduje się poza `docs/`, na przykład w `activities/04-sterowanie/petle-i-iteratory.yaml`:
+Definicja schema v3 znajduje się poza `docs/`, na przykład w `activities/04-sterowanie/petle-i-iteratory.yaml`:
 
 ```yaml
-schema_version: 2
+schema_version: 3
 page: 04-sterowanie/petle-i-iteratory.md
 slot_id: petle-i-iteratory-activities
 
@@ -202,6 +202,10 @@ activities:
     feedback:
       correct: "Pętla wykona się raz dla każdego z trzech znaków."
       incorrect: "Łańcuch abc zawiera trzy znaki."
+    solution:
+      discussion: >-
+        Pętla pobiera kolejno każdy element iterowalnego obiektu. Dla
+        trzyznakowego łańcucha jej ciało wykona się zatem trzy razy.
 
   - activity_id: flow-for-code-001
     version: 1
@@ -218,11 +222,18 @@ activities:
     feedback:
       correct: "Program wypisał znaki w oczekiwanej kolejności."
       incorrect: "Sprawdź kolejność wypisanych wierszy."
+    solution:
+      code: |
+        for znak in "abc":
+            print(znak)
+      discussion: >-
+        Zmienna znak otrzymuje w kolejnych iteracjach poszczególne znaki
+        łańcucha, dlatego każde wywołanie print wypisuje jeden z nich.
 ```
 
 Pola `feedback.correct` i `feedback.incorrect` zawierają wyłącznie wyjaśnienie dydaktyczne, a nie etykietę wyniku. Jednolitą etykietę „✓ Poprawnie” albo „! Niepoprawnie” dodaje renderer. Pola te nie powinny rozpoczynać się od „Poprawnie.” ani „Niepoprawnie.”; komunikaty błędów technicznych pozostają odrębną kategorią.
 
-Build waliduje schema v2 przed renderowaniem, a po konwersji Markdown sprawdza dokładnie jeden właściwy slot oraz istnienie wszystkich oznaczonych `section_id`.
+Build waliduje schema v3 przed renderowaniem, a po konwersji Markdown sprawdza dokładnie jeden właściwy slot oraz istnienie wszystkich oznaczonych `section_id`.
 
 Autor podaje wyłącznie źródłową ścieżkę `page`. Podczas pełnego buildu hook
 MkDocs odczytuje rzeczywiste `page.url` dla wyrenderowanej strony i dodaje do
@@ -237,7 +248,7 @@ nawigacji bez odtwarzania reguł Markdown → URL.
 
 ### 7.1 `acknowledgement`
 
-Typ został zweryfikowany w historycznym POC. Bieżące definicje treści schema v2 nie używają aktywności polegających wyłącznie na potwierdzeniu przeczytania; renderer może pozostać do osobnego etapu porządkowania kodu.
+Typ został zweryfikowany w historycznym POC. Bieżące definicje treści schema v3 nie używają aktywności polegających wyłącznie na potwierdzeniu przeczytania; renderer może pozostać do osobnego etapu porządkowania kodu.
 
 Historyczne przykłady zastosowania:
 
@@ -265,6 +276,11 @@ początkowego bez rekordu, wyniku i liczby prób. Jeżeli użytkownik jedynie
 wybrał odpowiedź, ale jeszcze jej nie sprawdził, renderer czyści wybór lokalnie
 bez wywoływania magazynu i bez powiadomienia centralnego modelu postępu.
 
+Poprawna odpowiedź pokazywana przez akcję „Pokaż rozwiązanie” jest wyznaczana
+wyłącznie przez `correct_option_id`; definicja nie powiela jej w polu
+`solution`. Ujawnienie odpowiedzi nie zmienia zaznaczonego przycisku radio i
+nie jest próbą automatycznego sprawdzenia.
+
 ### 7.3 `code`
 
 Mała wprawka wykonywana w przeglądarce.
@@ -288,11 +304,71 @@ czyści wyjście i informację zwrotną oraz wywołuje `reset([activityId])`, je
 aktywność miała zapisany stan. Bez zapisanego stanu reset pozostaje lokalny.
 Poza tą jawną akcją status `completed` pozostaje monotoniczny.
 
-### 7.4 Znaczenie zaliczenia aktywności `code`
+Rozwiązanie referencyjne pochodzi z YAML i jest prezentowane w osobnym,
+nieedytowalnym bloku kodu. Jego ujawnienie nie zastępuje kodu użytkownika, nie
+uruchamia interpretera i nie wykonuje checkera. Po ujawnieniu użytkownik może
+nadal edytować, uruchamiać i sprawdzać własny kod.
 
-Zaliczenie aktywności przez mechanizm sprawdzający (ang. *checker*) oznacza wyłącznie, że sprawdzane wykonanie spełniło jawne kryterium zapisane w definicji aktywności. Nie stanowi ono pełnej oceny poprawności, jakości, stylu, wydajności ani ogólności rozwiązania. Status `completed` oznacza postęp w podręczniku, nie formalną ocenę kursową.
+Pole `solution` typu `code` zawiera wymagane `code` i `discussion` oraz może
+zawierać listę `alternatives`. Każdy wariant alternatywny ma prostą strukturę
+`label`, `code`, `discussion`. Typ `single_choice` nie powiela poprawnej
+odpowiedzi w `solution`; przechowuje tam wyłącznie szersze `discussion`.
+
+### 7.4 Zakres automatycznej weryfikacji aktywności `code`
+
+Pozytywny wynik mechanizmu sprawdzającego (ang. *checker*) oznacza wyłącznie,
+że sprawdzane wykonanie spełniło jawne kryterium zapisane w definicji
+aktywności. Nie stanowi on pełnej oceny poprawności, jakości, stylu, wydajności
+ani ogólności rozwiązania. Status `completed` nie jest synonimem pozytywnego
+wyniku checkera: oznacza świadomą decyzję użytkownika o zakończeniu pracy z
+aktywnością i pozostaje postępem w podręczniku, nie formalną oceną kursową.
 
 W szczególności kryterium oparte na oczekiwanym wyjściu potwierdza zgodność wyniku tylko w sprawdzanym przypadku. Nie dowodzi użycia oczekiwanej konstrukcji ani poprawności dla innych danych. Polecenie i informacja zwrotna powinny precyzyjnie opisywać zakres faktycznie sprawdzany przez checker.
+
+### 7.5 Ukończenie, rozwiązanie i omówienie
+
+Aktywne typy `single_choice` i `code` mogą przejść do `completed` trzema
+równorzędnymi drogami:
+
+```text
+poprawny Check      -> checked
+Pokaż rozwiązanie   -> solution_shown
+Oznacz jako wykonane -> self_marked
+```
+
+Otwarcie „Omów rozwiązanie” również ujawnia rozwiązanie i używa metody
+`solution_shown`. Interfejs nie pokazuje metody ukończenia i nie różnicuje na
+jej podstawie statusu ani wskaźników postępu. Nagłówek we wszystkich
+przypadkach pokazuje wyłącznie „✓ Wykonano”.
+
+Metoda pierwszego przejścia do `completed` jest zapisywana jednokrotnie w
+`payload.completion_method`. Późniejsze próby, ujawnienie rozwiązania i dalsza
+praca nie mogą jej nadpisać. `payload.solution_revealed` oraz
+`payload.discussion_revealed` przechowują trwały stan ujawnienia; omówienie
+implikuje ujawnienie rozwiązania. Wszystkie te pola usuwa dopiero istniejąca
+akcja „Zacznij od nowa”.
+
+Historyczny rekord `completed` z `score: 1`, lecz bez `completion_method`, jest
+interpretowany jako ukończony metodą `checked`. Samo renderowanie nie zapisuje
+migracji; pole trafia do rekordu dopiero przy jego następnej jawnej aktualizacji.
+
+`attempts` zwiększa się wyłącznie przy Check. `score` opisuje najlepszy
+dotychczasowy wynik automatycznej weryfikacji: poprawny Check ustawia `1`, a
+błędny `0`, o ile wcześniej nie osiągnięto `1`. Run, ujawnienie rozwiązania i
+samoocena nie tworzą ani nie zmieniają `score`. Status oraz wynik są odrębnymi
+pojęciami.
+
+„Pokaż rozwiązanie” oraz „Omów rozwiązanie” ujawniają treść lokalnie przed
+próbą zapisu. Błąd `ProgressStore.save()` nie może odebrać użytkownikowi już
+pokazanej pomocy, ale nie powoduje wtedy zmiany nagłówka ani wskaźników; po
+przeładowaniu niezapisane ujawnienie może zniknąć. „Oznacz jako wykonane”
+zmienia interfejs dopiero po udanym zapisie.
+
+Pola `solution.discussion` są zwykłym tekstem i zawierają szersze omówienie,
+a nie powtórzenie `feedback.correct`. Rozwiązania są publikowane w jawnym
+manifeście wariantu `interactive` i nie są zabezpieczeniem formalnej oceny.
+Frontend wstawia tekst przez `textContent`, a kod przez `textContent` elementu
+`<code>`; nie interpretuje HTML ani Markdown.
 
 ---
 
@@ -356,7 +432,13 @@ Przykładowy stan:
       "status": "completed",
       "score": 1,
       "attempts": 2,
-      "updated_at": "2026-08-19T12:05:00Z"
+      "updated_at": "2026-08-19T12:05:00Z",
+      "payload": {
+        "selected_option_id": "b",
+        "last_result": "correct",
+        "completion_method": "checked",
+        "solution_revealed": true
+      }
     }
   }
 }
@@ -364,7 +446,7 @@ Przykładowy stan:
 
 Nie zapisujemy imienia, nazwiska, e-maila ani innych danych identyfikujących.
 
-Wersja dokumentu `localStorage` jest niezależna od schema v2 definicji aktywności. Usunięcie definicji z manifestu nie usuwa automatycznie jej starego, osieroconego wpisu z magazynu i nie powoduje jego renderowania.
+Wersja dokumentu `localStorage` jest niezależna od wersji schematu definicji aktywności. Usunięcie definicji z manifestu nie usuwa automatycznie jej starego, osieroconego wpisu z magazynu i nie powoduje jego renderowania.
 
 ### 9.3 RemoteProgressStore
 
@@ -382,6 +464,8 @@ i sekcji opisanym w sekcji 9.5.
 
 Do modelu nie wchodzą `score`, `attempts`, odwiedzone strony, stan rozwinięcia
 bloku ćwiczeń ani osierocone rekordy nieobecne w manifeście.
+Nie wchodzą do niego również `completion_method` ani flagi ujawnienia pomocy:
+wszystkie drogi świadomego ukończenia dają ten sam stan raila.
 
 Aktualizacje zapewnia neutralny względem DOM dekorator `NotifyingProgressStore`.
 Zachowuje on pełny interfejs magazynu i dodaje subskrypcję zmian. Po udanym
@@ -457,7 +541,13 @@ Zmiana poprawnej odpowiedzi, kryterium zaliczenia lub istotnej treści zadania p
 
 Polityka dotycząca starego ukończenia zostanie zaprojektowana później. MVP ma jedynie przechowywać wersję, aby nie zamknąć drogi do migracji.
 
-`schema_version` opisuje strukturę dokumentu YAML i manifestu, natomiast `version` opisuje semantykę konkretnej aktywności. Przeniesienie niezmienionej aktywności do nowego slotu lub przejście definicji na schema v2 nie zmienia jej `activity_id`, `version` ani zapisanego postępu.
+`schema_version` opisuje strukturę dokumentu YAML i manifestu, natomiast `version` opisuje semantykę konkretnej aktywności. Przeniesienie niezmienionej aktywności do nowego slotu lub zmiana wspólnego schematu definicji nie zmienia jej `activity_id`, `version` ani zapisanego postępu.
+
+Analogicznie przejście wspólnego kontraktu YAML z schema v2 na schema v3 oraz
+dodanie systemowych dróg ukończenia nie zwiększa automatycznie `version`
+każdej aktywności. Wersję aktywności podnosimy dopiero wtedy, gdy zmienia się
+jej indywidualne polecenie, poprawna odpowiedź, checker albo inny element
+semantyczny uzasadniający ponowne rozpatrzenie wcześniejszego postępu.
 
 ---
 
@@ -538,7 +628,7 @@ autorskiego pliku YAML.
 
 ## 13. Pierwszy pionowy wycinek (MVP-0)
 
-Ta sekcja dokumentuje historyczny zakres POC. Bieżący kontrakt autorski znajduje się w sekcji 6 i używa schema v2, jednego końcowego slotu na stronę oraz dwóch aktywnych typów treści: `single_choice` i `code`.
+Ta sekcja dokumentuje historyczny zakres POC. Bieżący kontrakt autorski znajduje się w sekcji 6 i używa schema v3, jednego końcowego slotu na stronę oraz dwóch aktywnych typów treści: `single_choice` i `code`.
 
 ### Cel
 
@@ -771,7 +861,7 @@ Po MVP-0 warto dodać GitHub Actions, które wykonują:
 
 ```text
 1. walidację YAML aktywności
-2. walidację pojedynczych slotów i jawnych section_id w schema v2
+2. walidację pojedynczych slotów i jawnych section_id w bieżącym schemacie
 3. osobne buildy MkDocs clean oraz interactive
 4. testy JavaScript / testy przeglądarkowe
 5. kontrolę, że tylko interactive publikuje manifest i zasoby interaktywne

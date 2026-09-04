@@ -666,6 +666,9 @@ test("Zacznij od nowa w rendererze natychmiast cofa completed do partial", async
       correct: "Druga odpowiedź spełnia kryterium.",
       incorrect: "Należy ponownie porównać odpowiedzi.",
     },
+    solution: {
+      discussion: "Druga odpowiedź odpowiada zachowaniu opisanemu w sekcji.",
+    },
   };
   const manifest = {
     activities: [

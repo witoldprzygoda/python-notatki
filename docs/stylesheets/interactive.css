@@ -214,6 +214,9 @@
 }
 
 .md-typeset .interactive-activity__header {
+  --interactive-header-control-min-height: 1.45rem;
+  --interactive-header-control-font-size: .68rem;
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: .4rem .8rem;
@@ -224,6 +227,28 @@
 
 .md-typeset .interactive-activity__heading {
   min-width: 0;
+}
+
+.md-typeset .interactive-activity__header-state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.md-typeset .interactive-activity__header
+  .interactive-activity__header-control {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--interactive-header-control-min-height);
+  padding: .14rem .45rem;
+  font-size: var(--interactive-header-control-font-size);
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .md-typeset .interactive-activity__type,
@@ -257,15 +282,15 @@
 
 .md-typeset .interactive-activity__progress {
   justify-self: end;
-  padding: .2rem .45rem;
   color: var(--md-default-fg-color);
   background-color: var(--interactive-neutral-bg);
   border: 1px solid var(--interactive-neutral-border);
   border-radius: 999px;
-  font-size: .68rem;
-  font-weight: 600;
-  line-height: 1.35;
-  white-space: nowrap;
+}
+
+.md-typeset .interactive-activity__state-action {
+  border-color: var(--interactive-neutral-border);
+  border-radius: .25rem;
 }
 
 .md-typeset .interactive-activity[data-progress-state="completed"]
@@ -341,6 +366,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: .4rem;
+  align-items: center;
   margin-top: .65rem;
 }
 
@@ -478,6 +504,85 @@
   font-size: .64rem;
 }
 
+.md-typeset .interactive-activity__solution-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  align-items: center;
+  margin-inline-start: .2rem;
+  padding-inline-start: .6rem;
+  border-inline-start: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset .interactive-activity__solution-label {
+  color: var(--md-default-fg-color--light);
+  font-size: .64rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.md-typeset .interactive-activity__help-button,
+.md-typeset .interactive-activity__technical-actions
+  .interactive-activity__button {
+  min-height: 1.7rem;
+  padding: .2rem .45rem;
+  font-size: .64rem;
+}
+
+.md-typeset .interactive-activity__technical-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  justify-content: flex-end;
+  margin-top: .35rem;
+}
+
+.md-typeset .interactive-activity__help-panel {
+  margin-top: .55rem;
+  padding: .55rem .65rem;
+  color: var(--md-default-fg-color);
+  background-color: var(--interactive-neutral-bg);
+  border-inline-start: .16rem solid var(--interactive-neutral-border);
+}
+
+.md-typeset .interactive-activity__help-panel[hidden] {
+  display: none;
+}
+
+.md-typeset .interactive-activity__solution-heading,
+.md-typeset .interactive-activity__alternative-label {
+  display: block;
+  margin: 0 0 .3rem;
+  font-size: .7rem;
+}
+
+.md-typeset .interactive-activity__solution-answer,
+.md-typeset .interactive-activity__discussion-text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.md-typeset .interactive-activity__solution-code {
+  box-sizing: border-box;
+  margin: .35rem 0 0;
+  padding: .5rem;
+  color: var(--md-code-fg-color);
+  background-color: var(--md-code-bg-color);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.md-typeset .interactive-activity__alternative {
+  margin-top: .65rem;
+  padding-top: .65rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset .interactive-activity__alternative
+  .interactive-activity__discussion-text {
+  margin-top: .4rem;
+}
+
 .interactive-activity__visually-hidden {
   position: absolute;
   width: 1px;
@@ -504,9 +609,26 @@
     justify-self: start;
   }
 
+  .md-typeset .interactive-activity__header-state {
+    justify-content: flex-start;
+  }
+
   .md-typeset .interactive-activity__actions
-    .interactive-activity__button {
+    > .interactive-activity__button {
     flex: 1 1 8rem;
+  }
+
+  .md-typeset .interactive-activity__solution-actions {
+    flex: 1 0 100%;
+    margin-inline-start: 0;
+    padding-block-start: .45rem;
+    padding-inline-start: 0;
+    border-block-start: 1px solid var(--md-default-fg-color--lightest);
+    border-inline-start: 0;
+  }
+
+  .md-typeset .interactive-activity__technical-actions {
+    justify-content: flex-start;
   }
 }
 

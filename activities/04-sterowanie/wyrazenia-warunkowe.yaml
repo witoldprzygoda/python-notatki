@@ -1,4 +1,4 @@
-schema_version: 2
+schema_version: 3
 page: 04-sterowanie/wyrazenia-warunkowe.md
 slot_id: wyrazenia-warunkowe-activities
 
@@ -19,27 +19,75 @@ activities:
     correct_option_id: b
     feedback:
       correct: "Pusty łańcuch jest fałszywy w kontekście logicznym, więc not data ma wartość prawdziwą."
-      incorrect: "Pusty łańcuch jest fałszywy w kontekście logicznym."
+      incorrect: "Zarówno if data, jak i if data is True są fałszywe dla pustego łańcucha. Operator not odwraca jego fałszywą wartość logiczną."
+    solution:
+      discussion: >-
+        Pusty łańcuch ma fałszywą wartość logiczną, dlatego if data nie
+        wykonuje swojego bloku. Operator not odwraca tę wartość, więc if not
+        data jest prawdziwe. Porównanie data is True bada tożsamość obiektu z
+        True, a nie jego ogólną wartość logiczną.
+
+  - activity_id: flow-ternary-quiz-001
+    version: 1
+    section_id: operator-trojskadnikowy
+    type: single_choice
+    label: "Odczytanie zagnieżdżonego warunku"
+    prompt: 'Dla x = 5 jaką wartość otrzyma wynik w wyrażeniu wynik = "A" if x < 0 else "B" if x % 2 == 0 else "C"?'
+    options:
+      - option_id: a
+        label: '"A"'
+      - option_id: b
+        label: '"B"'
+      - option_id: c
+        label: '"C"'
+      - option_id: d
+        label: "Kod zgłosi SyntaxError, ponieważ brakuje nawiasów"
+    correct_option_id: c
+    feedback:
+      correct: 'Warunek x < 0 jest fałszywy, więc oceniane jest drugie wyrażenie. Liczba 5 nie jest parzysta, dlatego wybrana zostaje ostatnia wartość, "C".'
+      incorrect: 'Po fałszywym x < 0 całe wyrażenie "B" if x % 2 == 0 else "C" staje się gałęzią else. Nawiasy nie są w tym zapisie wymagane.'
+    solution:
+      discussion: >-
+        Warunek x < 0 jest fałszywy, więc gałęzią else staje się całe
+        zagnieżdżone wyrażenie. Ponieważ 5 % 2 daje 1, warunek parzystości jest
+        fałszywy i wybrana zostaje ostatnia wartość, "C". Nawiasy nie są tu
+        wymagane dzięki składni wyrażenia warunkowego.
 
   - activity_id: flow-match-code-001
-    version: 1
+    version: 2
     section_id: pola-wyboru-match
     type: code
-    label: "Ćwiczenie: dopasowanie match"
-    prompt: "Uzupełnij przypadek case 2 tak, aby program dla wartości 2 wypisał tekst „dwa”."
+    label: "Diagnoza wzorca match"
+    prompt: "Program dla liczby całkowitej 2 wypisuje „inna wartość”, choć powinien wypisać „liczba 1 lub 2”. Znajdź i popraw błąd w pierwszym wzorcu case. Nie zmieniaj wartości wartosc, treści gałęzi ani końcowej instrukcji print."
     starter_code: |
       wartosc = 2
 
       match wartosc:
-          case 1:
-              print("jeden")
-          case 2:
-              # Wypisz tekst dwa.
-              pass
+          case "1" | "2":
+              opis = "liczba 1 lub 2"
+          case _:
+              opis = "inna wartość"
+
+      print(opis)
     checker:
       type: stdout_lines_exact
       expected_lines:
-        - "dwa"
+        - "liczba 1 lub 2"
     feedback:
-      correct: "Wartość 2 została obsłużona przez odpowiadający jej przypadek."
-      incorrect: "Program powinien wypisać jeden wiersz zawierający tekst „dwa”."
+      correct: "Wzorzec tekstowy „2” nie pasuje do liczby całkowitej 2. Po użyciu wzorca liczbowego wykonuje się właściwa gałąź zamiast wildcardu."
+      incorrect: "match nie zamienia automatycznie liczby na łańcuch. wartosc jest typu int, natomiast wartości zapisane w cudzysłowach są typu str."
+    solution:
+      code: |
+        wartosc = 2
+
+        match wartosc:
+            case 1 | 2:
+                opis = "liczba 1 lub 2"
+            case _:
+                opis = "inna wartość"
+
+        print(opis)
+      discussion: >-
+        match nie przekształca automatycznie typów. Wartość wartosc jest liczbą
+        całkowitą, dlatego pasują do niej wzorce liczbowe 1 i 2, a nie teksty
+        zapisane w cudzysłowach. Operator | łączy oba wzorce w jednej gałęzi.
