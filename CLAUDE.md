@@ -34,6 +34,18 @@ Polskojęzyczne notatki do kursu Pythona (podręcznik kursowy). Framework: **MkD
 - Odsyłacze wewnętrzne: względne do plików `.md`; tytuły H1 zgodne z etykietami nav w `mkdocs.yml`. Wyjątki: strony `index.md` rozdziałów mają w nav etykietę „Wprowadzenie”, a ich H1 nazywa cały rozdział (np. „1. Instalacja i środowisko pracy”); strona główna `docs/index.md` ma etykietę nav „Strona główna”, a jej H1 nosi tytuł serwisu.
 - Stan odniesienia treści: Python 3.14 z Python Install Managerem (klasyczny instalator deprecated), nowy REPL 3.13/3.14, lintery i formatery VSC jako osobne rozszerzenia. Przy nazwach produktów, wersjach i instrukcjach narzędzi weryfikuj aktualność w sieci przed napisaniem.
 
+## Workflow repozytorium
+
+Przed rozpoczęciem pracy przeczytaj `DEVELOPMENT_WORKFLOW.md`.
+
+Jeśli bieżący branch ma prefiks `content/`, pracujesz w trybie CONTENT
+AUTHORING: rozwijasz treść książki i nie modyfikujesz `activities/**` ani
+infrastruktury interaktywnej, chyba że użytkownik jawnie zmieni zakres zadania.
+
+Treść książki jest nadrzędna wobec istniejących aktywności. Jeśli sensowna
+zmiana treści wpływa na ich kontrakt, zgłoś to w CONTENT HANDOFF zamiast
+dostosowywać książkę do ćwiczeń.
+
 ## Zasady współpracy
 
 - Zmiany nawigacji w `mkdocs.yml` oraz reorganizację treści proponuj i uzasadniaj, nie wykonuj bez zgody.

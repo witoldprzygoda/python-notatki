@@ -253,6 +253,24 @@ Każda zmiana JavaScript powinna zostać sprawdzona przynajmniej w trybie jasnym
 
 ## Zasady pracy z Codex
 
+Przed rozpoczęciem pracy:
+
+1. sprawdź bieżący branch;
+2. przeczytaj `DEVELOPMENT_WORKFLOW.md`;
+3. zastosuj tryb wynikający z prefiksu brancha.
+
+```text
+content/*      → CONTENT AUTHORING
+activities/*   → ACTIVITY AUTHORING
+integration/*  → CONTENT/ACTIVITY INTEGRATION
+infra/*        → INTERACTIVE INFRASTRUCTURE
+dev            → tylko integracja lub jawnie zlecona praca
+master         → branch wydawniczy; nie modyfikować bez jawnej decyzji
+```
+
+`DEVELOPMENT_WORKFLOW.md` jest autorytatywnym źródłem szczegółowych zasad
+organizacji pracy.
+
 - Najpierw przeczytaj `CLAUDE.md` oraz `INTERACTIVE_SYSTEM_SPEC.md`, jeśli zadanie dotyczy interaktywnej warstwy.
 - Przy zadaniu obejmującym architekturę przedstaw najpierw minimalny plan i wskaż pliki, które zamierzasz zmienić.
 - Nie dodawaj frameworka frontendowego, bundlera, bazy danych ani nowej usługi bez wyraźnej potrzeby i uzasadnienia.

@@ -17,6 +17,9 @@ Formalne zestawy zadań, kolokwia, większe quizy oceniane i repozytoria student
 
 ## 2. Najważniejsza decyzja: nie tworzyć nowego repozytorium frontendowego na początku
 
+Ta sekcja dokumentuje historyczną decyzję dla pierwszego POC. Bieżące role
+branchy i podział prac określa `DEVELOPMENT_WORKFLOW.md`.
+
 Na etapie MVP rekomendowana jest praca bezpośrednio w `python-notatki`, na osobnej gałęzi utworzonej od aktualnego `dev`, np.:
 
 ```text
@@ -672,7 +675,7 @@ Po przeładowaniu strony wszystko ma zostać odtworzone z `localStorage`.
 
 ---
 
-## 14. Kolejność implementacji MVP-0
+## 14. Historyczna kolejność implementacji MVP-0 (archiwum)
 
 ### Krok A — przygotowanie repozytorium
 
