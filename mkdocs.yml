@@ -113,6 +113,7 @@ nav:
       - Zbiory (set, frozenset): 05-typy-zlozone/zbiory.md
       - Złożenia: 05-typy-zlozone/zlozenia.md
   - 6. Funkcje:
+      - Wprowadzenie: 06-funkcje/index.md
       - Definiowanie funkcji: 06-funkcje/definiowanie-funkcji.md
       - Argumenty i parametry: 06-funkcje/argumenty-i-parametry.md
       - Zasięg nazw i domknięcia: 06-funkcje/zasieg-nazw-i-domkniecia.md

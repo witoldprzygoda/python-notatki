@@ -11,3 +11,4 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 3. [Nazwy i typy](03-nazwy-typy/index.md) — nazwy, typy proste, konwersje, obiekty i pamięć, operatory
 4. [Sterowanie przepływem](04-sterowanie/index.md) — instrukcje warunkowe, pętle i iteratory
 5. [Typy złożone](05-typy-zlozone/index.md) — lista, krotka, słownik, zbiory, złożenia
+6. [Funkcje](06-funkcje/index.md) — definiowanie, argumenty, zasięg nazw i domknięcia, rekurencja, funkcje generatorowe, dekoratory

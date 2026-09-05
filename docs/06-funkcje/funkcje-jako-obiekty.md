@@ -1,10 +1,10 @@
 # Funkcje jako obiekty
 
-Na stronie [Definiowanie funkcji](definiowanie-funkcji.md#funkcja-jako-obiekt) ustaliliśmy, że nazwa funkcji jest referencją do obiektu klasy `function`, a na stronie [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#domkniecia) zwracaliśmy funkcje jako wynik innych funkcji. Ta strona rozwija konsekwencje tego faktu: przekazujemy funkcje jako argumenty, przechowujemy je w kolekcjach, rozpoznajemy obiekty wywoływalne, tworzymy funkcje anonimowe wyrażeniem lambda, piszemy własne funkcje klucza dla `sorted()`, `min()` i `max()` oraz poznajemy zapowiedziane w rozdziale 5 funkcje `map()` i `filter()`.
+W podrozdziale [Definiowanie funkcji](definiowanie-funkcji.md#funkcja-jako-obiekt) ustaliliśmy, że nazwa funkcji jest referencją do obiektu klasy `function`, a w podrozdziale [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#domkniecia) zwracaliśmy funkcje jako wynik innych funkcji. Ten podrozdział rozwija konsekwencje tego faktu: przekazujemy funkcje jako argumenty, przechowujemy je w kolekcjach, rozpoznajemy obiekty wywoływalne, tworzymy funkcje anonimowe wyrażeniem lambda, piszemy własne funkcje klucza dla `sorted()`, `min()` i `max()` oraz poznajemy zapowiedziane w rozdziale 5 funkcje `map()` i `filter()`.
 
 ## Funkcje pierwszej klasy
 
-W Pythonie funkcja jest **obiektem pierwszej klasy** (ang. *first-class object*): można ją przypisać nazwie, przekazać jako argument, zwrócić jako wynik i przechować w kolekcji — tak samo jak liczbę czy listę. Przypisanie `pole = pole_prostokata` na stronie [Definiowanie funkcji](definiowanie-funkcji.md#funkcja-jako-obiekt) i zwracanie funkcji `pomnoz` z fabryki `mnoznik()` w sekcji [Domknięcia](zasieg-nazw-i-domkniecia.md#domkniecia) były pierwszymi przejawami tej własności. Przekazywanie funkcji jako argumentu ilustruje funkcja `zastosuj()`, która wywołuje otrzymaną funkcję na każdym elemencie listy:
+W Pythonie funkcja jest **obiektem pierwszej klasy** (ang. *first-class object*): można ją przypisać nazwie, przekazać jako argument, zwrócić jako wynik i przechować w kolekcji — tak samo jak liczbę czy listę. Przypisanie `pole = pole_prostokata` w podrozdziale [Definiowanie funkcji](definiowanie-funkcji.md#funkcja-jako-obiekt) i zwracanie funkcji `pomnoz` z fabryki `mnoznik()` w sekcji [Domknięcia](zasieg-nazw-i-domkniecia.md#domkniecia) były pierwszymi przejawami tej własności. Przekazywanie funkcji jako argumentu ilustruje funkcja `zastosuj()`, która wywołuje otrzymaną funkcję na każdym elemencie listy:
 
 ```python title="zastosuj.py"
 def zastosuj(funkcja, dane):
@@ -32,7 +32,7 @@ print(zastosuj(len, ["a", "bb", "ccc"]))
 
 W wywołaniu `zastosuj(kwadrat, [1, 2, 3])` argumentem jest obiekt funkcji `kwadrat` — nazwa bez nawiasów. Zapis `zastosuj(kwadrat(2), [1, 2, 3])` przekazałby wynik wywołania, liczbę `4`, a nie funkcję. Wewnątrz `zastosuj()` parametr `funkcja` jest lokalną nazwą tego samego obiektu, więc `funkcja(element)` wywołuje przekazaną funkcję. Argumentem może być dowolna funkcja jednoargumentowa: własna, wbudowana (`abs`, `len`) albo metoda podana przez nazwę typu (`str.upper`) — dokładnie tak jak w argumencie `key` funkcji `sorted()` z rozdziału [5. Typy złożone](../05-typy-zlozone/lista.md#sortowanie).
 
-Funkcję, która przyjmuje funkcję jako argument albo zwraca funkcję, nazywamy **funkcją wyższego rzędu** (ang. *higher-order function*). Funkcja `zastosuj()` przyjmuje funkcję, `mnoznik()` ją zwraca, a dekoratory z końca rozdziału łączą obie te cechy. <!-- TODO: link po powstaniu strony dekoratory.md -->
+Funkcję, która przyjmuje funkcję jako argument albo zwraca funkcję, nazywamy **funkcją wyższego rzędu** (ang. *higher-order function*). Funkcja `zastosuj()` przyjmuje funkcję, `mnoznik()` ją zwraca, a [dekoratory](dekoratory.md) z końca rozdziału łączą obie te cechy.
 
 Funkcję przekazaną po to, by funkcja wyższego rzędu wywołała ją w odpowiednim momencie swojego wykonania, nazywamy **wywołaniem zwrotnym** (ang. *callback*). W poniższym przykładzie sposób obsługi wartości ujemnej nie jest ustalony w `sumuj()` — określa go kod wywołujący, przekazując własną funkcję `ostrzez` albo wbudowaną `print`:
 
@@ -106,7 +106,7 @@ def pomnoz(a, b):
 
 dzialania = {"+": dodaj, "-": odejmij, "*": pomnoz}
 
-for znak in "+", "-", "*", "/":
+for znak in ("+", "-", "*", "/"):
     dzialanie = dzialania.get(znak)
     if dzialanie is None:
         print(znak, "nieznane działanie")
@@ -224,7 +224,7 @@ def <lambda>(x):
     return x + 1
 ```
 
-Lista parametrów podlega tej samej gramatyce, którą opisuje strona [Argumenty i parametry](argumenty-i-parametry.md): wartości domyślne, `*args`, `**kwargs`, parametry tylko pozycyjne i tylko nazwane; może być też pusta:
+Lista parametrów podlega tej samej gramatyce, którą opisuje podrozdział [Argumenty i parametry](argumenty-i-parametry.md): wartości domyślne, `*args`, `**kwargs`, parametry tylko pozycyjne i tylko nazwane; może być też pusta:
 
 ```{ .python .no-copy }
 >>> (lambda x, y=10: x + y)(1)
@@ -257,7 +257,7 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-Po zamianie pierwszego wiersza na definicję `def dziel(a, b): return a / b` drugi wpis śladu brzmiałby `in dziel`. Jedyną przewagą wyrażenia lambda nad instrukcją `def` jest możliwość osadzenia go wewnątrz większego wyrażenia — i tam jest jego właściwe miejsce: jako argument funkcji wyższego rzędu (funkcja klucza, wywołanie zwrotne) albo wartość w tablicy rozdzielczej, np. `{"*": lambda a, b: a * b}`, gdy krótka funkcja jest potrzebna tylko raz.
+Po zamianie pierwszego wiersza na definicję `def dziel(a, b): return a / b` drugi wpis śladu brzmiałby `in dziel`. Jedyną przewagą wyrażenia lambda nad instrukcją `def` jest możliwość osadzenia go wewnątrz większego wyrażenia — i tam jest jego właściwe miejsce: jako argument funkcji wyższego rzędu — wywołanie zwrotne albo funkcja klucza, omawiana w następnej sekcji — albo wartość w tablicy rozdzielczej, np. `{"*": lambda a, b: a * b}`, gdy krótka funkcja jest potrzebna tylko raz.
 
 Wyrażenie lambda umieszczone w ciele funkcji tworzy domknięcie na tych samych zasadach co zagnieżdżona instrukcja `def` — fabrykę `mnoznik()` z sekcji [Domknięcia](zasieg-nazw-i-domkniecia.md#domkniecia) można zapisać jako `return lambda wartosc: wartosc * przez`. Jak każda funkcja, funkcja anonimowa odczytuje zmienne wolne dopiero przy wywołaniu, dotyczy jej więc [późne wiązanie nazw](zasieg-nazw-i-domkniecia.md#pozne-wiazanie-nazw) — niezależnie od tego, czy zmienna wolna jest nazwą globalną, jak w poniższej pętli, czy zmienną domknięcia:
 
@@ -266,19 +266,13 @@ funkcje = []
 for i in range(3):
     funkcje.append(lambda: i)
 print([f() for f in funkcje])
-
-funkcje = []
-for i in range(3):
-    funkcje.append(lambda i=i: i)
-print([f() for f in funkcje])
 ```
 
 ```{ .text .no-copy }
 [2, 2, 2]
-[0, 1, 2]
 ```
 
-Trzy funkcje anonimowe odczytują zmienną wolną `i` dopiero przy wywołaniu, po zakończeniu pętli; wartość domyślna `i=i`, obliczana w chwili tworzenia funkcji, utrwala bieżącą wartość. Dokumentacja Pythona omawia ten przypadek w sekcji FAQ i zaznacza, że zachowanie nie jest szczególną cechą wyrażeń lambda, lecz dotyczy również zwykłych funkcji — co pokazaliśmy na poprzedniej stronie.
+Trzy funkcje anonimowe odczytują zmienną wolną `i` dopiero przy wywołaniu, po zakończeniu pętli. Obejścia są te same co w poprzednim podrozdziale: wartość domyślna (`lambda i=i: i`) albo fabryka funkcji. Dokumentacja Pythona omawia ten przypadek w sekcji FAQ i zaznacza, że zachowanie nie jest szczególną cechą wyrażeń lambda, lecz dotyczy również zwykłych funkcji — co pokazaliśmy w poprzednim podrozdziale.
 
 ## Funkcja klucza w sorted, min i max
 
@@ -360,7 +354,7 @@ Zapowiedziane przy [wyrażeniu generatorowym](../05-typy-zlozone/zlozenia.md#wyr
 []
 ```
 
-Obiekt klasy `map` jest iteratorem takim jak wyniki `enumerate()` i `zip()`: obsługuje `next()`, nie obsługuje `len()` (wywołanie `len(m)` zgłasza `TypeError: object of type 'map' has no len()`) i jest jednorazowy — po wyczerpaniu drugie wywołanie `list(m)` zwraca pustą listę. Nie jest generatorem; termin ten rezerwujemy dla wyrażenia generatorowego oraz funkcji generatorowej, którą poznamy w dalszej części rozdziału. <!-- TODO: link po powstaniu strony funkcje-generatorowe.md --> Gdy wynik jest potrzebny w całości, przekazujemy iterator funkcji `list()` albo innej funkcji przyjmującej obiekt iterowalny:
+Obiekt klasy `map` jest iteratorem takim jak wyniki `enumerate()` i `zip()`: obsługuje `next()`, nie obsługuje `len()` (wywołanie `len(m)` zgłasza `TypeError: object of type 'map' has no len()`) i jest jednorazowy — po wyczerpaniu drugie wywołanie `list(m)` zwraca pustą listę. Nie jest generatorem; termin ten rezerwujemy dla obiektów tworzonych wyrażeniem generatorowym oraz [funkcją generatorową](funkcje-generatorowe.md), którą poznamy w dalszej części rozdziału. Gdy wynik jest potrzebny w całości, przekazujemy iterator funkcji `list()` albo innej funkcji przyjmującej obiekt iterowalny:
 
 ```python title="map-typowe.py"
 print(list(map(int, "3 14 15".split())))

@@ -53,7 +53,7 @@ d1 = dict(a='alpha', a123=1.435, klucz3='prawda')
 # powstaje {'a': 'alpha', 'a123': 1.435, 'klucz3': 'prawda'}
 ```
 
-Zapis `a='alpha'` to argumenty nazwane (ang. *keyword arguments*) — konstruktor `dict()` pakuje je w słownik; dlatego właśnie klucze muszą tu być poprawnymi nazwami. Ten sam mechanizm (`**kwargs`), tym razem od strony definiowania własnych funkcji, omówimy w rozdziale o funkcjach. <!-- TODO: link po powstaniu rozdziału o funkcjach -->
+Zapis `a='alpha'` to argumenty nazwane (ang. *keyword arguments*) — konstruktor `dict()` pakuje je w słownik; dlatego właśnie klucze muszą tu być poprawnymi nazwami. Ten sam mechanizm (`**kwargs`), tym razem od strony definiowania własnych funkcji, omawiamy w rozdziale [6. Funkcje](../06-funkcje/argumenty-i-parametry.md#parametr-kwargs).
 
 Słownik można utworzyć też za pomocą **złożenia słownikowego** (ang. *dictionary comprehension*), analogicznego do złożeń listowych (opis w podrozdziale [Złożenia](zlozenia.md)). Minimalna składnia:
 

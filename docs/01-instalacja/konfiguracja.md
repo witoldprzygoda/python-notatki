@@ -99,7 +99,7 @@ Załóżmy, że w pliku znajduje się z powrotem prosta instrukcja:
 print("pierwszy program")
 ```
 
-Pylint, w zależności od ustawień, zgłosi ostrzeżenie *Missing module docstring* — w pliku-module brakuje opisu dokumentacyjnego. **Docstring** (ang. *documentation string*) to łańcuch znakowy umieszczany na początku modułu, klasy lub funkcji, pełniący rolę ich dokumentacji; konwencje jego pisania określa PEP 257, a szersze omówienie nastąpi przy funkcjach. Jeżeli tego rodzaju ostrzeżenia mają zostać wyłączone, w pliku `settings.json` (otwieranym jak poprzednio) dodajemy linię:
+Pylint, w zależności od ustawień, zgłosi ostrzeżenie *Missing module docstring* — w pliku-module brakuje opisu dokumentacyjnego. **Docstring** (ang. *documentation string*) to łańcuch znakowy umieszczany na początku modułu, klasy lub funkcji, pełniący rolę ich dokumentacji; konwencje jego pisania określa PEP 257, a szersze omówienie zawiera rozdział [6. Funkcje](../06-funkcje/definiowanie-funkcji.md#docstring-i-funkcja-help). Jeżeli tego rodzaju ostrzeżenia mają zostać wyłączone, w pliku `settings.json` (otwieranym jak poprzednio) dodajemy linię:
 
 ```json title="settings.json"
 "pylint.args": ["--errors-only"]

@@ -1,6 +1,6 @@
 # Funkcje generatorowe
 
-W rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md#iteratory) poznaliśmy iteratory: obiekty jednorazowe, z których funkcja `next()` pobiera kolejne elementy, aż zgłoszą wyjątek `StopIteration`. W rozdziale [5. Typy złożone](../05-typy-zlozone/zlozenia.md#wyrazenie-generatorowe) zapisaliśmy własny iterator wyrażeniem generatorowym, a na stronie [Funkcje jako obiekty](funkcje-jako-obiekty.md#funkcje-map-i-filter) poznaliśmy funkcje `map()` i `filter()`, zwracające iteratory klas `map` i `filter`. Ta strona domyka ten wątek: wprowadza funkcje generatorowe ze słowem kluczowym `yield`, wymienionym w katalogu słów kluczowych w rozdziale [3. Nazwy i typy](../03-nazwy-typy/nazwy-i-slowa-kluczowe.md#sowa-kluczowe), i porządkuje pojęcia — zwykła funkcja, funkcja generatorowa, obiekt generatora, iterator, wyrażenie generatorowe oraz `map()` i `filter()`.
+W rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md#iteratory) poznaliśmy iteratory: obiekty jednorazowe, z których funkcja `next()` pobiera kolejne elementy, aż zgłoszą wyjątek `StopIteration`. W rozdziale [5. Typy złożone](../05-typy-zlozone/zlozenia.md#wyrazenie-generatorowe) zapisaliśmy własny iterator wyrażeniem generatorowym, a w podrozdziale [Funkcje jako obiekty](funkcje-jako-obiekty.md#funkcje-map-i-filter) poznaliśmy funkcje `map()` i `filter()`, zwracające iteratory klas `map` i `filter`. Ten podrozdział domyka ten wątek: wprowadza funkcje generatorowe ze słowem kluczowym `yield`, wymienionym w katalogu słów kluczowych w rozdziale [3. Nazwy i typy](../03-nazwy-typy/nazwy-i-slowa-kluczowe.md#sowa-kluczowe), i porządkuje pojęcia — zwykła funkcja, funkcja generatorowa, obiekt generatora, iterator, wyrażenie generatorowe oraz `map()` i `filter()`.
 
 ## Funkcja generatorowa i obiekt generatora
 
@@ -30,7 +30,7 @@ start
 3
 ```
 
-Funkcja `odliczanie` jest obiektem klasy `function`, tak jak każda funkcja ze strony [Definiowanie funkcji](definiowanie-funkcji.md#funkcja-jako-obiekt). Jej wywołanie zwraca obiekt klasy `generator` i niczego nie wypisuje — komunikat „start” pojawia się dopiero po wywołaniu `next(generator)`. Wtedy ciało funkcji wykonuje się od początku do pierwszej instrukcji `yield`, wartość `3` trafia do wywołującego, a wykonanie zostaje **zawieszone** (ang. *suspended*), czyli wstrzymane do następnego wywołania `next()`. Reprezentacja obiektu generatora w konsoli zawiera nazwę funkcji, z której obiekt powstał; adres po `at` jest, jak poprzednio, szczegółem implementacyjnym:
+Funkcja `odliczanie` jest obiektem klasy `function`, tak jak każda funkcja z podrozdziału [Definiowanie funkcji](definiowanie-funkcji.md#funkcja-jako-obiekt). Jej wywołanie zwraca obiekt klasy `generator` i niczego nie wypisuje — komunikat „start” pojawia się dopiero po wywołaniu `next(generator)`. Wtedy ciało funkcji wykonuje się od początku do pierwszej instrukcji `yield`, wartość `3` trafia do wywołującego, a wykonanie zostaje **zawieszone** (ang. *suspended*), czyli wstrzymane do następnego wywołania `next()`. Reprezentacja obiektu generatora w konsoli zawiera nazwę funkcji, z której obiekt powstał; adres po `at` jest, jak poprzednio, szczegółem implementacyjnym:
 
 ```{ .python .no-copy }
 >>> generator = odliczanie()
@@ -42,7 +42,7 @@ Funkcja `odliczanie` jest obiektem klasy `function`, tak jak każda funkcja ze s
 
 Postać tej reprezentacji i nazwa klasy `generator` są szczegółem CPythona; dokumentacja gwarantuje atrybut `__name__` z nazwą funkcji generatorowej.
 
-## Wstrzymanie i wznowienie wykonania
+## Zawieszenie i wznowienie wykonania
 
 Kolejne wywołania `next()` wznawiają wykonanie od miejsca zawieszenia — od instrukcji następującej po ostatnim `yield`:
 
@@ -76,7 +76,7 @@ kolejne next()        →  wznowienie za yield → następny yield → zawieszen
 koniec ciała / return →  StopIteration
 ```
 
-Instrukcja `yield` nie jest wielokrotnym `return`. Instrukcja `return` kończy wykonanie funkcji: jej ramka wywołania, poznana na stronie [Rekurencja](rekurencja.md#przypadek-bazowy-i-krok-rekurencyjny), znika wraz z nazwami lokalnymi. Instrukcja `yield` tylko zawiesza wykonanie: ramka pozostaje, a wraz z nią — jak ujmuje to dokumentacja języka — cały stan lokalny, w tym bieżące wiązania nazw lokalnych i miejsce, od którego wykonanie ma być wznowione. Obiekt generatora jest iteratorem w rozumieniu rozdziału 4. Każdy iterator — także te z rozdziału 4 — zwraca z `iter()` samego siebie; dzięki temu pętla `for`, która zawsze zaczyna od `iter()`, przyjmuje zarówno obiekty iterowalne, jak i iteratory, i sama przechwytuje `StopIteration`. Sprawdzamy to dla obiektu generatora:
+Instrukcja `yield` nie jest wielokrotnym `return`. Instrukcja `return` kończy wykonanie funkcji: jej ramka wywołania, poznana w podrozdziale [Rekurencja](rekurencja.md#przypadek-bazowy-i-krok-rekurencyjny), znika wraz z nazwami lokalnymi. Instrukcja `yield` tylko zawiesza wykonanie: ramka pozostaje, a wraz z nią — jak ujmuje to dokumentacja języka — cały stan lokalny, w tym bieżące wiązania nazw lokalnych i miejsce, od którego wykonanie ma być wznowione. Obiekt generatora jest iteratorem w rozumieniu rozdziału 4. Każdy iterator — także te z rozdziału 4 — zwraca z `iter()` samego siebie; dzięki temu pętla `for`, która zawsze zaczyna od `iter()`, przyjmuje zarówno obiekty iterowalne, jak i iteratory, i sama przechwytuje `StopIteration`. Sprawdzamy to dla obiektu generatora:
 
 ```{ .python .no-copy }
 >>> generator = odliczanie()
@@ -126,7 +126,7 @@ Pierwsze `next()` wiąże `n` z wartością `start`, sprawdza warunek pętli i z
 ([3], [2, 3])
 ```
 
-Na stronie [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#przestrzenie-nazw-i-zasiegi) ustaliliśmy, że przestrzeń lokalna istnieje tak długo, jak wywołanie. Domknięcie przechowuje stan w zachowanych wiązaniach zmiennych wolnych, już po usunięciu przestrzeni lokalnej funkcji otaczającej; obiekt generatora przechowuje go we własnej, zawieszonej ramce, w której przestrzeń lokalna nadal istnieje. Funkcja generatorowa jest więc najprostszym sposobem zapisania obliczenia, które ma zachowywać stan między kolejnymi pobraniami wyniku — prostszym niż domknięcie z `nonlocal` opakowane w `iter(obiekt_wywoływalny, wartownik)` ze strony [Funkcje jako obiekty](funkcje-jako-obiekty.md#obiekty-wywoywalne).
+W podrozdziale [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#przestrzenie-nazw-i-zasiegi) ustaliliśmy, że przestrzeń lokalna istnieje tak długo, jak wywołanie. Domknięcie przechowuje stan w zachowanych wiązaniach zmiennych wolnych, już po usunięciu przestrzeni lokalnej funkcji otaczającej; obiekt generatora przechowuje go we własnej, zawieszonej ramce, w której przestrzeń lokalna nadal istnieje. Funkcja generatorowa jest więc najprostszym sposobem zapisania obliczenia, które ma zachowywać stan między kolejnymi pobraniami wyniku — prostszym niż domknięcie z `nonlocal` opakowane w `iter(obiekt_wywoływalny, wartownik)` z podrozdziału [Funkcje jako obiekty](funkcje-jako-obiekty.md#obiekty-wywoywalne).
 
 ## Leniwość i jednorazowość
 
@@ -202,7 +202,7 @@ Gdy potrzebna jest długość, indeksowanie albo wielokrotne przejście, wynik g
 (<class 'map'>, <class 'filter'>)
 ```
 
-Zestawienie pojęć używanych na tej i na poprzednich stronach:
+Zestawienie pojęć używanych w tym i w poprzednich podrozdziałach:
 
 | Pojęcie | Czym jest | Jak powstaje |
 |---|---|---|
@@ -352,7 +352,7 @@ for wynik in kwadraty:
 
 ## Delegowanie przez yield from
 
-Etap potoku, który ma przekazać dalej wszystkie elementy innego obiektu iterowalnego, wymagałby pętli `for` z instrukcją `yield` w ciele. Instrukcja `yield from` zapisuje to jednym wierszem — jest to **delegowanie** (ang. *delegation*): produkowanie wartości zostaje przekazane podanemu obiektowi iterowalnemu, a jego kolejne elementy trafiają bezpośrednio do odbiorcy. Funkcja `polacz()` łączy dowolną liczbę obiektów iterowalnych, przekazanych przez parametr `*iterowalne` ze strony [Argumenty i parametry](argumenty-i-parametry.md#parametr-args), w jeden ciąg:
+Etap potoku, który ma przekazać dalej wszystkie elementy innego obiektu iterowalnego, wymagałby pętli `for` z instrukcją `yield` w ciele. Instrukcja `yield from` zapisuje to jednym wierszem — jest to **delegowanie** (ang. *delegation*): produkowanie wartości zostaje przekazane podanemu obiektowi iterowalnemu, a jego kolejne elementy trafiają bezpośrednio do odbiorcy. Funkcja `polacz()` łączy dowolną liczbę obiektów iterowalnych, przekazanych przez parametr `*iterowalne` z podrozdziału [Argumenty i parametry](argumenty-i-parametry.md#parametr-args), w jeden ciąg:
 
 ```python title="polacz.py"
 def polacz(*iterowalne):
@@ -368,7 +368,7 @@ print(list(polacz([1, 2], "ab", range(3))))
 [1, 2, 'a', 'b', 0, 1, 2]
 ```
 
-W tym podstawowym zastosowaniu `yield from iterowalny` działa tak samo jak pętla `for element in iterowalny: yield element`. Delegować można także do innego obiektu generatora — również takiego, który powstał z tej samej funkcji generatorowej. Spłaszczanie listy zagnieżdżonej ze strony [Rekurencja](rekurencja.md#rekurencja-na-strukturach-zagniezdzonych) przyjmuje wtedy postać rekurencyjnej funkcji generatorowej, która zamiast budować listę wynikową, zwraca generator produkujący wartości pojedynczo:
+W tym podstawowym zastosowaniu `yield from iterowalny` działa tak samo jak pętla `for element in iterowalny: yield element`. Delegować można także do innego obiektu generatora — również takiego, który powstał z tej samej funkcji generatorowej. Spłaszczanie listy zagnieżdżonej z podrozdziału [Rekurencja](rekurencja.md#rekurencja-na-strukturach-zagniezdzonych) przyjmuje wtedy postać rekurencyjnej funkcji generatorowej, która zamiast budować listę wynikową, zwraca generator produkujący wartości pojedynczo:
 
 ```python title="splaszcz-generator.py"
 def splaszcz(lista):
@@ -393,7 +393,7 @@ print(list(splaszcz([[[[7]]]])))
 [7]
 ```
 
-Dla elementu będącego listą powstaje zagnieżdżony obiekt generatora, a `yield from` przekazuje jego wartości w górę, przez wszystkie poziomy, aż do odbiorcy; odbiorca widzi jeden płaski ciąg i może pobrać z niego tylko część wartości. W porównaniu z wersją z poprzedniej strony ubyło listy `wynik` oraz wywołań `append()` i `extend()`. Instrukcja `yield from` przekazuje między odbiorcą a generatorem zagnieżdżonym również bardziej zaawansowany protokół sterowania — obiekty generatorów mają metody `send()`, `throw()` i `close()` — który nie jest potrzebny do podstawowego korzystania z generatorów i do którego wrócimy przy korutynach. <!-- TODO: link po powstaniu rozdziału o korutynach -->
+Dla elementu będącego listą powstaje zagnieżdżony obiekt generatora, a `yield from` przekazuje jego wartości w górę, przez wszystkie poziomy, aż do odbiorcy; odbiorca widzi jeden płaski ciąg i może pobrać z niego tylko część wartości. W porównaniu z wersją z poprzedniego podrozdziału ubyło listy `wynik` oraz wywołań `append()` i `extend()`. Instrukcja `yield from` przekazuje między odbiorcą a generatorem zagnieżdżonym również bardziej zaawansowany protokół sterowania — obiekty generatorów mają metody `send()`, `throw()` i `close()` — który nie jest potrzebny do podstawowego korzystania z generatorów i do którego wrócimy przy korutynach. <!-- TODO: link po powstaniu rozdziału o korutynach -->
 
 Mechanizm generatorów rozwijał się etapami: funkcje generatorowe wprowadził [PEP 255](https://peps.python.org/pep-0255/) (Python 2.2), wyrażenia generatorowe — [PEP 289](https://peps.python.org/pep-0289/) (2.4), protokół sterowania generatorem z zewnątrz — [PEP 342](https://peps.python.org/pep-0342/) (2.5), a instrukcję `yield from` — [PEP 380](https://peps.python.org/pep-0380/) (3.3). Dokumenty te opisują genezę mechanizmu; jego bieżące zachowanie definiuje dokumentacja języka w sekcji o wyrażeniach `yield`.
 
@@ -404,7 +404,7 @@ Mechanizm generatorów rozwijał się etapami: funkcje generatorowe wprowadził 
     w rozdziale o wyjątkach. Pętla `for` i funkcja `list()` tę wartość pomijają,
     więc nie jest ona sposobem przekazania wyniku odbiorcy; korzysta z niej
     instrukcja `yield from`, dla której staje się wartością wyrażenia —
-    w zastosowaniach poza zakresem tej strony. Instrukcje po `return` nigdy się
+    w zastosowaniach poza zakresem tego podrozdziału. Instrukcje po `return` nigdy się
     nie wykonują:
     <!-- TODO: link po powstaniu rozdziału o wyjątkach -->
 

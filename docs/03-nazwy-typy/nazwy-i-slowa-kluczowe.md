@@ -11,7 +11,7 @@ Nazwy zmiennych w Pythonie mogą mieć dowolną długość i mogą składać si�
 
 ## Słowa kluczowe
 
-Python ma też zestaw **słów kluczowych**, które są słowami zastrzeżonymi — nie można ich używać jako nazw zmiennych, nazw funkcji ani żadnych innych identyfikatorów. Choć na tym etapie poznawania języka jest to katalog 35 haseł, warto się z nimi zapoznać — ich znaczenie będziemy poznawać stopniowo:
+Python ma też zestaw **słów kluczowych**, które są słowami zastrzeżonymi — nie można ich używać jako nazw zmiennych, nazw funkcji ani żadnych innych identyfikatorów. Choć na tym etapie poznawania języka jest to katalog 35 haseł, warto się z nimi zapoznać — ich znaczenie poznajemy stopniowo, między innymi `def` i `return` w podrozdziale [Definiowanie funkcji](../06-funkcje/definiowanie-funkcji.md), `lambda` w podrozdziale [Funkcje jako obiekty](../06-funkcje/funkcje-jako-obiekty.md), `yield` w podrozdziale [Funkcje generatorowe](../06-funkcje/funkcje-generatorowe.md), a `global` i `nonlocal` w podrozdziale [Zasięg nazw i domknięcia](../06-funkcje/zasieg-nazw-i-domkniecia.md):
 
 ```{ .text .no-copy }
 and, as, assert, async, await, break, class, continue, def, del,

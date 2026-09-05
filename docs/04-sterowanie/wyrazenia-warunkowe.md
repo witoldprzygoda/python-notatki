@@ -83,7 +83,7 @@ match obiekt:
         <akcja domyslna>
 ```
 
-Przykład poniżej spowoduje wywołanie `print(3)`; gdyby nie było przypadku pasującego, weszlibyśmy do pola `_`. W miejscach <akcja> może być dowolny kod, może być instrukcja return, jeśli cały fragment jest częścią funkcji.
+Przykład poniżej spowoduje wywołanie `print(3)`; gdyby nie było przypadku pasującego, weszlibyśmy do pola `_`. W miejscach <akcja> może być dowolny kod, może być instrukcja `return`, jeśli cały fragment jest częścią funkcji (rozdział [6. Funkcje](../06-funkcje/definiowanie-funkcji.md#instrukcja-return)).
 
 ```python title="match1.py"
 t = "raz"

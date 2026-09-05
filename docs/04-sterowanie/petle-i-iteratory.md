@@ -97,7 +97,8 @@ Kolejność sekwencji można odwrócić również za pomocą wbudowanej funkcji 
     Terminem **generator** określa się w Pythonie szczególny rodzaj iteratora,
     tworzony wyrażeniami generatorowymi i funkcjami ze słowem kluczowym `yield` —
     wracamy do niego przy złożeniach (rozdział
-    [5. Typy złożone](../05-typy-zlozone/zlozenia.md)) oraz przy funkcjach.
+    [5. Typy złożone](../05-typy-zlozone/zlozenia.md)) oraz w rozdziale
+    [6. Funkcje](../06-funkcje/funkcje-generatorowe.md).
 
 ```{ .python .no-copy }
 >>> r = range(5)

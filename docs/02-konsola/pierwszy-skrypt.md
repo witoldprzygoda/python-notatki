@@ -59,7 +59,7 @@ zapisany w wielu liniach
 """
 ```
 
-Łańcuch tego rodzaju umieszczony na początku modułu lub funkcji pełni szczególną rolę dokumentacyjną — jest to **docstring** (ang. *documentation string*), wspomniany w podrozdziale [Konfigurowanie narzędzi](../01-instalacja/konfiguracja.md); szersze omówienie nastąpi przy funkcjach.
+Łańcuch tego rodzaju umieszczony na początku modułu lub funkcji pełni szczególną rolę dokumentacyjną — jest to **docstring** (ang. *documentation string*), wspomniany w podrozdziale [Konfigurowanie narzędzi](../01-instalacja/konfiguracja.md); szersze omówienie zawiera rozdział [6. Funkcje](../06-funkcje/definiowanie-funkcji.md#docstring-i-funkcja-help).
 
 !!! tip "Komentowanie wielu linii w Visual Studio Code"
     Po zaznaczeniu kilku linii kodu skrótem klawiszowym ++ctrl+k++ ++ctrl+c++

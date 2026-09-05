@@ -5,7 +5,7 @@ Dokument jest mapą dalszej książki, nie zadaniem do jednorazowej realizacji. 
 ## 0. Zasady realizacji
 
 1. **Pracujemy rozdział po rozdziale.** Każdy rozdział przechodzi trzy etapy: szczegółowy projekt stron (do akceptacji; skondensowany zapis w `plans/NN-slug.md`), implementacja, osobny odbiór. Kolejny rozdział zaczynamy dopiero po odbiorze poprzedniego.
-2. **Aktualnie w realizacji: rozdział 6. Funkcje.** Rozdziały 7–18 są zaplanowane, ale nie rozpoczęte.
+2. **Rozdział 6. Funkcje jest ukończony** (odbiór 5 IX 2026). **Następny do realizacji: rozdział 7. Moduły, pakiety i biblioteka standardowa.** Rozdziały 8–18 są zaplanowane, ale nie rozpoczęte.
 3. **Nawigacja (`mkdocs.yml`) i spis na stronie głównej** zawierają wyłącznie rozdziały, które istnieją. Pozycje 7–18 dodajemy dopiero wraz z ich treścią.
 4. **Kolejność pojęć jest bezwzględna.** Żaden przykład nie może wymagać mechanizmu formalnie wprowadzanego dopiero w późniejszym rozdziale. Funkcje wbudowane są dostępne zawsze; moduły biblioteki standardowej użyte już w rozdziałach 1–5 (`math`, `sys`, `copy`, `decimal`, `fractions`, `keyword`) można przywoływać ostrożnie; importowane dekoratory, `functools` i pakiety użytkownika dopiero od rozdziału 7.
 5. **Hierarchia źródeł merytorycznych:** aktualna dokumentacja Pythona 3.14 (Language Reference, Standard Library Reference), właściwe PEP-y, oficjalne HOWTO i FAQ, dopiero potem wysokiej jakości źródła zewnętrzne jako pomocnicze. Materiały z `sources/` (PDF autora, wykłady, laboratoria) są źródłem programu kursu i przykładów, ale ich nieaktualności i błędy korygujemy. Blog, tutorial ani Stack Overflow nie mogą być jedynym źródłem twierdzenia o semantyce języka.
@@ -32,8 +32,8 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 
 | Nr | Rozdział | Katalog | Priorytet | Podstron | Rozmiar | Powiązane laboratorium | Status |
 |---|---|---|---|---|---|---|---|
-| 6 | 6. Funkcje | `docs/06-funkcje/` | wysoki | 7 | index + 7 stron, ok. 1150–1250 linii | lab4, lab6, lab8 | w realizacji |
-| 7 | 7. Moduły, pakiety i biblioteka standardowa | `docs/07-moduly/` | wysoki | 6 | index + 6 stron, ok. 900–1000 linii | lab3 | zaplanowany |
+| 6 | 6. Funkcje | `docs/06-funkcje/` | wysoki | 7 | index + 7 stron, 2962 linie | lab4, lab6, lab8 | ukończony |
+| 7 | 7. Moduły, pakiety i biblioteka standardowa | `docs/07-moduly/` | wysoki | 6 | index + 6 stron, ok. 900–1000 linii | lab3 | następny do realizacji |
 | 8 | 8. Wyjątki i zarządzanie zasobami | `docs/08-wyjatki/` | wysoki | 6 | index + 6 stron, ok. 800–900 linii | — | zaplanowany |
 | 9 | 9. Wejście, wyjście i pliki | `docs/09-wejscie-wyjscie/` | wysoki | 7 | index + 7 stron, ok. 1000–1100 linii | lab2 | zaplanowany |
 | 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, ok. 850–950 linii | lab5 | zaplanowany |
@@ -108,7 +108,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - Decyzja autora: `functools` (cache, wraps, reduce, partial), `itertools`, `operator` i kod `sys.getrecursionlimit()` poza rozdziałem 6 — rozdz. 7; `map(strict=True)` (3.14) jako krótka nota; liczby (zliczanie wywołań, granica rekurencji) zmierzone na 3.14.7 i oznaczone jako szczegóły CPythona; bez pomiarów pamięci `sys.getsizeof()`; liczniki diagnostyczne przez domknięcie z nonlocal, nie przez global
 - Nazwy plików bez kolizji ze stdlib (test.py); pliki i open() poza rozdziałem (rozdz. 9)
 
-**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 7 stron, ok. 1200–1500 linii (150–225 linii na stronę). **Status:** w realizacji — projekt stron zaakceptowany 5 IX 2026 (`plans/06-funkcje.md`), implementacja strona po stronie.
+**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 7 stron, ok. 1200–1500 linii (150–225 linii na stronę). **Status:** ukończony — projekt stron zaakceptowany 5 IX 2026 (`plans/06-funkcje.md`), wszystkie strony wraz z `index.md` zaakceptowane i zbiorczo zredagowane 5 IX 2026 (2962 linie); zapowiedzi z rozdziałów 1–5 domknięte odsyłaczami.
 
 ### 7. Moduły, pakiety i biblioteka standardowa (`docs/07-moduly/`)
 
@@ -157,7 +157,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - src layout + pyproject (PEP 621); python -m pytest; pytest 9.1.1 na 3.14; goły pip → python -m pip
 - argparse 3.14 (suggest_on_error, kolor); python -m json; batched(strict=True) 3.13
 
-**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 6 stron, ok. 900–1000 linii.
+**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 6 stron, ok. 900–1000 linii. **Status:** następny do realizacji — zakres bez zmian, projektowanie nierozpoczęte.
 
 ### 8. Wyjątki i zarządzanie zasobami (`docs/08-wyjatki/`)
 

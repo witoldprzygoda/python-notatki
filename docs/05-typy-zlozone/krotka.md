@@ -1,6 +1,6 @@
 # Krotka (tuple)
 
-Krotka (tuple) jest kontenerem sekwencyjnym, który jest **niemodyfikowalny**. Zatem dla obiektów tuple — o ile ich elementy również są niemodyfikowalne, o czym dalej — można wyliczyć wartość skrótu (ang. *hash*): liczbę identyfikującą zawartość obiektu, obliczaną funkcją wbudowaną `hash()` i wymaganą m.in. od kluczy słownika oraz elementów zbioru. Krotki mogą więc być stosowane wszędzie tam, gdzie jest wymagany obiekt niemodyfikowalny — na przykład jako klucz w typie słownikowym (dict):
+Krotka (tuple) jest kontenerem sekwencyjnym, który jest **niemodyfikowalny**. Zatem dla obiektów tuple — o ile ich elementy również są niemodyfikowalne, o czym dalej — można wyliczyć wartość skrótu (ang. *hash*): liczbę identyfikującą zawartość obiektu, obliczaną funkcją wbudowaną `hash()` i wymaganą m.in. od kluczy słownika oraz elementów zbioru; obiekt, dla którego można ją wyliczyć, nazywamy **haszowalnym** (ang. *hashable*). Krotki mogą więc być stosowane wszędzie tam, gdzie jest wymagany obiekt niemodyfikowalny — na przykład jako klucz w typie słownikowym (dict):
 
 ```{ .python .no-copy }
 >>> t1 = ()
@@ -17,7 +17,7 @@ True
 
 Konkretna liczba zależy od platformy, ale dla wszystkich pustych krotek jest identyczna — to właśnie czyni je wymiennymi wszędzie tam, gdzie wymagany jest hash.
 
-Można by się zastanawiać, jaki jest sens obiektu pustego, którego nie można zmodyfikować. Jednak wszędzie tam, gdzie spodziewana jest krotka (np. sekwencja pozycyjnych argumentów funkcji trafia do krotki — mechanizm `*args`, który omówimy w rozdziale o funkcjach), powinna również istnieć możliwość przekazania pustego obiektu — stąd istnienie pustej krotki ma jak najbardziej sens. <!-- TODO: link po powstaniu rozdziału o funkcjach -->
+Można by się zastanawiać, jaki jest sens obiektu pustego, którego nie można zmodyfikować. Jednak wszędzie tam, gdzie spodziewana jest krotka (np. sekwencja pozycyjnych argumentów funkcji trafia do krotki — mechanizm `*args`, który omawiamy w rozdziale [6. Funkcje](../06-funkcje/argumenty-i-parametry.md#parametr-args)), powinna również istnieć możliwość przekazania pustego obiektu — stąd istnienie pustej krotki ma jak najbardziej sens.
 
 Krotka może zawierać, podobnie jak lista, obiekty różnych typów:
 
@@ -125,7 +125,7 @@ l = list('abrakadabra')   # ['a', 'b', 'r', 'a', 'k', 'a', 'd', 'a', 'b', 'r', '
 t = (*l,)                 # ('a', 'b', 'r', 'a', 'k', 'a', 'd', 'a', 'b', 'r', 'a')
 ```
 
-Natomiast aby z powrotem uzyskać string z krotki, można zapisać: `napis = ''.join(t)`. Gwiazdka w wywołaniu funkcji rozpakowuje sekwencję na osobne argumenty — mechanizm ten, wraz z parametrami `*args`, omówimy w rozdziale o funkcjach. <!-- TODO: link po powstaniu rozdziału o funkcjach -->
+Natomiast aby z powrotem uzyskać string z krotki, można zapisać: `napis = ''.join(t)`. Gwiazdka w wywołaniu funkcji rozpakowuje sekwencję na osobne argumenty — mechanizm ten, wraz z parametrami `*args`, omawiamy w rozdziale [6. Funkcje](../06-funkcje/argumenty-i-parametry.md#rozpakowanie-argumentow-w-wywoaniu).
 
 Iterowanie po elementach krotki jest podobne jak dla listy; pary (i dłuższe krotki) można rozpakowywać bezpośrednio w nagłówku pętli for — dokładnie tak, jak przy `enumerate()` w rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md):
 

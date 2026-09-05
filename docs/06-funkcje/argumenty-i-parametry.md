@@ -1,6 +1,6 @@
 # Argumenty i parametry
 
-Na poprzedniej stronie parametry i argumenty pojawiły się w najprostszej postaci: tyle wartości w wywołaniu, ile nazw w nagłówku, w tej samej kolejności. Python udostępnia znacznie więcej możliwości: argumenty przekazywane przez nazwę, wartości domyślne, zmienną liczbę argumentów oraz ograniczenia sposobu przekazywania. Zaczynamy od uporządkowania terminologii, a pełną składnię nagłówka funkcji poznajemy na końcu, gdy poszczególne jej elementy będą już znane.
+W poprzednim podrozdziale parametry i argumenty pojawiły się w najprostszej postaci: tyle wartości w wywołaniu, ile nazw w nagłówku, w tej samej kolejności. Python udostępnia znacznie więcej możliwości: argumenty przekazywane przez nazwę, wartości domyślne, zmienną liczbę argumentów oraz ograniczenia sposobu przekazywania. Zaczynamy od uporządkowania terminologii, a pełną składnię nagłówka funkcji poznajemy na końcu, gdy poszczególne jej elementy będą już znane.
 
 ## Parametr a argument
 
@@ -41,7 +41,7 @@ przedstaw(imie="Ala", 21)
 SyntaxError: positional argument follows keyword argument
 ```
 
-Argumenty nazwane poprawiają czytelność wywołań z wieloma wartościami — czytelnik nie musi pamiętać, co oznacza trzecia liczba w nawiasie. Z tego powodu w rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md) argumenty `key` i `reverse` funkcji `sorted()` i metody `sort()` zapisywaliśmy z nazwą, np. `sorted(["bbb", "a", "cc"], key=len)` czy `owoce.sort(key=str.lower, reverse=True)` — jak się okaże na końcu tej strony, w tych funkcjach jest to zresztą jedyny dopuszczalny sposób.
+Argumenty nazwane poprawiają czytelność wywołań z wieloma wartościami — czytelnik nie musi pamiętać, co oznacza trzecia liczba w nawiasie. Z tego powodu w rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md) argumenty `key` i `reverse` funkcji `sorted()` i metody `sort()` zapisywaliśmy z nazwą, np. `sorted(["bbb", "a", "cc"], key=len)` czy `owoce.sort(key=str.lower, reverse=True)` — jak się okaże na końcu tego podrozdziału, w tych funkcjach jest to zresztą jedyny dopuszczalny sposób.
 
 ## Wartości domyślne
 
@@ -63,7 +63,7 @@ Bartek, 23 lat, Gdańsk
 Celina, 22 lat, Toruń
 ```
 
-Wśród parametrów przyjmujących argumenty pozycyjne te z wartością domyślną muszą stać za parametrami bez niej — w przeciwnym razie interpreter nie mógłby ustalić, do którego parametru trafia argument pozycyjny (wyjątek dotyczący parametrów tylko nazwanych omawiamy na końcu strony). Nagłówek `def przedstaw(imie, miasto="Kraków", wiek):` kończy się błędem `SyntaxError: parameter without a default follows parameter with a default`.
+Wśród parametrów przyjmujących argumenty pozycyjne te z wartością domyślną muszą stać za parametrami bez niej — w przeciwnym razie interpreter nie mógłby ustalić, do którego parametru trafia argument pozycyjny (wyjątek dotyczący parametrów tylko nazwanych omawiamy na końcu podrozdziału). Nagłówek `def przedstaw(imie, miasto="Kraków", wiek):` kończy się błędem `SyntaxError: parameter without a default follows parameter with a default`.
 
 Istotny jest **moment obliczenia** wartości domyślnej. Wyrażenie po znaku `=` jest obliczane **jeden raz, podczas wykonywania instrukcji `def`** — nie przy każdym wywołaniu. Obliczona wtedy wartość jest zapamiętywana w obiekcie funkcji i używana we wszystkich wywołaniach, które nie przekażą własnego argumentu:
 
@@ -142,14 +142,14 @@ Wartość `None` jest niemodyfikowalna, więc może być bezpiecznie współdzie
     zastępujemy je wartością `None` i tworzeniem obiektu w ciele funkcji. Ta
     sama zasada dotyczy każdego wyrażenia w nagłówku: jest obliczane przy
     definicji, nie przy wywołaniu. Współdzielenie obiektu domyślnego bywa
-    jednak zamierzone; taki przypadek pokażemy przy dekoratorach.
-    <!-- TODO: link po powstaniu strony dekoratory.md -->
+    jednak zamierzone; taki przypadek pokazujemy w podrozdziale
+    [Dekoratory](dekoratory.md#memoizacja).
 
 ## Przekazywanie referencji do obiektów
 
 Model z rozdziału [3. Nazwy i typy](../03-nazwy-typy/obiekty-i-pamiec.md) obowiązuje także przy wywołaniu funkcji: nazwy wskazują na obiekty, a wywołanie **wiąże parametr z obiektem przekazanym jako argument** — dokładnie tak, jak zrobiłoby to przypisanie. Python nie przekazuje „zmiennej” ani jej kopii; dokumentacja (FAQ) stwierdza, że argumenty są przekazywane przez przypisanie (ang. *passed by assignment*), a ponieważ przypisanie tworzy jedynie referencję do obiektu, nazwa w wywołaniu i parametr nie są dwiema postaciami jednej „zmiennej”. W efekcie, gdy argumentem jest nazwa, parametr i ta nazwa wskazują jeden obiekt — jak `M = L` w rozdziale [5. Typy złożone](../05-typy-zlozone/referencje-i-kopiowanie.md).
 
-Konsekwencje są dwie. Modyfikacja obiektu **w miejscu** przez parametr jest widoczna po wywołaniu, bo dotyczy wspólnego obiektu. Natomiast **przypisanie** nowego obiektu do parametru zmienia jedynie lokalne powiązanie nazwy i nie ma wpływu na nazwę użytą w wywołaniu:
+Konsekwencje są dwie. Modyfikacja obiektu **w miejscu** przez parametr jest widoczna po wywołaniu, bo dotyczy wspólnego obiektu. Natomiast **przypisanie** nowego obiektu do parametru zmienia jedynie powiązanie nazwy wewnątrz funkcji — nazwę lokalną, której pojęcie precyzuje podrozdział [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#nazwy-lokalne) — i nie ma wpływu na nazwę użytą w wywołaniu:
 
 ```python title="append-a-przypisanie.py"
 def dopisz(lista):
@@ -192,7 +192,7 @@ print(x)
 6
 ```
 
-Operator `+=` zachowuje się różnie w zależności od typu obiektu. Dla liczby `n += 1` tworzy nowy obiekt i wiąże z nim nazwę `n` — stąd brak wpływu na `x`. Dla listy `lista += [4]` działa jak metoda `extend()`, czyli modyfikuje obiekt w miejscu, podczas gdy `lista = lista + [4]` tworzy nową listę i wiąże ją tylko z nazwą lokalną:
+Operator `+=` zachowuje się różnie w zależności od typu obiektu. Dla liczby `n += 1` tworzy nowy obiekt i wiąże z nim nazwę `n` — stąd brak wpływu na `x`. Dla listy `lista += [4]` działa jak metoda `extend()`, czyli modyfikuje obiekt w miejscu, podczas gdy `lista = lista + [4]` tworzy nową listę i wiąże ją tylko z nazwą wewnątrz funkcji:
 
 ```python title="plus-rowna-sie.py"
 def dolacz(lista):
@@ -413,7 +413,7 @@ Ukośnik ma jeszcze jedno praktyczne zastosowanie: pozwala użyć nazwy parametr
 
 ### Typowe komunikaty błędów
 
-Niepoprawne wywołanie zgłasza `TypeError` z komunikatem, który dokładnie wskazuje przyczynę. Poniższe wiersze dotyczą funkcji `przedstaw(imie, wiek, miasto="Kraków")`, `podziel(a, b, /)` i `polacz(a, b, *, sep)` z tej strony:
+Niepoprawne wywołanie zgłasza `TypeError` z komunikatem, który dokładnie wskazuje przyczynę. Poniższe wiersze dotyczą funkcji `przedstaw(imie, wiek, miasto="Kraków")`, `podziel(a, b, /)` i `polacz(a, b, *, sep)` z tego podrozdziału:
 
 | Wywołanie | Komunikat i przyczyna |
 |---|---|

@@ -1,6 +1,6 @@
 # Rekurencja
 
-Funkcja może wywołać samą siebie. Taką technikę nazywamy **rekurencją** (ang. *recursion*), a funkcję — **funkcją rekurencyjną** (ang. *recursive function*). Rekurencja jest pośrednia, gdy funkcja wywołuje inną funkcję, która wywołuje pierwszą; na tej stronie ograniczamy się do rekurencji bezpośredniej. Opieramy się na ustaleniu ze strony [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#przestrzenie-nazw-i-zasiegi): każde wywołanie funkcji tworzy własną przestrzeń lokalną — także wtedy, gdy wywołaną funkcją jest ta sama funkcja. Pokażemy, z czego składa się poprawna definicja rekurencyjna, jak prześledzić jej wykonanie, kiedy rekurencja jest naturalniejsza od pętli, a kiedy kosztowniejsza, jak przetwarzać nią struktury zagnieżdżone z rozdziału 5 oraz dlaczego interpreter ogranicza jej głębokość.
+Funkcja może wywołać samą siebie. Taką technikę nazywamy **rekurencją** (ang. *recursion*), a funkcję — **funkcją rekurencyjną** (ang. *recursive function*). Rekurencja jest pośrednia, gdy funkcja wywołuje inną funkcję, która wywołuje pierwszą; w tym podrozdziale ograniczamy się do rekurencji bezpośredniej. Opieramy się na ustaleniu z podrozdziału [Zasięg nazw i domknięcia](zasieg-nazw-i-domkniecia.md#przestrzenie-nazw-i-zasiegi): każde wywołanie funkcji tworzy własną przestrzeń lokalną — także wtedy, gdy wywołaną funkcją jest ta sama funkcja. Pokażemy, z czego składa się poprawna definicja rekurencyjna, jak prześledzić jej wykonanie, kiedy rekurencja jest naturalniejsza od pętli, a kiedy kosztowniejsza, jak przetwarzać nią struktury zagnieżdżone z rozdziału 5 oraz dlaczego interpreter ogranicza jej głębokość.
 
 ## Przypadek bazowy i krok rekurencyjny
 
@@ -70,7 +70,7 @@ zwraca 24
 24
 ```
 
-Parametr `poziom` z wartością domyślną `0` (strona [Argumenty i parametry](argumenty-i-parametry.md#wartosci-domyslne)) rośnie o 1 w każdym wywołaniu wewnętrznym; nazwy `n`, `poziom`, `wciecie` i `wynik` są lokalne dla każdego wywołania osobno, dlatego po powrocie z `silnia_slad(3)` wywołanie `silnia_slad(4)` nadal ma własne `n` równe `4` i wcięcie zerowe. Wiersze „zwraca” pojawiają się od najgłębszego wywołania do najpłytszego — wywołanie wewnętrzne kończy się w całości, zanim zewnętrzne wykona swoje mnożenie.
+Parametr `poziom` z wartością domyślną `0` (podrozdział [Argumenty i parametry](argumenty-i-parametry.md#wartosci-domyslne)) rośnie o 1 w każdym wywołaniu wewnętrznym; nazwy `n`, `poziom`, `wciecie` i `wynik` są lokalne dla każdego wywołania osobno, dlatego po powrocie z `silnia_slad(3)` wywołanie `silnia_slad(4)` nadal ma własne `n` równe `4` i wcięcie zerowe. Wiersze „zwraca” pojawiają się od najgłębszego wywołania do najpłytszego — wywołanie wewnętrzne kończy się w całości, zanim zewnętrzne wykona swoje mnożenie.
 
 ### Funkcja pomocnicza w funkcji zewnętrznej
 
@@ -101,7 +101,7 @@ None
 None
 ```
 
-Funkcja `pomocnicza()` jest widoczna wyłącznie wewnątrz `silnia_bezpieczna()` i zakłada, że argument jest już sprawdzony. Zwracanie `None` jako sygnału błędnego argumentu pozostaje rozwiązaniem tymczasowym, jak ustaliliśmy na stronie [Definiowanie funkcji](definiowanie-funkcji.md#instrukcja-return); właściwym mechanizmem będą wyjątki. <!-- TODO: link po powstaniu rozdziału o wyjątkach -->
+Funkcja `pomocnicza()` jest widoczna wyłącznie wewnątrz `silnia_bezpieczna()` i zakłada, że argument jest już sprawdzony. Zwracanie `None` jako sygnału błędnego argumentu pozostaje rozwiązaniem tymczasowym, jak ustaliliśmy w podrozdziale [Definiowanie funkcji](definiowanie-funkcji.md#instrukcja-return); właściwym mechanizmem będą wyjątki. <!-- TODO: link po powstaniu rozdziału o wyjątkach -->
 
 ## Rekurencja a iteracja
 
@@ -204,7 +204,7 @@ fib(20) = 6765, wywołań: 21891
 fib(30) = 832040, wywołań: 2692537
 ```
 
-Każdy obrót pętli tworzy nowe domknięcie, więc licznik zaczyna od zera. Liczba wywołań rośnie **wykładniczo**: zwiększenie `n` o 10 mnoży ją około 123 razy, czyli w takim tempie, w jakim rosną same liczby Fibonacciego — obliczenie n-tego wyrazu wymaga dokładnie 2·fib(n + 1) − 1 wywołań, co można sprawdzić na powyższych liczbach. Obliczenie `fib(30)` to niemal 2,7 miliona wywołań, podczas gdy `fib_iter(30)` wykonuje 30 dodawań. Przyczyną nie jest rekurencja sama w sobie, lecz powtarzanie obliczeń; rozwiązaniem jest zapamiętywanie raz obliczonych wyników, zwane **memoizacją** (ang. *memoization*) — wrócimy do niej przy dekoratorach, a gotowe narzędzie biblioteki standardowej poznamy w następnym rozdziale. <!-- TODO: linki po powstaniu strony dekoratory.md i rozdziału o modułach -->
+Każdy obrót pętli tworzy nowe domknięcie, więc licznik zaczyna od zera. Liczba wywołań rośnie **wykładniczo**: zwiększenie `n` o 10 mnoży ją około 123 razy, czyli w takim tempie, w jakim rosną same liczby Fibonacciego — obliczenie n-tego wyrazu wymaga dokładnie 2·fib(n + 1) − 1 wywołań, co można sprawdzić na powyższych liczbach. Obliczenie `fib(30)` to niemal 2,7 miliona wywołań, podczas gdy `fib_iter(30)` wykonuje 30 dodawań. Przyczyną nie jest rekurencja sama w sobie, lecz powtarzanie obliczeń; rozwiązaniem jest zapamiętywanie raz obliczonych wyników, zwane **memoizacją** (ang. *memoization*) — wracamy do niej w podrozdziale [Dekoratory](dekoratory.md#memoizacja), a gotowe narzędzie biblioteki standardowej poznamy w następnym rozdziale. <!-- TODO: link po powstaniu rozdziału o modułach -->
 
 ## Rekurencja na strukturach zagnieżdżonych
 
@@ -238,7 +238,7 @@ print(splaszcz([[[[7]]]]))
 
 Funkcja `isinstance()` z rozdziału [3. Nazwy i typy](../03-nazwy-typy/konwersje-i-adnotacje.md#sprawdzanie-typu) rozstrzyga, która z dwóch części definicji ma zastosowanie. Przypadkiem bazowym jest lista bez list zagnieżdżonych, także pusta: pętla dołącza elementy metodą `append()` i funkcja zwraca wynik bez wywołania rekurencyjnego. Krok rekurencyjny to wywołanie `splaszcz(element)` dla elementu będącego listą; zwróconą płaską listę dołączamy metodą `extend()`. Pętla i rekurencja uzupełniają się: pętla przechodzi wszerz po elementach jednego poziomu, rekurencja schodzi w głąb. Głębokość rekurencji równa się głębokości zagnieżdżenia, nie liczbie elementów — dla typowych danych jest to kilka poziomów. Zamiana obu instrukcji dołączania na zliczanie daje funkcję liczącą wszystkie wartości; zamiana na dodawanie — sumującą je.
 
-Definicja zakłada, że zagnieżdżenie jest skończone: schodząc w głąb, dochodzimy w końcu do wartości niebędących listami. Lista, jako obiekt modyfikowalny, może to założenie naruszyć. W rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md#tworzenie-listy) wspomnieliśmy o liście zagnieżdżonej w samej sobie i o funkcji z warunkiem `isinstance(element, list)`, którą właśnie napisaliśmy:
+Definicja zakłada, że zagnieżdżenie jest skończone: schodząc w głąb, dochodzimy w końcu do wartości niebędących listami. Lista, jako obiekt modyfikowalny, może to założenie naruszyć. W rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md#tworzenie-listy) wspomnieliśmy o liście zagnieżdżonej w samej sobie i o funkcji sprawdzającej typ elementu warunkiem `isinstance`, którą właśnie napisaliśmy jako `splaszcz()`:
 
 ```python title="cykl.py"
 lista = [1, 2]
@@ -260,7 +260,7 @@ True
     znowu takie samo wywołanie — przypadek bazowy nigdy nie zostaje osiągnięty.
     Naiwny algorytm rekurencyjny, zakładający strukturę bez cykli (drzewo), na
     strukturze z cyklem nie zakończy się sam; kończy go dopiero mechanizm opisany
-    w następnej sekcji. Wykrywanie cykli wykracza poza tę stronę.
+    w następnej sekcji. Wykrywanie cykli wykracza poza ten podrozdział.
 
 ## Limit rekurencji
 
@@ -311,7 +311,7 @@ Standardowy moduł `sys` udostępnia funkcje do odczytu i zmiany limitu rekurenc
 
 ## Rekurencja ogonowa
 
-Ta sekcja jest przeznaczona dla dociekliwych; dalsze strony rozdziału z niej nie korzystają. W kroku `return n * silnia(n - 1)` wywołanie rekurencyjne nie jest ostatnią operacją: po jego powrocie trzeba jeszcze wykonać mnożenie, dlatego ramka wywołania zewnętrznego musi istnieć do zakończenia wywołania wewnętrznego. Wywołanie, którego wynik funkcja zwraca bezpośrednio, bez dalszych działań, nazywa się **wywołaniem ogonowym** (ang. *tail call*), a rekurencję złożoną wyłącznie z takich wywołań — **rekurencją ogonową** (ang. *tail recursion*). Silnię można tak zapisać, przekazując dotychczasowy iloczyn w dodatkowym parametrze, zwanym **akumulatorem** (ang. *accumulator*) — w poniższym kodzie jest nim parametr `wynik`:
+Ta sekcja jest przeznaczona dla dociekliwych; dalsze podrozdziały z niej nie korzystają. W kroku `return n * silnia(n - 1)` wywołanie rekurencyjne nie jest ostatnią operacją: po jego powrocie trzeba jeszcze wykonać mnożenie, dlatego ramka wywołania zewnętrznego musi istnieć do zakończenia wywołania wewnętrznego. Wywołanie, którego wynik funkcja zwraca bezpośrednio, bez dalszych działań, nazywa się **wywołaniem ogonowym** (ang. *tail call*), a rekurencję złożoną wyłącznie z takich wywołań — **rekurencją ogonową** (ang. *tail recursion*). Silnię można tak zapisać, przekazując dotychczasowy iloczyn w dodatkowym parametrze, zwanym **akumulatorem** (ang. *accumulator*) — w poniższym kodzie jest nim parametr `wynik`:
 
 ```python title="silnia-ogonowa.py"
 def silnia_ogonowa(n, wynik=1):
@@ -345,9 +345,11 @@ Brak podkreśleń w powtarzanych wierszach śladu nie jest pominięciem — inte
 
 !!! note "Interpreter z wywołaniami ogonowymi w Pythonie 3.14"
     Python 3.14 wprowadził opcjonalny wariant interpretera CPython, dostępny tylko
-    przy kompilacji kompilatorem Clang 19 lub nowszym (standardowe kompilacje dla
-    Windows go nie zawierają), zbudowany z małych funkcji w języku C wywołujących
-    się nawzajem ogonowo, co może przyspieszyć wykonywanie programów. Dokumentacja
+    przy kompilacji kompilatorem Clang 19 lub nowszym na architekturach x86-64
+    i AArch64 (oficjalne instalatory dla Windows są budowane kompilatorem MSVC,
+    widocznym w wyniku `python -VV`, więc go nie zawierają), zbudowany z małych
+    funkcji w języku C wywołujących się nawzajem ogonowo, co może przyspieszyć
+    wykonywanie programów. Dokumentacja
     zastrzega, że nie jest to optymalizacja wywołań ogonowych funkcji Pythona — ta
     nadal nie jest zaimplementowana — i że wariant ten nie zmienia obserwowalnego
     zachowania programów.

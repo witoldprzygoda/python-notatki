@@ -1,6 +1,6 @@
 # Zasięg nazw i domknięcia
 
-Wywołanie funkcji tworzy nowe nazwy — parametry i nazwy przypisywane w ciele — które po zakończeniu wywołania przestają istnieć. Jednocześnie ciało funkcji może korzystać z nazw zdefiniowanych poza nią, np. z funkcji wbudowanych albo z nazw modułu. Ta strona porządkuje, gdzie Python przechowuje nazwy, jak je wyszukuje i w jakich okolicznościach funkcja może zmienić nazwę spoza własnego ciała. Zbudowany tu model prowadzi do pojęcia domknięcia, na którym opierają się dekoratory z końca rozdziału. <!-- TODO: link po powstaniu strony dekoratory.md -->
+Wywołanie funkcji tworzy nowe nazwy — parametry i nazwy przypisywane w ciele — które po zakończeniu wywołania przestają istnieć. Jednocześnie ciało funkcji może korzystać z nazw zdefiniowanych poza nią, np. z funkcji wbudowanych albo z nazw modułu. Ten podrozdział porządkuje, gdzie Python przechowuje nazwy, jak je wyszukuje i w jakich okolicznościach funkcja może zmienić nazwę spoza własnego ciała. Zbudowany tu model prowadzi do pojęcia domknięcia, na którym opierają się [dekoratory](dekoratory.md) z końca rozdziału.
 
 ## Przestrzenie nazw i zasięgi
 
@@ -47,7 +47,7 @@ globalna
 <built-in function len>
 ```
 
-Trzy różne obiekty noszą tę samą nazwę `x`, każdy w innej przestrzeni. Funkcja `wewnetrzna()` ma własne `x`, więc odczyt kończy się w zasięgu lokalnym. Funkcja `czytajaca()` nie wiąże `x` u siebie, więc wyszukiwanie przechodzi do zasięgu otaczającego, czyli do przestrzeni wywołania `zewnetrzna()`. Na poziomie modułu `x` oznacza obiekt globalny, a `len` znajduje się dopiero w przestrzeni wbudowanej. Odczyt nazwy nieznalezionej w żadnym zasięgu zgłasza `NameError: name 'nieznana' is not defined`.
+Trzy różne obiekty noszą tę samą nazwę `x`, każdy w innej przestrzeni. Funkcja `wewnetrzna()` ma własne `x`, więc odczyt kończy się w zasięgu lokalnym. Funkcja `czytajaca()` nie wiąże `x` u siebie, więc wyszukiwanie przechodzi do zasięgu otaczającego, czyli do przestrzeni wywołania `zewnetrzna()`. Definicje `wewnetrzna()` i `czytajaca()` wewnątrz `zewnetrzna()` to funkcje zagnieżdżone, które omawiamy w sekcji [Funkcje zagnieżdżone i zmienne wolne](#funkcje-zagniezdzone-i-zmienne-wolne). Na poziomie modułu `x` oznacza obiekt globalny, a `len` znajduje się dopiero w przestrzeni wbudowanej. Odczyt nazwy nieznalezionej w żadnym zasięgu zgłasza `NameError: name 'nieznana' is not defined`.
 
 Skoro przestrzeń wbudowana jest przeszukiwana na końcu, nazwa przypisana w module albo w funkcji **przesłania** nazwę wbudowaną. Przypisanie `list = [1, 2]` na poziomie skryptu sprawia, że dalsze wywołanie `list("abc")` kończy się błędem `TypeError: 'list' object is not callable`; usunięcie własnej nazwy instrukcją `del` przywraca dostęp do funkcji wbudowanej. Z tego powodu unikamy nazw takich jak `list`, `str`, `sum`, `max` czy `id` dla własnych obiektów — linter pylint ostrzega przed takim przesłonięciem.
 
@@ -171,12 +171,12 @@ print(elementy)
     Wywołanie metody,
     przypisanie do elementu (`lista[0] = …`) czy do klucza słownika nie wiąże
     nazwy — modyfikuje obiekt, do którego nazwa prowadzi. Rozróżnienie to
-    poznaliśmy już przy przekazywaniu referencji na stronie
+    poznaliśmy już przy przekazywaniu referencji w podrozdziale
     [Argumenty i parametry](argumenty-i-parametry.md).
 
 ## Funkcje zagnieżdżone i zmienne wolne
 
-Instrukcja `def` może wystąpić w ciele innej funkcji. Taka **funkcja zagnieżdżona** (ang. *nested function*) jest tworzona przy każdym wywołaniu funkcji zewnętrznej, jest widoczna wyłącznie w jej ciele i ma dostęp do jej nazw:
+Instrukcja `def` może, jak widzieliśmy w pierwszej sekcji, wystąpić w ciele innej funkcji. Taka **funkcja zagnieżdżona** (ang. *nested function*) jest tworzona przy każdym wywołaniu funkcji zewnętrznej, jest widoczna wyłącznie w jej ciele i ma dostęp do jej nazw:
 
 ```python title="zagniezdzona.py"
 def sformatuj(dane):
@@ -284,7 +284,7 @@ print(inny())
 1
 ```
 
-Bez deklaracji `nonlocal` przypisanie `licznik += 1` uczyniłoby `licznik` nazwą lokalną funkcji `nastepny()` i skończyłoby się znanym już `UnboundLocalError`. Deklaracja odsyła do wiązania z przestrzeni wywołania `utworz_licznik()`, dzięki czemu kolejne wywołania `licz()` zwracają rosnące wartości. Funkcja `utworz_licznik()` nie wywołuje `nastepny()`, lecz zwraca sam obiekt funkcji — zgodnie z sekcją o funkcji jako obiekcie na stronie [Definiowanie funkcji](definiowanie-funkcji.md); nazwa `licz` staje się drugą nazwą tej funkcji, którą można wywoływać wielokrotnie. Drugie wywołanie `utworz_licznik()` tworzy zupełnie nową przestrzeń z własnym licznikiem — stąd `inny()` zaczyna od `1`. Do tego przykładu wracamy w następnej sekcji.
+Bez deklaracji `nonlocal` przypisanie `licznik += 1` uczyniłoby `licznik` nazwą lokalną funkcji `nastepny()` i skończyłoby się znanym już `UnboundLocalError`. Deklaracja odsyła do wiązania z przestrzeni wywołania `utworz_licznik()`, dzięki czemu kolejne wywołania `licz()` zwracają rosnące wartości. Funkcja `utworz_licznik()` nie wywołuje `nastepny()`, lecz zwraca sam obiekt funkcji — zgodnie z sekcją o funkcji jako obiekcie w podrozdziale [Definiowanie funkcji](definiowanie-funkcji.md); nazwa `licz` staje się drugą nazwą tej funkcji, którą można wywoływać wielokrotnie. Drugie wywołanie `utworz_licznik()` tworzy zupełnie nową przestrzeń z własnym licznikiem — stąd `inny()` zaczyna od `1`. Do tego przykładu wracamy w następnej sekcji.
 
 Deklaracja `nonlocal` jest potrzebna tylko przy ponownym wiązaniu nazwy. Funkcja zagnieżdżona, która modyfikuje w miejscu obiekt z otaczającego zasięgu, obywa się bez niej — zgodnie z regułą z sekcji o nazwach lokalnych, wywołanie metody nie wiąże nazwy:
 
@@ -428,9 +428,9 @@ print([f() for f in funkcje])
 [10, 10, 10]
 ```
 
-Pętla `for` nie tworzy zasięgu, więc `i` jest jedną nazwą modułu, a w każdej z trzech funkcji `i` jest zmienną wolną rozstrzyganą w zasięgu globalnym — dopiero przy wywołaniu. Wszystkie trzy odczytują wtedy bieżące wiązanie: po pętli `2`, po kolejnym przypisaniu `10`. Zjawisko to nazywa się **późnym wiązaniem** (ang. *late binding*) i dotyczy każdej funkcji odwołującej się do zmiennej wolnej, niezależnie od tego, czy jest ona rozstrzygana w zasięgu globalnym, czy — jak w domknięciu — w zasięgu funkcji otaczającej; także wyrażeń lambda, które poznamy na następnej stronie. <!-- TODO: link po powstaniu strony funkcje-jako-obiekty.md -->
+Pętla `for` nie tworzy zasięgu, więc `i` jest jedną nazwą modułu, a w każdej z trzech funkcji `i` jest zmienną wolną rozstrzyganą w zasięgu globalnym — dopiero przy wywołaniu. Wszystkie trzy odczytują wtedy bieżące wiązanie: po pętli `2`, po kolejnym przypisaniu `10`. Zjawisko to nazywa się **późnym wiązaniem** (ang. *late binding*) i dotyczy każdej funkcji odwołującej się do zmiennej wolnej, niezależnie od tego, czy jest ona rozstrzygana w zasięgu globalnym, czy — jak w domknięciu — w zasięgu funkcji otaczającej; także wyrażeń lambda, które poznamy w podrozdziale [Funkcje jako obiekty](funkcje-jako-obiekty.md#wyrazenie-lambda).
 
-Zapamiętanie wartości z chwili tworzenia funkcji można osiągnąć na dwa sposoby, korzystając wyłącznie z poznanych już mechanizmów. Pierwszy to **wartość domyślna parametru**, obliczana — jak wiemy ze strony [Argumenty i parametry](argumenty-i-parametry.md) — podczas wykonywania instrukcji `def`:
+Zapamiętanie wartości z chwili tworzenia funkcji można osiągnąć na dwa sposoby, korzystając wyłącznie z poznanych już mechanizmów. Pierwszy to **wartość domyślna parametru**, obliczana — jak wiemy z podrozdziału [Argumenty i parametry](argumenty-i-parametry.md) — podczas wykonywania instrukcji `def`:
 
 ```python title="pozne-wiazanie-domyslna.py"
 funkcje = []

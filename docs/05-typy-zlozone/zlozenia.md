@@ -42,7 +42,7 @@ Generator dziedziczy wszystkie własności iteratora: obsługuje `next()`, nie z
 8
 ```
 
-Drugim sposobem tworzenia generatorów są funkcje ze słowem kluczowym `yield` — poznamy je w rozdziale o funkcjach. Tam też przedstawimy funkcje `map()` i `filter()` z repertuaru programowania funkcyjnego, pełniące rolę podobną do złożeń. <!-- TODO: link po powstaniu rozdziału o funkcjach -->
+Drugim sposobem tworzenia generatorów są [funkcje generatorowe](../06-funkcje/funkcje-generatorowe.md) ze słowem kluczowym `yield`; funkcje `map()` i `filter()` omawiamy w podrozdziale [Funkcje jako obiekty](../06-funkcje/funkcje-jako-obiekty.md).
 
 ## Przykłady praktyczne
 
@@ -58,4 +58,4 @@ Kilka idiomów łączących złożenia z poznanymi typami:
 3
 ```
 
-Przy odwracaniu słownika trzeba pamiętać, że wartości muszą być hashowalne i unikatowe — powtórzona wartość nadpisze wcześniejszą parę (zostaje ostatnia).
+Przy odwracaniu słownika trzeba pamiętać, że wartości muszą być haszowalne i unikatowe — powtórzona wartość nadpisze wcześniejszą parę (zostaje ostatnia).

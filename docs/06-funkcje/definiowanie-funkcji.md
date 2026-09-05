@@ -21,7 +21,7 @@ print(wynik, type(wynik))
 5.0 <class 'float'>
 ```
 
-Nazwy `a` i `b` to parametry — wewnątrz ciała są zwykłymi nazwami, które przy każdym wywołaniu otrzymują przekazane wartości. **Wywołanie** to nazwa funkcji z nawiasami, w których podajemy **argumenty**, czyli wartości przekazywane parametrom (rozróżnienie to rozwija strona Argumenty i parametry). Wywołanie jest wyrażeniem, a jego wartością jest wynik funkcji — można go wypisać, przypisać do nazwy albo użyć w dalszych obliczeniach. Funkcja nie sprawdza typów przekazanych wartości: raz otrzymała liczby całkowite (wynik `12`), raz zmiennoprzecinkową (wynik `5.0`) — jest to konsekwencja dynamicznego typowania omówionego w rozdziale 3.
+Nazwy `a` i `b` to parametry — wewnątrz ciała są zwykłymi nazwami, które przy każdym wywołaniu otrzymują przekazane wartości. **Wywołanie** to nazwa funkcji z nawiasami, w których podajemy **argumenty**, czyli wartości przekazywane parametrom (rozróżnienie to rozwija sekcja [Parametr a argument](argumenty-i-parametry.md#parametr-a-argument)). Wywołanie jest wyrażeniem, a jego wartością jest wynik funkcji — można go wypisać, przypisać do nazwy albo użyć w dalszych obliczeniach. Funkcja nie sprawdza typów przekazanych wartości: raz otrzymała liczby całkowite (wynik `12`), raz zmiennoprzecinkową (wynik `5.0`) — jest to konsekwencja dynamicznego typowania omówionego w rozdziale 3.
 
 !!! note "Definicja jest instrukcją"
     Instrukcja `def` wykonuje się jak każda inna instrukcja programu: w chwili
@@ -51,7 +51,7 @@ NameError: name 'pole_prostokata' is not defined
 
 Komunikat o błędzie, czyli **ślad wywołań** (ang. *traceback*), wskazuje plik, numer wiersza i fragment kodu, w którym wystąpił błąd. W tracebackach przytaczanych w książce skracamy ścieżkę do samej nazwy pliku — interpreter wypisuje ścieżkę pełną.
 
-Ciało funkcji nie może być puste. Jeżeli funkcja ma na razie nic nie robić (np. jako szkic programu), używamy instrukcji `pass`, poznanej przy pętlach w rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md). Brak wcięcia po nagłówku kończy się błędem `IndentationError: expected an indented block after function definition on line 1`. Z kolei liczba argumentów w wywołaniu musi odpowiadać liczbie parametrów — wywołanie `pole_prostokata(3)` zgłasza `TypeError: pole_prostokata() missing 1 required positional argument: 'b'`. Sposoby uelastycznienia tej reguły (wartości domyślne, zmienna liczba argumentów) opisuje strona Argumenty i parametry. <!-- TODO: link po powstaniu strony argumenty-i-parametry.md -->
+Ciało funkcji nie może być puste. Jeżeli funkcja ma na razie nic nie robić (np. jako szkic programu), używamy instrukcji `pass`, poznanej przy pętlach w rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md). Brak wcięcia po nagłówku kończy się błędem `IndentationError: expected an indented block after function definition on line 1`. Z kolei liczba argumentów w wywołaniu musi odpowiadać liczbie parametrów — wywołanie `pole_prostokata(3)` zgłasza `TypeError: pole_prostokata() missing 1 required positional argument: 'b'`. Sposoby uelastycznienia tej reguły (wartości domyślne, zmienna liczba argumentów) opisuje podrozdział [Argumenty i parametry](argumenty-i-parametry.md).
 
 ## Instrukcja return
 
@@ -178,7 +178,7 @@ Brak docstringu w funkcji pylint zgłasza jako *Missing function or method docst
 
 ## Adnotacje w sygnaturze
 
-W podrozdziale [Konwersje i adnotacje typów](../03-nazwy-typy/konwersje-i-adnotacje.md) poznaliśmy adnotacje zmiennych. Parametry funkcji adnotujemy tak samo, zapisem `nazwa: typ`, a typ wartości zwracanej — strzałką `->` przed dwukropkiem kończącym nagłówek. Python **nie sprawdza** zgodności z adnotacjami w czasie wykonania:
+**Sygnatura** (ang. *signature*) funkcji to jej nagłówek bez słowa `def`: nazwa oraz lista parametrów wraz z ewentualnymi adnotacjami — w tej postaci wyświetla ją funkcja `help()`. W podrozdziale [Konwersje i adnotacje typów](../03-nazwy-typy/konwersje-i-adnotacje.md) poznaliśmy adnotacje zmiennych. Parametry funkcji adnotujemy tak samo, zapisem `nazwa: typ`, a typ wartości zwracanej — strzałką `->` przed dwukropkiem kończącym nagłówek. Python **nie sprawdza** zgodności z adnotacjami w czasie wykonania:
 
 ```python title="adnotacje.py"
 def kwadrat(x: int) -> int:
@@ -210,11 +210,11 @@ Wywołanie z liczbą zmiennoprzecinkową zakończyło się poprawnie, a błąd p
     [PEP 749](https://peps.python.org/pep-0749/)) adnotacje są domyślnie
     ewaluowane **leniwie**: interpreter nie oblicza wyrażeń adnotacji przy
     wykonywaniu instrukcji `def`, lecz zapamiętuje je i oblicza dopiero na
-    żądanie — np. gdy o adnotacje zapyta narzędzie analizy typów. W adnotacji
+    żądanie — gdy program lub biblioteka odczyta adnotacje w czasie wykonania. W adnotacji
     można więc użyć nazwy, która zostanie zdefiniowana później albo nie istnieje
     wcale. W starszych wersjach adnotacje były domyślnie obliczane natychmiast
     i taka definicja kończyła się wyjątkiem `NameError`. Sposoby odczytu
-    adnotacji poznamy później, przy narzędziach analizy typów.
+    adnotacji w czasie wykonania poznamy w dalszych rozdziałach.
     <!-- TODO: link po powstaniu rozdziału o narzędziach analizy typów -->
 
 Poniższy skrypt używa w adnotacjach nazwy, która nigdzie nie została zdefiniowana:
@@ -265,8 +265,8 @@ Adres wypisany po `at` jest szczegółem implementacyjnym i u czytelnika będzie
     wywołania. Próba użycia samego obiektu w działaniu arytmetycznym kończy się
     błędem `TypeError: unsupported operand type(s) for +: 'function' and 'int'`.
     Skoro funkcja jest obiektem, można ją przekazać innej funkcji jako argument
-    albo zwrócić z funkcji — te możliwości rozwija strona Funkcje jako obiekty.
-    <!-- TODO: link po powstaniu strony funkcje-jako-obiekty.md -->
+    albo zwrócić z funkcji — te możliwości rozwija podrozdział
+    [Funkcje jako obiekty](funkcje-jako-obiekty.md).
 
 Obiektami są także funkcje wbudowane, choć należą do innej klasy niż funkcje zdefiniowane instrukcją `def`:
 

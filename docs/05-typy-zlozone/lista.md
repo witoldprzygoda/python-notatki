@@ -46,7 +46,7 @@ Można oczywiście zagnieżdżać obiekty. Ciekawym przypadkiem jest zagnieżdż
 RecursionError: maximum recursion depth exceeded
 ```
 
-po wykonaniu blisko 1000 rekurencyjnie zagnieżdżonych wywołań. Rekurencję — wraz z jej ograniczeniami i limitem zagnieżdżeń, który można odczytać i zmienić w module `sys` — omówimy w rozdziale o funkcjach. <!-- TODO: link po powstaniu rozdziału o funkcjach; tam też dygresja o Tail Recursion Elimination (https://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html) -->
+po wykonaniu blisko 1000 rekurencyjnie zagnieżdżonych wywołań. Rekurencję — wraz z jej ograniczeniami i limitem zagnieżdżeń, który można odczytać i zmienić w module `sys` — omawiamy w rozdziale [6. Funkcje](../06-funkcje/rekurencja.md#limit-rekurencji).
 
 ## Elementy listy
 
@@ -114,7 +114,7 @@ dwa
 trzy
 ```
 
-Gdyby nie sprawdzenie w warunku pętli, next() zwracałoby w nieskończoność wartość domyślną „koniec”. Drugi argument samej funkcji `iter()` ma natomiast inne znaczenie: w formie dwuargumentowej `iter(obiekt_wywoływalny, wartownik)` pierwszym argumentem musi być obiekt wywoływalny — jest on wywoływany bez argumentów tak długo, aż zwróci wartość wartownika. Do tej formy wrócimy w rozdziale o funkcjach; tutaj tylko krótka ilustracja: <!-- TODO: link po powstaniu rozdziału o funkcjach -->
+Gdyby nie sprawdzenie w warunku pętli, next() zwracałoby w nieskończoność wartość domyślną „koniec”. Drugi argument samej funkcji `iter()` ma natomiast inne znaczenie: w formie dwuargumentowej `iter(obiekt_wywoływalny, wartownik)` pierwszym argumentem musi być obiekt wywoływalny — jest on wywoływany bez argumentów tak długo, aż zwróci wartość wartownika. Do tej formy wracamy w rozdziale [6. Funkcje](../06-funkcje/funkcje-jako-obiekty.md#obiekty-wywoywalne); tutaj tylko krótka ilustracja:
 
 ```{ .python .no-copy }
 >>> iter(lista, "trzy")
@@ -395,7 +395,7 @@ Sortowanie jest **stabilne**: elementy o tej samej wartości klucza zachowują w
 ['1', 1, '10', 2, '2']
 ```
 
-Argument `key` przyjmuje funkcję — na razie korzystamy z funkcji wbudowanych; własne kryteria, w tym zwięzłe anonimowe wyrażenia `lambda`, poznamy w rozdziale o funkcjach. <!-- TODO: link po powstaniu rozdziału o funkcjach -->
+Argument `key` przyjmuje funkcję — na razie korzystamy z funkcji wbudowanych; własne kryteria, w tym zwięzłe anonimowe wyrażenia `lambda`, poznamy w rozdziale [6. Funkcje](../06-funkcje/funkcje-jako-obiekty.md#funkcja-klucza-w-sorted-min-i-max).
 
 Bardziej uniwersalna jest wbudowana funkcja **sorted()**, działająca na wszelkich kolekcjach iterowalnych — zwraca **nową**, posortowaną listę, a oryginalny kontener pozostaje niezmieniony. Argumenty `key` i `reverse` podajemy z nazwą:
 
