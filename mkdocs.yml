@@ -123,3 +123,4 @@ nav:
       - Dekoratory: 06-funkcje/dekoratory.md
   - 7. Moduły, pakiety i biblioteka standardowa:
       - Moduły i instrukcja import: 07-moduly/moduly-i-import.md
+      - Skrypt jako program: 07-moduly/skrypt-jako-program.md
