@@ -121,3 +121,5 @@ nav:
       - Rekurencja: 06-funkcje/rekurencja.md
       - Funkcje generatorowe: 06-funkcje/funkcje-generatorowe.md
       - Dekoratory: 06-funkcje/dekoratory.md
+  - 7. Moduły, pakiety i biblioteka standardowa:
+      - Moduły i instrukcja import: 07-moduly/moduly-i-import.md
