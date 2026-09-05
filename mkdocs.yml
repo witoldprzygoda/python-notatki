@@ -115,3 +115,4 @@ nav:
   - 6. Funkcje:
       - Definiowanie funkcji: 06-funkcje/definiowanie-funkcji.md
       - Argumenty i parametry: 06-funkcje/argumenty-i-parametry.md
+      - Zasięg nazw i domknięcia: 06-funkcje/zasieg-nazw-i-domkniecia.md
