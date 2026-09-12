@@ -236,6 +236,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 8 (with, FileNotFoundError/UnicodeDecodeError, ExitStack)
 
 **Zapowiedzi i luki, które rozdział domyka.**
+- 8 `obsluga-wyjatkow.md` (tabela wyjątków: `open()` i `FileNotFoundError`), `with-i-contextlib.md` (`open()` jako czarna skrzynka, tylko odczyt, `encoding="utf-8"`; `chdir()` i `redirect_stdout()` wymienione), `logging.md` (formatowanie `%`, dziennik w pliku) — zapowiedzi „w rozdziale o wejściu i wyjściu” (`TODO: link po powstaniu rozdziału o wejściu i wyjściu`)
 - 7 f-stringi z pełnym mini-językiem
 - luka: pełna sygnatura print (W01 s. 23, PDF PRINT, lab2); formatowanie %/str.format (PDF 788–789); pliki/open; bytes; pathlib/json (W05 s. 38–39)
 
@@ -285,6 +286,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 8 (raise w setterach; hierarchia wyjątków); 9 (f-stringi z !r)
 
 **Zapowiedzi i luki, które rozdział domyka.**
+- 8 `zglaszanie-wyjatkow.md`: hierarchia wyjątków jako dziedziczenie i nota „Zapowiedź — własne typy wyjątków” (`TODO: link po powstaniu rozdziału o klasach`)
 - 8 „definicje klas”
 - 6 class
 - odłożone z 8: własne klasy wyjątków z atrybutami
@@ -334,6 +336,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 6 i 8 (callable, generatory; with, contextmanager do porównania); 9 (print(file=), redirect_stdout)
 
 **Zapowiedzi i luki, które rozdział domyka.**
+- 8 `with-i-contextlib.md`: protokół menedżera kontekstu jako klasa z `__enter__`/`__exit__` (`TODO: link po powstaniu rozdziału o modelu danych`)
 - luka: NotImplemented, __getitem__ krotkowy (lab5); własny iterator (W08 s. 16); menedżer kontekstu jako klasa (W05 s. 29); deskryptory (PDF s. 95–98); klasa Pisarz (PDF 5423–5488)
 - 13 iter(callable, sentinel) od strony __call__
 
@@ -509,6 +512,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 1 (py install 3.14t, py -0p); 13 (pomiary)
 
 **Zapowiedzi i luki, które rozdział domyka.**
+- 8 `styl-i-testowanie.md`: grupy wyjątków i `except*` w programach współbieżnych; `logging.md`: dziennik z wielu wątków (`TODO: link po powstaniu rozdziału o współbieżności`)
 - 6 async, await (zapowiedź; przykład w 16)
 - luka: GIL/threading/multiprocessing/concurrent.futures/Lock (lab11, python_thread) nieobecne
 

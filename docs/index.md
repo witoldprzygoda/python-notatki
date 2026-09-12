@@ -13,3 +13,4 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 5. [Typy złożone](05-typy-zlozone/index.md) — lista, krotka, słownik, zbiory, złożenia
 6. [Funkcje](06-funkcje/index.md) — definiowanie, argumenty, zasięg nazw i domknięcia, rekurencja, funkcje generatorowe, dekoratory
 7. [Moduły, pakiety i biblioteka standardowa](07-moduly/index.md) — moduły i import, skrypt jako program, argumenty wiersza poleceń, pakiety, struktura projektu i pierwsze testy, biblioteka standardowa i collections, functools, itertools
+8. [Wyjątki i zarządzanie zasobami](08-wyjatki/index.md) — obsługa i zgłaszanie wyjątków, styl EAFP i testy wyjątków, instrukcja with, diagnostyka i debugger, logowanie

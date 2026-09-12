@@ -1,56 +1,98 @@
-"""Weryfikacja wykonywalna strony Markdown: uruchamia bloki ```python title="X.py"``` i porównuje
-z następującym po nich blokiem ```{ .text .no-copy }```; bloki REPL ```{ .python .no-copy }``` uruchamia
-przez python -i i wypisuje rzeczywisty wynik do porównania ręcznego.
+"""Weryfikacja wykonywalna strony Markdown.
 
-Użycie: python verify_page.py <plik.md> [interpreter]
+Uruchamia bloki ```python title="X.py"``` w katalogu tymczasowym i porównuje ich wyjście
+z blokiem ```{ .text .no-copy }``` następującym BEZPOŚREDNIO po nich (bez prozy pomiędzy).
+Strumienie stdout i stderr są łączone w kolejności, w jakiej widzi je terminal
+(interpreter uruchamiany z -u). Bloki z title= w innym języku (text, json, toml, ...)
+są zapisywane jako pliki danych w katalogu tymczasowym w kolejności występowania,
+zanim uruchomione zostaną kolejne skrypty (np. ```text title="dane.txt"```). Bloki
+```powershell/bash title="Terminal"``` są pomijane. Bloki REPL ```{ .python .no-copy }```
+są uruchamiane przez python -i, a ich rzeczywisty wynik wypisywany do porównania ręcznego.
+
+Użycie: python scripts/verify_page.py <plik.md> [interpreter]
+           [--stdin=nazwa.py=w1|w2|w3] [--mask=REGEX]
+
+--stdin: wiersze podawane skryptowi jako odpowiedzi na kolejne wywołania input();
+skrypt jest wtedy uruchamiany przez runner, który — jak terminal — wypisuje po
+zachęcie wpisany tekst i znak nowego wiersza, więc blok wyniku może być dosłownym
+zapisem sesji terminalowej.
+--mask: wyrażenie regularne; dopasowane fragmenty są zastępowane znacznikiem
+<MASKA> zarówno w wyniku rzeczywistym, jak i oczekiwanym (np. czasy pomiarów, daty).
+Skrypty są uruchamiane z zamkniętym stdin (breakpoint() kończy się natychmiast).
 """
 import sys, re, subprocess, pathlib, tempfile, os
 
 sys.stdout.reconfigure(encoding="utf-8")
 page = pathlib.Path(sys.argv[1])
-PY = sys.argv[2] if len(sys.argv) > 2 else sys.executable
-# --stdin nazwa.py=w1|w2|w3 : wiersze podawane skryptowi na stdin; w bloku wyniku
-# wiersze identyczne z wejściem (echo terminala) są pomijane przy porównaniu
+PY = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else sys.executable
 STDIN = {}
-for arg in sys.argv[3:]:
+MASKS = [r"0x[0-9A-Fa-f]{6,}"]  # adresy obiektów
+for arg in sys.argv[2:]:
     if arg.startswith("--stdin="):
         name, _, lines = arg[len("--stdin="):].partition("=")
         STDIN[name] = lines.split("|")
+    elif arg.startswith("--mask="):
+        MASKS.append(arg[len("--mask="):])
 text = page.read_text(encoding="utf-8")
 
+RUNNER = '''import builtins, runpy, sys
+odpowiedzi = sys.argv[2].split("|")
+def input_echo(prompt=""):
+    print(prompt, end="", flush=True)
+    if not odpowiedzi:
+        raise EOFError
+    wiersz = odpowiedzi.pop(0)
+    print(wiersz, flush=True)
+    return wiersz
+builtins.input = input_echo
+runpy.run_path(sys.argv[1], run_name="__main__")
+'''
+
+
+def mask(s):
+    for m in MASKS:
+        s = re.sub(m, "<MASKA>", s)
+    return s
+
+
 fence = re.compile(r"^```(?P<info>[^\n]*)\n(?P<body>.*?)^```", re.S | re.M)
-blocks = [(m.group("info").strip(), m.group("body")) for m in fence.finditer(text)]
+matches = list(fence.finditer(text))
+blocks = [(m.group("info").strip(), m.group("body"), m.start(), m.end()) for m in matches]
 print(f"{page.name}: {len(blocks)} bloków kodu")
 
+
+def follows_directly(i):
+    """Czy blok i+1 następuje bezpośrednio po bloku i (tylko białe znaki pomiędzy)."""
+    return i + 1 < len(blocks) and text[blocks[i][3]:blocks[i + 1][2]].strip() == ""
+
+
 tmp = pathlib.Path(tempfile.mkdtemp(prefix="verify_"))
+runner = tmp / "_runner.py"
+runner.write_text(RUNNER, encoding="utf-8")
 ok = fail = 0
 i = 0
 while i < len(blocks):
-    info, body = blocks[i]
+    info, body, _, _ = blocks[i]
     m = re.match(r'python\s+title="([^"]+)"', info)
+    data = re.match(r'(\w+)\s+title="([^"]+)"', info)
     if m:
         name = m.group(1)
         path = tmp / name
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(body, encoding="utf-8")
         stdin_lines = STDIN.get(name)
-        r = subprocess.run([PY, "-X", "utf8", str(path)], capture_output=True, text=True, encoding="utf-8", cwd=tmp,
-                           input=("\n".join(stdin_lines) + "\n") if stdin_lines else None)
-        actual = (r.stdout + r.stderr).replace(str(path), name).rstrip("\n")
-        actual = re.sub(r"0x[0-9A-Fa-f]{6,}", "0x...", actual)  # adresy obiektów jako maska
-        actual = actual.replace(str(tmp) + os.sep, "C:" + os.sep + "..." + os.sep + "projekt" + os.sep)  # katalog tymczasowy jako maska
+        if stdin_lines:
+            cmd = [PY, "-X", "utf8", "-u", str(runner), str(path), "|".join(stdin_lines)]
+        else:
+            cmd = [PY, "-X", "utf8", "-u", str(path)]
+        r = subprocess.run(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                           text=True, encoding="utf-8", cwd=tmp)
+        actual = r.stdout.replace(str(path), name).rstrip("\n")
+        actual = actual.replace(str(tmp) + os.sep, "C:" + os.sep + "..." + os.sep + "projekt" + os.sep)
+        actual = mask(actual)
         expected = None
-        if i + 1 < len(blocks) and blocks[i + 1][0].startswith("{ .text .no-copy }"):
-            expected = blocks[i + 1][1].rstrip("\n")
-            if stdin_lines:
-                pending = list(stdin_lines)
-                kept = []
-                for line in expected.splitlines():
-                    if pending and line == pending[0]:
-                        pending.pop(0)
-                    else:
-                        kept.append(line)
-                expected = "\n".join(kept)
-                print(f"    (stdin dla {name}: {stdin_lines}; niedopasowane wiersze wejścia: {pending})")
+        if follows_directly(i) and blocks[i + 1][0].startswith("{ .text .no-copy }"):
+            expected = mask(blocks[i + 1][1].rstrip("\n"))
             i += 1
         if expected is None:
             print(f"\n--- {name}: brak bloku wyniku; rc={r.returncode}\n{actual}")
@@ -60,6 +102,11 @@ while i < len(blocks):
         else:
             fail += 1
             print(f"\n--- {name}: ROZBIEŻNOŚĆ (rc={r.returncode})\n>>> oczekiwane:\n{expected}\n>>> rzeczywiste:\n{actual}")
+    elif data and data.group(1) not in ("powershell", "bash", "console") and "." in data.group(2):
+        name = data.group(2)
+        (tmp / name).parent.mkdir(parents=True, exist_ok=True)
+        (tmp / name).write_text(body, encoding="utf-8")
+        print(f"\n--- plik danych zapisany: {name} ({len(body.splitlines())} wierszy)")
     elif info.startswith("{ .python .no-copy }") and ">>>" in body:
         inputs = []
         for line in body.splitlines():

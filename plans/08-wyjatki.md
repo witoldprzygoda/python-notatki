@@ -29,7 +29,7 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 - Terminologia: „wyjątek”, „zgłoszenie wyjątku (ang. *raise*)”, „przechwycenie (ang. *catch*)”, „obsługa wyjątku (ang. *exception handling*)”, „propagacja”, „ślad wywołań (ang. *traceback*)”, „klauzula `except`/`else`/`finally`”, „łańcuch wyjątków (ang. *exception chaining*)”, „przyczyna (`__cause__`)” i „kontekst (`__context__`)” tylko w nocie, „hierarchia wyjątków”, „styl EAFP (ang. *easier to ask forgiveness than permission*)” i „LBYL (ang. *look before you leap*)”, „menedżer kontekstu (ang. *context manager*)”, „zasób”, „pułapka (ang. *breakpoint*)”, „pułapka warunkowa”, „wykonanie krokowe”, „dziennik (ang. *log*)”, „rejestrowanie zdarzeń” / „logowanie”, „poziom komunikatu”; „podrozdział” dla części książki; „funkcja generatorowa” / „generator” według konwencji rozdziału 6.
 - Nagłówki w formie rzeczownikowej; nazwy w nagłówkach w kodzie (np. „Klauzule `else` i `finally`”, „Dekorator `contextlib.contextmanager`”).
 - Docstringi `"""Zwraca ..."""`, `"""Wczytuje ..."""`, `"""Sprawdza ..."""`; komunikaty wyjątków po polsku, bez kropki na końcu, z wartością w `{wartosc!r}` tam, gdzie pomaga (`!r` znane z rozdziału 3 tylko przez `repr()` — zapis `{x!r}` wprowadzić jednym zdaniem przy pierwszym użyciu).
-- Konwencje `CLAUDE.md`: bloki `python title="plik.py"`, `text title="dane.txt"` dla pliku danych, `json title="launch.json"`, `powershell title="Terminal"` dla poleceń (`python -O …`, `python -m pytest`, `python -m pdb`), `{ .python .no-copy }` dla REPL i sesji pdb, `{ .text .no-copy }` dla wyników, śladów, tabel tekstowych i drzewa hierarchii; admonitions z polskimi tytułami; cudzysłowy „…”; klawisze `++f5++`, `++f9++`, `++f10++`, `++f11++`, `++shift+f11++`, `++ctrl+c++`; terminy angielskie z „ang.” przy pierwszym użyciu.
+- Konwencje `CLAUDE.md`: bloki `python title="plik.py"`, `text title="dane.txt"` dla pliku danych, `json title="launch.json"`, `powershell title="Terminal"` dla poleceń (`python -O …`, `python -m pytest`, `python -m pdb`), `{ .python .no-copy }` dla REPL, `{ .text .no-copy }` dla wyników, śladów, sesji pdb (decyzja przy pisaniu: prompt `(Pdb)` bez kolorowania), tabel tekstowych i drzewa hierarchii; admonitions z polskimi tytułami; cudzysłowy „…”; klawisze `++f5++`, `++f9++`, `++f10++`, `++f11++`, `++shift+f11++`, `++ctrl+c++`; terminy angielskie z „ang.” przy pierwszym użyciu.
 - Weryfikacja: każdy deterministyczny przykład uruchomiony przez `scripts/verify_page.py` na `.venv` (3.14.7); przed stroną 4 skrypt rozszerzyć tak, by bloki `text title="…"` (plik danych) były zapisywane do katalogu tymczasowego przed uruchomieniem skryptów; przykłady z `input()` przez `--stdin=plik.py=w1|w2`; sesje REPL i pdb osobno; **wyjścia mieszające `print()` i `logging`** (stdout i stderr) sprawdzane ręcznie w terminalu, bo harness dokleja `stderr` po `stdout` — w przykładach logowania nie mieszamy obu strumieni w jednym skrypcie; pytest w tymczasowym venv poza repozytorium (wersja pytest odnotowana); debugger i zrzuty — ręcznie w VSC. Liczby zależne od komputera (czas w `stoper()`) oznaczone.
 - Zapowiedzi w przód (rozdziały jeszcze nienapisane: klasy, wejście-wyjście, wydajność, współbieżność, warsztat) wyłącznie prozą po temacie, bez numeru rozdziału, z komentarzem `<!-- TODO: link po powstaniu rozdziału o … -->` bezpośrednio po zdaniu; każda taka zapowiedź dopisana do listy „Zapowiedzi i luki, które rozdział domyka” właściwego rozdziału w `PLAN_ROZWOJU.md`.
 - `index.md` w układzie rozdziałów 6–7 (decyzja 1). Odsyłacze do rozdziałów 1–7 wewnątrz nowych stron dozwolone od razu; zmiany w rozdziałach 1–7 (tabela na końcu) zbiorczo po ukończeniu wszystkich stron rozdziału 8. Strony rozdziału 4 z markerami aktywności nie są dotykane.
@@ -44,7 +44,7 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 1. Program bez obsługi i z obsługą
 2. Anatomia śladu wywołań (H3: Podpowiedzi interpretera)
 3. Najczęstsze wyjątki
-4. Instrukcja `try` i klauzula `except` (H3: Kilka typów w jednej klauzuli; H3: Obiekt wyjątku; H3: Kolejność klauzul `except`)
+4. Instrukcja `try` i klauzula `except` (H3: Obiekt wyjątku; H3: Kilka typów w jednej klauzuli; H3: Kolejność klauzul `except`) — kolejność zmieniona przy pisaniu: krotka typów używa `as e`
 5. Klauzule `else` i `finally`
 6. Walidacja danych wejściowych
 
@@ -196,7 +196,7 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 **Cel.** Czytelnik rejestruje zdarzenia programu modułem `logging` zamiast `print()`, dobiera poziom komunikatu, konfiguruje format i próg raz na początku programu, zapisuje wyjątek ze śladem metodą `exception()` i formatuje komunikaty leniwie.
 
 **Kolejność H2/H3.**
-1. Dlaczego nie `print()`
+1. Zadania `print()` i dziennika
 2. Pierwszy dziennik
 3. Poziomy komunikatów
 4. Rejestrowanie wyjątków
@@ -244,7 +244,7 @@ Pozycja w `docs/index.md` (dodawana wraz z `index.md` rozdziału): „8. [Wyjąt
 
 ## Kolejność tworzenia stron i odbiór
 
-Każda strona przechodzi cykl: research w dokumentacji 3.14 → napisanie → uruchomienie wszystkich przykładów (`scripts/verify_page.py` dla skryptów, osobna weryfikacja bloków REPL i sesji pdb, polecenia terminalowe ręcznie w katalogu próbnym poza repozytorium, pytest w tymczasowym venv) → `mkdocs build` i `mkdocs build -f mkdocs.clean.yml` → niezależna recenzja (styl, fakty, kolejność pojęć, aktualność 3.14) → naniesienie ustaleń → raport → akceptacja autora → commit. Kolejność: 1 `obsluga-wyjatkow.md`, 2 `zglaszanie-wyjatkow.md`, 3 `styl-i-testowanie.md`, 4 `with-i-contextlib.md` (przed nią rozszerzenie `verify_page.py` o pliki danych), 5 `diagnostyka.md` (+ `ZRZUTY.md`), 6 `logging.md`, 7 `index.md`. Wpis nav i pozycja na stronie głównej rosną wraz z powstającymi stronami. Funkcja `silnia()` ze strony 2 jest wspólna dla stron 2, 3 i 5 i musi pozostać spójna.
+Każda strona przechodzi cykl: research w dokumentacji 3.14 → napisanie → uruchomienie wszystkich przykładów (`scripts/verify_page.py` dla skryptów, osobna weryfikacja bloków REPL i sesji pdb, polecenia terminalowe ręcznie w katalogu próbnym poza repozytorium, pytest w tymczasowym venv) → `mkdocs build` i `mkdocs build -f mkdocs.clean.yml` → niezależna recenzja (styl, fakty, kolejność pojęć, aktualność 3.14) → naniesienie ustaleń → raport → akceptacja autora → commit. Kolejność: 1 `obsluga-wyjatkow.md`, 2 `zglaszanie-wyjatkow.md`, 3 `styl-i-testowanie.md`, 4 `with-i-contextlib.md` (przed nią rozszerzenie `verify_page.py` o pliki danych), 5 `diagnostyka.md` (+ `ZRZUTY.md`), 6 `logging.md`, 7 `index.md`. Wpis nav i pozycja na stronie głównej rosną wraz z powstającymi stronami. Funkcja `silnia()` ze strony 2 jest wspólna dla stron 2 i 3 i musi pozostać spójna; strona 5 celowo używa wersji rekurencyjnej z rozdziału 6 (stos wywołań w debuggerze).
 
 ## Zmiany w rozdziałach 1–7 (wyłącznie domknięcie zapowiedzi, zbiorczo po ukończeniu rozdziału 8)
 

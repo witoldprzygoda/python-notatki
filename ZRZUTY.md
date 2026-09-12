@@ -54,6 +54,20 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
     przy przypisaniu wartości o typie innym niż zadeklarowany; kadr: linia kodu
     + podkreślenie i treść ostrzeżenia.
 
+## Do wykonania — rozdział 08
+
+### diagnostyka.md
+
+11. `img/vsc-debugger-pulapka.png` — edytor z plikiem `debug-silnia.py`, pułapka
+    (czerwona kropka) w wierszu `return 1` i podświetlony wiersz po zatrzymaniu
+    programu (++f5++, konfiguracja **Python File**); kadr: fragment edytora
+    z numerami wierszy.
+12. `img/vsc-debugger-stos-i-zmienne.png` — widok **Run and Debug** po zatrzymaniu
+    na pułapce z punktu 11: panel **Variables** (`n` = 1) i panel **Call Stack**
+    (cztery ramki `silnia` i `<module>`); kadr: sam widok boczny.
+13. `img/vsc-debugger-pasek.png` — pasek narzędzi debugowania (Continue, Step Over,
+    Step Into, Step Out, Restart, Stop) podczas wstrzymania; kadr: sam pasek.
+
 ## Wykonane
 
 - `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera (konfiguracja.md)

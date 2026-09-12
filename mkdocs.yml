@@ -131,3 +131,10 @@ nav:
       - Biblioteka standardowa i moduł collections: 07-moduly/biblioteka-standardowa.md
       - Moduł functools: 07-moduly/functools.md
       - Moduł itertools: 07-moduly/itertools.md
+  - 8. Wyjątki i zarządzanie zasobami:
+      - Obsługa wyjątków: 08-wyjatki/obsluga-wyjatkow.md
+      - Zgłaszanie wyjątków: 08-wyjatki/zglaszanie-wyjatkow.md
+      - Styl obsługi błędów i testy wyjątków: 08-wyjatki/styl-i-testowanie.md
+      - Instrukcja with i menedżery kontekstu: 08-wyjatki/with-i-contextlib.md
+      - Diagnostyka — ślad wywołań (traceback) i debugger: 08-wyjatki/diagnostyka.md
+      - Logowanie zamiast print: 08-wyjatki/logging.md
