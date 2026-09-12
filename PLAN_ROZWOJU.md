@@ -195,7 +195,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 
 | Plik | Etykieta nav / H1 | Zawartość |
 |---|---|---|
-| `08-wyjatki/index.md` | Wprowadzenie | Błędy jako obiekty; retrospekcja tracebacków z 3–6; ---; ## W tym rozdziale (6 podstron); ## Ściąga (tabela z W05 sl. 42, część o wyjątkach i with). |
+| `08-wyjatki/index.md` | Wprowadzenie | Błędy jako obiekty; retrospekcja tracebacków z 3–6; ---; ## W tym rozdziale (6 podstron). Bez „Ściągi” (decyzja autora 12 IX 2026). |
 | `08-wyjatki/obsluga-wyjatkow.md` | Obsługa wyjątków | Program z obsługą i bez; Anatomia tracebacku 3.14 (pełny blok .no-copy; str(e) bez sugestii); Tabela wyjątków z odsyłaczami; try/except (krotka typów, PEP 758 z zaleceniem nawiasów, as e); else i finally (PEP 765); Walidacja wejścia (while z try, walrus, isdigit jako LBYL). |
 | `08-wyjatki/zglaszanie-wyjatkow.md` | Zgłaszanie wyjątków | raise i propagacja; Hierarchia (drzewo .text z docs 3.14, ExceptionGroup, KeyboardInterrupt); Ponowne zgłoszenie i łańcuchy (from, from None, add_note); assert (-O, nie do walidacji; wprowadzony w 7); Przykład: liczby rzymskie z walidacją przez ValueError; nota „Zapowiedź: własne typy wyjątków” → ../10-klasy/dziedziczenie.md. |
 | `08-wyjatki/styl-i-testowanie.md` | Styl obsługi błędów i testy wyjątków | EAFP a LBYL (słownik, zero-cost 3.11); Antywzorce (gołe except, pass, szeroki try); Zasięg bloku try; pytest.raises z match; Dla dociekliwych: ExceptionGroup i except*. |
