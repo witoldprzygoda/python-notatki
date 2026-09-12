@@ -200,7 +200,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 | `08-wyjatki/zglaszanie-wyjatkow.md` | Zgłaszanie wyjątków | raise i propagacja; Hierarchia (drzewo .text z docs 3.14, ExceptionGroup, KeyboardInterrupt); Ponowne zgłoszenie i łańcuchy (from, from None, add_note); assert (-O, nie do walidacji; wprowadzony w 7); Przykład: liczby rzymskie z walidacją przez ValueError; nota „Zapowiedź: własne typy wyjątków” → ../10-klasy/dziedziczenie.md. |
 | `08-wyjatki/styl-i-testowanie.md` | Styl obsługi błędów i testy wyjątków | EAFP a LBYL (słownik, zero-cost 3.11); Antywzorce (gołe except, pass, szeroki try); Zasięg bloku try; pytest.raises z match; Dla dociekliwych: ExceptionGroup i except*. |
 | `08-wyjatki/with-i-contextlib.md` | Instrukcja with i menedżery kontekstu | Problem zasobów (try/finally); with (open() jako czarna skrzynka z encoding — szczegóły w 9; wiele zasobów, nawiasy 3.10); Protokół pojęciowo (klasa w 11); contextlib.contextmanager (timer z try/finally, TemporaryDirectory); Dla dociekliwych: suppress, chdir, nullcontext, ExitStack (redirect_stdout → 9). |
-| `08-wyjatki/diagnostyka.md` | Diagnostyka — traceback i debugger | Czytanie tracebacku od dołu, moduł traceback; Debugger w VSC (rozszerzenie Python Debugger ms-python.debugpy, F5, pułapki warunkowe, Variables/Watch/Call Stack — stos rekurencji z 6, launch.json) — domyka konfiguracja.md:136; breakpoint() i pdb; nota sys.remote_exec (PEP 768); <!-- TODO: screenshot ×3 --> + ZRZUTY.md. |
+| `08-wyjatki/diagnostyka.md` | Diagnostyka — ślad wywołań (traceback) i debugger | Czytanie tracebacku od dołu, moduł traceback; Debugger w VSC (rozszerzenie Python Debugger ms-python.debugpy, F5, pułapki warunkowe, Variables/Watch/Call Stack — stos rekurencji z 6, launch.json) — domyka konfiguracja.md:136; breakpoint() i pdb; nota sys.remote_exec (PEP 768); <!-- TODO: screenshot ×3 --> + ZRZUTY.md. |
 | `08-wyjatki/logging.md` | Logowanie zamiast print | Dlaczego nie print; getLogger, basicConfig (level, format, encoding); poziomy DEBUG–CRITICAL; log.exception w except; leniwe formatowanie %s (nota: wieloznacznik % → 9/formatowanie.md); logowanie do pliku (odsyłacz 9) i z wątków (15). |
 
 **Istotne materiały źródłowe.**
@@ -423,6 +423,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 
 **Zapowiedzi i luki, które rozdział domyka.**
 - luka: profilowanie/optymalizacja (W12 s. 20–22); zapowiedź lab6 (Cython, mypyc, ndarray, @jit); dis (W04 s. 46, PDF 2411–2466); __slots__ benchmark (W06 s. 19, W07 s. 40)
+- 8 `with-i-contextlib.md`: stoper z `time.perf_counter()` — zapowiedź „szczegółowe omówienie pomiarów czasu w rozdziale o wydajności” (`TODO: link po powstaniu rozdziału o wydajności`)
 
 **Podział na strony.**
 

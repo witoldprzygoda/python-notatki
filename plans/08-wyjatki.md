@@ -11,10 +11,10 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 5. **Zakres `logging`:** konsola (`stderr`), poziomy, `basicConfig(level=, format=, datefmt=)`, `getLogger(__name__)`, `exception()`, leniwe formatowanie `%s`. Dziennik w pliku (`filename=`, `encoding="utf-8"`) tylko jako zapowiedź rozdziału 9; logowanie z wątków — zapowiedź rozdziału 15; konfiguracja słownikowa i handlery poza książką (co najwyżej jedno zdanie).
 6. **Własne typy wyjątków:** wyłącznie zapowiedź w admonition na stronie 2 (definicja klasy w rozdziale 10, `dziedziczenie.md`). Wszystkie przykłady zgłaszają wyjątki wbudowane (`ValueError`, `TypeError`, `RuntimeError`, `ZeroDivisionError`, `KeyError`, `FileNotFoundError`).
 7. **Składnia `except` z kilkoma typami:** forma kanoniczna w książce to krotka w nawiasach `except (ValueError, TypeError):` — działa na każdej wersji i jest jedyną dopuszczalną z `as`. Forma bez nawiasów z PEP 758 (3.14) pokazana raz, z komunikatem `SyntaxError: multiple exception types must be parenthesized when using 'as'` jako uzasadnieniem zalecenia.
-8. **Nazwa obiektu wyjątku:** `except ValueError as blad:` — polska nazwa spójna z identyfikatorami w przykładach książki (`funkcja`, `opakowana`, `licznik`); w teście pytest nazwa `excinfo` z dokumentacji pytest. *(Propozycja do potwierdzenia; alternatywa: `e`, najczęstsza w kodzie anglojęzycznym.)*
-9. **Nazwa strony diagnostycznej:** etykieta nav i H1 „Diagnostyka — ślad wywołań i debugger” (termin „ślad wywołań (ang. *traceback*)” wprowadzony w rozdziale 6). *(Propozycja; plan zbiorczy miał „Diagnostyka — traceback i debugger”.)*
+8. **Nazwa obiektu wyjątku:** `except ValueError as e:` — nazwa `e` przyjęta powszechnie w kodzie Pythona (decyzja autora 13 IX 2026: bez wymuszania polskich nazw); w teście pytest nazwa `excinfo` z dokumentacji pytest.
+9. **Nazwa strony diagnostycznej:** etykieta nav i H1 „Diagnostyka — ślad wywołań (traceback) i debugger” (decyzja autora 13 IX 2026; termin „ślad wywołań (ang. *traceback*)” wprowadzony w rozdziale 6).
 10. **`open()` jako czarna skrzynka:** na stronie 4 jedno wywołanie `open("dane.txt", encoding="utf-8")` do odczytu pliku dostarczonego w bloku `text title="dane.txt"` oraz `open("brak.txt", encoding="utf-8")` jako źródło `FileNotFoundError`. Bez zapisu do plików, bez trybów, bez `pathlib`/`os`/`tempfile` — wszystko to należy do rozdziału 9. Przykład z W08 (`temp_dir` z `tempfile`/`shutil`) pominięty.
-11. **Pomiar czasu:** menedżer kontekstu `stoper()` z `@contextlib.contextmanager` używa `time.perf_counter()`, wprowadzonego w miejscu użycia jednym zdaniem (zegar o wysokiej rozdzielczości do pomiaru odstępów); pełne omówienie pomiarów w rozdziale 13. Wynik pomiaru w bloku wyniku oznaczony jako zależny od komputera.
+11. **Pomiar czasu:** menedżer kontekstu `stoper()` z `@contextlib.contextmanager` używa `time.perf_counter()`, wprowadzonego w miejscu użycia jednym zdaniem (zegar o wysokiej rozdzielczości do pomiaru odstępów), z zapowiedzią: „szczegółowe omówienie pomiarów czasu i profilowania znajdzie się w rozdziale o wydajności” — **bez numeru rozdziału**, z komentarzem `<!-- TODO: link po powstaniu rozdziału o wydajności -->` (konwencja książki: zapowiedzi w przód prozą po temacie, numery tylko dla rozdziałów istniejących; komentarze wyszukiwane grepem i domykane zbiorczo przy pisaniu danego rozdziału). Zapowiedź zarejestrowana w `PLAN_ROZWOJU.md`, sekcja 13 „Zapowiedzi i luki, które rozdział domyka”. Wynik pomiaru w bloku wyniku oznaczony jako zależny od komputera.
 12. **Debugger:** rozszerzenie **Python Debugger** (`ms-python.debugpy`, instalowane automatycznie z rozszerzeniem Python), uruchomienie bez `launch.json` (++f5++ → wybór „Python File”), pułapki w marginesie, pasek F5/F10/F11/++shift+f11++, panele Variables, Watch, Call Stack, Debug Console; minimalny `launch.json` z `"type": "debugpy"` (dawny `"type": "python"` jest przestarzały), `"console": "integratedTerminal"`, `"args"`, `"justMyCode"`. `breakpoint()` i pdb w zakresie poleceń `n`, `s`, `c`, `p`, `l`, `q`; `PYTHONBREAKPOINT=0` jednym zdaniem; PEP 768 (`sys.remote_exec()`, `python -m pdb -p PID`) wyłącznie jako nota „Nowości Pythona 3.14”.
 13. **Bez Gita, GitHub i CI** (zasada 9 `PLAN_ROZWOJU.md`); bez `unittest`, `doctest`, `warnings.warn()` (jedno zdanie w tabeli „kiedy logować”), bez `atexit`, bez `signal`.
 
@@ -31,6 +31,7 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 - Docstringi `"""Zwraca ..."""`, `"""Wczytuje ..."""`, `"""Sprawdza ..."""`; komunikaty wyjątków po polsku, bez kropki na końcu, z wartością w `{wartosc!r}` tam, gdzie pomaga (`!r` znane z rozdziału 3 tylko przez `repr()` — zapis `{x!r}` wprowadzić jednym zdaniem przy pierwszym użyciu).
 - Konwencje `CLAUDE.md`: bloki `python title="plik.py"`, `text title="dane.txt"` dla pliku danych, `json title="launch.json"`, `powershell title="Terminal"` dla poleceń (`python -O …`, `python -m pytest`, `python -m pdb`), `{ .python .no-copy }` dla REPL i sesji pdb, `{ .text .no-copy }` dla wyników, śladów, tabel tekstowych i drzewa hierarchii; admonitions z polskimi tytułami; cudzysłowy „…”; klawisze `++f5++`, `++f9++`, `++f10++`, `++f11++`, `++shift+f11++`, `++ctrl+c++`; terminy angielskie z „ang.” przy pierwszym użyciu.
 - Weryfikacja: każdy deterministyczny przykład uruchomiony przez `scripts/verify_page.py` na `.venv` (3.14.7); przed stroną 4 skrypt rozszerzyć tak, by bloki `text title="…"` (plik danych) były zapisywane do katalogu tymczasowego przed uruchomieniem skryptów; przykłady z `input()` przez `--stdin=plik.py=w1|w2`; sesje REPL i pdb osobno; **wyjścia mieszające `print()` i `logging`** (stdout i stderr) sprawdzane ręcznie w terminalu, bo harness dokleja `stderr` po `stdout` — w przykładach logowania nie mieszamy obu strumieni w jednym skrypcie; pytest w tymczasowym venv poza repozytorium (wersja pytest odnotowana); debugger i zrzuty — ręcznie w VSC. Liczby zależne od komputera (czas w `stoper()`) oznaczone.
+- Zapowiedzi w przód (rozdziały jeszcze nienapisane: klasy, wejście-wyjście, wydajność, współbieżność, warsztat) wyłącznie prozą po temacie, bez numeru rozdziału, z komentarzem `<!-- TODO: link po powstaniu rozdziału o … -->` bezpośrednio po zdaniu; każda taka zapowiedź dopisana do listy „Zapowiedzi i luki, które rozdział domyka” właściwego rozdziału w `PLAN_ROZWOJU.md`.
 - `index.md` w układzie rozdziałów 6–7 (decyzja 1). Odsyłacze do rozdziałów 1–7 wewnątrz nowych stron dozwolone od razu; zmiany w rozdziałach 1–7 (tabela na końcu) zbiorczo po ukończeniu wszystkich stron rozdziału 8. Strony rozdziału 4 z markerami aktywności nie są dotykane.
 
 ## Strony
@@ -160,7 +161,7 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 
 **Orientacyjny rozmiar.** ok. 300–360 linii.
 
-### 5. `diagnostyka.md` — Diagnostyka — ślad wywołań i debugger
+### 5. `diagnostyka.md` — Diagnostyka — ślad wywołań (traceback) i debugger
 
 **Cel.** Czytelnik czyta ślad wywołań od dołu i przez łańcuchy, zapisuje go z programu modułem `traceback`, uruchamia program pod debuggerem VSC z pułapkami i wykonaniem krokowym, ogląda zmienne i stos wywołań, zna `breakpoint()` i podstawowe polecenia pdb.
 
@@ -235,7 +236,7 @@ Wstęp (dwa–trzy akapity): błędy jako obiekty — od rozdziału 2 czytaliśm
       - Zgłaszanie wyjątków: 08-wyjatki/zglaszanie-wyjatkow.md
       - Styl obsługi błędów i testy wyjątków: 08-wyjatki/styl-i-testowanie.md
       - Instrukcja with i menedżery kontekstu: 08-wyjatki/with-i-contextlib.md
-      - Diagnostyka — ślad wywołań i debugger: 08-wyjatki/diagnostyka.md
+      - Diagnostyka — ślad wywołań (traceback) i debugger: 08-wyjatki/diagnostyka.md
       - Logowanie zamiast print: 08-wyjatki/logging.md
 ```
 
@@ -272,7 +273,7 @@ Książka ma rację, materiały kursu do poprawki: (a) W05 sl. 19 literówka „
 2. Brak mechanizmów z późniejszych rozdziałów: `class`, zapis do plików, `pathlib`/`os`/`tempfile`/`io`, wątki; `open()` wyłącznie w zakresie decyzji 10; własne wyjątki tylko w zapowiedzi.
 3. Kolejność wewnątrz rozdziału: podrozdział używa wyłącznie pojęć z podrozdziałów wcześniejszych i rozdziałów 1–7; `with` przed stroną 4 tylko w `pytest.raises` z zapowiedzią; `{x!r}`, `__debug__`, `time.perf_counter()` wprowadzone w miejscu użycia.
 4. Nazwy plików przykładowych bez kolizji z biblioteką standardową (nie: `logging.py`, `traceback.py`, `test.py`); funkcja `silnia()` spójna między stronami 2, 3 i 5; plik `dane.txt` spójny na stronie 4.
-5. Formy składniowe: `except (A, B):` jako kanoniczna, PEP 758 raz; `as blad` (decyzja 8); `raise Typ("komunikat")` z komunikatami po polsku; każdy `open()` z `encoding="utf-8"` i w `with` (poza sekcją pokazującą `try/finally`).
+5. Formy składniowe: `except (A, B):` jako kanoniczna, PEP 758 raz; `as e` (decyzja 8); `raise Typ("komunikat")` z komunikatami po polsku; każdy `open()` z `encoding="utf-8"` i w `with` (poza sekcją pokazującą `try/finally`).
 6. Ślady wywołań w brzmieniu 3.14.7 z maskowaniem ścieżek; podpowiedź „Did you mean” raz; kolory prozą; `<python-input-N>` numerowane od zera.
 7. Terminologia i nagłówki zgodne z zasadami; „podrozdział” dla części książki; „menedżer kontekstu”, „pułapka”, „dziennik” z terminami angielskimi przy pierwszym użyciu.
 8. Konwencje `CLAUDE.md`: bloki z `title=` albo `.no-copy`, `json title="launch.json"`, admonitions z polskimi tytułami, cudzysłowy „…”, klawisze `++…++`, `python -m pip`.
