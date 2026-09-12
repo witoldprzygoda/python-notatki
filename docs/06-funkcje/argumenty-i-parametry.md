@@ -314,7 +314,7 @@ Bartek, 23 lat, Toruń
 [3, 4, 5]
 ```
 
-Rozpakowanie `**` wymaga słownika z kluczami będącymi łańcuchami — nazwami parametrów albo, gdy funkcja ma parametr z dwiema gwiazdkami, dowolnymi nazwami trafiającymi do jego słownika. Przekazanie listy po dwóch gwiazdkach kończy się błędem `TypeError: __main__.przedstaw() argument after ** must be a mapping, not list`, a obiektu nieiterowalnego po jednej gwiazdce — `TypeError: __main__.przedstaw() argument after * must be an iterable, not int`. Przedrostek `__main__.` w nazwie funkcji to nazwa modułu, w którym funkcja została zdefiniowana; moduły omawiamy w następnym rozdziale. <!-- TODO: link po powstaniu rozdziału o modułach -->
+Rozpakowanie `**` wymaga słownika z kluczami będącymi łańcuchami — nazwami parametrów albo, gdy funkcja ma parametr z dwiema gwiazdkami, dowolnymi nazwami trafiającymi do jego słownika. Przekazanie listy po dwóch gwiazdkach kończy się błędem `TypeError: __main__.przedstaw() argument after ** must be a mapping, not list`, a obiektu nieiterowalnego po jednej gwiazdce — `TypeError: __main__.przedstaw() argument after * must be an iterable, not int`. Przedrostek `__main__.` w nazwie funkcji to nazwa modułu, w którym funkcja została zdefiniowana; skąd uruchomiony skrypt bierze tę nazwę, wyjaśniamy w sekcji [Atrybut `__name__` i nazwa `"__main__"`](../07-moduly/skrypt-jako-program.md#atrybut-__name__-i-nazwa-__main__).
 
 !!! note "Gwiazdka w definicji i w wywołaniu"
     W nagłówku funkcji `*` i `**` **pakują** nadmiarowe argumenty do krotki

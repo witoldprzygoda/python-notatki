@@ -4,7 +4,7 @@ Funkcja pełni w Pythonie dwie role. Pierwsza jest wspólna dla większości ję
 
 Rozdział opiera się na fundamentach położonych wcześniej. Nazwy jako referencje do obiektów i model pamięci (rozdział [3. Nazwy i typy](../03-nazwy-typy/obiekty-i-pamiec.md)) wyjaśniają, co dzieje się z argumentem przekazanym do funkcji; katalog typów i adnotacje (rozdział [3. Nazwy i typy](../03-nazwy-typy/konwersje-i-adnotacje.md)) wracają w sygnaturach funkcji; iteratory (rozdział [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md)) prowadzą do funkcji generatorowych; pakowanie i rozpakowywanie sekwencji, krotki i słowniki (rozdział [5. Typy złożone](../05-typy-zlozone/krotka.md)) leżą u podstaw parametrów `*args` i `**kwargs`, a złożenia i wyrażenie generatorowe (rozdział [5. Typy złożone](../05-typy-zlozone/zlozenia.md)) znajdują odpowiedniki w funkcjach `map()` i `filter()` oraz w potokach generatorów.
 
-Cały rozdział obywa się bez nowych modułów: moduły `functools` i `itertools`, o których wspominamy w zapowiedziach, poznamy w następnym rozdziale, poświęconym modułom i bibliotece standardowej, a tam też wrócimy do funkcji modułu `sys` sterujących limitem rekurencji. Ten rozdział jest do tego przygotowaniem.
+Cały rozdział obywa się bez nowych modułów: moduły `functools` i `itertools`, o których wspominamy w zapowiedziach, poznajemy w następnym rozdziale, poświęconym modułom i bibliotece standardowej — w podrozdziałach [Moduł functools](../07-moduly/functools.md) i [Moduł itertools](../07-moduly/itertools.md) — a w podrozdziale [Biblioteka standardowa i moduł collections](../07-moduly/biblioteka-standardowa.md#modu-sys) wracamy do funkcji modułu `sys` sterujących limitem rekurencji. Ten rozdział jest do tego przygotowaniem.
 
 ---
 

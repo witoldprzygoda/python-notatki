@@ -488,5 +488,6 @@ tab[-1]         # stack.peek()
     Emulacja kolejki na liście ma charakter poglądowy: operacja `pop(0)` wymaga
     przesunięcia wszystkich pozostałych elementów, jest więc kosztowna dla dłuższych
     list. Dokumentacja Pythona rekomenduje do tego celu typ `collections.deque`,
-    zaprojektowany pod szybkie operacje na obu końcach — poznamy go w dalszej
-    części kursu. Stos na liście pozostaje w pełni poprawny.
+    zaprojektowany pod szybkie operacje na obu końcach — omawiamy go w podrozdziale
+    [Biblioteka standardowa i moduł collections](../07-moduly/biblioteka-standardowa.md#kolejka-dwustronna-deque).
+    Stos na liście pozostaje w pełni poprawny.

@@ -5,7 +5,7 @@ Dokument jest mapą dalszej książki, nie zadaniem do jednorazowej realizacji. 
 ## 0. Zasady realizacji
 
 1. **Pracujemy rozdział po rozdziale.** Każdy rozdział przechodzi trzy etapy: szczegółowy projekt stron (do akceptacji; skondensowany zapis w `plans/NN-slug.md`), implementacja, osobny odbiór. Kolejny rozdział zaczynamy dopiero po odbiorze poprzedniego.
-2. **Rozdział 6. Funkcje jest ukończony** (odbiór 5 IX 2026). **W realizacji: rozdział 7. Moduły, pakiety i biblioteka standardowa** (projekt stron zaakceptowany 5 IX 2026, `plans/07-moduly.md`). Rozdziały 8–18 są zaplanowane, ale nie rozpoczęte.
+2. **Rozdziały 6. Funkcje i 7. Moduły, pakiety i biblioteka standardowa są ukończone** (odbiór 5 IX 2026 i 12 IX 2026). **Następny do realizacji: rozdział 8. Wyjątki i zarządzanie zasobami** — od projektu stron. Rozdziały 8–18 są zaplanowane, ale nie rozpoczęte.
 3. **Nawigacja (`mkdocs.yml`) i spis na stronie głównej** zawierają wyłącznie rozdziały, które istnieją. Pozycje 7–18 dodajemy dopiero wraz z ich treścią.
 4. **Kolejność pojęć jest bezwzględna.** Żaden przykład nie może wymagać mechanizmu formalnie wprowadzanego dopiero w późniejszym rozdziale. Funkcje wbudowane są dostępne zawsze; moduły biblioteki standardowej użyte już w rozdziałach 1–5 (`math`, `sys`, `copy`, `decimal`, `fractions`, `keyword`) można przywoływać ostrożnie; importowane dekoratory, `functools` i pakiety użytkownika dopiero od rozdziału 7.
 5. **Hierarchia źródeł merytorycznych:** aktualna dokumentacja Pythona 3.14 (Language Reference, Standard Library Reference), właściwe PEP-y, oficjalne HOWTO i FAQ, dopiero potem wysokiej jakości źródła zewnętrzne jako pomocnicze. Materiały z `sources/` (PDF autora, wykłady, laboratoria) są źródłem programu kursu i przykładów, ale ich nieaktualności i błędy korygujemy. Blog, tutorial ani Stack Overflow nie mogą być jedynym źródłem twierdzenia o semantyce języka.
@@ -33,7 +33,7 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | Nr | Rozdział | Katalog | Priorytet | Podstron | Rozmiar | Powiązane laboratorium | Status |
 |---|---|---|---|---|---|---|---|
 | 6 | 6. Funkcje | `docs/06-funkcje/` | wysoki | 7 | index + 7 stron, 2962 linie | lab4, lab6, lab8 | ukończony |
-| 7 | 7. Moduły, pakiety i biblioteka standardowa | `docs/07-moduly/` | wysoki | 8 | index + 8 stron, ok. 2400–2900 linii (orientacyjnie) | lab3 | w realizacji — projekt stron zaakceptowany 5 IX 2026 |
+| 7 | 7. Moduły, pakiety i biblioteka standardowa | `docs/07-moduly/` | wysoki | 8 | index + 8 stron, 2426 linii | lab3 | ukończony |
 | 8 | 8. Wyjątki i zarządzanie zasobami | `docs/08-wyjatki/` | wysoki | 6 | index + 6 stron, ok. 800–900 linii | — | zaplanowany |
 | 9 | 9. Wejście, wyjście i pliki | `docs/09-wejscie-wyjscie/` | wysoki | 7 | index + 7 stron, ok. 1000–1100 linii | lab2 | zaplanowany |
 | 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, ok. 850–950 linii | lab5 | zaplanowany |
@@ -164,7 +164,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - argparse 3.14 (suggest_on_error tylko dla choices, color w nocie, prog pod -m); batched(strict=True) 3.13; reduce(initial=) jako argument nazwany 3.14; iteratory itertools bez copy/pickle od 3.14; komunikat kolizji ze stdlib od 3.13
 - decyzje autora (5 IX 2026, sekcja 7 pkt 10): 8 podrozdziałów (osobne CLI i functools); pytest w wariancie A+ (raises → 8, zaawansowany → 16); namedtuple krótko; itertools ograniczony; bez Gita; „(dla dociekliwych)” nie w tytule strony; szacunki długości orientacyjne
 
-**Priorytet:** wysoki. **Szacunek rozmiaru (orientacyjny, nie limit):** index + 8 stron, ok. 2400–2900 linii. **Status:** w realizacji — projekt stron zaakceptowany 5 IX 2026 (`plans/07-moduly.md`); implementacja od `moduly-i-import.md`.
+**Priorytet:** wysoki. **Szacunek rozmiaru (orientacyjny, nie limit):** index + 8 stron, ok. 2400–2900 linii. **Status:** ukończony — projekt stron zaakceptowany 5 IX 2026 (`plans/07-moduly.md`); wszystkie strony wraz z `index.md` ukończone i zweryfikowane do 12 IX 2026 (2426 linii); zapowiedzi z rozdziałów 1–6 domknięte odsyłaczami 12 IX 2026.
 
 ### 8. Wyjątki i zarządzanie zasobami (`docs/08-wyjatki/`)
 

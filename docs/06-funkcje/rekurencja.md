@@ -204,7 +204,7 @@ fib(20) = 6765, wywołań: 21891
 fib(30) = 832040, wywołań: 2692537
 ```
 
-Każdy obrót pętli tworzy nowe domknięcie, więc licznik zaczyna od zera. Liczba wywołań rośnie **wykładniczo**: zwiększenie `n` o 10 mnoży ją około 123 razy, czyli w takim tempie, w jakim rosną same liczby Fibonacciego — obliczenie n-tego wyrazu wymaga dokładnie 2·fib(n + 1) − 1 wywołań, co można sprawdzić na powyższych liczbach. Obliczenie `fib(30)` to niemal 2,7 miliona wywołań, podczas gdy `fib_iter(30)` wykonuje 30 dodawań. Przyczyną nie jest rekurencja sama w sobie, lecz powtarzanie obliczeń; rozwiązaniem jest zapamiętywanie raz obliczonych wyników, zwane **memoizacją** (ang. *memoization*) — wracamy do niej w podrozdziale [Dekoratory](dekoratory.md#memoizacja), a gotowe narzędzie biblioteki standardowej poznamy w następnym rozdziale. <!-- TODO: link po powstaniu rozdziału o modułach -->
+Każdy obrót pętli tworzy nowe domknięcie, więc licznik zaczyna od zera. Liczba wywołań rośnie **wykładniczo**: zwiększenie `n` o 10 mnoży ją około 123 razy, czyli w takim tempie, w jakim rosną same liczby Fibonacciego — obliczenie n-tego wyrazu wymaga dokładnie 2·fib(n + 1) − 1 wywołań, co można sprawdzić na powyższych liczbach. Obliczenie `fib(30)` to niemal 2,7 miliona wywołań, podczas gdy `fib_iter(30)` wykonuje 30 dodawań. Przyczyną nie jest rekurencja sama w sobie, lecz powtarzanie obliczeń; rozwiązaniem jest zapamiętywanie raz obliczonych wyników, zwane **memoizacją** (ang. *memoization*) — wracamy do niej w podrozdziale [Dekoratory](dekoratory.md#memoizacja), a gotowe narzędzie biblioteki standardowej, dekorator `functools.cache`, omawiamy w sekcji [Pamięć podręczna wyników: `cache` i `lru_cache`](../07-moduly/functools.md#pamiec-podreczna-wynikow-cache-i-lru_cache).
 
 ## Rekurencja na strukturach zagnieżdżonych
 
@@ -307,7 +307,7 @@ W CPythonie limit wynosi domyślnie 1000 ramek; jest to jednak szczegół implem
     mechanizm. Dokładna liczba poziomów jest więc właściwością środowiska
     wykonania, a nie gwarancją języka.
 
-Standardowy moduł `sys` udostępnia funkcje do odczytu i zmiany limitu rekurencji; wrócimy do nich po wprowadzeniu modułów. Dokumentacja ostrzega, że zbyt wysoki limit może doprowadzić do awarii interpretera, a zwiększanie limitu nie naprawia definicji, która nie osiąga przypadku bazowego. <!-- TODO: link po powstaniu rozdziału o modułach -->
+Standardowy moduł `sys` udostępnia funkcje do odczytu i zmiany limitu rekurencji; omawiamy je w sekcji [Moduł `sys`](../07-moduly/biblioteka-standardowa.md#modu-sys). Dokumentacja ostrzega, że zbyt wysoki limit może doprowadzić do awarii interpretera, a zwiększanie limitu nie naprawia definicji, która nie osiąga przypadku bazowego.
 
 ## Rekurencja ogonowa
 

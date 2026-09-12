@@ -174,7 +174,7 @@ None
     rozkazujący („Return…”); w polskich przykładach w tej książce stosujemy
     konsekwentnie formę „Zwraca…”, „Oblicza…”, „Sprawdza…”.
 
-Brak docstringu w funkcji pylint zgłasza jako *Missing function or method docstring* — analogicznie do ostrzeżenia dla modułu opisanego w podrozdziale [Konfigurowanie narzędzi](../01-instalacja/konfiguracja.md). Ten sam mechanizm dokumentuje cały moduł: łańcuch na początku pliku trafia do atrybutu `__doc__` modułu; wrócimy do niego przy modułach. <!-- TODO: link po powstaniu rozdziału o modułach -->
+Brak docstringu w funkcji pylint zgłasza jako *Missing function or method docstring* — analogicznie do ostrzeżenia dla modułu opisanego w podrozdziale [Konfigurowanie narzędzi](../01-instalacja/konfiguracja.md). Ten sam mechanizm dokumentuje cały moduł: łańcuch na początku pliku trafia do atrybutu `__doc__` modułu; wracamy do niego w sekcji [Docstring modułu](../07-moduly/moduly-i-import.md#docstring-moduu).
 
 ## Adnotacje w sygnaturze
 
