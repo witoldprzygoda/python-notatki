@@ -101,7 +101,7 @@ None
 None
 ```
 
-Funkcja `pomocnicza()` jest widoczna wyłącznie wewnątrz `silnia_bezpieczna()` i zakłada, że argument jest już sprawdzony. Zwracanie `None` jako sygnału błędnego argumentu pozostaje rozwiązaniem tymczasowym, jak ustaliliśmy w podrozdziale [Definiowanie funkcji](definiowanie-funkcji.md#instrukcja-return); właściwym mechanizmem będą wyjątki. <!-- TODO: link po powstaniu rozdziału o wyjątkach -->
+Funkcja `pomocnicza()` jest widoczna wyłącznie wewnątrz `silnia_bezpieczna()` i zakłada, że argument jest już sprawdzony. Zwracanie `None` jako sygnału błędnego argumentu pozostaje rozwiązaniem tymczasowym, jak ustaliliśmy w podrozdziale [Definiowanie funkcji](definiowanie-funkcji.md#instrukcja-return); właściwym mechanizmem są wyjątki, omówione w sekcji [Instrukcja `raise`](../08-wyjatki/zglaszanie-wyjatkow.md#instrukcja-raise).
 
 ## Rekurencja a iteracja
 

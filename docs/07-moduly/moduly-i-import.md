@@ -398,7 +398,7 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'narzedzia'
 ```
 
-`ModuleNotFoundError` oznacza, że w żadnej pozycji `sys.path` nie ma modułu o podanej nazwie — w tym przypadku dlatego, że katalog bieżący to katalog nadrzędny, a nie `projekt`. Ten sam komunikat pojawia się po literówce w nazwie modułu i przy próbie importu pakietu zewnętrznego, którego nie zainstalowano w aktywnym środowisku wirtualnym. Wyjątki i ich obsługę omawia osobny rozdział; na razie komunikat czytamy wprost: interpreter szukał i nie znalazł.
+`ModuleNotFoundError` oznacza, że w żadnej pozycji `sys.path` nie ma modułu o podanej nazwie — w tym przypadku dlatego, że katalog bieżący to katalog nadrzędny, a nie `projekt`. Ten sam komunikat pojawia się po literówce w nazwie modułu i przy próbie importu pakietu zewnętrznego, którego nie zainstalowano w aktywnym środowisku wirtualnym. Wyjątki i ich obsługę omawia rozdział [8. Wyjątki i zarządzanie zasobami](../08-wyjatki/obsluga-wyjatkow.md); na razie komunikat czytamy wprost: interpreter szukał i nie znalazł.
 
 Ponieważ `sys.path` jest zwykłą listą, technicznie można ją zmienić w czasie działania programu i w ten sposób „naprawić” import z katalogu nadrzędnego:
 

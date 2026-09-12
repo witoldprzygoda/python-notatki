@@ -114,7 +114,7 @@ Traceback (most recent call last):
 ValueError: invalid literal for int() with base 10: 'abc'
 ```
 
-Brak elementu w liście zgłasza `IndexError`, a nieudana konwersja — `ValueError`; obsługę wyjątków poznamy w osobnym rozdziale. Nawet z obsługą wyjątków ręczne podejście ma jednak ograniczenia, które z każdym kolejnym argumentem stają się dotkliwsze: kolejność argumentów jest sztywna, opcję w rodzaju `--liczba 2` trzeba by samodzielnie odszukać w liście i usunąć, każdą pomyłkę użytkownika trzeba wykryć i opisać własnym komunikatem, a tekst pomocy w docstringu trzeba ręcznie utrzymywać w zgodzie z kodem. Wersja z `--help` jest demonstracją tych ograniczeń, nie wzorcem do naśladowania.
+Brak elementu w liście zgłasza `IndexError`, a nieudana konwersja — `ValueError`; obsługę wyjątków omawia podrozdział [Obsługa wyjątków](../08-wyjatki/obsluga-wyjatkow.md). Nawet z obsługą wyjątków ręczne podejście ma jednak ograniczenia, które z każdym kolejnym argumentem stają się dotkliwsze: kolejność argumentów jest sztywna, opcję w rodzaju `--liczba 2` trzeba by samodzielnie odszukać w liście i usunąć, każdą pomyłkę użytkownika trzeba wykryć i opisać własnym komunikatem, a tekst pomocy w docstringu trzeba ręcznie utrzymywać w zgodzie z kodem. Wersja z `--help` jest demonstracją tych ograniczeń, nie wzorcem do naśladowania.
 
 ## Moduł `argparse`
 
@@ -261,7 +261,7 @@ print("po")
 przed
 ```
 
-Instrukcja `print("po")` nie została wykonana, a program zakończył się kodem `1`. Wywołanie `sys.exit(0)` kończy program z kodem `0`, a `sys.exit()` bez argumentu — również z kodem `0`, tak jak `sys.exit(None)`. Mechanizm, którym `sys.exit()` przerywa program, poznamy w rozdziale o wyjątkach; na razie wystarczy jego skutek.
+Instrukcja `print("po")` nie została wykonana, a program zakończył się kodem `1`. Wywołanie `sys.exit(0)` kończy program z kodem `0`, a `sys.exit()` bez argumentu — również z kodem `0`, tak jak `sys.exit(None)`. Mechanizm, którym `sys.exit()` przerywa program — wyjątek `SystemExit` — opisuje sekcja [Hierarchia wyjątków](../08-wyjatki/zglaszanie-wyjatkow.md#hierarchia-wyjatkow); na razie wystarczy jego skutek.
 
 Kod wyjścia łączy się naturalnie z konwencją `main()`: funkcja zwraca kod, a warunek uruchomienia modułu przekazuje go do `sys.exit()`. Dodajmy do programu sprawdzenie, którego parser w użytym tu zakresie nie wykona — liczba powtórzeń musi być dodatnia:
 

@@ -400,13 +400,13 @@ Mechanizm generatorów rozwijał się etapami: funkcje generatorowe wprowadził 
 !!! note "Dla dociekliwych — return z wartością"
     Instrukcja `return wartość` w funkcji generatorowej kończy generator, a podana
     wartość zostaje dołączona do zgłaszanego wyjątku `StopIteration` — widać ją
-    w komunikacie śladu wywołań; jak odczytać ją z obiektu wyjątku, pokażemy
-    w rozdziale o wyjątkach. Pętla `for` i funkcja `list()` tę wartość pomijają,
+    w komunikacie śladu wywołań, a odczyt z obiektu wyjątku pokazujemy w sekcji
+    [Obiekt wyjątku](../08-wyjatki/obsluga-wyjatkow.md#obiekt-wyjatku). Pętla `for`
+    i funkcja `list()` tę wartość pomijają,
     więc nie jest ona sposobem przekazania wyniku odbiorcy; korzysta z niej
     instrukcja `yield from`, dla której staje się wartością wyrażenia —
     w zastosowaniach poza zakresem tego podrozdziału. Instrukcje po `return` nigdy się
     nie wykonują:
-    <!-- TODO: link po powstaniu rozdziału o wyjątkach -->
 
     ```{ .python .no-copy }
     >>> def dwa():

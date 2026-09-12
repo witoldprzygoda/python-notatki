@@ -196,7 +196,7 @@ Skondensowany projekt stron rozdziału 8 według `PLAN_ROZWOJU.md` (sekcja 4, �
 **Cel.** Czytelnik rejestruje zdarzenia programu modułem `logging` zamiast `print()`, dobiera poziom komunikatu, konfiguruje format i próg raz na początku programu, zapisuje wyjątek ze śladem metodą `exception()` i formatuje komunikaty leniwie.
 
 **Kolejność H2/H3.**
-1. Zadania `print()` i dziennika
+1. Porównanie `logging` i `print()`
 2. Pierwszy dziennik
 3. Poziomy komunikatów
 4. Rejestrowanie wyjątków

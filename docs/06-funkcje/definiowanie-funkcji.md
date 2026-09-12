@@ -98,7 +98,7 @@ None
 0.25
 ```
 
-Zgodnie z zaleceniem PEP 8 wszystkie instrukcje `return` w jednej funkcji są tu spójne: skoro jedna gałąź zwraca wartość, druga zwraca ją jawnie (`return None`), zamiast kończyć się bez instrukcji `return`. Zwracanie `None` jako sygnału błędu jest rozwiązaniem tymczasowym — właściwy mechanizm, wyjątki, poznamy w jednym z dalszych rozdziałów. <!-- TODO: link po powstaniu rozdziału o wyjątkach -->
+Zgodnie z zaleceniem PEP 8 wszystkie instrukcje `return` w jednej funkcji są tu spójne: skoro jedna gałąź zwraca wartość, druga zwraca ją jawnie (`return None`), zamiast kończyć się bez instrukcji `return`. Zwracanie `None` jako sygnału błędu jest rozwiązaniem tymczasowym — właściwy mechanizm, wyjątki, omawiamy w sekcji [Instrukcja `raise`](../08-wyjatki/zglaszanie-wyjatkow.md#instrukcja-raise).
 
 Funkcja może zwrócić kilka wartości naraz. Zapis `return min(dane), max(dane)` to poznane w rozdziale [5. Typy złożone](../05-typy-zlozone/krotka.md) **pakowanie** wartości w krotkę, którą w miejscu wywołania można od razu rozpakować:
 

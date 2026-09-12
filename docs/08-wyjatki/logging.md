@@ -2,7 +2,7 @@
 
 Gdy program przestaje być kilkuwierszowym skryptem, pojawia się potrzeba wiedzy o tym, co robił: które dane przetworzył, gdzie napotkał problem, ile czasu zajął dany etap. Pierwszym rozwiązaniem jest zwykle `print()` — i do wypisywania wyników dla użytkownika `print()` pozostaje właściwym narzędziem. Do rejestrowania **zdarzeń** (ang. *event*) w trakcie działania programu lepiej nadaje się moduł `logging` z biblioteki standardowej, który prowadzi **dziennik** (ang. *log*): każdy wpis ma poziom ważności, źródło i czas, a o tym, które wpisy pokazać i dokąd je kierować, decyduje jedna konfiguracja, a nie kod rozsiany po programie. W tym podrozdziale uczymy się prowadzić dziennik w konsoli, dobierać poziomy, rejestrować wyjątki ze śladem i formatować komunikaty; dziennik w pliku zapowiadamy na rozdział o wejściu i wyjściu.
 
-## Zadania `print()` i dziennika
+## Porównanie `logging` i `print()`
 
 Dokumentacja modułu `logging` zestawia narzędzia według zadania; w skrócie:
 

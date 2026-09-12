@@ -133,7 +133,7 @@ Od tej pory uruchomienie kodu to ++ctrl+alt+n++ (a zatrzymanie ++ctrl+alt+m++).
     Jeżeli sekcja terminala w dolnej części okna zostanie zamknięta, otwieramy ją
     ponownie: **Terminal → New Terminal** (lub skrótem klawiszowym ++ctrl+grave++).
 
-Warte odnotowania jest również uruchamianie w trybie debugowania: klawisz ++f5++ wykonuje program pod kontrolą **debuggera**, z możliwością wstawiania pułapek (ang. *breakpoint*) zatrzymujących wykonanie we wskazanej linii. Szersze omówienie debugowania nastąpi w dalszych rozdziałach.
+Warte odnotowania jest również uruchamianie w trybie debugowania: klawisz ++f5++ wykonuje program pod kontrolą **debuggera**, z możliwością wstawiania pułapek (ang. *breakpoint*) zatrzymujących wykonanie we wskazanej linii. Szersze omówienie debugowania zawiera sekcja [Debugger w Visual Studio Code](../08-wyjatki/diagnostyka.md#debugger-w-visual-studio-code).
 
 ## Interpreter i środowisko venv w VSC
 
