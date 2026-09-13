@@ -5,7 +5,7 @@ Dokument jest mapą dalszej książki, nie zadaniem do jednorazowej realizacji. 
 ## 0. Zasady realizacji
 
 1. **Pracujemy rozdział po rozdziale.** Każdy rozdział przechodzi trzy etapy: szczegółowy projekt stron (do akceptacji; skondensowany zapis w `plans/NN-slug.md`), implementacja, osobny odbiór. Kolejny rozdział zaczynamy dopiero po odbiorze poprzedniego.
-2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–12 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026; rozdział 11 zrealizowany autonomicznie na polecenie autora z 13 IX 2026). **Rozdział 12 ukończony** 13 IX 2026 (autonomicznie, `plans/12-oop-zaawansowane.md`). **Rozdział 13 ukończony** 13 IX 2026 (autonomicznie, `plans/13-wydajnosc.md`). Następny do realizacji: rozdział 14. NumPy i Matplotlib — od projektu stron. Rozdziały 14–18 są zaplanowane, ale nie rozpoczęte.
+2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–12 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026; rozdział 11 zrealizowany autonomicznie na polecenie autora z 13 IX 2026). **Rozdział 12 ukończony** 13 IX 2026 (autonomicznie, `plans/12-oop-zaawansowane.md`). **Rozdział 13 ukończony** 13 IX 2026 (autonomicznie, `plans/13-wydajnosc.md`). Decyzja autora z 13 IX 2026: część I książki (kurs) kończy się rozdziałem 16; rozdziały 17 (pandas) i 18 (tkinter) przechodzą do części II „Biblioteki” (zarys w `plans/CZESC-II.md`). **W realizacji: rozdział 14. NumPy i Matplotlib** (autonomicznie, jako rozdział pomostowy o zakresie lab9–10); potem 15 i 16.
 3. **Nawigacja (`mkdocs.yml`) i spis na stronie głównej** zawierają wyłącznie rozdziały, które istnieją. Pozycje 7–18 dodajemy dopiero wraz z ich treścią.
 4. **Kolejność pojęć jest bezwzględna.** Żaden przykład nie może wymagać mechanizmu formalnie wprowadzanego dopiero w późniejszym rozdziale. Funkcje wbudowane są dostępne zawsze; moduły biblioteki standardowej użyte już w rozdziałach 1–5 (`math`, `sys`, `copy`, `decimal`, `fractions`, `keyword`) można przywoływać ostrożnie; importowane dekoratory, `functools` i pakiety użytkownika dopiero od rozdziału 7.
 5. **Hierarchia źródeł merytorycznych:** aktualna dokumentacja Pythona 3.14 (Language Reference, Standard Library Reference), właściwe PEP-y, oficjalne HOWTO i FAQ, dopiero potem wysokiej jakości źródła zewnętrzne jako pomocnicze. Materiały z `sources/` (PDF autora, wykłady, laboratoria) są źródłem programu kursu i przykładów, ale ich nieaktualności i błędy korygujemy. Blog, tutorial ani Stack Overflow nie mogą być jedynym źródłem twierdzenia o semantyce języka.
@@ -40,11 +40,11 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, 1709 linii | lab5 | ukończony |
 | 12 | 12. Programowanie obiektowe — mechanizmy zaawansowane | `docs/12-oop-zaawansowane/` | średni | 5 | index + 5 stron, 1848 linii | lab7, lab8 | ukończony |
 | 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, 577 linii | zapowiedź lab6 | ukończony |
-| 14 | 14. NumPy i Matplotlib | `docs/14-numpy-matplotlib/` | średni | 5 | index + 5 stron, ok. 800–900 linii | lab9–10 | zaplanowany |
+| 14 | 14. NumPy i Matplotlib | `docs/14-numpy-matplotlib/` | średni | 5 | index + 5 stron, ok. 800–900 linii | lab9–10 | w realizacji |
 | 15 | 15. Współbieżność — wątki, procesy i GIL | `docs/15-wspolbieznosc/` | średni | 4 | index + 4 strony, ok. 600–700 linii | lab11 | zaplanowany |
 | 16 | 16. Warsztat programisty i dalsza droga | `docs/16-warsztat/` | średni | 5 | index + 5 stron, ok. 800–900 linii | — | zaplanowany |
-| 17 | 17. Pandas i analiza danych | `docs/17-pandas/` | niski | 5 | index + 5 stron, ok. 800–900 linii | — (dodatek) | zaplanowany |
-| 18 | 18. Interfejs graficzny tkinter | `docs/18-tkinter/` | niski | 7 | index + 7 stron, ok. 1050–1150 linii | — (dodatek) | zaplanowany |
+| 17 | 17. Pandas i analiza danych | `docs/17-pandas/` | niski | 5 | index + 5 stron, ok. 800–900 linii | — (dodatek) | przeniesiony do części II |
+| 18 | 18. Interfejs graficzny tkinter | `docs/18-tkinter/` | niski | 7 | index + 7 stron, ok. 1050–1150 linii | — (dodatek) | przeniesiony do części II |
 
 Poza książką: **Git, GitHub i GitHub Classroom** (materiał organizacyjny kursu; źródła: `sources/github_classroom.pdf`, W12 sl. 15–19, lab3). Rozdziały 17–18 to dodatki bez laboratorium i stoją na końcu.
 
@@ -647,7 +647,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - requests/pyarrow/openpyxl jako zależności zewnętrzne (python -m pip); przykład API → plik lokalny; wersje 2.2.1 → 3.x
 - pliki CSV w docs/17-pandas/data/ (decyzja autora); .dt.to_period zweryfikować
 
-**Priorytet:** niski. **Szacunek rozmiaru:** index + 5 stron, ok. 800–900 linii.
+**Priorytet:** niski. **Szacunek rozmiaru:** index + 5 stron, ok. 800–900 linii. **Status:** przeniesiony do części II (decyzja autora 13 IX 2026, `plans/CZESC-II.md`); projekt zachowany jako punkt wyjścia.
 
 ### 18. Interfejs graficzny tkinter (`docs/18-tkinter/`)
 
@@ -696,7 +696,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - from tkinter import * → import tkinter as tk; class X(object) → class X:; % i str.format → f-stringi; global w handlerach → stan w klasie; sleep+update → after; iconbitmap → iconphoto; exit() → destroy/sys.exit
 - zrzuty okien (kolory, układ) do ZRZUTY.md; brak plików .ico w repozytorium
 
-**Priorytet:** niski. **Szacunek rozmiaru:** index + 7 stron, ok. 1050–1150 linii.
+**Priorytet:** niski. **Szacunek rozmiaru:** index + 7 stron, ok. 1050–1150 linii. **Status:** przeniesiony do części II (decyzja autora 13 IX 2026, `plans/CZESC-II.md`); projekt zachowany jako punkt wyjścia.
 
 ## 5. Kolejność realizacji
 
@@ -713,8 +713,8 @@ Kolejność realizacji pokrywa się z numeracją. Każdy rozdział: projekt → 
 9. 14-numpy-matplotlib — lab9–10; domyka zapowiedzi 11 i 19; kod benchmarku dla 13.
 10. 15-wspolbieznosc — lab11 (ostatnie laboratorium); wymaga 13 do pomiarów.
 11. 16-warsztat — pytest zaawansowany i narzędzia; posłowie „Co dalej” zamyka rdzeń kursu.
-12. 17-pandas — dodatek bez labu; wymaga pandas 3.x, plików danych i testów seaborn.
-13. 18-tkinter — dodatek bez labu; największy nakład rekonstrukcji listingów i weryfikacji Tk 9.
+12. 17-pandas — dodatek bez labu; wymaga pandas 3.x, plików danych i testów seaborn. Przeniesiony do części II (decyzja autora 13 IX 2026).
+13. 18-tkinter — dodatek bez labu; największy nakład rekonstrukcji listingów i weryfikacji Tk 9. Przeniesiony do części II (decyzja autora 13 IX 2026).
 
 ## 6. Uzupełnienia rozdziałów 1–5
 
