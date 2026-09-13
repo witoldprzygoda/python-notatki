@@ -80,7 +80,7 @@ print(k1 is k2, k1.tryb)
 True produkcyjny
 ```
 
-Oba wywołania zwróciły ten sam obiekt, co potwierdza `is`. Wydruk `k1.tryb` ujawnia jednak pułapkę: `__init__` wykonuje się przy **każdym** wywołaniu klasy, także gdy `__new__` zwróciło obiekt istniejący, więc drugie wywołanie nadpisało atrybut ustawiony przez pierwsze. Singleton z `__init__` musi to uwzględnić — na przykład inicjalizować atrybuty tylko raz, sprawdzając, czy już istnieją, albo nie przyjmować argumentów. Prostszą realizację wzorca, przez dekorator klasy, oraz inne wzorce omawiamy w rozdziale o zaawansowanych mechanizmach obiektowych. <!-- TODO: link po powstaniu rozdziału o zaawansowanych mechanizmach obiektowych --> W praktyce Singleton stosujemy rzadko: moduł, który jest importowany raz i przechowuje stan w swoich zmiennych, daje ten sam efekt bez klasy.
+Oba wywołania zwróciły ten sam obiekt, co potwierdza `is`. Wydruk `k1.tryb` ujawnia jednak pułapkę: `__init__` wykonuje się przy **każdym** wywołaniu klasy, także gdy `__new__` zwróciło obiekt istniejący, więc drugie wywołanie nadpisało atrybut ustawiony przez pierwsze. Singleton z `__init__` musi to uwzględnić — na przykład inicjalizować atrybuty tylko raz, sprawdzając, czy już istnieją, albo nie przyjmować argumentów. Prostszą realizację wzorca, przez dekorator klasy, oraz inne wzorce omawiamy w podrozdziale [Wzorce projektowe](../12-oop-zaawansowane/wzorce-projektowe.md#singleton-przez-dekorator-klasy) rozdziału 12. W praktyce Singleton stosujemy rzadko: moduł, który jest importowany raz i przechowuje stan w swoich zmiennych, daje ten sam efekt bez klasy.
 
 ## Licznik referencji i `sys.getrefcount()`
 

@@ -223,7 +223,7 @@ TypeError: Object of type Decimal is not JSON serializable
 "1.10"
 ```
 
-Krotka wraca jako lista, a klucze słownika — zawsze jako łańcuchy, bo klucze obiektu JSON muszą być tekstem; klucz-krotka nie ma odpowiednika i kończy się `TypeError`. Zapis `NaN` nie należy do standardu JSON i inne języki mogą go odrzucić (argument `allow_nan=False` zamienia go w błąd), a bardzo duże liczby całkowite są zapisywane bez ograniczeń. Obiekt spoza tabeli — tu `Decimal` z rozdziału 3 — nie jest serializowalny; argument `default=` podaje funkcję, która zamieni go na coś serializowalnego, najprościej `str`. Własne typy danych będziemy zapisywać do JSON w rozdziale o klasach danych. <!-- TODO: link po powstaniu rozdziału o klasach danych -->
+Krotka wraca jako lista, a klucze słownika — zawsze jako łańcuchy, bo klucze obiektu JSON muszą być tekstem; klucz-krotka nie ma odpowiednika i kończy się `TypeError`. Zapis `NaN` nie należy do standardu JSON i inne języki mogą go odrzucić (argument `allow_nan=False` zamienia go w błąd), a bardzo duże liczby całkowite są zapisywane bez ograniczeń. Obiekt spoza tabeli — tu `Decimal` z rozdziału 3 — nie jest serializowalny; argument `default=` podaje funkcję, która zamieni go na coś serializowalnego, najprościej `str`. Własne typy danych zapisujemy do JSON w podrozdziale [Klasy danych — dataclass, NamedTuple i Enum](../12-oop-zaawansowane/klasy-danych.md#funkcje-asdict-replace-i-zapis-do-json) rozdziału 12.
 
 ### `dump()` i `load()` z plikiem
 
