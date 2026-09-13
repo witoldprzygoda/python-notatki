@@ -113,7 +113,7 @@ Domyślny typ całkowity to `int64` (na Windows od NumPy 2.0 — wcześniej `int
 | `np.complex128` | dwie liczby `float64` | liczby zespolone |
 | `np.bool` (starsza nazwa `np.bool_` nadal działa) | `True`/`False` | maski logiczne |
 
-Różnicę precyzji między `float32` a `float64` pokazuje eksperyment z laboratorium 3, rozwijający porównania z rozdziału [7. Moduły, pakiety i biblioteka standardowa](../07-moduly/struktura-projektu.md#porownania-liczb-zmiennoprzecinkowych) — sumowanie liczb `0.1`, `0.2` i `0.3` wczytanych jako napisy, czterema typami:
+Różnicę precyzji między `float32` a `float64` pokazuje eksperyment rozwijający porównania z rozdziału [7. Moduły, pakiety i biblioteka standardowa](../07-moduly/struktura-projektu.md#porownania-liczb-zmiennoprzecinkowych) — sumowanie liczb `0.1`, `0.2` i `0.3` wczytanych jako napisy, czterema typami:
 
 ```python title="float32-float64.py"
 from decimal import Decimal

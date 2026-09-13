@@ -2,7 +2,7 @@
 
 Dotychczas wystarczały nam listy, słowniki i moduł `math`. Obliczenia na dużych zbiorach liczb i ich wizualizacja wymagają jednak bibliotek spoza języka: **NumPy** dostarcza typ tablicy `ndarray` i operacje wykonywane na całych tablicach naraz, a **Matplotlib** rysuje wykresy. Na tych dwóch bibliotekach opiera się cały ekosystem naukowy Pythona — SciPy, pandas, scikit-learn — dlatego poznajemy je jako pierwsze biblioteki zewnętrzne używane w pełnych, uruchamianych przykładach. Dotąd instalowaliśmy wyłącznie narzędzia pracy, jak pytest w rozdziale 7.
 
-Rozdział ma charakter pomostowy: pokazuje to, co potrzebne w laboratoriach 9–10 — tablice, operacje wektorowe, podstawowe wykresy — i domyka pomiar wektoryzacji z rozdziału 13. Pełne omówienie obu bibliotek, a także pandas i SciPy, przewidujemy w części II książki, poświęconej bibliotekom.
+Rozdział ma charakter pomostowy: pokazuje podstawy — tablice, operacje wektorowe, podstawowe wykresy — i domyka pomiar wektoryzacji z rozdziału 13. Pełne omówienie obu bibliotek, a także pandas i SciPy, przewidujemy w części II książki, poświęconej bibliotekom.
 
 Oba pakiety instalujemy w środowisku wirtualnym kursu z rozdziału [1. Instalacja i środowisko pracy](../01-instalacja/pip.md):
 
@@ -34,6 +34,3 @@ Wykresy w tym rozdziale nie są zrzutami ekranu — każdy powstał z kodu, któ
 3. [Matplotlib — pierwszy wykres i styl obiektowy](matplotlib-podstawy.md) — hierarchia obiektów, `subplots()`, style linii, tekst i adnotacje
 4. [Matplotlib — rodzaje wykresów, układ i zapis](matplotlib-wykresy.md) — `scatter()`, `bar()`, `hist()`, wiele paneli, `savefig()`, typowe pułapki
 5. [Przykłady i rozszerzenia](przyklady-i-rozszerzenia.md) — podrozdział uzupełniający: wielomian bez `eval()`, histogram z wykresem pudełkowym, mapa ciepła, animacja, SciPy, odsyłacz do Numby
-
-!!! note "Laboratoria 9–10"
-    Zadania laboratoryjne z NumPy i Matplotlib zakładają materiał z podrozdziałów 1–4; podrozdział 5 rozszerza go o przykłady i biblioteki, które w laboratoriach pojawiają się tylko jako wzmianka.

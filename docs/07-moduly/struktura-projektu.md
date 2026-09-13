@@ -379,10 +379,9 @@ C:\...\projekt\src\geometria\__init__.py
 
 Atrybut `__file__` wskazuje plik w katalogu projektu — nie kopię w `site-packages` — bo instalacja jest edytowalna. Z katalogu nadrzędnego katalog `tests` nie jest natomiast osiągalny: po instalacji z dowolnego miejsca dostępny jest wyłącznie pakiet z `src`, dokładnie tak, jak w środowisku użytkownika; w katalogu projektu `tests` pozostaje importowalny tylko na mocy reguły katalogu bieżącego. Lista `dependencies` z `pyproject.toml` odpowiada plikowi `requirements.txt` z podrozdziału [Pip — zarządzanie pakietami](../01-instalacja/pip.md#plik-requirementstxt), ale opisuje potrzeby samego pakietu, które pip instaluje razem z nim; narzędzia pracy, jak pytest, instalujemy w środowisku osobno.
 
-!!! note "Układ z laboratorium 3"
-    Materiały laboratorium 3 (zajęć kursu, do którego książka jest materiałem
-    pomocniczym) stosują inny wariant struktury: katalog `src` zawiera tam plik
-    `__init__.py` i jest importowany jako pakiet o nazwie `src`
+!!! note "Inny spotykany układ"
+    W wielu materiałach i projektach spotyka się inny wariant struktury:
+    katalog `src` zawiera plik `__init__.py` i jest importowany jako pakiet o nazwie `src`
     (`from src.kalkulator import dodaj`), bez `pyproject.toml` i instalacji.
     Taki układ działa tylko dlatego, że pytest wstawia katalog projektu na
     ścieżkę wyszukiwania (katalog `tests` ma `__init__.py`, więc jego katalog

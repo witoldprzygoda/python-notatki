@@ -10,7 +10,7 @@ Program, który działa, to dopiero początek: kod trzeba utrzymywać, zmieniać
 | uruchamiać sprawdzenia automatycznie | pre-commit i GitHub Actions | [Automatyzacja jakości — pre-commit i CI](automatyzacja-jakosci.md) |
 | wybrać kierunek dalszej nauki | asyncio, WWW, dane, Python 3.15 | [Co dalej](co-dalej.md) |
 
-Rozdział zakłada znajomość pytest z rozdziału 7, dekoratorów i generatorów z rozdziału 6, adnotacji z rozdziałów 3 i 6, klas danych i protokołów z rozdziału 12 oraz konfiguracji edytora z rozdziału 1. Podrozdział o automatyzacji zakłada też repozytorium Git, którego używamy w kursie do oddawania zadań; sam Git nie jest tematem książki. Wersje narzędzi podajemy według stanu z września 2026 roku — narzędzia zmieniają się szybciej niż język, więc przed instalacją warto sprawdzić aktualne wydania.
+Rozdział zakłada znajomość pytest z rozdziału 7, dekoratorów i generatorów z rozdziału 6, adnotacji z rozdziałów 3 i 6, klas danych i protokołów z rozdziału 12 oraz konfiguracji edytora z rozdziału 1. Podrozdział o automatyzacji zakłada też repozytorium Git; sam Git nie jest tematem książki. Wersje narzędzi podajemy według stanu z września 2026 roku — narzędzia zmieniają się szybciej niż język, więc przed instalacją warto sprawdzić aktualne wydania.
 
 ---
 
@@ -23,4 +23,4 @@ Rozdział zakłada znajomość pytest z rozdziału 7, dekoratorów i generatoró
 5. [Co dalej](co-dalej.md) — programowanie asynchroniczne, aplikacje WWW, dane i uczenie maszynowe, Python 3.15, ściągawka narzędzi, zasoby, posłowie
 
 !!! note "Zamknięcie części I"
-    Rozdział nie ma laboratorium — jego treść przydaje się w każdym projekcie zaliczeniowym. Jest ostatnim rozdziałem części I książki, poświęconej językowi; część II omawia biblioteki.
+    Treść rozdziału przydaje się w każdym własnym projekcie. Jest ostatnim rozdziałem części I książki, poświęconej językowi; część II omawia biblioteki.

@@ -1,6 +1,6 @@
 # Automatyzacja jakości — pre-commit i CI
 
-Testy, sprawdzacz typów i Ruff przynoszą korzyść tylko wtedy, gdy są uruchamiane zawsze — nie wtedy, gdy ktoś o nich pamięta. W tym podrozdziale ustawiamy je w dwóch miejscach: przed zapisaniem zmian w repozytorium, na komputerze programisty, oraz na serwerze po każdym wysłaniu kodu. Zakładamy projekt w repozytorium Git, takim jak repozytoria zadań w kursie; sam Git opisuje jego dokumentacja (git-scm.com/doc).
+Testy, sprawdzacz typów i Ruff przynoszą korzyść tylko wtedy, gdy są uruchamiane zawsze — nie wtedy, gdy ktoś o nich pamięta. W tym podrozdziale ustawiamy je w dwóch miejscach: przed zapisaniem zmian w repozytorium, na komputerze programisty, oraz na serwerze po każdym wysłaniu kodu. Zakładamy, że projekt jest w repozytorium Git; sam Git opisuje jego dokumentacja (git-scm.com/doc).
 
 ## Zasada: te same sprawdzenia lokalnie i na serwerze
 

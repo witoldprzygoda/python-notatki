@@ -45,7 +45,7 @@ Wątek główny wypisuje swój komunikat, zanim którykolwiek wątek skończy, b
 
 ## Wątki demoniczne i zatrzymywanie przez `Event`
 
-Program kończy się, gdy zakończy się wątek główny **i** wszystkie zwykłe wątki — interpreter czeka na nie tak, jakby wywołał `join()`. **Wątek demoniczny** (ang. *daemon thread*), utworzony z argumentem `daemon=True`, nie wstrzymuje zakończenia programu: gdy zostaną tylko demony, interpreter kończy się, a demony są przerywane w dowolnym miejscu, bez sprzątania. Trzy warianty wątku-loggera z laboratorium 11, wypisującego komunikat co ułamek sekundy, pokazują to w praktyce: jako demon bez `join()` zostaje przerwany w połowie pracy, z `join()` wstrzymuje program, a jako zwykły wątek z pętlą nieskończoną nie pozwala programowi się zakończyć. Właściwe rozwiązanie to sygnał zatrzymania — obiekt `Event`:
+Program kończy się, gdy zakończy się wątek główny **i** wszystkie zwykłe wątki — interpreter czeka na nie tak, jakby wywołał `join()`. **Wątek demoniczny** (ang. *daemon thread*), utworzony z argumentem `daemon=True`, nie wstrzymuje zakończenia programu: gdy zostaną tylko demony, interpreter kończy się, a demony są przerywane w dowolnym miejscu, bez sprzątania. Trzy warianty wątku-loggera wypisującego komunikat co ułamek sekundy pokazują to w praktyce: jako demon bez `join()` zostaje przerwany w połowie pracy, z `join()` wstrzymuje program, a jako zwykły wątek z pętlą nieskończoną nie pozwala programowi się zakończyć. Właściwe rozwiązanie to sygnał zatrzymania — obiekt `Event`:
 
 ```python title="logger.py"
 import threading

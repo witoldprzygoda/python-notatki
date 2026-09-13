@@ -14,6 +14,3 @@ Materiał opiera się na funkcjach przekazywanych jako argumenty (rozdział 6), 
 2. [Synchronizacja](synchronizacja.md) — wyścig danych, blokada `Lock` i `with`, `RLock`, zakleszczenie, kolejka `queue.Queue`, wątki a interfejs graficzny, inne narzędzia
 3. [Procesy i pule wykonawców](procesy-i-executory.md) — `multiprocessing.Pool`, `concurrent.futures` i obiekty `Future`, rozmiar puli, `InterpreterPoolExecutor`, dobór narzędzia
 4. [Studia wydajności i asyncio](studia-wydajnosci.md) — zadania ograniczone wejściem-wyjściem i procesorem na kompilacjach 3.14 i 3.14t, kod w C a GIL, koszt procesów, zapowiedź `asyncio`
-
-!!! note "Laboratorium 11"
-    Zadania laboratoryjne — odliczanie w jednym i dwóch wątkach, wątek-logger, pula procesów — odpowiadają podrozdziałom 1 i 3; podrozdział 2 dostarcza narzędzi do bezpiecznej pracy na wspólnych danych, a podrozdział 4 pokazuje, jak zmierzyć, czy współbieżność w ogóle się opłaca.
