@@ -1,6 +1,6 @@
 # Pierwsza analiza w notatniku
 
-Wszystkie elementy warsztatu składamy w jedną, kompletną analizę: plik z danymi, notatnik, statystyki, wykres, wnioski i zapis wyników. Narzędzia pochodzą z rozdziału 14 tomu I — tablice NumPy i wykresy Matplotlib — a nowe jest tylko to, jak układają się w notatniku.
+Wszystkie elementy warsztatu składamy w jedną, kompletną analizę: plik z danymi, notatnik, statystyki, wykres, wnioski i zapis wyników. Narzędzia pochodzą z rozdziału 14 „Python Notatki” — tablice NumPy i wykresy Matplotlib — a nowe jest tylko to, jak układają się w notatniku.
 
 ## Zadanie i dane
 
@@ -167,4 +167,4 @@ Powstały plik `analiza.py` zawiera kod komórek rozdzielony komentarzami `# In[
 
 ## Co dalej
 
-Analiza mieściła się w tablicach NumPy, bo kolumn było cztery i wszystkie były liczbami. Następny rozdział ścieżki rozwija NumPy poza zakres rozdziału 14 tomu I — indeksowanie tablic wielowymiarowych, operacje na osiach, algebrę liniową i losowość w praktyce <!-- TODO: link po powstaniu rozdziału o NumPy w praktyce --> — a rozdziały o pandas wprowadzają tabele z kolumnami różnych typów, brakującymi wartościami i datami, na których ta sama analiza zajmuje kilka wierszy. <!-- TODO: link po powstaniu rozdziału o pandas -->
+Analiza mieściła się w tablicach NumPy, bo kolumn było cztery i wszystkie były liczbami. Następny rozdział ścieżki rozwija NumPy poza zakres rozdziału 14 „Python Notatki” — indeksowanie tablic wielowymiarowych, operacje na osiach, algebrę liniową i losowość w praktyce <!-- TODO: link po powstaniu rozdziału o NumPy w praktyce --> — a rozdziały o pandas wprowadzają tabele z kolumnami różnych typów, brakującymi wartościami i datami, na których ta sama analiza zajmuje kilka wierszy. <!-- TODO: link po powstaniu rozdziału o pandas -->

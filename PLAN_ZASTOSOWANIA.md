@@ -1,16 +1,16 @@
-# Plan rozwoju — „Python Zastosowania” (tom II)
+# Plan rozwoju — „Python Zastosowania”
 
-Stan na 13 IX 2026. Tom II jest kontynuacją „Python Notatki” (tom I, rozdziały 1–16, ukończony) i obejmuje biblioteki Pythona w zastosowaniach. Decyzje autora: tytuł „Python Zastosowania” (13 IX 2026), ten sam serwis i repozytorium, w lewym panelu osobna grupa „Python Zastosowania” pod grupą „Python Notatki” (funkcja `navigation.sections`), zakres według propozycji z 13 IX 2026 z osobną ścieżką uczenia maszynowego.
+Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Python Notatki” (część „Python Notatki”, rozdziały 1–16, ukończona) i obejmuje biblioteki Pythona w zastosowaniach. Decyzje autora: tytuł „Python Zastosowania” (13 IX 2026), ten sam serwis i repozytorium, w lewym panelu osobna grupa „Python Zastosowania” pod grupą „Python Notatki” (funkcja `navigation.sections`), zakres według propozycji z 13 IX 2026 z osobną ścieżką uczenia maszynowego.
 
 ## 0. Zasady
 
-1. **Ścieżki, nie części.** Tom składa się ze **ścieżek** — niezależnych, skończonych samouczków (4–6 rozdziałów), z których każda kończy się projektem spinającym jej biblioteki. Ścieżki są numerowane ciągiem rozdziałów tomu (1, 2, 3, …), a przynależność do ścieżki podaje strona główna i wprowadzenie tomu.
+1. **Ścieżki, nie części.** Część składa się ze **ścieżek** — niezależnych, skończonych samouczków (4–6 rozdziałów), z których każda kończy się projektem spinającym jej biblioteki. Ścieżki są numerowane ciągiem rozdziałów tomu (1, 2, 3, …), a przynależność do ścieżki podaje strona główna i wprowadzenie tomu.
 2. **Skończoność.** Jedna biblioteka na rozdział i jedno narzędzie na zadanie (FastAPI albo Flask, nie oba). Rozszerzanie wyłącznie przez dopisanie rozdziału na końcu ścieżki lub nowej ścieżki; istniejące rozdziały nie rosną.
-3. **Wymagania wstępne.** Każda ścieżka zakłada tom I; ścieżka uczenia maszynowego zakłada też ścieżkę danych. Wprowadzenie każdego rozdziału wymienia rozdziały tomu I, na których buduje.
-4. **Konwencje tomu I obowiązują** (`CLAUDE.md`, `DEVELOPMENT_WORKFLOW.md`): rejestr, bloki kodu, harness, trzy recenzje, zapowiedzi w przód z `<!-- TODO: link po powstaniu rozdziału o … -->`, bez odwołań do materiałów z zajęć.
+3. **Wymagania wstępne.** Każda ścieżka zakłada część „Python Notatki”; ścieżka uczenia maszynowego zakłada też ścieżkę danych. Wprowadzenie każdego rozdziału wymienia rozdziały części „Python Notatki”, na których buduje.
+4. **Konwencje części „Python Notatki” obowiązują** (`CLAUDE.md`, `DEVELOPMENT_WORKFLOW.md`): rejestr, bloki kodu, harness, trzy recenzje, zapowiedzi w przód z `<!-- TODO: link po powstaniu rozdziału o … -->`, bez odwołań do materiałów z zajęć.
 5. **Biblioteki i wersje.** Każdy rozdział podaje wersje „w chwili pisania” i plik wymagań z przypiętymi wersjami; weryfikacja w osobnym środowisku wirtualnym z tymi pakietami (Python 3.14). Wykresy generowane z listingów; dane przykładowe osadzone w tekście jako bloki plików lub jawnie oznaczone jako dane przykładowe.
 6. **Notatniki.** Komórki notatnika zapisujemy jako bloki ```python title="nazwa.ipynb — komórka N"``` z wynikiem w bloku `{ .text .no-copy }`; weryfikuje je `scripts/verify_cells.py` (komórki w kolejności w jądrze Jupyter przez `nbclient`; opcje `--refresh`, `--img`, `--cwd`, `--mask`). `scripts/verify_page.py` pomija bloki z `.ipynb` w tytule.
-7. **Układ katalogów:** `docs/zastosowania/<NN>-<slug>/`, obrazy w `img/` rozdziału; strona `docs/zastosowania/index.md` jest wprowadzeniem tomu.
+7. **Układ katalogów:** `docs/zastosowania/<NN>-<slug>/`, obrazy w `img/` rozdziału; strona `docs/zastosowania/index.md` jest wprowadzeniem części.
 
 ## 1. Ścieżki i rozdziały
 
@@ -42,9 +42,9 @@ Stan na 13 IX 2026. Tom II jest kontynuacją „Python Notatki” (tom I, rozdzi
 
 Kolejność realizacji: ścieżka Dane (1–6) → Uczenie maszynowe (7–12) → Aplikacje (13–18) → Automatyzacja (19–23). Projekty rozdziałów powstają w `plans/zNN-<slug>.md` bezpośrednio przed realizacją; rozdział 17 (pandas) i 18 (tkinter) z `PLAN_ROZWOJU.md` są punktem wyjścia dla rozdziałów 4–5 i 16.
 
-## 2. Zapowiedzi z tomu I do domknięcia
+## 2. Zapowiedzi z części „Python Notatki” do domknięcia
 
-| Plik tomu I | Zapowiedź | Rozdział tomu II |
+| Plik części „Python Notatki” | Zapowiedź | Rozdział części „Python Zastosowania” |
 |---|---|---|
 | `09-wejscie-wyjscie/csv-i-json.md:117`, `14-numpy-matplotlib/ndarray.md:276` | pandas — tabele z nazwanymi kolumnami | 4 |
 | `14-numpy-matplotlib/przyklady-i-rozszerzenia.md:170` | SciPy i scikit-learn | 7 (scikit-learn); SciPy — wzmianka w 2 |
@@ -54,4 +54,4 @@ Kolejność realizacji: ścieżka Dane (1–6) → Uczenie maszynowe (7–12) �
 
 1. Zakładki w górnym pasku (`navigation.tabs`) jako alternatywa dla grup w lewym panelu — do decyzji autora po obejrzeniu układu.
 2. Osobna zakładka „Ściągawki” (tabele odniesienia) po ukończeniu ścieżek.
-3. Zadania do stron przez istniejącą infrastrukturę aktywności — które rozdziały tomu II mają je dostać.
+3. Zadania do stron przez istniejącą infrastrukturę aktywności — które rozdziały części „Python Zastosowania” mają je dostać.

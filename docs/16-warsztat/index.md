@@ -22,5 +22,5 @@ Rozdział zakłada znajomość pytest z rozdziału 7, dekoratorów i generatoró
 4. [Automatyzacja jakości — pre-commit i CI](automatyzacja-jakosci.md) — pre-commit, narzędzia w edytorze, GitHub Actions, typowe błędy
 5. [Co dalej](co-dalej.md) — programowanie asynchroniczne, aplikacje WWW, dane i uczenie maszynowe, Python 3.15, ściągawka narzędzi, zasoby, posłowie
 
-!!! note "Zamknięcie części I"
-    Treść rozdziału przydaje się w każdym własnym projekcie. Jest ostatnim rozdziałem części I książki, poświęconej językowi; część II omawia biblioteki.
+!!! note "Zamknięcie części „Python Notatki”"
+    Treść rozdziału przydaje się w każdym własnym projekcie. Jest ostatnim rozdziałem części „Python Notatki”, poświęconej językowi; część „Python Zastosowania” omawia biblioteki.

@@ -167,7 +167,7 @@ def model(x, a, b):
 parametry, kowariancja = curve_fit(model, x, y)   # parametry = [a, b]
 ```
 
-SciPy instalujemy poleceniem `python -m pip install scipy` (w chwili pisania wersja 1.18.1). Bibliotekę tę, wraz z pandas i scikit-learn, omawiamy w części II książki. <!-- TODO: link po powstaniu rozdziału o SciPy -->
+SciPy instalujemy poleceniem `python -m pip install scipy` (w chwili pisania wersja 1.18.1). Bibliotekę tę, wraz z pandas i scikit-learn, omawiamy w części „Python Zastosowania”. <!-- TODO: link po powstaniu rozdziału o SciPy -->
 
 ## Numba — odsyłacz
 

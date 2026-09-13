@@ -1,6 +1,6 @@
 # Czytanie dokumentacji bibliotek
 
-Biblioteki z tego tomu mają po kilkaset funkcji; żaden podręcznik ich nie wyczerpie i nie jest to jego celem. Umiejętnością trwałą jest sprawne czytanie dokumentacji: odnalezienie właściwej funkcji, zrozumienie jej sygnatury i sprawdzenie, czy opis dotyczy zainstalowanej wersji. Ten podrozdział pokazuje, jak zbudowana jest dokumentacja dużej biblioteki, jak czytać ją z poziomu notatnika i po czym poznać pakiet wart zainstalowania.
+Biblioteki z tej części mają po kilkaset funkcji; żaden podręcznik ich nie wyczerpie i nie jest to jego celem. Umiejętnością trwałą jest sprawne czytanie dokumentacji: odnalezienie właściwej funkcji, zrozumienie jej sygnatury i sprawdzenie, czy opis dotyczy zainstalowanej wersji. Ten podrozdział pokazuje, jak zbudowana jest dokumentacja dużej biblioteki, jak czytać ją z poziomu notatnika i po czym poznać pakiet wart zainstalowania.
 
 ## Przewodnik a opis API
 
@@ -8,7 +8,7 @@ Dokumentacja dojrzałej biblioteki ma dwie części. **Przewodnik użytkownika**
 
 ## Docstring, `help()` i `inspect.signature()`
 
-Opis API jest generowany z docstringów, które poznaliśmy w rozdziale 6 tomu I — więc ten sam tekst czytamy bez przeglądarki: w notatniku znakiem `?`, w skrypcie funkcją `help()`, a samą sygnaturę daje moduł `inspect`:
+Opis API jest generowany z docstringów, które poznaliśmy w rozdziale 6 „Python Notatki” — więc ten sam tekst czytamy bez przeglądarki: w notatniku znakiem `?`, w skrypcie funkcją `help()`, a samą sygnaturę daje moduł `inspect`:
 
 ```python title="sygnatura.py"
 import inspect
@@ -44,11 +44,11 @@ ostrzezenie.py:3: DeprecationWarning: datetime.datetime.utcnow() is deprecated a
 2026-09-13 20:38:33.813993
 ```
 
-`DeprecationWarning` należy do gałęzi `Warning` z rozdziału 8 tomu I — jak każde ostrzeżenie nie przerywa programu, ale mówi, co zmienić i na co; w notatniku pojawia się pod komórką (JupyterLab wyróżnia je różowym tłem, VSC wypisuje jak zwykły tekst). Ostrzeżeń nie wyciszamy — poprawiamy wywołanie od razu, póki zmiana ogranicza się do jednego wiersza. Historię zmian biblioteki opisuje jej dziennik wydań (ang. *release notes*, *changelog*) — pierwsze miejsce, do którego zaglądamy po aktualizacji, gdy coś przestało działać. Wersję zainstalowanego pakietu podaje `python -m pip show numpy`, a dostępne wydania — `python -m pip index versions numpy`.
+`DeprecationWarning` należy do gałęzi `Warning` z rozdziału 8 „Python Notatki” — jak każde ostrzeżenie nie przerywa programu, ale mówi, co zmienić i na co; w notatniku pojawia się pod komórką (JupyterLab wyróżnia je różowym tłem, VSC wypisuje jak zwykły tekst). Ostrzeżeń nie wyciszamy — poprawiamy wywołanie od razu, póki zmiana ogranicza się do jednego wiersza. Historię zmian biblioteki opisuje jej dziennik wydań (ang. *release notes*, *changelog*) — pierwsze miejsce, do którego zaglądamy po aktualizacji, gdy coś przestało działać. Wersję zainstalowanego pakietu podaje `python -m pip show numpy`, a dostępne wydania — `python -m pip index versions numpy`.
 
 ## Zasada „najpierw biblioteka standardowa”
 
-Każdy pakiet zewnętrzny to zależność: wersja do przypięcia, ryzyko porzucenia przez autorów, dodatkowa instalacja u każdego użytkownika. Zanim go dodamy, sprawdzamy, czy zadania nie rozwiązuje biblioteka standardowa z tomu I:
+Każdy pakiet zewnętrzny to zależność: wersja do przypięcia, ryzyko porzucenia przez autorów, dodatkowa instalacja u każdego użytkownika. Zanim go dodamy, sprawdzamy, czy zadania nie rozwiązuje biblioteka standardowa z „Python Notatki”:
 
 | Zadanie | Biblioteka standardowa | Pakiet zewnętrzny — gdy |
 |---|---|---|
@@ -64,10 +64,10 @@ Reguła nie zabrania pakietów — pandas i Matplotlib są tematem tej ścieżki
 
 ## Ocena pakietu z PyPI
 
-Gdy zadanie wymaga pakietu spoza tomu, oceniamy go na stronie PyPI i w repozytorium projektu, zanim go zainstalujemy:
+Gdy zadanie wymaga pakietu spoza tej części, oceniamy go na stronie PyPI i w repozytorium projektu, zanim go zainstalujemy:
 
 - **data ostatniego wydania i rytm wydań** — pakiet bez wydań od kilku lat może nie działać z Pythonem 3.14;
-- **obsługiwane wersje Pythona** w metadanych i w nazwach plików binarnych — **kół** (ang. *wheel*), o których wspomina rozdział 1 tomu I; `cp314` w nazwie pliku oznacza gotowe koło dla CPythona 3.14;
+- **obsługiwane wersje Pythona** w metadanych i w nazwach plików binarnych — **kół** (ang. *wheel*), o których wspomina rozdział 1 „Python Notatki”; `cp314` w nazwie pliku oznacza gotowe koło dla CPythona 3.14;
 - **dokumentacja** — czy istnieje przewodnik i opis API, czy tylko README;
 - **licencja** — czy pozwala na nasze zastosowanie; w projektach studenckich i naukowych zwykle tak, w komercyjnych wymaga sprawdzenia;
 - **zależności** — `python -m pip show nazwa` po instalacji w osobnym środowisku pokazuje, jakie zależności pakiet instaluje;

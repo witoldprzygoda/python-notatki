@@ -1,6 +1,6 @@
 # Notatnik Jupyter w VSC
 
-Notatnik Jupyter poznaliśmy w tomie I jako program uruchamiany w przeglądarce (rozdział [1. Instalacja i środowisko pracy](../../01-instalacja/notebook.md)) i jako usługę Google Colab. W pracy z danymi wygodniejszy jest notatnik otwarty w Visual Studio Code: ten sam edytor, to samo środowisko wirtualne i te same narzędzia, co przy skryptach. Ten podrozdział wprowadza pojęcia — komórka, jądro, stan — i nawyki, które odróżniają uporządkowaną pracę w notatniku od przypadkowej.
+Notatnik Jupyter poznaliśmy w „Python Notatki” jako program uruchamiany w przeglądarce (rozdział [1. Instalacja i środowisko pracy](../../01-instalacja/notebook.md)) i jako usługę Google Colab. W pracy z danymi wygodniejszy jest notatnik otwarty w Visual Studio Code: ten sam edytor, to samo środowisko wirtualne i te same narzędzia, co przy skryptach. Ten podrozdział wprowadza pojęcia — komórka, jądro, stan — i nawyki, które odróżniają uporządkowaną pracę w notatniku od przypadkowej.
 
 ## Notatnik a skrypt
 
@@ -8,7 +8,7 @@ Skrypt wykonuje się od początku do końca w nowym interpreterze. Notatnik to p
 
 ## Instalacja i pierwszy notatnik
 
-W środowisku wirtualnym projektu instalujemy **ipykernel** — pakiet, który udostępnia interpreter jako jądro — oraz JupyterLab — nowszy interfejs przeglądarkowy projektu Jupyter, następca klasycznego Jupyter Notebook z tomu I — jeśli chcemy pracować także w przeglądarce; razem z nim instaluje się narzędzie nbconvert, potrzebne w ostatniej sekcji:
+W środowisku wirtualnym projektu instalujemy **ipykernel** — pakiet, który udostępnia interpreter jako jądro — oraz JupyterLab — nowszy interfejs przeglądarkowy projektu Jupyter, następca klasycznego Jupyter Notebook z „Python Notatki” — jeśli chcemy pracować także w przeglądarce; razem z nim instaluje się narzędzie nbconvert, potrzebne w ostatniej sekcji:
 
 ```powershell title="Terminal"
 python -m pip install ipykernel jupyterlab

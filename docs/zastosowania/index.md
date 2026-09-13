@@ -1,8 +1,8 @@
 # Python Zastosowania
 
-„Python Notatki” opisują język, jego bibliotekę standardową i warsztat programisty; z bibliotek zewnętrznych wprowadzają tylko NumPy i Matplotlib. „Python Zastosowania” prowadzą dalej — do bibliotek, na których opiera się codzienna praca z Pythonem: analiza danych, uczenie maszynowe, aplikacje z bazą danych i interfejsem, automatyzacja. Tom nie jest przeglądem całego ekosystemu; jest zbiorem **ścieżek** — skończonych samouczków, z których każdy prowadzi od podstaw wybranej dziedziny do projektu spinającego jej narzędzia.
+„Python Notatki” opisują język, jego bibliotekę standardową i warsztat programisty; z bibliotek zewnętrznych wprowadzają tylko NumPy i Matplotlib. „Python Zastosowania” prowadzą dalej — do bibliotek, na których opiera się codzienna praca z Pythonem: analiza danych, uczenie maszynowe, aplikacje z bazą danych i interfejsem, automatyzacja. Ta część nie jest przeglądem całego ekosystemu; jest zbiorem **ścieżek** — skończonych samouczków, z których każdy prowadzi od podstaw wybranej dziedziny do projektu spinającego jej narzędzia.
 
-## Układ tomu
+## Układ części
 
 | Ścieżka | Zakres | Rozdziały |
 |---|---|---|
@@ -15,9 +15,9 @@
 
 ## Wymagania i zasady
 
-Tom zakłada znajomość języka w zakresie „Python Notatek”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały tomu I, na których buduje.
+Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały „Python Notatki”, na których buduje.
 
-- **Jedna biblioteka na rozdział.** Gdy zadanie ma kilka równorzędnych narzędzi, tom wybiera jedno i wskazuje pozostałe jednym zdaniem.
+- **Jedna biblioteka na rozdział.** Gdy zadanie ma kilka równorzędnych narzędzi, wybieramy jedno i wskazuje pozostałe jednym zdaniem.
 - **Wersje w chwili pisania.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, i plik wymagań z przypiętymi wersjami.
 - **Każdy listing uruchomiony.** Wyniki, wykresy i komunikaty w tekście pochodzą z rzeczywistych uruchomień; dane przykładowe są osadzone w tekście.
 - **Najpierw biblioteka standardowa.** Pakiet zewnętrzny instalujemy wtedy, gdy zadanie tego wymaga, nie z przyzwyczajenia.

@@ -2,7 +2,7 @@
 
 Dotychczas wystarczały nam listy, słowniki i moduł `math`. Obliczenia na dużych zbiorach liczb i ich wizualizacja wymagają jednak bibliotek spoza języka: **NumPy** dostarcza typ tablicy `ndarray` i operacje wykonywane na całych tablicach naraz, a **Matplotlib** rysuje wykresy. Na tych dwóch bibliotekach opiera się cały ekosystem naukowy Pythona — SciPy, pandas, scikit-learn — dlatego poznajemy je jako pierwsze biblioteki zewnętrzne używane w pełnych, uruchamianych przykładach. Dotąd instalowaliśmy wyłącznie narzędzia pracy, jak pytest w rozdziale 7.
 
-Rozdział ma charakter pomostowy: pokazuje podstawy — tablice, operacje wektorowe, podstawowe wykresy — i domyka pomiar wektoryzacji z rozdziału 13. Pełne omówienie obu bibliotek, a także pandas i SciPy, przewidujemy w części II książki, poświęconej bibliotekom.
+Rozdział ma charakter pomostowy: pokazuje podstawy — tablice, operacje wektorowe, podstawowe wykresy — i domyka pomiar wektoryzacji z rozdziału 13. Pełne omówienie obu bibliotek, a także pandas i SciPy, przewidujemy w części „Python Zastosowania”, poświęconej bibliotekom.
 
 Oba pakiety instalujemy w środowisku wirtualnym kursu z rozdziału [1. Instalacja i środowisko pracy](../01-instalacja/pip.md):
 

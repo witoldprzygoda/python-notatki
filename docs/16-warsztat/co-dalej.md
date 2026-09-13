@@ -1,6 +1,6 @@
 # Co dalej
 
-Część I książki kończy się na języku i jego bibliotece standardowej — to fundament, na którym stoją wszystkie zastosowania Pythona. Ten podrozdział wskazuje najczęstsze kierunki dalszej nauki, zbiera narzędzia z całej książki w jedną ściągawkę i podaje, gdzie szukać materiałów.
+Część „Python Notatki” kończy się na języku i jego bibliotece standardowej — to fundament, na którym stoją wszystkie zastosowania Pythona. Ten podrozdział wskazuje najczęstsze kierunki dalszej nauki, zbiera narzędzia z całej książki w jedną ściągawkę i podaje, gdzie szukać materiałów.
 
 ## Programowanie asynchroniczne
 
@@ -60,11 +60,11 @@ python -m pip install "fastapi[standard]"
 fastapi dev aplikacja.py
 ```
 
-Duże aplikacje z panelem administracyjnym, obsługą użytkowników i bazą danych buduje **Django**; bazy danych (`sqlite3`, SQLAlchemy), interfejsy HTTP i pakowanie aplikacji to tematy części II książki.
+Duże aplikacje z panelem administracyjnym, obsługą użytkowników i bazą danych buduje **Django**; bazy danych (`sqlite3`, SQLAlchemy), interfejsy HTTP i pakowanie aplikacji to tematy części „Python Zastosowania”.
 
 ## Dane i uczenie maszynowe
 
-Rozdział [14. NumPy i Matplotlib](../14-numpy-matplotlib/index.md) otworzył ścieżkę danych. Kolejne jej etapy: **pandas** (wersja 3.0) — tabele z nazwanymi kolumnami, wczytywanie CSV i Excela, grupowanie i łączenie; **scikit-learn** (1.9) — klasyczne uczenie maszynowe w jednolitym interfejsie `fit()`/`predict()`; **PyTorch** (2.14) — sieci neuronowe; **Jupyter** — notatniki łączące kod, wyniki i tekst, także w VSC. pandas, scikit-learn i notatniki Jupyter są tematem części II; PyTorch wykracza poza jej plan. Narzędzia AI wspierające pisanie kodu omówiliśmy w rozdziale [1. Instalacja i środowisko pracy](../01-instalacja/ai-tools.md).
+Rozdział [14. NumPy i Matplotlib](../14-numpy-matplotlib/index.md) otworzył ścieżkę danych. Kolejne jej etapy: **pandas** (wersja 3.0) — tabele z nazwanymi kolumnami, wczytywanie CSV i Excela, grupowanie i łączenie; **scikit-learn** (1.9) — klasyczne uczenie maszynowe w jednolitym interfejsie `fit()`/`predict()`; **PyTorch** (2.14) — sieci neuronowe; **Jupyter** — notatniki łączące kod, wyniki i tekst, także w VSC. pandas, scikit-learn i notatniki Jupyter są tematem części „Python Zastosowania”; PyTorch wykracza poza jej plan. Narzędzia AI wspierające pisanie kodu omówiliśmy w rozdziale [1. Instalacja i środowisko pracy](../01-instalacja/ai-tools.md).
 
 ## Python 3.15
 
@@ -107,4 +107,4 @@ Umiejętności utrwala własny projekt, doprowadzony do końca i opublikowany w 
 
 ## Posłowie
 
-Szesnaście rozdziałów prowadziło od instalacji interpretera do narzędzi pracy zespołowej: składnia, typy i kolekcje, funkcje, moduły, wyjątki, pliki, programowanie obiektowe, wydajność, tablice, współbieżność. To zamknięty kurs języka — wystarczający, aby czytać cudzy kod ze zrozumieniem i pisać własny, który można utrzymywać. Część II poświęcamy bibliotekom: ścieżce danych, aplikacjom i automatyzacji. Niezależnie od wybranej drogi zasada z rozdziału 13 pozostaje w mocy — najpierw kod poprawny i czytelny, potem wszystko inne.
+Szesnaście rozdziałów prowadziło od instalacji interpretera do narzędzi pracy zespołowej: składnia, typy i kolekcje, funkcje, moduły, wyjątki, pliki, programowanie obiektowe, wydajność, tablice, współbieżność. To zamknięty kurs języka — wystarczający, aby czytać cudzy kod ze zrozumieniem i pisać własny, który można utrzymywać. Część „Python Zastosowania” poświęcamy bibliotekom: ścieżkom danych, uczenia maszynowego, aplikacji i automatyzacji. Niezależnie od wybranej drogi zasada z rozdziału 13 pozostaje w mocy — najpierw kod poprawny i czytelny, potem wszystko inne.
