@@ -23,6 +23,7 @@ Decyzja autora z 13 IX 2026: część I książki (kurs języka) kończy się ro
 
 - Rozdział 14, `ndarray.md` (Zapis i odczyt): pandas — tabele danych z nazwanymi kolumnami.
 - Rozdział 14, `przyklady-i-rozszerzenia.md` (SciPy): SciPy i scikit-learn w pełnym zakresie.
+- Rozdział 15, `synchronizacja.md` (Wątki a interfejs graficzny): tkinter — `after()` i kolejka w programie okienkowym.
 
 ## Do rozstrzygnięcia przez autora
 
