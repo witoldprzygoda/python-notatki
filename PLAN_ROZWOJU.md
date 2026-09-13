@@ -5,7 +5,7 @@ Dokument jest mapą dalszej książki, nie zadaniem do jednorazowej realizacji. 
 ## 0. Zasady realizacji
 
 1. **Pracujemy rozdział po rozdziale.** Każdy rozdział przechodzi trzy etapy: szczegółowy projekt stron (do akceptacji; skondensowany zapis w `plans/NN-slug.md`), implementacja, osobny odbiór. Kolejny rozdział zaczynamy dopiero po odbiorze poprzedniego.
-2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–12 są ukończone** (odbiór 5 IX, 12 IX, 13 IX i 14 IX 2026; rozdział 11 zrealizowany autonomicznie na polecenie autora z 14 IX 2026). **Rozdział 12 ukończony** 14 IX 2026 (autonomicznie, `plans/12-oop-zaawansowane.md`). **W realizacji: rozdział 13. Wydajność i optymalizacja** (autonomicznie, `plans/13-wydajnosc.md`). Rozdziały 14–18 są zaplanowane, ale nie rozpoczęte.
+2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–12 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026; rozdział 11 zrealizowany autonomicznie na polecenie autora z 13 IX 2026). **Rozdział 12 ukończony** 13 IX 2026 (autonomicznie, `plans/12-oop-zaawansowane.md`). **Rozdział 13 ukończony** 13 IX 2026 (autonomicznie, `plans/13-wydajnosc.md`). Następny do realizacji: rozdział 14. NumPy i Matplotlib — od projektu stron. Rozdziały 14–18 są zaplanowane, ale nie rozpoczęte.
 3. **Nawigacja (`mkdocs.yml`) i spis na stronie głównej** zawierają wyłącznie rozdziały, które istnieją. Pozycje 7–18 dodajemy dopiero wraz z ich treścią.
 4. **Kolejność pojęć jest bezwzględna.** Żaden przykład nie może wymagać mechanizmu formalnie wprowadzanego dopiero w późniejszym rozdziale. Funkcje wbudowane są dostępne zawsze; moduły biblioteki standardowej użyte już w rozdziałach 1–5 (`math`, `sys`, `copy`, `decimal`, `fractions`, `keyword`) można przywoływać ostrożnie; importowane dekoratory, `functools` i pakiety użytkownika dopiero od rozdziału 7.
 5. **Hierarchia źródeł merytorycznych:** aktualna dokumentacja Pythona 3.14 (Language Reference, Standard Library Reference), właściwe PEP-y, oficjalne HOWTO i FAQ, dopiero potem wysokiej jakości źródła zewnętrzne jako pomocnicze. Materiały z `sources/` (PDF autora, wykłady, laboratoria) są źródłem programu kursu i przykładów, ale ich nieaktualności i błędy korygujemy. Blog, tutorial ani Stack Overflow nie mogą być jedynym źródłem twierdzenia o semantyce języka.
@@ -39,7 +39,7 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, 1588 linii | lab5 | ukończony |
 | 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, 1709 linii | lab5 | ukończony |
 | 12 | 12. Programowanie obiektowe — mechanizmy zaawansowane | `docs/12-oop-zaawansowane/` | średni | 5 | index + 5 stron, 1848 linii | lab7, lab8 | ukończony |
-| 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, ok. 450–520 linii | zapowiedź lab6 | w realizacji |
+| 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, 577 linii | zapowiedź lab6 | ukończony |
 | 14 | 14. NumPy i Matplotlib | `docs/14-numpy-matplotlib/` | średni | 5 | index + 5 stron, ok. 800–900 linii | lab9–10 | zaplanowany |
 | 15 | 15. Współbieżność — wątki, procesy i GIL | `docs/15-wspolbieznosc/` | średni | 4 | index + 4 strony, ok. 600–700 linii | lab11 | zaplanowany |
 | 16 | 16. Warsztat programisty i dalsza droga | `docs/16-warsztat/` | średni | 5 | index + 5 stron, ok. 800–900 linii | — | zaplanowany |
@@ -315,7 +315,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - __dict__ klasy 3.13+ (__static_attributes__, __firstlineno__); „Did you mean” tylko w pełnym tracebacku; komunikat property bez settera 3.11+
 - super(K, self) jako pełna forma, nie „Python 2”; linki StackOverflow/quantifiedcode z PDF — zastąpić (types.MethodType)
 
-**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** ukończony — projekt stron zaakceptowany 13 IX 2026 (`plans/10-klasy.md`); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 13 IX 2026 (1588 linii); rozdział odebrany 14 IX 2026; zapowiedzi z rozdziałów 1–9 domknięte odsyłaczami 14 IX 2026; etykieta ostatniej strony „Cykl życia obiektu” bez dopisku.
+**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** ukończony — projekt stron zaakceptowany 13 IX 2026 (`plans/10-klasy.md`); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 13 IX 2026 (1588 linii); rozdział odebrany 13 IX 2026; zapowiedzi z rozdziałów 1–9 domknięte odsyłaczami 13 IX 2026; etykieta ostatniej strony „Cykl życia obiektu” bez dopisku.
 
 ### 11. Model danych — metody specjalne i protokoły (`docs/11-model-danych/`)
 
@@ -364,7 +364,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - time.perf_counter; import na poziomie modułu; brakujący __repr__ w przykładzie total_ordering
 - zrzuty PDF (dir, TypeError dla str) jako sesje REPL 3.14; adresy jako przykładowe
 
-**Priorytet:** średni. **Szacunek rozmiaru:** index + 5 stron, ok. 750–850 linii. **Status:** ukończony — projekt stron `plans/11-model-danych.md` z 14 IX 2026 (realizacja autonomiczna na polecenie autora); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 14 IX 2026 (1709 linii); zapowiedzi z rozdziałów 7–10 domknięte odsyłaczami 14 IX 2026; etykieta ostatniej strony „Deskryptory” bez dopisku.
+**Priorytet:** średni. **Szacunek rozmiaru:** index + 5 stron, ok. 750–850 linii. **Status:** ukończony — projekt stron `plans/11-model-danych.md` z 13 IX 2026 (realizacja autonomiczna na polecenie autora); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 13 IX 2026 (1709 linii); zapowiedzi z rozdziałów 7–10 domknięte odsyłaczami 13 IX 2026; etykieta ostatniej strony „Deskryptory” bez dopisku.
 
 ### 12. Programowanie obiektowe — mechanizmy zaawansowane (`docs/12-oop-zaawansowane/`)
 
@@ -412,7 +412,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - BŁĄD W07 quiz: B(x=5); identyfikatory ASCII (FabrykaPojazdow), date.today().year, math.pi
 - TypeError dla type.__new__ = …: „cannot set '__new__' attribute of immutable type 'type'”; dygresję o Foo.__name__ skrócić; blogi zweryfikować
 
-**Priorytet:** średni. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** ukończony — projekt stron `plans/12-oop-zaawansowane.md` z 14 IX 2026 (realizacja autonomiczna na polecenie autora); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 14 IX 2026 (1848 linii); zapowiedzi z rozdziałów 6–11 domknięte odsyłaczami 14 IX 2026; etykiety „Wzorce projektowe” i „Metaprogramowanie” bez dopisku.
+**Priorytet:** średni. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** ukończony — projekt stron `plans/12-oop-zaawansowane.md` z 13 IX 2026 (realizacja autonomiczna na polecenie autora); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 13 IX 2026 (1848 linii); zapowiedzi z rozdziałów 6–11 domknięte odsyłaczami 13 IX 2026; etykiety „Wzorce projektowe” i „Metaprogramowanie” bez dopisku.
 
 ### 13. Wydajność i optymalizacja (`docs/13-wydajnosc/`)
 
@@ -454,7 +454,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - dis: RESUME, BINARY_OP, LOAD_FAST_BORROW i LOAD_SMALL_INT (3.14); porównywać co_code, nie tekst dis; konkatenacja str ma optymalizację in-place
 - Numba 0.66 (3.14 od 0.63, 3.14t od 0.65); Cython/mypyc koła 3.14 — zweryfikować; snakeviz — status; PEP 799 (3.15) jako nota; PEP 703/779, sys._is_gil_enabled()
 
-**Priorytet:** średni. **Szacunek rozmiaru:** index + 3 strony, ok. 450–520 linii. **Status:** w realizacji — projekt stron `plans/13-wydajnosc.md` z 14 IX 2026 (realizacja autonomiczna); etykieta „Drogi przyspieszania” bez dopisku.
+**Priorytet:** średni. **Szacunek rozmiaru:** index + 3 strony, ok. 450–520 linii. **Status:** ukończony — 13 IX 2026 (realizacja autonomiczna według `plans/13-wydajnosc.md`; index + 3 strony, 577 linii); zapowiedzi z rozdziałów 8 i 10 domknięte; zapowiedzi do rozdziałów 14, 15 i 16 zarejestrowane w ich sekcjach; etykieta „Drogi przyspieszania” bez dopisku.
 
 ### 14. NumPy i Matplotlib (`docs/14-numpy-matplotlib/`)
 

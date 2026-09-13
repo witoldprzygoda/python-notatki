@@ -156,7 +156,7 @@ zwalniam a
 
 Wywołanie `zasob("a")` nie wykonuje jeszcze ciała funkcji — jak każde wywołanie funkcji generatorowej zwraca obiekt, tu opakowany przez dekorator w menedżer kontekstu. Dopiero `__enter__()` uruchamia ciało do pierwszego `yield`, a `__exit__()` wznawia je po `yield`. Kolejność zwalniania przy dwóch zasobach jest odwrotna do kolejności zajmowania, dokładnie jak przy dwóch plikach.
 
-Drugi menedżer mierzy czas wykonania bloku. Funkcja `time.perf_counter()` z modułu `time` zwraca odczyt zegara o wysokiej rozdzielczości, przeznaczonego do mierzenia odstępów czasu — różnica dwóch odczytów to czas w sekundach; szczegółowe omówienie pomiarów czasu i profilowania znajdzie się w rozdziale o wydajności. <!-- TODO: link po powstaniu rozdziału o wydajności --> Menedżer nie udostępnia żadnego obiektu, więc `yield` stoi bez wartości, a instrukcja `with` bez `as`:
+Drugi menedżer mierzy czas wykonania bloku. Funkcja `time.perf_counter()` z modułu `time` zwraca odczyt zegara o wysokiej rozdzielczości, przeznaczonego do mierzenia odstępów czasu — różnica dwóch odczytów to czas w sekundach; szczegółowe omówienie pomiarów czasu i profilowania zawiera podrozdział [Pomiar czasu i profilowanie](../13-wydajnosc/pomiar-i-profilowanie.md) rozdziału 13. Menedżer nie udostępnia żadnego obiektu, więc `yield` stoi bez wartości, a instrukcja `with` bez `as`:
 
 ```python title="stoper.py"
 import time

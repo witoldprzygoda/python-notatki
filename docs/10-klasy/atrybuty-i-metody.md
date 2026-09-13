@@ -257,7 +257,7 @@ except AttributeError as e:
 AttributeError: 'Punkt' object has no attribute 'z' and no __dict__ for setting new attributes
 ```
 
-Instancje klasy z `__slots__` nie mają słownika `__dict__`, a przypisanie nazwy spoza krotki kończy się `AttributeError` — literówka w nazwie atrybutu zostaje wykryta natychmiast. Miejsce na wymienione atrybuty jest zarezerwowane w samym obiekcie, więc obiekty są mniejsze, a dostęp do atrybutów nieco szybszy; różnica ma znaczenie przy milionach instancji, na przykład punktach albo rekordach danych, i wtedy warto ją zmierzyć — narzędzia pomiaru pamięci poznamy w rozdziale o wydajności. <!-- TODO: link po powstaniu rozdziału o wydajności --> W zwykłych klasach `__slots__` nie jest potrzebne. Jego współdziałanie z dziedziczeniem omawiamy w podrozdziale o cyklu życia obiektu.
+Instancje klasy z `__slots__` nie mają słownika `__dict__`, a przypisanie nazwy spoza krotki kończy się `AttributeError` — literówka w nazwie atrybutu zostaje wykryta natychmiast. Miejsce na wymienione atrybuty jest zarezerwowane w samym obiekcie, więc obiekty są mniejsze, a dostęp do atrybutów nieco szybszy; różnica ma znaczenie przy milionach instancji, na przykład punktach albo rekordach danych, i wtedy warto ją zmierzyć — pomiar pokazujemy w podrozdziale [Optymalizacja kodu](../13-wydajnosc/optymalizacja-kodu.md#pamiec-__slots__-z-pomiarem) rozdziału 13. W zwykłych klasach `__slots__` nie jest potrzebne. Jego współdziałanie z dziedziczeniem omawiamy w podrozdziale o cyklu życia obiektu.
 
 ## Metody klasy — `@classmethod`
 
