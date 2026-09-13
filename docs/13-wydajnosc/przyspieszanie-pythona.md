@@ -65,7 +65,7 @@ def suma_kwadratow(long long n):
     return wynik
 ```
 
-**mypyc**, dostarczany razem z narzędziem `mypy`, kompiluje zwykłe pliki `.py` z adnotacjami typów — te same adnotacje, które sprawdza analiza statyczna, stają się informacją dla kompilatora. Oba narzędzia wymagają kompilatora C zainstalowanego w systemie i osobnego kroku budowania, więc stosuje się je w bibliotekach i większych projektach, nie w skryptach. Adnotacje typów i `mypy` omawiamy w rozdziale o narzędziach analizy typów. <!-- TODO: link po powstaniu rozdziału o narzędziach analizy typów -->
+**mypyc**, dostarczany razem z narzędziem `mypy`, kompiluje zwykłe pliki `.py` z adnotacjami typów — te same adnotacje, które sprawdza analiza statyczna, stają się informacją dla kompilatora. Oba narzędzia wymagają kompilatora C zainstalowanego w systemie i osobnego kroku budowania, więc stosuje się je w bibliotekach i większych projektach, nie w skryptach. Adnotacje typów i `mypy` omawiamy w podrozdziale [Adnotacje typów w praktyce](../16-warsztat/typy-statyczne.md#sprawdzacz-typow-mypy) rozdziału 16.
 
 ## Inny interpreter — PyPy
 

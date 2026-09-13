@@ -15,7 +15,7 @@ G  globalny     (ang. global)    — moduł
 B  wbudowany    (ang. built-in)  — nazwy wbudowane
 ```
 
-Skrót **LEGB** jest wygodnym modelem wyszukiwania zwykłych nazw, wystarczającym na potrzeby tego rozdziału. Współczesny Python ma również zasięgi szczególne: zasięg klasy, omówiony w podrozdziale [Atrybuty klasy, metody klasowe i statyczne](../10-klasy/atrybuty-i-metody.md#zasieg-ciaa-klasy) rozdziału 10, oraz zasięgi adnotacji, do których wracamy przy narzędziach analizy typów. <!-- TODO: link po powstaniu rozdziału o narzędziach analizy typów -->
+Skrót **LEGB** jest wygodnym modelem wyszukiwania zwykłych nazw, wystarczającym na potrzeby tego rozdziału. Współczesny Python ma również zasięgi szczególne: zasięg klasy, omówiony w podrozdziale [Atrybuty klasy, metody klasowe i statyczne](../10-klasy/atrybuty-i-metody.md#zasieg-ciaa-klasy) rozdziału 10, oraz zasięgi adnotacji, do których wracamy w podrozdziale [Adnotacje typów w praktyce](../16-warsztat/typy-statyczne.md#przypomnienie-i-odczyt-adnotacji) rozdziału 16.
 
 ```python title="cztery-poziomy.py"
 x = "globalna"

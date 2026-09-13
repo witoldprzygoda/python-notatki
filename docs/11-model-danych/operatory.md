@@ -543,4 +543,4 @@ lista 3 elementów
 wartość typu float
 ```
 
-Warianty noszą nazwę `_`, bo ich nazwa nie ma znaczenia — dostęp odbywa się zawsze przez `opisz`. Adnotacje typów, w rozdziale 6 opisane jako informacja bez wpływu na wykonanie, tu wyjątkowo sterują wyborem wariantu; o narzędziach, które korzystają z adnotacji na większą skalę, mowa w rozdziale o narzędziach analizy typów. <!-- TODO: link po powstaniu rozdziału o narzędziach analizy typów -->
+Warianty noszą nazwę `_`, bo ich nazwa nie ma znaczenia — dostęp odbywa się zawsze przez `opisz`. Adnotacje typów, w rozdziale 6 opisane jako informacja bez wpływu na wykonanie, tu wyjątkowo sterują wyborem wariantu; o narzędziach, które korzystają z adnotacji na większą skalę, mowa w podrozdziale [Adnotacje typów w praktyce](../16-warsztat/typy-statyczne.md#sprawdzacz-typow-mypy) rozdziału 16.

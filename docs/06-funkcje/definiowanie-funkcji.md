@@ -214,8 +214,9 @@ Wywołanie z liczbą zmiennoprzecinkową zakończyło się poprawnie, a błąd p
     można więc użyć nazwy, która zostanie zdefiniowana później albo nie istnieje
     wcale. W starszych wersjach adnotacje były domyślnie obliczane natychmiast
     i taka definicja kończyła się wyjątkiem `NameError`. Sposoby odczytu
-    adnotacji w czasie wykonania poznamy w dalszych rozdziałach.
-    <!-- TODO: link po powstaniu rozdziału o narzędziach analizy typów -->
+    adnotacji w czasie wykonania pokazujemy w podrozdziale
+    [Adnotacje typów w praktyce](../16-warsztat/typy-statyczne.md#przypomnienie-i-odczyt-adnotacji)
+    rozdziału 16.
 
 Poniższy skrypt używa w adnotacjach nazwy, która nigdzie nie została zdefiniowana:
 
