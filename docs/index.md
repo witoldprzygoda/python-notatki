@@ -32,5 +32,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 1. [Jupyter i warsztat danych](zastosowania/01-jupyter/index.md) — notatnik w VSC, środowisko projektu danych, czytanie dokumentacji bibliotek, pierwsza analiza
 2. [NumPy w praktyce](zastosowania/02-numpy/index.md) — tablice wielowymiarowe, statystyka i porządkowanie, algebra liniowa, losowość i symulacje, wydajność i pamięć
 3. [Matplotlib w praktyce](zastosowania/03-matplotlib/index.md) — anatomia wykresu, wykresy dla danych, szeregi czasowe, wiele paneli, wykres do raportu
+4. [pandas — tabele](zastosowania/04-pandas-tabele/index.md) — Series i DataFrame, wczytywanie i zapis, selekcja, typy i braki, przekształcenia
 
-Rozdziały 4–6 ścieżki danych oraz pozostałe ścieżki są w przygotowaniu.
+Rozdziały 5–6 ścieżki danych oraz pozostałe ścieżki są w przygotowaniu.

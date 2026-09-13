@@ -10,7 +10,7 @@ zanim uruchomione zostaną kolejne skrypty (np. ```text title="dane.txt"```). Bl
 są uruchamiane przez python -i, a ich rzeczywisty wynik wypisywany do porównania ręcznego.
 
 Użycie: python scripts/verify_page.py <plik.md> [interpreter]
-           [--stdin=nazwa.py=w1|w2|w3] [--mask=REGEX]
+           [--stdin=nazwa.py=w1|w2|w3] [--mask=REGEX] [--data=katalog]
 
 --stdin: wiersze podawane skryptowi jako odpowiedzi na kolejne wywołania input();
 skrypt jest wtedy uruchamiany przez runner, który — jak terminal — wypisuje po
@@ -19,6 +19,8 @@ zapisem sesji terminalowej.
 --mask: wyrażenie regularne; dopasowane fragmenty są zastępowane znacznikiem
 <MASKA> zarówno w wyniku rzeczywistym, jak i oczekiwanym (np. czasy pomiarów, daty).
 Skrypty są uruchamiane z zamkniętym stdin (breakpoint() kończy się natychmiast).
+--data: katalog, którego pliki są kopiowane do katalogu tymczasowego przed uruchomieniem
+skryptów (wspólne pliki danych rozdziału, których strona nie osadza jako bloków).
 """
 import sys, re, subprocess, pathlib, tempfile, os
 
@@ -26,6 +28,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 page = pathlib.Path(sys.argv[1])
 PY = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else sys.executable
 STDIN = {}
+DATA = None  # katalog z plikami danych kopiowanymi do katalogu tymczasowego (--data=)
 MASKS = [r"0x[0-9A-Fa-f]{6,}"]  # adresy obiektów
 for arg in sys.argv[2:]:
     if arg.startswith("--stdin="):
@@ -33,6 +36,8 @@ for arg in sys.argv[2:]:
         STDIN[name] = lines.split("|")
     elif arg.startswith("--mask="):
         MASKS.append(arg[len("--mask="):])
+    elif arg.startswith("--data="):
+        DATA = pathlib.Path(arg[len("--data="):])
 text = page.read_text(encoding="utf-8")
 
 RUNNER = '''import builtins, runpy, sys
@@ -67,6 +72,10 @@ def follows_directly(i):
 
 
 tmp = pathlib.Path(tempfile.mkdtemp(prefix="verify_"))
+if DATA:
+    for f in DATA.iterdir():
+        if f.is_file():
+            (tmp / f.name).write_bytes(f.read_bytes())
 runner = tmp / "_runner.py"
 runner.write_text(RUNNER, encoding="utf-8")
 ok = fail = 0

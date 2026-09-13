@@ -218,3 +218,10 @@ nav:
           - Daty i szeregi czasowe: zastosowania/03-matplotlib/szeregi-czasowe.md
           - Wiele paneli i układ: zastosowania/03-matplotlib/wiele-paneli-i-uklad.md
           - Wykres do raportu i publikacji: zastosowania/03-matplotlib/zapis-i-raport.md
+      - 4. pandas — tabele:
+          - Wprowadzenie: zastosowania/04-pandas-tabele/index.md
+          - Series i DataFrame: zastosowania/04-pandas-tabele/series-i-dataframe.md
+          - Wczytywanie i zapis: zastosowania/04-pandas-tabele/wczytywanie-i-zapis.md
+          - Selekcja i filtrowanie: zastosowania/04-pandas-tabele/selekcja.md
+          - Typy, braki i czyszczenie: zastosowania/04-pandas-tabele/typy-i-braki.md
+          - Przekształcenia i wykres z tabeli: zastosowania/04-pandas-tabele/przeksztalcenia.md

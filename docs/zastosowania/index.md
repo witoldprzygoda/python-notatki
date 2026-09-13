@@ -29,7 +29,7 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 1. [Jupyter i warsztat danych](01-jupyter/index.md) — notatnik w VSC, środowisko projektu danych, czytanie dokumentacji bibliotek, pierwsza analiza
 2. [NumPy w praktyce](02-numpy/index.md) — tablice wielowymiarowe, statystyka i porządkowanie, algebra liniowa, losowość i symulacje, wydajność i pamięć
 3. [Matplotlib w praktyce](03-matplotlib/index.md) — anatomia wykresu, wykresy dla danych, szeregi czasowe, wiele paneli, wykres do raportu
-4. pandas — tabele — w przygotowaniu
+4. [pandas — tabele](04-pandas-tabele/index.md) — Series i DataFrame, wczytywanie i zapis, selekcja, typy i braki, przekształcenia
 5. pandas — analiza — w przygotowaniu
 6. Projekt: raport z danych — w przygotowaniu
 

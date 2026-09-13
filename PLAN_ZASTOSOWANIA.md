@@ -19,7 +19,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 1 | Jupyter i warsztat danych | Dane | `zastosowania/01-jupyter/` | 4 | ukończony — 13 IX 2026 (`plans/z01-jupyter.md`; wprowadzenie części + index + 4 strony, 585 linii; trzy recenzje naniesione; zrzuty w `ZRZUTY.md` 14–15) |
 | 2 | NumPy w praktyce | Dane | `zastosowania/02-numpy/` | 5 | ukończony — 13 IX 2026 (`plans/z02-numpy.md`; index + 5 stron, 860 linii; 25 skryptów, 5 wykresów; trzy recenzje naniesione; zapowiedź z rozdziału 1 domknięta) |
 | 3 | Matplotlib w praktyce | Dane | `zastosowania/03-matplotlib/` | 5 | ukończony — 14 IX 2026 (`plans/z03-matplotlib.md`; index + 5 stron, ok. 950 linii; 24 skrypty, 20 wykresów; trzy recenzje naniesione; zapowiedź z rozdziału 2 domknięta) |
-| 4 | pandas — tabele | Dane | `zastosowania/04-pandas-tabele/` | 5 | zaplanowany |
+| 4 | pandas — tabele | Dane | `zastosowania/04-pandas-tabele/` | 5 | w realizacji — `plans/z04-pandas-tabele.md` |
 | 5 | pandas — analiza | Dane | `zastosowania/05-pandas-analiza/` | 5 | zaplanowany |
 | 6 | Projekt: raport z danych | Dane | `zastosowania/06-projekt-dane/` | 3 | zaplanowany |
 | 7 | Uczenie maszynowe — pojęcia i warsztat | Uczenie maszynowe | `zastosowania/07-ml-pojecia/` | 4 | zaplanowany |
