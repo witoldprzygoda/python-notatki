@@ -1,0 +1,36 @@
+# Python Zastosowania
+
+„Python Notatki” opisują język, jego bibliotekę standardową i warsztat programisty; z bibliotek zewnętrznych wprowadzają tylko NumPy i Matplotlib. „Python Zastosowania” prowadzą dalej — do bibliotek, na których opiera się codzienna praca z Pythonem: analiza danych, uczenie maszynowe, aplikacje z bazą danych i interfejsem, automatyzacja. Tom nie jest przeglądem całego ekosystemu; jest zbiorem **ścieżek** — skończonych samouczków, z których każdy prowadzi od podstaw wybranej dziedziny do projektu spinającego jej narzędzia.
+
+## Układ tomu
+
+| Ścieżka | Zakres | Rozdziały |
+|---|---|---|
+| Dane | notatnik Jupyter, NumPy i Matplotlib w praktyce, pandas, projekt: raport z danych | 1–6 |
+| Uczenie maszynowe | pojęcia i warsztat, klasyfikacja, regresja, uczenie bez nadzoru, PyTorch, projekt: od danych do modelu | 7–12 |
+| Aplikacje | bazy danych, HTTP i API, FastAPI, tkinter, pakowanie, projekt: aplikacja z bazą, API i oknem | 13–18 |
+| Automatyzacja | wyrażenia regularne, narzędzia wiersza poleceń, pobieranie stron, pliki Office i obrazy, projekt: narzędzie automatyzujące | 19–23 |
+
+Ścieżki są od siebie niezależne — można zacząć od dowolnej — z jednym wyjątkiem: uczenie maszynowe zakłada ścieżkę danych. Każda ścieżka kończy się projektem, po którym czytelnik jest w stanie pracować z jej bibliotekami samodzielnie, korzystając z ich dokumentacji.
+
+## Wymagania i zasady
+
+Tom zakłada znajomość języka w zakresie „Python Notatek”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały tomu I, na których buduje.
+
+- **Jedna biblioteka na rozdział.** Gdy zadanie ma kilka równorzędnych narzędzi, tom wybiera jedno i wskazuje pozostałe jednym zdaniem.
+- **Wersje w chwili pisania.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, i plik wymagań z przypiętymi wersjami.
+- **Każdy listing uruchomiony.** Wyniki, wykresy i komunikaty w tekście pochodzą z rzeczywistych uruchomień; dane przykładowe są osadzone w tekście.
+- **Najpierw biblioteka standardowa.** Pakiet zewnętrzny instalujemy wtedy, gdy zadanie tego wymaga, nie z przyzwyczajenia.
+
+## Rozdziały
+
+**Ścieżka danych**
+
+1. [Jupyter i warsztat danych](01-jupyter/index.md) — notatnik w VSC, środowisko projektu danych, czytanie dokumentacji bibliotek, pierwsza analiza
+2. NumPy w praktyce — w przygotowaniu
+3. Matplotlib w praktyce — w przygotowaniu
+4. pandas — tabele — w przygotowaniu
+5. pandas — analiza — w przygotowaniu
+6. Projekt: raport z danych — w przygotowaniu
+
+Pozostałe ścieżki powstają po ukończeniu ścieżki danych.

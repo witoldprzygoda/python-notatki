@@ -1,10 +1,10 @@
 # Python Notatki
 
-Niniejsze notatki stanowią materiał pomocniczy do laboratorium języka Python (rok akademicki 2025/2026). Prowadzą one czytelnika od instalacji interpretera i przygotowania środowiska pracy, przez pierwsze eksperymenty w konsoli, po systematyczne omówienie typów danych i konstrukcji języka.
+„Python Notatki” to podręcznik języka Python. Prowadzi czytelnika od instalacji interpretera i przygotowania środowiska pracy, przez pierwsze eksperymenty w konsoli i systematyczne omówienie typów danych oraz konstrukcji języka, po programowanie obiektowe, wydajność, tablice NumPy, współbieżność i warsztat programisty. Drugi tom, „Python Zastosowania”, obejmuje biblioteki i ich zastosowania, ułożone w niezależne ścieżki do wyboru.
 
 Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Python Install Manager** w systemie Windows.
 
-## Spis rozdziałów
+## Python Notatki
 
 1. [Instalacja i środowisko pracy](01-instalacja/index.md) — Python Install Manager, pip, środowiska wirtualne, konfiguracja narzędzi
 2. [Konsola](02-konsola/index.md) — praca w konsoli interaktywnej i pierwszy skrypt
@@ -22,3 +22,13 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 14. [NumPy i Matplotlib](14-numpy-matplotlib/index.md) — tablice ndarray, operacje wektorowe, wykresy w stylu obiektowym
 15. [Współbieżność — wątki, procesy i GIL](15-wspolbieznosc/index.md) — wątki i GIL, synchronizacja, procesy i pule wykonawców, pomiary i asyncio
 16. [Warsztat programisty i dalsza droga](16-warsztat/index.md) — pytest zaawansowany, adnotacje typów i mypy, Ruff, pre-commit i CI, co dalej
+
+## Python Zastosowania
+
+Drugi tom składa się ze ścieżek — niezależnych, skończonych samouczków bibliotek: dane, uczenie maszynowe, aplikacje, automatyzacja. Każda ścieżka zakłada znajomość języka z tomu pierwszego i kończy się projektem spinającym jej narzędzia; [wprowadzenie](zastosowania/index.md) opisuje układ i wymagania.
+
+**Ścieżka danych**
+
+1. [Jupyter i warsztat danych](zastosowania/01-jupyter/index.md) — notatnik w VSC, środowisko projektu danych, czytanie dokumentacji bibliotek, pierwsza analiza
+
+Rozdziały 2–6 ścieżki danych oraz pozostałe ścieżki są w przygotowaniu.

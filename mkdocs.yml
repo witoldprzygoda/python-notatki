@@ -1,5 +1,5 @@
 site_name: Python Notatki
-site_description: Laboratorium Python — rok akademicki 2025/2026, WFAIS UJ
+site_description: Podręcznik języka Python 3.14 i jego zastosowań
 site_author: Witold Przygoda
 
 theme:
@@ -35,6 +35,7 @@ theme:
     - toc.follow
     - content.code.copy
     - content.tabs.link
+    - navigation.sections
     # ── WARIANTY UKŁADU (odkomentuj JEDNĄ linię i przeładuj) ──
     # - toc.integrate      # WARIANT B: prawy spis wjeżdża do lewego panelu
     # - navigation.tabs    # WARIANT C: rozdziały jako zakładki w górnym pasku
@@ -78,119 +79,128 @@ extra:
 
 nav:
   - Strona główna: index.md
-  - 1. Instalacja i środowisko pracy:
-      - Wprowadzenie: 01-instalacja/index.md
-      - Instalacja Pythona: 01-instalacja/instalacja.md
-      - Ścieżki i utrzymanie interpreterów: 01-instalacja/sciezki-i-utrzymanie.md
-      - Pip — zarządzanie pakietami: 01-instalacja/pip.md
-      - Wirtualne środowisko venv: 01-instalacja/venv.md
-      - Konfigurowanie narzędzi: 01-instalacja/konfiguracja.md
-      - Notebook: 01-instalacja/notebook.md
-      - Google Colab: 01-instalacja/colab.md
-      - Python w przeglądarce: 01-instalacja/przegladarka.md
-      - Narzędzia AI: 01-instalacja/ai-tools.md
-  - 2. Konsola:
-      - Wprowadzenie: 02-konsola/index.md
-      - Konsola w praktyce: 02-konsola/konsola-w-praktyce.md
-      - Pierwszy skrypt: 02-konsola/pierwszy-skrypt.md
-  - 3. Nazwy i typy:
-      - Wprowadzenie: 03-nazwy-typy/index.md
-      - Nazwy i słowa kluczowe: 03-nazwy-typy/nazwy-i-slowa-kluczowe.md
-      - Typy proste: 03-nazwy-typy/typy-proste.md
-      - Konwersje i adnotacje typów: 03-nazwy-typy/konwersje-i-adnotacje.md
-      - Obiekty i pamięć: 03-nazwy-typy/obiekty-i-pamiec.md
-      - Operatory: 03-nazwy-typy/operatory.md
-  - 4. Sterowanie przepływem:
-      - Wprowadzenie: 04-sterowanie/index.md
-      - Wyrażenia warunkowe: 04-sterowanie/wyrazenia-warunkowe.md
-      - Pętle i iteratory: 04-sterowanie/petle-i-iteratory.md
-  - 5. Typy złożone:
-      - Wprowadzenie: 05-typy-zlozone/index.md
-      - Lista: 05-typy-zlozone/lista.md
-      - Referencje i kopiowanie: 05-typy-zlozone/referencje-i-kopiowanie.md
-      - Krotka (tuple): 05-typy-zlozone/krotka.md
-      - Słownik (dict): 05-typy-zlozone/slownik.md
-      - Zbiory (set, frozenset): 05-typy-zlozone/zbiory.md
-      - Złożenia: 05-typy-zlozone/zlozenia.md
-  - 6. Funkcje:
-      - Wprowadzenie: 06-funkcje/index.md
-      - Definiowanie funkcji: 06-funkcje/definiowanie-funkcji.md
-      - Argumenty i parametry: 06-funkcje/argumenty-i-parametry.md
-      - Zasięg nazw i domknięcia: 06-funkcje/zasieg-nazw-i-domkniecia.md
-      - Funkcje jako obiekty: 06-funkcje/funkcje-jako-obiekty.md
-      - Rekurencja: 06-funkcje/rekurencja.md
-      - Funkcje generatorowe: 06-funkcje/funkcje-generatorowe.md
-      - Dekoratory: 06-funkcje/dekoratory.md
-  - 7. Moduły, pakiety i biblioteka standardowa:
-      - Wprowadzenie: 07-moduly/index.md
-      - Moduły i instrukcja import: 07-moduly/moduly-i-import.md
-      - Skrypt jako program: 07-moduly/skrypt-jako-program.md
-      - Argumenty wiersza poleceń: 07-moduly/argumenty-wiersza-polecen.md
-      - Pakiety: 07-moduly/pakiety.md
-      - Struktura projektu i pierwsze testy: 07-moduly/struktura-projektu.md
-      - Biblioteka standardowa i moduł collections: 07-moduly/biblioteka-standardowa.md
-      - Moduł functools: 07-moduly/functools.md
-      - Moduł itertools: 07-moduly/itertools.md
-  - 8. Wyjątki i zarządzanie zasobami:
-      - Wprowadzenie: 08-wyjatki/index.md
-      - Obsługa wyjątków: 08-wyjatki/obsluga-wyjatkow.md
-      - Zgłaszanie wyjątków: 08-wyjatki/zglaszanie-wyjatkow.md
-      - Styl obsługi błędów i testy wyjątków: 08-wyjatki/styl-i-testowanie.md
-      - Instrukcja with i menedżery kontekstu: 08-wyjatki/with-i-contextlib.md
-      - Diagnostyka — ślad wywołań (traceback) i debugger: 08-wyjatki/diagnostyka.md
-      - Logowanie zamiast print: 08-wyjatki/logging.md
-  - 9. Wejście, wyjście i pliki:
-      - Wprowadzenie: 09-wejscie-wyjscie/index.md
-      - Formatowanie tekstu: 09-wejscie-wyjscie/formatowanie.md
-      - Funkcja print i strumienie: 09-wejscie-wyjscie/print-i-strumienie.md
-      - Animacje w terminalu: 09-wejscie-wyjscie/animacje-w-terminalu.md
-      - Pliki tekstowe: 09-wejscie-wyjscie/pliki-tekstowe.md
-      - Typ bytes i pliki binarne: 09-wejscie-wyjscie/bytes-i-pliki-binarne.md
-      - Ścieżki i system plików: 09-wejscie-wyjscie/pathlib.md
-      - Formaty danych — CSV i JSON: 09-wejscie-wyjscie/csv-i-json.md
-  - 10. Klasy i obiekty:
-      - Wprowadzenie: 10-klasy/index.md
-      - Definicja klasy: 10-klasy/definicja-klasy.md
-      - Atrybuty klasy, metody klasowe i statyczne: 10-klasy/atrybuty-i-metody.md
-      - Reprezentacja, właściwości i hermetyzacja: 10-klasy/reprezentacja-i-wlasciwosci.md
-      - Dziedziczenie: 10-klasy/dziedziczenie.md
-      - Cykl życia obiektu: 10-klasy/cykl-zycia-obiektu.md
-  - 11. Model danych — metody specjalne i protokoły:
-      - Wprowadzenie: 11-model-danych/index.md
-      - Przeciążanie operatorów: 11-model-danych/operatory.md
-      - Protokoły kolekcji i wywołania: 11-model-danych/kolekcje-i-wywolania.md
-      - Protokół iteracji: 11-model-danych/iteracja.md
-      - Menedżery kontekstu i obiekty plikopodobne: 11-model-danych/menedzery-kontekstu.md
-      - Deskryptory: 11-model-danych/deskryptory.md
-  - 12. Programowanie obiektowe — mechanizmy zaawansowane:
-      - Wprowadzenie: 12-oop-zaawansowane/index.md
-      - Dziedziczenie wielokrotne i MRO: 12-oop-zaawansowane/dziedziczenie-wielokrotne.md
-      - Mixiny, kompozycja i klasy abstrakcyjne: 12-oop-zaawansowane/mixiny-i-abstrakcja.md
-      - Klasy danych — dataclass, NamedTuple i Enum: 12-oop-zaawansowane/klasy-danych.md
-      - Wzorce projektowe: 12-oop-zaawansowane/wzorce-projektowe.md
-      - Metaprogramowanie: 12-oop-zaawansowane/metaprogramowanie.md
-  - 13. Wydajność i optymalizacja:
-      - Wprowadzenie: 13-wydajnosc/index.md
-      - Pomiar czasu i profilowanie: 13-wydajnosc/pomiar-i-profilowanie.md
-      - Optymalizacja kodu: 13-wydajnosc/optymalizacja-kodu.md
-      - Drogi przyspieszania: 13-wydajnosc/przyspieszanie-pythona.md
-  - 14. NumPy i Matplotlib:
-      - Wprowadzenie: 14-numpy-matplotlib/index.md
-      - Tablice ndarray: 14-numpy-matplotlib/ndarray.md
-      - Operacje na tablicach: 14-numpy-matplotlib/operacje.md
-      - Matplotlib — pierwszy wykres i styl obiektowy: 14-numpy-matplotlib/matplotlib-podstawy.md
-      - Matplotlib — rodzaje wykresów, układ i zapis: 14-numpy-matplotlib/matplotlib-wykresy.md
-      - Przykłady i rozszerzenia: 14-numpy-matplotlib/przyklady-i-rozszerzenia.md
-  - 15. Współbieżność — wątki, procesy i GIL:
-      - Wprowadzenie: 15-wspolbieznosc/index.md
-      - Wątki i GIL: 15-wspolbieznosc/watki-i-gil.md
-      - Synchronizacja: 15-wspolbieznosc/synchronizacja.md
-      - Procesy i pule wykonawców: 15-wspolbieznosc/procesy-i-executory.md
-      - Studia wydajności i asyncio: 15-wspolbieznosc/studia-wydajnosci.md
-  - 16. Warsztat programisty i dalsza droga:
-      - Wprowadzenie: 16-warsztat/index.md
-      - Testowanie z pytest — techniki zaawansowane: 16-warsztat/testowanie.md
-      - Adnotacje typów w praktyce: 16-warsztat/typy-statyczne.md
-      - Styl i formatowanie kodu: 16-warsztat/styl-kodu.md
-      - Automatyzacja jakości — pre-commit i CI: 16-warsztat/automatyzacja-jakosci.md
-      - Co dalej: 16-warsztat/co-dalej.md
+  - Python Notatki:
+      - 1. Instalacja i środowisko pracy:
+          - Wprowadzenie: 01-instalacja/index.md
+          - Instalacja Pythona: 01-instalacja/instalacja.md
+          - Ścieżki i utrzymanie interpreterów: 01-instalacja/sciezki-i-utrzymanie.md
+          - Pip — zarządzanie pakietami: 01-instalacja/pip.md
+          - Wirtualne środowisko venv: 01-instalacja/venv.md
+          - Konfigurowanie narzędzi: 01-instalacja/konfiguracja.md
+          - Notebook: 01-instalacja/notebook.md
+          - Google Colab: 01-instalacja/colab.md
+          - Python w przeglądarce: 01-instalacja/przegladarka.md
+          - Narzędzia AI: 01-instalacja/ai-tools.md
+      - 2. Konsola:
+          - Wprowadzenie: 02-konsola/index.md
+          - Konsola w praktyce: 02-konsola/konsola-w-praktyce.md
+          - Pierwszy skrypt: 02-konsola/pierwszy-skrypt.md
+      - 3. Nazwy i typy:
+          - Wprowadzenie: 03-nazwy-typy/index.md
+          - Nazwy i słowa kluczowe: 03-nazwy-typy/nazwy-i-slowa-kluczowe.md
+          - Typy proste: 03-nazwy-typy/typy-proste.md
+          - Konwersje i adnotacje typów: 03-nazwy-typy/konwersje-i-adnotacje.md
+          - Obiekty i pamięć: 03-nazwy-typy/obiekty-i-pamiec.md
+          - Operatory: 03-nazwy-typy/operatory.md
+      - 4. Sterowanie przepływem:
+          - Wprowadzenie: 04-sterowanie/index.md
+          - Wyrażenia warunkowe: 04-sterowanie/wyrazenia-warunkowe.md
+          - Pętle i iteratory: 04-sterowanie/petle-i-iteratory.md
+      - 5. Typy złożone:
+          - Wprowadzenie: 05-typy-zlozone/index.md
+          - Lista: 05-typy-zlozone/lista.md
+          - Referencje i kopiowanie: 05-typy-zlozone/referencje-i-kopiowanie.md
+          - Krotka (tuple): 05-typy-zlozone/krotka.md
+          - Słownik (dict): 05-typy-zlozone/slownik.md
+          - Zbiory (set, frozenset): 05-typy-zlozone/zbiory.md
+          - Złożenia: 05-typy-zlozone/zlozenia.md
+      - 6. Funkcje:
+          - Wprowadzenie: 06-funkcje/index.md
+          - Definiowanie funkcji: 06-funkcje/definiowanie-funkcji.md
+          - Argumenty i parametry: 06-funkcje/argumenty-i-parametry.md
+          - Zasięg nazw i domknięcia: 06-funkcje/zasieg-nazw-i-domkniecia.md
+          - Funkcje jako obiekty: 06-funkcje/funkcje-jako-obiekty.md
+          - Rekurencja: 06-funkcje/rekurencja.md
+          - Funkcje generatorowe: 06-funkcje/funkcje-generatorowe.md
+          - Dekoratory: 06-funkcje/dekoratory.md
+      - 7. Moduły, pakiety i biblioteka standardowa:
+          - Wprowadzenie: 07-moduly/index.md
+          - Moduły i instrukcja import: 07-moduly/moduly-i-import.md
+          - Skrypt jako program: 07-moduly/skrypt-jako-program.md
+          - Argumenty wiersza poleceń: 07-moduly/argumenty-wiersza-polecen.md
+          - Pakiety: 07-moduly/pakiety.md
+          - Struktura projektu i pierwsze testy: 07-moduly/struktura-projektu.md
+          - Biblioteka standardowa i moduł collections: 07-moduly/biblioteka-standardowa.md
+          - Moduł functools: 07-moduly/functools.md
+          - Moduł itertools: 07-moduly/itertools.md
+      - 8. Wyjątki i zarządzanie zasobami:
+          - Wprowadzenie: 08-wyjatki/index.md
+          - Obsługa wyjątków: 08-wyjatki/obsluga-wyjatkow.md
+          - Zgłaszanie wyjątków: 08-wyjatki/zglaszanie-wyjatkow.md
+          - Styl obsługi błędów i testy wyjątków: 08-wyjatki/styl-i-testowanie.md
+          - Instrukcja with i menedżery kontekstu: 08-wyjatki/with-i-contextlib.md
+          - Diagnostyka — ślad wywołań (traceback) i debugger: 08-wyjatki/diagnostyka.md
+          - Logowanie zamiast print: 08-wyjatki/logging.md
+      - 9. Wejście, wyjście i pliki:
+          - Wprowadzenie: 09-wejscie-wyjscie/index.md
+          - Formatowanie tekstu: 09-wejscie-wyjscie/formatowanie.md
+          - Funkcja print i strumienie: 09-wejscie-wyjscie/print-i-strumienie.md
+          - Animacje w terminalu: 09-wejscie-wyjscie/animacje-w-terminalu.md
+          - Pliki tekstowe: 09-wejscie-wyjscie/pliki-tekstowe.md
+          - Typ bytes i pliki binarne: 09-wejscie-wyjscie/bytes-i-pliki-binarne.md
+          - Ścieżki i system plików: 09-wejscie-wyjscie/pathlib.md
+          - Formaty danych — CSV i JSON: 09-wejscie-wyjscie/csv-i-json.md
+      - 10. Klasy i obiekty:
+          - Wprowadzenie: 10-klasy/index.md
+          - Definicja klasy: 10-klasy/definicja-klasy.md
+          - Atrybuty klasy, metody klasowe i statyczne: 10-klasy/atrybuty-i-metody.md
+          - Reprezentacja, właściwości i hermetyzacja: 10-klasy/reprezentacja-i-wlasciwosci.md
+          - Dziedziczenie: 10-klasy/dziedziczenie.md
+          - Cykl życia obiektu: 10-klasy/cykl-zycia-obiektu.md
+      - 11. Model danych — metody specjalne i protokoły:
+          - Wprowadzenie: 11-model-danych/index.md
+          - Przeciążanie operatorów: 11-model-danych/operatory.md
+          - Protokoły kolekcji i wywołania: 11-model-danych/kolekcje-i-wywolania.md
+          - Protokół iteracji: 11-model-danych/iteracja.md
+          - Menedżery kontekstu i obiekty plikopodobne: 11-model-danych/menedzery-kontekstu.md
+          - Deskryptory: 11-model-danych/deskryptory.md
+      - 12. Programowanie obiektowe — mechanizmy zaawansowane:
+          - Wprowadzenie: 12-oop-zaawansowane/index.md
+          - Dziedziczenie wielokrotne i MRO: 12-oop-zaawansowane/dziedziczenie-wielokrotne.md
+          - Mixiny, kompozycja i klasy abstrakcyjne: 12-oop-zaawansowane/mixiny-i-abstrakcja.md
+          - Klasy danych — dataclass, NamedTuple i Enum: 12-oop-zaawansowane/klasy-danych.md
+          - Wzorce projektowe: 12-oop-zaawansowane/wzorce-projektowe.md
+          - Metaprogramowanie: 12-oop-zaawansowane/metaprogramowanie.md
+      - 13. Wydajność i optymalizacja:
+          - Wprowadzenie: 13-wydajnosc/index.md
+          - Pomiar czasu i profilowanie: 13-wydajnosc/pomiar-i-profilowanie.md
+          - Optymalizacja kodu: 13-wydajnosc/optymalizacja-kodu.md
+          - Drogi przyspieszania: 13-wydajnosc/przyspieszanie-pythona.md
+      - 14. NumPy i Matplotlib:
+          - Wprowadzenie: 14-numpy-matplotlib/index.md
+          - Tablice ndarray: 14-numpy-matplotlib/ndarray.md
+          - Operacje na tablicach: 14-numpy-matplotlib/operacje.md
+          - Matplotlib — pierwszy wykres i styl obiektowy: 14-numpy-matplotlib/matplotlib-podstawy.md
+          - Matplotlib — rodzaje wykresów, układ i zapis: 14-numpy-matplotlib/matplotlib-wykresy.md
+          - Przykłady i rozszerzenia: 14-numpy-matplotlib/przyklady-i-rozszerzenia.md
+      - 15. Współbieżność — wątki, procesy i GIL:
+          - Wprowadzenie: 15-wspolbieznosc/index.md
+          - Wątki i GIL: 15-wspolbieznosc/watki-i-gil.md
+          - Synchronizacja: 15-wspolbieznosc/synchronizacja.md
+          - Procesy i pule wykonawców: 15-wspolbieznosc/procesy-i-executory.md
+          - Studia wydajności i asyncio: 15-wspolbieznosc/studia-wydajnosci.md
+      - 16. Warsztat programisty i dalsza droga:
+          - Wprowadzenie: 16-warsztat/index.md
+          - Testowanie z pytest — techniki zaawansowane: 16-warsztat/testowanie.md
+          - Adnotacje typów w praktyce: 16-warsztat/typy-statyczne.md
+          - Styl i formatowanie kodu: 16-warsztat/styl-kodu.md
+          - Automatyzacja jakości — pre-commit i CI: 16-warsztat/automatyzacja-jakosci.md
+          - Co dalej: 16-warsztat/co-dalej.md
+  - Python Zastosowania:
+      - Wprowadzenie: zastosowania/index.md
+      - 1. Jupyter i warsztat danych:
+          - Wprowadzenie: zastosowania/01-jupyter/index.md
+          - Notatnik Jupyter w VSC: zastosowania/01-jupyter/notatnik-jupyter.md
+          - Środowisko projektu danych: zastosowania/01-jupyter/srodowisko-projektu.md
+          - Czytanie dokumentacji bibliotek: zastosowania/01-jupyter/dokumentacja-bibliotek.md
+          - Pierwsza analiza w notatniku: zastosowania/01-jupyter/pierwsza-analiza.md

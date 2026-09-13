@@ -193,6 +193,23 @@
     opacity: .65;
   }
 
+  /* nagłówki grup „Python Notatki” / „Python Zastosowania” (navigation.sections)
+     w stylu tytułu panelu; większy odstęp od listy rozdziałów */
+  .md-nav--primary .md-nav__item--section > .md-nav__link {
+    font-size: .56rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    opacity: .65;
+    font-weight: 700;
+    margin: 1.4rem 0 .7rem;
+    padding-left: 0;
+  }
+  /* etykieta grupy „Python Notatki” jest zbędna — rolę nagłówka pełni tytuł panelu (nazwa serwisu) */
+  .md-nav--primary .md-nav__item:not(.md-nav__item--section) + .md-nav__item--section > .md-nav__link { display: none; }
+  .md-nav--primary > .md-nav__title { margin-bottom: .9rem; }
+  /* prawy spis: odstęp tytułu „Spis treści” od pozycji */
+  .md-sidebar--secondary .md-nav__title { margin-bottom: .8rem; }
+
   /* pozycje jako pigułki z hoverem */
   .md-nav__link {
     border-radius: 6px;

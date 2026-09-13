@@ -67,6 +67,11 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 13. `16-warsztat/img/vsc-testing-panel.png` — widok **Testing** w VSC z drzewem testów
     `test_fixtures.py` i `test_kolo.py` (w tym `test_pole_kola[zero]` itd.) po uruchomieniu,
     zielone znaczniki; kadr: sam pasek boczny (testowanie.md, sekcja „Panel Testing w VSC”).
+14. `zastosowania/01-jupyter/img/vsc-notatnik-nowy.png` — nowy notatnik `.ipynb` w VSC:
+    pusta komórka kodu i przycisk **Select Kernel** w prawym górnym rogu; kadr: górna
+    część edytora (notatnik-jupyter.md, sekcja „Instalacja i pierwszy notatnik”).
+15. `zastosowania/01-jupyter/img/vsc-notatnik-jadro.png` — lista wyboru jądra z pozycją
+    interpretera `.venv` projektu; kadr: sama lista (notatnik-jupyter.md, ta sama sekcja).
 
 ## Wykonane
 

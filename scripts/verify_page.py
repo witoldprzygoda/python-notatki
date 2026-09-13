@@ -75,7 +75,9 @@ while i < len(blocks):
     info, body, _, _ = blocks[i]
     m = re.match(r'python\s+title="([^"]+)"', info)
     data = re.match(r'(\w+)\s+title="([^"]+)"', info)
-    if m:
+    if m and ".ipynb" in m.group(1):
+        print(f"\n--- {m.group(1)}: komórka notatnika — pomijam (weryfikuje verify_cells.py)")
+    elif m:
         name = m.group(1)
         path = tmp / name
         path.parent.mkdir(parents=True, exist_ok=True)
