@@ -4,7 +4,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 
 ## 0. Zasady
 
-1. **Ścieżki, nie części.** Część składa się ze **ścieżek** — niezależnych, skończonych samouczków (4–6 rozdziałów), z których każda kończy się projektem spinającym jej biblioteki. Ścieżki są numerowane ciągiem rozdziałów tomu (1, 2, 3, …), a przynależność do ścieżki podaje strona główna i wprowadzenie tomu.
+1. **Ścieżki.** Część składa się ze **ścieżek** — niezależnych, skończonych samouczków (4–6 rozdziałów), z których każda kończy się projektem spinającym jej biblioteki. Ścieżki są numerowane ciągiem rozdziałów tomu (1, 2, 3, …), a przynależność do ścieżki podaje strona główna i wprowadzenie tomu.
 2. **Skończoność.** Jedna biblioteka na rozdział i jedno narzędzie na zadanie (FastAPI albo Flask, nie oba). Rozszerzanie wyłącznie przez dopisanie rozdziału na końcu ścieżki lub nowej ścieżki; istniejące rozdziały nie rosną.
 3. **Wymagania wstępne.** Każda ścieżka zakłada część „Python Notatki”; ścieżka uczenia maszynowego zakłada też ścieżkę danych. Wprowadzenie każdego rozdziału wymienia rozdziały części „Python Notatki”, na których buduje.
 4. **Konwencje części „Python Notatki” obowiązują** (`CLAUDE.md`, `DEVELOPMENT_WORKFLOW.md`): rejestr, bloki kodu, harness, trzy recenzje, zapowiedzi w przód z `<!-- TODO: link po powstaniu rozdziału o … -->`, bez odwołań do materiałów z zajęć.
@@ -16,7 +16,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 
 | Nr | Rozdział | Ścieżka | Katalog | Podstron | Status |
 |---|---|---|---|---|---|
-| 1 | Jupyter i warsztat danych | Dane | `zastosowania/01-jupyter/` | 4 | ukończony — 13 IX 2026 (`plans/z01-jupyter.md`; wprowadzenie tomu + index + 4 strony, 585 linii; trzy recenzje naniesione; zrzuty w `ZRZUTY.md` 14–15) |
+| 1 | Jupyter i warsztat danych | Dane | `zastosowania/01-jupyter/` | 4 | ukończony — 13 IX 2026 (`plans/z01-jupyter.md`; wprowadzenie części + index + 4 strony, 585 linii; trzy recenzje naniesione; zrzuty w `ZRZUTY.md` 14–15) |
 | 2 | NumPy w praktyce | Dane | `zastosowania/02-numpy/` | 5 | zaplanowany |
 | 3 | Matplotlib w praktyce | Dane | `zastosowania/03-matplotlib/` | 5 | zaplanowany |
 | 4 | pandas — tabele | Dane | `zastosowania/04-pandas-tabele/` | 5 | zaplanowany |
