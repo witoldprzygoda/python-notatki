@@ -251,7 +251,7 @@ Po dwukropku można podać specyfikację formatu — liczbę miejsc po przecinku
 '1_000_000'
 ```
 
-F-stringi są dziś podstawowym sposobem formatowania tekstu w Pythonie — będziemy z nich regularnie korzystać. Pełny opis mini-języka formatowania zawiera dokumentacja: [docs.python.org/3/library/string.html#formatspec](https://docs.python.org/3/library/string.html#formatspec).
+F-stringi są dziś podstawowym sposobem formatowania tekstu w Pythonie — będziemy z nich regularnie korzystać. Mini-język specyfikacji formatu omawiamy w podrozdziale [Formatowanie tekstu](../09-wejscie-wyjscie/formatowanie.md#mini-jezyk-specyfikacji-formatu) rozdziału 9, a pełny opis zawiera dokumentacja: [docs.python.org/3/library/string.html#formatspec](https://docs.python.org/3/library/string.html#formatspec).
 
 ### Operacje na łańcuchach
 

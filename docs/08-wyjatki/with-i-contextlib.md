@@ -4,7 +4,7 @@ Klauzula `finally` z pierwszego podrozdziału rozwiązuje problem sprzątania: k
 
 ## Problem zwalniania zasobów
 
-**Zasób** (ang. *resource*) to element systemu lub obiekt, który program zajmuje na czas pracy i musi zwolnić: otwarty plik, połączenie sieciowe, blokada, katalog roboczy, rozpoczęty pomiar. Najprostszym zasobem jest plik. Funkcja wbudowana `open()` otwiera plik i zwraca **obiekt pliku**, po którego wierszach można iterować pętlą `for` albo wczytać całość metodą `read()`; pełne omówienie plików, trybów otwarcia i kodowań należy do rozdziału o wejściu i wyjściu, a tutaj `open()` służy wyłącznie za przykład zasobu i zawsze otrzymuje argument `encoding="utf-8"`. <!-- TODO: link po powstaniu rozdziału o wejściu i wyjściu --> W katalogu programu umieszczamy plik z trzema liczbami:
+**Zasób** (ang. *resource*) to element systemu lub obiekt, który program zajmuje na czas pracy i musi zwolnić: otwarty plik, połączenie sieciowe, blokada, katalog roboczy, rozpoczęty pomiar. Najprostszym zasobem jest plik. Funkcja wbudowana `open()` otwiera plik i zwraca **obiekt pliku**, po którego wierszach można iterować pętlą `for` albo wczytać całość metodą `read()`; pełne omówienie plików, trybów otwarcia i kodowań znajduje się w podrozdziale [Pliki tekstowe](../09-wejscie-wyjscie/pliki-tekstowe.md) rozdziału 9, a tutaj `open()` służy wyłącznie za przykład zasobu i zawsze otrzymuje argument `encoding="utf-8"`. W katalogu programu umieszczamy plik z trzema liczbami:
 
 ```text title="dane.txt"
 12
@@ -277,6 +277,6 @@ zwalniam b
 zwalniam a
 ```
 
-Moduł zawiera ponadto `chdir()` (od Pythona 3.11), tymczasowo zmieniający katalog roboczy, oraz `redirect_stdout()`, kierujący wyjście `print()` do innego obiektu; oba wracają w rozdziale o wejściu i wyjściu, gdy poznamy ścieżki i strumienie. <!-- TODO: link po powstaniu rozdziału o wejściu i wyjściu --> Dokumentacja modułu `contextlib` zawiera pełną listę wraz z przykładami.
+Moduł zawiera ponadto `chdir()` (od Pythona 3.11), tymczasowo zmieniający katalog roboczy, oraz `redirect_stdout()`, kierujący wyjście `print()` do innego obiektu; oba wracają w rozdziale 9: `chdir()` w podrozdziale [Ścieżki i system plików](../09-wejscie-wyjscie/pathlib.md#moduy-os-shutil-i-tempfile), a `redirect_stdout()` w podrozdziale [Funkcja print i strumienie](../09-wejscie-wyjscie/print-i-strumienie.md#argument-file-wyjscie-do-pliku-i-redirect_stdout). Dokumentacja modułu `contextlib` zawiera pełną listę wraz z przykładami.
 
 Instrukcja `with` zamyka część rozdziału poświęconą składni. Dwa ostatnie podrozdziały dotyczą warsztatu: jak czytać i zapisywać ślady wywołań, jak zatrzymać program w wybranym miejscu i obejrzeć jego stan pod debuggerem oraz jak zastąpić `print()` dziennikiem rejestrującym, kiedy i gdzie zaszło zdarzenie.

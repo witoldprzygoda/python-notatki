@@ -29,9 +29,7 @@ Ostatnia wyświetlona w konsoli wartość jest dostępna również pod nazwą `_
 
 ## Funkcja print — pierwsze eksperymenty
 
-Wyniki wypisuje na ekran funkcja `print`. Nawet ta prosta funkcja ma kilka opcji — np. w IDLE podczas pisania widoczna jest podpowiedź z jej pełną sygnaturą.
-
-<!-- TODO: screenshot — podpowiedź sygnatury print() w IDLE -->
+Wyniki wypisuje na ekran funkcja `print`. Nawet ta prosta funkcja ma kilka opcji — jej pełną sygnaturę omawiamy w podrozdziale [Funkcja print i strumienie](../09-wejscie-wyjscie/print-i-strumienie.md#pena-sygnatura-print) rozdziału 9.
 
 Spróbujmy:
 

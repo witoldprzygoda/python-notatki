@@ -72,7 +72,7 @@ Katalog typów wbudowanych:
 - typ odwzorowujący (ang. *mapping type*): `dict`
 - typy zbiorowe (ang. *set types*): `set`, `frozenset`
 - typ logiczny (ang. *boolean type*): `bool`
-- typy binarne (ang. *binary types*): `bytes`, `bytearray`, `memoryview`
+- typy binarne (ang. *binary types*): `bytes`, `bytearray`, `memoryview` (podrozdział [Typ bytes i pliki binarne](../09-wejscie-wyjscie/bytes-i-pliki-binarne.md) w rozdziale 9)
 - typ braku wartości: `NoneType` (jedyna wartość: `None`)
 
 W tym rozdziale zajmujemy się typami prostymi; typy sekwencyjne (`list`, `tuple`), odwzorowujący (`dict`) i zbiorowe (`set`, `frozenset`) omawia rozdział [5. Typy złożone](../05-typy-zlozone/index.md).

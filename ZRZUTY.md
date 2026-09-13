@@ -41,16 +41,13 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 
 ### konsola-w-praktyce.md
 
-8. `img/idle-print-podpowiedz.png` — IDLE, dymek z sygnaturą podczas wpisywania
-   `print(`; kadr: linia edycji + dymek.
-
 ## Do wykonania — rozdział 03
 
 ### konwersje-i-adnotacje.md
 
-9. `img/vsc-pylance-inlay-hint.png` — podpowiedź typu (inlay hint) serwera Pylance
+8. `img/vsc-pylance-inlay-hint.png` — podpowiedź typu (inlay hint) serwera Pylance
    w VSC przy zmiennej z wywnioskowanym typem; kadr: linia kodu + wyświetlony typ.
-10. `img/vsc-mypy-ostrzezenie.png` — ostrzeżenie rozszerzenia Mypy Type Checker
+9. `img/vsc-mypy-ostrzezenie.png` — ostrzeżenie rozszerzenia Mypy Type Checker
     przy przypisaniu wartości o typie innym niż zadeklarowany; kadr: linia kodu
     + podkreślenie i treść ostrzeżenia.
 
@@ -58,14 +55,14 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 
 ### diagnostyka.md
 
-11. `img/vsc-debugger-pulapka.png` — edytor z plikiem `debug-silnia.py`, pułapka
+10. `img/vsc-debugger-pulapka.png` — edytor z plikiem `debug-silnia.py`, pułapka
     (czerwona kropka) w wierszu `return 1` i podświetlony wiersz po zatrzymaniu
     programu (++f5++, konfiguracja **Python File**); kadr: fragment edytora
     z numerami wierszy.
-12. `img/vsc-debugger-stos-i-zmienne.png` — widok **Run and Debug** po zatrzymaniu
+11. `img/vsc-debugger-stos-i-zmienne.png` — widok **Run and Debug** po zatrzymaniu
     na pułapce z punktu 11: panel **Variables** (`n` = 1) i panel **Call Stack**
     (cztery ramki `silnia` i `<module>`); kadr: sam widok boczny.
-13. `img/vsc-debugger-pasek.png` — pasek narzędzi debugowania (Continue, Step Over,
+12. `img/vsc-debugger-pasek.png` — pasek narzędzi debugowania (Continue, Step Over,
     Step Into, Step Out, Restart, Stop) podczas wstrzymania; kadr: sam pasek.
 
 ## Wykonane

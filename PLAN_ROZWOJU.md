@@ -266,7 +266,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - python -m json zamiast json.tool; Path.copy/move/info 3.14; Path.walk 3.12; t-stringi zweryfikować na 3.14
 - tell() w trybie tekstowym nieprzezroczysty; struct z jawną kolejnością bajtów; komentarz „czyta do pustej linii” poprawić
 
-**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 7 stron, ok. 1000–1100 linii.
+**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 7 stron, ok. 1000–1100 linii. **Status:** ukończony — projekt stron zaakceptowany 13 IX 2026 (`plans/09-wejscie-wyjscie.md`); wszystkie strony wraz z `index.md` ukończone, zrecenzowane i zweryfikowane 13 IX 2026 (1834 linie); zapowiedzi z rozdziałów 1–8 domknięte odsyłaczami 13 IX 2026.
 
 ### 10. Klasy i obiekty (`docs/10-klasy/`)
 

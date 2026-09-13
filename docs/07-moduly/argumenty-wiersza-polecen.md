@@ -209,7 +209,7 @@ options:
   -n, --liczba LICZBA  liczba powtórzeń
 ```
 
-Wiersz `usage:` zaczyna się od nazwy podanej w `prog`; nawiasy kwadratowe oznaczają, jak w naszym docstringu, elementy nieobowiązkowe. Układ tekstu pomocy zależy od wersji interpretera — powyższy pochodzi z Pythona 3.14. Gdy użytkownik pomyli się w wywołaniu, parser wypisuje wiersz `usage:` i komunikat błędu (na osobny strumień błędów, ang. *standard error*, którego w tej książce nie odróżniamy jeszcze od zwykłego wyjścia), a następnie kończy program — bez śladu wywołań i bez wykonywania `main()` do końca:
+Wiersz `usage:` zaczyna się od nazwy podanej w `prog`; nawiasy kwadratowe oznaczają, jak w naszym docstringu, elementy nieobowiązkowe. Układ tekstu pomocy zależy od wersji interpretera — powyższy pochodzi z Pythona 3.14. Gdy użytkownik pomyli się w wywołaniu, parser wypisuje wiersz `usage:` i komunikat błędu (na osobny strumień błędów, ang. *standard error*, omówiony w podrozdziale [Funkcja print i strumienie](../09-wejscie-wyjscie/print-i-strumienie.md#strumienie-standardowe) rozdziału 9), a następnie kończy program — bez śladu wywołań i bez wykonywania `main()` do końca:
 
 ```powershell title="Terminal"
 python powitanie.py
