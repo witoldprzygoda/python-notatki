@@ -5,7 +5,7 @@ Dokument jest mapą dalszej książki, nie zadaniem do jednorazowej realizacji. 
 ## 0. Zasady realizacji
 
 1. **Pracujemy rozdział po rozdziale.** Każdy rozdział przechodzi trzy etapy: szczegółowy projekt stron (do akceptacji; skondensowany zapis w `plans/NN-slug.md`), implementacja, osobny odbiór. Kolejny rozdział zaczynamy dopiero po odbiorze poprzedniego.
-2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–12 są ukończone** (odbiór 5 IX, 12 IX, 13 IX i 14 IX 2026; rozdział 11 zrealizowany autonomicznie na polecenie autora z 14 IX 2026). **Rozdział 12 ukończony** 14 IX 2026 (autonomicznie, `plans/12-oop-zaawansowane.md`). **Następny do realizacji: rozdział 13. Wydajność i optymalizacja** — od projektu stron. Rozdziały 13–18 są zaplanowane, ale nie rozpoczęte.
+2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–12 są ukończone** (odbiór 5 IX, 12 IX, 13 IX i 14 IX 2026; rozdział 11 zrealizowany autonomicznie na polecenie autora z 14 IX 2026). **Rozdział 12 ukończony** 14 IX 2026 (autonomicznie, `plans/12-oop-zaawansowane.md`). **W realizacji: rozdział 13. Wydajność i optymalizacja** (autonomicznie, `plans/13-wydajnosc.md`). Rozdziały 14–18 są zaplanowane, ale nie rozpoczęte.
 3. **Nawigacja (`mkdocs.yml`) i spis na stronie głównej** zawierają wyłącznie rozdziały, które istnieją. Pozycje 7–18 dodajemy dopiero wraz z ich treścią.
 4. **Kolejność pojęć jest bezwzględna.** Żaden przykład nie może wymagać mechanizmu formalnie wprowadzanego dopiero w późniejszym rozdziale. Funkcje wbudowane są dostępne zawsze; moduły biblioteki standardowej użyte już w rozdziałach 1–5 (`math`, `sys`, `copy`, `decimal`, `fractions`, `keyword`) można przywoływać ostrożnie; importowane dekoratory, `functools` i pakiety użytkownika dopiero od rozdziału 7.
 5. **Hierarchia źródeł merytorycznych:** aktualna dokumentacja Pythona 3.14 (Language Reference, Standard Library Reference), właściwe PEP-y, oficjalne HOWTO i FAQ, dopiero potem wysokiej jakości źródła zewnętrzne jako pomocnicze. Materiały z `sources/` (PDF autora, wykłady, laboratoria) są źródłem programu kursu i przykładów, ale ich nieaktualności i błędy korygujemy. Blog, tutorial ani Stack Overflow nie mogą być jedynym źródłem twierdzenia o semantyce języka.
@@ -39,7 +39,7 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, 1588 linii | lab5 | ukończony |
 | 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, 1709 linii | lab5 | ukończony |
 | 12 | 12. Programowanie obiektowe — mechanizmy zaawansowane | `docs/12-oop-zaawansowane/` | średni | 5 | index + 5 stron, 1848 linii | lab7, lab8 | ukończony |
-| 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, ok. 450–520 linii | zapowiedź lab6 | zaplanowany |
+| 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, ok. 450–520 linii | zapowiedź lab6 | w realizacji |
 | 14 | 14. NumPy i Matplotlib | `docs/14-numpy-matplotlib/` | średni | 5 | index + 5 stron, ok. 800–900 linii | lab9–10 | zaplanowany |
 | 15 | 15. Współbieżność — wątki, procesy i GIL | `docs/15-wspolbieznosc/` | średni | 4 | index + 4 strony, ok. 600–700 linii | lab11 | zaplanowany |
 | 16 | 16. Warsztat programisty i dalsza droga | `docs/16-warsztat/` | średni | 5 | index + 5 stron, ok. 800–900 linii | — | zaplanowany |
@@ -454,7 +454,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - dis: RESUME, BINARY_OP, LOAD_FAST_BORROW i LOAD_SMALL_INT (3.14); porównywać co_code, nie tekst dis; konkatenacja str ma optymalizację in-place
 - Numba 0.66 (3.14 od 0.63, 3.14t od 0.65); Cython/mypyc koła 3.14 — zweryfikować; snakeviz — status; PEP 799 (3.15) jako nota; PEP 703/779, sys._is_gil_enabled()
 
-**Priorytet:** średni. **Szacunek rozmiaru:** index + 3 strony, ok. 450–520 linii.
+**Priorytet:** średni. **Szacunek rozmiaru:** index + 3 strony, ok. 450–520 linii. **Status:** w realizacji — projekt stron `plans/13-wydajnosc.md` z 14 IX 2026 (realizacja autonomiczna); etykieta „Drogi przyspieszania” bez dopisku.
 
 ### 14. NumPy i Matplotlib (`docs/14-numpy-matplotlib/`)
 
@@ -478,6 +478,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 19 NumPy ndarray, macierze
 - luka: np.float32/64 i isclose (lab3); __matmul__ (W06 s. 37); benchmark z 13
 - 11 `operatory.md`: `__matmul__` w NumPy; `kolekcje-i-wywolania.md`: `__getitem__` z krotką indeksów w tablicach (`TODO: link po powstaniu rozdziału o NumPy`)
+- 13 `przyspieszanie-pythona.md`: wektoryzacja i benchmark pętla a NumPy — kod w rozdziale o NumPy (`TODO: link po powstaniu rozdziału o NumPy`)
 
 **Podział na strony.**
 
@@ -526,6 +527,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - luka: GIL/threading/multiprocessing/concurrent.futures/Lock (lab11, python_thread) nieobecne
 - 10 `cykl-zycia-obiektu.md`: kompilacja wolnowątkowa a licznik referencji (`TODO: link po powstaniu rozdziału o współbieżności`)
 - 11 `menedzery-kontekstu.md`: `with blokada:` (`TODO: link po powstaniu rozdziału o współbieżności`)
+- 13 `przyspieszanie-pythona.md`: `3.14t`, procesy i wątki jako droga do wielu rdzeni (`TODO: link po powstaniu rozdziału o współbieżności`)
 
 **Podział na strony.**
 
@@ -575,6 +577,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 10 `definicja-klasy.md`: adnotacje w klasach, jeśli padnie (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
 - 11 `operatory.md`: adnotacje w `singledispatchmethod`; `kolekcje-i-wywolania.md`: `typing.Protocol` — jedno zdanie (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
 - 12 `mixiny-i-abstrakcja.md`, `klasy-danych.md`: `Protocol` i `mypy`, adnotacje w klasach danych jako informacja dla narzędzi (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
+- 13 `przyspieszanie-pythona.md`: `mypy` i adnotacje jako wejście dla mypyc (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
 
 **Podział na strony.**
 
