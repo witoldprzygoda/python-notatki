@@ -225,3 +225,10 @@ nav:
           - Selekcja i filtrowanie: zastosowania/04-pandas-tabele/selekcja.md
           - Typy, braki i czyszczenie: zastosowania/04-pandas-tabele/typy-i-braki.md
           - Przekształcenia i wykres z tabeli: zastosowania/04-pandas-tabele/przeksztalcenia.md
+      - 5. pandas — analiza:
+          - Wprowadzenie: zastosowania/05-pandas-analiza/index.md
+          - Grupowanie: zastosowania/05-pandas-analiza/grupowanie.md
+          - Tabele przestawne i kształt danych: zastosowania/05-pandas-analiza/przestawianie.md
+          - Łączenie tabel: zastosowania/05-pandas-analiza/laczenie.md
+          - Szeregi czasowe: zastosowania/05-pandas-analiza/szeregi-czasowe.md
+          - Wydajność i potok analizy: zastosowania/05-pandas-analiza/wydajnosc-i-potok.md
