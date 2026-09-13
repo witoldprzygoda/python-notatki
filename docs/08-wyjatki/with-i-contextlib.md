@@ -111,7 +111,7 @@ Instrukcja `with` nie jest związana z plikami. Działa z każdym obiektem, któ
 3. Wykonuje blok.
 4. Wywołuje metodę `__exit__()` — zawsze, także gdy blok opuścił wyjątek; metoda otrzymuje wtedy informację o wyjątku i może go stłumić, lecz obiekt pliku tego nie robi: zamyka plik i przepuszcza wyjątek dalej.
 
-Menedżerami kontekstu są obiekty plików, obiekt zwracany przez `pytest.raises()` z poprzedniego podrozdziału (jego `__exit__()` sprawdza, czy blok zgłosił oczekiwany wyjątek, i właśnie ten wyjątek tłumi), blokady w programach wielowątkowych i wiele innych obiektów biblioteki standardowej. Metody o nazwach z podwójnymi podkreśleniami definiuje się we własnych klasach; napiszemy taki menedżer po wprowadzeniu klas, w rozdziale o modelu danych. <!-- TODO: link po powstaniu rozdziału o modelu danych --> Prostszą drogę do własnego menedżera kontekstu — bez klasy — daje moduł `contextlib`.
+Menedżerami kontekstu są obiekty plików, obiekt zwracany przez `pytest.raises()` z poprzedniego podrozdziału (jego `__exit__()` sprawdza, czy blok zgłosił oczekiwany wyjątek, i właśnie ten wyjątek tłumi), blokady w programach wielowątkowych i wiele innych obiektów biblioteki standardowej. Metody o nazwach z podwójnymi podkreśleniami definiuje się we własnych klasach; taki menedżer piszemy w podrozdziale [Menedżery kontekstu i obiekty plikopodobne](../11-model-danych/menedzery-kontekstu.md#metody-__enter__-i-__exit__) rozdziału 11. Prostszą drogę do własnego menedżera kontekstu — bez klasy — daje moduł `contextlib`.
 
 ## Dekorator `contextlib.contextmanager`
 

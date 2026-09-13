@@ -69,7 +69,7 @@ Jan Kowalski (lat 20) / Czlowiek('Jan', 'Kowalski', 20)
 Punkt(1, 2) Punkt(1, 2) [Punkt(1, 2)]
 ```
 
-Kto wywołuje którą metodę? Funkcje `print()` i `str()` używają `__str__`; f-string bez konwersji wywołuje `format()`, a więc metodę specjalną `__format__`, która w wersji odziedziczonej po `object` sprowadza się do `__str__` (do `__format__` wracamy w rozdziale o modelu danych). Funkcja `repr()`, konwersja `!r`, konsola wypisująca wynik wyrażenia oraz kontenery — lista, słownik, krotka — wypisujące swoje elementy używają `__repr__`. Dlatego w liście `[c]` widzimy zapis oficjalny, mimo że sam `print(c)` daje nieformalny. Gdy klasa definiuje tylko `__repr__`, jak `Punkt`, `str()` i `print()` korzystają z niego — odwrotnie to nie działa, więc jeśli definiujemy jedną z tych metod, powinna to być `__repr__`. Dobra reprezentacja oficjalna ułatwia diagnostykę: w konsoli, pod debuggerem i w dzienniku z rozdziału 8 zamiast adresu widzimy stan obiektu.
+Kto wywołuje którą metodę? Funkcje `print()` i `str()` używają `__str__`; f-string bez konwersji wywołuje `format()`, a więc metodę specjalną `__format__`, która w wersji odziedziczonej po `object` sprowadza się do `__str__` (do `__format__` wracamy w podrozdziale [Menedżery kontekstu i obiekty plikopodobne](../11-model-danych/menedzery-kontekstu.md#metoda-__format__) rozdziału 11). Funkcja `repr()`, konwersja `!r`, konsola wypisująca wynik wyrażenia oraz kontenery — lista, słownik, krotka — wypisujące swoje elementy używają `__repr__`. Dlatego w liście `[c]` widzimy zapis oficjalny, mimo że sam `print(c)` daje nieformalny. Gdy klasa definiuje tylko `__repr__`, jak `Punkt`, `str()` i `print()` korzystają z niego — odwrotnie to nie działa, więc jeśli definiujemy jedną z tych metod, powinna to być `__repr__`. Dobra reprezentacja oficjalna ułatwia diagnostykę: w konsoli, pod debuggerem i w dzienniku z rozdziału 8 zamiast adresu widzimy stan obiektu.
 
 ## Właściwości — `@property`
 
@@ -269,4 +269,4 @@ class Okrag(builtins.object)
  |      Promień okręgu.
 ```
 
-Nagłówek `Data descriptors` wskazuje mechanizm: obiekt `property` jest **deskryptorem** (ang. *descriptor*) — obiektem, któremu Python oddaje kontrolę nad odczytem i zapisem atrybutu klasy, w której go umieszczono. Ten sam mechanizm stoi za metodami klasy i statycznymi z poprzedniego podrozdziału oraz za wiązaniem zwykłych funkcji z instancją; omawiamy go w rozdziale o modelu danych. <!-- TODO: link po powstaniu rozdziału o modelu danych -->
+Nagłówek `Data descriptors` wskazuje mechanizm: obiekt `property` jest **deskryptorem** (ang. *descriptor*) — obiektem, któremu Python oddaje kontrolę nad odczytem i zapisem atrybutu klasy, w której go umieszczono. Ten sam mechanizm stoi za metodami klasy i statycznymi z poprzedniego podrozdziału oraz za wiązaniem zwykłych funkcji z instancją; omawiamy go w podrozdziale [Deskryptory](../11-model-danych/deskryptory.md) rozdziału 11.

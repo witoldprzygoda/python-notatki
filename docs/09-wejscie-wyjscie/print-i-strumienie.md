@@ -201,7 +201,7 @@ to trafia do pliku
 to również
 ```
 
-W starszym kodzie spotyka się ręczne przypisanie `sys.stdout = plik` i przywracanie `sys.stdout = sys.__stdout__`; `redirect_stdout()` robi to samo bezpiecznie, także gdy blok zgłosi wyjątek. Argument `file` nie wymaga zresztą prawdziwego pliku — wystarczy obiekt z metodą `write()`; taki obiekt, gromadzący tekst w pamięci, napiszemy jako własną klasę w rozdziale o modelu danych, a gotowy — `io.StringIO` — poznamy przy plikach binarnych. <!-- TODO: link po powstaniu rozdziału o modelu danych -->
+W starszym kodzie spotyka się ręczne przypisanie `sys.stdout = plik` i przywracanie `sys.stdout = sys.__stdout__`; `redirect_stdout()` robi to samo bezpiecznie, także gdy blok zgłosi wyjątek. Argument `file` nie wymaga zresztą prawdziwego pliku — wystarczy obiekt z metodą `write()`; taki obiekt, gromadzący tekst w pamięci, piszemy jako własną klasę w podrozdziale [Menedżery kontekstu i obiekty plikopodobne](../11-model-danych/menedzery-kontekstu.md#obiekt-plikopodobny-metoda-write) rozdziału 11, a gotowy — `io.StringIO` — poznamy przy plikach binarnych.
 
 ## Funkcja `input()` i koniec wejścia
 

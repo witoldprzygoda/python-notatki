@@ -355,4 +355,4 @@ Samochód nie jest silnikiem, więc `class Samochod(Silnik)` byłoby błędem pr
     - Walidację danych umieszczamy w `__init__` i w metodach zapisu właściwości, zgłaszając `ValueError` lub własny wyjątek.
     - Atrybuty klasy służą stałym i danym celowo wspólnym; obiekty modyfikowalne trafiają do instancji.
     - Relację „ma” wyrażamy kompozycją, relację „jest” — dziedziczeniem.
-    - Domyślnie `==` porównuje instancje tak jak `is`, według tożsamości, a każdy obiekt może być kluczem słownika. Porównywanie według wartości wymaga metody `__eq__`, a wtedy zachowanie haszowalności — także `__hash__`; obie poznamy w rozdziale o modelu danych. <!-- TODO: link po powstaniu rozdziału o modelu danych -->
+    - Domyślnie `==` porównuje instancje tak jak `is`, według tożsamości, a każdy obiekt może być kluczem słownika. Porównywanie według wartości wymaga metody `__eq__`, a wtedy zachowanie haszowalności — także `__hash__`; obie poznamy w podrozdziale [Przeciążanie operatorów](../11-model-danych/operatory.md#metoda-__hash__) rozdziału 11.
