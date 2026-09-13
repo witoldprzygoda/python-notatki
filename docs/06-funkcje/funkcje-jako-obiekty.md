@@ -137,7 +137,7 @@ Wspólną cechą funkcji zdefiniowanych instrukcją `def`, funkcji wbudowanych i
 (False, False, False)
 ```
 
-Później poznamy także inne rodzaje obiektów wywoływalnych, nie tylko funkcje. <!-- TODO: link po powstaniu rozdziału o klasach --> Wynik `True` nie gwarantuje, że wywołanie się powiedzie — liczba i rodzaj argumentów muszą jeszcze odpowiadać parametrom. Wynik `False` gwarantuje natomiast, że wywołanie zakończy się błędem:
+Wywoływalne są także klasy, o czym mowa w podrozdziale [Definicja klasy](../10-klasy/definicja-klasy.md#klasa-jako-obiekt) rozdziału 10. Wynik `True` nie gwarantuje, że wywołanie się powiedzie — liczba i rodzaj argumentów muszą jeszcze odpowiadać parametrom. Wynik `False` gwarantuje natomiast, że wywołanie zakończy się błędem:
 
 ```python title="niewywolywalny.py"
 liczba = 42

@@ -5,7 +5,7 @@ Dokument jest mapą dalszej książki, nie zadaniem do jednorazowej realizacji. 
 ## 0. Zasady realizacji
 
 1. **Pracujemy rozdział po rozdziale.** Każdy rozdział przechodzi trzy etapy: szczegółowy projekt stron (do akceptacji; skondensowany zapis w `plans/NN-slug.md`), implementacja, osobny odbiór. Kolejny rozdział zaczynamy dopiero po odbiorze poprzedniego.
-2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **W realizacji: rozdział 10. Klasy i obiekty** — projekt stron zaakceptowany 13 IX 2026 (`plans/10-klasy.md`). Rozdziały 11–18 są zaplanowane, ale nie rozpoczęte.
+2. **Rozdziały 6–9 są ukończone** (odbiór 5 IX, 12 IX i 13 IX 2026). **Rozdziały 6–10 są ukończone** (odbiór 5 IX, 12 IX, 13 IX i 14 IX 2026). **W realizacji: rozdział 11. Model danych — metody specjalne i protokoły** (autonomicznie, bez odbioru etapowego, decyzja autora z 14 IX 2026). Rozdziały 12–18 są zaplanowane, ale nie rozpoczęte.
 3. **Nawigacja (`mkdocs.yml`) i spis na stronie głównej** zawierają wyłącznie rozdziały, które istnieją. Pozycje 7–18 dodajemy dopiero wraz z ich treścią.
 4. **Kolejność pojęć jest bezwzględna.** Żaden przykład nie może wymagać mechanizmu formalnie wprowadzanego dopiero w późniejszym rozdziale. Funkcje wbudowane są dostępne zawsze; moduły biblioteki standardowej użyte już w rozdziałach 1–5 (`math`, `sys`, `copy`, `decimal`, `fractions`, `keyword`) można przywoływać ostrożnie; importowane dekoratory, `functools` i pakiety użytkownika dopiero od rozdziału 7.
 5. **Hierarchia źródeł merytorycznych:** aktualna dokumentacja Pythona 3.14 (Language Reference, Standard Library Reference), właściwe PEP-y, oficjalne HOWTO i FAQ, dopiero potem wysokiej jakości źródła zewnętrzne jako pomocnicze. Materiały z `sources/` (PDF autora, wykłady, laboratoria) są źródłem programu kursu i przykładów, ale ich nieaktualności i błędy korygujemy. Blog, tutorial ani Stack Overflow nie mogą być jedynym źródłem twierdzenia o semantyce języka.
@@ -36,7 +36,7 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | 7 | 7. Moduły, pakiety i biblioteka standardowa | `docs/07-moduly/` | wysoki | 8 | index + 8 stron, 2426 linii | lab3 | ukończony |
 | 8 | 8. Wyjątki i zarządzanie zasobami | `docs/08-wyjatki/` | wysoki | 6 | index + 6 stron, 1823 linie | — | ukończony |
 | 9 | 9. Wejście, wyjście i pliki | `docs/09-wejscie-wyjscie/` | wysoki | 7 | index + 7 stron, 1834 linie | lab2 | ukończony |
-| 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, ok. 850–950 linii | lab5 | w realizacji |
+| 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, 1588 linii | lab5 | ukończony |
 | 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, ok. 750–850 linii | lab5 | zaplanowany |
 | 12 | 12. Programowanie obiektowe — mechanizmy zaawansowane | `docs/12-oop-zaawansowane/` | średni | 5 | index + 5 stron, ok. 850–950 linii | lab7, lab8 | zaplanowany |
 | 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, ok. 450–520 linii | zapowiedź lab6 | zaplanowany |
@@ -315,7 +315,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - __dict__ klasy 3.13+ (__static_attributes__, __firstlineno__); „Did you mean” tylko w pełnym tracebacku; komunikat property bez settera 3.11+
 - super(K, self) jako pełna forma, nie „Python 2”; linki StackOverflow/quantifiedcode z PDF — zastąpić (types.MethodType)
 
-**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** w realizacji — projekt stron zaakceptowany 13 IX 2026 (`plans/10-klasy.md`); etykieta ostatniej strony „Cykl życia obiektu” bez dopisku.
+**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** ukończony — projekt stron zaakceptowany 13 IX 2026 (`plans/10-klasy.md`); wszystkie strony wraz z `index.md` ukończone, trzykrotnie zrecenzowane i zweryfikowane 13 IX 2026 (1588 linii); rozdział odebrany 14 IX 2026; zapowiedzi z rozdziałów 1–9 domknięte odsyłaczami 14 IX 2026; etykieta ostatniej strony „Cykl życia obiektu” bez dopisku.
 
 ### 11. Model danych — metody specjalne i protokoły (`docs/11-model-danych/`)
 

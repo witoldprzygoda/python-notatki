@@ -122,7 +122,7 @@ BaseException
       └── Warning
 ```
 
-Mechanizm, który buduje takie drzewo — typ pochodny przejmujący cechy typu bazowego — nazywa się dziedziczeniem; poznamy go w rozdziale o klasach, a tu wystarczy czytać drzewo od góry: `KeyError` jest odmianą `LookupError`, `LookupError` odmianą `Exception`, `Exception` odmianą `BaseException`. <!-- TODO: link po powstaniu rozdziału o klasach --> Klauzula `except LookupError` obsługuje więc zarówno brak klucza, jak i indeks poza zakresem:
+Mechanizm, który buduje takie drzewo — typ pochodny przejmujący cechy typu bazowego — nazywa się dziedziczeniem; omawiamy go w podrozdziale [Dziedziczenie](../10-klasy/dziedziczenie.md#klasa-bazowa-i-klasa-pochodna) rozdziału 10, a tu wystarczy czytać drzewo od góry: `KeyError` jest odmianą `LookupError`, `LookupError` odmianą `Exception`, `Exception` odmianą `BaseException`. Klauzula `except LookupError` obsługuje więc zarówno brak klucza, jak i indeks poza zakresem:
 
 ```python title="lookup.py"
 zapisy = {"ala": [90, 85]}
@@ -443,9 +443,8 @@ Kontrola argumentów stoi na początku funkcji, przed obliczeniami, dzięki czem
     wyjątków — na przykład `BladZakresu` jako odmianę `ValueError` — aby
     klauzula `except` mogła obsłużyć wyłącznie błędy danego programu, a nazwy
     kończące się na `Error` opisywały jego dziedzinę. Własny typ wyjątku jest
-    klasą pochodną od `Exception` lub jego odmiany; definicję klas i zasady
-    ich tworzenia poznamy w rozdziale o klasach, a do wyjątków wrócimy
-    w nim jako do pierwszego zastosowania dziedziczenia.
-    <!-- TODO: link po powstaniu rozdziału o klasach -->
+    klasą pochodną od `Exception` lub jego odmiany; definiujemy ją w sekcji
+    [Własne klasy wyjątków](../10-klasy/dziedziczenie.md#wasne-klasy-wyjatkow)
+    rozdziału 10 jako pierwsze zastosowanie dziedziczenia.
 
 Umiemy już wyjątki przechwytywać i zgłaszać. Pozostaje pytanie, kiedy z tego korzystać: czy sprawdzać warunki przed operacją, czy próbować i obsługiwać błąd, jak szeroki powinien być blok `try` i jak przetestować, że funkcja zgłasza wyjątek wtedy, gdy powinna. Tym zagadnieniom poświęcamy następny podrozdział.
