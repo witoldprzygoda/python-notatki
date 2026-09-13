@@ -31,6 +31,6 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 3. [Matplotlib w praktyce](03-matplotlib/index.md) — anatomia wykresu, wykresy dla danych, szeregi czasowe, wiele paneli, wykres do raportu
 4. [pandas — tabele](04-pandas-tabele/index.md) — Series i DataFrame, wczytywanie i zapis, selekcja, typy i braki, przekształcenia
 5. [pandas — analiza](05-pandas-analiza/index.md) — grupowanie, tabele przestawne, łączenie tabel, szeregi czasowe, wydajność i potok
-6. Projekt: raport z danych — w przygotowaniu
+6. [Projekt: raport z danych](06-projekt-dane/index.md) — zadanie, dane i decyzje, potok z testami, raport z rysunkami i tabelami
 
 Pozostałe ścieżki powstają po ukończeniu ścieżki danych.

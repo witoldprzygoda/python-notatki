@@ -232,3 +232,8 @@ nav:
           - Łączenie tabel: zastosowania/05-pandas-analiza/laczenie.md
           - Szeregi czasowe: zastosowania/05-pandas-analiza/szeregi-czasowe.md
           - Wydajność i potok analizy: zastosowania/05-pandas-analiza/wydajnosc-i-potok.md
+      - "6. Projekt: raport z danych":
+          - Wprowadzenie: zastosowania/06-projekt-dane/index.md
+          - Zadanie, dane i decyzje: zastosowania/06-projekt-dane/zadanie-i-dane.md
+          - Potok — czyszczenie, analiza i testy: zastosowania/06-projekt-dane/potok.md
+          - Raport — rysunki, tabele i dokument: zastosowania/06-projekt-dane/raport.md

@@ -34,5 +34,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 3. [Matplotlib w praktyce](zastosowania/03-matplotlib/index.md) — anatomia wykresu, wykresy dla danych, szeregi czasowe, wiele paneli, wykres do raportu
 4. [pandas — tabele](zastosowania/04-pandas-tabele/index.md) — Series i DataFrame, wczytywanie i zapis, selekcja, typy i braki, przekształcenia
 5. [pandas — analiza](zastosowania/05-pandas-analiza/index.md) — grupowanie, tabele przestawne, łączenie tabel, szeregi czasowe, wydajność i potok
+6. [Projekt: raport z danych](zastosowania/06-projekt-dane/index.md) — zadanie, dane i decyzje, potok z testami, raport z rysunkami i tabelami
 
-Rozdział 6 ścieżki danych oraz pozostałe ścieżki są w przygotowaniu.
+Pozostałe ścieżki są w przygotowaniu.

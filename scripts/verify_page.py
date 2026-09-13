@@ -19,7 +19,7 @@ zapisem sesji terminalowej.
 --mask: wyrażenie regularne; dopasowane fragmenty są zastępowane znacznikiem
 <MASKA> zarówno w wyniku rzeczywistym, jak i oczekiwanym (np. czasy pomiarów, daty).
 Skrypty są uruchamiane z zamkniętym stdin (breakpoint() kończy się natychmiast).
---data: katalog, którego pliki są kopiowane do katalogu tymczasowego przed uruchomieniem
+--data: katalog, którego pliki (z podkatalogami) są kopiowane do katalogu tymczasowego przed uruchomieniem
 skryptów (wspólne pliki danych rozdziału, których strona nie osadza jako bloków).
 """
 import sys, re, subprocess, pathlib, tempfile, os
@@ -73,9 +73,11 @@ def follows_directly(i):
 
 tmp = pathlib.Path(tempfile.mkdtemp(prefix="verify_"))
 if DATA:
-    for f in DATA.iterdir():
+    for f in DATA.rglob("*"):
         if f.is_file():
-            (tmp / f.name).write_bytes(f.read_bytes())
+            cel = tmp / f.relative_to(DATA)
+            cel.parent.mkdir(parents=True, exist_ok=True)
+            cel.write_bytes(f.read_bytes())
 runner = tmp / "_runner.py"
 runner.write_text(RUNNER, encoding="utf-8")
 ok = fail = 0
