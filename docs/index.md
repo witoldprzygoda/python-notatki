@@ -15,3 +15,4 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 7. [Moduły, pakiety i biblioteka standardowa](07-moduly/index.md) — moduły i import, skrypt jako program, argumenty wiersza poleceń, pakiety, struktura projektu i pierwsze testy, biblioteka standardowa i collections, functools, itertools
 8. [Wyjątki i zarządzanie zasobami](08-wyjatki/index.md) — obsługa i zgłaszanie wyjątków, styl EAFP i testy wyjątków, instrukcja with, diagnostyka i debugger, logowanie
 9. [Wejście, wyjście i pliki](09-wejscie-wyjscie/index.md) — formatowanie tekstu, print i strumienie, animacje w terminalu, pliki tekstowe i binarne, ścieżki, CSV i JSON
+10. [Klasy i obiekty](10-klasy/index.md) — definicja klasy, atrybuty i metody, właściwości, dziedziczenie i własne wyjątki, cykl życia obiektu

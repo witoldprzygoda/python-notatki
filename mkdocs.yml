@@ -147,3 +147,10 @@ nav:
       - Typ bytes i pliki binarne: 09-wejscie-wyjscie/bytes-i-pliki-binarne.md
       - Ścieżki i system plików: 09-wejscie-wyjscie/pathlib.md
       - Formaty danych — CSV i JSON: 09-wejscie-wyjscie/csv-i-json.md
+  - 10. Klasy i obiekty:
+      - Wprowadzenie: 10-klasy/index.md
+      - Definicja klasy: 10-klasy/definicja-klasy.md
+      - Atrybuty klasy, metody klasowe i statyczne: 10-klasy/atrybuty-i-metody.md
+      - Reprezentacja, właściwości i hermetyzacja: 10-klasy/reprezentacja-i-wlasciwosci.md
+      - Dziedziczenie: 10-klasy/dziedziczenie.md
+      - Cykl życia obiektu: 10-klasy/cykl-zycia-obiektu.md
