@@ -19,6 +19,11 @@ Decyzja autora z 13 IX 2026: część I książki (kurs języka) kończy się ro
 | Ścieżka aplikacji | bazy danych (`sqlite3`, potem SQLAlchemy); HTTP i API (requests/httpx, JSON); backend WWW (Flask lub FastAPI — jeden wybrany); interfejs graficzny (tkinter — z projektu rozdziału 18; PySide jako nota); pakowanie do `.exe` (PyInstaller) i publikacja pakietu | 4–5 rozdziałów |
 | Ścieżka automatyzacji | wyrażenia regularne (`re`, pytanie otwarte nr 2 planu); narzędzia wiersza poleceń (argparse/typer, rich); pobieranie i parsowanie stron (Beautiful Soup); pliki Office i obrazy (openpyxl, Pillow) | 2–3 rozdziały |
 
+## Zapowiedzi z części I do domknięcia w części II
+
+- Rozdział 14, `ndarray.md` (Zapis i odczyt): pandas — tabele danych z nazwanymi kolumnami.
+- Rozdział 14, `przyklady-i-rozszerzenia.md` (SciPy): SciPy i scikit-learn w pełnym zakresie.
+
 ## Do rozstrzygnięcia przez autora
 
 1. Część II w tym serwisie (sekcja nawigacji) czy jako osobny serwis.

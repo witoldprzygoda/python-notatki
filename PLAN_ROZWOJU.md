@@ -647,7 +647,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - requests/pyarrow/openpyxl jako zależności zewnętrzne (python -m pip); przykład API → plik lokalny; wersje 2.2.1 → 3.x
 - pliki CSV w docs/17-pandas/data/ (decyzja autora); .dt.to_period zweryfikować
 
-**Priorytet:** niski. **Szacunek rozmiaru:** index + 5 stron, ok. 800–900 linii. **Status:** przeniesiony do części II (decyzja autora 13 IX 2026, `plans/CZESC-II.md`); projekt zachowany jako punkt wyjścia.
+**Priorytet:** niski. **Szacunek rozmiaru:** index + 5 stron, ok. 800–900 linii. **Status:** przeniesiony do części II (decyzja autora 13 IX 2026, `plans/CZESC-II.md`); projekt zachowany jako punkt wyjścia. Zapowiedź z rozdziału 14 (`ndarray.md`, sekcja „Zapis i odczyt”): tabele danych z nazwanymi kolumnami — `<!-- TODO: link po powstaniu rozdziału o pandas -->`.
 
 ### 18. Interfejs graficzny tkinter (`docs/18-tkinter/`)
 
