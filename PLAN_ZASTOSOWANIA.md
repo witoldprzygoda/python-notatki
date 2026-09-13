@@ -17,7 +17,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | Nr | Rozdział | Ścieżka | Katalog | Podstron | Status |
 |---|---|---|---|---|---|
 | 1 | Jupyter i warsztat danych | Dane | `zastosowania/01-jupyter/` | 4 | ukończony — 13 IX 2026 (`plans/z01-jupyter.md`; wprowadzenie części + index + 4 strony, 585 linii; trzy recenzje naniesione; zrzuty w `ZRZUTY.md` 14–15) |
-| 2 | NumPy w praktyce | Dane | `zastosowania/02-numpy/` | 5 | zaplanowany |
+| 2 | NumPy w praktyce | Dane | `zastosowania/02-numpy/` | 5 | w realizacji — `plans/z02-numpy.md` |
 | 3 | Matplotlib w praktyce | Dane | `zastosowania/03-matplotlib/` | 5 | zaplanowany |
 | 4 | pandas — tabele | Dane | `zastosowania/04-pandas-tabele/` | 5 | zaplanowany |
 | 5 | pandas — analiza | Dane | `zastosowania/05-pandas-analiza/` | 5 | zaplanowany |

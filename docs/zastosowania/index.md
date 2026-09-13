@@ -27,7 +27,7 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 **Ścieżka danych**
 
 1. [Jupyter i warsztat danych](01-jupyter/index.md) — notatnik w VSC, środowisko projektu danych, czytanie dokumentacji bibliotek, pierwsza analiza
-2. NumPy w praktyce — w przygotowaniu
+2. [NumPy w praktyce](02-numpy/index.md) — tablice wielowymiarowe, statystyka i porządkowanie, algebra liniowa, losowość i symulacje, wydajność i pamięć
 3. Matplotlib w praktyce — w przygotowaniu
 4. pandas — tabele — w przygotowaniu
 5. pandas — analiza — w przygotowaniu

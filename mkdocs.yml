@@ -204,3 +204,10 @@ nav:
           - Środowisko projektu danych: zastosowania/01-jupyter/srodowisko-projektu.md
           - Czytanie dokumentacji bibliotek: zastosowania/01-jupyter/dokumentacja-bibliotek.md
           - Pierwsza analiza w notatniku: zastosowania/01-jupyter/pierwsza-analiza.md
+      - 2. NumPy w praktyce:
+          - Wprowadzenie: zastosowania/02-numpy/index.md
+          - Tablice wielowymiarowe: zastosowania/02-numpy/tablice-wielowymiarowe.md
+          - Statystyka i porządkowanie danych: zastosowania/02-numpy/statystyka-i-porzadkowanie.md
+          - Algebra liniowa i dopasowanie: zastosowania/02-numpy/algebra-liniowa.md
+          - Losowość i symulacje: zastosowania/02-numpy/losowosc-i-symulacje.md
+          - Wydajność i pamięć: zastosowania/02-numpy/wydajnosc-i-pamiec.md
