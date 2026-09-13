@@ -160,7 +160,7 @@ X . .
 . . X
 ```
 
-Rozpakowanie `wiersz, kolumna = pozycja` z rozdziału 5 rozkłada krotkę na dwa indeksy. Biblioteki numeryczne rozbudowują ten zapis o wycinki w każdym wymiarze, na przykład `tablica[0, :]` dla całego wiersza — wracamy do tego w rozdziale o NumPy. <!-- TODO: link po powstaniu rozdziału o NumPy -->
+Rozpakowanie `wiersz, kolumna = pozycja` z rozdziału 5 rozkłada krotkę na dwa indeksy. Biblioteki numeryczne rozbudowują ten zapis o wycinki w każdym wymiarze, na przykład `tablica[0, :]` dla całego wiersza — wracamy do tego w podrozdziale [Tablice ndarray](../14-numpy-matplotlib/ndarray.md#indeksowanie-i-wycinki) rozdziału 14.
 
 ## Metoda `__contains__`
 

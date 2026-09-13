@@ -501,7 +501,7 @@ print(Wektor2D(1, 2) @ Wektor2D(3, 4))
 11.0
 ```
 
-W bibliotece NumPy `@` mnoży macierze; wracamy do niego w rozdziale o NumPy. <!-- TODO: link po powstaniu rozdziału o NumPy --> Ten sam znak `@` w składni dekoratorów z rozdziału 6 nie ma z operatorem nic wspólnego.
+W bibliotece NumPy `@` mnoży macierze; wracamy do niego w podrozdziale [Operacje na tablicach](../14-numpy-matplotlib/operacje.md#algebra-liniowa-dla-dociekliwych) rozdziału 14. Ten sam znak `@` w składni dekoratorów z rozdziału 6 nie ma z operatorem nic wspólnego.
 
 Brak przeciążania metod po typach argumentów można obejść dekoratorem `functools.singledispatchmethod`: metoda bazowa obsługuje przypadek ogólny, a warianty zarejestrowane przez `@nazwa.register` są wybierane według typu pierwszego argumentu po `self`, odczytanego z adnotacji parametru:
 

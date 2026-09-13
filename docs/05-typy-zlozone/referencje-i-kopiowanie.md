@@ -60,7 +60,7 @@ Skoro dwuwymiarowa lista to po prostu listy zagnieżdżone w listach, można zaw
 
 !!! info "NumPy"
     Poważniejsze używanie macierzy na pewno skieruje nas ku modułowi **NumPy**,
-    dedykowanemu do pracy z macierzami (typ ndarray) — poznamy w dalszej części kursu.
+    dedykowanemu do pracy z macierzami (typ ndarray) — poznajemy go w rozdziale [14. NumPy i Matplotlib](../14-numpy-matplotlib/ndarray.md).
 
 ## Kopiowanie: płytkie i głębokie
 

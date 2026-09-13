@@ -80,7 +80,7 @@ range(4, -1, -1)
 [0, 1, 2, 3, 4]
 ```
 
-Konstruktor `list()` — kontener list omawiamy w rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md) — jest kanonicznym sposobem „zmaterializowania” leniwej sekwencji do postaci przechowującej wszystkie elementy. (W zewnętrznym module NumPy dostępna jest funkcja `numpy.arange()` przyjmująca krok zmiennoprzecinkowy; dla kroków ułamkowych dokumentacja NumPy zaleca jednak `numpy.linspace()`.)
+Konstruktor `list()` — kontener list omawiamy w rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md) — jest kanonicznym sposobem „zmaterializowania” leniwej sekwencji do postaci przechowującej wszystkie elementy. (W zewnętrznym module NumPy dostępna jest funkcja `numpy.arange()` przyjmująca krok zmiennoprzecinkowy; dla kroków ułamkowych dokumentacja NumPy zaleca jednak `numpy.linspace()` — obie funkcje omawiamy w podrozdziale [Tablice ndarray](../14-numpy-matplotlib/ndarray.md#tworzenie-tablic) rozdziału 14.)
 
 ## Iteratory {#iteratory data-activity-section="true"}
 
