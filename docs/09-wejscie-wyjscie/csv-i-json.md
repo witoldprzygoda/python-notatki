@@ -114,7 +114,7 @@ Ala,4.75
 Ola,3.5
 ```
 
-Wartości w słownikach nadal są łańcuchami; konwersję wykonuje program, który wie, że kolumna `ocena` zawiera liczby. Do obliczeń na kolumnach — średnich, grupowania według przedmiotu — wystarczą narzędzia z rozdziałów 5 i 7 (`defaultdict`, `Counter`); przy większych danych sięga się po pakiet zewnętrzny pandas, któremu poświęcamy osobny rozdział. <!-- TODO: link po powstaniu rozdziału o pandas -->
+Wartości w słownikach nadal są łańcuchami; konwersję wykonuje program, który wie, że kolumna `ocena` zawiera liczby. Do obliczeń na kolumnach — średnich, grupowania według przedmiotu — wystarczą narzędzia z rozdziałów 5 i 7 (`defaultdict`, `Counter`); przy większych danych sięga się po pakiet zewnętrzny pandas, któremu poświęcamy [osobny rozdział](../zastosowania/04-pandas-tabele/index.md) w części „Python Zastosowania”.
 
 ## Pliki z Excela — średnik, cudzysłowy i `utf-8-sig`
 
