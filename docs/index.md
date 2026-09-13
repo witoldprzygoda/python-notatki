@@ -16,3 +16,4 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 8. [Wyjątki i zarządzanie zasobami](08-wyjatki/index.md) — obsługa i zgłaszanie wyjątków, styl EAFP i testy wyjątków, instrukcja with, diagnostyka i debugger, logowanie
 9. [Wejście, wyjście i pliki](09-wejscie-wyjscie/index.md) — formatowanie tekstu, print i strumienie, animacje w terminalu, pliki tekstowe i binarne, ścieżki, CSV i JSON
 10. [Klasy i obiekty](10-klasy/index.md) — definicja klasy, atrybuty i metody, właściwości, dziedziczenie i własne wyjątki, cykl życia obiektu
+11. [Model danych — metody specjalne i protokoły](11-model-danych/index.md) — przeciążanie operatorów, protokoły kolekcji i wywołania, iteracja, menedżery kontekstu i obiekty plikopodobne, deskryptory

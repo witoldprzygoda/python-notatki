@@ -198,7 +198,7 @@ Pozostają bez zmian `TODO` wskazujące na klasy danych, zaawansowane mechanizmy
 1. Wszystkie deterministyczne przykłady przez `scripts/verify_page.py` (3.14.7); czasy i adresy maskowane.
 2. Brak mechanizmów z późniejszych rozdziałów: `abc` (poza wzmianką), `dataclass`, metaklasy, wątki, NumPy w kodzie.
 3. Kolejność wewnątrz rozdziału (1 → 2 → 3 → 4 → 5; strona 5 uzupełniająca); pojęcia wprowadzone w miejscu pierwszego użycia; każda metoda dwuargumentowa zwraca `NotImplemented` dla obcego typu.
-4. Spójne definicje `Wektor2D` i `Zamowienie`; każda klasa przykładowa z `__repr__`; nazwy plików bez kolizji z biblioteką standardową.
+4. Spójne definicje `Wektor2D` i `Zamowienie`; `__repr__` w każdej klasie, której instancje są wypisywane (ustalenie recenzji: krótkie klasy demonstracyjne bez `__repr__`); nazwy plików bez kolizji z biblioteką standardową.
 5. Konwencje `CLAUDE.md`; nagłówki rzeczownikowe; cudzysłowy „…”; „ang.” przy pierwszym użyciu.
 6. `mkdocs build` bez ostrzeżeń oraz `mkdocs build -f mkdocs.clean.yml`.
 7. Każdy odsyłacz względny prowadzi do istniejącego pliku i sekcji; zapowiedzi w przód z `TODO` i wpisem w `PLAN_ROZWOJU.md`.

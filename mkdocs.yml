@@ -154,3 +154,10 @@ nav:
       - Reprezentacja, właściwości i hermetyzacja: 10-klasy/reprezentacja-i-wlasciwosci.md
       - Dziedziczenie: 10-klasy/dziedziczenie.md
       - Cykl życia obiektu: 10-klasy/cykl-zycia-obiektu.md
+  - 11. Model danych — metody specjalne i protokoły:
+      - Wprowadzenie: 11-model-danych/index.md
+      - Przeciążanie operatorów: 11-model-danych/operatory.md
+      - Protokoły kolekcji i wywołania: 11-model-danych/kolekcje-i-wywolania.md
+      - Protokół iteracji: 11-model-danych/iteracja.md
+      - Menedżery kontekstu i obiekty plikopodobne: 11-model-danych/menedzery-kontekstu.md
+      - Deskryptory: 11-model-danych/deskryptory.md
