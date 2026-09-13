@@ -127,7 +127,7 @@ Traceback (most recent call last):
 UnicodeEncodeError: 'charmap' codec can't encode character '\u017c' in position 2: character maps to <undefined>
 ```
 
-Na komputerze ze stroną kodową cp1252 (jak w tym przykładzie) litera `ż` nie ma odpowiednika i przekierowanie kończy się wyjątkiem `UnicodeEncodeError`; ze stroną cp1250 zapis się powiedzie, ale plik nie będzie w UTF-8 i program czytający go w UTF-8 zobaczy zniekształcone znaki. Opisane zachowanie dotyczy PowerShell 7.4 i nowszego, gdzie przekierowanie zapisuje bajty dokładnie tak, jak wypisał je program; starsze wersje powłoki przepisują tekst we własnym kodowaniu i wynik może się różnić. Rozwiązaniem jest **tryb UTF-8** interpretera, w którym strumienie standardowe i pliki otwierane bez podanego kodowania używają UTF-8: włącza go opcja `-X utf8` albo zmienna środowiskowa `PYTHONUTF8=1`, ustawiana w PowerShell na czas sesji poleceniem `$env:PYTHONUTF8 = "1"`:
+Na komputerze ze stroną kodową cp1252 (jak w tym przykładzie) litera `ż` nie ma odpowiednika i przekierowanie kończy się wyjątkiem `UnicodeEncodeError`; ze stroną cp1250 zapis się powiedzie, ale plik nie będzie w UTF-8 i program czytający go w UTF-8 zobaczy zniekształcone znaki. Rozwiązaniem jest **tryb UTF-8** interpretera, w którym strumienie standardowe i pliki otwierane bez podanego kodowania używają UTF-8: włącza go opcja `-X utf8` albo zmienna środowiskowa `PYTHONUTF8=1`, ustawiana w PowerShell na czas sesji poleceniem `$env:PYTHONUTF8 = "1"`:
 
 ```powershell title="Terminal"
 python -X utf8 polskie.py > polskie.txt
@@ -137,6 +137,9 @@ Get-Content polskie.txt
 ```{ .text .no-copy }
 zażółć gęślą jaźń
 ```
+
+!!! note "Wersja PowerShell"
+    Opisane zachowanie dotyczy PowerShell 7.4 i nowszego, gdzie przekierowanie `>` i potok `|` przekazują bajty dokładnie tak, jak wypisał je program. Wbudowany w system Windows PowerShell 5.1 oraz wersje 7.0–7.3 dekodują wyjście programu według ustawień konsoli i zapisują je ponownie we własnym kodowaniu, więc zawartość pliku może się różnić od pokazanej. Wersję powłoki sprawdzamy poleceniem `$PSVersionTable.PSVersion`.
 
 Od Pythona 3.15 tryb UTF-8 ma być włączony domyślnie ([PEP 686](https://peps.python.org/pep-0686/)); w Pythonie 3.14 trzeba o nim pamiętać przy przekierowaniach — samo kodowanie strumieni standardowych, bez wpływu na pliki, ustala też zmienna środowiskowa `PYTHONIOENCODING` — a przy zapisie do plików z poziomu programu zawsze podawać kodowanie, o czym mowa w podrozdziale o plikach tekstowych.
 
