@@ -19,3 +19,4 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 11. [Model danych — metody specjalne i protokoły](11-model-danych/index.md) — przeciążanie operatorów, protokoły kolekcji i wywołania, iteracja, menedżery kontekstu i obiekty plikopodobne, deskryptory
 12. [Programowanie obiektowe — mechanizmy zaawansowane](12-oop-zaawansowane/index.md) — dziedziczenie wielokrotne i MRO, mixiny i klasy abstrakcyjne, klasy danych, wzorce projektowe, metaprogramowanie
 13. [Wydajność i optymalizacja](13-wydajnosc/index.md) — pomiar czasu i profilowanie, optymalizacja kodu, drogi przyspieszania
+14. [NumPy i Matplotlib](14-numpy-matplotlib/index.md) — tablice ndarray, operacje wektorowe, wykresy w stylu obiektowym

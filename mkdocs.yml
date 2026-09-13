@@ -174,3 +174,10 @@ nav:
       - Pomiar czasu i profilowanie: 13-wydajnosc/pomiar-i-profilowanie.md
       - Optymalizacja kodu: 13-wydajnosc/optymalizacja-kodu.md
       - Drogi przyspieszania: 13-wydajnosc/przyspieszanie-pythona.md
+  - 14. NumPy i Matplotlib:
+      - Wprowadzenie: 14-numpy-matplotlib/index.md
+      - Tablice ndarray: 14-numpy-matplotlib/ndarray.md
+      - Operacje na tablicach: 14-numpy-matplotlib/operacje.md
+      - Matplotlib — pierwszy wykres i styl obiektowy: 14-numpy-matplotlib/matplotlib-podstawy.md
+      - Matplotlib — rodzaje wykresów, układ i zapis: 14-numpy-matplotlib/matplotlib-wykresy.md
+      - Przykłady i rozszerzenia: 14-numpy-matplotlib/przyklady-i-rozszerzenia.md
