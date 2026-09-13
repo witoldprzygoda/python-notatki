@@ -64,6 +64,9 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
     (cztery ramki `silnia` i `<module>`); kadr: sam widok boczny.
 12. `img/vsc-debugger-pasek.png` — pasek narzędzi debugowania (Continue, Step Over,
     Step Into, Step Out, Restart, Stop) podczas wstrzymania; kadr: sam pasek.
+13. `16-warsztat/img/vsc-testing-panel.png` — widok **Testing** w VSC z drzewem testów
+    `test_fixtures.py` i `test_kolo.py` (w tym `test_pole_kola[zero]` itd.) po uruchomieniu,
+    zielone znaczniki; kadr: sam pasek boczny (testowanie.md, sekcja „Panel Testing w VSC”).
 
 ## Wykonane
 

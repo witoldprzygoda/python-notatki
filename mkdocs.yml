@@ -187,3 +187,10 @@ nav:
       - Synchronizacja: 15-wspolbieznosc/synchronizacja.md
       - Procesy i pule wykonawców: 15-wspolbieznosc/procesy-i-executory.md
       - Studia wydajności i asyncio: 15-wspolbieznosc/studia-wydajnosci.md
+  - 16. Warsztat programisty i dalsza droga:
+      - Wprowadzenie: 16-warsztat/index.md
+      - Testowanie z pytest — techniki zaawansowane: 16-warsztat/testowanie.md
+      - Adnotacje typów w praktyce: 16-warsztat/typy-statyczne.md
+      - Styl i formatowanie kodu: 16-warsztat/styl-kodu.md
+      - Automatyzacja jakości — pre-commit i CI: 16-warsztat/automatyzacja-jakosci.md
+      - Co dalej: 16-warsztat/co-dalej.md
