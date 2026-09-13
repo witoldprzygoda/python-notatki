@@ -229,7 +229,7 @@ Skondensowany projekt stron rozdziału 9 według `PLAN_ROZWOJU.md` (sekcja 4, �
 **Cel.** Czytelnik czyta i zapisuje dane tabelaryczne w CSV (w tym pliki z Excela: średnik, `utf-8-sig`) i dane zagnieżdżone w JSON, zna mapowanie typów i pułapki (klucze, krotki, `NaN`), używa `python -m json`, zapisuje i wczytuje stan programu; zna `tomllib`, ostrzeżenie o `pickle` i pakiet `compression`.
 
 **Kolejność H2/H3.**
-1. Format CSV i moduł `csv` (H3: `reader` i `writer`; H3: Dlaczego `newline=""`)
+1. Format CSV i moduł `csv` (H3: `reader` i `writer`; H3: Argument `newline=""` w module `csv`)
 2. Wiersze jako słowniki — `DictReader` i `DictWriter`
 3. Pliki z Excela — średnik, cudzysłowy i `utf-8-sig`
 4. Format JSON i moduł `json` (H3: `dumps()` i `loads()`; H3: Mapowanie typów; H3: `dump()` i `load()` z plikiem; H3: Błędy — `JSONDecodeError`)

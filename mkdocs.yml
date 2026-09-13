@@ -138,3 +138,12 @@ nav:
       - Instrukcja with i menedżery kontekstu: 08-wyjatki/with-i-contextlib.md
       - Diagnostyka — ślad wywołań (traceback) i debugger: 08-wyjatki/diagnostyka.md
       - Logowanie zamiast print: 08-wyjatki/logging.md
+  - 9. Wejście, wyjście i pliki:
+      - Wprowadzenie: 09-wejscie-wyjscie/index.md
+      - Formatowanie tekstu: 09-wejscie-wyjscie/formatowanie.md
+      - Funkcja print i strumienie: 09-wejscie-wyjscie/print-i-strumienie.md
+      - Animacje w terminalu: 09-wejscie-wyjscie/animacje-w-terminalu.md
+      - Pliki tekstowe: 09-wejscie-wyjscie/pliki-tekstowe.md
+      - Typ bytes i pliki binarne: 09-wejscie-wyjscie/bytes-i-pliki-binarne.md
+      - Ścieżki i system plików: 09-wejscie-wyjscie/pathlib.md
+      - Formaty danych — CSV i JSON: 09-wejscie-wyjscie/csv-i-json.md
