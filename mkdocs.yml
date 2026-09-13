@@ -181,3 +181,9 @@ nav:
       - Matplotlib — pierwszy wykres i styl obiektowy: 14-numpy-matplotlib/matplotlib-podstawy.md
       - Matplotlib — rodzaje wykresów, układ i zapis: 14-numpy-matplotlib/matplotlib-wykresy.md
       - Przykłady i rozszerzenia: 14-numpy-matplotlib/przyklady-i-rozszerzenia.md
+  - 15. Współbieżność — wątki, procesy i GIL:
+      - Wprowadzenie: 15-wspolbieznosc/index.md
+      - Wątki i GIL: 15-wspolbieznosc/watki-i-gil.md
+      - Synchronizacja: 15-wspolbieznosc/synchronizacja.md
+      - Procesy i pule wykonawców: 15-wspolbieznosc/procesy-i-executory.md
+      - Studia wydajności i asyncio: 15-wspolbieznosc/studia-wydajnosci.md

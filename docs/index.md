@@ -20,3 +20,4 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 12. [Programowanie obiektowe — mechanizmy zaawansowane](12-oop-zaawansowane/index.md) — dziedziczenie wielokrotne i MRO, mixiny i klasy abstrakcyjne, klasy danych, wzorce projektowe, metaprogramowanie
 13. [Wydajność i optymalizacja](13-wydajnosc/index.md) — pomiar czasu i profilowanie, optymalizacja kodu, drogi przyspieszania
 14. [NumPy i Matplotlib](14-numpy-matplotlib/index.md) — tablice ndarray, operacje wektorowe, wykresy w stylu obiektowym
+15. [Współbieżność — wątki, procesy i GIL](15-wspolbieznosc/index.md) — wątki i GIL, synchronizacja, procesy i pule wykonawców, pomiary i asyncio
