@@ -132,6 +132,7 @@ nav:
       - Moduł functools: 07-moduly/functools.md
       - Moduł itertools: 07-moduly/itertools.md
   - 8. Wyjątki i zarządzanie zasobami:
+      - Wprowadzenie: 08-wyjatki/index.md
       - Obsługa wyjątków: 08-wyjatki/obsluga-wyjatkow.md
       - Zgłaszanie wyjątków: 08-wyjatki/zglaszanie-wyjatkow.md
       - Styl obsługi błędów i testy wyjątków: 08-wyjatki/styl-i-testowanie.md
@@ -168,3 +169,8 @@ nav:
       - Klasy danych — dataclass, NamedTuple i Enum: 12-oop-zaawansowane/klasy-danych.md
       - Wzorce projektowe: 12-oop-zaawansowane/wzorce-projektowe.md
       - Metaprogramowanie: 12-oop-zaawansowane/metaprogramowanie.md
+  - 13. Wydajność i optymalizacja:
+      - Wprowadzenie: 13-wydajnosc/index.md
+      - Pomiar czasu i profilowanie: 13-wydajnosc/pomiar-i-profilowanie.md
+      - Optymalizacja kodu: 13-wydajnosc/optymalizacja-kodu.md
+      - Drogi przyspieszania: 13-wydajnosc/przyspieszanie-pythona.md
