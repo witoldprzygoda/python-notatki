@@ -226,4 +226,4 @@ Test nie potrzebuje pliku z 240 zamówieniami — trzy wiersze o znanych wartoś
 
 ## Dalej: projekt raportu
 
-Ścieżkę danych zamyka projekt: z pliku surowego, przez czyszczenie, złączenia i agregacje z tego rozdziału, do raportu z tabelami i wykresami odtwarzanego jednym poleceniem — w układzie projektu z rozdziału 1 i ze skryptem generującym z rozdziału 3. <!-- TODO: link po powstaniu rozdziału o projekcie raportu z danych -->
+Ścieżkę danych zamyka [projekt](../06-projekt-dane/index.md): z pliku surowego, przez czyszczenie, złączenia i agregacje z tego rozdziału, do raportu z tabelami i wykresami odtwarzanego jednym poleceniem — w układzie projektu z rozdziału 1 i ze skryptem generującym z rozdziału 3.

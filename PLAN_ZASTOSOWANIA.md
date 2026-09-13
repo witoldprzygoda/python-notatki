@@ -21,7 +21,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 3 | Matplotlib w praktyce | Dane | `zastosowania/03-matplotlib/` | 5 | ukończony — 14 IX 2026 (`plans/z03-matplotlib.md`; index + 5 stron, ok. 950 linii; 24 skrypty, 20 wykresów; trzy recenzje naniesione; zapowiedź z rozdziału 2 domknięta) |
 | 4 | pandas — tabele | Dane | `zastosowania/04-pandas-tabele/` | 5 | ukończony — 14 IX 2026 (`plans/z04-pandas-tabele.md`; index + 5 stron, ok. 970 linii; 26 skryptów, 1 wykres, pliki `dane/`; trzy recenzje naniesione; 7 zapowiedzi domkniętych, 1 przemianowana dla rozdziału 5) |
 | 5 | pandas — analiza | Dane | `zastosowania/05-pandas-analiza/` | 5 | ukończony — 14 IX 2026 (`plans/z05-pandas-analiza.md`; index + 5 stron, ok. 1060 linii; 27 skryptów, 1 wykres, pliki `dane/` z generatora; trzy recenzje naniesione; 3 zapowiedzi domknięte) |
-| 6 | Projekt: raport z danych | Dane | `zastosowania/06-projekt-dane/` | 3 | w realizacji — `plans/z06-projekt-dane.md` |
+| 6 | Projekt: raport z danych | Dane | `zastosowania/06-projekt-dane/` | 3 | ukończony — 14 IX 2026 (`plans/z06-projekt-dane.md`; index + 3 strony, ok. 650 linii; projekt `raport-sprzedazy` z 13 plików, 5 testów, 3 rysunki; trzy recenzje naniesione; zapowiedź z rozdziału 5 domknięta). **Ścieżka Dane ukończona.** |
 | 7 | Uczenie maszynowe — pojęcia i warsztat | Uczenie maszynowe | `zastosowania/07-ml-pojecia/` | 4 | zaplanowany |
 | 8 | Klasyfikacja | Uczenie maszynowe | `zastosowania/08-klasyfikacja/` | 4 | zaplanowany |
 | 9 | Regresja i przygotowanie danych | Uczenie maszynowe | `zastosowania/09-regresja/` | 4 | zaplanowany |

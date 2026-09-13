@@ -33,4 +33,4 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 5. [pandas — analiza](05-pandas-analiza/index.md) — grupowanie, tabele przestawne, łączenie tabel, szeregi czasowe, wydajność i potok
 6. [Projekt: raport z danych](06-projekt-dane/index.md) — zadanie, dane i decyzje, potok z testami, raport z rysunkami i tabelami
 
-Pozostałe ścieżki powstają po ukończeniu ścieżki danych.
+Ścieżka danych jest ukończona; pozostałe ścieżki są w przygotowaniu.
