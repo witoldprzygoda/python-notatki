@@ -36,7 +36,7 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | 7 | 7. Moduły, pakiety i biblioteka standardowa | `docs/07-moduly/` | wysoki | 8 | index + 8 stron, 2426 linii | lab3 | ukończony |
 | 8 | 8. Wyjątki i zarządzanie zasobami | `docs/08-wyjatki/` | wysoki | 6 | index + 6 stron, 1823 linie | — | ukończony |
 | 9 | 9. Wejście, wyjście i pliki | `docs/09-wejscie-wyjscie/` | wysoki | 7 | index + 7 stron, ok. 1000–1100 linii | lab2 | zaplanowany |
-| 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, ok. 850–950 linii | lab5 | zaplanowany |
+| 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, ok. 850–950 linii | lab5 | w realizacji |
 | 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, ok. 750–850 linii | lab5 | zaplanowany |
 | 12 | 12. Programowanie obiektowe — mechanizmy zaawansowane | `docs/12-oop-zaawansowane/` | średni | 5 | index + 5 stron, ok. 850–950 linii | lab7, lab8 | zaplanowany |
 | 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, ok. 450–520 linii | zapowiedź lab6 | zaplanowany |
@@ -315,7 +315,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - __dict__ klasy 3.13+ (__static_attributes__, __firstlineno__); „Did you mean” tylko w pełnym tracebacku; komunikat property bez settera 3.11+
 - super(K, self) jako pełna forma, nie „Python 2”; linki StackOverflow/quantifiedcode z PDF — zastąpić (types.MethodType)
 
-**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii.
+**Priorytet:** wysoki. **Szacunek rozmiaru:** index + 5 stron, ok. 850–950 linii. **Status:** w realizacji — projekt stron zaakceptowany 13 IX 2026 (`plans/10-klasy.md`); etykieta ostatniej strony „Cykl życia obiektu” bez dopisku.
 
 ### 11. Model danych — metody specjalne i protokoły (`docs/11-model-danych/`)
 
@@ -339,6 +339,8 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 8 `with-i-contextlib.md`: protokół menedżera kontekstu jako klasa z `__enter__`/`__exit__` (`TODO: link po powstaniu rozdziału o modelu danych`)
 - luka: NotImplemented, __getitem__ krotkowy (lab5); własny iterator (W08 s. 16); menedżer kontekstu jako klasa (W05 s. 29); deskryptory (PDF s. 95–98); klasa Pisarz (PDF 5423–5488)
 - 13 iter(callable, sentinel) od strony __call__
+- 9 `print-i-strumienie.md:204`: obiekt z metodą `write()` jako własna klasa (`TODO: link po powstaniu rozdziału o modelu danych`)
+- 10 `definicja-klasy.md`: `__call__` na instancji; `atrybuty-i-metody.md` i `reprezentacja-i-wlasciwosci.md`: mechanizm deskryptora za `property` i `classmethod`; `reprezentacja-i-wlasciwosci.md` i `dziedziczenie.md`: `__eq__`/`__hash__`, `__format__`; `index.md`: iteratory i menedżery kontekstu jako klasy (`TODO: link po powstaniu rozdziału o modelu danych`)
 
 **Podział na strony.**
 
@@ -384,6 +386,8 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 **Zapowiedzi i luki, które rozdział domyka.**
 - luka: MRO/__new__/super (lab7/lab8, PDF s. 101–108); ABC (PDF s. 117–119); dataclass/NamedTuple/Enum/Protocol/__init_subclass__ (W07); metaklasy (PDF s. 108–117); match zaawansowane (W05 sl. 44)
 - zapowiedź z 7 (namedtuple → NamedTuple/dataclass)
+- 9 `csv-i-json.md:226`: zapis obiektów klas danych do JSON (`TODO: link po powstaniu rozdziału o klasach danych`)
+- 10 `dziedziczenie.md`: kolejność rozstrzygania metod i dziedziczenie wielokrotne, klasy abstrakcyjne, kompozycja i wzorce; `atrybuty-i-metody.md`: `__init_subclass__`; `cykl-zycia-obiektu.md`: Singleton przez dekorator klasy, łańcuch `__new__` w hierarchii; `index.md`: klasy danych (`TODO: link po powstaniu rozdziału o zaawansowanych mechanizmach obiektowych`)
 
 **Podział na strony.**
 
@@ -427,6 +431,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 **Zapowiedzi i luki, które rozdział domyka.**
 - luka: profilowanie/optymalizacja (W12 s. 20–22); zapowiedź lab6 (Cython, mypyc, ndarray, @jit); dis (W04 s. 46, PDF 2411–2466); __slots__ benchmark (W06 s. 19, W07 s. 40)
 - 8 `with-i-contextlib.md`: stoper z `time.perf_counter()` — zapowiedź „szczegółowe omówienie pomiarów czasu w rozdziale o wydajności” (`TODO: link po powstaniu rozdziału o wydajności`)
+- 10 `atrybuty-i-metody.md`: pomiar pamięci z `__slots__` (`TODO: link po powstaniu rozdziału o wydajności`)
 
 **Podział na strony.**
 
@@ -515,6 +520,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 8 `styl-i-testowanie.md`: grupy wyjątków i `except*` w programach współbieżnych; `logging.md`: dziennik z wielu wątków (`TODO: link po powstaniu rozdziału o współbieżności`)
 - 6 async, await (zapowiedź; przykład w 16)
 - luka: GIL/threading/multiprocessing/concurrent.futures/Lock (lab11, python_thread) nieobecne
+- 10 `cykl-zycia-obiektu.md`: kompilacja wolnowątkowa a licznik referencji (`TODO: link po powstaniu rozdziału o współbieżności`)
 
 **Podział na strony.**
 
@@ -561,6 +567,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 3 praktyka z AI — realizowana jako rozbudowa ai-tools.md; tu odsyłacz
 - 6 async/await (przykład w co-dalej.md)
 - luka: pytest zaawansowany, typy, ruff/pre-commit, Actions (W12 s. 3–14, 19); „co dalej” (W12 s. 20–26, 29–32)
+- 10 `definicja-klasy.md`: adnotacje w klasach, jeśli padnie (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
 
 **Podział na strony.**
 

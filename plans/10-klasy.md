@@ -2,7 +2,9 @@
 
 Skondensowany projekt stron rozdziału 10 według `PLAN_ROZWOJU.md` (sekcja 4, „10. Klasy i obiekty”) i `DEVELOPMENT_WORKFLOW.md`. Branch: `content/10-klasy` (z `dev` po integracji rozdziału 9, commit `b70288a`). Stan odniesienia: Python 3.14.7 w `.venv` projektu (Windows), MkDocs Material; na komputerze autora dostępna także kompilacja wolnowątkowa `py -V:3.14t` (do jednego zdania na stronie 5).
 
-## Decyzje do zatwierdzenia (13 IX 2026)
+## Decyzje autora (13 IX 2026)
+
+Plan zaakceptowany 13 IX 2026 w całości. Autor apeluje o szczególną staranność w kontroli materiału — rozdział należy do najważniejszych w książce; każda strona przechodzi pełny cykl weryfikacji z checklisty i niezależną recenzję przed odbiorem.
 
 1. **Struktura:** index + 5 podrozdziałów w kolejności: definicja klasy → atrybuty klasy, metody klasowe i statyczne → reprezentacja, właściwości i hermetyzacja → dziedziczenie → cykl życia obiektu. Etykieta nav i H1 ostatniej strony „Cykl życia obiektu” bez dopisku „(dla dociekliwych)” — charakter uzupełniający zaznaczony w pierwszym akapicie i w `index.md` (konwencja z rozdziałów 7 i 9; tabela w `PLAN_ROZWOJU.md` ma jeszcze dopisek).
 2. **Zakres rozdziału:** wyłącznie dziedziczenie pojedyncze i metody specjalne `__init__`, `__repr__`, `__str__`, `__new__`, `__del__`. Bez przeciążania operatorów, `__eq__`/`__hash__`, `__len__`, `__call__` na instancji, iteratorów i menedżerów kontekstu jako klas, deskryptorów (→ rozdział o modelu danych); bez dziedziczenia wielokrotnego, MRO jako mechanizmu, klas abstrakcyjnych, `@dataclass`, wzorców projektowych poza Singletonem (→ rozdział o zaawansowanych mechanizmach obiektowych); `__slots__` w rdzeniu krótko, pomiar pamięci → rozdział o wydajności.
@@ -12,7 +14,7 @@ Skondensowany projekt stron rozdziału 10 według `PLAN_ROZWOJU.md` (sekcja 4, �
 6. **Strona 5 jako uzupełniająca:** `__new__` a `__init__`, Singleton, `sys.getrefcount()` z obiektami nieśmiertelnymi (PEP 683), `__del__`, `weakref`, cykle referencji i `gc`, `__slots__` a dziedziczenie. Jedno zdanie o kompilacji wolnowątkowej (inne wartości `getrefcount()`) z zapowiedzią rozdziału o współbieżności.
 7. **Ślady wywołań** z komunikatami „Did you mean” i sygnaturą `missing 1 required positional argument: 'self'` jako bloki `.text .no-copy` z uruchomienia; domyślne `repr` z adresem maskowane w harnessie (`--mask=0x[0-9A-Fa-f]+`).
 8. **Szacunek rozmiaru** z `PLAN_ROZWOJU.md` (850–950 linii) orientacyjny; przy gęstości rozdziałów 6–9 spodziewane ok. 1500–1800 linii.
-9. **Zapowiedzi w przód** prozą po temacie z `TODO` i wpisem w `PLAN_ROZWOJU.md` (lista na końcu planu); rejestrowane przy akceptacji planu.
+9. **Zapowiedzi w przód** prozą po temacie z `TODO` i wpisem w `PLAN_ROZWOJU.md` (lista na końcu planu); zarejestrowane 13 IX 2026 w sekcjach 11, 12, 13, 15 i 16 (wraz z zaległymi zapowiedziami z rozdziału 9).
 
 ## Zasady obowiązujące w całym rozdziale
 
