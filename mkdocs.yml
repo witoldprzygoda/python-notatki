@@ -161,3 +161,10 @@ nav:
       - Protokół iteracji: 11-model-danych/iteracja.md
       - Menedżery kontekstu i obiekty plikopodobne: 11-model-danych/menedzery-kontekstu.md
       - Deskryptory: 11-model-danych/deskryptory.md
+  - 12. Programowanie obiektowe — mechanizmy zaawansowane:
+      - Wprowadzenie: 12-oop-zaawansowane/index.md
+      - Dziedziczenie wielokrotne i MRO: 12-oop-zaawansowane/dziedziczenie-wielokrotne.md
+      - Mixiny, kompozycja i klasy abstrakcyjne: 12-oop-zaawansowane/mixiny-i-abstrakcja.md
+      - Klasy danych — dataclass, NamedTuple i Enum: 12-oop-zaawansowane/klasy-danych.md
+      - Wzorce projektowe: 12-oop-zaawansowane/wzorce-projektowe.md
+      - Metaprogramowanie: 12-oop-zaawansowane/metaprogramowanie.md
