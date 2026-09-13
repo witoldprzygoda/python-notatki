@@ -166,7 +166,7 @@ temperatura          1.0    0.9
 opady                0.9    1.0
 ```
 
-`read_csv()` bez argumentów wystarcza dla pliku z przecinkami i kropkami; każda kolumna dostaje własny typ, więc `rok` i `miesiac` są całkowite. `groupby("rok")` dzieli tabelę na grupy według roku i liczy średnie każdej grupy — to jedno wyrażenie zastępuje pętlę z maskami z rozdziału 1, a pełne omówienie grupowania to następny rozdział ścieżki. <!-- TODO: link po powstaniu rozdziału o analizie w pandas --> `idxmax()` zwraca etykietę wiersza z największą wartością, a `loc` z tą etykietą w liście zwraca jednowierszową ramkę (z pojedynczą etykietą zwróciłby serię, w której liczby całkowite zmieniłyby się w zmiennoprzecinkowe); `corr()` liczy macierz korelacji kolumn.
+`read_csv()` bez argumentów wystarcza dla pliku z przecinkami i kropkami; każda kolumna dostaje własny typ, więc `rok` i `miesiac` są całkowite. `groupby("rok")` dzieli tabelę na grupy według roku i liczy średnie każdej grupy — to jedno wyrażenie zastępuje pętlę z maskami z rozdziału 1, a pełne omówienie grupowania to [następny rozdział ścieżki](../05-pandas-analiza/grupowanie.md). `idxmax()` zwraca etykietę wiersza z największą wartością, a `loc` z tą etykietą w liście zwraca jednowierszową ramkę (z pojedynczą etykietą zwróciłby serię, w której liczby całkowite zmieniłyby się w zmiennoprzecinkowe); `corr()` liczy macierz korelacji kolumn.
 
 ## Zapis — `to_csv()`
 

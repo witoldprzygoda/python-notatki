@@ -164,4 +164,4 @@ True miesiac ['2024', '2025']
 
 ## Dalej: analiza
 
-Tabela jest wczytana, oczyszczona i wzbogacona o kolumny; następny rozdział ścieżki odpowiada na pytania, które wymagają porównania grup i tabel: ile sprzedano w każdej kategorii i mieście (`groupby()` z agregacjami), jak dołączyć do zamówień dane klientów z drugiej tabeli (`merge()`), jak ułożyć kategorie w wierszach i miesiące w kolumnach (`pivot_table()`) oraz jak z dat zrobić szereg czasowy z sumami tygodniowymi i średnią ruchomą (`resample()`, `rolling()`). <!-- TODO: link po powstaniu rozdziału o analizie w pandas -->
+Tabela jest wczytana, oczyszczona i wzbogacona o kolumny; następny rozdział ścieżki odpowiada na pytania, które wymagają porównania grup i tabel: ile sprzedano w każdej kategorii i mieście (`groupby()` z agregacjami), jak dołączyć do zamówień dane klientów z drugiej tabeli (`merge()`), jak ułożyć kategorie w wierszach i miesiące w kolumnach (`pivot_table()`) oraz jak z dat zrobić szereg czasowy z sumami tygodniowymi i średnią ruchomą (`resample()`, `rolling()`) — [rozdział o analizie w pandas](../05-pandas-analiza/index.md).
