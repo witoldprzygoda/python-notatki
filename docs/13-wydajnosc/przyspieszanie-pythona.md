@@ -96,7 +96,7 @@ py -V:3.14t gil.py
 GIL włączony: False
 ```
 
-W wariancie free-threaded wątki mogą wykonywać kod Pythona równolegle na wielu rdzeniach; w standardowym interpreterze równoległość dają osobne procesy. Wątki w wariancie free-threaded, procesy, a także wątki w standardowym interpreterze dla zadań czekających na wejście i wyjście — wszystkie te drogi omawiamy w rozdziale o współbieżności. <!-- TODO: link po powstaniu rozdziału o współbieżności -->
+W wariancie free-threaded wątki mogą wykonywać kod Pythona równolegle na wielu rdzeniach; w standardowym interpreterze równoległość dają osobne procesy. Wątki w wariancie free-threaded, procesy, a także wątki w standardowym interpreterze dla zadań czekających na wejście i wyjście — wszystkie te drogi omawiamy w rozdziale [15. Współbieżność — wątki, procesy i GIL](../15-wspolbieznosc/index.md), a pomiary — w podrozdziale [Studia wydajności i asyncio](../15-wspolbieznosc/studia-wydajnosci.md#zadania-ograniczone-procesorem).
 
 ## Python 3.15 — pakiet `profiling`
 

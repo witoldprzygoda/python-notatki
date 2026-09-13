@@ -246,4 +246,4 @@ Metoda `__format__` otrzymuje specyfikację z pola f-stringa — to, co stoi po 
 
 ## Zapowiedź — blokady
 
-Menedżery kontekstu spotkamy jeszcze w jednym ważnym miejscu: blokada w programie wielowątkowym jest menedżerem kontekstu, a `with blokada:` gwarantuje jej zwolnienie także przy wyjątku; wracamy do tego w rozdziale o współbieżności. <!-- TODO: link po powstaniu rozdziału o współbieżności -->
+Menedżery kontekstu spotkamy jeszcze w jednym ważnym miejscu: blokada w programie wielowątkowym jest menedżerem kontekstu, a `with blokada:` gwarantuje jej zwolnienie także przy wyjątku; wracamy do tego w podrozdziale [Synchronizacja](../15-wspolbieznosc/synchronizacja.md#blokada-lock-i-instrukcja-with) rozdziału 15.

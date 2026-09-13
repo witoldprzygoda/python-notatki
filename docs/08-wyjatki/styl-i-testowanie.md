@@ -329,6 +329,6 @@ except* ValueError as grupa:
 - invalid literal for int() with base 10: 'y'
 ```
 
-Grupy wyjątków powstały z myślą o programach współbieżnych, w których kilka zadań może zawieść jednocześnie, i tam wrócą w rozdziale o współbieżności; w programach sekwencyjnych przydają się przy walidacji zbiorów danych. <!-- TODO: link po powstaniu rozdziału o współbieżności --> Do codziennej pracy wystarczą zwykłe `raise` i `except`.
+Grupy wyjątków powstały z myślą o programach współbieżnych, w których kilka zadań może zawieść jednocześnie, i tam do nich wracamy — w podrozdziale [Studia wydajności i asyncio](../15-wspolbieznosc/studia-wydajnosci.md#zapowiedz-asyncio) rozdziału 15; w programach sekwencyjnych przydają się przy walidacji zbiorów danych. Do codziennej pracy wystarczą zwykłe `raise` i `except`.
 
 Pozostał ostatni element składni związany z wyjątkami: instrukcja `with`, którą widzieliśmy przy `pytest.raises()`. Jej właściwym zadaniem jest zwalnianie zasobów niezależnie od tego, czy wystąpił wyjątek — temat następnego podrozdziału.

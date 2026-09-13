@@ -378,7 +378,7 @@ print(konfiguracja["project"]["version"])
 0.1.0
 ```
 
-Moduł `pickle` serializuje niemal dowolne obiekty Pythona do postaci binarnej, także takie, których JSON nie obsługuje. Ma dwie wady, przez które w tej książce z niego nie korzystamy: odczyt danych `pickle` z niezaufanego źródła może wykonać dowolny kod — dokumentacja ostrzega o tym wprost — a format jest zrozumiały tylko dla Pythona: nowszy interpreter odczyta starsze dane, ale nie odwrotnie, a każda zmiana własnych typów danych w programie unieważnia zapisane pliki. Do wymiany danych i ich przechowywania wybieramy JSON albo CSV.
+Moduł `pickle` serializuje niemal dowolne obiekty Pythona do postaci binarnej, także takie, których JSON nie obsługuje. Ma dwie wady, przez które w tej książce nie zapisujemy nim własnych danych — pośrednio korzystają z niego jednak `multiprocessing` i `concurrent.futures` z rozdziału [15. Współbieżność — wątki, procesy i GIL](../15-wspolbieznosc/procesy-i-executory.md), przesyłając nim argumenty i wyniki między procesami: odczyt danych `pickle` z niezaufanego źródła może wykonać dowolny kod — dokumentacja ostrzega o tym wprost — a format jest zrozumiały tylko dla Pythona: nowszy interpreter odczyta starsze dane, ale nie odwrotnie, a każda zmiana własnych typów danych w programie unieważnia zapisane pliki. Do wymiany danych i ich przechowywania wybieramy JSON albo CSV.
 
 Pakiet `compression` (od Pythona 3.14) zbiera moduły kompresji pod wspólną nazwą — `compression.gzip`, `compression.bz2`, `compression.lzma`, `compression.zlib` — i dodaje `compression.zstd`, obsługujący nowoczesny algorytm Zstandard. Kompresja działa na bajtach, więc tekst najpierw kodujemy:
 
