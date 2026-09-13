@@ -211,3 +211,10 @@ nav:
           - Algebra liniowa i dopasowanie: zastosowania/02-numpy/algebra-liniowa.md
           - Losowość i symulacje: zastosowania/02-numpy/losowosc-i-symulacje.md
           - Wydajność i pamięć: zastosowania/02-numpy/wydajnosc-i-pamiec.md
+      - 3. Matplotlib w praktyce:
+          - Wprowadzenie: zastosowania/03-matplotlib/index.md
+          - Anatomia wykresu i style: zastosowania/03-matplotlib/anatomia-wykresu.md
+          - Wykresy dla danych: zastosowania/03-matplotlib/wykresy-danych.md
+          - Daty i szeregi czasowe: zastosowania/03-matplotlib/szeregi-czasowe.md
+          - Wiele paneli i układ: zastosowania/03-matplotlib/wiele-paneli-i-uklad.md
+          - Wykres do raportu i publikacji: zastosowania/03-matplotlib/zapis-i-raport.md

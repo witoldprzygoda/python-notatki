@@ -18,7 +18,7 @@
 Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały „Python Notatki”, na których buduje.
 
 - **Jedna biblioteka na rozdział.** Gdy zadanie ma kilka równorzędnych narzędzi, wybieramy jedno i wskazuje pozostałe jednym zdaniem.
-- **Wersje w chwili pisania.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, i plik wymagań z przypiętymi wersjami.
+- **Wersje w chwili pisania.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, a pakiety instalujemy w środowisku projektu z rozdziału 1 według pliku wymagań z przypiętymi wersjami.
 - **Każdy listing uruchomiony.** Wyniki, wykresy i komunikaty w tekście pochodzą z rzeczywistych uruchomień; dane przykładowe są osadzone w tekście.
 - **Najpierw biblioteka standardowa.** Pakiet zewnętrzny instalujemy wtedy, gdy zadanie tego wymaga, nie z przyzwyczajenia.
 
@@ -28,7 +28,7 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 
 1. [Jupyter i warsztat danych](01-jupyter/index.md) — notatnik w VSC, środowisko projektu danych, czytanie dokumentacji bibliotek, pierwsza analiza
 2. [NumPy w praktyce](02-numpy/index.md) — tablice wielowymiarowe, statystyka i porządkowanie, algebra liniowa, losowość i symulacje, wydajność i pamięć
-3. Matplotlib w praktyce — w przygotowaniu
+3. [Matplotlib w praktyce](03-matplotlib/index.md) — anatomia wykresu, wykresy dla danych, szeregi czasowe, wiele paneli, wykres do raportu
 4. pandas — tabele — w przygotowaniu
 5. pandas — analiza — w przygotowaniu
 6. Projekt: raport z danych — w przygotowaniu
