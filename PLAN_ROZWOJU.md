@@ -37,7 +37,7 @@ Zmiany po weryfikacji: limit rekurencji w rozdz. 6 opisany prozą, odczyt i zmia
 | 8 | 8. Wyjątki i zarządzanie zasobami | `docs/08-wyjatki/` | wysoki | 6 | index + 6 stron, 1823 linie | — | ukończony |
 | 9 | 9. Wejście, wyjście i pliki | `docs/09-wejscie-wyjscie/` | wysoki | 7 | index + 7 stron, 1834 linie | lab2 | ukończony |
 | 10 | 10. Klasy i obiekty | `docs/10-klasy/` | wysoki | 5 | index + 5 stron, 1588 linii | lab5 | ukończony |
-| 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, ok. 750–850 linii | lab5 | zaplanowany |
+| 11 | 11. Model danych — metody specjalne i protokoły | `docs/11-model-danych/` | średni | 5 | index + 5 stron, ok. 750–850 linii | lab5 | w realizacji |
 | 12 | 12. Programowanie obiektowe — mechanizmy zaawansowane | `docs/12-oop-zaawansowane/` | średni | 5 | index + 5 stron, ok. 850–950 linii | lab7, lab8 | zaplanowany |
 | 13 | 13. Wydajność i optymalizacja | `docs/13-wydajnosc/` | średni | 3 | index + 3 strony, ok. 450–520 linii | zapowiedź lab6 | zaplanowany |
 | 14 | 14. NumPy i Matplotlib | `docs/14-numpy-matplotlib/` | średni | 5 | index + 5 stron, ok. 800–900 linii | lab9–10 | zaplanowany |
@@ -364,7 +364,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - time.perf_counter; import na poziomie modułu; brakujący __repr__ w przykładzie total_ordering
 - zrzuty PDF (dir, TypeError dla str) jako sesje REPL 3.14; adresy jako przykładowe
 
-**Priorytet:** średni. **Szacunek rozmiaru:** index + 5 stron, ok. 750–850 linii.
+**Priorytet:** średni. **Szacunek rozmiaru:** index + 5 stron, ok. 750–850 linii. **Status:** w realizacji — projekt stron `plans/11-model-danych.md` z 14 IX 2026 (realizacja autonomiczna na polecenie autora); etykieta ostatniej strony „Deskryptory” bez dopisku.
 
 ### 12. Programowanie obiektowe — mechanizmy zaawansowane (`docs/12-oop-zaawansowane/`)
 
@@ -388,6 +388,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - zapowiedź z 7 (namedtuple → NamedTuple/dataclass)
 - 9 `csv-i-json.md:226`: zapis obiektów klas danych do JSON (`TODO: link po powstaniu rozdziału o klasach danych`)
 - 10 `dziedziczenie.md`: kolejność rozstrzygania metod i dziedziczenie wielokrotne, klasy abstrakcyjne, kompozycja i wzorce; `atrybuty-i-metody.md`: `__init_subclass__`; `cykl-zycia-obiektu.md`: Singleton przez dekorator klasy, łańcuch `__new__` w hierarchii; `index.md`: klasy danych (`TODO: link po powstaniu rozdziału o zaawansowanych mechanizmach obiektowych`)
+- 11 `kolekcje-i-wywolania.md`: klasy abstrakcyjne i `collections.abc`; `operatory.md`: klasy danych z automatycznym `__eq__`/`__hash__`/`__repr__`; `deskryptory.md`: metaklasy, `__getattribute__`, dekoratory klas (`TODO: link po powstaniu rozdziału o zaawansowanych mechanizmach obiektowych` / `o klasach danych`)
 
 **Podział na strony.**
 
@@ -432,6 +433,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - luka: profilowanie/optymalizacja (W12 s. 20–22); zapowiedź lab6 (Cython, mypyc, ndarray, @jit); dis (W04 s. 46, PDF 2411–2466); __slots__ benchmark (W06 s. 19, W07 s. 40)
 - 8 `with-i-contextlib.md`: stoper z `time.perf_counter()` — zapowiedź „szczegółowe omówienie pomiarów czasu w rozdziale o wydajności” (`TODO: link po powstaniu rozdziału o wydajności`)
 - 10 `atrybuty-i-metody.md`: pomiar pamięci z `__slots__` (`TODO: link po powstaniu rozdziału o wydajności`)
+- 11 `operatory.md`, `deskryptory.md`: koszt `total_ordering` i deskryptorów — jedno zdanie (`TODO: link po powstaniu rozdziału o wydajności`)
 
 **Podział na strony.**
 
@@ -474,6 +476,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 11 numpy.arange/linspace
 - 19 NumPy ndarray, macierze
 - luka: np.float32/64 i isclose (lab3); __matmul__ (W06 s. 37); benchmark z 13
+- 11 `operatory.md`: `__matmul__` w NumPy; `kolekcje-i-wywolania.md`: `__getitem__` z krotką indeksów w tablicach (`TODO: link po powstaniu rozdziału o NumPy`)
 
 **Podział na strony.**
 
@@ -521,6 +524,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 6 async, await (zapowiedź; przykład w 16)
 - luka: GIL/threading/multiprocessing/concurrent.futures/Lock (lab11, python_thread) nieobecne
 - 10 `cykl-zycia-obiektu.md`: kompilacja wolnowątkowa a licznik referencji (`TODO: link po powstaniu rozdziału o współbieżności`)
+- 11 `menedzery-kontekstu.md`: `with blokada:` (`TODO: link po powstaniu rozdziału o współbieżności`)
 
 **Podział na strony.**
 
@@ -568,6 +572,7 @@ Szczegółowy projekt stron (kolejność sekcji, zależności pojęciowe, kluczo
 - 6 async/await (przykład w co-dalej.md)
 - luka: pytest zaawansowany, typy, ruff/pre-commit, Actions (W12 s. 3–14, 19); „co dalej” (W12 s. 20–26, 29–32)
 - 10 `definicja-klasy.md`: adnotacje w klasach, jeśli padnie (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
+- 11 `operatory.md`: adnotacje w `singledispatchmethod`; `kolekcje-i-wywolania.md`: `typing.Protocol` — jedno zdanie (`TODO: link po powstaniu rozdziału o narzędziach analizy typów`)
 
 **Podział na strony.**
 
