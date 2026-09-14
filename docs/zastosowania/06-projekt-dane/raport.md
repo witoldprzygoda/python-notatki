@@ -187,4 +187,4 @@ Raport w Markdown otwiera się w VSC z podglądem, w MkDocs jak ta książka i w
 
 ## Dalej: uczenie maszynowe
 
-Ścieżka danych kończy się tu: czytelnik potrafi przyjąć plik, doprowadzić go do tabeli, na której można polegać, i oddać raport, który da się odtworzyć. Następna ścieżka — uczenie maszynowe — zaczyna od tych samych tabel i pyta, czego można się z nich nauczyć o przyszłości: który klient złoży kolejne zamówienie, jaka będzie sprzedaż w następnym miesiącu, które zamówienia są nietypowe. <!-- TODO: link po powstaniu rozdziału o pojęciach uczenia maszynowego -->
+Ścieżka danych kończy się tu: czytelnik potrafi przyjąć plik, doprowadzić go do tabeli, na której można polegać, i oddać raport, który da się odtworzyć. Następna ścieżka — [uczenie maszynowe](../07-ml-pojecia/index.md) — zaczyna od tych samych tabel i pyta, czego można się z nich nauczyć o przyszłości: który klient złoży kolejne zamówienie, jaka będzie sprzedaż w następnym miesiącu, które zamówienia są nietypowe.

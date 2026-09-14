@@ -22,7 +22,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 4 | pandas — tabele | Dane | `zastosowania/04-pandas-tabele/` | 5 | ukończony — 14 IX 2026 (`plans/z04-pandas-tabele.md`; index + 5 stron, ok. 970 linii; 26 skryptów, 1 wykres, pliki `dane/`; trzy recenzje naniesione; 7 zapowiedzi domkniętych, 1 przemianowana dla rozdziału 5) |
 | 5 | pandas — analiza | Dane | `zastosowania/05-pandas-analiza/` | 5 | ukończony — 14 IX 2026 (`plans/z05-pandas-analiza.md`; index + 5 stron, ok. 1060 linii; 27 skryptów, 1 wykres, pliki `dane/` z generatora; trzy recenzje naniesione; 3 zapowiedzi domknięte) |
 | 6 | Projekt: raport z danych | Dane | `zastosowania/06-projekt-dane/` | 3 | ukończony — 14 IX 2026 (`plans/z06-projekt-dane.md`; index + 3 strony, ok. 650 linii; projekt `raport-sprzedazy` z 13 plików, 5 testów, 3 rysunki; trzy recenzje naniesione; zapowiedź z rozdziału 5 domknięta). **Ścieżka Dane ukończona.** |
-| 7 | Uczenie maszynowe — pojęcia i warsztat | Uczenie maszynowe | `zastosowania/07-ml-pojecia/` | 4 | w realizacji — `plans/z07-ml-pojecia.md` |
+| 7 | Uczenie maszynowe — pojęcia i warsztat | Uczenie maszynowe | `zastosowania/07-ml-pojecia/` | 4 | ukończony — 14 IX 2026 (`plans/z07-ml-pojecia.md`; index + 4 strony, ok. 660 linii; 18 skryptów, 5 wykresów; trzy recenzje naniesione; zapowiedzi z rozdziału 6 i rozdziału 14 „Python Notatki” domknięte) |
 | 8 | Klasyfikacja | Uczenie maszynowe | `zastosowania/08-klasyfikacja/` | 4 | zaplanowany |
 | 9 | Regresja i przygotowanie danych | Uczenie maszynowe | `zastosowania/09-regresja/` | 4 | zaplanowany |
 | 10 | Uczenie bez nadzoru | Uczenie maszynowe | `zastosowania/10-bez-nadzoru/` | 3 | zaplanowany |
@@ -47,7 +47,7 @@ Kolejność realizacji: ścieżka Dane (1–6) → Uczenie maszynowe (7–12) �
 | Plik części „Python Notatki” | Zapowiedź | Rozdział części „Python Zastosowania” |
 |---|---|---|
 | `09-wejscie-wyjscie/csv-i-json.md:117`, `14-numpy-matplotlib/ndarray.md:276` | pandas — tabele z nazwanymi kolumnami | 4 — domknięte 14 IX 2026 |
-| `14-numpy-matplotlib/przyklady-i-rozszerzenia.md:170` | SciPy i scikit-learn | 7 (scikit-learn); SciPy — wzmianka w 2 |
+| `14-numpy-matplotlib/przyklady-i-rozszerzenia.md:170` | SciPy i scikit-learn | 7 (scikit-learn); SciPy — wzmianka w 2 — domknięte 14 IX 2026 |
 | `06-funkcje/funkcje-jako-obiekty.md:67`, `12-oop-zaawansowane/wzorce-projektowe.md:234`, `15-wspolbieznosc/synchronizacja.md:235` | tkinter | 16 |
 
 ## 3. Pytania otwarte
