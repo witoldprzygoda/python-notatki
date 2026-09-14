@@ -23,7 +23,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 5 | pandas — analiza | Dane | `zastosowania/05-pandas-analiza/` | 5 | ukończony — 14 IX 2026 (`plans/z05-pandas-analiza.md`; index + 5 stron, ok. 1060 linii; 27 skryptów, 1 wykres, pliki `dane/` z generatora; trzy recenzje naniesione; 3 zapowiedzi domknięte) |
 | 6 | Projekt: raport z danych | Dane | `zastosowania/06-projekt-dane/` | 3 | ukończony — 14 IX 2026 (`plans/z06-projekt-dane.md`; index + 3 strony, ok. 650 linii; projekt `raport-sprzedazy` z 13 plików, 5 testów, 3 rysunki; trzy recenzje naniesione; zapowiedź z rozdziału 5 domknięta). **Ścieżka Dane ukończona.** |
 | 7 | Uczenie maszynowe — pojęcia i warsztat | Uczenie maszynowe | `zastosowania/07-ml-pojecia/` | 4 | ukończony — 14 IX 2026 (`plans/z07-ml-pojecia.md`; index + 4 strony, ok. 660 linii; 18 skryptów, 5 wykresów; trzy recenzje naniesione; zapowiedzi z rozdziału 6 i rozdziału 14 „Python Notatki” domknięte) |
-| 8 | Klasyfikacja | Uczenie maszynowe | `zastosowania/08-klasyfikacja/` | 4 | zaplanowany |
+| 8 | Klasyfikacja | Uczenie maszynowe | `zastosowania/08-klasyfikacja/` | 4 | w realizacji — `plans/z08-klasyfikacja.md` |
 | 9 | Regresja i przygotowanie danych | Uczenie maszynowe | `zastosowania/09-regresja/` | 4 | zaplanowany |
 | 10 | Uczenie bez nadzoru | Uczenie maszynowe | `zastosowania/10-bez-nadzoru/` | 3 | zaplanowany |
 | 11 | PyTorch — tensory i sieć neuronowa | Uczenie maszynowe | `zastosowania/11-pytorch/` | 5 | zaplanowany |

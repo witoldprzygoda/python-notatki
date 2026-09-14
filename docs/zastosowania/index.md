@@ -36,5 +36,6 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 **Ścieżka uczenia maszynowego**
 
 7. [Uczenie maszynowe — pojęcia i warsztat](07-ml-pojecia/index.md) — pojęcia, pierwszy model od początku do końca, warsztat scikit-learn, przeuczenie i uczciwa ocena
+8. [Klasyfikacja](08-klasyfikacja/index.md) — miary klasyfikacji, regresja logistyczna, drzewa decyzyjne i lasy losowe, wybór modelu i interpretacja
 
-Ścieżka danych jest ukończona; rozdziały 8–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.
+Ścieżka danych jest ukończona; rozdziały 9–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.

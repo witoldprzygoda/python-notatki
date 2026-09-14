@@ -243,3 +243,9 @@ nav:
           - Pierwszy model od początku do końca: zastosowania/07-ml-pojecia/pierwszy-model.md
           - Warsztat scikit-learn: zastosowania/07-ml-pojecia/warsztat.md
           - Przeuczenie i uczciwa ocena: zastosowania/07-ml-pojecia/przeuczenie-i-ocena.md
+      - 8. Klasyfikacja:
+          - Wprowadzenie: zastosowania/08-klasyfikacja/index.md
+          - Miary klasyfikacji: zastosowania/08-klasyfikacja/miary.md
+          - Regresja logistyczna: zastosowania/08-klasyfikacja/regresja-logistyczna.md
+          - Drzewa decyzyjne i lasy losowe: zastosowania/08-klasyfikacja/drzewa-i-lasy.md
+          - Wybór modelu i interpretacja: zastosowania/08-klasyfikacja/wybor-i-interpretacja.md
