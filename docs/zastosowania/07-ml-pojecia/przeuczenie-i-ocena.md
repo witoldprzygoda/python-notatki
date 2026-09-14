@@ -116,7 +116,7 @@ fig.savefig("krzywa-uczenia.png", dpi=120)
 
 ![Krzywa uczenia: dokładność na treningu równa 1 dla każdego rozmiaru, dokładność walidacji rosnąca od około 0,9 do 0,98 wraz z liczbą próbek](img/krzywa-uczenia.png){ width="640" }
 
-**Krzywa uczenia** (ang. *learning curve*) odpowiada na inne pytanie: czy więcej danych pomoże. `learning_curve()` trenuje model na rosnących podzbiorach zbioru treningowego (`shuffle=True` miesza próbki, bo w zbiorze wine są ułożone klasami) i ocenia walidacją krzyżową. Zbiór wine — 178 win trzech odmian opisanych trzynastoma cechami chemicznymi — z regresją logistyczną, modelem z rozdziału o klasyfikacji, daje krzywą, w której trening jest idealny, a walidacja rośnie wraz z liczbą próbek — z wyrównaniem między 50 a 90 próbkami — i przy ostatniej porcji wciąż nie dosięga treningu: model wciąż korzysta z nowych próbek, więcej danych poprawiłoby wynik. Gdy obie krzywe zbiegają się nisko, więcej danych nie pomoże — potrzebny jest model bardziej złożony lub lepsze cechy.
+**Krzywa uczenia** (ang. *learning curve*) odpowiada na inne pytanie: czy więcej danych pomoże. `learning_curve()` trenuje model na rosnących podzbiorach zbioru treningowego (`shuffle=True` miesza próbki, bo w zbiorze wine są ułożone klasami) i ocenia walidacją krzyżową. Zbiór wine — 178 win trzech odmian opisanych trzynastoma cechami chemicznymi — z [regresją logistyczną](../08-klasyfikacja/regresja-logistyczna.md) z rozdziału o klasyfikacji daje krzywą, w której trening jest idealny, a walidacja rośnie wraz z liczbą próbek — z wyrównaniem między 50 a 90 próbkami — i przy ostatniej porcji wciąż nie dosięga treningu: model wciąż korzysta z nowych próbek, więcej danych poprawiłoby wynik. Gdy obie krzywe zbiegają się nisko, więcej danych nie pomoże — potrzebny jest model bardziej złożony lub lepsze cechy.
 
 ## Wyciek danych
 
@@ -162,4 +162,4 @@ Przy wyborze obowiązuje kolejność: najpierw model bazowy, potem model prosty 
 
 ## Dalej: klasyfikacja
 
-Następny rozdział zostaje przy klasyfikacji i dodaje to, czego brakowało w pierwszym modelu: miary dla klas nierównolicznych i błędów o różnej wadze, macierz pomyłek, modele — regresję logistyczną, drzewa, lasy losowe — oraz ich interpretację. <!-- TODO: link po powstaniu rozdziału o klasyfikacji -->
+Następny rozdział zostaje przy klasyfikacji i dodaje to, czego brakowało w pierwszym modelu: miary dla klas nierównolicznych i błędów o różnej wadze, macierz pomyłek, modele — regresję logistyczną, drzewa, lasy losowe — oraz ich interpretację — [rozdział o klasyfikacji](../08-klasyfikacja/index.md).
