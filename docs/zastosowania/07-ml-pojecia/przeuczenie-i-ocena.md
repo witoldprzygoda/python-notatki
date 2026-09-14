@@ -144,7 +144,7 @@ selekcja na całości, potem walidacja: 0.73
 selekcja wewnątrz potoku:             0.53
 ```
 
-Cechy i etykiety są tu **czysto losowe** — żaden model nie może przewidywać `y` lepiej niż rzut monetą. Mimo to pierwsza ocena wynosi 73%: `SelectKBest` wybrał dziesięć cech o najwyższej statystyce F (`f_classif`), czyli najsilniej związanych z etykietą, patrząc na **cały zbiór**, a przy dwóch tysiącach losowych cech zawsze znajdzie się dziesięć przypadkowo skorelowanych; walidacja krzyżowa oceniała potem model na próbkach, które wpłynęły na wybór cech. To **wyciek danych** (ang. *data leakage*): informacja o zbiorze testowym przedostała się do modelu przed oceną. Ta sama selekcja wewnątrz potoku uczy się w każdym przebiegu tylko na części treningowej i daje wynik na poziomie losowym — prawdziwy. Reguła: każdy krok, który uczy się z danych — skalowanie, selekcja cech, uzupełnianie braków, dobór hiperparametrów — należy do potoku i widzi wyłącznie zbiór treningowy; wyciek zdarza się też przez cechy, które w chwili predykcji nie będą znane (na przykład kwota zwrotu przy przewidywaniu zwrotu), o czym przy przygotowaniu danych w rozdziale 9. <!-- TODO: link po powstaniu rozdziału o regresji i przygotowaniu danych -->
+Cechy i etykiety są tu **czysto losowe** — żaden model nie może przewidywać `y` lepiej niż rzut monetą. Mimo to pierwsza ocena wynosi 73%: `SelectKBest` wybrał dziesięć cech o najwyższej statystyce F (`f_classif`), czyli najsilniej związanych z etykietą, patrząc na **cały zbiór**, a przy dwóch tysiącach losowych cech zawsze znajdzie się dziesięć przypadkowo skorelowanych; walidacja krzyżowa oceniała potem model na próbkach, które wpłynęły na wybór cech. To **wyciek danych** (ang. *data leakage*): informacja o zbiorze testowym przedostała się do modelu przed oceną. Ta sama selekcja wewnątrz potoku uczy się w każdym przebiegu tylko na części treningowej i daje wynik na poziomie losowym — prawdziwy. Reguła: każdy krok, który uczy się z danych — skalowanie, selekcja cech, uzupełnianie braków, dobór hiperparametrów — należy do potoku i widzi wyłącznie zbiór treningowy; wyciek zdarza się też przez cechy, które w chwili predykcji nie będą znane (na przykład kwota zwrotu przy przewidywaniu zwrotu), o czym przy [wycieku celu](../09-regresja/przygotowanie-danych.md#wyciek-celu) w rozdziale 9.
 
 ## Wybór modelu — mapa ścieżki
 
@@ -156,7 +156,7 @@ Cechy i etykiety są tu **czysto losowe** — żaden model nie może przewidywa�
 | Jakie grupy są w danych bez etykiet? Jak zobaczyć wiele cech na płaszczyźnie? | grupowanie, redukcja wymiaru | k-średnich, PCA | 10 |
 | Obrazy, dźwięk, tekst, bardzo duże zbiory? | sieci neuronowe | PyTorch | 11 |
 
-<!-- TODO: linki po powstaniu rozdziałów 9–11 -->
+Rozdział 9 to [Regresja i przygotowanie danych](../09-regresja/index.md). <!-- TODO: linki po powstaniu rozdziałów 10–11 -->
 
 Przy wyborze obowiązuje kolejność: najpierw model bazowy, potem model prosty i interpretowalny (regresja logistyczna, drzewo), dopiero potem złożone — pod warunkiem, że walidacja krzyżowa pokazuje zysk większy od odchylenia. Dokumentacja scikit-learn ma dla każdego modelu tę samą strukturę (parametry, atrybuty z podkreśleniem, przykłady), więc czytanie jej metodą z rozdziału 1 przenosi się z modelu na model.
 

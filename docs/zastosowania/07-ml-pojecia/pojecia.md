@@ -59,7 +59,7 @@ DataFrame (150, 4) Series (150,)
 
 ![Dwa wykresy punktowe irysów: wymiary działki kielicha z nakładającymi się gatunkami oraz wymiary płatka z setosą wyraźnie oddzieloną i lekko nakładającymi się versicolor i virginica](img/cechy.png){ width="760" }
 
-`load_iris(as_frame=True)` zwraca obiekt z ramką cech `data`, serią etykiet `target` (kody 0, 1, 2) i nazwami gatunków `target_names`; w `frame` jest cała tabela, w `DESCR` opis zbioru. Klasy są równoliczne — po pięćdziesiąt próbek. Wykresy pokazują, dlaczego zadanie jest wykonalne: wymiary płatka niemal rozdzielają gatunki, wymiary działki oddzielają tylko setosę. Wybór cech, które niosą informację, jest częścią pracy; w rozdziale 9 wracamy do tego przy przygotowaniu danych. <!-- TODO: link po powstaniu rozdziału o regresji i przygotowaniu danych -->
+`load_iris(as_frame=True)` zwraca obiekt z ramką cech `data`, serią etykiet `target` (kody 0, 1, 2) i nazwami gatunków `target_names`; w `frame` jest cała tabela, w `DESCR` opis zbioru. Klasy są równoliczne — po pięćdziesiąt próbek. Wykresy pokazują, dlaczego zadanie jest wykonalne: wymiary płatka niemal rozdzielają gatunki, wymiary działki oddzielają tylko setosę. Wybór cech, które niosą informację, jest częścią pracy; wracamy do tego przy [przygotowaniu danych](../09-regresja/przygotowanie-danych.md) w rozdziale 9.
 
 ## Model, trening, predykcja — klasyfikator centroidów
 

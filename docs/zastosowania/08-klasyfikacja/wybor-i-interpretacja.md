@@ -237,4 +237,4 @@ Model końcowy powstaje w trzech krokach: wybór modelu i progu na walidacji krz
 
 ## Dalej: regresja
 
-Następny rozdział przenosi ten sam warsztat na przewidywanie liczb — regresję liniową i jej regularyzowane odmiany, drzewa i lasy w wersji regresyjnej, miary błędu — oraz uzupełnia go o przygotowanie danych, którego zbiory wbudowane nie wymagały: kodowanie cech tekstowych, uzupełnianie braków i `ColumnTransformer`, który łączy różne przekształcenia kolumn w jeden potok. <!-- TODO: link po powstaniu rozdziału o regresji i przygotowaniu danych -->
+Następny rozdział przenosi ten sam warsztat na przewidywanie liczb — regresję liniową i jej regularyzowane odmiany, drzewa i lasy w wersji regresyjnej, miary błędu — oraz uzupełnia go o przygotowanie danych, którego zbiory wbudowane nie wymagały: kodowanie cech tekstowych, uzupełnianie braków i `ColumnTransformer`, który łączy różne przekształcenia kolumn w jeden potok — [rozdział o regresji i przygotowaniu danych](../09-regresja/index.md).
