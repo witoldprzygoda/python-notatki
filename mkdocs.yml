@@ -249,3 +249,9 @@ nav:
           - Regresja logistyczna: zastosowania/08-klasyfikacja/regresja-logistyczna.md
           - Drzewa decyzyjne i lasy losowe: zastosowania/08-klasyfikacja/drzewa-i-lasy.md
           - Wybór modelu i interpretacja: zastosowania/08-klasyfikacja/wybor-i-interpretacja.md
+      - 9. Regresja i przygotowanie danych:
+          - Wprowadzenie: zastosowania/09-regresja/index.md
+          - Regresja liniowa i miary błędu: zastosowania/09-regresja/regresja-liniowa.md
+          - Przygotowanie danych: zastosowania/09-regresja/przygotowanie-danych.md
+          - Regularyzacja i inżynieria cech: zastosowania/09-regresja/regularyzacja-i-cechy.md
+          - Modele nieliniowe i wybór: zastosowania/09-regresja/modele-nieliniowe.md
