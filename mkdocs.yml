@@ -237,3 +237,9 @@ nav:
           - Zadanie, dane i decyzje: zastosowania/06-projekt-dane/zadanie-i-dane.md
           - Potok — czyszczenie, analiza i testy: zastosowania/06-projekt-dane/potok.md
           - Raport — rysunki, tabele i dokument: zastosowania/06-projekt-dane/raport.md
+      - 7. Uczenie maszynowe — pojęcia i warsztat:
+          - Wprowadzenie: zastosowania/07-ml-pojecia/index.md
+          - Pojęcia uczenia maszynowego: zastosowania/07-ml-pojecia/pojecia.md
+          - Pierwszy model od początku do końca: zastosowania/07-ml-pojecia/pierwszy-model.md
+          - Warsztat scikit-learn: zastosowania/07-ml-pojecia/warsztat.md
+          - Przeuczenie i uczciwa ocena: zastosowania/07-ml-pojecia/przeuczenie-i-ocena.md

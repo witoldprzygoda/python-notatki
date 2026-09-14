@@ -35,5 +35,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 4. [pandas — tabele](zastosowania/04-pandas-tabele/index.md) — Series i DataFrame, wczytywanie i zapis, selekcja, typy i braki, przekształcenia
 5. [pandas — analiza](zastosowania/05-pandas-analiza/index.md) — grupowanie, tabele przestawne, łączenie tabel, szeregi czasowe, wydajność i potok
 6. [Projekt: raport z danych](zastosowania/06-projekt-dane/index.md) — zadanie, dane i decyzje, potok z testami, raport z rysunkami i tabelami
+7. [Uczenie maszynowe — pojęcia i warsztat](zastosowania/07-ml-pojecia/index.md) — pojęcia, pierwszy model od początku do końca, warsztat scikit-learn, przeuczenie i uczciwa ocena
 
-Pozostałe ścieżki są w przygotowaniu.
+Rozdziały 8–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.

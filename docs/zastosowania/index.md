@@ -33,4 +33,8 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 5. [pandas — analiza](05-pandas-analiza/index.md) — grupowanie, tabele przestawne, łączenie tabel, szeregi czasowe, wydajność i potok
 6. [Projekt: raport z danych](06-projekt-dane/index.md) — zadanie, dane i decyzje, potok z testami, raport z rysunkami i tabelami
 
-Ścieżka danych jest ukończona; pozostałe ścieżki są w przygotowaniu.
+**Ścieżka uczenia maszynowego**
+
+7. [Uczenie maszynowe — pojęcia i warsztat](07-ml-pojecia/index.md) — pojęcia, pierwszy model od początku do końca, warsztat scikit-learn, przeuczenie i uczciwa ocena
+
+Ścieżka danych jest ukończona; rozdziały 8–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.
