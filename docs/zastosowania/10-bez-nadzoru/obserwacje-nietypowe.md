@@ -158,4 +158,4 @@ Metody tego rozdziału mają trzy zastosowania. Przed modelowaniem — grupowani
 
 ## Dalej: sieci neuronowe
 
-Wszystkie modele ścieżki były dotąd gotowymi klasami scikit-learn. Następny rozdział schodzi poziom niżej — do biblioteki PyTorch, w której model buduje się z tensorów i warstw, a trening z pętli i automatycznego różniczkowania; to droga do sieci neuronowych, które rozpoznają obrazy takie jak cyfry z tego rozdziału. <!-- TODO: link po powstaniu rozdziału o PyTorch -->
+Wszystkie modele ścieżki były dotąd gotowymi klasami scikit-learn. Następny rozdział schodzi poziom niżej — do biblioteki PyTorch, w której model buduje się z tensorów i warstw, a trening z pętli i automatycznego różniczkowania; to droga do sieci neuronowych, które rozpoznają obrazy takie jak cyfry z tego rozdziału — [rozdział o PyTorch](../11-pytorch/index.md).

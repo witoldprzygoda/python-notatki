@@ -156,7 +156,7 @@ Cechy i etykiety są tu **czysto losowe** — żaden model nie może przewidywa�
 | Jakie grupy są w danych bez etykiet? Jak zobaczyć wiele cech na płaszczyźnie? | grupowanie, redukcja wymiaru | k-średnich, PCA | 10 |
 | Obrazy, dźwięk, tekst, bardzo duże zbiory? | sieci neuronowe | PyTorch | 11 |
 
-Rozdział 9 to [Regresja i przygotowanie danych](../09-regresja/index.md), rozdział 10 — [Uczenie bez nadzoru](../10-bez-nadzoru/index.md). <!-- TODO: link po powstaniu rozdziału 11 -->
+Rozdział 9 to [Regresja i przygotowanie danych](../09-regresja/index.md), rozdział 10 — [Uczenie bez nadzoru](../10-bez-nadzoru/index.md), rozdział 11 — [PyTorch — tensory i sieć neuronowa](../11-pytorch/index.md).
 
 Przy wyborze obowiązuje kolejność: najpierw model bazowy, potem model prosty i interpretowalny (regresja logistyczna, drzewo), dopiero potem złożone — pod warunkiem, że walidacja krzyżowa pokazuje zysk większy od odchylenia. Dokumentacja scikit-learn ma dla każdego modelu tę samą strukturę (parametry, atrybuty z podkreśleniem, przykłady), więc czytanie jej metodą z rozdziału 1 przenosi się z modelu na model.
 
