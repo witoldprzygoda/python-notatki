@@ -292,4 +292,4 @@ Model końcowy powstaje jak w rozdziale 8: wybór na walidacji krzyżowej, jedno
 
 ## Dalej: uczenie bez nadzoru
 
-Wszystkie modele ścieżki dostawały dotąd odpowiedzi. Następny rozdział zdejmuje to założenie: grupuje próbki w segmenty bez etykiet, sprowadza wiele cech do dwóch składowych, które da się narysować, i wykrywa obserwacje nietypowe — narzędzia, które pomagają zrozumieć dane przed uczeniem z nadzorem i rozwiązać problem cech skorelowanych opisany w rozdziale 8. <!-- TODO: link po powstaniu rozdziału o uczeniu bez nadzoru -->
+Wszystkie modele ścieżki dostawały dotąd odpowiedzi. Następny rozdział zdejmuje to założenie: grupuje próbki w segmenty bez etykiet, sprowadza wiele cech do dwóch składowych, które da się narysować, i wykrywa obserwacje nietypowe — narzędzia, które pomagają zrozumieć dane przed uczeniem z nadzorem i rozwiązać problem cech skorelowanych opisany w rozdziale 8 — [rozdział o uczeniu bez nadzoru](../10-bez-nadzoru/index.md).
