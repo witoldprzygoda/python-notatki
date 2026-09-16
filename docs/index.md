@@ -38,5 +38,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 7. [Uczenie maszynowe — pojęcia i warsztat](zastosowania/07-ml-pojecia/index.md) — pojęcia, pierwszy model od początku do końca, warsztat scikit-learn, przeuczenie i uczciwa ocena
 8. [Klasyfikacja](zastosowania/08-klasyfikacja/index.md) — miary klasyfikacji, regresja logistyczna, drzewa decyzyjne i lasy losowe, wybór modelu i interpretacja
 9. [Regresja i przygotowanie danych](zastosowania/09-regresja/index.md) — regresja liniowa i miary błędu, przygotowanie danych, regularyzacja i inżynieria cech, modele nieliniowe i wybór
+10. [Uczenie bez nadzoru](zastosowania/10-bez-nadzoru/index.md) — grupowanie, redukcja wymiaru, obserwacje nietypowe
 
-Rozdziały 10–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.
+Rozdziały 11–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.
