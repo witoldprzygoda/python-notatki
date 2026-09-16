@@ -260,3 +260,10 @@ nav:
           - Grupowanie: zastosowania/10-bez-nadzoru/grupowanie.md
           - Redukcja wymiaru: zastosowania/10-bez-nadzoru/redukcja-wymiaru.md
           - Obserwacje nietypowe: zastosowania/10-bez-nadzoru/obserwacje-nietypowe.md
+      - 11. PyTorch — tensory i sieć neuronowa:
+          - Wprowadzenie: zastosowania/11-pytorch/index.md
+          - Tensory: zastosowania/11-pytorch/tensory.md
+          - Automatyczne różniczkowanie: zastosowania/11-pytorch/autograd.md
+          - Sieć neuronowa: zastosowania/11-pytorch/siec.md
+          - Klasyfikacja obrazów: zastosowania/11-pytorch/cyfry.md
+          - Trening w praktyce: zastosowania/11-pytorch/praktyka.md

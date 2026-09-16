@@ -39,5 +39,6 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 8. [Klasyfikacja](08-klasyfikacja/index.md) — miary klasyfikacji, regresja logistyczna, drzewa decyzyjne i lasy losowe, wybór modelu i interpretacja
 9. [Regresja i przygotowanie danych](09-regresja/index.md) — regresja liniowa i miary błędu, przygotowanie danych, regularyzacja i inżynieria cech, modele nieliniowe i wybór
 10. [Uczenie bez nadzoru](10-bez-nadzoru/index.md) — grupowanie, redukcja wymiaru, obserwacje nietypowe
+11. [PyTorch — tensory i sieć neuronowa](11-pytorch/index.md) — tensory, automatyczne różniczkowanie, sieć neuronowa, klasyfikacja obrazów, trening w praktyce
 
-Ścieżka danych jest ukończona; rozdziały 11–12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.
+Ścieżka danych jest ukończona; rozdział 12 ścieżki uczenia maszynowego oraz pozostałe ścieżki są w przygotowaniu.

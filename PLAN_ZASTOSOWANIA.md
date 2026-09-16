@@ -26,7 +26,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 8 | Klasyfikacja | Uczenie maszynowe | `zastosowania/08-klasyfikacja/` | 4 | ukończony — 14 IX 2026 (`plans/z08-klasyfikacja.md`; index + 4 strony, ok. 930 linii; 22 skrypty, 11 wykresów; trzy recenzje naniesione; 2 zapowiedzi z rozdziału 7 domknięte) |
 | 9 | Regresja i przygotowanie danych | Uczenie maszynowe | `zastosowania/09-regresja/` | 4 | ukończony — 14 IX 2026 (`plans/z09-regresja.md`; index + 4 strony, ok. 900 linii; 20 skryptów, 7 wykresów, dane `dane/mieszkania.csv` z generatora; cztery recenzje z weryfikacją uwag naniesione, model końcowy liniowy na logarytmach ceny i powierzchni; 4 zapowiedzi z rozdziałów 7–8 domknięte) |
 | 10 | Uczenie bez nadzoru | Uczenie maszynowe | `zastosowania/10-bez-nadzoru/` | 3 | ukończony — 16 IX 2026 (`plans/z10-bez-nadzoru.md`; index + 3 strony, ok. 570 linii; 13 skryptów, 8 wykresów; dane z rozdziału 9 i zbiory wbudowane; cztery recenzje z weryfikacją uwag naniesione; 5 zapowiedzi z rozdziałów 2, 7, 8 i 9 domkniętych) |
-| 11 | PyTorch — tensory i sieć neuronowa | Uczenie maszynowe | `zastosowania/11-pytorch/` | 5 | zaplanowany |
+| 11 | PyTorch — tensory i sieć neuronowa | Uczenie maszynowe | `zastosowania/11-pytorch/` | 5 | w realizacji — `plans/z11-pytorch.md` |
 | 12 | Projekt: od danych do modelu | Uczenie maszynowe | `zastosowania/12-projekt-ml/` | 3 | zaplanowany |
 | 13 | Bazy danych — `sqlite3` i SQLAlchemy | Aplikacje | `zastosowania/13-bazy-danych/` | 5 | zaplanowany |
 | 14 | HTTP i API | Aplikacje | `zastosowania/14-http-api/` | 4 | zaplanowany |
