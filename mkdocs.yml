@@ -267,3 +267,8 @@ nav:
           - Sieć neuronowa: zastosowania/11-pytorch/siec.md
           - Klasyfikacja obrazów: zastosowania/11-pytorch/cyfry.md
           - Trening w praktyce: zastosowania/11-pytorch/praktyka.md
+      - "12. Projekt: od danych do modelu":
+          - Wprowadzenie: zastosowania/12-projekt-ml/index.md
+          - Zadanie, dane i decyzje: zastosowania/12-projekt-ml/zadanie-i-dane.md
+          - Potok, modele i wybór: zastosowania/12-projekt-ml/potok-i-modele.md
+          - Model końcowy, raport i użycie: zastosowania/12-projekt-ml/model-i-raport.md

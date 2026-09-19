@@ -1,0 +1,7 @@
+id_klienta,umowa,plan,oplata_miesieczna,staz_miesiecy,uslugi_dodatkowe,zgloszenia,opoznione_platnosci,platnosc,wiek
+20001,miesięczna,standard,85.0,2,0,4,1,przelew,29.0
+20002,dwuletnia,premium,135.0,60,3,0,0,karta,51.0
+20003,roczna,podstawowy,52.0,14,1,1,0,polecenie zapłaty,
+20004,miesięczna,premium plus,159.0,8,2,2,0,karta,44.0
+20005,miesięczna,podstawowy,45.0,30,1,0,2,przelew,150.0
+20006,roczna,standard,79.0,26,2,1,0,karta,38.0

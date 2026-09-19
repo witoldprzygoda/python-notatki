@@ -1,0 +1,2011 @@
+id_klienta,umowa,plan,oplata_miesieczna,staz_miesiecy,uslugi_dodatkowe,zgloszenia,opoznione_platnosci,platnosc,wiek,powod_rezygnacji,rezygnacja
+11197,miesięczna,standard,97.0,10,1,1,1,karta,37.0,przeprowadzka,tak
+10527,dwuletnia,premium,134.0,9,1,2,0,karta,41.0,,nie
+10394,roczna,podstawowy,42.0,21,1,3,0,karta,26.0,,nie
+11405,miesięczna,premium,142.0,37,3,0,0,polecenie zapłaty,42.0,jakość,tak
+10434,dwuletnia,podstawowy,60.0,13,3,0,1,karta,28.0,,nie
+10577,dwuletnia,standard,86.0,84,0,4,0,polecenie zapłaty,54.0,,nie
+11212,dwuletnia,standard,78.0,65,2,1,1,przelew,40.0,,nie
+10430,dwuletnia,standard,86.0,33,3,2,1,przelew,47.0,,nie
+10612,roczna,Premium ,122.0,23,0,0,1,przelew,63.0,,nie
+10531,roczna,standard,90.0,15,3,2,3,przelew,37.0,jakość,tak
+10813,dwuletnia,standard,86.0,12,0,1,0,polecenie zapłaty,57.0,,nie
+11451,dwuletnia,standard,92.0,23,0,1,0,karta,28.0,,nie
+10652,dwuletnia,standard,86.0,8,3,1,2,polecenie zapłaty,32.0,,nie
+10562,miesięczna,standard,69.0,19,0,2,1,polecenie zapłaty,44.0,konkurencja,tak
+11474,roczna,standard,90.0,21,3,1,0,karta,,,nie
+10711,dwuletnia,premium,126.0,9,1,5,2,polecenie zapłaty,29.0,,nie
+11506,roczna,standard,80.0,11,1,0,1,polecenie zapłaty,46.0,,nie
+10125,miesięczna,podstawowy,62.0,52,3,0,2,przelew,56.0,,nie
+11771,roczna,premium,122.0,15,3,0,1,polecenie zapłaty,25.0,,nie
+10463,dwuletnia,podstawowy,60.0,52,3,2,0,karta,44.0,,nie
+11894,miesięczna,standard,87.0,22,3,1,0,karta,140.0,,nie
+11118,roczna,standard,69.0,1,0,2,1,przelew,59.0,cena,tak
+10999,dwuletnia,premium,121.0,38,1,0,0,polecenie zapłaty,30.0,,nie
+10793,miesięczna,standard,87.0,84,2,0,1,przelew,20.0,,nie
+11777,roczna,standard,95.0,4,1,1,1,karta,42.0,konkurencja,tak
+11877,miesięczna,podstawowy,69.0,10,1,1,0,karta,68.0,,nie
+11657,miesięczna,podstawowy,65.0,20,3,2,2,polecenie zapłaty,42.0,,nie
+10539,miesięczna,podstawowy,39.0,25,2,3,4,przelew,40.0,jakość,tak
+10544,dwuletnia,podstawowy,53.0,7,1,0,0,polecenie zapłaty,39.0,,nie
+11125,miesięczna,podstawowy,39.0,84,3,2,4,karta,48.0,,nie
+11786,dwuletnia,premium,132.0,23,2,1,0,przelew,56.0,,nie
+11968,dwuletnia,podstawowy,43.0,6,2,0,1,przelew,52.0,,nie
+10030,roczna,standard,86.0,1,2,1,1,polecenie zapłaty,41.0,,nie
+11068,roczna,podstawowy,53.0,11,2,0,0,karta,51.0,,nie
+11448,roczna,standard,87.0,10,1,1,2,polecenie zapłaty,43.0,,nie
+10808,miesięczna,standard,77.0,17,1,1,1,karta,51.0,konkurencja,tak
+11320,dwuletnia,podstawowy,43.0,9,0,3,0,karta,33.0,,nie
+10057,roczna,premium,137.0,77,0,3,1,polecenie zapłaty,44.0,,nie
+10520,dwuletnia,podstawowy,47.0,41,1,3,0,karta,44.0,,nie
+10938,miesięczna,podstawowy,69.0,21,0,2,0,karta,38.0,jakość,tak
+11365,roczna,podstawowy,49.0,12,0,1,1,przelew,27.0,,nie
+10252,dwuletnia,standard,73.0,13,3,0,1,polecenie zapłaty,32.0,,nie
+10100,dwuletnia,podstawowy,61.0,12,2,3,2,karta,44.0,,nie
+11511,miesięczna,premium,125.0,4,2,0,1,karta,61.0,cena,tak
+10825,dwuletnia,premium,141.0,64,0,1,2,polecenie zapłaty,18.0,,nie
+10299,roczna,podstawowy,41.0,19,0,1,0,przelew,35.0,,nie
+11553,miesięczna,podstawowy,54.0,7,0,1,0,karta,36.0,jakość,tak
+10423,miesięczna,standard,76.0,2,0,2,1,karta,54.0,konkurencja,tak
+11281,miesięczna,standard,85.0,28,0,2,1,karta,57.0,jakość,tak
+11522,roczna,premium,134.0,48,3,0,1,polecenie zapłaty,34.0,,nie
+11858,miesięczna,standard,91.0,75,0,3,0,polecenie zapłaty,43.0,cena,tak
+10765,dwuletnia,podstawowy,48.0,22,1,2,1,polecenie zapłaty,53.0,cena,tak
+11541,dwuletnia,premium,120.0,2,3,4,0,polecenie zapłaty,32.0,,nie
+10496,roczna,standard,69.0,4,3,3,0,polecenie zapłaty,27.0,,nie
+11287,miesięczna,standard,82.0,25,1,1,1,przelew,35.0,przeprowadzka,tak
+10987,miesięczna,podstawowy,62.0,11,0,1,1,karta,44.0,jakość,tak
+10071,miesięczna,premium,120.0,8,1,1,2,karta,35.0,cena,tak
+10276,miesięczna,podstawowy,65.0,12,0,0,0,polecenie zapłaty,45.0,jakość,tak
+11795,dwuletnia,standard,99.0,37,2,1,0,polecenie zapłaty,55.0,,nie
+11948,dwuletnia,podstawowy,66.0,4,1,0,0,karta,61.0,,0
+10066,roczna,premium,138.0,10,2,1,1,polecenie zapłaty,59.0,,nie
+10586,roczna,standard,71.0,1,3,2,1,karta,61.0,,nie
+11108,miesięczna,standard,89.0,23,0,0,0,polecenie zapłaty,45.0,,nie
+11248,miesięczna,premium,146.0,65,0,2,0,polecenie zapłaty,43.0,jakość,tak
+11230,miesięczna,standard,79.0,3,0,0,1,karta,45.0,,0
+10395,miesięczna,standard,72.0,7,1,2,0,przelew,27.0,,nie
+11502,dwuletnia,standard,75.0,21,2,1,0,przelew,63.0,,nie
+11493,roczna,premium,135.0,1,0,1,0,przelew,29.0,,nie
+10112,miesięczna,standard,95.0,16,3,1,1,polecenie zapłaty,54.0,,nie
+10353,roczna,podstawowy,49.0,55,0,0,0,polecenie zapłaty,58.0,,nie
+11134,roczna,podstawowy,62.0,24,1,2,2,karta,49.0,,nie
+10858,dwuletnia,standard,76.0,34,2,0,0,polecenie zapłaty,56.0,,nie
+10675,roczna,standard,98.0,6,2,0,1,przelew,33.0,,nie
+10571,miesięczna,podstawowy,67.0,11,3,2,1,przelew,51.0,,nie
+10923,roczna,podstawowy,59.0,2,3,0,0,polecenie zapłaty,34.0,przeprowadzka,tak
+11403,dwuletnia,standard,99.0,42,0,1,1,karta,,,nie
+11171,miesięczna,premium,135.0,24,0,0,0,przelew,28.0,,nie
+11808,miesięczna,standard,96.0,13,0,1,0,polecenie zapłaty,54.0,,nie
+11658,dwuletnia,standard,93.0,38,3,0,1,polecenie zapłaty,40.0,,nie
+10412,roczna,premium,142.0,7,3,2,1,polecenie zapłaty,27.0,,nie
+11442,miesięczna,podstawowy,52.0,37,2,0,0,karta,56.0,,nie
+10536,miesięczna,standard,94.0,30,1,0,1,polecenie zapłaty,38.0,,nie
+11335,dwuletnia,podstawowy,68.0,11,0,1,1,karta,44.0,,nie
+11456,miesięczna,standard,77.0,2,3,0,2,przelew,53.0,,nie
+11000,miesięczna,podstawowy,62.0,10,3,2,0,karta,44.0,konkurencja,tak
+10070,miesięczna,standard,72.0,3,1,1,1,polecenie zapłaty,37.0,konkurencja,tak
+11030,miesięczna,podstawowy,42.0,53,2,1,1,przelew,41.0,,nie
+10882,roczna,podstawowy,40.0,38,2,3,1,karta,39.0,,nie
+10745,roczna,podstawowy,51.0,4,3,0,1,karta,18.0,,nie
+11946,dwuletnia,premium,128.0,10,3,0,0,przelew,22.0,,nie
+11250,dwuletnia,standard,72.0,24,0,1,2,karta,63.0,,nie
+11513,roczna,premium,133.0,21,3,0,1,przelew,82.0,,nie
+11345,dwuletnia,standard,99.0,3,2,1,0,polecenie zapłaty,42.0,,nie
+11730,miesięczna,standard,89.0,5,2,1,0,karta,,konkurencja,tak
+10589,miesięczna,standard,85.0,48,1,3,0,karta,66.0,konkurencja,tak
+10721,roczna,standard,91.0,46,3,0,0,polecenie zapłaty,61.0,cena,tak
+11290,roczna,standard,77.0,13,1,5,0,przelew,47.0,,nie
+11741,miesięczna,podstawowy,49.0,10,3,5,1,przelew,59.0,cena,tak
+11252,miesięczna,standard,88.0,84,2,2,1,karta,35.0,,nie
+11088,roczna,standard,84.0,1,1,0,0,polecenie zapłaty,28.0,,nie
+11914,roczna,podstawowy,65.0,1,1,2,0,polecenie zapłaty,34.0,,nie
+11546,miesięczna,standard,69.0,3,0,0,0,polecenie zapłaty,29.0,konkurencja,tak
+11375,dwuletnia,standard,77.0,29,2,1,0,karta,23.0,,nie
+10874,miesięczna,podstawowy,64.0,23,3,0,1,przelew,36.0,,nie
+11942,roczna,podstawowy,58.0,2,0,4,2,karta,39.0,konkurencja,tak
+11011,roczna,podstawowy,53.0,1,3,2,0,przelew,44.0,,nie
+10487,roczna,standard,83.0,77,2,0,0,karta,32.0,,nie
+10129,miesięczna,podstawowy,45.0,28,0,0,0,polecenie zapłaty,18.0,,nie
+11552,miesięczna,standard,71.0,6,1,1,0,polecenie zapłaty,47.0,konkurencja,tak
+11683,roczna,standard,82.0,9,0,2,1,polecenie zapłaty,60.0,,nie
+11490,roczna,standard,71.0,15,2,1,1,karta,41.0,,nie
+11527,miesięczna,podstawowy,64.0,52,1,1,2,karta,47.0,,nie
+11645,miesięczna,podstawowy,53.0,46,1,1,1,karta,60.0,,nie
+10362,miesięczna,podstawowy,61.0,6,2,1,1,przelew,18.0,konkurencja,tak
+11622,roczna,podstawowy,55.0,1,1,1,0,polecenie zapłaty,32.0,,0
+11977,roczna,podstawowy,45.0,9,3,0,0,karta,53.0,,nie
+10257,dwuletnia,premium,136.0,24,1,0,1,karta,37.0,,NIE
+11262,miesięczna,standard,77.0,41,0,1,1,karta,54.0,,nie
+11193,dwuletnia,standard,95.0,5,3,0,2,przelew,40.0,,nie
+10545,miesięczna,standard,72.0,20,2,0,0,przelew,37.0,,nie
+10343,dwuletnia,standard,75.0,31,0,2,3,polecenie zapłaty,18.0,,nie
+11945,dwuletnia,podstawowy,44.0,4,2,0,1,polecenie zapłaty,59.0,,nie
+10671,miesięczna,standard,90.0,1,3,1,1,polecenie zapłaty,39.0,,nie
+11062,roczna,standard,92.0,21,3,1,0,polecenie zapłaty,60.0,,nie
+11575,miesięczna,podstawowy,61.0,1,1,0,0,karta,38.0,,nie
+11829,dwuletnia,premium,146.0,15,2,1,0,polecenie zapłaty,18.0,,0
+10308,roczna,standard,83.0,16,0,2,1,karta,34.0,,0
+11324,roczna,premium,147.0,3,1,4,0,karta,69.0,cena,tak
+10766,miesięczna,premium,125.0,15,1,1,1,polecenie zapłaty,49.0,,nie
+11420,dwuletnia,premium,129.0,84,2,1,0,karta,25.0,,nie
+11387,roczna,standard,93.0,84,2,3,0,karta,65.0,,nie
+10234,roczna,premium,137.0,16,1,2,3,polecenie zapłaty,31.0,,0
+10232,miesięczna,standard,77.0,30,1,0,0,przelew,20.0,,nie
+11809,miesięczna,premium,123.0,49,0,1,0,karta,29.0,,nie
+10556,miesięczna,standard,95.0,3,1,1,1,przelew,60.0,przeprowadzka,tak
+11879,roczna,podstawowy,55.0,14,0,2,2,karta,74.0,,nie
+10889,miesięczna,podstawowy,56.0,12,1,2,0,polecenie zapłaty,35.0,,nie
+11044,roczna,standard,81.0,3,3,2,1,karta,60.0,,nie
+11602,miesięczna,podstawowy,52.0,24,0,1,1,polecenie zapłaty,70.0,,nie
+10807,roczna,podstawowy,57.0,1,3,1,0,polecenie zapłaty,29.0,,nie
+10716,miesięczna,podstawowy,48.0,23,0,0,0,polecenie zapłaty,46.0,,nie
+10355,roczna,standard,86.0,48,0,2,1,przelew,31.0,jakość,tak
+11019,miesięczna,podstawowy,42.0,2,3,1,1,polecenie zapłaty,39.0,jakość,tak
+11734,miesięczna,standard,78.0,10,0,1,1,przelew,47.0,,nie
+10655,dwuletnia,standard,69.0,67,2,2,0,karta,29.0,,nie
+10306,roczna,podstawowy,52.0,62,2,3,1,karta,28.0,,nie
+11362,miesięczna,podstawowy,68.0,18,3,3,1,przelew,41.0,konkurencja,tak
+11676,dwuletnia,premium,119.0,8,3,1,2,przelew,33.0,,nie
+11238,miesięczna,podstawowy,52.0,17,1,1,0,polecenie zapłaty,70.0,cena,tak
+10781,miesięczna,podstawowy,55.0,1,2,1,1,karta,60.0,,0
+11285,dwuletnia,podstawowy,39.0,33,2,0,1,polecenie zapłaty,18.0,,nie
+10533,miesięczna,standard,78.0,15,0,2,0,przelew,24.0,jakość,tak
+11107,miesięczna,podstawowy,53.0,67,2,4,0,karta,44.0,,nie
+11804,roczna,podstawowy,47.0,20,0,2,1,przelew,27.0,,nie
+10614,dwuletnia,standard,86.0,4,0,3,1,karta,44.0,,nie
+10121,roczna,podstawowy,54.0,3,3,0,2,karta,51.0,przeprowadzka,tak
+11357,roczna,standard,90.0,2,0,1,0,karta,30.0,,nie
+11318,miesięczna,podstawowy,56.0,10,2,1,3,polecenie zapłaty,66.0,cena,tak
+10621,roczna,premium,119.0,5,2,0,1,polecenie zapłaty,49.0,,nie
+11876,roczna,standard,91.0,14,3,0,0,polecenie zapłaty,40.0,,nie
+11856,dwuletnia,podstawowy,54.0,25,1,2,1,karta,44.0,,nie
+10136,miesięczna,standard,90.0,61,0,1,0,karta,70.0,jakość,tak
+11800,roczna,podstawowy,63.0,3,0,2,1,karta,39.0,,nie
+10375,miesięczna,podstawowy,67.0,5,1,1,2,polecenie zapłaty,59.0,,nie
+10317,miesięczna,podstawowy,60.0,62,3,0,1,przelew,29.0,,nie
+11572,roczna,podstawowy,65.0,10,3,3,0,polecenie zapłaty,47.0,,nie
+10255,miesięczna,premium,143.0,2,1,1,0,karta,55.0,przeprowadzka,tak
+10465,roczna,podstawowy,53.0,2,0,1,0,karta,36.0,,nie
+10907,roczna,premium,146.0,20,3,2,1,polecenie zapłaty,53.0,,nie
+10110,dwuletnia,podstawowy,64.0,6,1,1,0,przelew,51.0,jakość,tak
+10783,roczna,standard,72.0,1,0,0,0,polecenie zapłaty,31.0,,nie
+10937,dwuletnia,podstawowy,69.0,17,0,1,1,polecenie zapłaty,47.0,,0
+11341,miesięczna,podstawowy,60.0,24,2,1,3,karta,,,nie
+10240,miesięczna,standard,83.0,49,2,0,0,polecenie zapłaty,38.0,,nie
+11232,roczna,podstawowy,47.0,1,3,1,1,karta,53.0,,nie
+11830,roczna,standard,79.0,2,3,1,1,polecenie zapłaty,55.0,,nie
+10979,roczna,standard,92.0,28,1,1,1,polecenie zapłaty,20.0,,nie
+10213,miesięczna,premium,148.0,5,1,0,1,przelew,,,nie
+10814,roczna,podstawowy,67.0,7,1,0,0,karta,68.0,,nie
+10830,miesięczna,standard,76.0,39,1,1,0,przelew,49.0,,nie
+10778,miesięczna,standard,91.0,38,0,2,0,karta,46.0,cena,tak
+10417,miesięczna,podstawowy,55.0,27,2,4,0,przelew,63.0,cena,tak
+10352,miesięczna,premium,136.0,84,3,2,0,polecenie zapłaty,62.0,,nie
+11423,roczna,standard,83.0,14,0,1,0,karta,39.0,,nie
+11332,roczna,podstawowy,51.0,33,1,1,1,karta,39.0,,nie
+10345,roczna,standard,78.0,22,1,0,2,polecenie zapłaty,39.0,,nie
+11952,miesięczna,premium,131.0,1,0,1,1,karta,24.0,jakość,tak
+10282,miesięczna,podstawowy,51.0,12,2,0,0,polecenie zapłaty,31.0,,nie
+11042,roczna,premium,121.0,2,1,3,1,polecenie zapłaty,44.0,jakość,tak
+10530,miesięczna,standard,90.0,12,1,2,1,karta,61.0,jakość,tak
+11160,roczna,podstawowy,41.0,7,2,0,0,przelew,27.0,,nie
+11747,roczna,podstawowy,46.0,18,0,5,1,karta,48.0,,nie
+11961,roczna,podstawowy,42.0,19,3,1,1,karta,58.0,,nie
+10478,roczna,podstawowy,55.0,11,0,1,1,przelew,25.0,,nie
+10212,roczna,standard,71.0,9,0,3,0,polecenie zapłaty,63.0,cena,tak
+10351,roczna,podstawowy,42.0,4,2,2,3,polecenie zapłaty,50.0,przeprowadzka,tak
+10325,dwuletnia,podstawowy,55.0,18,3,3,0,karta,46.0,,nie
+11473,miesięczna,standard,92.0,1,2,1,0,polecenie zapłaty,62.0,jakość,tak
+10555,miesięczna,podstawowy,68.0,8,2,2,0,przelew,40.0,konkurencja,tak
+10963,miesięczna,podstawowy,66.0,8,2,2,0,karta,47.0,cena,tak
+11618,roczna,podstawowy,52.0,37,3,5,0,karta,22.0,,nie
+10722,miesięczna,premium,126.0,5,3,1,0,polecenie zapłaty,44.0,przeprowadzka,tak
+10050,miesięczna,podstawowy,63.0,20,2,2,0,karta,49.0,,nie
+10211,roczna,premium,139.0,1,0,2,1,polecenie zapłaty,34.0,,nie
+11095,roczna,standard,75.0,30,2,2,3,karta,44.0,,nie
+11356,miesięczna,podstawowy,43.0,11,2,2,0,karta,28.0,,nie
+11457,miesięczna,premium,120.0,65,0,1,3,karta,47.0,,nie
+11413,dwuletnia,standard,94.0,3,1,2,1,przelew,39.0,cena,tak
+11115,dwuletnia,standard,85.0,10,2,4,0,przelew,41.0,,nie
+11776,roczna,standard,90.0,17,1,2,2,karta,50.0,,nie
+10174,dwuletnia,podstawowy,55.0,37,3,1,0,karta,24.0,,nie
+10290,miesięczna,podstawowy,53.0,3,3,0,1,karta,39.0,jakość,tak
+11465,roczna,standard,72.0,12,3,1,1,karta,69.0,,NIE
+10248,miesięczna,standard,80.0,10,1,1,1,karta,43.0,,nie
+10238,roczna,podstawowy,48.0,28,0,0,0,przelew,48.0,,nie
+10893,miesięczna,standard,90.0,13,0,0,0,polecenie zapłaty,58.0,,nie
+11895,miesięczna,premium,133.0,14,0,1,1,polecenie zapłaty,61.0,,nie
+10901,roczna,podstawowy,43.0,23,3,2,0,polecenie zapłaty,29.0,,nie
+10024,dwuletnia,podstawowy,44.0,15,3,1,0,polecenie zapłaty,47.0,,nie
+10773,roczna,premium,134.0,10,2,0,1,karta,46.0,,nie
+10064,roczna,podstawowy,50.0,10,1,1,1,przelew,48.0,,nie
+11720,dwuletnia,standard,77.0,16,2,1,1,karta,40.0,,nie
+10189,roczna,podstawowy,43.0,48,0,0,1,przelew,59.0,,nie
+10705,miesięczna,standard,90.0,67,0,3,1,karta,22.0,jakość,tak
+11930,miesięczna,premium,126.0,26,0,1,1,karta,44.0,przeprowadzka,tak
+11659,miesięczna,premium,143.0,11,3,3,0,karta,24.0,cena,tak
+11152,dwuletnia,Standard ,74.0,12,1,0,1,przelew,40.0,przeprowadzka,tak
+11564,dwuletnia,podstawowy,69.0,3,3,1,1,polecenie zapłaty,40.0,cena,tak
+10788,miesięczna,standard,89.0,4,3,2,0,karta,32.0,przeprowadzka,tak
+10515,miesięczna,podstawowy,56.0,66,1,4,2,przelew,24.0,cena,tak
+10197,roczna,podstawowy,49.0,48,1,1,1,przelew,47.0,,nie
+10472,roczna,premium,124.0,21,1,2,1,polecenie zapłaty,56.0,,nie
+10945,miesięczna,podstawowy,39.0,20,0,4,0,przelew,37.0,przeprowadzka,tak
+11396,miesięczna,premium,133.0,35,1,1,1,polecenie zapłaty,50.0,,nie
+10271,miesięczna,standard,79.0,66,3,3,0,karta,43.0,przeprowadzka,tak
+10439,roczna,standard,76.0,22,3,2,1,karta,64.0,,0
+10101,dwuletnia,standard,82.0,10,3,1,1,karta,40.0,,nie
+11693,miesięczna,podstawowy,57.0,36,2,3,1,polecenie zapłaty,47.0,,nie
+11597,miesięczna,premium,140.0,21,3,1,1,przelew,41.0,,nie
+11949,miesięczna,premium,147.0,41,1,0,0,polecenie zapłaty,52.0,,0
+10221,miesięczna,podstawowy,48.0,1,1,2,2,karta,63.0,cena,tak
+10367,roczna,podstawowy,49.0,25,1,2,2,przelew,51.0,,nie
+11133,miesięczna,podstawowy,69.0,26,2,0,0,polecenie zapłaty,29.0,,nie
+11697,miesięczna,podstawowy,52.0,31,3,0,0,przelew,37.0,,nie
+11627,miesięczna,premium,131.0,52,2,3,4,polecenie zapłaty,,konkurencja,tak
+11246,miesięczna,standard,88.0,20,1,3,1,karta,47.0,jakość,tak
+10369,miesięczna,podstawowy,54.0,43,2,1,0,przelew,49.0,cena,tak
+10994,miesięczna,standard,83.0,2,0,1,0,przelew,40.0,konkurencja,tak
+11264,dwuletnia,standard,82.0,15,2,4,0,przelew,18.0,,nie
+11788,roczna,podstawowy,47.0,48,2,0,3,polecenie zapłaty,46.0,,nie
+10747,miesięczna,podstawowy,41.0,66,2,1,0,polecenie zapłaty,32.0,,0
+10307,miesięczna,standard,83.0,20,3,1,0,przelew,35.0,jakość,tak
+10484,miesięczna,podstawowy,64.0,22,1,1,4,karta,35.0,cena,tak
+10603,dwuletnia,standard,76.0,39,0,2,2,polecenie zapłaty,42.0,,nie
+11731,dwuletnia,premium,147.0,64,0,1,1,karta,22.0,,nie
+10116,dwuletnia,premium,148.0,33,1,0,0,przelew,41.0,,nie
+11563,dwuletnia,premium,139.0,16,2,0,1,polecenie zapłaty,18.0,,nie
+11005,roczna,podstawowy,62.0,18,2,1,2,karta,45.0,,nie
+10483,roczna,podstawowy,69.0,3,2,0,1,karta,22.0,,NIE
+11327,miesięczna,standard,74.0,1,2,1,0,polecenie zapłaty,44.0,,nie
+10651,miesięczna,premium,146.0,54,3,0,0,karta,,,nie
+10746,roczna,standard,84.0,84,2,2,2,polecenie zapłaty,36.0,,nie
+11002,roczna,standard,69.0,81,2,1,3,przelew,52.0,,nie
+11273,miesięczna,standard,95.0,5,0,0,0,polecenie zapłaty,29.0,jakość,1
+10079,roczna,podstawowy,40.0,9,1,4,1,polecenie zapłaty,57.0,,nie
+11227,roczna,standard,91.0,10,2,1,1,karta,50.0,,nie
+10033,miesięczna,podstawowy,59.0,2,0,0,2,polecenie zapłaty,45.0,,nie
+10600,roczna,Premium ,140.0,9,3,2,0,karta,29.0,,nie
+11336,dwuletnia,podstawowy,49.0,3,1,1,1,karta,42.0,,nie
+10383,roczna,podstawowy,51.0,26,1,1,1,polecenie zapłaty,28.0,,nie
+11821,dwuletnia,standard,93.0,48,2,1,1,polecenie zapłaty,38.0,,nie
+10164,miesięczna,standard,77.0,75,2,1,0,karta,60.0,,nie
+10204,miesięczna,podstawowy,59.0,8,2,0,1,karta,29.0,,nie
+11883,miesięczna,standard,80.0,25,2,2,1,przelew,42.0,konkurencja,tak
+10863,roczna,podstawowy,63.0,14,2,1,1,przelew,25.0,,nie
+10926,miesięczna,standard,79.0,14,1,1,1,karta,26.0,jakość,tak
+10573,roczna,standard,97.0,14,3,3,1,polecenie zapłaty,44.0,,nie
+11531,miesięczna,podstawowy,59.0,39,1,1,0,polecenie zapłaty,38.0,,nie
+11976,miesięczna,podstawowy,44.0,20,1,2,0,polecenie zapłaty,23.0,,nie
+11245,miesięczna,podstawowy,62.0,48,2,0,3,przelew,49.0,,nie
+10862,roczna,standard,78.0,14,2,1,1,karta,32.0,,nie
+10809,roczna,podstawowy,62.0,33,1,2,1,polecenie zapłaty,54.0,,nie
+11381,miesięczna,podstawowy,39.0,13,3,1,0,karta,41.0,,nie
+10219,dwuletnia,premium,134.0,35,2,2,0,karta,34.0,,nie
+11941,miesięczna,podstawowy,56.0,31,2,1,1,karta,31.0,,nie
+11458,miesięczna,premium,137.0,2,1,1,0,przelew,48.0,konkurencja,tak
+11112,miesięczna,podstawowy,62.0,72,0,1,1,polecenie zapłaty,33.0,,nie
+10354,roczna,standard,87.0,68,3,0,1,karta,42.0,,nie
+11299,roczna,standard,95.0,25,1,3,1,polecenie zapłaty,46.0,,nie
+10060,miesięczna,podstawowy,67.0,4,0,0,0,karta,66.0,,nie
+11289,roczna,podstawowy,49.0,34,0,3,0,przelew,55.0,,nie
+10298,dwuletnia,podstawowy,52.0,7,1,0,0,polecenie zapłaty,40.0,,nie
+10074,miesięczna,premium,128.0,24,2,2,1,karta,37.0,,nie
+10163,miesięczna,podstawowy,49.0,12,0,1,1,karta,61.0,,nie
+11951,dwuletnia,standard,81.0,2,3,2,0,karta,,,nie
+11545,roczna,podstawowy,59.0,1,2,1,0,karta,,,nie
+10553,miesięczna,standard,84.0,16,0,1,1,karta,42.0,konkurencja,tak
+11051,roczna,premium,119.0,4,3,2,0,polecenie zapłaty,34.0,,nie
+10594,roczna,podstawowy,52.0,26,0,1,1,polecenie zapłaty,51.0,,nie
+11386,miesięczna,standard,91.0,68,1,1,0,karta,55.0,cena,tak
+10046,dwuletnia,podstawowy,48.0,9,3,0,0,karta,72.0,,nie
+10965,dwuletnia,podstawowy,65.0,25,2,0,0,przelew,46.0,,nie
+11424,miesięczna,standard,76.0,44,1,2,1,przelew,49.0,przeprowadzka,tak
+10433,roczna,standard,71.0,21,1,0,0,przelew,48.0,,nie
+11286,dwuletnia,standard,83.0,84,1,2,2,przelew,25.0,,nie
+10077,miesięczna,premium,135.0,17,0,3,3,przelew,39.0,jakość,tak
+11927,miesięczna,standard,86.0,35,3,1,0,przelew,41.0,,nie
+11422,roczna,podstawowy,63.0,52,3,2,0,przelew,40.0,,nie
+11241,dwuletnia,premium,127.0,41,0,1,0,karta,42.0,,nie
+10479,roczna,podstawowy,58.0,29,0,2,0,polecenie zapłaty,46.0,,nie
+10454,miesięczna,standard,87.0,12,2,0,1,polecenie zapłaty,68.0,cena,tak
+10384,roczna,podstawowy,61.0,24,3,1,0,polecenie zapłaty,36.0,,nie
+11934,dwuletnia,podstawowy,50.0,16,1,0,0,karta,66.0,,nie
+10031,roczna,podstawowy,46.0,1,2,0,1,polecenie zapłaty,42.0,,nie
+11390,miesięczna,podstawowy,51.0,14,2,1,1,karta,48.0,,nie
+11757,miesięczna,Podstawowy ,48.0,13,3,1,1,polecenie zapłaty,22.0,jakość,tak
+11316,roczna,podstawowy,42.0,3,1,0,0,karta,37.0,,nie
+11780,roczna,premium,149.0,84,3,0,1,polecenie zapłaty,69.0,,nie
+10810,dwuletnia,podstawowy,53.0,4,1,0,0,karta,35.0,,nie
+10974,dwuletnia,premium,143.0,11,1,0,2,karta,57.0,,0
+11464,miesięczna,podstawowy,67.0,30,3,2,0,karta,59.0,przeprowadzka,tak
+11559,roczna,standard,92.0,46,0,0,0,przelew,57.0,,nie
+11576,miesięczna,podstawowy,62.0,66,0,1,0,karta,56.0,cena,tak
+11617,miesięczna,podstawowy,53.0,5,0,1,0,polecenie zapłaty,37.0,jakość,tak
+11582,miesięczna,standard,84.0,63,2,1,1,przelew,38.0,,NIE
+10045,dwuletnia,premium,131.0,4,2,1,0,polecenie zapłaty,25.0,,nie
+10495,roczna,premium,128.0,11,0,0,1,przelew,50.0,,nie
+10169,miesięczna,podstawowy,53.0,2,3,0,1,polecenie zapłaty,60.0,jakość,tak
+10304,roczna,standard,85.0,26,0,1,2,polecenie zapłaty,53.0,,nie
+11998,miesięczna,standard,79.0,14,0,2,0,polecenie zapłaty,45.0,przeprowadzka,1
+10421,roczna,podstawowy,62.0,38,0,1,0,polecenie zapłaty,34.0,,nie
+11935,roczna,standard,69.0,47,0,0,0,przelew,64.0,,nie
+10611,roczna,premium,125.0,3,2,0,0,przelew,57.0,,nie
+11038,miesięczna,podstawowy,62.0,25,2,1,2,przelew,61.0,cena,TAK
+11415,miesięczna,podstawowy,54.0,38,1,1,1,polecenie zapłaty,45.0,jakość,tak
+11735,dwuletnia,podstawowy,51.0,21,3,2,0,polecenie zapłaty,51.0,,nie
+10585,dwuletnia,podstawowy,45.0,9,2,0,0,karta,50.0,,nie
+10638,roczna,podstawowy,65.0,20,0,1,0,przelew,31.0,,nie
+11924,miesięczna,premium,123.0,6,1,0,2,karta,50.0,przeprowadzka,tak
+11282,miesięczna,podstawowy,45.0,6,1,1,2,polecenie zapłaty,18.0,konkurencja,tak
+11736,roczna,premium,126.0,29,0,1,0,polecenie zapłaty,24.0,,nie
+10415,miesięczna,standard,90.0,84,1,0,0,karta,39.0,,nie
+10186,roczna,podstawowy,64.0,5,2,3,1,karta,41.0,cena,tak
+10707,roczna,premium,137.0,20,2,0,1,przelew,34.0,,nie
+11205,miesięczna,premium,138.0,52,3,1,0,karta,32.0,,nie
+11337,miesięczna,standard,81.0,2,1,0,0,karta,25.0,konkurencja,tak
+10301,roczna,premium,149.0,2,1,2,1,karta,49.0,,nie
+11543,miesięczna,premium,127.0,3,1,1,1,karta,58.0,cena,tak
+10713,dwuletnia,podstawowy,65.0,16,2,0,1,przelew,46.0,,nie
+11462,roczna,standard,78.0,15,0,1,2,karta,43.0,,nie
+11609,miesięczna,podstawowy,53.0,5,1,0,0,karta,51.0,,nie
+11997,miesięczna,podstawowy,69.0,13,3,3,2,przelew,23.0,cena,tak
+11943,miesięczna,podstawowy,64.0,1,0,1,1,polecenie zapłaty,35.0,jakość,tak
+11972,dwuletnia,podstawowy,49.0,50,2,1,2,polecenie zapłaty,31.0,,nie
+10985,miesięczna,podstawowy,45.0,44,0,1,0,karta,58.0,cena,tak
+10176,miesięczna,standard,88.0,1,3,1,1,przelew,18.0,konkurencja,tak
+11178,miesięczna,podstawowy,58.0,17,0,1,2,karta,45.0,jakość,tak
+10694,miesięczna,premium,142.0,13,0,0,0,przelew,38.0,,nie
+11619,dwuletnia,podstawowy,51.0,9,2,1,0,przelew,43.0,,nie
+10124,miesięczna,podstawowy,60.0,7,2,0,1,karta,,,nie
+10368,roczna,standard,84.0,15,2,3,1,polecenie zapłaty,55.0,,nie
+11447,dwuletnia,standard,98.0,14,3,2,0,przelew,32.0,,nie
+11567,miesięczna,premium,125.0,1,3,0,0,karta,,,nie
+10040,roczna,standard,91.0,10,1,1,0,polecenie zapłaty,43.0,,nie
+11508,roczna,premium,133.0,25,1,3,0,karta,55.0,,nie
+10580,miesięczna,premium,137.0,14,2,1,1,przelew,72.0,cena,tak
+10332,miesięczna,podstawowy,46.0,5,3,0,0,karta,44.0,,nie
+10916,dwuletnia,podstawowy,57.0,1,3,1,2,karta,41.0,,nie
+10195,miesięczna,standard,73.0,8,2,2,0,karta,0.0,,nie
+10528,dwuletnia,premium,144.0,10,2,1,1,karta,28.0,,nie
+11689,roczna,standard,77.0,6,3,2,0,przelew,31.0,,nie
+11805,roczna,podstawowy,66.0,1,1,2,0,polecenie zapłaty,49.0,,nie
+10323,miesięczna,standard,88.0,7,0,1,0,karta,31.0,jakość,tak
+11203,dwuletnia,premium,129.0,7,1,1,0,przelew,57.0,,nie
+10267,miesięczna,standard,73.0,18,2,1,0,karta,38.0,,nie
+11034,dwuletnia,podstawowy,52.0,1,0,3,0,karta,18.0,,nie
+11985,roczna,podstawowy,47.0,4,0,0,1,przelew,52.0,,nie
+10068,miesięczna,premium,135.0,27,0,2,0,karta,72.0,jakość,tak
+11450,miesięczna,premium,121.0,23,2,2,3,polecenie zapłaty,48.0,cena,tak
+11240,miesięczna,podstawowy,54.0,17,1,1,1,przelew,53.0,jakość,tak
+10680,miesięczna,podstawowy,64.0,4,0,1,1,polecenie zapłaty,46.0,konkurencja,tak
+10486,miesięczna,podstawowy,53.0,12,1,2,1,karta,45.0,cena,tak
+10481,miesięczna,standard,88.0,1,0,1,0,polecenie zapłaty,55.0,cena,tak
+11419,dwuletnia,podstawowy,41.0,14,2,3,1,karta,48.0,,nie
+10706,roczna,standard,89.0,2,1,3,1,przelew,38.0,przeprowadzka,tak
+10584,miesięczna,podstawowy,41.0,38,3,3,1,karta,48.0,,nie
+10980,miesięczna,premium,135.0,1,3,1,0,przelew,18.0,konkurencja,1
+10428,dwuletnia,standard,72.0,39,0,2,0,karta,32.0,,nie
+11643,roczna,premium,132.0,49,1,3,2,przelew,49.0,,nie
+11579,dwuletnia,standard,73.0,12,0,4,0,polecenie zapłaty,,,nie
+10480,miesięczna,premium,139.0,14,1,1,0,polecenie zapłaty,53.0,jakość,tak
+10451,miesięczna,standard,86.0,2,2,1,1,przelew,33.0,konkurencja,tak
+11917,roczna,standard,71.0,32,1,1,1,polecenie zapłaty,,,nie
+11393,miesięczna,premium,132.0,11,3,2,2,przelew,31.0,,nie
+11539,dwuletnia,podstawowy,56.0,34,1,0,1,karta,26.0,,nie
+11588,roczna,standard,98.0,13,1,1,0,polecenie zapłaty,56.0,,nie
+11668,miesięczna,podstawowy,61.0,12,2,2,0,karta,48.0,,nie
+10942,dwuletnia,podstawowy,67.0,47,3,1,0,polecenie zapłaty,33.0,,nie
+10734,miesięczna,podstawowy,53.0,1,0,0,1,przelew,24.0,,nie
+11275,miesięczna,standard,71.0,42,2,1,1,przelew,47.0,,nie
+10693,miesięczna,premium,149.0,3,1,4,0,polecenie zapłaty,19.0,jakość,tak
+11259,roczna,standard,74.0,38,0,3,0,karta,57.0,,nie
+11685,miesięczna,podstawowy,59.0,12,2,1,1,przelew,31.0,konkurencja,tak
+10262,dwuletnia,premium,141.0,16,1,0,0,polecenie zapłaty,51.0,,nie
+10608,miesięczna,podstawowy,49.0,3,3,0,0,karta,60.0,,nie
+10975,miesięczna,standard,74.0,39,2,0,1,karta,30.0,,nie
+10241,dwuletnia,podstawowy,60.0,6,1,2,1,karta,62.0,,nie
+10820,miesięczna,premium,124.0,1,3,3,0,karta,34.0,,nie
+11418,roczna,standard,74.0,59,0,0,1,przelew,58.0,,nie
+11738,miesięczna,standard,82.0,24,0,0,0,przelew,18.0,,nie
+11091,miesięczna,premium,135.0,22,3,2,0,polecenie zapłaty,40.0,jakość,tak
+11081,miesięczna,podstawowy,67.0,2,1,1,0,przelew,36.0,przeprowadzka,tak
+10366,miesięczna,standard,90.0,18,3,0,1,przelew,25.0,,nie
+11028,miesięczna,premium,122.0,27,3,3,0,przelew,51.0,,nie
+11334,dwuletnia,podstawowy,64.0,64,2,0,1,przelew,39.0,,nie
+10591,dwuletnia,standard,81.0,25,0,2,0,przelew,,,nie
+11236,miesięczna,podstawowy,56.0,26,2,2,1,przelew,19.0,jakość,tak
+11844,dwuletnia,standard,73.0,21,3,1,1,karta,38.0,,nie
+10583,miesięczna,podstawowy,47.0,53,2,2,0,polecenie zapłaty,49.0,,nie
+10072,miesięczna,standard,81.0,10,0,0,0,polecenie zapłaty,58.0,jakość,tak
+11010,roczna,standard,73.0,26,0,2,0,przelew,49.0,,nie
+10260,roczna,standard,97.0,32,2,0,1,karta,28.0,,nie
+10052,miesięczna,podstawowy,68.0,6,1,1,0,polecenie zapłaty,53.0,przeprowadzka,tak
+10199,miesięczna,podstawowy,54.0,1,1,2,0,karta,33.0,,nie
+11180,miesięczna,standard,96.0,5,2,1,1,polecenie zapłaty,33.0,konkurencja,tak
+10679,miesięczna,standard,87.0,3,2,2,1,polecenie zapłaty,23.0,jakość,tak
+10333,roczna,premium,141.0,22,3,2,3,karta,22.0,,nie
+11367,miesięczna,standard,79.0,11,2,1,1,przelew,60.0,jakość,tak
+11560,dwuletnia,standard,89.0,5,2,2,1,karta,36.0,,nie
+10870,miesięczna,podstawowy,56.0,42,2,1,5,przelew,51.0,konkurencja,tak
+11764,miesięczna,podstawowy,57.0,2,2,1,1,polecenie zapłaty,40.0,,nie
+11607,dwuletnia,podstawowy,48.0,33,3,2,1,karta,34.0,,nie
+10906,roczna,standard,89.0,13,1,0,1,karta,39.0,,nie
+10887,miesięczna,podstawowy,59.0,13,2,1,1,polecenie zapłaty,33.0,,nie
+11467,miesięczna,standard,88.0,10,2,4,0,polecenie zapłaty,53.0,cena,1
+10427,miesięczna,podstawowy,47.0,7,3,4,0,karta,31.0,,nie
+10568,miesięczna,podstawowy,43.0,3,2,1,0,karta,57.0,przeprowadzka,tak
+11266,dwuletnia,podstawowy,49.0,47,2,0,1,przelew,34.0,,nie
+11782,roczna,premium,125.0,10,0,0,0,karta,33.0,,nie
+10988,miesięczna,standard,72.0,25,1,4,1,przelew,50.0,przeprowadzka,tak
+11987,miesięczna,Podstawowy ,54.0,32,2,2,1,przelew,54.0,jakość,tak
+10582,roczna,premium,121.0,52,1,1,0,polecenie zapłaty,36.0,,nie
+11402,miesięczna,premium,149.0,31,0,0,1,karta,80.0,jakość,tak
+10399,roczna,podstawowy,66.0,22,2,2,1,polecenie zapłaty,,,nie
+10933,miesięczna,standard,87.0,2,2,1,0,karta,31.0,,nie
+10437,miesięczna,standard,74.0,1,1,1,1,karta,32.0,jakość,tak
+10193,miesięczna,standard,75.0,38,1,2,0,polecenie zapłaty,,,nie
+11443,miesięczna,podstawowy,44.0,22,0,1,0,karta,21.0,,nie
+10618,miesięczna,premium,148.0,2,1,0,1,przelew,70.0,przeprowadzka,tak
+10293,dwuletnia,standard,70.0,66,3,0,0,karta,53.0,,nie
+10951,roczna,podstawowy,42.0,8,3,3,0,karta,40.0,,nie
+11084,dwuletnia,standard,69.0,7,2,2,0,przelew,36.0,,nie
+10835,roczna,standard,98.0,15,3,2,0,polecenie zapłaty,64.0,,nie
+11950,dwuletnia,podstawowy,57.0,21,3,2,2,przelew,39.0,,nie
+10508,dwuletnia,premium,135.0,43,3,0,2,przelew,43.0,,nie
+10142,roczna,standard,81.0,20,1,1,0,przelew,46.0,,nie
+10924,roczna,standard,81.0,28,0,0,0,karta,70.0,konkurencja,tak
+10003,dwuletnia,premium,127.0,60,3,2,0,karta,,,nie
+11106,roczna,standard,69.0,16,0,0,1,karta,52.0,,nie
+11880,roczna,standard,74.0,18,2,0,3,polecenie zapłaty,52.0,,nie
+11165,miesięczna,standard,98.0,14,1,1,0,karta,27.0,cena,tak
+10340,dwuletnia,podstawowy,53.0,35,3,1,0,karta,27.0,,nie
+11492,dwuletnia,podstawowy,40.0,27,1,1,1,karta,39.0,,nie
+11826,miesięczna,standard,81.0,83,3,1,1,karta,28.0,,nie
+11548,roczna,premium,132.0,4,2,0,2,polecenie zapłaty,24.0,,nie
+10266,miesięczna,podstawowy,52.0,7,0,2,2,polecenie zapłaty,40.0,przeprowadzka,tak
+10377,dwuletnia,premium,124.0,40,3,0,1,karta,18.0,,nie
+11425,miesięczna,podstawowy,47.0,8,1,1,1,karta,50.0,cena,tak
+11992,roczna,standard,75.0,1,0,0,0,karta,36.0,,nie
+10440,roczna,standard,90.0,11,0,0,1,przelew,22.0,przeprowadzka,tak
+10272,miesięczna,standard,69.0,39,1,1,0,polecenie zapłaty,65.0,konkurencja,TAK
+10185,roczna,standard,86.0,24,0,2,2,karta,31.0,,nie
+11314,miesięczna,standard,96.0,4,0,2,0,polecenie zapłaty,39.0,konkurencja,tak
+10245,roczna,podstawowy,57.0,1,2,0,2,przelew,33.0,,nie
+10549,roczna,podstawowy,41.0,10,1,0,0,karta,18.0,,nie
+10446,roczna,standard,79.0,5,3,2,0,polecenie zapłaty,64.0,,nie
+10615,miesięczna,podstawowy,44.0,84,3,0,0,polecenie zapłaty,52.0,,nie
+11069,miesięczna,standard,84.0,11,1,1,0,karta,24.0,,nie
+11656,miesięczna,podstawowy,51.0,10,0,0,1,karta,23.0,,nie
+11302,roczna,podstawowy,65.0,17,0,2,1,przelew,33.0,jakość,tak
+11321,roczna,podstawowy,47.0,58,3,1,0,polecenie zapłaty,23.0,,nie
+11766,miesięczna,standard,87.0,51,3,0,1,przelew,53.0,,nie
+10416,miesięczna,podstawowy,40.0,76,2,1,0,polecenie zapłaty,41.0,,nie
+10274,roczna,premium,134.0,61,2,0,0,polecenie zapłaty,33.0,,nie
+11353,miesięczna,podstawowy,40.0,10,0,1,0,przelew,41.0,jakość,tak
+11494,roczna,Standard ,82.0,15,2,0,3,polecenie zapłaty,52.0,,nie
+11898,miesięczna,standard,89.0,19,1,1,0,karta,39.0,przeprowadzka,tak
+10251,roczna,standard,87.0,6,1,1,1,przelew,36.0,przeprowadzka,tak
+10414,dwuletnia,standard,74.0,16,1,2,1,przelew,34.0,,nie
+10620,miesięczna,premium,138.0,3,1,1,0,karta,53.0,cena,TAK
+11315,miesięczna,podstawowy,42.0,28,1,3,2,karta,53.0,,nie
+10592,miesięczna,premium,131.0,14,0,0,0,karta,39.0,,nie
+10311,roczna,premium,120.0,29,2,0,0,karta,56.0,,nie
+10915,dwuletnia,standard,89.0,9,2,0,3,przelew,48.0,,nie
+10382,dwuletnia,podstawowy,41.0,4,3,2,1,karta,61.0,,nie
+10737,miesięczna,podstawowy,52.0,1,0,1,0,karta,36.0,jakość,tak
+10426,dwuletnia,standard,82.0,4,0,2,1,polecenie zapłaty,36.0,,nie
+11885,miesięczna,premium,126.0,38,0,3,0,polecenie zapłaty,40.0,konkurencja,tak
+10535,miesięczna,premium,134.0,10,3,3,0,polecenie zapłaty,52.0,cena,tak
+10756,miesięczna,standard,75.0,4,1,1,1,przelew,39.0,jakość,tak
+11988,roczna,standard,80.0,5,3,0,1,polecenie zapłaty,69.0,,nie
+11792,miesięczna,podstawowy,53.0,5,3,1,0,przelew,48.0,jakość,tak
+10409,miesięczna,podstawowy,39.0,36,3,0,1,polecenie zapłaty,18.0,,nie
+11623,dwuletnia,standard,75.0,7,1,1,0,karta,38.0,,0
+11836,miesięczna,standard,89.0,18,3,1,0,karta,74.0,,nie
+10631,dwuletnia,podstawowy,52.0,6,0,0,2,karta,44.0,,nie
+11441,miesięczna,Podstawowy ,51.0,9,1,1,1,przelew,34.0,,nie
+10943,miesięczna,premium,147.0,21,2,1,0,karta,32.0,,nie
+10969,roczna,standard,81.0,5,2,2,3,karta,49.0,,nie
+11938,roczna,standard,69.0,17,0,1,0,polecenie zapłaty,18.0,,nie
+11471,dwuletnia,standard,80.0,24,2,1,1,karta,38.0,,nie
+10932,miesięczna,podstawowy,43.0,18,3,0,1,polecenie zapłaty,46.0,,nie
+10183,roczna,premium,142.0,37,1,3,0,przelew,47.0,,nie
+10171,miesięczna,standard,96.0,1,0,0,0,przelew,51.0,jakość,tak
+11755,miesięczna,standard,86.0,19,0,0,0,przelew,53.0,konkurencja,tak
+11970,roczna,podstawowy,48.0,21,3,3,0,karta,34.0,,nie
+11906,miesięczna,standard,76.0,50,3,2,1,karta,31.0,,nie
+11661,miesięczna,podstawowy,44.0,29,1,2,2,karta,70.0,cena,tak
+10856,roczna,premium,123.0,5,2,2,2,polecenie zapłaty,40.0,,nie
+10273,miesięczna,standard,72.0,11,2,3,1,polecenie zapłaty,29.0,,nie
+11558,roczna,premium,127.0,3,0,2,1,polecenie zapłaty,50.0,przeprowadzka,tak
+10695,dwuletnia,premium,133.0,55,0,2,1,przelew,41.0,,nie
+11226,dwuletnia,premium,139.0,6,1,0,2,polecenie zapłaty,39.0,,nie
+10372,miesięczna,podstawowy,64.0,27,0,0,0,karta,43.0,jakość,tak
+11023,dwuletnia,standard,93.0,19,2,2,1,polecenie zapłaty,25.0,,nie
+10922,dwuletnia,podstawowy,52.0,3,0,0,0,przelew,27.0,,nie
+11616,miesięczna,standard,87.0,6,3,0,0,karta,37.0,,nie
+10782,dwuletnia,podstawowy,45.0,2,1,0,1,przelew,25.0,,nie
+10519,miesięczna,standard,97.0,1,2,0,0,przelew,56.0,konkurencja,tak
+10335,miesięczna,standard,99.0,84,2,1,0,przelew,28.0,,nie
+11453,dwuletnia,podstawowy,61.0,27,0,5,1,przelew,18.0,,nie
+11956,dwuletnia,standard,75.0,4,3,0,2,przelew,18.0,,nie
+11058,miesięczna,podstawowy,46.0,1,1,0,1,polecenie zapłaty,71.0,przeprowadzka,tak
+11581,dwuletnia,standard,83.0,34,3,0,0,polecenie zapłaty,29.0,,nie
+10016,miesięczna,standard,73.0,6,3,1,0,karta,47.0,,nie
+10681,miesięczna,premium,146.0,2,3,1,1,polecenie zapłaty,42.0,konkurencja,tak
+10846,dwuletnia,standard,88.0,5,3,1,1,polecenie zapłaty,31.0,,nie
+11695,roczna,standard,72.0,4,2,5,2,karta,52.0,przeprowadzka,TAK
+11626,roczna,standard,84.0,37,1,1,1,karta,36.0,,nie
+10910,miesięczna,standard,85.0,49,0,1,0,karta,42.0,konkurencja,tak
+10466,roczna,standard,91.0,47,3,2,1,przelew,24.0,,nie
+11504,miesięczna,standard,85.0,7,2,1,1,karta,63.0,,nie
+10200,miesięczna,standard,97.0,3,0,4,1,karta,48.0,cena,tak
+11468,miesięczna,podstawowy,46.0,84,1,1,1,polecenie zapłaty,46.0,,nie
+11587,miesięczna,podstawowy,67.0,18,3,2,1,karta,34.0,konkurencja,tak
+11138,miesięczna,podstawowy,56.0,10,2,2,0,przelew,49.0,,nie
+11308,roczna,podstawowy,42.0,35,1,1,1,polecenie zapłaty,24.0,,nie
+11158,miesięczna,podstawowy,54.0,20,1,1,1,karta,33.0,,nie
+10731,miesięczna,podstawowy,57.0,6,1,1,1,karta,,konkurencja,tak
+11408,miesięczna,podstawowy,50.0,25,3,0,0,karta,32.0,,nie
+11421,roczna,premium,133.0,29,0,3,1,karta,41.0,,0
+11114,dwuletnia,standard,92.0,4,3,1,1,przelew,44.0,,nie
+11520,miesięczna,standard,97.0,11,0,0,1,przelew,60.0,cena,tak
+10044,miesięczna,premium,124.0,10,2,1,2,polecenie zapłaty,48.0,konkurencja,tak
+10275,roczna,premium,121.0,8,0,1,0,polecenie zapłaty,44.0,,nie
+11103,roczna,premium,133.0,8,1,0,2,przelew,57.0,jakość,1
+10102,roczna,podstawowy,68.0,1,1,1,1,przelew,,,nie
+10875,roczna,podstawowy,50.0,18,2,1,1,karta,42.0,,nie
+11329,miesięczna,standard,82.0,4,0,1,0,polecenie zapłaty,18.0,,nie
+10967,dwuletnia,podstawowy,61.0,24,2,1,1,polecenie zapłaty,57.0,,nie
+10108,miesięczna,premium,132.0,29,3,2,1,polecenie zapłaty,37.0,przeprowadzka,tak
+11778,miesięczna,podstawowy,51.0,21,0,2,1,polecenie zapłaty,49.0,konkurencja,tak
+10498,roczna,podstawowy,45.0,55,1,1,3,karta,46.0,,nie
+11991,miesięczna,premium,128.0,9,1,1,0,przelew,46.0,,nie
+10888,miesięczna,premium,147.0,84,2,1,1,karta,25.0,,nie
+10760,roczna,standard,69.0,15,1,1,0,karta,33.0,,nie
+11603,roczna,standard,73.0,7,3,0,1,karta,68.0,,nie
+11113,roczna,standard,95.0,13,0,0,0,karta,21.0,,nie
+11305,dwuletnia,standard,83.0,42,1,0,1,karta,37.0,,nie
+10619,miesięczna,premium,119.0,12,1,2,0,karta,35.0,konkurencja,tak
+10597,roczna,podstawowy,69.0,5,1,0,0,karta,50.0,,nie
+10073,dwuletnia,podstawowy,59.0,84,3,1,1,karta,32.0,,nie
+10757,miesięczna,premium,141.0,10,2,1,0,przelew,66.0,jakość,tak
+11221,miesięczna,podstawowy,43.0,40,1,0,1,karta,18.0,,nie
+11174,roczna,Premium ,134.0,44,3,1,1,polecenie zapłaty,64.0,,nie
+10860,roczna,standard,69.0,44,0,4,1,karta,31.0,konkurencja,1
+10482,miesięczna,podstawowy,63.0,5,1,1,0,polecenie zapłaty,24.0,konkurencja,tak
+11074,dwuletnia,standard,89.0,29,3,1,1,przelew,33.0,,nie
+10507,miesięczna,premium,133.0,7,3,2,0,karta,46.0,konkurencja,tak
+10679,miesięczna,standard,87.0,3,2,2,1,polecenie zapłaty,23.0,jakość,tak
+10775,miesięczna,standard,84.0,41,2,1,2,karta,41.0,,nie
+12000,roczna,podstawowy,58.0,6,3,0,1,karta,34.0,,NIE
+10744,miesięczna,standard,72.0,81,3,1,1,przelew,38.0,,nie
+11407,dwuletnia,standard,96.0,24,2,2,0,karta,18.0,,nie
+11840,roczna,podstawowy,51.0,36,3,3,1,karta,44.0,,nie
+10312,miesięczna,podstawowy,39.0,1,0,1,0,karta,52.0,,nie
+10833,miesięczna,standard,98.0,15,1,2,1,przelew,29.0,przeprowadzka,tak
+10406,dwuletnia,podstawowy,42.0,4,0,1,1,przelew,43.0,,0
+10702,miesięczna,standard,74.0,38,0,1,0,polecenie zapłaty,22.0,przeprowadzka,tak
+11294,miesięczna,standard,97.0,38,2,1,2,polecenie zapłaty,40.0,cena,tak
+10310,miesięczna,premium,137.0,43,2,0,2,polecenie zapłaty,35.0,,nie
+10227,miesięczna,standard,87.0,6,1,1,0,przelew,54.0,konkurencja,tak
+11732,miesięczna,premium,122.0,46,1,2,1,polecenie zapłaty,43.0,konkurencja,tak
+11059,roczna,podstawowy,69.0,4,1,1,2,karta,51.0,,nie
+11537,roczna,podstawowy,61.0,9,1,0,0,polecenie zapłaty,53.0,,nie
+11090,roczna,premium,130.0,3,1,0,0,polecenie zapłaty,54.0,cena,tak
+11542,miesięczna,standard,88.0,5,3,0,0,przelew,0.0,cena,tak
+10149,miesięczna,standard,72.0,1,3,0,0,przelew,,jakość,tak
+10629,roczna,podstawowy,47.0,6,2,0,0,polecenie zapłaty,28.0,,nie
+11354,miesięczna,podstawowy,42.0,10,2,2,0,polecenie zapłaty,35.0,cena,tak
+10837,roczna,standard,77.0,28,1,0,3,karta,43.0,,nie
+11642,miesięczna,podstawowy,61.0,10,2,1,1,karta,45.0,,nie
+11709,dwuletnia,standard,95.0,10,0,3,1,polecenie zapłaty,46.0,,nie
+10576,roczna,standard,75.0,13,0,2,1,polecenie zapłaty,47.0,cena,tak
+10558,roczna,podstawowy,47.0,13,1,0,1,przelew,43.0,,nie
+11340,miesięczna,standard,77.0,12,1,2,1,przelew,35.0,konkurencja,tak
+11162,roczna,premium,140.0,5,3,0,1,karta,58.0,,nie
+11791,roczna,podstawowy,45.0,14,0,3,0,karta,61.0,,nie
+11342,dwuletnia,premium,123.0,19,2,1,1,przelew,59.0,,nie
+10839,miesięczna,podstawowy,60.0,10,0,3,0,przelew,43.0,przeprowadzka,tak
+10964,miesięczna,standard,88.0,27,2,2,0,polecenie zapłaty,25.0,,nie
+10287,miesięczna,premium,120.0,52,3,0,0,przelew,45.0,,nie
+11613,roczna,standard,71.0,10,0,1,0,karta,27.0,,nie
+10742,miesięczna,premium,127.0,5,3,2,1,polecenie zapłaty,48.0,przeprowadzka,tak
+10599,dwuletnia,premium,128.0,4,3,2,0,polecenie zapłaty,52.0,,nie
+10939,dwuletnia,podstawowy,66.0,32,0,1,0,karta,60.0,,0
+11086,roczna,podstawowy,69.0,16,2,0,0,polecenie zapłaty,32.0,,nie
+11646,roczna,standard,89.0,19,0,1,1,polecenie zapłaty,50.0,,nie
+11678,miesięczna,standard,72.0,1,2,0,0,karta,35.0,,nie
+11621,miesięczna,standard,74.0,76,0,1,0,polecenie zapłaty,54.0,,nie
+11820,roczna,Premium ,125.0,10,1,1,1,przelew,47.0,,nie
+11056,roczna,standard,90.0,65,2,3,0,karta,32.0,,nie
+11624,miesięczna,premium,140.0,17,0,2,1,karta,70.0,cena,tak
+10758,dwuletnia,standard,96.0,31,1,0,0,karta,50.0,,nie
+11211,roczna,podstawowy,62.0,28,0,0,0,karta,34.0,,nie
+10772,roczna,standard,97.0,43,2,1,0,karta,26.0,,nie
+10610,miesięczna,podstawowy,39.0,12,2,2,1,przelew,41.0,przeprowadzka,tak
+11873,dwuletnia,podstawowy,63.0,51,1,0,1,polecenie zapłaty,41.0,,nie
+11434,miesięczna,podstawowy,49.0,18,2,2,0,przelew,50.0,,nie
+11430,miesięczna,premium,136.0,29,1,1,1,polecenie zapłaty,52.0,konkurencja,tak
+11811,miesięczna,standard,99.0,28,2,1,0,karta,43.0,,nie
+10494,miesięczna,premium,145.0,11,3,1,0,polecenie zapłaty,,,nie
+11674,miesięczna,podstawowy,41.0,34,2,2,1,przelew,29.0,jakość,tak
+10278,roczna,podstawowy,60.0,32,0,0,1,karta,50.0,,nie
+11857,miesięczna,premium,128.0,27,0,1,2,przelew,61.0,konkurencja,tak
+10359,roczna,premium,140.0,10,3,3,1,polecenie zapłaty,18.0,,NIE
+11117,miesięczna,podstawowy,51.0,3,3,1,0,polecenie zapłaty,58.0,,nie
+10237,roczna,podstawowy,68.0,3,1,0,2,przelew,41.0,,nie
+10552,miesięczna,standard,70.0,1,2,1,1,karta,45.0,,nie
+11878,miesięczna,premium,138.0,17,3,3,1,polecenie zapłaty,40.0,przeprowadzka,1
+10904,roczna,premium,149.0,31,1,0,2,karta,53.0,,nie
+10209,miesięczna,Podstawowy ,48.0,10,3,2,2,karta,68.0,cena,tak
+11394,miesięczna,podstawowy,51.0,26,2,2,0,przelew,45.0,,nie
+11569,roczna,premium,131.0,1,0,1,1,karta,,,nie
+10059,miesięczna,podstawowy,59.0,7,3,1,0,karta,,,nie
+10632,dwuletnia,standard,88.0,25,3,0,1,przelew,54.0,,nie
+11593,dwuletnia,premium,149.0,11,1,1,1,przelew,32.0,,nie
+11870,dwuletnia,standard,88.0,22,3,2,2,polecenie zapłaty,26.0,,nie
+11925,miesięczna,podstawowy,40.0,3,0,1,0,karta,33.0,,0
+10364,miesięczna,premium,122.0,34,2,0,0,polecenie zapłaty,49.0,,nie
+10506,roczna,podstawowy,44.0,26,1,1,0,karta,39.0,,nie
+11191,miesięczna,podstawowy,43.0,12,2,0,0,karta,55.0,,nie
+11555,miesięczna,podstawowy,53.0,33,3,1,0,przelew,31.0,,nie
+11612,roczna,podstawowy,61.0,16,0,2,0,karta,39.0,,nie
+11223,dwuletnia,standard,82.0,18,2,1,0,polecenie zapłaty,40.0,,nie
+11122,miesięczna,podstawowy,69.0,27,2,2,0,przelew,,jakość,tak
+11164,miesięczna,standard,93.0,42,0,2,0,przelew,42.0,,nie
+11344,roczna,podstawowy,48.0,27,1,2,1,polecenie zapłaty,53.0,,0
+10119,miesięczna,podstawowy,52.0,10,1,2,0,karta,63.0,przeprowadzka,tak
+11256,dwuletnia,premium,129.0,11,3,1,1,karta,32.0,,nie
+11188,dwuletnia,premium,125.0,20,3,1,0,przelew,55.0,,nie
+10523,miesięczna,podstawowy,61.0,4,0,1,0,przelew,46.0,,nie
+10514,miesięczna,podstawowy,39.0,63,3,0,3,przelew,64.0,,nie
+10082,miesięczna,podstawowy,52.0,50,3,1,2,przelew,46.0,,nie
+10728,miesięczna,podstawowy,69.0,44,0,0,0,przelew,33.0,,nie
+11284,roczna,podstawowy,39.0,16,3,3,2,polecenie zapłaty,36.0,,nie
+10381,roczna,premium,126.0,10,3,1,2,polecenie zapłaty,46.0,,nie
+11035,miesięczna,premium,145.0,5,2,1,0,polecenie zapłaty,49.0,,nie
+11698,roczna,podstawowy,43.0,4,3,2,0,polecenie zapłaty,27.0,,nie
+10085,miesięczna,standard,90.0,7,2,1,1,przelew,59.0,jakość,tak
+11687,roczna,Podstawowy ,60.0,1,1,2,2,przelew,39.0,przeprowadzka,tak
+10330,miesięczna,standard,88.0,1,2,0,0,karta,61.0,,nie
+10007,roczna,standard,81.0,28,1,1,1,przelew,42.0,,nie
+11654,miesięczna,podstawowy,44.0,13,2,2,0,karta,18.0,,nie
+11814,miesięczna,podstawowy,66.0,4,3,3,1,karta,46.0,cena,tak
+11547,miesięczna,standard,69.0,21,1,0,0,polecenie zapłaty,52.0,przeprowadzka,tak
+10880,roczna,podstawowy,48.0,44,2,0,0,polecenie zapłaty,22.0,,nie
+10452,dwuletnia,standard,96.0,66,3,1,0,karta,66.0,,nie
+10491,roczna,premium,132.0,24,2,0,1,przelew,,,nie
+11489,dwuletnia,podstawowy,56.0,26,3,1,1,karta,34.0,,nie
+10288,miesięczna,standard,80.0,16,2,0,1,karta,18.0,,nie
+10917,miesięczna,podstawowy,48.0,27,2,0,0,przelew,21.0,,nie
+11996,roczna,podstawowy,53.0,65,1,2,0,karta,32.0,,nie
+11376,miesięczna,standard,83.0,77,0,0,0,karta,70.0,,nie
+10768,miesięczna,standard,83.0,49,2,0,0,karta,48.0,,nie
+11810,miesięczna,standard,91.0,10,3,2,1,przelew,53.0,cena,tak
+11973,roczna,standard,87.0,18,0,3,0,polecenie zapłaty,30.0,,nie
+11711,roczna,premium,123.0,4,0,2,1,przelew,,konkurencja,tak
+10803,dwuletnia,podstawowy,63.0,3,3,1,0,polecenie zapłaty,,,nie
+10944,miesięczna,podstawowy,47.0,11,1,1,1,polecenie zapłaty,42.0,,nie
+10927,miesięczna,standard,75.0,2,2,2,0,polecenie zapłaty,52.0,przeprowadzka,1
+11303,roczna,podstawowy,56.0,26,2,0,0,karta,33.0,,nie
+11660,miesięczna,podstawowy,67.0,47,1,4,1,karta,47.0,konkurencja,tak
+10328,roczna,podstawowy,51.0,14,1,0,0,przelew,38.0,,nie
+10443,roczna,podstawowy,48.0,12,0,4,1,karta,55.0,,nie
+11650,dwuletnia,premium,131.0,2,1,0,1,karta,50.0,,nie
+11085,dwuletnia,standard,81.0,4,0,1,0,karta,31.0,,nie
+10931,miesięczna,standard,95.0,2,2,0,0,przelew,30.0,,nie
+11550,miesięczna,premium,119.0,3,0,0,2,przelew,42.0,konkurencja,tak
+10178,dwuletnia,premium,121.0,2,0,0,0,karta,71.0,przeprowadzka,tak
+11825,roczna,standard,70.0,8,1,2,0,polecenie zapłaty,50.0,,nie
+10708,roczna,podstawowy,40.0,18,1,2,2,karta,68.0,,nie
+10087,roczna,podstawowy,59.0,15,0,0,1,polecenie zapłaty,45.0,,nie
+11762,miesięczna,podstawowy,43.0,55,2,1,0,przelew,43.0,,nie
+11910,dwuletnia,premium,126.0,49,0,4,1,karta,54.0,,nie
+10458,roczna,podstawowy,56.0,36,3,2,1,przelew,,,nie
+11839,roczna,standard,72.0,8,1,2,0,przelew,80.0,,nie
+10055,roczna,podstawowy,60.0,61,1,1,0,karta,23.0,,nie
+11510,roczna,podstawowy,67.0,19,3,1,1,przelew,64.0,,nie
+10644,miesięczna,premium,136.0,11,0,2,0,polecenie zapłaty,28.0,konkurencja,tak
+10678,roczna,premium,134.0,2,2,1,1,polecenie zapłaty,51.0,,nie
+10222,roczna,standard,78.0,11,1,0,0,karta,28.0,,nie
+10114,roczna,standard,78.0,4,1,2,0,przelew,55.0,,nie
+10989,miesięczna,podstawowy,39.0,84,0,1,1,karta,27.0,,nie
+11235,miesięczna,Podstawowy ,53.0,1,1,2,1,polecenie zapłaty,61.0,,nie
+11006,miesięczna,standard,88.0,11,0,1,4,karta,32.0,konkurencja,1
+10175,miesięczna,podstawowy,39.0,16,3,1,1,przelew,32.0,cena,tak
+10786,miesięczna,standard,85.0,25,0,1,1,przelew,44.0,konkurencja,tak
+10590,miesięczna,standard,94.0,4,0,2,1,przelew,49.0,konkurencja,tak
+11568,miesięczna,Standard ,87.0,8,1,0,2,przelew,62.0,jakość,tak
+10019,dwuletnia,standard,76.0,44,1,0,0,polecenie zapłaty,48.0,,nie
+10424,miesięczna,podstawowy,50.0,84,0,0,0,polecenie zapłaty,54.0,cena,tak
+11351,roczna,podstawowy,60.0,35,2,0,1,karta,49.0,,nie
+10286,miesięczna,podstawowy,40.0,70,2,1,2,karta,65.0,konkurencja,tak
+11592,miesięczna,podstawowy,44.0,29,1,0,1,karta,41.0,,nie
+10429,miesięczna,Standard ,86.0,7,0,0,0,polecenie zapłaty,30.0,cena,tak
+11518,dwuletnia,podstawowy,41.0,19,3,2,1,przelew,23.0,,nie
+11291,roczna,podstawowy,56.0,6,3,0,0,polecenie zapłaty,54.0,,nie
+10670,miesięczna,standard,95.0,22,2,1,0,karta,25.0,,nie
+10032,dwuletnia,standard,85.0,78,3,1,1,polecenie zapłaty,35.0,,nie
+11377,roczna,podstawowy,52.0,3,1,0,1,przelew,,konkurencja,tak
+10723,miesięczna,podstawowy,62.0,6,2,1,1,karta,42.0,konkurencja,tak
+11001,miesięczna,premium,132.0,1,0,3,2,przelew,30.0,cena,tak
+10215,roczna,premium,120.0,11,3,1,1,przelew,34.0,,nie
+10819,roczna,standard,92.0,15,1,0,1,przelew,35.0,,nie
+10327,dwuletnia,podstawowy,48.0,43,2,1,0,przelew,62.0,,nie
+10561,miesięczna,standard,98.0,21,0,0,0,polecenie zapłaty,,,nie
+11119,miesięczna,podstawowy,50.0,1,1,1,0,karta,60.0,jakość,tak
+10701,miesięczna,standard,86.0,31,0,1,0,polecenie zapłaty,42.0,,nie
+10753,miesięczna,premium,132.0,17,3,2,2,polecenie zapłaty,34.0,konkurencja,tak
+11595,dwuletnia,podstawowy,52.0,77,3,0,0,karta,33.0,,nie
+10342,dwuletnia,podstawowy,68.0,18,2,0,1,polecenie zapłaty,49.0,,nie
+10630,dwuletnia,podstawowy,39.0,22,0,0,2,polecenie zapłaty,65.0,,nie
+10148,roczna,premium,124.0,13,0,3,2,karta,39.0,cena,tak
+11433,miesięczna,premium,145.0,46,1,0,2,polecenie zapłaty,46.0,,nie
+10361,dwuletnia,premium,124.0,26,2,1,0,polecenie zapłaty,,,nie
+10084,miesięczna,podstawowy,62.0,18,2,3,1,przelew,50.0,jakość,tak
+10049,roczna,podstawowy,61.0,16,3,2,2,przelew,34.0,,nie
+10469,miesięczna,standard,90.0,56,1,1,1,przelew,34.0,przeprowadzka,tak
+10156,roczna,premium,136.0,1,3,0,1,polecenie zapłaty,37.0,,nie
+11933,roczna,standard,69.0,22,3,2,1,karta,56.0,,nie
+11037,miesięczna,standard,88.0,18,2,2,1,przelew,41.0,,0
+11207,roczna,podstawowy,50.0,21,2,1,0,karta,44.0,,nie
+11557,dwuletnia,standard,92.0,84,1,0,1,karta,45.0,,nie
+11209,miesięczna,podstawowy,50.0,11,1,0,0,karta,48.0,,nie
+10319,miesięczna,standard,76.0,84,3,4,0,przelew,42.0,,nie
+10501,roczna,podstawowy,47.0,3,0,1,1,przelew,44.0,przeprowadzka,tak
+11774,dwuletnia,premium,122.0,32,1,0,2,polecenie zapłaty,39.0,,nie
+10180,roczna,premium,124.0,1,0,2,0,karta,43.0,,nie
+11053,miesięczna,standard,70.0,1,2,1,2,karta,49.0,przeprowadzka,tak
+11765,miesięczna,podstawowy,62.0,7,1,2,0,karta,30.0,cena,1
+10789,roczna,premium,120.0,3,2,3,0,polecenie zapłaty,35.0,,nie
+11101,miesięczna,premium,125.0,4,2,3,0,karta,52.0,przeprowadzka,tak
+11872,miesięczna,podstawowy,43.0,57,2,1,0,przelew,48.0,,nie
+11628,miesięczna,standard,98.0,8,2,1,2,polecenie zapłaty,19.0,jakość,tak
+10529,roczna,premium,147.0,50,2,2,0,przelew,31.0,,nie
+10347,dwuletnia,premium,126.0,11,2,2,0,polecenie zapłaty,67.0,,nie
+11395,dwuletnia,standard,74.0,12,0,0,1,polecenie zapłaty,32.0,,nie
+11971,miesięczna,premium,125.0,14,0,0,1,przelew,51.0,jakość,tak
+10949,dwuletnia,premium,148.0,24,1,1,1,karta,,,nie
+11983,dwuletnia,standard,79.0,6,0,2,2,polecenie zapłaty,26.0,,nie
+11861,roczna,standard,85.0,11,3,0,0,polecenie zapłaty,41.0,,nie
+10602,roczna,standard,83.0,13,1,1,0,przelew,66.0,cena,TAK
+11055,miesięczna,standard,98.0,84,2,0,1,przelew,39.0,,nie
+10244,roczna,podstawowy,63.0,22,1,1,3,polecenie zapłaty,51.0,,nie
+11470,miesięczna,premium,147.0,15,0,0,0,karta,45.0,cena,tak
+11799,roczna,standard,91.0,10,1,0,0,polecenie zapłaty,55.0,konkurencja,tak
+11484,miesięczna,standard,75.0,52,2,2,0,polecenie zapłaty,25.0,,nie
+10313,miesięczna,podstawowy,51.0,3,2,1,1,karta,49.0,jakość,tak
+10436,miesięczna,premium,121.0,16,0,1,1,karta,39.0,jakość,tak
+11909,dwuletnia,standard,88.0,2,1,2,0,polecenie zapłaty,0.0,,nie
+10941,miesięczna,premium,121.0,1,1,1,1,karta,52.0,konkurencja,tak
+10309,miesięczna,standard,91.0,6,2,0,0,polecenie zapłaty,18.0,,nie
+10431,dwuletnia,premium,121.0,38,0,2,2,polecenie zapłaty,39.0,,nie
+10661,miesięczna,premium,148.0,25,3,1,1,karta,54.0,,nie
+10371,roczna,standard,99.0,12,2,1,0,przelew,28.0,,nie
+10567,roczna,podstawowy,63.0,20,2,0,0,karta,48.0,,nie
+10986,dwuletnia,podstawowy,69.0,53,0,1,1,karta,34.0,,nie
+10182,dwuletnia,premium,122.0,43,2,0,0,polecenie zapłaty,40.0,,nie
+11573,roczna,podstawowy,44.0,32,1,2,0,karta,34.0,,nie
+10622,roczna,premium,135.0,35,1,0,1,przelew,40.0,,nie
+11630,miesięczna,podstawowy,52.0,62,0,1,1,polecenie zapłaty,55.0,cena,tak
+11199,miesięczna,Podstawowy ,39.0,4,2,2,5,karta,26.0,jakość,tak
+11234,roczna,podstawowy,43.0,53,1,0,3,polecenie zapłaty,43.0,,nie
+11429,roczna,premium,132.0,11,1,0,1,polecenie zapłaty,18.0,,nie
+11851,miesięczna,standard,74.0,27,0,0,0,karta,54.0,konkurencja,tak
+11231,miesięczna,standard,86.0,14,2,2,0,karta,59.0,,nie
+11079,roczna,standard,72.0,38,3,1,0,karta,57.0,,nie
+10297,dwuletnia,standard,93.0,11,3,4,0,przelew,33.0,,nie
+10908,miesięczna,podstawowy,59.0,80,0,0,2,przelew,140.0,,nie
+10462,miesięczna,standard,99.0,19,1,1,0,polecenie zapłaty,42.0,,nie
+11310,dwuletnia,podstawowy,51.0,17,3,0,1,przelew,,,nie
+11183,miesięczna,standard,96.0,3,0,0,1,przelew,34.0,przeprowadzka,tak
+10378,miesięczna,standard,71.0,12,2,1,2,przelew,39.0,konkurencja,tak
+10799,roczna,standard,95.0,3,1,0,1,polecenie zapłaty,21.0,,nie
+11331,roczna,premium,122.0,6,2,2,0,polecenie zapłaty,39.0,,nie
+10106,roczna,standard,85.0,2,3,2,1,przelew,45.0,,nie
+10127,miesięczna,podstawowy,52.0,14,3,3,1,karta,21.0,przeprowadzka,tak
+11574,dwuletnia,standard,78.0,35,0,2,0,polecenie zapłaty,31.0,,nie
+11750,miesięczna,podstawowy,55.0,35,2,0,1,przelew,31.0,,nie
+11965,roczna,podstawowy,59.0,10,3,0,0,polecenie zapłaty,43.0,,nie
+10356,roczna,standard,99.0,39,0,0,0,karta,42.0,,nie
+11625,miesięczna,standard,95.0,49,0,1,1,polecenie zapłaty,,,nie
+10683,miesięczna,podstawowy,39.0,1,1,0,0,polecenie zapłaty,45.0,,nie
+10818,roczna,standard,96.0,84,1,2,2,przelew,29.0,,nie
+11794,roczna,podstawowy,45.0,16,2,2,1,karta,18.0,,nie
+10210,roczna,podstawowy,67.0,13,1,2,0,karta,32.0,,NIE
+10890,roczna,podstawowy,42.0,24,2,0,0,karta,51.0,,nie
+10141,roczna,premium,142.0,30,2,1,1,przelew,58.0,cena,tak
+11445,miesięczna,premium,142.0,66,3,1,0,polecenie zapłaty,42.0,,nie
+11565,roczna,premium,147.0,26,0,2,0,karta,41.0,konkurencja,tak
+11884,roczna,standard,70.0,32,2,0,2,karta,36.0,,nie
+11583,miesięczna,standard,94.0,19,3,2,0,polecenie zapłaty,26.0,,nie
+11186,dwuletnia,podstawowy,61.0,14,2,2,1,karta,53.0,,nie
+11739,roczna,standard,97.0,24,0,3,2,polecenie zapłaty,40.0,,nie
+10966,roczna,standard,93.0,61,1,0,1,polecenie zapłaty,54.0,,nie
+10712,roczna,podstawowy,60.0,81,0,3,0,karta,42.0,,nie
+11274,roczna,standard,79.0,8,0,1,1,karta,31.0,,nie
+11832,dwuletnia,standard,94.0,4,0,0,3,przelew,65.0,cena,tak
+10866,dwuletnia,podstawowy,64.0,3,0,1,1,polecenie zapłaty,43.0,,nie
+10011,miesięczna,podstawowy,56.0,2,1,1,2,karta,52.0,przeprowadzka,tak
+11704,roczna,standard,91.0,2,1,0,0,polecenie zapłaty,22.0,,nie
+11139,miesięczna,standard,97.0,10,1,2,0,karta,46.0,,nie
+10283,miesięczna,podstawowy,39.0,34,3,0,0,polecenie zapłaty,36.0,,nie
+10811,miesięczna,podstawowy,67.0,1,1,1,1,polecenie zapłaty,51.0,cena,tak
+11323,miesięczna,standard,94.0,19,3,0,0,polecenie zapłaty,35.0,,nie
+10292,miesięczna,standard,76.0,12,0,0,1,przelew,47.0,,0
+10755,roczna,premium,141.0,16,1,1,1,karta,44.0,jakość,tak
+10627,roczna,standard,93.0,7,0,3,1,karta,63.0,,nie
+10950,miesięczna,premium,134.0,68,2,1,1,karta,55.0,,nie
+10977,roczna,standard,92.0,11,2,1,0,karta,45.0,przeprowadzka,tak
+10130,roczna,podstawowy,42.0,24,1,1,0,polecenie zapłaty,52.0,,nie
+11182,miesięczna,podstawowy,46.0,12,1,3,2,karta,,jakość,tak
+10844,miesięczna,podstawowy,44.0,8,3,3,1,karta,20.0,,nie
+10324,roczna,podstawowy,47.0,9,0,2,0,polecenie zapłaty,31.0,,nie
+11343,roczna,podstawowy,52.0,14,3,1,0,karta,53.0,,nie
+10850,dwuletnia,podstawowy,57.0,2,3,0,1,polecenie zapłaty,46.0,,nie
+11740,roczna,standard,88.0,14,2,4,1,polecenie zapłaty,18.0,,nie
+11875,dwuletnia,premium,146.0,2,0,2,1,karta,25.0,cena,tak
+11690,miesięczna,podstawowy,51.0,12,3,1,1,karta,50.0,jakość,tak
+11608,miesięczna,podstawowy,53.0,4,0,1,1,karta,,przeprowadzka,tak
+10696,roczna,podstawowy,66.0,1,3,2,1,karta,37.0,jakość,tak
+10216,roczna,podstawowy,61.0,3,3,0,1,przelew,57.0,,nie
+11048,roczna,standard,95.0,84,3,3,1,polecenie zapłaty,37.0,,0
+11269,roczna,premium,140.0,67,0,2,0,przelew,29.0,cena,tak
+10159,roczna,standard,97.0,15,1,2,0,polecenie zapłaty,55.0,przeprowadzka,tak
+11064,roczna,premium,128.0,17,3,1,1,przelew,32.0,,nie
+10995,dwuletnia,Standard ,69.0,1,2,0,0,polecenie zapłaty,52.0,,nie
+10842,roczna,standard,78.0,14,3,1,0,polecenie zapłaty,29.0,,nie
+10635,miesięczna,standard,94.0,5,3,0,0,karta,28.0,,nie
+10517,miesięczna,podstawowy,54.0,50,0,1,1,karta,25.0,przeprowadzka,tak
+11436,dwuletnia,standard,87.0,55,3,0,0,polecenie zapłaty,49.0,,nie
+11954,dwuletnia,standard,83.0,10,2,3,2,przelew,41.0,,nie
+10598,roczna,standard,85.0,18,3,1,0,przelew,54.0,,nie
+10196,miesięczna,premium,138.0,10,0,1,2,karta,25.0,cena,tak
+11652,miesięczna,podstawowy,51.0,36,2,1,0,przelew,55.0,,nie
+11300,miesięczna,podstawowy,53.0,80,1,0,1,karta,48.0,,nie
+10411,roczna,standard,97.0,1,0,2,1,przelew,65.0,,nie
+10097,miesięczna,podstawowy,49.0,22,3,0,1,karta,55.0,,nie
+11007,dwuletnia,standard,93.0,1,0,0,2,karta,21.0,,nie
+10953,miesięczna,podstawowy,50.0,17,1,0,3,przelew,56.0,konkurencja,tak
+10157,miesięczna,podstawowy,40.0,26,1,3,2,przelew,36.0,konkurencja,tak
+10420,dwuletnia,premium,125.0,27,2,0,0,przelew,59.0,,nie
+11813,roczna,standard,79.0,30,3,1,1,przelew,60.0,konkurencja,tak
+10478,roczna,podstawowy,55.0,11,0,1,1,przelew,25.0,,nie
+11866,dwuletnia,podstawowy,63.0,55,1,0,0,karta,39.0,,nie
+10669,miesięczna,standard,69.0,22,0,1,0,karta,,,nie
+10631,dwuletnia,podstawowy,52.0,6,0,0,2,karta,44.0,,nie
+11882,roczna,premium,145.0,27,3,2,3,polecenie zapłaty,59.0,jakość,tak
+11614,miesięczna,premium,131.0,11,2,2,0,przelew,36.0,cena,tak
+10448,roczna,Standard ,73.0,11,0,1,0,przelew,40.0,,nie
+10554,dwuletnia,premium,131.0,30,1,1,0,polecenie zapłaty,49.0,,nie
+10179,dwuletnia,podstawowy,59.0,46,0,0,2,przelew,41.0,,nie
+10391,roczna,standard,99.0,9,0,2,1,przelew,51.0,,nie
+10579,dwuletnia,podstawowy,66.0,5,1,3,1,karta,58.0,,NIE
+11669,miesięczna,podstawowy,44.0,24,2,0,2,polecenie zapłaty,61.0,przeprowadzka,tak
+11759,dwuletnia,premium,146.0,28,1,1,0,przelew,27.0,przeprowadzka,tak
+11904,miesięczna,standard,91.0,10,1,3,0,przelew,41.0,konkurencja,tak
+11653,miesięczna,podstawowy,64.0,8,1,3,1,karta,44.0,przeprowadzka,tak
+10905,dwuletnia,podstawowy,57.0,36,0,4,1,karta,69.0,,nie
+10821,miesięczna,podstawowy,54.0,6,2,3,1,karta,40.0,przeprowadzka,tak
+11835,miesięczna,podstawowy,42.0,2,2,3,0,karta,48.0,przeprowadzka,tak
+10991,roczna,standard,69.0,19,3,3,0,polecenie zapłaty,46.0,,nie
+11054,miesięczna,standard,91.0,31,1,0,0,przelew,63.0,,nie
+10665,miesięczna,standard,79.0,2,0,2,1,karta,46.0,konkurencja,tak
+10143,dwuletnia,standard,81.0,11,1,2,2,polecenie zapłaty,47.0,,nie
+11525,roczna,standard,83.0,54,1,4,1,karta,52.0,,nie
+11437,miesięczna,podstawowy,40.0,22,2,0,0,polecenie zapłaty,46.0,,nie
+10865,miesięczna,standard,93.0,7,2,1,0,karta,45.0,,nie
+10422,miesięczna,podstawowy,60.0,54,2,2,1,karta,56.0,jakość,tak
+10637,roczna,standard,69.0,39,1,0,0,karta,34.0,,nie
+11920,dwuletnia,standard,91.0,5,2,2,0,karta,68.0,,nie
+10800,roczna,standard,93.0,19,2,0,0,przelew,39.0,,nie
+11853,roczna,podstawowy,65.0,8,1,2,1,polecenie zapłaty,,,nie
+10616,roczna,standard,79.0,17,3,0,1,karta,31.0,,nie
+10295,dwuletnia,podstawowy,42.0,1,3,1,1,polecenie zapłaty,21.0,,0
+10940,miesięczna,podstawowy,46.0,12,1,1,0,polecenie zapłaty,47.0,,nie
+11761,miesięczna,premium,137.0,14,3,0,2,karta,48.0,,nie
+11913,dwuletnia,premium,132.0,5,2,0,1,karta,140.0,,nie
+10089,miesięczna,standard,92.0,17,3,1,0,przelew,74.0,,nie
+10042,dwuletnia,standard,75.0,9,1,0,0,karta,35.0,,nie
+11812,miesięczna,podstawowy,56.0,8,3,2,0,polecenie zapłaty,21.0,,nie
+11944,miesięczna,standard,71.0,24,1,1,3,przelew,47.0,cena,tak
+10132,dwuletnia,standard,93.0,1,2,2,1,polecenie zapłaty,26.0,,nie
+11008,miesięczna,podstawowy,53.0,14,1,2,0,przelew,34.0,cena,tak
+11908,miesięczna,premium,149.0,13,1,3,1,polecenie zapłaty,,jakość,tak
+11111,miesięczna,podstawowy,43.0,56,1,2,1,karta,33.0,,nie
+11865,roczna,premium,139.0,10,3,1,0,przelew,58.0,,nie
+11352,dwuletnia,podstawowy,43.0,84,2,1,1,karta,53.0,,nie
+11507,roczna,standard,75.0,39,1,4,1,karta,33.0,,nie
+10165,roczna,premium,128.0,55,0,1,0,polecenie zapłaty,62.0,,nie
+10725,miesięczna,podstawowy,67.0,28,2,1,0,polecenie zapłaty,35.0,,nie
+10291,dwuletnia,premium,132.0,8,3,2,0,polecenie zapłaty,28.0,,nie
+11871,miesięczna,podstawowy,59.0,13,0,1,2,polecenie zapłaty,68.0,przeprowadzka,tak
+11544,miesięczna,podstawowy,51.0,17,1,3,2,polecenie zapłaty,46.0,jakość,tak
+11907,miesięczna,premium,146.0,37,0,1,2,polecenie zapłaty,38.0,jakość,tak
+11922,miesięczna,premium,123.0,21,2,0,1,przelew,50.0,,0
+11369,miesięczna,podstawowy,63.0,20,3,0,0,karta,31.0,jakość,tak
+10779,roczna,podstawowy,43.0,2,1,1,1,polecenie zapłaty,30.0,jakość,tak
+10840,roczna,podstawowy,54.0,15,0,2,1,karta,19.0,,nie
+10349,roczna,podstawowy,61.0,23,0,0,0,karta,40.0,,nie
+11955,dwuletnia,podstawowy,54.0,21,0,2,1,karta,50.0,,nie
+10572,dwuletnia,standard,73.0,24,1,2,0,karta,39.0,,nie
+10918,miesięczna,premium,120.0,11,1,2,0,przelew,54.0,przeprowadzka,tak
+10983,roczna,podstawowy,65.0,5,0,0,2,przelew,44.0,,nie
+11897,roczna,podstawowy,63.0,41,1,1,0,polecenie zapłaty,23.0,,nie
+11477,miesięczna,premium,129.0,21,1,2,1,polecenie zapłaty,32.0,,0
+11600,miesięczna,standard,92.0,19,2,1,1,karta,54.0,jakość,tak
+11325,miesięczna,standard,81.0,44,0,1,1,karta,47.0,konkurencja,tak
+11855,dwuletnia,standard,89.0,15,1,2,0,karta,53.0,,nie
+10137,dwuletnia,podstawowy,64.0,16,1,0,0,karta,50.0,,nie
+10459,roczna,podstawowy,51.0,10,1,0,0,karta,46.0,,nie
+10376,miesięczna,podstawowy,43.0,30,3,2,0,polecenie zapłaty,37.0,,nie
+11707,miesięczna,podstawowy,48.0,66,3,3,0,przelew,58.0,,nie
+10334,dwuletnia,podstawowy,39.0,3,1,6,2,karta,31.0,konkurencja,tak
+11166,dwuletnia,standard,95.0,4,2,3,0,polecenie zapłaty,43.0,,nie
+11770,dwuletnia,standard,95.0,22,3,1,0,przelew,69.0,,nie
+11466,roczna,standard,79.0,15,1,0,0,przelew,36.0,,nie
+10817,dwuletnia,podstawowy,50.0,65,1,3,0,przelew,59.0,,nie
+11121,roczna,podstawowy,59.0,84,1,1,1,polecenie zapłaty,23.0,,nie
+11449,roczna,podstawowy,62.0,7,3,3,1,karta,43.0,,nie
+11867,dwuletnia,standard,77.0,11,1,0,4,przelew,32.0,,nie
+11824,roczna,podstawowy,53.0,23,3,1,1,karta,60.0,,nie
+11024,roczna,standard,84.0,3,3,2,0,karta,34.0,,0
+10911,roczna,standard,76.0,16,0,0,1,polecenie zapłaty,39.0,,nie
+11940,miesięczna,podstawowy,58.0,33,3,2,2,polecenie zapłaty,65.0,przeprowadzka,tak
+11132,roczna,premium,139.0,3,0,0,0,polecenie zapłaty,34.0,,nie
+10329,roczna,standard,74.0,32,3,1,2,przelew,38.0,,nie
+11041,miesięczna,podstawowy,61.0,29,0,0,1,karta,52.0,,nie
+10319,miesięczna,standard,76.0,84,3,4,0,przelew,42.0,,nie
+11538,roczna,standard,75.0,35,2,0,1,polecenie zapłaty,70.0,,nie
+11519,miesięczna,standard,97.0,12,2,0,1,karta,30.0,,nie
+11742,miesięczna,podstawowy,52.0,10,0,3,0,polecenie zapłaty,62.0,konkurencja,tak
+10168,dwuletnia,standard,78.0,4,2,2,1,przelew,58.0,,nie
+10013,roczna,podstawowy,41.0,4,3,1,0,przelew,57.0,,nie
+11937,roczna,podstawowy,57.0,12,3,2,1,polecenie zapłaty,31.0,,nie
+10172,roczna,podstawowy,67.0,44,2,4,0,karta,43.0,,nie
+10650,miesięczna,premium,125.0,10,3,2,1,karta,41.0,,nie
+11901,roczna,podstawowy,56.0,2,2,1,0,polecenie zapłaty,68.0,,nie
+10261,miesięczna,standard,88.0,84,0,1,2,polecenie zapłaty,28.0,,nie
+11392,dwuletnia,standard,89.0,43,0,0,1,karta,40.0,,nie
+11481,miesięczna,standard,87.0,14,3,2,0,karta,44.0,,nie
+10902,miesięczna,premium,145.0,13,0,2,0,przelew,26.0,konkurencja,tak
+10673,dwuletnia,podstawowy,47.0,34,0,0,0,przelew,38.0,,nie
+10259,miesięczna,podstawowy,55.0,3,3,2,1,polecenie zapłaty,40.0,,nie
+10845,miesięczna,Podstawowy ,54.0,18,1,2,1,karta,57.0,,nie
+10868,roczna,standard,80.0,16,1,2,2,przelew,48.0,konkurencja,tak
+11201,roczna,standard,83.0,28,2,3,1,karta,51.0,,nie
+10139,roczna,standard,96.0,77,3,3,0,polecenie zapłaty,49.0,,nie
+10894,miesięczna,standard,80.0,11,3,1,0,polecenie zapłaty,64.0,,nie
+11848,roczna,standard,96.0,46,3,1,3,przelew,51.0,,nie
+10550,miesięczna,podstawowy,45.0,84,1,1,1,polecenie zapłaty,18.0,,nie
+10320,dwuletnia,premium,125.0,14,3,3,0,przelew,33.0,,nie
+11868,miesięczna,podstawowy,46.0,21,0,0,1,przelew,25.0,,nie
+11243,miesięczna,premium,139.0,34,0,1,0,polecenie zapłaty,,przeprowadzka,tak
+11670,dwuletnia,standard,79.0,1,3,1,0,karta,58.0,,nie
+10559,roczna,standard,87.0,32,1,2,2,karta,57.0,,nie
+10140,miesięczna,premium,124.0,17,0,1,0,polecenie zapłaty,38.0,jakość,1
+11744,dwuletnia,standard,76.0,42,1,1,0,karta,,,nie
+10532,roczna,standard,84.0,1,3,2,3,polecenie zapłaty,67.0,,0
+10225,miesięczna,premium,146.0,47,1,1,0,przelew,37.0,,nie
+10724,dwuletnia,standard,85.0,15,2,1,0,polecenie zapłaty,36.0,,nie
+10787,dwuletnia,standard,76.0,19,2,2,1,przelew,55.0,,nie
+11727,miesięczna,premium,148.0,2,3,3,0,polecenie zapłaty,43.0,przeprowadzka,1
+11014,dwuletnia,standard,81.0,26,3,0,2,karta,37.0,,nie
+10410,dwuletnia,premium,142.0,31,2,3,0,karta,22.0,,nie
+10326,roczna,premium,145.0,24,0,2,0,przelew,45.0,przeprowadzka,tak
+11746,roczna,standard,90.0,17,2,0,0,przelew,66.0,,nie
+10300,roczna,standard,81.0,13,0,1,1,przelew,33.0,,NIE
+11270,roczna,podstawowy,59.0,23,1,1,1,polecenie zapłaty,44.0,konkurencja,tak
+11147,roczna,standard,90.0,10,2,1,0,polecenie zapłaty,48.0,,nie
+10026,miesięczna,podstawowy,67.0,18,3,1,0,karta,47.0,,nie
+11869,roczna,standard,84.0,26,3,3,2,przelew,35.0,,nie
+10715,roczna,premium,135.0,64,2,1,0,karta,55.0,,nie
+11967,roczna,standard,93.0,12,3,1,2,przelew,31.0,,nie
+10194,dwuletnia,podstawowy,57.0,2,2,1,0,przelew,34.0,,nie
+10441,dwuletnia,premium,133.0,65,0,5,0,karta,68.0,,nie
+10574,roczna,premium,147.0,1,2,0,0,polecenie zapłaty,52.0,cena,tak
+10947,roczna,podstawowy,41.0,10,1,1,0,przelew,40.0,,nie
+10998,miesięczna,podstawowy,65.0,9,3,0,1,przelew,34.0,,nie
+10504,roczna,Premium ,123.0,14,0,1,0,polecenie zapłaty,33.0,,nie
+10606,roczna,podstawowy,69.0,18,2,1,0,karta,42.0,,nie
+11179,miesięczna,podstawowy,44.0,26,1,0,0,karta,33.0,,NIE
+11170,miesięczna,standard,89.0,17,0,0,2,karta,,cena,tak
+11864,roczna,podstawowy,58.0,9,3,0,1,karta,42.0,,nie
+10847,miesięczna,podstawowy,46.0,2,0,1,0,karta,46.0,jakość,tak
+10004,roczna,standard,80.0,20,0,0,0,karta,61.0,jakość,tak
+11304,miesięczna,premium,143.0,16,3,0,1,karta,52.0,,nie
+11229,dwuletnia,standard,94.0,3,3,0,4,polecenie zapłaty,35.0,,nie
+10468,dwuletnia,standard,92.0,51,1,1,0,karta,33.0,,nie
+10322,roczna,podstawowy,55.0,16,1,1,0,przelew,36.0,,nie
+10006,dwuletnia,premium,145.0,18,1,2,0,karta,18.0,,nie
+10223,roczna,standard,88.0,1,3,1,2,karta,32.0,przeprowadzka,tak
+11382,miesięczna,premium,133.0,2,1,0,0,karta,38.0,jakość,tak
+10548,miesięczna,podstawowy,65.0,26,0,1,0,polecenie zapłaty,51.0,,nie
+10229,roczna,podstawowy,49.0,26,0,2,0,karta,43.0,,nie
+10543,dwuletnia,podstawowy,53.0,2,1,2,1,przelew,63.0,,nie
+10243,miesięczna,podstawowy,56.0,55,1,3,0,karta,46.0,konkurencja,tak
+10899,miesięczna,standard,91.0,1,2,2,1,polecenie zapłaty,51.0,konkurencja,tak
+11577,roczna,premium,129.0,12,2,2,1,przelew,,,nie
+11317,roczna,standard,99.0,51,3,2,0,polecenie zapłaty,35.0,,nie
+11092,roczna,premium,127.0,11,3,2,0,karta,54.0,przeprowadzka,1
+10843,roczna,standard,88.0,12,1,2,1,polecenie zapłaty,25.0,,nie
+11426,miesięczna,standard,87.0,9,2,1,0,polecenie zapłaty,49.0,,nie
+11161,miesięczna,premium,140.0,24,2,2,0,przelew,53.0,przeprowadzka,tak
+11980,miesięczna,standard,72.0,15,3,0,1,przelew,18.0,,nie
+10662,dwuletnia,podstawowy,42.0,1,2,2,0,polecenie zapłaty,32.0,,nie
+11217,miesięczna,podstawowy,61.0,8,0,0,0,polecenie zapłaty,23.0,,nie
+10315,miesięczna,podstawowy,40.0,19,0,1,0,karta,61.0,jakość,tak
+10692,dwuletnia,podstawowy,68.0,78,3,2,1,polecenie zapłaty,,,nie
+11512,miesięczna,standard,85.0,8,0,2,1,karta,42.0,cena,tak
+10425,roczna,premium,121.0,4,2,3,1,polecenie zapłaty,40.0,,nie
+10595,miesięczna,podstawowy,44.0,2,3,3,1,przelew,50.0,konkurencja,tak
+11974,miesięczna,podstawowy,58.0,18,2,0,0,polecenie zapłaty,56.0,,nie
+10623,dwuletnia,podstawowy,66.0,11,2,2,0,polecenie zapłaty,45.0,,nie
+11177,roczna,premium,121.0,16,0,4,1,przelew,57.0,przeprowadzka,tak
+11346,roczna,standard,70.0,5,3,3,1,karta,57.0,,nie
+10228,roczna,podstawowy,54.0,62,1,2,1,przelew,48.0,,nie
+11772,roczna,premium,145.0,14,2,0,0,polecenie zapłaty,22.0,,nie
+11339,dwuletnia,podstawowy,60.0,29,0,0,2,przelew,51.0,cena,tak
+11104,dwuletnia,standard,90.0,18,2,3,5,karta,42.0,,nie
+10067,roczna,standard,75.0,3,3,0,3,polecenie zapłaty,45.0,,nie
+10025,roczna,standard,74.0,19,1,1,1,karta,49.0,,nie
+10145,roczna,podstawowy,57.0,25,0,1,0,karta,43.0,,nie
+10537,roczna,standard,86.0,8,0,1,0,karta,46.0,,nie
+10812,miesięczna,premium,137.0,16,2,1,1,polecenie zapłaty,41.0,jakość,tak
+11126,roczna,podstawowy,47.0,9,3,1,1,karta,18.0,,nie
+10086,miesięczna,podstawowy,43.0,58,2,2,0,polecenie zapłaty,49.0,,nie
+11190,roczna,podstawowy,45.0,19,0,1,0,przelew,58.0,,nie
+11076,miesięczna,premium,145.0,21,0,0,1,polecenie zapłaty,27.0,konkurencja,tak
+11815,dwuletnia,standard,84.0,29,2,3,0,przelew,47.0,,nie
+11828,roczna,podstawowy,68.0,17,3,1,1,przelew,38.0,,nie
+11380,miesięczna,premium,141.0,5,2,0,0,przelew,22.0,jakość,tak
+11482,miesięczna,standard,75.0,8,0,0,1,przelew,42.0,cena,tak
+10363,miesięczna,standard,92.0,83,2,3,0,przelew,45.0,konkurencja,tak
+11620,miesięczna,premium,136.0,15,3,1,0,przelew,28.0,,nie
+11631,roczna,podstawowy,39.0,44,2,2,1,przelew,49.0,,nie
+11027,dwuletnia,podstawowy,69.0,27,3,3,0,polecenie zapłaty,74.0,,nie
+11031,roczna,standard,76.0,7,3,1,0,karta,44.0,,nie
+11224,roczna,standard,78.0,1,2,1,1,karta,51.0,,nie
+11363,roczna,standard,98.0,1,3,0,1,przelew,48.0,,nie
+11767,dwuletnia,standard,80.0,1,0,0,1,polecenie zapłaty,49.0,,nie
+10666,roczna,premium,121.0,2,1,0,1,karta,,,nie
+10365,roczna,standard,96.0,8,1,1,0,polecenie zapłaty,66.0,,nie
+10078,roczna,podstawowy,50.0,7,1,0,2,karta,25.0,,nie
+10028,miesięczna,podstawowy,40.0,3,0,2,1,karta,31.0,,nie
+11655,dwuletnia,podstawowy,69.0,60,0,0,0,przelew,53.0,,nie
+10526,miesięczna,podstawowy,47.0,10,1,1,0,karta,,,nie
+11845,miesięczna,premium,141.0,10,1,3,0,karta,42.0,przeprowadzka,tak
+10056,roczna,standard,89.0,36,1,3,0,polecenie zapłaty,54.0,,nie
+10639,roczna,premium,142.0,42,1,1,0,przelew,38.0,,nie
+10303,roczna,standard,84.0,35,1,2,0,karta,45.0,,nie
+10719,roczna,podstawowy,58.0,18,3,0,1,przelew,45.0,,nie
+10625,dwuletnia,standard,76.0,2,2,2,0,polecenie zapłaty,49.0,,nie
+10008,roczna,podstawowy,46.0,45,2,1,0,polecenie zapłaty,35.0,,nie
+10804,roczna,standard,92.0,29,3,1,2,karta,22.0,,nie
+11050,miesięczna,podstawowy,61.0,22,2,0,1,polecenie zapłaty,44.0,,nie
+10337,miesięczna,premium,131.0,46,3,1,0,karta,35.0,,nie
+10048,miesięczna,standard,96.0,46,3,2,1,karta,,,nie
+11488,roczna,standard,77.0,15,1,0,0,karta,30.0,,nie
+10107,miesięczna,standard,84.0,12,2,2,1,przelew,21.0,przeprowadzka,tak
+10350,miesięczna,podstawowy,63.0,4,1,0,1,karta,31.0,cena,tak
+11080,miesięczna,podstawowy,50.0,1,3,1,1,karta,34.0,,nie
+10239,miesięczna,podstawowy,55.0,23,2,2,1,polecenie zapłaty,44.0,,nie
+10214,dwuletnia,standard,91.0,3,0,2,1,karta,52.0,,nie
+11260,dwuletnia,podstawowy,47.0,10,2,1,1,polecenie zapłaty,26.0,,nie
+11145,miesięczna,premium,144.0,11,0,0,1,karta,56.0,przeprowadzka,tak
+10794,miesięczna,premium,124.0,15,0,1,1,polecenie zapłaty,26.0,,0
+11097,miesięczna,podstawowy,42.0,25,0,2,0,polecenie zapłaty,59.0,przeprowadzka,tak
+11129,roczna,standard,72.0,7,1,2,0,karta,58.0,,nie
+11957,roczna,premium,142.0,19,1,1,0,polecenie zapłaty,39.0,,nie
+11681,roczna,standard,69.0,11,3,1,1,polecenie zapłaty,,,nie
+10524,roczna,standard,96.0,41,3,0,1,polecenie zapłaty,53.0,,nie
+10233,dwuletnia,podstawowy,65.0,5,3,0,1,polecenie zapłaty,56.0,,nie
+10645,roczna,podstawowy,40.0,29,0,1,1,przelew,49.0,,nie
+11986,dwuletnia,podstawowy,60.0,18,2,0,0,polecenie zapłaty,32.0,,nie
+10534,roczna,podstawowy,52.0,7,2,2,0,przelew,28.0,,nie
+11517,miesięczna,standard,81.0,18,1,1,2,karta,22.0,,nie
+10604,roczna,standard,91.0,1,3,2,2,karta,61.0,,nie
+11823,roczna,standard,75.0,19,0,2,0,karta,45.0,cena,tak
+11075,dwuletnia,premium,131.0,18,0,1,1,polecenie zapłaty,53.0,,nie
+11562,roczna,standard,78.0,9,2,1,1,karta,,,nie
+10061,roczna,premium,131.0,30,3,1,1,karta,18.0,,nie
+11271,dwuletnia,premium,148.0,11,3,1,0,przelew,25.0,,nie
+10093,miesięczna,standard,89.0,16,2,2,0,przelew,49.0,,nie
+10667,dwuletnia,premium,146.0,3,2,1,0,przelew,52.0,konkurencja,tak
+10281,miesięczna,standard,88.0,80,2,1,0,przelew,40.0,,nie
+11475,roczna,standard,74.0,15,2,2,2,przelew,39.0,jakość,tak
+10360,roczna,podstawowy,66.0,50,2,1,1,polecenie zapłaty,37.0,,nie
+11135,dwuletnia,standard,75.0,5,3,1,1,przelew,32.0,,nie
+11176,roczna,podstawowy,67.0,12,3,4,2,przelew,68.0,cena,tak
+10848,roczna,podstawowy,46.0,53,0,0,0,polecenie zapłaty,50.0,,nie
+11385,dwuletnia,podstawowy,52.0,15,2,0,0,polecenie zapłaty,52.0,,nie
+10111,roczna,standard,78.0,23,3,3,0,polecenie zapłaty,54.0,,nie
+10043,roczna,standard,99.0,23,2,0,0,karta,38.0,,nie
+10126,roczna,podstawowy,44.0,12,0,0,0,karta,47.0,,nie
+10205,miesięczna,podstawowy,52.0,26,0,1,0,karta,25.0,,nie
+10053,roczna,standard,82.0,4,2,2,1,polecenie zapłaty,39.0,,nie
+10546,miesięczna,podstawowy,64.0,6,3,1,0,polecenie zapłaty,35.0,,nie
+10069,miesięczna,podstawowy,64.0,9,3,1,1,polecenie zapłaty,54.0,,nie
+11279,dwuletnia,podstawowy,69.0,48,1,3,2,karta,34.0,,nie
+11556,roczna,standard,71.0,15,1,1,0,karta,50.0,,nie
+10184,miesięczna,podstawowy,62.0,41,1,1,0,przelew,47.0,,nie
+10138,roczna,standard,97.0,11,2,1,0,karta,34.0,,nie
+10900,roczna,standard,69.0,43,0,1,3,karta,18.0,,nie
+10797,miesięczna,standard,79.0,5,3,0,1,przelew,34.0,,nie
+10133,roczna,premium,139.0,4,2,2,0,polecenie zapłaty,53.0,,nie
+10081,roczna,podstawowy,66.0,2,3,0,1,polecenie zapłaty,68.0,,nie
+11491,miesięczna,standard,75.0,13,2,1,1,karta,41.0,,nie
+11549,miesięczna,podstawowy,68.0,31,2,1,1,polecenie zapłaty,25.0,konkurencja,tak
+10542,roczna,standard,99.0,5,2,0,0,przelew,50.0,,NIE
+11638,dwuletnia,podstawowy,55.0,33,2,0,1,karta,26.0,,nie
+10984,roczna,standard,95.0,6,1,0,0,przelew,50.0,,nie
+10166,miesięczna,podstawowy,61.0,37,3,1,0,przelew,27.0,,nie
+10249,miesięczna,podstawowy,52.0,22,1,1,0,karta,38.0,,nie
+10447,dwuletnia,podstawowy,54.0,56,3,0,1,polecenie zapłaty,28.0,,nie
+11663,roczna,premium,122.0,17,2,2,1,polecenie zapłaty,52.0,,nie
+10859,miesięczna,standard,77.0,4,1,0,1,polecenie zapłaty,46.0,,nie
+11311,miesięczna,premium,143.0,15,3,2,1,karta,53.0,konkurencja,tak
+10098,miesięczna,standard,80.0,1,0,2,0,przelew,32.0,przeprowadzka,tak
+11984,miesięczna,podstawowy,65.0,23,0,1,2,karta,50.0,,nie
+10738,miesięczna,standard,73.0,24,0,3,2,karta,26.0,cena,tak
+11263,miesięczna,podstawowy,43.0,11,0,1,0,przelew,33.0,cena,tak
+10103,miesięczna,premium,124.0,7,2,0,0,polecenie zapłaty,51.0,,nie
+10435,miesięczna,standard,79.0,73,3,0,2,karta,28.0,,nie
+10075,miesięczna,podstawowy,64.0,3,3,0,0,polecenie zapłaty,39.0,,nie
+11802,roczna,podstawowy,54.0,72,2,0,0,polecenie zapłaty,41.0,,nie
+11724,roczna,standard,96.0,21,2,1,1,karta,45.0,,nie
+10919,miesięczna,podstawowy,60.0,19,3,1,3,przelew,25.0,przeprowadzka,tak
+11721,miesięczna,standard,94.0,31,3,0,2,polecenie zapłaty,35.0,,nie
+11680,roczna,podstawowy,43.0,1,1,0,1,przelew,43.0,,nie
+11629,miesięczna,standard,89.0,19,0,3,0,karta,58.0,przeprowadzka,tak
+10763,miesięczna,podstawowy,63.0,5,2,3,1,polecenie zapłaty,42.0,przeprowadzka,tak
+10990,roczna,standard,77.0,4,1,2,0,karta,54.0,,nie
+10389,miesięczna,standard,96.0,8,3,3,0,polecenie zapłaty,58.0,,nie
+10236,dwuletnia,premium,145.0,8,1,1,1,karta,46.0,,nie
+11515,dwuletnia,premium,138.0,65,1,0,1,polecenie zapłaty,49.0,,nie
+10268,miesięczna,standard,84.0,17,3,3,0,polecenie zapłaty,19.0,,nie
+11194,dwuletnia,standard,82.0,12,3,6,0,polecenie zapłaty,65.0,,nie
+10118,roczna,podstawowy,51.0,22,3,1,1,polecenie zapłaty,37.0,,nie
+11615,dwuletnia,standard,91.0,14,0,2,1,przelew,51.0,,nie
+10674,roczna,standard,69.0,13,3,1,1,polecenie zapłaty,24.0,,nie
+10250,miesięczna,podstawowy,69.0,8,3,1,1,przelew,38.0,,nie
+11461,roczna,standard,73.0,5,3,1,0,karta,50.0,,nie
+10371,roczna,standard,99.0,12,2,1,0,przelew,28.0,,nie
+10095,miesięczna,premium,129.0,60,1,1,0,karta,18.0,,nie
+10034,miesięczna,standard,76.0,24,2,0,0,polecenie zapłaty,54.0,,nie
+11472,miesięczna,standard,92.0,11,2,0,0,polecenie zapłaty,,,nie
+11677,roczna,podstawowy,64.0,22,0,1,2,karta,42.0,konkurencja,tak
+10449,miesięczna,standard,94.0,3,2,2,0,przelew,31.0,przeprowadzka,tak
+10717,roczna,standard,90.0,26,1,1,1,polecenie zapłaty,53.0,,nie
+11272,miesięczna,standard,70.0,21,2,0,0,karta,49.0,,nie
+11526,miesięczna,standard,97.0,30,0,0,0,przelew,31.0,,nie
+10001,roczna,premium,139.0,23,0,1,0,polecenie zapłaty,73.0,,nie
+11775,roczna,standard,72.0,40,1,3,1,polecenie zapłaty,56.0,cena,tak
+11102,miesięczna,podstawowy,41.0,1,1,0,0,polecenie zapłaty,60.0,,nie
+11109,dwuletnia,podstawowy,49.0,42,3,2,0,karta,43.0,,nie
+11233,miesięczna,standard,87.0,52,2,0,2,karta,,,nie
+10083,dwuletnia,standard,85.0,9,2,1,0,przelew,58.0,,nie
+11469,roczna,podstawowy,66.0,6,0,0,0,przelew,46.0,,nie
+10677,dwuletnia,standard,93.0,31,3,2,0,przelew,25.0,,nie
+10329,roczna,standard,74.0,32,3,1,2,przelew,38.0,,nie
+11047,miesięczna,standard,97.0,22,0,0,3,polecenie zapłaty,38.0,,nie
+10771,miesięczna,podstawowy,54.0,27,1,0,1,polecenie zapłaty,,,nie
+11222,miesięczna,premium,145.0,5,3,4,0,polecenie zapłaty,43.0,jakość,tak
+11288,miesięczna,standard,70.0,26,0,2,0,karta,43.0,jakość,tak
+11589,miesięczna,standard,84.0,6,0,3,0,przelew,58.0,konkurencja,tak
+11648,roczna,podstawowy,60.0,52,0,2,0,polecenie zapłaty,44.0,,nie
+10405,dwuletnia,premium,145.0,53,1,3,1,przelew,54.0,,nie
+11737,dwuletnia,podstawowy,45.0,19,0,0,0,polecenie zapłaty,35.0,,nie
+11306,dwuletnia,podstawowy,42.0,12,0,1,0,karta,36.0,,nie
+11348,miesięczna,standard,77.0,84,3,4,1,polecenie zapłaty,53.0,,nie
+10105,roczna,standard,74.0,43,1,1,0,karta,55.0,,nie
+10689,roczna,podstawowy,55.0,67,2,0,0,karta,51.0,,nie
+11729,miesięczna,standard,95.0,16,1,2,0,polecenie zapłaty,61.0,,nie
+10827,roczna,standard,76.0,37,0,1,0,karta,51.0,,0
+10063,roczna,standard,74.0,55,3,1,0,przelew,51.0,,nie
+10853,dwuletnia,premium,135.0,38,3,2,1,polecenie zapłaty,32.0,,nie
+11361,roczna,podstawowy,61.0,84,1,1,0,polecenie zapłaty,59.0,,nie
+10224,dwuletnia,podstawowy,64.0,26,1,1,1,polecenie zapłaty,34.0,,nie
+10146,miesięczna,premium,132.0,56,3,2,3,polecenie zapłaty,41.0,cena,tak
+11089,roczna,standard,73.0,16,1,1,1,karta,29.0,,nie
+10374,miesięczna,podstawowy,42.0,2,1,2,1,polecenie zapłaty,35.0,cena,tak
+11428,miesięczna,Premium ,146.0,3,0,1,0,polecenie zapłaty,43.0,konkurencja,tak
+11143,dwuletnia,premium,121.0,71,2,3,1,karta,35.0,,nie
+11881,roczna,standard,81.0,25,1,0,0,przelew,59.0,,nie
+11503,miesięczna,podstawowy,46.0,84,2,1,0,polecenie zapłaty,31.0,,nie
+11610,miesięczna,podstawowy,64.0,55,2,0,0,karta,42.0,jakość,tak
+11990,miesięczna,premium,137.0,23,3,0,2,karta,57.0,cena,tak
+10010,roczna,standard,85.0,13,3,1,1,polecenie zapłaty,28.0,,0
+10450,roczna,standard,75.0,31,2,2,0,polecenie zapłaty,20.0,,nie
+10709,miesięczna,podstawowy,54.0,75,0,1,3,przelew,35.0,jakość,tak
+10256,roczna,standard,83.0,84,3,1,1,karta,50.0,,nie
+10883,dwuletnia,standard,77.0,1,2,1,4,polecenie zapłaty,29.0,,nie
+10390,dwuletnia,podstawowy,47.0,11,2,0,1,przelew,51.0,,0
+10909,miesięczna,premium,129.0,84,1,3,1,polecenie zapłaty,45.0,jakość,tak
+10925,miesięczna,podstawowy,50.0,13,0,1,0,polecenie zapłaty,41.0,przeprowadzka,tak
+11713,dwuletnia,premium,135.0,8,1,0,1,polecenie zapłaty,30.0,,nie
+11330,miesięczna,podstawowy,56.0,84,3,0,1,polecenie zapłaty,45.0,,nie
+10461,roczna,premium,142.0,12,0,1,1,polecenie zapłaty,46.0,,nie
+11319,roczna,podstawowy,52.0,8,1,1,1,karta,42.0,,nie
+11710,miesięczna,standard,71.0,16,3,1,0,karta,50.0,,nie
+11169,dwuletnia,podstawowy,59.0,1,1,0,0,polecenie zapłaty,47.0,,0
+10959,roczna,podstawowy,52.0,15,2,1,0,karta,22.0,,nie
+10502,dwuletnia,standard,79.0,17,0,1,0,karta,50.0,,NIE
+10740,miesięczna,standard,82.0,45,3,0,1,karta,27.0,,nie
+11860,miesięczna,podstawowy,47.0,19,3,0,1,polecenie zapłaty,29.0,,nie
+10869,miesięczna,premium,142.0,2,3,0,1,przelew,67.0,cena,tak
+10732,miesięczna,podstawowy,42.0,52,1,4,0,polecenie zapłaty,20.0,przeprowadzka,1
+10540,dwuletnia,standard,92.0,10,3,1,0,polecenie zapłaty,38.0,,nie
+11202,roczna,premium,138.0,7,3,2,0,polecenie zapłaty,47.0,,nie
+10698,roczna,podstawowy,55.0,6,1,0,1,polecenie zapłaty,51.0,,nie
+11400,miesięczna,standard,93.0,35,2,0,1,karta,20.0,konkurencja,tak
+11384,dwuletnia,standard,76.0,29,3,0,1,przelew,54.0,,nie
+11146,miesięczna,standard,74.0,30,1,1,1,polecenie zapłaty,32.0,,nie
+11032,roczna,podstawowy,48.0,77,1,2,1,przelew,35.0,,nie
+10373,miesięczna,podstawowy,59.0,53,1,0,0,przelew,43.0,,0
+10668,dwuletnia,podstawowy,53.0,41,2,1,0,karta,27.0,,nie
+11753,dwuletnia,standard,93.0,2,2,1,0,przelew,71.0,,nie
+10358,roczna,standard,89.0,25,3,1,1,karta,37.0,,nie
+10968,miesięczna,podstawowy,46.0,16,0,1,2,polecenie zapłaty,,,nie
+10784,roczna,podstawowy,62.0,66,2,2,0,przelew,53.0,,nie
+10736,roczna,standard,87.0,3,1,0,1,przelew,30.0,,nie
+11036,roczna,Standard ,78.0,14,3,0,1,przelew,36.0,,nie
+10971,miesięczna,standard,88.0,7,3,0,2,przelew,42.0,przeprowadzka,tak
+11533,roczna,standard,85.0,1,1,2,1,polecenie zapłaty,53.0,,nie
+11495,miesięczna,podstawowy,57.0,76,1,1,1,polecenie zapłaty,59.0,,nie
+11532,miesięczna,podstawowy,47.0,15,1,1,1,polecenie zapłaty,29.0,,nie
+11358,roczna,standard,71.0,57,1,1,1,karta,25.0,,nie
+11499,miesięczna,podstawowy,67.0,51,2,4,2,karta,62.0,cena,tak
+11651,miesięczna,podstawowy,48.0,52,3,1,0,polecenie zapłaty,61.0,,nie
+11253,miesięczna,podstawowy,47.0,18,1,1,2,przelew,46.0,,nie
+11703,miesięczna,standard,80.0,19,2,0,0,karta,34.0,,nie
+11493,roczna,premium,135.0,1,0,1,0,przelew,29.0,,nie
+11237,miesięczna,premium,136.0,25,2,0,0,karta,68.0,,nie
+10886,miesięczna,podstawowy,66.0,15,0,2,2,przelew,49.0,przeprowadzka,tak
+10080,roczna,podstawowy,64.0,5,0,0,0,przelew,,,nie
+11173,miesięczna,standard,71.0,11,0,3,0,przelew,39.0,,nie
+10815,miesięczna,podstawowy,53.0,27,1,1,0,polecenie zapłaty,28.0,,nie
+11293,roczna,standard,90.0,84,0,5,0,karta,33.0,,nie
+10672,roczna,standard,71.0,16,0,1,1,karta,61.0,przeprowadzka,tak
+11601,dwuletnia,podstawowy,56.0,52,3,0,2,karta,,,nie
+10058,roczna,standard,83.0,3,0,0,1,polecenie zapłaty,29.0,,nie
+10134,miesięczna,premium,127.0,8,0,1,0,karta,49.0,,NIE
+11141,miesięczna,Podstawowy ,54.0,1,0,5,2,przelew,30.0,przeprowadzka,tak
+10934,roczna,premium,124.0,7,2,0,0,polecenie zapłaty,51.0,,nie
+11694,roczna,standard,73.0,1,3,1,0,karta,33.0,,nie
+10824,roczna,premium,120.0,2,3,3,0,karta,53.0,konkurencja,1
+11215,miesięczna,podstawowy,66.0,4,2,2,0,przelew,44.0,konkurencja,TAK
+10505,roczna,podstawowy,43.0,8,1,0,0,karta,35.0,,nie
+11785,miesięczna,standard,83.0,11,1,1,1,przelew,42.0,przeprowadzka,tak
+10348,miesięczna,premium,128.0,14,3,4,1,karta,37.0,konkurencja,tak
+10387,roczna,premium,137.0,1,0,0,0,karta,41.0,,nie
+11025,roczna,podstawowy,65.0,38,2,0,0,karta,42.0,,0
+10895,roczna,premium,134.0,4,1,4,1,polecenie zapłaty,36.0,cena,tak
+10829,dwuletnia,premium,138.0,10,1,0,0,przelew,28.0,,nie
+11903,dwuletnia,standard,77.0,22,2,0,1,karta,44.0,,nie
+10476,miesięczna,podstawowy,65.0,30,3,0,4,polecenie zapłaty,41.0,,nie
+11932,roczna,standard,69.0,31,3,2,1,karta,65.0,przeprowadzka,tak
+11455,miesięczna,premium,126.0,78,3,1,0,przelew,22.0,,nie
+11404,miesięczna,premium,132.0,6,0,1,0,polecenie zapłaty,45.0,przeprowadzka,1
+10653,roczna,premium,128.0,84,1,3,1,karta,45.0,,0
+10173,miesięczna,standard,78.0,29,1,3,0,polecenie zapłaty,66.0,konkurencja,tak
+11150,dwuletnia,Podstawowy ,65.0,11,2,2,1,polecenie zapłaty,18.0,,nie
+10039,miesięczna,standard,79.0,45,3,1,0,karta,38.0,,nie
+10714,dwuletnia,podstawowy,68.0,31,3,2,0,polecenie zapłaty,30.0,,nie
+10091,miesięczna,podstawowy,55.0,2,2,2,1,karta,52.0,przeprowadzka,tak
+11947,miesięczna,podstawowy,60.0,21,3,0,1,karta,24.0,,nie
+11206,miesięczna,standard,99.0,15,3,4,0,karta,50.0,jakość,tak
+10876,dwuletnia,podstawowy,46.0,49,3,2,2,przelew,34.0,,nie
+11359,roczna,standard,93.0,74,2,1,1,karta,30.0,,nie
+11958,miesięczna,premium,144.0,18,2,1,0,polecenie zapłaty,52.0,,0
+11094,miesięczna,premium,149.0,20,1,0,0,przelew,42.0,konkurencja,tak
+11156,miesięczna,Podstawowy ,41.0,6,1,3,1,przelew,33.0,konkurencja,tak
+11371,miesięczna,premium,129.0,35,0,0,1,przelew,33.0,konkurencja,tak
+11969,roczna,standard,76.0,34,3,0,1,polecenie zapłaty,35.0,,nie
+10500,roczna,standard,93.0,11,1,4,0,karta,20.0,,nie
+10339,miesięczna,standard,88.0,23,1,1,0,przelew,22.0,cena,tak
+11189,miesięczna,podstawowy,51.0,31,1,2,1,karta,,,nie
+10029,miesięczna,standard,82.0,10,3,4,1,polecenie zapłaty,30.0,jakość,tak
+11218,roczna,podstawowy,42.0,1,3,0,0,przelew,64.0,,nie
+11989,dwuletnia,premium,139.0,4,1,0,1,polecenie zapłaty,60.0,,nie
+11831,roczna,standard,71.0,27,3,1,0,karta,30.0,,nie
+10946,miesięczna,standard,89.0,6,2,1,2,karta,59.0,cena,tak
+10170,dwuletnia,standard,85.0,3,3,1,0,przelew,32.0,,nie
+11923,roczna,podstawowy,60.0,1,2,1,1,polecenie zapłaty,47.0,,0
+11198,roczna,podstawowy,49.0,18,2,1,2,przelew,18.0,,nie
+11254,roczna,standard,95.0,61,1,1,1,polecenie zapłaty,,przeprowadzka,tak
+11406,miesięczna,premium,129.0,6,0,0,2,karta,41.0,jakość,tak
+10913,dwuletnia,standard,90.0,42,2,2,1,karta,53.0,,nie
+10492,roczna,standard,77.0,27,0,0,0,karta,55.0,,nie
+10954,miesięczna,premium,135.0,1,2,0,1,przelew,30.0,jakość,tak
+11098,dwuletnia,podstawowy,61.0,40,2,3,2,polecenie zapłaty,57.0,,nie
+11033,roczna,podstawowy,59.0,2,0,2,0,karta,48.0,,nie
+10588,miesięczna,podstawowy,57.0,55,3,2,1,polecenie zapłaty,62.0,przeprowadzka,tak
+10751,miesięczna,podstawowy,45.0,16,2,0,1,karta,58.0,,nie
+10658,miesięczna,standard,95.0,45,3,1,2,karta,52.0,jakość,tak
+10235,dwuletnia,standard,79.0,11,2,0,0,polecenie zapłaty,36.0,,nie
+10733,miesięczna,standard,80.0,1,3,2,1,przelew,30.0,przeprowadzka,tak
+11999,dwuletnia,podstawowy,56.0,10,1,0,0,karta,43.0,,nie
+11641,roczna,podstawowy,50.0,17,0,0,0,karta,65.0,,nie
+11157,miesięczna,podstawowy,64.0,49,3,4,1,przelew,37.0,przeprowadzka,tak
+11478,dwuletnia,premium,123.0,7,3,1,0,polecenie zapłaty,45.0,,nie
+11432,roczna,standard,75.0,7,3,1,1,polecenie zapłaty,29.0,,nie
+11636,miesięczna,podstawowy,54.0,40,0,1,0,polecenie zapłaty,,,nie
+10935,roczna,standard,80.0,3,1,2,0,karta,44.0,,nie
+11210,miesięczna,podstawowy,60.0,43,1,2,1,polecenie zapłaty,0.0,cena,tak
+11066,dwuletnia,standard,89.0,14,2,0,0,polecenie zapłaty,28.0,,nie
+10109,miesięczna,podstawowy,59.0,16,0,0,1,polecenie zapłaty,19.0,przeprowadzka,tak
+11551,miesięczna,premium,143.0,58,0,2,1,karta,44.0,jakość,tak
+10569,miesięczna,standard,70.0,30,0,2,0,karta,52.0,cena,tak
+11168,roczna,podstawowy,69.0,81,0,0,1,polecenie zapłaty,39.0,,nie
+11175,roczna,standard,82.0,49,3,1,0,karta,,,nie
+10891,miesięczna,podstawowy,67.0,1,3,1,0,przelew,54.0,cena,tak
+10948,dwuletnia,standard,70.0,29,3,0,0,karta,26.0,,nie
+11049,dwuletnia,premium,131.0,6,0,1,0,karta,27.0,,nie
+11360,miesięczna,standard,96.0,4,3,1,2,polecenie zapłaty,58.0,,nie
+11379,roczna,standard,92.0,11,1,0,2,polecenie zapłaty,37.0,,nie
+11454,dwuletnia,podstawowy,63.0,8,0,0,2,karta,33.0,,nie
+10885,miesięczna,standard,73.0,6,1,1,0,karta,50.0,konkurencja,TAK
+11682,dwuletnia,podstawowy,66.0,84,3,1,1,przelew,36.0,,nie
+10851,miesięczna,podstawowy,46.0,1,2,1,1,polecenie zapłaty,47.0,jakość,1
+10735,miesięczna,podstawowy,63.0,9,1,1,0,karta,42.0,,nie
+10718,miesięczna,premium,134.0,74,2,0,0,karta,38.0,,nie
+10455,miesięczna,standard,96.0,15,0,0,1,polecenie zapłaty,69.0,przeprowadzka,tak
+10265,dwuletnia,standard,70.0,24,3,0,1,karta,37.0,,nie
+10076,miesięczna,standard,95.0,8,2,3,0,polecenie zapłaty,47.0,,0
+11667,dwuletnia,podstawowy,57.0,10,1,2,0,polecenie zapłaty,45.0,,nie
+10445,miesięczna,standard,92.0,8,0,1,0,karta,50.0,,nie
+10396,roczna,premium,146.0,4,2,0,1,polecenie zapłaty,47.0,,nie
+10177,miesięczna,standard,73.0,15,1,2,1,przelew,44.0,jakość,tak
+11043,roczna,standard,85.0,1,2,1,0,polecenie zapłaty,21.0,,nie
+11745,roczna,podstawowy,55.0,69,0,4,1,karta,47.0,,NIE
+11783,miesięczna,premium,149.0,54,1,0,1,polecenie zapłaty,45.0,przeprowadzka,tak
+11388,miesięczna,premium,145.0,13,1,3,0,karta,47.0,konkurencja,1
+10596,miesięczna,premium,137.0,12,3,3,1,karta,51.0,przeprowadzka,tak
+10062,roczna,podstawowy,54.0,5,1,1,2,karta,44.0,,nie
+11297,miesięczna,standard,92.0,26,3,2,0,karta,40.0,,nie
+10873,dwuletnia,podstawowy,63.0,44,1,1,1,polecenie zapłaty,28.0,,0
+11498,roczna,standard,95.0,7,3,1,0,karta,55.0,,nie
+11889,dwuletnia,premium,147.0,8,0,1,1,karta,64.0,,nie
+10279,dwuletnia,premium,124.0,21,1,0,1,polecenie zapłaty,45.0,,nie
+10037,miesięczna,premium,148.0,36,0,1,1,przelew,25.0,jakość,tak
+11524,roczna,podstawowy,54.0,5,2,1,0,karta,39.0,,nie
+10663,miesięczna,podstawowy,59.0,62,1,0,1,karta,41.0,,nie
+11817,roczna,standard,76.0,1,1,0,1,karta,61.0,jakość,tak
+11931,roczna,standard,79.0,5,2,2,0,polecenie zapłaty,21.0,,nie
+10978,miesięczna,standard,77.0,10,3,0,0,karta,54.0,,nie
+11838,miesięczna,podstawowy,67.0,2,2,1,0,karta,45.0,przeprowadzka,tak
+10739,miesięczna,standard,91.0,48,1,2,1,polecenie zapłaty,37.0,przeprowadzka,tak
+10192,miesięczna,standard,79.0,55,1,1,0,polecenie zapłaty,52.0,konkurencja,1
+10920,roczna,standard,94.0,14,0,0,0,karta,50.0,,nie
+10457,dwuletnia,standard,98.0,2,2,2,0,polecenie zapłaty,67.0,,nie
+10676,miesięczna,standard,69.0,11,2,3,1,polecenie zapłaty,21.0,konkurencja,tak
+10761,roczna,standard,98.0,6,2,3,0,polecenie zapłaty,,,nie
+11818,roczna,podstawowy,60.0,1,3,2,0,polecenie zapłaty,45.0,,nie
+11611,miesięczna,standard,98.0,15,3,1,1,polecenie zapłaty,48.0,cena,1
+10729,roczna,podstawowy,69.0,42,3,0,0,przelew,44.0,,nie
+10413,miesięczna,standard,76.0,32,0,1,0,polecenie zapłaty,52.0,,nie
+11099,dwuletnia,podstawowy,53.0,16,3,0,1,przelew,34.0,,nie
+10826,miesięczna,standard,92.0,1,2,2,1,polecenie zapłaty,29.0,konkurencja,1
+11606,miesięczna,podstawowy,40.0,6,1,1,1,polecenie zapłaty,54.0,konkurencja,tak
+10617,roczna,Podstawowy ,62.0,39,1,1,0,karta,43.0,,nie
+10115,miesięczna,podstawowy,48.0,12,3,3,0,polecenie zapłaty,22.0,,nie
+10418,roczna,standard,82.0,4,2,1,1,karta,50.0,,0
+11921,roczna,podstawowy,45.0,46,0,2,0,polecenie zapłaty,18.0,,nie
+10970,miesięczna,podstawowy,65.0,18,2,1,1,polecenie zapłaty,19.0,przeprowadzka,tak
+10605,dwuletnia,podstawowy,44.0,54,3,3,1,polecenie zapłaty,30.0,,nie
+11929,miesięczna,podstawowy,45.0,50,1,0,0,przelew,28.0,,nie
+10090,roczna,standard,83.0,21,3,1,0,karta,38.0,,nie
+10849,miesięczna,standard,79.0,23,0,1,0,polecenie zapłaty,44.0,,nie
+11633,roczna,standard,75.0,2,3,0,1,polecenie zapłaty,39.0,,nie
+11928,roczna,premium,126.0,27,1,2,0,przelew,27.0,,nie
+10754,roczna,podstawowy,61.0,52,2,0,0,karta,55.0,,nie
+10499,miesięczna,premium,137.0,3,2,2,1,przelew,44.0,jakość,tak
+11277,miesięczna,standard,74.0,84,2,1,0,polecenie zapłaty,71.0,,nie
+11326,dwuletnia,premium,133.0,52,1,2,0,przelew,44.0,,nie
+10012,dwuletnia,podstawowy,44.0,43,1,0,0,polecenie zapłaty,,,nie
+10397,dwuletnia,podstawowy,59.0,37,1,1,0,karta,36.0,,NIE
+10285,roczna,podstawowy,63.0,54,3,1,0,przelew,47.0,,nie
+11067,miesięczna,standard,95.0,84,1,2,1,karta,41.0,przeprowadzka,tak
+11192,miesięczna,podstawowy,69.0,12,1,0,2,karta,41.0,,nie
+11754,dwuletnia,standard,75.0,6,3,2,0,karta,44.0,,nie
+10691,miesięczna,premium,129.0,84,1,0,0,karta,18.0,,NIE
+11640,roczna,standard,86.0,16,2,1,1,polecenie zapłaty,39.0,,nie
+11886,miesięczna,podstawowy,57.0,13,2,3,1,polecenie zapłaty,29.0,cena,tak
+10690,roczna,standard,91.0,37,2,1,1,karta,49.0,,nie
+10852,miesięczna,standard,80.0,24,2,0,2,polecenie zapłaty,44.0,,nie
+10160,roczna,podstawowy,52.0,52,2,0,0,karta,46.0,,nie
+10896,dwuletnia,podstawowy,54.0,68,2,2,1,karta,61.0,,nie
+11584,miesięczna,standard,69.0,1,0,2,1,przelew,57.0,jakość,tak
+10258,miesięczna,standard,93.0,3,2,1,0,karta,49.0,przeprowadzka,tak
+10336,roczna,standard,81.0,19,2,4,1,polecenie zapłaty,42.0,,nie
+11890,miesięczna,podstawowy,55.0,55,0,0,0,polecenie zapłaty,50.0,,nie
+11040,miesięczna,standard,76.0,9,1,0,0,karta,46.0,,nie
+10516,miesięczna,Premium ,133.0,8,1,2,2,przelew,38.0,przeprowadzka,tak
+11349,miesięczna,standard,70.0,25,0,1,1,karta,35.0,,nie
+11016,miesięczna,standard,74.0,64,0,3,0,przelew,18.0,konkurencja,tak
+10769,miesięczna,premium,122.0,3,2,0,1,polecenie zapłaty,49.0,,0
+11756,roczna,podstawowy,60.0,9,1,4,2,polecenie zapłaty,36.0,,nie
+10762,miesięczna,premium,135.0,12,0,0,0,karta,45.0,cena,tak
+11247,roczna,podstawowy,67.0,37,3,1,1,karta,,,nie
+11204,roczna,standard,97.0,45,0,1,0,przelew,47.0,,0
+11476,roczna,standard,70.0,1,1,0,1,karta,39.0,cena,tak
+11994,miesięczna,podstawowy,44.0,8,0,2,0,karta,48.0,,nie
+10522,miesięczna,standard,98.0,55,0,3,0,karta,59.0,przeprowadzka,tak
+10023,dwuletnia,podstawowy,69.0,42,1,2,1,przelew,41.0,,nie
+10357,roczna,standard,97.0,59,3,1,2,polecenie zapłaty,60.0,,nie
+11278,miesięczna,standard,74.0,6,1,4,2,przelew,28.0,przeprowadzka,tak
+11313,roczna,standard,81.0,11,3,3,0,polecenie zapłaty,46.0,,nie
+11692,dwuletnia,standard,78.0,18,3,2,0,przelew,68.0,,nie
+10341,miesięczna,podstawowy,66.0,22,3,1,1,polecenie zapłaty,45.0,,0
+10432,roczna,standard,74.0,7,3,2,0,polecenie zapłaty,48.0,,nie
+10474,miesięczna,standard,80.0,3,0,1,0,polecenie zapłaty,57.0,,nie
+10218,miesięczna,premium,147.0,23,3,1,2,karta,44.0,,nie
+10912,dwuletnia,podstawowy,49.0,3,0,5,1,przelew,49.0,jakość,tak
+11228,roczna,podstawowy,53.0,4,3,2,1,polecenie zapłaty,32.0,,nie
+11605,miesięczna,premium,132.0,78,3,0,4,przelew,72.0,konkurencja,tak
+11012,roczna,premium,131.0,32,3,0,0,polecenie zapłaty,54.0,,nie
+11960,roczna,podstawowy,67.0,64,2,2,1,przelew,58.0,,nie
+10094,miesięczna,podstawowy,46.0,4,1,1,0,karta,43.0,,nie
+11009,roczna,podstawowy,39.0,7,0,2,1,przelew,41.0,,nie
+11071,dwuletnia,podstawowy,42.0,1,0,1,1,polecenie zapłaty,57.0,,nie
+11093,miesięczna,premium,140.0,64,1,1,0,przelew,37.0,konkurencja,tak
+11594,miesięczna,podstawowy,44.0,64,0,2,1,polecenie zapłaty,47.0,,nie
+11309,miesięczna,standard,89.0,6,3,3,0,przelew,69.0,jakość,tak
+10697,roczna,premium,141.0,7,2,1,0,polecenie zapłaty,49.0,,nie
+11803,miesięczna,podstawowy,58.0,6,0,0,0,polecenie zapłaty,48.0,,nie
+10997,roczna,standard,75.0,3,0,3,0,karta,45.0,,nie
+11459,dwuletnia,podstawowy,62.0,11,0,0,2,przelew,61.0,,nie
+10154,roczna,standard,89.0,31,1,3,0,karta,45.0,,nie
+11100,miesięczna,podstawowy,47.0,16,3,0,0,karta,29.0,,nie
+11728,dwuletnia,podstawowy,63.0,26,0,1,2,polecenie zapłaty,56.0,,nie
+11533,roczna,standard,85.0,1,1,2,1,polecenie zapłaty,53.0,,nie
+10790,roczna,podstawowy,50.0,29,3,0,0,polecenie zapłaty,34.0,,nie
+10581,roczna,podstawowy,45.0,3,2,1,1,karta,51.0,,nie
+10704,dwuletnia,premium,121.0,15,0,1,1,polecenie zapłaty,60.0,,nie
+11213,roczna,standard,98.0,6,1,1,3,polecenie zapłaty,60.0,przeprowadzka,1
+11296,miesięczna,premium,125.0,23,3,3,1,karta,55.0,przeprowadzka,tak
+11675,roczna,standard,81.0,19,3,0,1,karta,18.0,,nie
+11261,miesięczna,podstawowy,50.0,35,3,2,0,karta,55.0,,nie
+10488,miesięczna,premium,134.0,3,2,1,0,przelew,23.0,przeprowadzka,tak
+10560,roczna,podstawowy,60.0,45,0,1,0,karta,21.0,,nie
+11142,roczna,podstawowy,48.0,34,0,0,0,przelew,18.0,,nie
+11120,dwuletnia,podstawowy,60.0,56,3,1,2,przelew,32.0,,0
+10802,miesięczna,standard,93.0,15,0,2,0,karta,45.0,,nie
+10513,miesięczna,podstawowy,65.0,7,0,0,0,polecenie zapłaty,40.0,,nie
+10634,miesięczna,standard,97.0,23,2,2,0,karta,,,nie
+11487,dwuletnia,standard,80.0,38,2,1,1,karta,34.0,,nie
+11798,miesięczna,Standard ,96.0,3,0,2,0,karta,33.0,przeprowadzka,tak
+11554,miesięczna,standard,82.0,1,2,1,1,przelew,,,nie
+11151,miesięczna,podstawowy,65.0,5,0,1,2,karta,69.0,przeprowadzka,tak
+10791,miesięczna,premium,135.0,41,1,3,2,polecenie zapłaty,37.0,konkurencja,tak
+10117,roczna,podstawowy,42.0,16,3,1,0,polecenie zapłaty,24.0,,nie
+10741,miesięczna,podstawowy,40.0,29,1,2,1,polecenie zapłaty,52.0,,nie
+11700,roczna,standard,93.0,46,1,1,1,polecenie zapłaty,43.0,,nie
+11082,dwuletnia,podstawowy,40.0,32,3,2,1,karta,26.0,,nie
+10831,roczna,podstawowy,68.0,1,0,2,0,karta,59.0,,nie
+10120,roczna,podstawowy,63.0,37,1,1,1,polecenie zapłaty,56.0,,nie
+10657,dwuletnia,podstawowy,50.0,70,2,1,1,polecenie zapłaty,,,nie
+11918,roczna,standard,80.0,5,3,2,0,przelew,48.0,,nie
+10636,miesięczna,standard,93.0,58,0,2,2,polecenie zapłaty,43.0,przeprowadzka,tak
+10370,dwuletnia,standard,97.0,22,2,0,0,przelew,29.0,,nie
+10269,miesięczna,Standard ,73.0,30,3,2,1,polecenie zapłaty,43.0,,nie
+10656,miesięczna,premium,141.0,8,1,0,0,przelew,21.0,cena,tak
+10936,miesięczna,standard,89.0,16,3,0,0,karta,18.0,,nie
+10823,miesięczna,podstawowy,59.0,13,1,2,0,przelew,39.0,przeprowadzka,TAK
+10867,dwuletnia,standard,72.0,42,1,1,0,karta,66.0,,nie
+10047,miesięczna,standard,82.0,4,1,1,0,polecenie zapłaty,42.0,jakość,tak
+11374,dwuletnia,podstawowy,47.0,33,0,0,0,polecenie zapłaty,38.0,,nie
+11718,roczna,premium,119.0,9,0,4,0,karta,43.0,,nie
+10992,roczna,premium,130.0,5,3,0,1,polecenie zapłaty,34.0,,nie
+10877,miesięczna,podstawowy,48.0,4,2,1,1,polecenie zapłaty,29.0,,nie
+10774,dwuletnia,podstawowy,48.0,15,2,0,1,polecenie zapłaty,25.0,,nie
+11220,miesięczna,podstawowy,69.0,1,3,0,0,polecenie zapłaty,,,nie
+10031,roczna,podstawowy,46.0,1,2,0,1,polecenie zapłaty,42.0,,nie
+10005,miesięczna,podstawowy,68.0,1,2,0,0,karta,,cena,tak
+11004,miesięczna,standard,83.0,18,3,3,0,przelew,32.0,,nie
+11733,roczna,standard,87.0,47,0,0,1,karta,56.0,,nie
+10264,miesięczna,podstawowy,58.0,84,1,1,1,przelew,,,nie
+11827,roczna,podstawowy,67.0,23,1,1,1,polecenie zapłaty,56.0,,0
+11841,miesięczna,standard,99.0,20,0,2,1,przelew,50.0,konkurencja,tak
+10444,miesięczna,standard,69.0,8,1,0,1,karta,53.0,,NIE
+11003,miesięczna,podstawowy,59.0,3,0,0,1,przelew,50.0,cena,tak
+11078,roczna,Standard ,73.0,7,1,3,1,polecenie zapłaty,42.0,konkurencja,tak
+10838,dwuletnia,podstawowy,39.0,1,0,0,3,polecenie zapłaty,,,nie
+11801,roczna,podstawowy,61.0,2,1,2,2,przelew,42.0,konkurencja,tak
+10305,dwuletnia,standard,79.0,2,0,2,0,karta,33.0,,nie
+11366,roczna,podstawowy,62.0,44,3,0,1,przelew,71.0,,nie
+11566,roczna,premium,147.0,13,2,3,1,przelew,28.0,,nie
+10314,miesięczna,podstawowy,67.0,1,0,0,0,polecenie zapłaty,44.0,,nie
+10150,miesięczna,podstawowy,39.0,3,3,4,1,karta,42.0,konkurencja,tak
+11149,roczna,premium,132.0,11,2,3,1,przelew,48.0,jakość,tak
+11214,miesięczna,standard,95.0,35,1,1,1,polecenie zapłaty,60.0,przeprowadzka,tak
+10575,dwuletnia,standard,99.0,12,1,1,1,polecenie zapłaty,41.0,,nie
+10051,miesięczna,premium,126.0,68,0,3,1,polecenie zapłaty,43.0,,nie
+11561,dwuletnia,standard,86.0,23,1,0,1,polecenie zapłaty,33.0,,nie
+10727,miesięczna,standard,96.0,1,2,0,0,polecenie zapłaty,53.0,,nie
+10834,roczna,premium,135.0,23,1,2,0,polecenie zapłaty,,,nie
+11378,dwuletnia,premium,145.0,5,1,1,1,karta,,cena,tak
+11116,miesięczna,standard,91.0,2,3,0,0,polecenie zapłaty,52.0,,nie
+11167,dwuletnia,podstawowy,62.0,1,3,1,1,polecenie zapłaty,45.0,,nie
+10471,miesięczna,standard,86.0,84,3,3,2,przelew,37.0,konkurencja,tak
+10972,miesięczna,standard,77.0,3,3,3,1,przelew,30.0,konkurencja,tak
+10654,miesięczna,standard,70.0,22,1,1,2,karta,52.0,konkurencja,tak
+10400,miesięczna,standard,72.0,12,1,1,0,karta,65.0,,nie
+10512,dwuletnia,standard,71.0,67,1,0,0,karta,32.0,,0
+10321,dwuletnia,podstawowy,59.0,8,3,1,0,karta,49.0,,0
+10020,roczna,podstawowy,57.0,10,3,3,2,polecenie zapłaty,39.0,,nie
+10685,roczna,podstawowy,60.0,17,2,0,0,polecenie zapłaty,140.0,,nie
+10036,miesięczna,standard,83.0,6,1,1,1,karta,60.0,przeprowadzka,tak
+10903,miesięczna,podstawowy,56.0,7,2,0,0,karta,19.0,,nie
+11789,dwuletnia,podstawowy,60.0,23,1,1,2,karta,50.0,,nie
+10828,miesięczna,podstawowy,43.0,6,3,1,2,przelew,49.0,jakość,tak
+11964,miesięczna,podstawowy,45.0,3,3,1,0,polecenie zapłaty,29.0,cena,tak
+10408,dwuletnia,podstawowy,58.0,10,0,0,0,karta,19.0,,nie
+10921,miesięczna,premium,141.0,20,2,0,1,karta,52.0,konkurencja,tak
+10538,miesięczna,podstawowy,63.0,11,0,1,1,przelew,41.0,jakość,tak
+10759,miesięczna,standard,76.0,8,1,2,2,karta,40.0,przeprowadzka,tak
+11915,miesięczna,podstawowy,55.0,28,3,1,0,polecenie zapłaty,44.0,,nie
+11063,miesięczna,podstawowy,58.0,9,0,0,2,karta,24.0,jakość,tak
+11200,roczna,premium,131.0,2,2,0,1,polecenie zapłaty,47.0,,nie
+10246,dwuletnia,podstawowy,66.0,84,2,1,0,przelew,70.0,,nie
+11417,roczna,standard,82.0,12,2,0,0,przelew,36.0,,nie
+11128,roczna,podstawowy,64.0,7,2,1,0,przelew,49.0,,nie
+10785,dwuletnia,podstawowy,47.0,44,2,2,1,karta,43.0,,nie
+11849,miesięczna,podstawowy,59.0,84,2,1,0,karta,31.0,,0
+10490,roczna,standard,91.0,7,1,1,0,przelew,32.0,,nie
+10155,miesięczna,standard,82.0,36,1,0,1,karta,43.0,,nie
+10962,miesięczna,premium,133.0,25,3,3,1,karta,47.0,cena,tak
+10854,dwuletnia,podstawowy,44.0,18,1,2,2,polecenie zapłaty,31.0,,nie
+11312,dwuletnia,premium,145.0,13,1,4,2,polecenie zapłaty,41.0,przeprowadzka,tak
+10626,miesięczna,standard,77.0,13,3,3,1,przelew,51.0,przeprowadzka,tak
+10686,miesięczna,standard,86.0,18,0,2,2,karta,33.0,cena,TAK
+11570,roczna,podstawowy,68.0,4,1,0,0,polecenie zapłaty,26.0,,nie
+10570,roczna,premium,146.0,44,1,2,0,karta,41.0,,nie
+11919,roczna,standard,89.0,64,3,2,3,przelew,31.0,,nie
+10018,miesięczna,podstawowy,44.0,20,0,3,0,przelew,43.0,jakość,tak
+10128,miesięczna,podstawowy,57.0,24,1,2,0,karta,43.0,,nie
+11347,miesięczna,standard,95.0,29,2,1,0,polecenie zapłaty,62.0,,nie
+11280,roczna,podstawowy,45.0,49,2,2,1,karta,49.0,,nie
+11979,roczna,standard,76.0,11,2,3,3,przelew,24.0,konkurencja,tak
+10928,dwuletnia,standard,99.0,22,0,2,2,przelew,32.0,,nie
+10981,dwuletnia,standard,99.0,31,3,1,2,polecenie zapłaty,42.0,,nie
+11975,miesięczna,Podstawowy ,56.0,10,1,1,0,karta,43.0,,nie
+10191,dwuletnia,podstawowy,45.0,26,0,2,1,karta,47.0,,nie
+11140,roczna,podstawowy,56.0,10,1,1,1,polecenie zapłaty,39.0,jakość,tak
+10993,roczna,podstawowy,69.0,65,3,0,0,polecenie zapłaty,44.0,,nie
+11966,miesięczna,podstawowy,48.0,12,3,0,0,przelew,51.0,,nie
+11666,dwuletnia,standard,90.0,16,3,1,0,polecenie zapłaty,34.0,,nie
+10607,dwuletnia,standard,78.0,23,0,1,0,polecenie zapłaty,34.0,jakość,tak
+10181,dwuletnia,standard,83.0,9,3,1,1,karta,49.0,,nie
+10302,miesięczna,standard,76.0,16,0,1,1,karta,48.0,przeprowadzka,tak
+10497,miesięczna,standard,99.0,5,0,1,0,karta,41.0,konkurencja,tak
+11705,roczna,podstawowy,41.0,16,3,1,3,karta,37.0,,nie
+11719,roczna,premium,136.0,12,0,1,1,karta,37.0,,nie
+11671,miesięczna,podstawowy,59.0,4,1,1,0,polecenie zapłaty,18.0,konkurencja,tak
+11647,miesięczna,podstawowy,50.0,3,2,0,0,karta,61.0,,nie
+10518,roczna,podstawowy,68.0,84,1,4,0,karta,44.0,,nie
+11995,roczna,podstawowy,68.0,24,1,2,1,polecenie zapłaty,26.0,,nie
+11070,miesięczna,standard,84.0,16,3,1,0,przelew,,,nie
+10477,miesięczna,podstawowy,53.0,69,3,2,2,karta,44.0,,nie
+10158,roczna,podstawowy,43.0,8,2,2,0,polecenie zapłaty,43.0,,nie
+11244,miesięczna,podstawowy,68.0,13,1,1,1,karta,41.0,,nie
+11196,miesięczna,podstawowy,44.0,11,1,2,0,polecenie zapłaty,52.0,,nie
+10017,roczna,podstawowy,51.0,58,1,0,0,karta,65.0,,nie
+11536,roczna,standard,86.0,6,2,0,0,polecenie zapłaty,27.0,,nie
+11073,miesięczna,premium,119.0,11,2,2,1,karta,41.0,konkurencja,tak
+11982,miesięczna,Standard ,69.0,1,2,1,0,przelew,31.0,konkurencja,tak
+10547,miesięczna,premium,140.0,84,0,2,1,karta,61.0,cena,tak
+11540,miesięczna,podstawowy,60.0,31,1,0,1,karta,47.0,,nie
+10659,roczna,podstawowy,46.0,4,0,0,2,karta,38.0,jakość,tak
+11717,miesięczna,standard,88.0,19,0,2,0,karta,28.0,przeprowadzka,tak
+11020,miesięczna,podstawowy,48.0,17,1,0,0,karta,36.0,,nie
+11672,roczna,standard,94.0,66,0,0,0,karta,31.0,,nie
+11505,dwuletnia,standard,69.0,35,3,0,1,karta,40.0,,nie
+10960,roczna,premium,149.0,32,0,0,0,polecenie zapłaty,55.0,,nie
+11892,roczna,standard,93.0,22,0,0,1,polecenie zapłaty,18.0,,nie
+10284,miesięczna,standard,85.0,26,3,1,0,przelew,25.0,,nie
+10798,miesięczna,podstawowy,43.0,80,3,1,1,polecenie zapłaty,38.0,,nie
+11684,miesięczna,standard,82.0,28,0,1,0,polecenie zapłaty,,przeprowadzka,tak
+10226,dwuletnia,podstawowy,62.0,20,2,2,1,karta,42.0,,nie
+10027,roczna,premium,136.0,22,3,2,0,polecenie zapłaty,49.0,cena,tak
+11781,miesięczna,podstawowy,49.0,17,2,1,2,karta,45.0,,nie
+10438,roczna,standard,99.0,18,2,0,0,przelew,31.0,,nie
+11959,dwuletnia,podstawowy,48.0,15,1,3,0,polecenie zapłaty,41.0,,nie
+11389,dwuletnia,standard,82.0,67,1,4,0,karta,56.0,,nie
+10230,miesięczna,standard,92.0,2,0,3,1,polecenie zapłaty,46.0,cena,tak
+10038,roczna,podstawowy,41.0,4,0,0,1,karta,27.0,,nie
+10750,dwuletnia,podstawowy,57.0,6,0,2,2,polecenie zapłaty,,,nie
+11046,miesięczna,premium,142.0,12,3,2,1,polecenie zapłaty,35.0,,nie
+11399,roczna,standard,96.0,43,3,1,2,karta,63.0,,nie
+10470,roczna,podstawowy,41.0,9,2,2,2,polecenie zapłaty,40.0,,nie
+11702,dwuletnia,podstawowy,45.0,18,2,0,0,karta,45.0,,nie
+11978,dwuletnia,podstawowy,67.0,25,2,1,0,karta,37.0,,nie
+10688,dwuletnia,standard,76.0,27,2,1,0,karta,35.0,,nie
+11854,roczna,podstawowy,45.0,17,0,0,0,przelew,62.0,,nie
+10640,dwuletnia,podstawowy,51.0,18,0,0,1,karta,,,nie
+11722,miesięczna,standard,84.0,23,1,0,1,karta,60.0,jakość,tak
+11219,roczna,podstawowy,42.0,38,2,3,0,polecenie zapłaty,55.0,,nie
+11159,miesięczna,premium,137.0,9,3,1,2,polecenie zapłaty,31.0,,nie
+11416,roczna,podstawowy,52.0,16,3,1,0,polecenie zapłaty,50.0,,nie
+11528,roczna,podstawowy,54.0,10,2,0,1,przelew,46.0,,nie
+11665,dwuletnia,podstawowy,40.0,33,3,1,0,karta,53.0,,nie
+11301,miesięczna,premium,125.0,15,1,1,0,polecenie zapłaty,58.0,,nie
+11833,roczna,standard,80.0,5,3,1,0,karta,57.0,,nie
+10801,roczna,premium,140.0,71,1,0,0,polecenie zapłaty,53.0,,nie
+11604,dwuletnia,podstawowy,45.0,12,0,0,0,karta,35.0,,nie
+10161,miesięczna,standard,74.0,20,0,4,1,karta,60.0,konkurencja,tak
+10957,roczna,podstawowy,59.0,12,1,0,0,polecenie zapłaty,45.0,,nie
+11187,miesięczna,standard,70.0,17,2,1,0,karta,29.0,,nie
+10822,roczna,standard,80.0,1,2,0,0,przelew,37.0,jakość,tak
+11691,roczna,podstawowy,39.0,7,3,0,0,przelew,43.0,,nie
+10878,miesięczna,standard,78.0,8,2,0,2,karta,47.0,,nie
+10914,dwuletnia,standard,73.0,1,3,1,1,karta,48.0,,nie
+10153,miesięczna,standard,82.0,36,0,0,0,karta,36.0,,nie
+11847,miesięczna,standard,86.0,26,1,2,2,karta,24.0,przeprowadzka,tak
+11787,miesięczna,premium,135.0,8,3,3,1,polecenie zapłaty,50.0,konkurencja,tak
+10510,miesięczna,standard,95.0,6,2,0,0,karta,27.0,,nie
+11136,miesięczna,standard,70.0,61,3,3,0,przelew,61.0,przeprowadzka,tak
+11251,miesięczna,premium,138.0,76,1,2,1,karta,26.0,,nie
+11673,roczna,podstawowy,66.0,37,1,1,0,polecenie zapłaty,41.0,,nie
+10104,dwuletnia,premium,139.0,44,0,1,0,polecenie zapłaty,47.0,,nie
+11446,roczna,podstawowy,47.0,1,0,0,0,polecenie zapłaty,55.0,,nie
+11444,miesięczna,podstawowy,55.0,11,2,0,1,polecenie zapłaty,53.0,,nie
+11748,roczna,premium,137.0,84,2,2,1,karta,57.0,,nie
+10587,miesięczna,podstawowy,62.0,11,1,0,0,karta,20.0,,nie
+11779,miesięczna,standard,88.0,32,1,1,0,karta,48.0,,nie
+11144,dwuletnia,podstawowy,66.0,52,3,0,1,polecenie zapłaty,35.0,,nie
+10054,roczna,premium,139.0,6,1,2,0,przelew,62.0,cena,tak
+10152,dwuletnia,podstawowy,51.0,3,2,2,1,przelew,38.0,,nie
+10404,miesięczna,premium,143.0,1,3,1,0,polecenie zapłaty,31.0,cena,1
+11953,roczna,premium,120.0,8,2,1,3,przelew,54.0,konkurencja,TAK
+10208,roczna,standard,78.0,19,2,0,1,karta,51.0,,nie
+11905,roczna,podstawowy,58.0,29,1,2,0,karta,39.0,,nie
+11123,dwuletnia,podstawowy,69.0,21,2,0,1,karta,60.0,,nie
+11760,dwuletnia,podstawowy,50.0,11,3,0,0,karta,47.0,,nie
+10009,miesięczna,podstawowy,48.0,59,0,2,2,karta,42.0,przeprowadzka,tak
+11015,miesięczna,podstawowy,65.0,26,2,1,0,polecenie zapłaty,63.0,,nie
+11806,roczna,podstawowy,44.0,13,2,1,1,polecenie zapłaty,33.0,,nie
+11061,dwuletnia,standard,89.0,6,0,0,0,przelew,64.0,,0
+10453,roczna,standard,91.0,1,2,0,2,karta,40.0,,nie
+10254,miesięczna,standard,85.0,9,0,1,1,polecenie zapłaty,26.0,cena,tak
+11328,roczna,premium,121.0,9,0,3,0,karta,,przeprowadzka,tak
+10897,miesięczna,premium,127.0,24,3,1,0,przelew,,,nie
+11743,miesięczna,premium,135.0,4,2,0,0,polecenie zapłaty,44.0,,nie
+10881,miesięczna,podstawowy,53.0,3,0,1,0,przelew,27.0,konkurencja,tak
+11596,roczna,premium,133.0,31,0,1,0,polecenie zapłaty,35.0,,nie
+11899,miesięczna,podstawowy,59.0,40,2,0,0,polecenie zapłaty,26.0,,nie
+10624,roczna,premium,143.0,84,1,1,0,karta,65.0,,nie
+10346,roczna,podstawowy,69.0,46,2,0,1,karta,60.0,,nie
+11712,miesięczna,standard,98.0,37,0,0,1,karta,28.0,przeprowadzka,tak
+10263,miesięczna,standard,93.0,5,1,1,0,polecenie zapłaty,50.0,,nie
+11635,dwuletnia,standard,91.0,1,1,2,0,karta,57.0,,nie
+11322,roczna,standard,90.0,10,2,3,1,polecenie zapłaty,66.0,,nie
+11439,dwuletnia,podstawowy,49.0,1,3,0,2,polecenie zapłaty,38.0,,0
+10151,dwuletnia,standard,94.0,1,2,3,0,karta,24.0,,nie
+10473,miesięczna,standard,84.0,5,0,1,1,polecenie zapłaty,40.0,,nie
+10641,roczna,Standard ,87.0,1,3,1,2,przelew,27.0,przeprowadzka,tak
+11993,miesięczna,podstawowy,67.0,9,0,0,1,polecenie zapłaty,41.0,,nie
+11893,roczna,standard,70.0,5,2,2,1,przelew,26.0,,nie
+10551,roczna,standard,96.0,11,2,3,0,polecenie zapłaty,31.0,,nie
+11790,miesięczna,standard,90.0,84,0,0,0,przelew,56.0,,nie
+10929,roczna,podstawowy,59.0,20,1,0,1,polecenie zapłaty,18.0,,nie
+10489,roczna,podstawowy,55.0,5,1,3,1,karta,33.0,,nie
+11822,roczna,standard,72.0,84,1,0,0,karta,21.0,,nie
+11172,roczna,standard,92.0,19,3,1,1,karta,58.0,,nie
+10147,miesięczna,podstawowy,69.0,14,1,1,1,karta,29.0,,nie
+11714,dwuletnia,standard,83.0,8,0,0,2,polecenie zapłaty,34.0,,nie
+11939,miesięczna,standard,88.0,24,0,2,1,karta,37.0,konkurencja,tak
+10403,roczna,standard,71.0,6,2,0,0,karta,51.0,,nie
+10955,dwuletnia,standard,96.0,7,1,1,0,przelew,18.0,,nie
+11888,miesięczna,premium,149.0,78,1,2,1,polecenie zapłaty,,,nie
+10660,miesięczna,podstawowy,67.0,41,3,0,0,karta,39.0,,nie
+11373,miesięczna,premium,119.0,6,2,1,0,przelew,46.0,cena,tak
+10464,miesięczna,standard,70.0,1,2,2,0,karta,52.0,,nie
+11350,miesięczna,podstawowy,59.0,14,3,1,1,przelew,41.0,,nie
+10187,miesięczna,premium,132.0,37,1,1,2,polecenie zapłaty,52.0,cena,tak
+11148,dwuletnia,standard,80.0,4,2,1,1,karta,25.0,,nie
+11225,miesięczna,podstawowy,41.0,2,2,1,0,karta,0.0,przeprowadzka,tak
+10609,roczna,standard,91.0,22,1,2,2,polecenie zapłaty,63.0,przeprowadzka,tak
+10144,roczna,premium,139.0,14,2,1,2,karta,23.0,cena,tak
+10752,miesięczna,standard,74.0,3,2,1,1,przelew,35.0,cena,tak
+11535,miesięczna,standard,71.0,55,1,2,0,polecenie zapłaty,47.0,,nie
+10982,dwuletnia,podstawowy,55.0,7,3,0,2,polecenie zapłaty,18.0,,nie
+10198,dwuletnia,standard,90.0,20,2,1,0,polecenie zapłaty,56.0,,nie
+11634,roczna,standard,76.0,21,1,0,1,przelew,25.0,cena,tak
+10884,roczna,podstawowy,48.0,7,2,4,3,polecenie zapłaty,39.0,konkurencja,tak
+10280,dwuletnia,standard,93.0,32,2,2,1,polecenie zapłaty,18.0,,nie
+10294,miesięczna,podstawowy,39.0,11,2,0,2,przelew,33.0,,nie
+11834,miesięczna,Standard ,92.0,28,3,1,0,polecenie zapłaty,39.0,konkurencja,tak
+10401,miesięczna,standard,90.0,7,1,1,1,karta,48.0,jakość,tak
+10123,miesięczna,podstawowy,61.0,5,1,2,2,przelew,29.0,konkurencja,tak
+11208,roczna,podstawowy,59.0,73,1,2,2,przelew,35.0,jakość,tak
+10203,roczna,premium,137.0,4,1,2,0,karta,69.0,konkurencja,tak
+11463,miesięczna,podstawowy,51.0,13,2,1,0,polecenie zapłaty,41.0,,nie
+10836,roczna,standard,69.0,18,0,1,1,polecenie zapłaty,30.0,,nie
+10247,roczna,podstawowy,51.0,50,0,2,0,karta,28.0,,nie
+11440,dwuletnia,standard,73.0,50,0,1,0,przelew,47.0,,nie
+11842,roczna,standard,81.0,11,2,1,1,polecenie zapłaty,30.0,,nie
+11912,miesięczna,standard,76.0,1,1,0,0,polecenie zapłaty,55.0,,0
+11708,miesięczna,standard,72.0,5,2,0,0,karta,54.0,,0
+11891,miesięczna,podstawowy,56.0,25,2,1,0,karta,73.0,,nie
+11154,miesięczna,podstawowy,64.0,7,0,0,0,karta,33.0,,nie
+11662,roczna,premium,137.0,19,1,1,2,karta,38.0,cena,tak
+11427,miesięczna,podstawowy,52.0,33,3,1,0,karta,46.0,,nie
+10385,miesięczna,podstawowy,69.0,4,3,3,0,polecenie zapłaty,62.0,konkurencja,tak
+11768,miesięczna,podstawowy,49.0,6,0,1,0,przelew,,jakość,tak
+10855,miesięczna,standard,86.0,1,2,0,0,polecenie zapłaty,41.0,,nie
+11590,miesięczna,podstawowy,48.0,1,2,0,0,karta,28.0,,nie
+10220,miesięczna,podstawowy,55.0,14,1,4,1,polecenie zapłaty,43.0,cena,tak
+10642,dwuletnia,standard,94.0,17,1,2,2,przelew,52.0,,0
+10002,miesięczna,standard,91.0,77,2,0,2,karta,35.0,,nie
+10113,miesięczna,podstawowy,44.0,17,3,1,2,przelew,48.0,,nie
+10699,roczna,podstawowy,52.0,2,0,2,0,karta,32.0,,nie
+11926,miesięczna,standard,84.0,21,2,0,3,polecenie zapłaty,57.0,konkurencja,tak
+10952,miesięczna,Standard ,89.0,20,1,0,0,karta,39.0,jakość,tak
+11649,dwuletnia,podstawowy,69.0,17,3,0,0,polecenie zapłaty,41.0,,nie
+11637,miesięczna,premium,149.0,65,1,4,0,polecenie zapłaty,47.0,jakość,tak
+11816,roczna,podstawowy,42.0,32,3,0,1,karta,55.0,,nie
+11411,dwuletnia,standard,95.0,36,3,0,0,karta,34.0,,nie
+11410,roczna,podstawowy,43.0,26,2,0,1,polecenie zapłaty,33.0,,nie
+11534,roczna,podstawowy,59.0,64,1,1,1,polecenie zapłaty,43.0,,nie
+11292,roczna,standard,99.0,51,0,2,1,polecenie zapłaty,42.0,,nie
+11819,roczna,standard,83.0,24,1,0,1,polecenie zapłaty,50.0,,nie
+10442,miesięczna,podstawowy,44.0,44,1,1,1,polecenie zapłaty,46.0,konkurencja,tak
+11521,miesięczna,standard,78.0,24,0,0,0,karta,48.0,cena,tak
+11137,roczna,premium,138.0,16,2,1,0,karta,20.0,,nie
+11716,roczna,premium,138.0,2,1,1,2,karta,56.0,,nie
+11257,roczna,podstawowy,53.0,59,0,0,2,przelew,23.0,,nie
+11874,dwuletnia,podstawowy,50.0,19,2,1,0,polecenie zapłaty,64.0,,nie
+11632,dwuletnia,premium,119.0,17,1,0,1,polecenie zapłaty,18.0,,nie
+11696,roczna,standard,89.0,69,0,2,1,przelew,,,nie
+11398,dwuletnia,podstawowy,55.0,4,3,2,2,polecenie zapłaty,58.0,,nie
+10664,miesięczna,podstawowy,68.0,5,1,0,0,przelew,22.0,,nie
+11916,miesięczna,podstawowy,46.0,54,2,1,0,karta,49.0,,nie
+11258,dwuletnia,podstawowy,45.0,21,0,0,1,przelew,50.0,,NIE
+11784,miesięczna,podstawowy,47.0,1,1,4,1,karta,18.0,jakość,tak
+11701,dwuletnia,Premium ,120.0,57,2,0,1,przelew,22.0,,nie
+10318,roczna,standard,82.0,21,0,0,0,karta,57.0,,nie
+10649,roczna,standard,94.0,16,3,3,0,polecenie zapłaty,38.0,,nie
+11435,miesięczna,podstawowy,52.0,84,3,0,1,przelew,57.0,,nie
+11480,roczna,standard,88.0,1,0,1,2,karta,33.0,konkurencja,1
+10710,roczna,standard,96.0,68,2,1,0,przelew,36.0,,nie
+11383,roczna,premium,141.0,36,2,2,0,polecenie zapłaty,51.0,,nie
+11283,miesięczna,podstawowy,42.0,10,1,0,1,karta,,,nie
+11769,miesięczna,standard,90.0,23,2,2,1,polecenie zapłaty,35.0,,nie
+10973,miesięczna,podstawowy,49.0,56,0,3,0,polecenie zapłaty,59.0,cena,tak
+10628,miesięczna,podstawowy,64.0,7,0,3,1,polecenie zapłaty,38.0,cena,tak
+10633,miesięczna,premium,132.0,12,1,1,1,karta,32.0,jakość,tak
+11307,roczna,podstawowy,60.0,23,2,0,2,przelew,58.0,,nie
+11401,miesięczna,Podstawowy ,53.0,41,1,0,0,polecenie zapłaty,26.0,,nie
+11409,dwuletnia,standard,77.0,10,1,2,0,polecenie zapłaty,41.0,,nie
+11249,dwuletnia,premium,134.0,12,1,2,0,polecenie zapłaty,140.0,,nie
+11963,roczna,standard,92.0,22,1,6,3,karta,53.0,,nie
+11255,miesięczna,podstawowy,65.0,10,2,0,0,karta,23.0,,nie
+11497,dwuletnia,standard,81.0,42,1,1,1,przelew,22.0,,nie
+11372,dwuletnia,podstawowy,49.0,42,3,1,0,polecenie zapłaty,43.0,,nie
+11530,miesięczna,standard,82.0,6,2,1,0,polecenie zapłaty,63.0,cena,tak
+11664,miesięczna,standard,78.0,45,2,0,0,przelew,73.0,,nie
+11355,dwuletnia,standard,81.0,1,3,3,2,karta,63.0,,nie
+11936,miesięczna,podstawowy,48.0,84,1,1,2,karta,37.0,,nie
+11911,miesięczna,Standard ,98.0,16,3,0,2,karta,26.0,,nie
+11644,miesięczna,Podstawowy ,47.0,10,3,2,2,przelew,36.0,,nie
+11859,miesięczna,standard,80.0,5,2,1,0,przelew,34.0,,nie
+10796,miesięczna,standard,92.0,3,0,1,3,przelew,60.0,konkurencja,tak
+10646,dwuletnia,premium,138.0,4,0,1,1,przelew,31.0,,nie
+11013,roczna,standard,93.0,25,2,1,0,karta,29.0,,nie
+11850,roczna,podstawowy,53.0,34,0,1,3,karta,50.0,,nie
+10557,miesięczna,podstawowy,66.0,70,2,1,0,karta,52.0,,nie
+10682,miesięczna,premium,122.0,28,3,1,1,karta,35.0,przeprowadzka,tak
+10578,roczna,premium,149.0,25,1,0,1,przelew,51.0,,nie
+11110,miesięczna,Premium ,126.0,84,1,2,2,polecenie zapłaty,32.0,cena,tak
+11267,miesięczna,podstawowy,55.0,26,3,0,0,polecenie zapłaty,62.0,,nie
+11723,roczna,premium,122.0,25,0,2,1,karta,42.0,jakość,tak
+11184,miesięczna,podstawowy,54.0,14,3,1,4,karta,53.0,jakość,tak
+10525,miesięczna,premium,132.0,6,1,1,0,przelew,51.0,przeprowadzka,tak
+11060,roczna,podstawowy,56.0,38,2,2,1,karta,33.0,,nie
+10541,dwuletnia,standard,84.0,28,0,2,1,karta,44.0,,nie
+11195,dwuletnia,standard,75.0,32,1,0,0,karta,38.0,,nie
+11679,dwuletnia,podstawowy,64.0,17,0,0,0,karta,29.0,,nie
+10749,roczna,standard,98.0,15,2,2,0,przelew,50.0,,nie
+11862,dwuletnia,podstawowy,62.0,5,2,0,1,karta,52.0,,nie
+11431,dwuletnia,standard,70.0,71,3,0,1,polecenie zapłaty,48.0,,nie
+10485,miesięczna,premium,123.0,1,0,2,0,karta,60.0,konkurencja,tak
+11758,dwuletnia,podstawowy,51.0,11,1,1,3,przelew,61.0,przeprowadzka,tak
+10096,roczna,Podstawowy ,47.0,31,2,0,1,polecenie zapłaty,39.0,,nie
+11021,dwuletnia,podstawowy,62.0,3,0,0,1,przelew,50.0,,nie
+10564,roczna,standard,80.0,69,0,2,2,karta,20.0,cena,tak
+11265,roczna,podstawowy,58.0,9,3,2,1,karta,28.0,,nie
+10743,dwuletnia,podstawowy,66.0,4,2,0,2,przelew,,,nie
+10864,roczna,podstawowy,66.0,2,2,0,2,polecenie zapłaty,33.0,,nie
+11599,dwuletnia,premium,136.0,14,2,0,0,karta,18.0,,nie
+11715,miesięczna,premium,140.0,38,2,2,2,karta,60.0,jakość,tak
+11485,roczna,standard,83.0,15,2,3,0,karta,,,nie
+10892,dwuletnia,premium,133.0,35,2,1,0,przelew,47.0,,nie
+11578,dwuletnia,podstawowy,43.0,38,3,2,1,polecenie zapłaty,32.0,,NIE
+11039,miesięczna,podstawowy,69.0,21,1,0,0,karta,26.0,,nie
+10207,miesięczna,standard,83.0,62,0,0,0,karta,45.0,cena,tak
+10393,roczna,podstawowy,67.0,36,3,0,2,karta,60.0,,nie
+10795,miesięczna,premium,132.0,4,0,2,1,przelew,24.0,przeprowadzka,tak
+10871,roczna,standard,69.0,2,2,2,0,polecenie zapłaty,56.0,jakość,tak
+10398,miesięczna,podstawowy,44.0,13,3,2,0,polecenie zapłaty,45.0,cena,tak
+10767,miesięczna,standard,75.0,84,0,1,0,polecenie zapłaty,53.0,przeprowadzka,tak
+11852,dwuletnia,podstawowy,49.0,84,1,2,1,polecenie zapłaty,37.0,,nie
+11242,miesięczna,standard,75.0,7,0,1,1,polecenie zapłaty,39.0,,nie
+11029,roczna,standard,87.0,4,1,1,0,przelew,29.0,,nie
+11793,miesięczna,podstawowy,40.0,50,2,0,1,przelew,38.0,,nie
+10643,miesięczna,standard,97.0,12,0,1,1,karta,47.0,,nie
+11902,miesięczna,premium,126.0,58,0,0,1,polecenie zapłaty,37.0,konkurencja,tak
+10613,dwuletnia,standard,81.0,4,0,0,1,karta,42.0,,nie
+11763,miesięczna,podstawowy,67.0,47,2,1,0,polecenie zapłaty,32.0,,nie
+10961,roczna,standard,82.0,48,1,1,1,przelew,44.0,,nie
+11571,miesięczna,standard,98.0,42,3,1,1,karta,36.0,,nie
+10726,miesięczna,standard,89.0,41,2,0,0,polecenie zapłaty,45.0,,nie
+10684,roczna,standard,72.0,13,2,1,1,karta,30.0,,nie
+10099,miesięczna,podstawowy,41.0,73,1,0,0,polecenie zapłaty,54.0,,nie
+10805,miesięczna,podstawowy,54.0,4,1,1,1,przelew,38.0,konkurencja,tak
+11752,miesięczna,standard,86.0,37,1,1,1,polecenie zapłaty,18.0,,nie
+11598,miesięczna,premium,145.0,7,2,1,2,przelew,23.0,cena,tak
+10407,miesięczna,standard,71.0,18,3,0,0,karta,47.0,,nie
+10503,dwuletnia,premium,127.0,28,2,1,0,polecenie zapłaty,63.0,,nie
+11072,roczna,premium,121.0,39,3,3,1,przelew,47.0,,nie
+11057,dwuletnia,standard,95.0,14,2,1,0,polecenie zapłaty,23.0,,nie
+10930,roczna,standard,74.0,1,1,2,1,polecenie zapłaty,49.0,jakość,tak
+10780,dwuletnia,podstawowy,57.0,27,2,0,1,karta,42.0,,nie
+10201,roczna,podstawowy,52.0,9,0,1,2,przelew,34.0,,nie
+10135,roczna,standard,91.0,43,1,0,1,karta,45.0,,nie
+11052,miesięczna,podstawowy,56.0,1,3,1,0,karta,51.0,jakość,tak
+10041,miesięczna,podstawowy,66.0,1,1,4,1,karta,39.0,cena,tak
+11018,dwuletnia,podstawowy,62.0,2,0,2,2,przelew,28.0,,nie
+10231,miesięczna,podstawowy,48.0,5,0,1,1,karta,50.0,jakość,tak
+11514,roczna,premium,131.0,5,3,1,1,polecenie zapłaty,60.0,,nie
+11797,roczna,standard,88.0,3,3,2,1,polecenie zapłaty,44.0,,nie
+10379,miesięczna,podstawowy,68.0,6,1,1,1,polecenie zapłaty,48.0,przeprowadzka,tak
+10289,roczna,podstawowy,54.0,5,2,1,0,przelew,46.0,,nie
+10419,miesięczna,podstawowy,62.0,22,1,1,1,karta,47.0,cena,tak
+11699,dwuletnia,podstawowy,62.0,2,1,3,0,przelew,49.0,konkurencja,tak
+10392,miesięczna,standard,85.0,18,0,0,2,polecenie zapłaty,28.0,jakość,tak
+10593,miesięczna,standard,75.0,25,3,2,0,karta,42.0,przeprowadzka,tak
+11523,dwuletnia,podstawowy,65.0,33,1,0,0,polecenie zapłaty,40.0,,nie
+11163,dwuletnia,podstawowy,59.0,6,3,1,0,polecenie zapłaty,39.0,,nie
+11087,roczna,podstawowy,60.0,4,1,3,1,przelew,49.0,,nie
+11496,roczna,premium,138.0,3,2,0,3,karta,18.0,jakość,tak
+10648,roczna,standard,70.0,29,2,1,0,przelew,40.0,,nie
+11153,miesięczna,podstawowy,48.0,14,1,2,0,polecenie zapłaty,18.0,,nie
+11368,miesięczna,standard,91.0,7,3,0,0,polecenie zapłaty,,,nie
+10521,dwuletnia,podstawowy,56.0,1,2,1,0,karta,40.0,,nie
+11863,dwuletnia,standard,95.0,4,0,1,0,przelew,60.0,,nie
+10065,roczna,standard,92.0,49,3,3,1,karta,62.0,,nie
+11837,miesięczna,standard,87.0,21,3,2,0,karta,55.0,,nie
+10015,miesięczna,standard,93.0,7,1,1,1,polecenie zapłaty,,cena,tak
+11181,roczna,premium,145.0,2,3,1,1,przelew,49.0,konkurencja,tak
+11065,miesięczna,podstawowy,57.0,39,0,1,1,polecenie zapłaty,40.0,,nie
+10493,roczna,podstawowy,53.0,5,3,1,0,polecenie zapłaty,28.0,,nie
+10380,roczna,standard,84.0,84,0,1,1,karta,46.0,,nie
+10188,miesięczna,standard,74.0,47,3,2,0,karta,54.0,jakość,tak
+10764,miesięczna,podstawowy,48.0,65,1,2,0,karta,51.0,,nie
+10217,miesięczna,podstawowy,57.0,2,3,1,0,przelew,52.0,,0
+10792,miesięczna,podstawowy,52.0,40,0,0,1,karta,,,nie
+11077,roczna,podstawowy,60.0,24,1,0,0,karta,45.0,,nie
+10879,roczna,standard,79.0,12,0,2,0,przelew,29.0,,nie
+10338,roczna,podstawowy,55.0,2,1,5,0,przelew,63.0,,nie
+11773,roczna,standard,94.0,28,1,0,2,polecenie zapłaty,41.0,przeprowadzka,tak
+10720,dwuletnia,standard,91.0,39,3,2,0,karta,39.0,,0
+11749,roczna,podstawowy,60.0,45,2,0,2,karta,36.0,,nie
+10296,dwuletnia,podstawowy,60.0,10,2,2,0,karta,18.0,,nie
+11726,miesięczna,standard,77.0,47,0,0,2,polecenie zapłaty,29.0,,nie
+11017,roczna,premium,130.0,3,2,2,0,karta,,przeprowadzka,tak
+11276,miesięczna,premium,140.0,8,1,0,1,karta,65.0,,nie
+11751,roczna,podstawowy,48.0,7,0,0,0,polecenie zapłaty,41.0,,nie
+11486,miesięczna,standard,93.0,11,2,1,1,polecenie zapłaty,51.0,przeprowadzka,tak
+10456,miesięczna,standard,74.0,22,0,0,0,polecenie zapłaty,81.0,,nie
+10724,dwuletnia,standard,85.0,15,2,1,0,polecenie zapłaty,36.0,,nie
+10816,dwuletnia,standard,80.0,30,1,0,0,polecenie zapłaty,52.0,,nie
+11887,miesięczna,premium,138.0,65,0,3,0,polecenie zapłaty,41.0,,nie
+10270,miesięczna,premium,134.0,23,2,0,1,karta,49.0,,nie
+10996,miesięczna,standard,84.0,12,2,1,1,przelew,37.0,,nie
+10202,dwuletnia,premium,128.0,6,2,0,1,polecenie zapłaty,29.0,,nie
+10162,dwuletnia,podstawowy,50.0,3,2,2,0,polecenie zapłaty,57.0,,nie
+11580,dwuletnia,podstawowy,60.0,10,2,1,1,polecenie zapłaty,42.0,,nie
+10730,roczna,premium,142.0,33,0,1,0,karta,44.0,,nie
+10402,dwuletnia,standard,75.0,4,3,1,0,polecenie zapłaty,34.0,,nie
+10703,miesięczna,podstawowy,69.0,15,2,2,1,karta,36.0,,nie
+11501,roczna,standard,97.0,12,2,0,2,polecenie zapłaty,53.0,cena,tak
+11846,roczna,standard,77.0,15,0,0,1,przelew,46.0,,nie
+11796,miesięczna,standard,84.0,17,3,1,1,polecenie zapłaty,,jakość,tak
+11130,dwuletnia,premium,123.0,29,0,1,1,karta,,,nie
+10566,roczna,podstawowy,58.0,35,3,0,2,polecenie zapłaty,47.0,,nie
+11414,dwuletnia,podstawowy,41.0,8,0,1,0,polecenie zapłaty,46.0,,nie
+11022,roczna,standard,87.0,18,1,0,1,polecenie zapłaty,45.0,,nie
+11026,miesięczna,podstawowy,66.0,10,0,3,2,karta,52.0,konkurencja,tak
+11412,dwuletnia,podstawowy,48.0,19,1,0,0,polecenie zapłaty,75.0,,nie
+11896,miesięczna,standard,93.0,84,2,1,1,polecenie zapłaty,41.0,,nie
+11586,dwuletnia,premium,127.0,8,0,1,2,polecenie zapłaty,37.0,,nie
+11105,miesięczna,standard,76.0,35,1,2,0,przelew,51.0,jakość,tak
+10206,miesięczna,standard,86.0,29,2,0,0,karta,45.0,konkurencja,tak
+10035,roczna,podstawowy,64.0,10,0,0,0,przelew,57.0,,nie
+10776,dwuletnia,podstawowy,43.0,37,3,3,2,polecenie zapłaty,35.0,,nie
+10509,roczna,standard,69.0,7,3,2,0,polecenie zapłaty,50.0,,nie
+11452,roczna,standard,79.0,20,2,4,1,polecenie zapłaty,50.0,,nie
+11479,roczna,premium,128.0,32,3,0,3,polecenie zapłaty,41.0,jakość,TAK
+11981,dwuletnia,podstawowy,53.0,34,0,3,0,polecenie zapłaty,54.0,,nie
+11391,dwuletnia,podstawowy,50.0,41,1,2,2,przelew,18.0,,nie
+10092,roczna,premium,127.0,37,3,1,0,karta,42.0,,nie
+11364,miesięczna,standard,70.0,66,1,1,0,karta,42.0,,nie
+10898,miesięczna,podstawowy,56.0,8,1,0,4,karta,55.0,,nie
+10565,roczna,standard,72.0,9,2,2,0,karta,39.0,,nie
+11370,miesięczna,standard,99.0,4,1,5,0,karta,39.0,jakość,tak
+10777,roczna,standard,94.0,20,3,2,0,karta,44.0,,nie
+10242,roczna,podstawowy,68.0,1,2,0,0,karta,51.0,konkurencja,tak
+10014,dwuletnia,standard,84.0,25,0,1,1,polecenie zapłaty,37.0,,nie
+10316,miesięczna,podstawowy,41.0,84,1,3,1,przelew,28.0,cena,tak
+10601,roczna,standard,94.0,11,1,1,1,przelew,53.0,,nie
+10388,dwuletnia,podstawowy,64.0,24,0,0,1,karta,58.0,,nie
+11298,miesięczna,standard,78.0,12,3,1,0,karta,30.0,,nie
+10167,dwuletnia,premium,122.0,3,3,0,1,przelew,50.0,,nie
+10841,miesięczna,standard,77.0,27,0,0,0,karta,48.0,,nie
+10021,roczna,standard,77.0,16,3,0,1,przelew,35.0,,nie
+10647,miesięczna,standard,90.0,63,0,0,0,polecenie zapłaty,51.0,,nie
+11843,miesięczna,standard,89.0,6,3,2,1,karta,20.0,,nie
+11509,miesięczna,standard,94.0,2,2,0,0,karta,53.0,,nie
+11155,roczna,podstawowy,67.0,1,1,3,0,polecenie zapłaty,31.0,,nie
+11529,miesięczna,premium,124.0,53,1,0,1,karta,31.0,,nie
+10832,roczna,standard,93.0,4,3,0,1,polecenie zapłaty,41.0,,nie
+11268,dwuletnia,standard,77.0,4,2,0,0,przelew,40.0,,nie
+11591,miesięczna,premium,126.0,1,2,0,1,karta,40.0,cena,tak
+11900,miesięczna,podstawowy,60.0,15,2,0,1,przelew,24.0,,nie
+10563,dwuletnia,standard,99.0,16,2,1,0,przelew,50.0,,nie
+11962,miesięczna,podstawowy,67.0,1,1,2,2,przelew,30.0,przeprowadzka,1
+10687,miesięczna,podstawowy,41.0,4,0,3,1,karta,37.0,konkurencja,tak
+10958,roczna,podstawowy,64.0,3,0,1,0,karta,39.0,,nie
+10190,miesięczna,premium,125.0,39,3,1,3,karta,46.0,cena,tak
+11807,miesięczna,standard,96.0,6,2,3,1,polecenie zapłaty,33.0,cena,tak
+10976,roczna,premium,122.0,36,1,1,2,karta,41.0,,nie
+10700,miesięczna,premium,144.0,32,0,0,0,polecenie zapłaty,31.0,,nie
+11500,roczna,premium,122.0,4,1,3,1,polecenie zapłaty,18.0,jakość,tak
+11706,dwuletnia,podstawowy,63.0,19,3,0,0,polecenie zapłaty,59.0,,nie
+10511,miesięczna,standard,89.0,64,2,2,0,polecenie zapłaty,47.0,,nie
+11083,dwuletnia,standard,74.0,66,0,1,0,karta,48.0,,nie
+10475,miesięczna,podstawowy,64.0,7,3,2,1,polecenie zapłaty,45.0,jakość,tak
+11585,roczna,premium,142.0,16,2,2,1,przelew,62.0,,nie
+10857,roczna,standard,73.0,1,2,0,0,polecenie zapłaty,48.0,,0
+10748,miesięczna,podstawowy,44.0,15,0,3,3,karta,45.0,jakość,tak
+10253,roczna,podstawowy,40.0,8,2,0,1,polecenie zapłaty,57.0,,nie
+10022,miesięczna,podstawowy,47.0,19,3,2,1,karta,51.0,,nie
+11338,roczna,premium,146.0,22,0,0,0,karta,47.0,,nie
+10460,roczna,standard,76.0,29,2,0,1,przelew,45.0,,nie
+11185,miesięczna,podstawowy,69.0,36,3,3,1,polecenie zapłaty,43.0,,nie
+10277,miesięczna,standard,92.0,1,3,2,2,polecenie zapłaty,18.0,przeprowadzka,tak
+10956,dwuletnia,podstawowy,46.0,71,0,0,2,przelew,31.0,,nie
+11216,roczna,standard,75.0,35,3,1,2,przelew,43.0,,nie
+10386,dwuletnia,standard,86.0,23,2,1,2,karta,18.0,,nie
+10806,miesięczna,podstawowy,39.0,51,1,1,1,polecenie zapłaty,44.0,,nie
+11438,roczna,podstawowy,54.0,39,2,2,1,przelew,54.0,,nie
+11516,miesięczna,standard,99.0,14,0,3,1,polecenie zapłaty,29.0,konkurencja,tak
+10344,roczna,podstawowy,60.0,74,1,1,0,polecenie zapłaty,19.0,,nie
+10770,roczna,premium,145.0,40,3,0,1,polecenie zapłaty,32.0,,nie
+11333,roczna,podstawowy,58.0,38,2,0,1,polecenie zapłaty,44.0,,nie
+11686,miesięczna,podstawowy,47.0,1,1,1,0,przelew,27.0,cena,tak
+10131,miesięczna,podstawowy,43.0,19,1,0,1,karta,33.0,przeprowadzka,tak
+11688,roczna,premium,132.0,4,3,0,1,polecenie zapłaty,56.0,przeprowadzka,tak
+10872,miesięczna,standard,86.0,6,2,1,0,przelew,37.0,,nie
+11124,miesięczna,standard,76.0,16,2,2,0,karta,62.0,,nie
+11397,roczna,podstawowy,46.0,13,1,0,0,karta,55.0,,nie
+10088,roczna,podstawowy,67.0,3,2,5,0,przelew,56.0,cena,tak
+11483,roczna,premium,119.0,2,3,3,1,przelew,54.0,,nie
+10331,roczna,standard,70.0,6,2,0,2,polecenie zapłaty,55.0,,nie
+11239,miesięczna,podstawowy,58.0,6,1,2,0,karta,48.0,cena,tak
+10467,roczna,premium,131.0,79,3,2,0,polecenie zapłaty,47.0,,nie
+10122,roczna,podstawowy,68.0,28,1,2,1,karta,40.0,,nie
+11639,miesięczna,premium,146.0,8,1,2,0,przelew,61.0,przeprowadzka,tak
+11045,miesięczna,standard,98.0,3,3,2,2,polecenie zapłaty,,cena,tak
+11725,roczna,premium,127.0,16,3,1,0,polecenie zapłaty,45.0,,nie
+11096,miesięczna,podstawowy,46.0,15,2,2,1,karta,60.0,,nie
+11131,dwuletnia,standard,86.0,35,2,3,2,karta,54.0,,nie
+11295,miesięczna,standard,74.0,7,0,0,1,polecenie zapłaty,51.0,,nie
+10861,roczna,standard,98.0,32,0,1,1,polecenie zapłaty,18.0,,nie
+11460,miesięczna,standard,81.0,17,1,0,0,polecenie zapłaty,38.0,cena,tak
+11127,roczna,standard,96.0,37,2,0,1,karta,47.0,,nie
