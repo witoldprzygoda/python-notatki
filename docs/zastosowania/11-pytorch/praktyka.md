@@ -144,4 +144,4 @@ Dla tabel o setkach lub tysiącach wierszy modele z rozdziałów 8–9 — regre
 
 ## Dalej: projekt
 
-Ścieżkę uczenia maszynowego zamyka projekt, który przechodzi całą drogę od surowych danych do zapisanego modelu z raportem: przygotowanie danych z rozdziału 9, porównanie modeli z rozdziałów 8–11 na wspólnej walidacji, wybór według kosztu błędu i pakiet gotowy do użycia przez inny program. <!-- TODO: link po powstaniu rozdziału o projekcie uczenia maszynowego -->
+Ścieżkę uczenia maszynowego zamyka projekt, który przechodzi całą drogę od surowych danych do zapisanego modelu z raportem: przygotowanie danych z rozdziału 9, porównanie modeli z rozdziałów 8–11 na wspólnej walidacji, wybór według kosztu błędu i pakiet gotowy do użycia przez inny program — [rozdział z projektem](../12-projekt-ml/index.md).

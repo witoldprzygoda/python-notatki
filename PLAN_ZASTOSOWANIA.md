@@ -27,7 +27,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 9 | Regresja i przygotowanie danych | Uczenie maszynowe | `zastosowania/09-regresja/` | 4 | ukończony — 14 IX 2026 (`plans/z09-regresja.md`; index + 4 strony, ok. 900 linii; 20 skryptów, 7 wykresów, dane `dane/mieszkania.csv` z generatora; cztery recenzje z weryfikacją uwag naniesione, model końcowy liniowy na logarytmach ceny i powierzchni; 4 zapowiedzi z rozdziałów 7–8 domknięte) |
 | 10 | Uczenie bez nadzoru | Uczenie maszynowe | `zastosowania/10-bez-nadzoru/` | 3 | ukończony — 16 IX 2026 (`plans/z10-bez-nadzoru.md`; index + 3 strony, ok. 570 linii; 13 skryptów, 8 wykresów; dane z rozdziału 9 i zbiory wbudowane; cztery recenzje z weryfikacją uwag naniesione; 5 zapowiedzi z rozdziałów 2, 7, 8 i 9 domkniętych) |
 | 11 | PyTorch — tensory i sieć neuronowa | Uczenie maszynowe | `zastosowania/11-pytorch/` | 5 | ukończony — 16 IX 2026 (`plans/z11-pytorch.md`; index + 5 stron, ok. 940 linii; 19 skryptów, 7 wykresów; `pliki/` z modułem `trening.py` i kopią `mieszkania.csv`; torch 2.14.0 w pliku wymagań; cztery recenzje z weryfikacją uwag naniesione; 2 zapowiedzi z rozdziałów 7 i 10 domknięte) |
-| 12 | Projekt: od danych do modelu | Uczenie maszynowe | `zastosowania/12-projekt-ml/` | 3 | w realizacji — `plans/z12-projekt-ml.md` |
+| 12 | Projekt: od danych do modelu | Uczenie maszynowe | `zastosowania/12-projekt-ml/` | 3 | ukończony — 19 IX 2026 (`plans/z12-projekt-ml.md`; index + 3 strony, ok. 780 linii; projekt `rezygnacja-klientow` z 16 plików, 7 testów, 2 rysunki; dane `dane/surowe/klienci.csv` i `dane/nowi_klienci.csv` z generatora; cztery recenzje z weryfikacją uwag naniesione; zapowiedź z rozdziału 11 domknięta). **Ścieżka Uczenie maszynowe ukończona.** |
 | 13 | Bazy danych — `sqlite3` i SQLAlchemy | Aplikacje | `zastosowania/13-bazy-danych/` | 5 | zaplanowany |
 | 14 | HTTP i API | Aplikacje | `zastosowania/14-http-api/` | 4 | zaplanowany |
 | 15 | FastAPI | Aplikacje | `zastosowania/15-fastapi/` | 5 | zaplanowany |
@@ -40,7 +40,7 @@ Stan na 13 IX 2026. Część „Python Zastosowania” jest kontynuacją „Pyth
 | 22 | Pliki Office i obrazy | Automatyzacja | `zastosowania/22-office-obrazy/` | 4 | zaplanowany |
 | 23 | Projekt: narzędzie automatyzujące | Automatyzacja | `zastosowania/23-projekt-automatyzacja/` | 3 | zaplanowany |
 
-Kolejność realizacji: ścieżka Dane (1–6) → Uczenie maszynowe (7–12) → Aplikacje (13–18) → Automatyzacja (19–23). Projekty rozdziałów powstają w `plans/zNN-<slug>.md` bezpośrednio przed realizacją; rozdział 17 (pandas) i 18 (tkinter) z `PLAN_ROZWOJU.md` są punktem wyjścia dla rozdziałów 4–5 i 16.
+Kolejność realizacji: ścieżka Dane (1–6, ukończona) → Uczenie maszynowe (7–12, ukończona) → Aplikacje (13–18) → Automatyzacja (19–23). Projekty rozdziałów powstają w `plans/zNN-<slug>.md` bezpośrednio przed realizacją; rozdział 17 (pandas) i 18 (tkinter) z `PLAN_ROZWOJU.md` są punktem wyjścia dla rozdziałów 4–5 i 16.
 
 ## 2. Zapowiedzi z części „Python Notatki” do domknięcia
 
