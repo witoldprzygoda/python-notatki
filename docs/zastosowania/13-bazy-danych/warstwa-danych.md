@@ -224,4 +224,4 @@ Moduł `sqlite3` wystarcza, gdy program jest skryptem z kilkoma zapytaniami, dan
 
 ## Dalej: HTTP i API
 
-Warstwa danych jest gotowa, ale korzysta z niej tylko skrypt na tej samej maszynie. Następne rozdziały ścieżki udostępniają ją przez sieć: najpierw protokół HTTP od strony klienta i serwera <!-- TODO: link po powstaniu rozdziału o HTTP i API -->, potem usługa FastAPI, w której każde żądanie dostaje własną sesję z fabryki z tego podrozdziału <!-- TODO: link po powstaniu rozdziału o FastAPI -->; projekt ścieżki połączy bazę, API i okno aplikacji. <!-- TODO: link po powstaniu rozdziału o projekcie aplikacji -->
+Warstwa danych jest gotowa, ale korzysta z niej tylko skrypt na tej samej maszynie. Następne rozdziały ścieżki udostępniają ją przez sieć: najpierw [protokół HTTP od strony klienta i serwera](../14-http-api/index.md), potem usługa FastAPI, w której każde żądanie dostaje własną sesję z fabryki z tego podrozdziału <!-- TODO: link po powstaniu rozdziału o FastAPI -->; projekt ścieżki połączy bazę, API i okno aplikacji. <!-- TODO: link po powstaniu rozdziału o projekcie aplikacji -->
