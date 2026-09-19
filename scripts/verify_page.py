@@ -10,7 +10,7 @@ zanim uruchomione zostaną kolejne skrypty (np. ```text title="dane.txt"```). Bl
 są uruchamiane przez python -i, a ich rzeczywisty wynik wypisywany do porównania ręcznego.
 
 Użycie: python scripts/verify_page.py <plik.md> [interpreter]
-           [--stdin=nazwa.py=w1|w2|w3] [--mask=REGEX] [--data=katalog]
+           [--stdin=nazwa.py=w1|w2|w3] [--mask=REGEX] [--data=katalog] [--skip=nazwa.py,...]
 
 --stdin: wiersze podawane skryptowi jako odpowiedzi na kolejne wywołania input();
 skrypt jest wtedy uruchamiany przez runner, który — jak terminal — wypisuje po
@@ -21,6 +21,8 @@ zapisem sesji terminalowej.
 Skrypty są uruchamiane z zamkniętym stdin (breakpoint() kończy się natychmiast).
 --data: katalog, którego pliki (z podkatalogami) są kopiowane do katalogu tymczasowego przed uruchomieniem
 skryptów (wspólne pliki danych rozdziału, których strona nie osadza jako bloków).
+--skip: nazwy skryptów, które są tylko zapisywane, nie uruchamiane (np. moduł z blokiem
+__main__ uruchamiającym serwer bez końca); blok wyniku po takim skrypcie jest pomijany.
 """
 import sys, re, subprocess, pathlib, tempfile, os
 
@@ -30,6 +32,7 @@ PY = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else 
 STDIN = {}
 DATA = None  # katalog z plikami danych kopiowanymi do katalogu tymczasowego (--data=)
 MASKS = [r"0x[0-9A-Fa-f]{6,}"]  # adresy obiektów
+SKIP = set()  # skrypty tylko zapisywane (--skip=)
 for arg in sys.argv[2:]:
     if arg.startswith("--stdin="):
         name, _, lines = arg[len("--stdin="):].partition("=")
@@ -38,6 +41,8 @@ for arg in sys.argv[2:]:
         MASKS.append(arg[len("--mask="):])
     elif arg.startswith("--data="):
         DATA = pathlib.Path(arg[len("--data="):])
+    elif arg.startswith("--skip="):
+        SKIP.update(arg[len("--skip="):].split(","))
 text = page.read_text(encoding="utf-8")
 
 RUNNER = '''import builtins, runpy, sys
@@ -93,6 +98,12 @@ while i < len(blocks):
         path = tmp / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(body, encoding="utf-8")
+        if name in SKIP:
+            print(f"\n--- {name}: zapisany, nieuruchamiany (--skip)")
+            if follows_directly(i) and blocks[i + 1][0].startswith("{ .text .no-copy }"):
+                i += 1
+            i += 1
+            continue
         stdin_lines = STDIN.get(name)
         if stdin_lines:
             cmd = [PY, "-X", "utf8", "-u", str(runner), str(path), "|".join(stdin_lines)]

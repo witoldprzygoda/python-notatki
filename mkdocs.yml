@@ -279,3 +279,9 @@ nav:
           - SQLAlchemy — model i sesja: zastosowania/13-bazy-danych/sqlalchemy.md
           - Relacje i zapytania ORM: zastosowania/13-bazy-danych/relacje.md
           - Warstwa danych aplikacji: zastosowania/13-bazy-danych/warstwa-danych.md
+      - 14. HTTP i API:
+          - Wprowadzenie: zastosowania/14-http-api/index.md
+          - Protokół HTTP: zastosowania/14-http-api/protokol.md
+          - Serwer w bibliotece standardowej: zastosowania/14-http-api/serwer.md
+          - Klient HTTP — httpx: zastosowania/14-http-api/klient.md
+          - Interfejs API w praktyce: zastosowania/14-http-api/api.md

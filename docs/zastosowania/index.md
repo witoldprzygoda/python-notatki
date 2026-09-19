@@ -45,5 +45,6 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 **Ścieżka aplikacji**
 
 13. [Bazy danych — sqlite3 i SQLAlchemy](13-bazy-danych/index.md) — moduł sqlite3, schemat i zapytania SQL, SQLAlchemy — model i sesja, relacje i zapytania ORM, warstwa danych aplikacji
+14. [HTTP i API](14-http-api/index.md) — protokół HTTP, serwer w bibliotece standardowej, klient httpx, interfejs API w praktyce
 
-Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 14–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
+Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 15–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.

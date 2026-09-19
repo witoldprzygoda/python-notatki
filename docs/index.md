@@ -42,5 +42,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 11. [PyTorch — tensory i sieć neuronowa](zastosowania/11-pytorch/index.md) — tensory, automatyczne różniczkowanie, sieć neuronowa, klasyfikacja obrazów, trening w praktyce
 12. [Projekt: od danych do modelu](zastosowania/12-projekt-ml/index.md) — zadanie, dane i decyzje, potok, modele i wybór, model końcowy, raport i użycie
 13. [Bazy danych — sqlite3 i SQLAlchemy](zastosowania/13-bazy-danych/index.md) — moduł sqlite3, schemat i zapytania SQL, SQLAlchemy — model i sesja, relacje i zapytania ORM, warstwa danych aplikacji
+14. [HTTP i API](zastosowania/14-http-api/index.md) — protokół HTTP, serwer w bibliotece standardowej, klient httpx, interfejs API w praktyce
 
-Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 14–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
+Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 15–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
