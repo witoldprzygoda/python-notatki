@@ -272,3 +272,10 @@ nav:
           - Zadanie, dane i decyzje: zastosowania/12-projekt-ml/zadanie-i-dane.md
           - Potok, modele i wybór: zastosowania/12-projekt-ml/potok-i-modele.md
           - Model końcowy, raport i użycie: zastosowania/12-projekt-ml/model-i-raport.md
+      - 13. Bazy danych — sqlite3 i SQLAlchemy:
+          - Wprowadzenie: zastosowania/13-bazy-danych/index.md
+          - Moduł sqlite3: zastosowania/13-bazy-danych/sqlite3.md
+          - Schemat i zapytania SQL: zastosowania/13-bazy-danych/zapytania-sql.md
+          - SQLAlchemy — model i sesja: zastosowania/13-bazy-danych/sqlalchemy.md
+          - Relacje i zapytania ORM: zastosowania/13-bazy-danych/relacje.md
+          - Warstwa danych aplikacji: zastosowania/13-bazy-danych/warstwa-danych.md

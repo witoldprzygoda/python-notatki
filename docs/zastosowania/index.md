@@ -42,4 +42,8 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 11. [PyTorch — tensory i sieć neuronowa](11-pytorch/index.md) — tensory, automatyczne różniczkowanie, sieć neuronowa, klasyfikacja obrazów, trening w praktyce
 12. [Projekt: od danych do modelu](12-projekt-ml/index.md) — zadanie, dane i decyzje, potok, modele i wybór, model końcowy, raport i użycie
 
-Ścieżki danych i uczenia maszynowego są ukończone; pozostałe ścieżki są w przygotowaniu.
+**Ścieżka aplikacji**
+
+13. [Bazy danych — sqlite3 i SQLAlchemy](13-bazy-danych/index.md) — moduł sqlite3, schemat i zapytania SQL, SQLAlchemy — model i sesja, relacje i zapytania ORM, warstwa danych aplikacji
+
+Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 14–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
