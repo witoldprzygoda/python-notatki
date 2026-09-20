@@ -46,5 +46,6 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 
 13. [Bazy danych — sqlite3 i SQLAlchemy](13-bazy-danych/index.md) — moduł sqlite3, schemat i zapytania SQL, SQLAlchemy — model i sesja, relacje i zapytania ORM, warstwa danych aplikacji
 14. [HTTP i API](14-http-api/index.md) — protokół HTTP, serwer w bibliotece standardowej, klient httpx, interfejs API w praktyce
+15. [FastAPI](15-fastapi/index.md) — pierwsza aplikacja, modele danych Pydantic, serwer sklepu, API nad warstwą danych, testy i uruchomienie
 
-Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 15–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
+Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 16–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.

@@ -72,6 +72,10 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
     część edytora (notatnik-jupyter.md, sekcja „Instalacja i pierwszy notatnik”).
 15. `zastosowania/01-jupyter/img/vsc-notatnik-jadro.png` — lista wyboru jądra z pozycją
     interpretera `.venv` projektu; kadr: sama lista (notatnik-jupyter.md, ta sama sekcja).
+16. `zastosowania/15-fastapi/img/fastapi-docs.png` — strona `/docs` (Swagger UI) aplikacji
+    `aplikacja.py` z listą tras `GET /`, `GET /produkty`, `GET /produkty/{produkt_id}` i rozwiniętą
+    trasą `/produkty/{produkt_id}` z polem parametru i przyciskiem **Try it out**; kadr: sama
+    lista tras z jedną rozwiniętą (pierwsza-aplikacja.md, sekcja „Dokumentacja interfejsu”).
 
 ## Wykonane
 

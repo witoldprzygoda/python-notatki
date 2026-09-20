@@ -43,5 +43,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 12. [Projekt: od danych do modelu](zastosowania/12-projekt-ml/index.md) — zadanie, dane i decyzje, potok, modele i wybór, model końcowy, raport i użycie
 13. [Bazy danych — sqlite3 i SQLAlchemy](zastosowania/13-bazy-danych/index.md) — moduł sqlite3, schemat i zapytania SQL, SQLAlchemy — model i sesja, relacje i zapytania ORM, warstwa danych aplikacji
 14. [HTTP i API](zastosowania/14-http-api/index.md) — protokół HTTP, serwer w bibliotece standardowej, klient httpx, interfejs API w praktyce
+15. [FastAPI](zastosowania/15-fastapi/index.md) — pierwsza aplikacja, modele danych Pydantic, serwer sklepu, API nad warstwą danych, testy i uruchomienie
 
-Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 15–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
+Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 16–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.

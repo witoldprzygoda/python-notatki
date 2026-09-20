@@ -285,3 +285,10 @@ nav:
           - Serwer w bibliotece standardowej: zastosowania/14-http-api/serwer.md
           - Klient HTTP — httpx: zastosowania/14-http-api/klient.md
           - Interfejs API w praktyce: zastosowania/14-http-api/api.md
+      - 15. FastAPI:
+          - Wprowadzenie: zastosowania/15-fastapi/index.md
+          - Pierwsza aplikacja: zastosowania/15-fastapi/pierwsza-aplikacja.md
+          - Modele danych — Pydantic: zastosowania/15-fastapi/modele.md
+          - Serwer sklepu: zastosowania/15-fastapi/sklep.md
+          - API nad warstwą danych: zastosowania/15-fastapi/baza.md
+          - Testy i uruchomienie: zastosowania/15-fastapi/testy-i-uruchomienie.md
