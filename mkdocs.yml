@@ -308,3 +308,8 @@ nav:
           - Budowanie i publikacja: zastosowania/17-pakowanie/budowanie.md
           - Zależności i wersje: zastosowania/17-pakowanie/zaleznosci.md
           - Aplikacja dla użytkownika: zastosowania/17-pakowanie/aplikacja-dla-uzytkownika.md
+      - "18. Projekt: aplikacja z bazą, API i oknem":
+          - Wprowadzenie: zastosowania/18-projekt-aplikacja/index.md
+          - "Serwer: baza i API": zastosowania/18-projekt-aplikacja/serwer.md
+          - "Klient: moduł API i okno": zastosowania/18-projekt-aplikacja/okno.md
+          - Testy, uruchomienie i dostawa: zastosowania/18-projekt-aplikacja/dostawa.md
