@@ -302,3 +302,9 @@ nav:
           - Canvas — rysowanie i animacja: zastosowania/16-tkinter/canvas.md
           - CustomTkinter — nowoczesny wygląd: zastosowania/16-tkinter/customtkinter.md
           - "Mini-projekt: menedżer kontaktów": zastosowania/16-tkinter/projekt-kontakty.md
+      - 17. Pakowanie i dystrybucja:
+          - Wprowadzenie: zastosowania/17-pakowanie/index.md
+          - Pakiet do instalacji: zastosowania/17-pakowanie/pakiet.md
+          - Budowanie i publikacja: zastosowania/17-pakowanie/budowanie.md
+          - Zależności i wersje: zastosowania/17-pakowanie/zaleznosci.md
+          - Aplikacja dla użytkownika: zastosowania/17-pakowanie/aplikacja-dla-uzytkownika.md

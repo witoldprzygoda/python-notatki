@@ -45,5 +45,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 14. [HTTP i API](zastosowania/14-http-api/index.md) — protokół HTTP, serwer w bibliotece standardowej, klient httpx, interfejs API w praktyce
 15. [FastAPI](zastosowania/15-fastapi/index.md) — pierwsza aplikacja, modele danych Pydantic, serwer sklepu, API nad warstwą danych, testy i uruchomienie
 16. [Interfejs graficzny tkinter](zastosowania/16-tkinter/index.md) — okno i widżety, menedżery układu, zdarzenia i zmienne kontrolne, aplikacja obiektowa z menu i dialogami, widżety ttk, Canvas, CustomTkinter, mini-projekt: menedżer kontaktów
+17. [Pakowanie i dystrybucja](zastosowania/17-pakowanie/index.md) — pakiet do instalacji, budowanie i publikacja, zależności i wersje, aplikacja dla użytkownika
 
-Ścieżki danych i uczenia maszynowego są ukończone; rozdziały 17–18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
+Ścieżki danych i uczenia maszynowego są ukończone; rozdział 18 ścieżki aplikacji oraz ścieżka automatyzacji są w przygotowaniu.
