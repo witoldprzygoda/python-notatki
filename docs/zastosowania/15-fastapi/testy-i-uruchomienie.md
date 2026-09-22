@@ -120,4 +120,4 @@ Konfigurację przekazujemy zmiennymi środowiskowymi, jak adres bazy w rozdziale
 
 ## Dalej: okno, pakiet i projekt
 
-Sklep ma bazę i API; użytkownik, który nie pisze programów, potrzebuje okna — interfejs graficzny w bibliotece tkinter jest tematem następnego rozdziału <!-- TODO: link po powstaniu rozdziału o tkinter -->. Aplikację trzeba też dostarczyć odbiorcy jako pakiet z zależnościami i poleceniem uruchamiającym <!-- TODO: link po powstaniu rozdziału o pakowaniu i dystrybucji -->, a projekt ścieżki połączy bazę, API i okno w jeden program <!-- TODO: link po powstaniu rozdziału o projekcie aplikacji -->.
+Sklep ma bazę i API; użytkownik, który nie pisze programów, potrzebuje okna — [interfejs graficzny w bibliotece tkinter](../16-tkinter/index.md) jest tematem następnego rozdziału. Aplikację trzeba też dostarczyć odbiorcy jako pakiet z zależnościami i poleceniem uruchamiającym <!-- TODO: link po powstaniu rozdziału o pakowaniu i dystrybucji -->, a projekt ścieżki połączy bazę, API i okno w jeden program <!-- TODO: link po powstaniu rozdziału o projekcie aplikacji -->.

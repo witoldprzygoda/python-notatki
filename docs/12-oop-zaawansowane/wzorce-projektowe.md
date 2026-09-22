@@ -231,7 +231,7 @@ e-mail: nowy produkt laptop
 powiadomień: 2
 ```
 
-Sklep nie wie, że ktoś wysyła e-maile ani że ktoś liczy powiadomienia — wywołuje jedynie `powiadom()`. Obserwatorami są funkcja i obiekt z `__call__` z rozdziału 11, wymienne dzięki wspólnemu protokołowi wywołania. Metoda `powiadom()` iteruje po kopii listy, aby obserwator mógł w trakcie powiadamiania anulować subskrypcję bez naruszenia pętli. Ten wzorzec jest podstawą programowania sterowanego zdarzeniami (ang. *event-driven programming*) — w bibliotece tkinter metoda `bind()` rejestruje obserwatora zdarzeń okna dokładnie tak, jak `subskrybuj()`; wracamy do tego w rozdziale o tkinter. <!-- TODO: link po powstaniu rozdziału o tkinter -->
+Sklep nie wie, że ktoś wysyła e-maile ani że ktoś liczy powiadomienia — wywołuje jedynie `powiadom()`. Obserwatorami są funkcja i obiekt z `__call__` z rozdziału 11, wymienne dzięki wspólnemu protokołowi wywołania. Metoda `powiadom()` iteruje po kopii listy, aby obserwator mógł w trakcie powiadamiania anulować subskrypcję bez naruszenia pętli. Ten wzorzec jest podstawą programowania sterowanego zdarzeniami (ang. *event-driven programming*) — w bibliotece tkinter metoda `bind()` rejestruje obserwatora zdarzeń okna dokładnie tak, jak `subskrybuj()`; wracamy do tego w [rozdziale o tkinter](../zastosowania/16-tkinter/zdarzenia-i-zmienne.md).
 
 ## Singleton przez dekorator klasy
 

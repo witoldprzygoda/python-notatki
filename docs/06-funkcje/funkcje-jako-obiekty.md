@@ -64,7 +64,7 @@ Uwaga: wartość ujemna -5
 1
 ```
 
-Ten sam mechanizm spotkamy przy programowaniu interfejsów graficznych, gdzie funkcja powiązana z przyciskiem jest wywoływana po jego naciśnięciu. <!-- TODO: link po powstaniu rozdziału o tkinter -->
+Ten sam mechanizm spotkamy przy programowaniu interfejsów graficznych, gdzie [funkcja powiązana z przyciskiem](../zastosowania/16-tkinter/okno-i-widzety.md) jest wywoływana po jego naciśnięciu.
 
 Funkcje można też przechowywać w kolekcjach. Lista funkcji pozwala wykonać w pętli serię przekształceń:
 

@@ -232,7 +232,7 @@ konsument: kolejka zamknięta
 
 ## Wątki a interfejs graficzny
 
-Biblioteki okienkowe prowadzą pętlę zdarzeń w jednym wątku i nie gwarantują bezpiecznego zmieniania elementów okna z innych wątków. Długie obliczenie wykonujemy więc w osobnym wątku, wynik przekazujemy przez kolejkę, a wątek okna odpytuje ją co kilkadziesiąt milisekund za pomocą zegara biblioteki — w tkinter jest to metoda `after()`. Do tego wzorca wracamy przy interfejsach graficznych w części „Python Zastosowania”. <!-- TODO: link po powstaniu rozdziału o tkinter -->
+Biblioteki okienkowe prowadzą pętlę zdarzeń w jednym wątku i nie gwarantują bezpiecznego zmieniania elementów okna z innych wątków. Długie obliczenie wykonujemy więc w osobnym wątku, wynik przekazujemy przez kolejkę, a wątek okna odpytuje ją co kilkadziesiąt milisekund za pomocą zegara biblioteki — w tkinter jest to metoda `after()`. Do tego wzorca wracamy [przy interfejsach graficznych](../zastosowania/16-tkinter/projekt-kontakty.md) w części „Python Zastosowania”.
 
 ## Inne narzędzia — `Semaphore`, `Condition`, `Barrier`, `Timer` (dla dociekliwych)
 
