@@ -306,4 +306,4 @@ Długie obliczenie lub pobieranie w funkcji zwrotnej zamroziłoby okno, a widże
 
 ## Dalej: pakiet i projekt
 
-Aplikację okienkową trzeba dostarczyć użytkownikowi, który nie zainstaluje Pythona ani pakietów — o [pakowaniu i dystrybucji](../17-pakowanie/index.md) mówi następny rozdział, a projekt ścieżki połączy okno z bazą danych i API z poprzednich rozdziałów w jeden program <!-- TODO: link po powstaniu rozdziału o projekcie aplikacji -->.
+Aplikację okienkową trzeba dostarczyć użytkownikowi, który nie zainstaluje Pythona ani pakietów — o [pakowaniu i dystrybucji](../17-pakowanie/index.md) mówi następny rozdział, a [projekt ścieżki](../18-projekt-aplikacja/index.md) połączy okno z bazą danych i API z poprzednich rozdziałów w jeden program.

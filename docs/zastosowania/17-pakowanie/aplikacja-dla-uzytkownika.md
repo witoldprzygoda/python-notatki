@@ -100,4 +100,4 @@ Moduł `zipapp` z biblioteki standardowej pakuje katalog `src` w jeden plik zip 
 
 ## Dalej: projekt
 
-Ścieżka aplikacji ma wszystkie elementy: bazę danych, API, okno i sposób dostarczenia. Projekt ścieżki połączy je w jeden program — sklep z warstwą danych, usługą FastAPI i oknem klienta — spakowany tak, jak opisano tutaj <!-- TODO: link po powstaniu rozdziału o projekcie aplikacji -->.
+Ścieżka aplikacji ma wszystkie elementy: bazę danych, API, okno i sposób dostarczenia. Projekt ścieżki połączy je w jeden program — sklep z warstwą danych, usługą FastAPI i oknem klienta — spakowany tak, jak opisano tutaj — [rozdział 18](../18-projekt-aplikacja/index.md).
