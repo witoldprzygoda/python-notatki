@@ -80,7 +80,7 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 ## Wykonane
 
 - `zastosowania/16-tkinter/img/*.png` (32 zrzuty okien tkinter i CustomTkinter) — generowane automatycznie
-  z listingów rozdziału: harness `sitecustomize.py` (scratchpad `helper16/`, ładowany przez `PYTHONPATH`)
+  z listingów rozdziału: harness `scripts/tk_harness/sitecustomize.py` (ładowany przez `PYTHONPATH=scripts/tk_harness`)
   podmienia `mainloop()`, podnosi okna na wierzch i składa ujęcia na neutralnym tle; proces świadomy DPI,
   motyw jasny (ciemny tylko tam, gdzie pokazuje tryb ciemny CustomTkinter). Odświeżanie: ponowne
   uruchomienie harnessu (`ZRZUTY_KATALOG=docs/zastosowania/16-tkinter/img`), nie ręcznie.
