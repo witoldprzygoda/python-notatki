@@ -115,4 +115,4 @@ Po `python -m pip install -e .` polecenia są dostępne w środowisku, po `pipx 
 
 ## Dalej: pobieranie stron
 
-Następny rozdział buduje narzędzia, które sięgają po dane do sieci — pobierają strony klientem httpx z rozdziału 14 i wyciągają z nich informacje parserem HTML <!-- TODO: link po powstaniu rozdziału o pobieraniu i parsowaniu stron -->; projekt ścieżki połączy pobieranie, przetwarzanie i raport w jedno narzędzie wiersza poleceń zbudowane według reguł z tego rozdziału <!-- TODO: link po powstaniu rozdziału o projekcie narzędzia automatyzującego -->.
+[Następny rozdział](../21-scraping/index.md) buduje narzędzia, które sięgają po dane do sieci — pobierają strony klientem httpx z rozdziału 14 i wyciągają z nich informacje parserem HTML; projekt ścieżki połączy pobieranie, przetwarzanie i raport w jedno narzędzie wiersza poleceń zbudowane według reguł z tego rozdziału <!-- TODO: link po powstaniu rozdziału o projekcie narzędzia automatyzującego -->.
