@@ -57,5 +57,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 **Ścieżka automatyzacji**
 
 19. [Wyrażenia regularne](zastosowania/19-re/index.md) — składnia wzorców, wyszukiwanie, dzielenie i zamiana, wzorce w praktyce, pułapki, wydajność i testy
+20. [Narzędzia wiersza poleceń](zastosowania/20-cli/index.md) — argumenty i opcje, strumienie, kody wyjścia i dziennik, procesy, pliki i konfiguracja, od skryptu do polecenia
 
-Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 20–23 ścieżki automatyzacji są w przygotowaniu.
+Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 21–23 ścieżki automatyzacji są w przygotowaniu.

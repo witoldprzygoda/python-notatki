@@ -319,3 +319,9 @@ nav:
           - Wyszukiwanie, dzielenie i zamiana: zastosowania/19-re/operacje.md
           - Wzorce w praktyce: zastosowania/19-re/praktyka.md
           - Pułapki, wydajność i testy: zastosowania/19-re/pulapki.md
+      - 20. Narzędzia wiersza poleceń:
+          - Wprowadzenie: zastosowania/20-cli/index.md
+          - Argumenty i opcje: zastosowania/20-cli/argumenty.md
+          - Strumienie, kody wyjścia i dziennik: zastosowania/20-cli/strumienie.md
+          - Procesy, pliki i konfiguracja: zastosowania/20-cli/procesy.md
+          - Od skryptu do polecenia: zastosowania/20-cli/narzedzie.md
