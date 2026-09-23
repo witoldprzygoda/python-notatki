@@ -337,3 +337,8 @@ nav:
           - Dokumenty Word: zastosowania/22-office-obrazy/word.md
           - Obrazy: zastosowania/22-office-obrazy/obrazy.md
           - Raport z danych: zastosowania/22-office-obrazy/raport.md
+      - "23. Projekt: narzędzie automatyzujące":
+          - Wprowadzenie: zastosowania/23-projekt-automatyzacja/index.md
+          - Założenia i architektura: zastosowania/23-projekt-automatyzacja/architektura.md
+          - Moduły narzędzia: zastosowania/23-projekt-automatyzacja/moduly.md
+          - Testy i wdrożenie: zastosowania/23-projekt-automatyzacja/testy-i-wdrozenie.md
