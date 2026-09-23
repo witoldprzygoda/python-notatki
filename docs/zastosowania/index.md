@@ -55,5 +55,6 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 
 19. [Wyrażenia regularne](19-re/index.md) — składnia wzorców, wyszukiwanie, dzielenie i zamiana, wzorce w praktyce, pułapki, wydajność i testy
 20. [Narzędzia wiersza poleceń](20-cli/index.md) — argumenty i opcje, strumienie, kody wyjścia i dziennik, procesy, pliki i konfiguracja, od skryptu do polecenia
+21. [Pobieranie i parsowanie stron](21-scraping/index.md) — HTML i parser, pobieranie stron, dane ze stron, narzędzie i zasady
 
-Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 21–23 ścieżki automatyzacji są w przygotowaniu.
+Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 22–23 ścieżki automatyzacji są w przygotowaniu.

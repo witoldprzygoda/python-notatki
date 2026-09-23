@@ -325,3 +325,9 @@ nav:
           - Strumienie, kody wyjścia i dziennik: zastosowania/20-cli/strumienie.md
           - Procesy, pliki i konfiguracja: zastosowania/20-cli/procesy.md
           - Od skryptu do polecenia: zastosowania/20-cli/narzedzie.md
+      - 21. Pobieranie i parsowanie stron:
+          - Wprowadzenie: zastosowania/21-scraping/index.md
+          - HTML i parser: zastosowania/21-scraping/html-i-parser.md
+          - Pobieranie stron: zastosowania/21-scraping/pobieranie.md
+          - Dane ze stron: zastosowania/21-scraping/dane-ze-stron.md
+          - Narzędzie i zasady: zastosowania/21-scraping/narzedzie.md
