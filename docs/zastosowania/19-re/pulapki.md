@@ -131,4 +131,4 @@ Wyrażenie regularne jest właściwe, gdy tekst ma kształt, który da się opis
 
 ## Dalej: wiersz poleceń
 
-Wzorce z tego rozdziału trafią do narzędzi uruchamianych z terminala: następny rozdział buduje programy wiersza poleceń z opcjami, plikami wejściowymi i kodami wyjścia <!-- TODO: link po powstaniu rozdziału o narzędziach wiersza poleceń -->, a dalszy — pobiera i parsuje strony, na których wyrażenia regularne ustępują parserowi HTML <!-- TODO: link po powstaniu rozdziału o pobieraniu i parsowaniu stron -->.
+Wzorce z tego rozdziału trafią do narzędzi uruchamianych z terminala: [następny rozdział](../20-cli/index.md) buduje programy wiersza poleceń z opcjami, plikami wejściowymi i kodami wyjścia, a dalszy — pobiera i parsuje strony, na których wyrażenia regularne ustępują parserowi HTML <!-- TODO: link po powstaniu rozdziału o pobieraniu i parsowaniu stron -->.
