@@ -51,4 +51,8 @@ Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcj
 17. [Pakowanie i dystrybucja](17-pakowanie/index.md) — pakiet do instalacji, budowanie i publikacja, zależności i wersje, aplikacja dla użytkownika
 18. [Projekt: aplikacja z bazą, API i oknem](18-projekt-aplikacja/index.md) — serwer: baza i API, klient: moduł API i okno, testy, uruchomienie i dostawa
 
-Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; ścieżka automatyzacji jest w przygotowaniu.
+**Ścieżka automatyzacji**
+
+19. [Wyrażenia regularne](19-re/index.md) — składnia wzorców, wyszukiwanie, dzielenie i zamiana, wzorce w praktyce, pułapki, wydajność i testy
+
+Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 20–23 ścieżki automatyzacji są w przygotowaniu.

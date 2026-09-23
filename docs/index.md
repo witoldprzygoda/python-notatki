@@ -35,12 +35,18 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 4. [pandas — tabele](zastosowania/04-pandas-tabele/index.md) — Series i DataFrame, wczytywanie i zapis, selekcja, typy i braki, przekształcenia
 5. [pandas — analiza](zastosowania/05-pandas-analiza/index.md) — grupowanie, tabele przestawne, łączenie tabel, szeregi czasowe, wydajność i potok
 6. [Projekt: raport z danych](zastosowania/06-projekt-dane/index.md) — zadanie, dane i decyzje, potok z testami, raport z rysunkami i tabelami
+
+**Ścieżka uczenia maszynowego**
+
 7. [Uczenie maszynowe — pojęcia i warsztat](zastosowania/07-ml-pojecia/index.md) — pojęcia, pierwszy model od początku do końca, warsztat scikit-learn, przeuczenie i uczciwa ocena
 8. [Klasyfikacja](zastosowania/08-klasyfikacja/index.md) — miary klasyfikacji, regresja logistyczna, drzewa decyzyjne i lasy losowe, wybór modelu i interpretacja
 9. [Regresja i przygotowanie danych](zastosowania/09-regresja/index.md) — regresja liniowa i miary błędu, przygotowanie danych, regularyzacja i inżynieria cech, modele nieliniowe i wybór
 10. [Uczenie bez nadzoru](zastosowania/10-bez-nadzoru/index.md) — grupowanie, redukcja wymiaru, obserwacje nietypowe
 11. [PyTorch — tensory i sieć neuronowa](zastosowania/11-pytorch/index.md) — tensory, automatyczne różniczkowanie, sieć neuronowa, klasyfikacja obrazów, trening w praktyce
 12. [Projekt: od danych do modelu](zastosowania/12-projekt-ml/index.md) — zadanie, dane i decyzje, potok, modele i wybór, model końcowy, raport i użycie
+
+**Ścieżka aplikacji**
+
 13. [Bazy danych — sqlite3 i SQLAlchemy](zastosowania/13-bazy-danych/index.md) — moduł sqlite3, schemat i zapytania SQL, SQLAlchemy — model i sesja, relacje i zapytania ORM, warstwa danych aplikacji
 14. [HTTP i API](zastosowania/14-http-api/index.md) — protokół HTTP, serwer w bibliotece standardowej, klient httpx, interfejs API w praktyce
 15. [FastAPI](zastosowania/15-fastapi/index.md) — pierwsza aplikacja, modele danych Pydantic, serwer sklepu, API nad warstwą danych, testy i uruchomienie
@@ -48,4 +54,8 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 17. [Pakowanie i dystrybucja](zastosowania/17-pakowanie/index.md) — pakiet do instalacji, budowanie i publikacja, zależności i wersje, aplikacja dla użytkownika
 18. [Projekt: aplikacja z bazą, API i oknem](zastosowania/18-projekt-aplikacja/index.md) — serwer: baza i API, klient: moduł API i okno, testy, uruchomienie i dostawa
 
-Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; ścieżka automatyzacji jest w przygotowaniu.
+**Ścieżka automatyzacji**
+
+19. [Wyrażenia regularne](zastosowania/19-re/index.md) — składnia wzorców, wyszukiwanie, dzielenie i zamiana, wzorce w praktyce, pułapki, wydajność i testy
+
+Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 20–23 ścieżki automatyzacji są w przygotowaniu.

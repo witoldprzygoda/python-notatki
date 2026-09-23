@@ -313,3 +313,9 @@ nav:
           - "Serwer: baza i API": zastosowania/18-projekt-aplikacja/serwer.md
           - "Klient: moduł API i okno": zastosowania/18-projekt-aplikacja/okno.md
           - Testy, uruchomienie i dostawa: zastosowania/18-projekt-aplikacja/dostawa.md
+      - 19. Wyrażenia regularne:
+          - Wprowadzenie: zastosowania/19-re/index.md
+          - Składnia wzorców: zastosowania/19-re/skladnia.md
+          - Wyszukiwanie, dzielenie i zamiana: zastosowania/19-re/operacje.md
+          - Wzorce w praktyce: zastosowania/19-re/praktyka.md
+          - Pułapki, wydajność i testy: zastosowania/19-re/pulapki.md
