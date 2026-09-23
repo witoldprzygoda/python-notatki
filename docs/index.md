@@ -59,5 +59,6 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 19. [Wyrażenia regularne](zastosowania/19-re/index.md) — składnia wzorców, wyszukiwanie, dzielenie i zamiana, wzorce w praktyce, pułapki, wydajność i testy
 20. [Narzędzia wiersza poleceń](zastosowania/20-cli/index.md) — argumenty i opcje, strumienie, kody wyjścia i dziennik, procesy, pliki i konfiguracja, od skryptu do polecenia
 21. [Pobieranie i parsowanie stron](zastosowania/21-scraping/index.md) — HTML i parser, pobieranie stron, dane ze stron, narzędzie i zasady
+22. [Pliki Office i obrazy](zastosowania/22-office-obrazy/index.md) — arkusze Excel, dokumenty Word, obrazy, raport z danych
 
-Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdziały 22–23 ścieżki automatyzacji są w przygotowaniu.
+Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdział 23 ścieżki automatyzacji jest w przygotowaniu.

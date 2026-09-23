@@ -77,6 +77,19 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
     trasą `/produkty/{produkt_id}` z polem parametru i przyciskiem **Try it out**; kadr: sama
     lista tras z jedną rozwiniętą (pierwsza-aplikacja.md, sekcja „Dokumentacja interfejsu”).
 
+## Do wykonania — część „Python Zastosowania”, rozdział 22
+
+17. `zastosowania/22-office-obrazy/img/excel-arkusz.png` — arkusz `sprzedaz.xlsx` otwarty
+    w Excelu: nagłówek z wypełnieniem i przyciskami filtrów, kolumny Cena i Wartość
+    w formacie walutowym, wiersz „Razem” z policzonymi sumami; kadr: sama siatka
+    z nagłówkiem i kilkoma wierszami (excel.md, sekcja „Zapis arkusza”). Decyzja autora:
+    czy zrzut jest potrzebny — tekst opisuje formatowanie, a obraz pokazałby wynik
+    obliczenia formuł, którego openpyxl nie zna.
+18. `zastosowania/22-office-obrazy/img/word-raport.png` — dokument `raport.docx` otwarty
+    w Wordzie: nagłówek „Raport sprzedaży”, akapit z pogrubionym zakresem dat, lista
+    punktowana kategorii i tabela z obramowaniem; kadr: górna część strony (word.md,
+    sekcja „Budowa dokumentu”). Decyzja autora jak wyżej.
+
 ## Wykonane
 
 - `zastosowania/16-tkinter/img/*.png` (32 zrzuty okien tkinter i CustomTkinter) — generowane automatycznie
@@ -84,5 +97,8 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
   podmienia `mainloop()`, podnosi okna na wierzch i składa ujęcia na neutralnym tle; proces świadomy DPI,
   motyw jasny (ciemny tylko tam, gdzie pokazuje tryb ciemny CustomTkinter). Odświeżanie: ponowne
   uruchomienie harnessu (`ZRZUTY_KATALOG=docs/zastosowania/16-tkinter/img`), nie ręcznie.
+- `zastosowania/22-office-obrazy/img/{oryginal,znak-wodny,wykres}.png` — obrazy generowane przez skrypty
+  rozdziału (`przeksztalcenia.py`, `rysowanie.py`, `wykres-slupkowy.py`) w stagingu; odświeżanie: ponowne
+  uruchomienie skryptów i skopiowanie plików, nie ręcznie.
 - `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera (konfiguracja.md)
 - `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (konfiguracja.md)

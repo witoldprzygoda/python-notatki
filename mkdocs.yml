@@ -331,3 +331,9 @@ nav:
           - Pobieranie stron: zastosowania/21-scraping/pobieranie.md
           - Dane ze stron: zastosowania/21-scraping/dane-ze-stron.md
           - Narzędzie i zasady: zastosowania/21-scraping/narzedzie.md
+      - 22. Pliki Office i obrazy:
+          - Wprowadzenie: zastosowania/22-office-obrazy/index.md
+          - Arkusze Excel: zastosowania/22-office-obrazy/excel.md
+          - Dokumenty Word: zastosowania/22-office-obrazy/word.md
+          - Obrazy: zastosowania/22-office-obrazy/obrazy.md
+          - Raport z danych: zastosowania/22-office-obrazy/raport.md
