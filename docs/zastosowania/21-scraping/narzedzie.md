@@ -222,4 +222,4 @@ W razie wątpliwości — zwłaszcza przy danych osobowych i użyciu komercyjnym
 
 ## Dalej: pliki Office i obrazy
 
-Zebrane rekordy trafiają zwykle do arkusza kalkulacyjnego albo raportu: następny rozdział czyta i pisze pliki pakietu Office oraz przetwarza obrazy <!-- TODO: link po powstaniu rozdziału o plikach Office i obrazach -->, a projekt ścieżki łączy pobieranie, przetwarzanie i raport w jedno narzędzie <!-- TODO: link po powstaniu rozdziału o projekcie narzędzia automatyzującego -->.
+Zebrane rekordy trafiają zwykle do arkusza kalkulacyjnego albo raportu: [następny rozdział](../22-office-obrazy/index.md) czyta i pisze pliki pakietu Office oraz przetwarza obrazy, a projekt ścieżki łączy pobieranie, przetwarzanie i raport w jedno narzędzie <!-- TODO: link po powstaniu rozdziału o projekcie narzędzia automatyzującego -->.
