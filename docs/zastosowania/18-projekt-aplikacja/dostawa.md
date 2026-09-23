@@ -226,4 +226,4 @@ Dostawa ma dwie postacie, jak w rozdziale 17. Koło z `python -m build` daje pak
 
 ## Dalej: ścieżka Automatyzacja
 
-Aplikacja jest gotowa; następna ścieżka odchodzi od budowania programów dla użytkowników na rzecz programów, które wykonują pracę za nas: wyszukują wzorce w tekście, obsługują wiersz poleceń, pobierają strony, czytają i piszą pliki pakietu Office i obrazy. Zaczyna się od wyrażeń regularnych <!-- TODO: link po powstaniu rozdziału o wyrażeniach regularnych -->.
+Aplikacja jest gotowa; następna ścieżka odchodzi od budowania programów dla użytkowników na rzecz programów, które wykonują pracę za nas: wyszukują wzorce w tekście, obsługują wiersz poleceń, pobierają strony, czytają i piszą pliki pakietu Office i obrazy. Zaczyna się od [wyrażeń regularnych](../19-re/index.md).

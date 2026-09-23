@@ -50,15 +50,16 @@ Poniższe tabele zbierają moduły, które pojawiły się dotąd w książce, or
 | `pathlib`, `os` | ścieżki, pliki i katalogi, informacje o systemie | dalsze rozdziały |
 | `datetime`, `time` | daty i czas, pomiar czasu wykonania | dalsze rozdziały |
 | `statistics` | średnia, mediana, odchylenie standardowe | dalsze rozdziały |
-| `re` | wyrażenia regularne | poza zakresem książki |
+| `re` | wyrażenia regularne | część „Python Zastosowania”, [rozdział 19](../zastosowania/19-re/index.md) |
 
 !!! note "Wyrażenia regularne"
     Moduł `re` implementuje **wyrażenia regularne** (ang. *regular expressions*)
     — język wzorców do wyszukiwania i przekształcania tekstu. Jest to osobna,
-    obszerna umiejętność, niezależna od Pythona, i książka jej nie omawia;
-    w dalszych rozdziałach moduł `re` pojawi się co najwyżej w gotowych
-    fragmentach z objaśnieniem. Punktem wyjścia do samodzielnej nauki jest
-    przewodnik *Regular Expression HOWTO* w dokumentacji Pythona.
+    obszerna umiejętność, niezależna od Pythona; w tej części moduł `re`
+    pojawia się co najwyżej w gotowych fragmentach z objaśnieniem, a w całości
+    omawia go [rozdział 19 części „Python Zastosowania”](../zastosowania/19-re/index.md).
+    Punktem wyjścia do samodzielnej nauki jest też przewodnik
+    *Regular Expression HOWTO* w dokumentacji Pythona.
 
 ## Moduł `sys`
 
