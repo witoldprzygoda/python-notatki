@@ -227,4 +227,4 @@ Prezentacje `.pptx` obsługuje biblioteka python-pptx tym samym modelem co pytho
 
 ## Dalej: projekt narzędzia
 
-Ścieżka Automatyzacja kończy się projektem: narzędziem, które pobiera dane ze stron jak w rozdziale 21, przetwarza je wzorcami z rozdziału 19, a wynik oddaje jako arkusz i dokument z tego rozdziału — uruchamianym z wiersza poleceń według reguł z rozdziału 20 <!-- TODO: link po powstaniu rozdziału o projekcie narzędzia automatyzującego -->.
+Ścieżka Automatyzacja kończy się projektem: narzędziem, które pobiera dane ze stron jak w rozdziale 21, przetwarza je wzorcami z rozdziału 19, a wynik oddaje jako arkusz i dokument z tego rozdziału — uruchamianym z wiersza poleceń według reguł z rozdziału 20: [rozdział 23](../23-projekt-automatyzacja/index.md).

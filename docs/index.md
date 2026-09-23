@@ -62,4 +62,4 @@ Część „Python Zastosowania” składa się ze ścieżek — niezależnych, 
 22. [Pliki Office i obrazy](zastosowania/22-office-obrazy/index.md) — arkusze Excel, dokumenty Word, obrazy, raport z danych
 23. [Projekt: narzędzie automatyzujące](zastosowania/23-projekt-automatyzacja/index.md) — założenia i architektura, moduły narzędzia, testy i wdrożenie
 
-Ścieżki danych, uczenia maszynowego i aplikacji są ukończone; rozdział 23 ścieżki automatyzacji jest w przygotowaniu.
+Wszystkie cztery ścieżki są ukończone.
