@@ -8,11 +8,11 @@ Pakiet jest rodzajem modułu: ma nazwę, przestrzeń nazw i atrybuty jak każdy 
 
 ```{ .text .no-copy }
 projekt/
-    geometria/
-        __init__.py
-        figury.py
-        jednostki.py
-    program.py
+├── geometria/
+│   ├── __init__.py
+│   ├── figury.py
+│   └── jednostki.py
+└── program.py
 ```
 
 ```python title="geometria/__init__.py"
@@ -336,13 +336,13 @@ Model jest więc następujący: plik podany interpreterowi ścieżką jest wykon
 
 ```{ .text .no-copy }
 projekt/
-    geometria/
-        __init__.py
-        __main__.py
-        figury.py
-        jednostki.py
-        podsumowanie.py
-    program.py
+├── geometria/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── figury.py
+│   ├── jednostki.py
+│   └── podsumowanie.py
+└── program.py
 ```
 
 ## Pakiety przestrzeni nazw
