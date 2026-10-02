@@ -58,16 +58,35 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Stan:** pilotaż VS Code (zrzut 10, pułapka w debugerze) po restarcie
   komputera; potem decyzja o całości.
 
-### Pytania otwarte w planach
+### Etykiety nawigacji: półpauza czy dwukropek
 
-- **Miejsce:** `PLAN_ROZWOJU.md` §8, `PLAN_ZASTOSOWANIA.md` §2–3.
-- **Opis:** zakładki w górnym pasku (`navigation.tabs`), osobna zakładka
-  „Ściągawki”, ćwiczenia interaktywne dla nowych rozdziałów, półpauza
-  w etykietach nawigacji; porządki: zamknięcie pytań już rozstrzygniętych
-  (np. moduł `re` — rozdział 19 części „Python Zastosowania”), oznaczenie
-  domkniętej zapowiedzi tkinter w `PLAN_ZASTOSOWANIA.md` §2.
+- **Miejsce:** `mkdocs.yml` (nav) i nagłówki H1 odpowiednich stron.
+- **Opis:** pytanie z `PLAN_ROZWOJU.md` §8.1. Etykiety z dopowiedzeniem używają
+  półpauzy (16 etykiet, np. „Pip — zarządzanie pakietami”), ale trzy etykiety
+  części „Python Zastosowania” mają dwukropek: „Mini-projekt: menedżer
+  kontaktów” (rozdział 16), „Serwer: baza i API” i „Klient: moduł API i okno”
+  (rozdział 18).
 - **Stan:** do omówienia.
 
+### Zakładki w górnym pasku
+
+- **Miejsce:** `mkdocs.yml` (`navigation.tabs`, wariant C zakomentowany).
+- **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.1 — zakładki jako alternatywa
+  dla grup w lewym panelu; decyzja autora po obejrzeniu układu.
+- **Stan:** do omówienia.
+
+### Zakładka „Ściągawki”
+
+- **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
+  odniesienia po ukończeniu ścieżek (ścieżki są ukończone od 23 IX 2026).
+- **Stan:** do omówienia.
+
+### Ćwiczenia interaktywne dla nowych rozdziałów
+
+- **Opis:** pytania z `PLAN_ROZWOJU.md` §8.6 i `PLAN_ZASTOSOWANIA.md` §3.3 —
+  które rozdziały mają dostać ćwiczenia; obecnie mają je dwie strony rozdziału 4
+  części „Python Notatki” (`petle-i-iteratory.md`, `wyrazenia-warunkowe.md`).
+- **Stan:** do omówienia.
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
@@ -142,3 +161,13 @@ do niego nie odsyłało. Osiem stron w archiwum było nieaktualnych, a strona
 `instalacja-klasyczna.md` została usunięta z treści przy rewizji rozdziałów 1–2
 (commit `16009be`); archiwum i strona pozostają w historii Git (branch
 `content/usuniecie-archiwum`).
+
+### Porządki w pytaniach otwartych planów (2 X 2026)
+
+W `PLAN_ROZWOJU.md` §8 i `PLAN_ZASTOSOWANIA.md` §2–3 oznaczono pytania
+rozstrzygnięte (moduł `re` — rozdział 19 części „Python Zastosowania”; pliki
+danych — katalogi `dane/` i `pliki/` rozdziałów; weryfikacje — redaktor,
+skryptami `scripts/verify_page.py` i `scripts/verify_cells.py`; zapowiedź
+tkinter domknięta 22 IX 2026), a pozostałe przeniesiono do tego pliku jako
+osobne sprawy. Historia pytań w planach pozostaje bez zmian (branch
+`content/porzadki-planow`).

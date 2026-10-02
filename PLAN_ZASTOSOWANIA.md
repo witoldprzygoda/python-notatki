@@ -48,10 +48,10 @@ Kolejność realizacji: ścieżka Dane (1–6, ukończona) → Uczenie maszynowe
 |---|---|---|
 | `09-wejscie-wyjscie/csv-i-json.md:117`, `14-numpy-matplotlib/ndarray.md:276` | pandas — tabele z nazwanymi kolumnami | 4 — domknięte 14 IX 2026 |
 | `14-numpy-matplotlib/przyklady-i-rozszerzenia.md:170` | SciPy i scikit-learn | 7 (scikit-learn); SciPy — wzmianka w 2 — domknięte 14 IX 2026 |
-| `06-funkcje/funkcje-jako-obiekty.md:67`, `12-oop-zaawansowane/wzorce-projektowe.md:234`, `15-wspolbieznosc/synchronizacja.md:235` | tkinter | 16 |
+| `06-funkcje/funkcje-jako-obiekty.md:67`, `12-oop-zaawansowane/wzorce-projektowe.md:234`, `15-wspolbieznosc/synchronizacja.md:235` | tkinter | 16 — domknięte 22 IX 2026 |
 
 ## 3. Pytania otwarte
 
-1. Zakładki w górnym pasku (`navigation.tabs`) jako alternatywa dla grup w lewym panelu — do decyzji autora po obejrzeniu układu.
-2. Osobna zakładka „Ściągawki” (tabele odniesienia) po ukończeniu ścieżek.
-3. Zadania do stron przez istniejącą infrastrukturę aktywności — które rozdziały części „Python Zastosowania” mają je dostać.
+1. Zakładki w górnym pasku (`navigation.tabs`) jako alternatywa dla grup w lewym panelu — do decyzji autora po obejrzeniu układu. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).
+2. Osobna zakładka „Ściągawki” (tabele odniesienia) po ukończeniu ścieżek. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).
+3. Zadania do stron przez istniejącą infrastrukturę aktywności — które rozdziały części „Python Zastosowania” mają je dostać. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).

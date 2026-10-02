@@ -751,12 +751,12 @@ Podział: **(A)** zmiany dopuszczalne w ramach rozdziału, który domyka daną z
 
 ## 8. Pytania otwarte
 
-1. Konwencje do rozstrzygnięcia przy kolejnych rozdziałach: półpauza zamiast dwukropka w etykietach. Dopisek „(dla dociekliwych)” w etykietach nav rozstrzygnięty 5 IX 2026 przy rozdziale 7: bez dopisku w tytule i etykiecie strony, opcjonalność zaznaczana w pierwszym akapicie strony i w opisie w index.
-2. Moduł re: wykluczony jako osobny temat (wiersz w tabeli stdlib i krótka admonition w 7). Czy w następnym wydaniu planować stronę „Wyrażenia regularne” w rozdziale 9?
-3. Zrzuty ekranu: debugger VSC (8, 2–3), panel Testing (16), okna tkinter (18, 6–10) — kto wykonuje, jaki motyw; wykresy w 14 i 17 generowane skryptami do img/?
-4. Pliki danych (CSV/JSON dla 9 i 17, obraz dla 14) w docs/<rozdział>/data/ i publikacja w site/ — zgoda?
-5. Weryfikacje przed pisaniem (mieszanie pack/grid, paski przewijania i DPI w Tk 9 na Windows 11; przykłady seaborn na pandas 3; snakeviz, Cython/mypyc dla 3.14) — wykonuje autor czy redaktor?
-6. Aktywności interaktywne: nowe rozdziały bez markerów; quizy i zadania z wykładów/labów jako CONTENT HANDOFF do activities — które rozdziały mają je docelowo dostać? Zmiany nav w mkdocs.yml i docs/index.md wyłącznie po akceptacji planu.
+1. Konwencje do rozstrzygnięcia przy kolejnych rozdziałach: półpauza zamiast dwukropka w etykietach — omawiane w `DO_OMOWIENIA.md` (2 X 2026: 16 etykiet z półpauzą, 3 z dwukropkiem w części „Python Zastosowania”). Dopisek „(dla dociekliwych)” w etykietach nav rozstrzygnięty 5 IX 2026 przy rozdziale 7: bez dopisku w tytule i etykiecie strony, opcjonalność zaznaczana w pierwszym akapicie strony i w opisie w index.
+2. Moduł re: wykluczony jako osobny temat (wiersz w tabeli stdlib i krótka admonition w 7). Czy w następnym wydaniu planować stronę „Wyrażenia regularne” w rozdziale 9? *Rozstrzygnięte:* moduł omawia rozdział 19 części „Python Zastosowania” (23 IX 2026); w rozdziale 7 pozostają wiersz w tabeli biblioteki standardowej i nota z odsyłaczem.
+3. Zrzuty ekranu: debugger VSC (8, 2–3), panel Testing (16), okna tkinter (18, 6–10) — kto wykonuje, jaki motyw; wykresy w 14 i 17 generowane skryptami do img/? *Przeniesione* do `DO_OMOWIENIA.md` (sekcja „Zrzuty ekranu”, 2 X 2026).
+4. Pliki danych (CSV/JSON dla 9 i 17, obraz dla 14) w docs/<rozdział>/data/ i publikacja w site/ — zgoda? *Rozstrzygnięte w praktyce:* rozdziały części „Python Zastosowania” mają katalogi `dane/` lub `pliki/` publikowane na stronie; w części „Python Notatki” dane są blokami w tekście (stan na 2 X 2026).
+5. Weryfikacje przed pisaniem (mieszanie pack/grid, paski przewijania i DPI w Tk 9 na Windows 11; przykłady seaborn na pandas 3; snakeviz, Cython/mypyc dla 3.14) — wykonuje autor czy redaktor? *Rozstrzygnięte w praktyce:* redaktor, skryptami `scripts/verify_page.py` i `scripts/verify_cells.py` (stan na 2 X 2026).
+6. Aktywności interaktywne: nowe rozdziały bez markerów; quizy i zadania z wykładów/labów jako CONTENT HANDOFF do activities — które rozdziały mają je docelowo dostać? Zmiany nav w mkdocs.yml i docs/index.md wyłącznie po akceptacji planu. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).
 
 ## 9. Jak powstał plan
 
