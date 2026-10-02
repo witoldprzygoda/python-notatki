@@ -58,13 +58,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Stan:** pilotaż VS Code (zrzut 10, pułapka w debugerze) po restarcie
   komputera; potem decyzja o całości.
 
-### Zakładki w górnym pasku
-
-- **Miejsce:** `mkdocs.yml` (`navigation.tabs`, wariant C zakomentowany).
-- **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.1 — zakładki jako alternatywa
-  dla grup w lewym panelu; decyzja autora po obejrzeniu układu.
-- **Stan:** do omówienia.
-
 ### Zakładka „Ściągawki”
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
@@ -169,3 +162,14 @@ Trzy etykiety z dwukropkiem ujednolicono: „Mini-projekt — menedżer kontakt�
 (rozdział 16 części „Python Zastosowania”), „Serwer — baza i API” i „Klient —
 moduł API i okno” (rozdział 18) — w `mkdocs.yml`, nagłówkach H1 i spisach
 rozdziałów; nazwy plików bez zmian (branch `content/etykiety-polpauza`).
+
+### Zakładki w górnym pasku (2 X 2026)
+
+Wariant C: części „Python Notatki” i „Python Zastosowania” (oraz strona główna)
+jako zakładki w górnym pasku (`navigation.tabs`), rozdziały bieżącej części
+zwijane w lewym panelu (bez `navigation.sections`). Usunięto komentarz
+o wariantach układu w `mkdocs.yml` i reguły `docs/stylesheets/extra.css`
+dla nagłówków grup `navigation.sections`, w tym ukrywanie etykiety „Python
+Notatki” — w poprzednim układzie na stronach części „Python Zastosowania”
+lewy panel nosił tytuł „Python Notatki” (nazwa serwisu). Porównanie
+wariantów A–C na zrzutach (branch `content/zakladki-czesci`).

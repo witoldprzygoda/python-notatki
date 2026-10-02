@@ -35,10 +35,7 @@ theme:
     - toc.follow
     - content.code.copy
     - content.tabs.link
-    - navigation.sections
-    # ── WARIANTY UKŁADU (odkomentuj JEDNĄ linię i przeładuj) ──
-    # - toc.integrate      # WARIANT B: prawy spis wjeżdża do lewego panelu
-    # - navigation.tabs    # WARIANT C: rozdziały jako zakładki w górnym pasku
+    - navigation.tabs
 
 plugins:
   - search:
