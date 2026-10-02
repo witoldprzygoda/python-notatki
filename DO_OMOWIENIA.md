@@ -40,8 +40,23 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 - **Miejsce:** 18 znaczników `<!-- TODO: screenshot … -->` w obu częściach;
   lista w `ZRZUTY.md`.
-- **Opis:** do ustalenia, które zrzuty są potrzebne i kto je wykonuje.
-- **Stan:** do omówienia.
+- **Decyzje (2 X 2026):**
+    - usunąć jako zbędne zrzuty 2 (panel Problems), 3 (otwieranie
+      `settings.json`), 6 (menu New → Notebook), 17 i 18 (Excel, Word);
+    - zrzuty wykonujemy automatycznie skryptami (zakres pracy rozszerzony
+      o `scripts/`, branch `infra/zrzuty-ekranu`), autor tylko akceptuje
+      wyniki; przebiegi z VS Code w Windows Sandbox (funkcja włączona
+      2 X 2026, wymaga restartu komputera);
+    - zrzuty REPL w jasnym schemacie Windows Terminal („One Half Light”).
+- **Pilotaż:** gotowe zrzuty 16 (Swagger UI, `scripts/screenshots/fastapi_docs.py`)
+  i 7 (kolorowy REPL: przechwycenie przez ConPTY, render xterm.js z czcionką
+  Cascadia Mono; skrypty jeszcze w scratchpadzie). Pogrubienie w REPL rysujemy
+  zwykłymi kolorami schematu (ustawienie Windows Terminal
+  `intenseTextStyle: "bold"`) — lepszy kontrast na jasnym tle (decyzja 2 X 2026).
+- **Do potwierdzenia:** zastąpienie zrzutów 4 (wynik Code Runnera) i 9
+  (ostrzeżenie mypy) blokami tekstowymi.
+- **Stan:** pilotaż VS Code (zrzut 10, pułapka w debugerze) po restarcie
+  komputera; potem decyzja o całości.
 
 ### Pytania otwarte w planach
 
@@ -52,17 +67,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   (np. moduł `re` — rozdział 19 części „Python Zastosowania”), oznaczenie
   domkniętej zapowiedzi tkinter w `PLAN_ZASTOSOWANIA.md` §2.
 - **Stan:** do omówienia.
-
-### Archiwum `docs/01-instalacja.zip`
-
-- **Miejsce:** `docs/01-instalacja.zip` (92 KB, w repozytorium od pierwszego
-  commita, 18 VIII 2026).
-- **Opis:** archiwum dawnej wersji rozdziału 1 (13 plików, m.in.
-  `instalacja-klasyczna.md`, `colab.md`, `przegladarka.md` i dwa zrzuty);
-  nie prowadzi do niego żaden odsyłacz, a MkDocs kopiuje je do `site/`, więc
-  jest publikowane jako plik do pobrania. Prawdopodobnie pozostałość robocza.
-- **Propozycja:** usunąć z repozytorium (historia Git zachowuje zawartość).
-- **Stan:** do omówienia (odnotowane 2 X 2026).
 
 ## Do wykonania przy przejściu na Pythona 3.15
 
@@ -129,3 +133,12 @@ Dodano zastrzeżenie, że `or` zastępuje każdą wartość fałszywą (`0`), z 
 `wynik if wynik is not None else …` i odsyłaczem do operatora
 trójskładnikowego. Usunięto komentarz `TODO` (branch
 `content/typy-proste-przyklady`).
+
+### Archiwum `docs/01-instalacja.zip` (2 X 2026)
+
+Usunięto z repozytorium archiwum dawnej wersji rozdziału 1 (pierwszy commit,
+18 VIII 2026), publikowane przez MkDocs jako `site/01-instalacja.zip`, choć nic
+do niego nie odsyłało. Osiem stron w archiwum było nieaktualnych, a strona
+`instalacja-klasyczna.md` została usunięta z treści przy rewizji rozdziałów 1–2
+(commit `16009be`); archiwum i strona pozostają w historii Git (branch
+`content/usuniecie-archiwum`).
