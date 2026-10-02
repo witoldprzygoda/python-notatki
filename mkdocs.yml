@@ -301,7 +301,7 @@ nav:
           - Widżety ttk — zakładki, tabela i style: zastosowania/16-tkinter/widzety-ttk.md
           - Canvas — rysowanie i animacja: zastosowania/16-tkinter/canvas.md
           - CustomTkinter — nowoczesny wygląd: zastosowania/16-tkinter/customtkinter.md
-          - "Mini-projekt: menedżer kontaktów": zastosowania/16-tkinter/projekt-kontakty.md
+          - Mini-projekt — menedżer kontaktów: zastosowania/16-tkinter/projekt-kontakty.md
       - 17. Pakowanie i dystrybucja:
           - Wprowadzenie: zastosowania/17-pakowanie/index.md
           - Pakiet do instalacji: zastosowania/17-pakowanie/pakiet.md
@@ -310,8 +310,8 @@ nav:
           - Aplikacja dla użytkownika: zastosowania/17-pakowanie/aplikacja-dla-uzytkownika.md
       - "18. Projekt: aplikacja z bazą, API i oknem":
           - Wprowadzenie: zastosowania/18-projekt-aplikacja/index.md
-          - "Serwer: baza i API": zastosowania/18-projekt-aplikacja/serwer.md
-          - "Klient: moduł API i okno": zastosowania/18-projekt-aplikacja/okno.md
+          - Serwer — baza i API: zastosowania/18-projekt-aplikacja/serwer.md
+          - Klient — moduł API i okno: zastosowania/18-projekt-aplikacja/okno.md
           - Testy, uruchomienie i dostawa: zastosowania/18-projekt-aplikacja/dostawa.md
       - 19. Wyrażenia regularne:
           - Wprowadzenie: zastosowania/19-re/index.md

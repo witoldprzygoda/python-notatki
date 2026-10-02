@@ -1,4 +1,4 @@
-# Mini-projekt: menedżer kontaktów
+# Mini-projekt — menedżer kontaktów
 
 Projekt łączy elementy rozdziału w jedną aplikację: formularz z walidacją, wyszukiwanie na żywo, tabelę, menu z importem i eksportem CSV oraz pasek stanu. Zasada organizująca kod: **logika poza oknem**. Sprawdzanie danych, filtrowanie i zapis do pliku to zwykłe funkcje działające na obiektach klasy danych, testowane bez tkinter; okno tylko je wywołuje.
 

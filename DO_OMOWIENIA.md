@@ -58,16 +58,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Stan:** pilotaż VS Code (zrzut 10, pułapka w debugerze) po restarcie
   komputera; potem decyzja o całości.
 
-### Etykiety nawigacji: półpauza czy dwukropek
-
-- **Miejsce:** `mkdocs.yml` (nav) i nagłówki H1 odpowiednich stron.
-- **Opis:** pytanie z `PLAN_ROZWOJU.md` §8.1. Etykiety z dopowiedzeniem używają
-  półpauzy (16 etykiet, np. „Pip — zarządzanie pakietami”), ale trzy etykiety
-  części „Python Zastosowania” mają dwukropek: „Mini-projekt: menedżer
-  kontaktów” (rozdział 16), „Serwer: baza i API” i „Klient: moduł API i okno”
-  (rozdział 18).
-- **Stan:** do omówienia.
-
 ### Zakładki w górnym pasku
 
 - **Miejsce:** `mkdocs.yml` (`navigation.tabs`, wariant C zakomentowany).
@@ -171,3 +161,11 @@ skryptami `scripts/verify_page.py` i `scripts/verify_cells.py`; zapowiedź
 tkinter domknięta 22 IX 2026), a pozostałe przeniesiono do tego pliku jako
 osobne sprawy. Historia pytań w planach pozostaje bez zmian (branch
 `content/porzadki-planow`).
+
+### Etykiety nawigacji: półpauza (2 X 2026)
+
+Etykiety z dopowiedzeniem zapisujemy z półpauzą, jak w pozostałych 16 etykietach.
+Trzy etykiety z dwukropkiem ujednolicono: „Mini-projekt — menedżer kontaktów”
+(rozdział 16 części „Python Zastosowania”), „Serwer — baza i API” i „Klient —
+moduł API i okno” (rozdział 18) — w `mkdocs.yml`, nagłówkach H1 i spisach
+rozdziałów; nazwy plików bez zmian (branch `content/etykiety-polpauza`).

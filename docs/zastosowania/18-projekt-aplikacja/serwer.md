@@ -1,4 +1,4 @@
-# Serwer: baza i API
+# Serwer — baza i API
 
 Strona serwera to warstwa danych z rozdziału 13 i usługa z rozdziału 15, przeniesione do pakietu. Zmiany są niewielkie i celowe: importy względne, dane przykładowe wypełniane przy starcie usługi, trasa z listą klientów i punkt wejścia uruchamiający serwer.
 

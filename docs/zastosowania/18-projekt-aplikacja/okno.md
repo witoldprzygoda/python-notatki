@@ -1,4 +1,4 @@
-# Klient: moduł API i okno
+# Klient — moduł API i okno
 
 Okno nie wysyła żądań HTTP samo — korzysta z modułu klienta, który zamienia adresy i kody stanu na metody i wyjątki, jak w rozdziale 14. Między klientem a widżetami stoi jeszcze koszyk: zwykła klasa bez okna, którą testujemy bez serwera i bez okna.
 

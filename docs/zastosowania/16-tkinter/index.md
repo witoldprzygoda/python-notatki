@@ -33,4 +33,4 @@ python -m pip install -r requirements.txt
 5. [Widżety ttk — zakładki, tabela i style](widzety-ttk.md) — zakładki, tabela Treeview, style i motywy, pasek postępu
 6. [Canvas — rysowanie i animacja](canvas.md) — figury i tekst, obrazy, rysowanie i przeciąganie myszą, animacja, szachownica
 7. [CustomTkinter — nowoczesny wygląd](customtkinter.md) — instalacja i pierwsze okno, tryby wyglądu i motywy, widżety, zakładki i przewijanie, aplikacja z panelem bocznym, współpraca z tkinter
-8. [Mini-projekt: menedżer kontaktów](projekt-kontakty.md) — logika poza oknem z testami, okno aplikacji, praca w tle, dobre praktyki i pułapki
+8. [Mini-projekt — menedżer kontaktów](projekt-kontakty.md) — logika poza oknem z testami, okno aplikacji, praca w tle, dobre praktyki i pułapki

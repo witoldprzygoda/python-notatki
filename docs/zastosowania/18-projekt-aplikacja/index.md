@@ -24,6 +24,6 @@ Zależności samego pakietu — SQLAlchemy, FastAPI, uvicorn, httpx, CustomTkint
 
 ## W tym rozdziale
 
-1. [Serwer: baza i API](serwer.md) — układ pakietu, warstwa danych z rozdziału 13, usługa API, pierwsze żądania
-2. [Klient: moduł API i okno](okno.md) — klient API i koszyk, okno, okno w działaniu
+1. [Serwer — baza i API](serwer.md) — układ pakietu, warstwa danych z rozdziału 13, usługa API, pierwsze żądania
+2. [Klient — moduł API i okno](okno.md) — klient API i koszyk, okno, okno w działaniu
 3. [Testy, uruchomienie i dostawa](dostawa.md) — testy, uruchomienie, dostawa, lista kontrolna ścieżki
