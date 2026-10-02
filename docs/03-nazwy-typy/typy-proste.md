@@ -19,10 +19,18 @@ Pełny katalog wartości fałszywych (ang. *falsy*) obejmuje: `False`, `0`, `0.0
     `None`. Do sprawdzania braku wartości służy zapis `x is None` (opis w podrozdziale
     [Operatory](operatory.md)).
 
-Choć Python pozwala na elastyczne podejście do operacji na obiektach, nie piszmy składni, która jest jakościowo fatalna i nieczytelna.
+Choć Python pozwala na elastyczne podejście do operacji na obiektach, nie piszmy składni, która jest jakościowo fatalna i nieczytelna. Przykłady konstrukcji, które formalnie działają:
 
-<!-- TODO: przykłady z PDF (zrzuty): „niepoważne” pomysły składniowe; kreatywne
-     podejścia do zmiennych logicznych; warunek zwracający tekst dla None -->
+```{ .python .no-copy }
+>>> -True
+-1
+>>> True + 1.1 + True
+3.1
+>>> "abcdef"[False]
+'a'
+```
+
+Działają, ponieważ `True` i `False` zachowują się w obliczeniach jak liczby 1 i 0 — typ `bool` jest podtypem `int` (szczegóły w rozdziale 10, w podrozdziale [Dziedziczenie](../10-klasy/dziedziczenie.md#funkcje-isinstance-i-issubclass)); czytelnik takiego kodu musi jednak odtworzyć tę zależność, zamiast od razu widzieć intencję autora.
 
 Należy również wiedzieć, że język Python dla operatorów `or` lub `and` stosuje strategię „skróconego wyrażenia” (ang. *short-circuiting*), czyli „leniwej ewaluacji” (ang. *lazy evaluation*).
 
@@ -42,6 +50,30 @@ Istotna właściwość, o której często się zapomina: **`and` i `or` nie zwra
 ```
 
 Mechanizm ten pozwala optymalizować kod i unikać niepotrzebnych obliczeń (zwłaszcza gdy prawa strona jest kosztowna), a także zapisywać wartości domyślne, np. `name = input() or 'Anonim'`.
+
+Ponieważ wynikiem jest jeden z operandów, typ wyniku zależy od wartości — to samo wyrażenie daje raz `bool`, raz `str`:
+
+```{ .python .no-copy }
+>>> True or "Cokolwiek"
+True
+>>> False or "Cokolwiek"
+'Cokolwiek'
+```
+
+W zapisie wartości domyślnej trzeba pamiętać, że `or` zastępuje każdą wartość fałszywą, nie tylko `None`:
+
+```{ .python .no-copy }
+>>> wynik = None
+>>> wynik or "Brak danych"
+'Brak danych'
+>>> wynik = 0
+>>> wynik or "Brak danych"     # 0 jest poprawnym wynikiem, a mimo to zostaje zastąpione
+'Brak danych'
+>>> wynik if wynik is not None else "Brak danych"
+0
+```
+
+Gdy zastąpić należy wyłącznie brak wartości, stosujemy jawne porównanie z `None` w operatorze trójskładnikowym (podrozdział [Wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-trojskadnikowy)).
 
 ## Typ int
 
