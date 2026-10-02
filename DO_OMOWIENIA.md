@@ -36,14 +36,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
        rozdziału 1 części „Python Zastosowania”.
 - **Stan:** odłożone (2 X 2026).
 
-### Przykłady z PDF w podrozdziale o typach prostych
-
-- **Miejsce:** `docs/03-nazwy-typy/typy-proste.md`, komentarz `TODO` przy
-  „niepoważnych” pomysłach składniowych.
-- **Opis:** przykłady istnieją w `sources/PythonNotatki.pdf` (s. 17–18) tylko
-  jako obrazy; do odtworzenia jako bloki kodu (`PLAN_ROZWOJU.md` §6).
-- **Stan:** do omówienia.
-
 ### Zrzuty ekranu
 
 - **Miejsce:** 18 znaczników `<!-- TODO: screenshot … -->` w obu częściach;
@@ -124,3 +116,16 @@ zasady pracy z asystentem. Usunięto ramkę „Podrozdział w rozbudowie”, kom
 dokumentacją VSC). Wątek uczciwości na zajęciach z planu pominięto zgodnie
 z decyzją o braku odwołań do zajęć. Fakty sprawdzone w dokumentacji GitHub
 i VSC 2 X 2026 (branch `content/narzedzia-ai`).
+
+### Przykłady z PDF w podrozdziale o typach prostych (2 X 2026)
+
+Trzy sesje REPL ze stron 17–18 `sources/PythonNotatki.pdf` (w źródle tylko
+jako obrazy) odtworzono jako bloki `.python .no-copy` w sekcji „Typ bool”
+`docs/03-nazwy-typy/typy-proste.md`, w dwóch miejscach: „niepoważne”
+konstrukcje (`-True`, `True + 1.1 + True`, `"abcdef"[False]`) po zdaniu
+o nieczytelnej składni, z odsyłaczem do rozdziału 10; wynik `or` zależny od
+wartości i wartość domyślna dla `None` po omówieniu zwracania operandów.
+Dodano zastrzeżenie, że `or` zastępuje każdą wartość fałszywą (`0`), z formą
+`wynik if wynik is not None else …` i odsyłaczem do operatora
+trójskładnikowego. Usunięto komentarz `TODO` (branch
+`content/typy-proste-przyklady`).
