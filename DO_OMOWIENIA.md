@@ -36,13 +36,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
        rozdziału 1 części „Python Zastosowania”.
 - **Stan:** odłożone (2 X 2026).
 
-### Podrozdział o narzędziach AI
-
-- **Miejsce:** `docs/01-instalacja/ai-tools.md`.
-- **Opis:** ramka „Podrozdział w rozbudowie” i komentarz `TODO-AKTUALIZACJA`;
-  rozbudowa przewidziana w `PLAN_ROZWOJU.md` §6 nie została wykonana.
-- **Stan:** do omówienia.
-
 ### Przykłady z PDF w podrozdziale o typach prostych
 
 - **Miejsce:** `docs/03-nazwy-typy/typy-proste.md`, komentarz `TODO` przy
@@ -68,6 +61,17 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   domkniętej zapowiedzi tkinter w `PLAN_ZASTOSOWANIA.md` §2.
 - **Stan:** do omówienia.
 
+### Archiwum `docs/01-instalacja.zip`
+
+- **Miejsce:** `docs/01-instalacja.zip` (92 KB, w repozytorium od pierwszego
+  commita, 18 VIII 2026).
+- **Opis:** archiwum dawnej wersji rozdziału 1 (13 plików, m.in.
+  `instalacja-klasyczna.md`, `colab.md`, `przegladarka.md` i dwa zrzuty);
+  nie prowadzi do niego żaden odsyłacz, a MkDocs kopiuje je do `site/`, więc
+  jest publikowane jako plik do pobrania. Prawdopodobnie pozostałość robocza.
+- **Propozycja:** usunąć z repozytorium (historia Git zachowuje zawartość).
+- **Stan:** do omówienia (odnotowane 2 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
@@ -79,6 +83,10 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Wersje bibliotek** — podbić przypięte wersje w obu częściach do bieżących,
   przejrzeć listy zmian wydań mniejszych i głównych pod kątem zachowania
   opisanego w tekście, ponownie zweryfikować wydruki. Decyzja z 2 X 2026.
+- **Narzędzia AI** — sprawdzić w dokumentacji GitHub i VSC aktualność
+  `docs/01-instalacja/ai-tools.md`: nazwy planów Copilota, sposób włączania,
+  wbudowanych agentów, skróty klawiszowe, ustawienie `chat.disableAIFeatures`,
+  przedrostki `#`, `/`, `@`; zaktualizować datę stanu we wstępie.
 
 ## Rozstrzygnięte
 
@@ -103,3 +111,16 @@ Obowiązuje styl ramkowy (`├──`, `└──`, `│`), używany we wszystki
 katalogów obu części. Dwa drzewa w `docs/07-moduly/pakiety.md`, zapisane
 wcięciami, przerysowano w tym stylu bez zmiany treści (branch
 `content/drzewa-katalogow`).
+
+### Podrozdział o narzędziach AI (2 X 2026)
+
+Wariant B: trwały rdzeń zamiast przewodnika po interfejsie, który zmienia się
+niemal codziennie. Strona `docs/01-instalacja/ai-tools.md` zawiera rodzaje
+narzędzi (z przykładami nazw), zwięzły przegląd GitHub Copilot w VSC (dostęp:
+Copilot Free i Copilot Student; podpowiedzi i ich obsługa; czat z agentami
+Ask, Plan i Agent; przegląd zmian i uprawnienia; kontekst `#`, `/`, `@`) oraz
+zasady pracy z asystentem. Usunięto ramkę „Podrozdział w rozbudowie”, komentarz
+`TODO-AKTUALIZACJA` i odsyłacz do artykułu Real Python z 2022 roku (zastąpiony
+dokumentacją VSC). Wątek uczciwości na zajęciach z planu pominięto zgodnie
+z decyzją o braku odwołań do zajęć. Fakty sprawdzone w dokumentacji GitHub
+i VSC 2 X 2026 (branch `content/narzedzia-ai`).
