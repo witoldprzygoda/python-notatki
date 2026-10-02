@@ -44,4 +44,4 @@ Instrukcje instalacyjne w tym rozdziale dotyczą systemu **Windows**; przy polec
 6. [Notebook](notebook.md) — Jupyter Notebook, edycja kodu w przeglądarce
 7. [Google Colab](colab.md) — notebooki w chmurze, dostęp do GPU/TPU, praca zespołowa
 8. [Python w przeglądarce](przegladarka.md) — serwisy umożliwiające naukę bez instalacji
-9. [Narzędzia AI](ai-tools.md) — GitHub Copilot i asystenci AI w nauce programowania
+9. [Narzędzia AI](ai-tools.md) — rodzaje narzędzi, GitHub Copilot w VSC, zasady pracy z asystentem AI
