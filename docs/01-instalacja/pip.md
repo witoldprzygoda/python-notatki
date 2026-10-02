@@ -74,9 +74,9 @@ Po zainstalowaniu powłokę uruchamiamy poleceniem `ipython`:
 
 ```{ .text .no-copy }
 PS C:\> ipython
-Python 3.14.7 (tags/v3.14.7, ...) [MSC v.1944 64 bit (AMD64)]
+Python 3.14.8 (tags/v3.14.8, ...) [MSC v.1944 64 bit (AMD64)]
 Type 'copyright', 'credits' or 'license' for more information
-IPython 9.16.1 -- An enhanced Interactive Python. Type '?' for help.
+IPython 9.17.1 -- An enhanced Interactive Python. Type '?' for help.
 
 In [1]: print("hello")
 hello
@@ -133,16 +133,16 @@ python -m pip freeze > requirements.txt
 Pisząc projekt wymagający określonych bibliotek, warto załączyć do niego taki plik wymagań. Przykładowo, podstawowy zestaw do obliczeń numerycznych, manipulacji danymi oraz wizualizacji:
 
 ```text title="requirements.txt"
-numpy==2.5.2
-pandas==3.0.3
-matplotlib==3.11.1
+numpy==2.5.3
+pandas==3.0.5
+matplotlib==3.11.2
 ```
 
 Można podać samą nazwę pakietu, maskę wersji głównej (np. `2.*` dla numpy, aby nie zainstalowała się przyszła wersja 3.x), wersję minimalną, jak i maksymalną. Ilustruje to poniższy przykład:
 
 ```text title="requirements.txt"
 numpy==2.*
-pandas>=2.0.0,<3.0.0
+pandas>=3.0.0,<4.0.0
 matplotlib>=3.10.0
 scipy          # dowolna wersja
 ```

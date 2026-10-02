@@ -4,7 +4,7 @@ Dane z pomiarów, sprzedaży czy ankiet mają postać tabeli: wiersze to obserwa
 
 Ten rozdział uczy pracy z pojedynczą tabelą: od `Series` i `DataFrame`, przez wczytywanie i zapis, selekcję, typy i braki, po przekształcenia kolumn i wykres z tabeli. Następny rozdział ścieżki dodaje analizę — grupowanie, łączenie tabel, przestawianie i szeregi czasowe. Rozdział buduje na rozdziałach 9 i 14 „Python Notatki” oraz na rozdziałach 1–3 tej części: dane leżą w katalogu projektu z rozdziału 1, obliczenia wektorowe i maski pochodzą z rozdziału 2, a wykresy dopracowujemy metodami z rozdziału 3.
 
-Wersje odniesienia: pandas 3.0.5 na NumPy 2.5.3 i Pythonie 3.14.7; pliki Excel obsługuje openpyxl 3.1.5, a Parquet oraz przechowywanie kolumn typu `str` — pyarrow 25.0.1 (bez niego pandas przechowałby napisy w wolniejszych tablicach `object`). Do pliku wymagań projektu z rozdziału 1 dopisujemy trzy wiersze:
+Wersje odniesienia: pandas 3.0.5 na NumPy 2.5.3 i Pythonie 3.14.8; pliki Excel obsługuje openpyxl 3.1.5, a Parquet oraz przechowywanie kolumn typu `str` — pyarrow 25.0.1 (bez niego pandas przechowałby napisy w wolniejszych tablicach `object`). Do pliku wymagań projektu z rozdziału 1 dopisujemy trzy wiersze:
 
 ```text title="requirements.txt"
 numpy==2.5.3

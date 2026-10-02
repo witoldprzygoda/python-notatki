@@ -69,7 +69,7 @@ def suma_kwadratow(long long n):
 
 ## Inny interpreter — PyPy
 
-PyPy to osobna implementacja Pythona z wbudowanym kompilatorem JIT, który przyspiesza cały program bez zmian w kodzie — typowo kilkakrotnie dla kodu z pętlami w czystym Pythonie. Ograniczenia: PyPy implementuje starszą wersję języka (wydanie 7.3.23 odpowiada Pythonowi 3.11, bez mechanizmów z 3.12–3.14 opisanych w tej książce), a rozszerzenia w C, w tym część bibliotek numerycznych, działają w nim wolniej albo wcale. Dla programów naukowych właściwą drogą pozostaje NumPy; PyPy sprawdza się w długo działających programach operujących na obiektach Pythona.
+PyPy to osobna implementacja Pythona z wbudowanym kompilatorem JIT, który przyspiesza cały program bez zmian w kodzie — typowo kilkakrotnie dla kodu z pętlami w czystym Pythonie. Ograniczenia: PyPy implementuje starszą wersję języka (wydanie 8.0.0 z 19 września 2026 roku odpowiada Pythonowi 3.12, bez mechanizmów z 3.13–3.14 opisanych w tej książce), a rozszerzenia w C, w tym część bibliotek numerycznych, działają w nim wolniej albo wcale. Dla programów naukowych właściwą drogą pozostaje NumPy; PyPy sprawdza się w długo działających programach operujących na obiektach Pythona.
 
 ## Wiele rdzeni — `3.14t` i procesy
 
@@ -83,7 +83,7 @@ print("GIL włączony:", sys._is_gil_enabled())
 ```
 
 ```{ .text .no-copy }
-3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]
+3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]
 GIL włączony: True
 ```
 
@@ -92,7 +92,7 @@ py -V:3.14t gil.py
 ```
 
 ```{ .text .no-copy }
-3.14.7 free-threading build (tags/v3.14.7:823f032, Aug  5 2026, 10:52:03) [MSC v.1944 64 bit (AMD64)]
+3.14.8 free-threading build (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:16:27) [MSC v.1944 64 bit (AMD64)]
 GIL włączony: False
 ```
 

@@ -4,7 +4,7 @@
 
 Rozdział omawia kolejno: składnię wzorców i obiekt dopasowania, cztery operacje modułu, zastosowania — dziennik serwera z rozdziału 15, dane wyciągane z tekstu, nazwy plików, dokument Markdown — oraz pułapki: nawroty, które potrafią zatrzymać program na sekundy, i granicę, za którą wyrażenie regularne przestaje być właściwym narzędziem.
 
-Biblioteka standardowa wystarcza — moduł `re` w Pythonie 3.14.7 (kwantyfikatory dzierżawcze i grupy atomowe istnieją od wersji 3.11, nazwa wyjątku `PatternError` od 3.13); pytest służy testom wzorców. Rozdział buduje na rozdziałach 3 (łańcuchy i metody `str`), 7 (`Counter`), 9 (pliki, `pathlib`) i 16 (pytest) części „Python Notatki” oraz na rozdziale 15 tej części (dziennik uvicorn). Plików do pobrania nie ma; dziennik przykładowy jest blokiem w tekście.
+Biblioteka standardowa wystarcza — moduł `re` w Pythonie 3.14.8 (kwantyfikatory dzierżawcze i grupy atomowe istnieją od wersji 3.11, nazwa wyjątku `PatternError` od 3.13); pytest służy testom wzorców. Rozdział buduje na rozdziałach 3 (łańcuchy i metody `str`), 7 (`Counter`), 9 (pliki, `pathlib`) i 16 (pytest) części „Python Notatki” oraz na rozdziale 15 tej części (dziennik uvicorn). Plików do pobrania nie ma; dziennik przykładowy jest blokiem w tekście.
 
 ```text title="requirements.txt"
 pytest==9.1.1

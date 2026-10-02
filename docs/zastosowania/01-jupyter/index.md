@@ -4,7 +4,7 @@ Praca z danymi różni się od pisania programu: pytania powstają w trakcie, wy
 
 Rozdział buduje na materiale „Python Notatki”: środowiskach wirtualnych i pip z rozdziału 1, modułach z rozdziału 7, plikach i ścieżkach z rozdziału 9, tablicach i wykresach z rozdziału 14 oraz narzędziach jakości z rozdziału 16. Nowych bibliotek numerycznych nie wprowadza — NumPy i Matplotlib pojawiają się w zakresie znanym z rozdziału 14; ich pełne omówienie to następne rozdziały ścieżki.
 
-W chwili pisania aktualne wersje to JupyterLab 4.6.3, ipykernel 7.3.0, IPython 9.17.1, NumPy 2.5.3 i Matplotlib 3.11.2; przykłady sprawdzono na Pythonie 3.14.7.
+W chwili pisania aktualne wersje to JupyterLab 4.6.3, ipykernel 7.3.0, IPython 9.17.1, NumPy 2.5.3 i Matplotlib 3.11.2; przykłady sprawdzono na Pythonie 3.14.8.
 
 ---
 

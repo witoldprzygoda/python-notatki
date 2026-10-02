@@ -188,7 +188,7 @@ python -m pytest -q --cov=kolo --cov-report=term-missing
 ```{ .text .no-copy }
 ..........                                                               [100%]
 =============================== tests coverage ================================
-_______________ coverage: platform win32, python 3.14.7-final-0 _______________
+_______________ coverage: platform win32, python 3.14.8-final-0 _______________
 
 Name      Stmts   Miss  Cover   Missing
 ---------------------------------------

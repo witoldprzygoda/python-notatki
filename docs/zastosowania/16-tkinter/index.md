@@ -4,7 +4,7 @@ Programy z poprzednich rozdziałów obsługuje się z terminala albo przez sieć
 
 Kolejne strony omawiają widżety, menedżery układu, zdarzenia i zmienne kontrolne, aplikację jako klasę z menu i dialogami, widżety ttk, płótno Canvas, CustomTkinter i mini-projekt menedżera kontaktów z logiką oddzieloną od okna i testami. Skrypty rozdziału wypisują to, co da się sprawdzić bez klikania, a wygląd okien pokazują zrzuty wykonane z tych właśnie skryptów.
 
-Wersje w chwili pisania: Python 3.14.7 z Tcl/Tk **9.0.4** — tkinter zgłasza wersję główną `9.0`; instalator z Python Install Managera zawiera Tk 9 od wydania 3.14.7, wcześniejsze instalacje mają Tk 8.6, które różni się kilkoma szczegółami omówionymi w tekście. Sprawdzenie:
+Wersje w chwili pisania: Python 3.14.8 z Tcl/Tk **9.0.4** — tkinter zgłasza wersję główną `9.0`; instalator z Python Install Managera zawiera Tk 9 od wydania 3.14.7, wcześniejsze instalacje mają Tk 8.6, które różni się kilkoma szczegółami omówionymi w tekście. Sprawdzenie:
 
 ```powershell title="Terminal"
 python -c "import tkinter; print(tkinter.TkVersion, tkinter.Tk().tk.call('info', 'patchlevel'))"

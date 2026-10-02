@@ -68,7 +68,7 @@ Rozdział [14. NumPy i Matplotlib](../14-numpy-matplotlib/index.md) otworzył ś
 
 ## Python 3.15
 
-Wydanie 3.15.0 jest planowane na 1 października 2026 roku ([PEP 790](https://peps.python.org/pep-0790/)); w chwili pisania dostępny jest drugi kandydat do wydania. Zmiany, które dotykają treści książki:
+Wydanie 3.15.0 zapowiedziano na 1 października 2026 roku ([PEP 790](https://peps.python.org/pep-0790/)); w chwili pisania (2 października 2026 roku) Python 3.15 jest nadal wersją przedpremierową — dostępny jest drugi kandydat do wydania, 3.15.0rc2. Zmiany, które dotykają treści książki:
 
 - **UTF-8 jako domyślne kodowanie** ([PEP 686](https://peps.python.org/pep-0686/)) — tryb UTF-8 z rozdziału [9. Wejście, wyjście i pliki](../09-wejscie-wyjscie/pliki-tekstowe.md#kodowanie) staje się domyślny; `open()` bez `encoding=` czyta i zapisuje UTF-8 także na Windows.
 - **Jawne leniwe importy** ([PEP 810](https://peps.python.org/pep-0810/)) — instrukcja `lazy import` odkłada wczytanie modułu do pierwszego użycia, skracając start programów.
@@ -76,7 +76,7 @@ Wydanie 3.15.0 jest planowane na 1 października 2026 roku ([PEP 790](https://pe
 - **Typ `frozendict`** ([PEP 814](https://peps.python.org/pep-0814/)) — niemodyfikowalny słownik — haszowalny, gdy haszowalne są jego wartości — odpowiednik `frozenset` z rozdziału 5.
 - **Pakiet `profiling`** ([PEP 799](https://peps.python.org/pep-0799/)) — profiler próbkujący zapowiedziany w rozdziale 13.
 
-Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego.
+Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; po premierze nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego.
 
 ## Ściągawka narzędzi
 

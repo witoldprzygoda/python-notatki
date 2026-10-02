@@ -21,8 +21,8 @@ dist\Kontakty.exe
 ```
 
 ```{ .text .no-copy }
-146 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.7
-146 INFO: Python: 3.14.7
+146 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.8
+146 INFO: Python: 3.14.8
 178 INFO: Platform: Windows-11-10.0.26200-SP0
 ...
 7614 INFO: Appending PKG archive to EXE

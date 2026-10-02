@@ -2,7 +2,7 @@
 
 Rozdział 14 „Python Notatki” wprowadził tablice `ndarray`: tworzenie, typy elementów, indeksowanie i maski, widok a kopia, funkcje uniwersalne, rozgłaszanie, agregacje z osią i generator liczb losowych. Ten rozdział idzie dalej — do zadań, które w analizie danych pojawiają się codziennie, a w rozdziale 14 zmieściły się co najwyżej w jednym zdaniu: tablice o trzech i więcej osiach, kwantyle i histogramy, sortowanie tabel i wartości unikatowe, brakujące dane, układy równań i dopasowanie prostej, symulacje losowe oraz to, jak NumPy gospodaruje pamięcią i czasem.
 
-Rozdział buduje na materiale „Python Notatki” — rozdziale 14 w całości, rozdziale 13 (pomiary czasu, Numba) i 15 (procesy) — oraz na rozdziale 1 tej części: przykłady są skryptami, ale każdy działa tak samo jako komórki notatnika. Wykresy pojawiają się w zakresie znanym z rozdziału 14; ich pełne omówienie to następny rozdział ścieżki. Wersje odniesienia: NumPy 2.5.3 i Matplotlib 3.11.2 na Pythonie 3.14.7.
+Rozdział buduje na materiale „Python Notatki” — rozdziale 14 w całości, rozdziale 13 (pomiary czasu, Numba) i 15 (procesy) — oraz na rozdziale 1 tej części: przykłady są skryptami, ale każdy działa tak samo jako komórki notatnika. Wykresy pojawiają się w zakresie znanym z rozdziału 14; ich pełne omówienie to następny rozdział ścieżki. Wersje odniesienia: NumPy 2.5.3 i Matplotlib 3.11.2 na Pythonie 3.14.8.
 
 ---
 
