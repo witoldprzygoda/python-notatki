@@ -62,7 +62,15 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
   odniesienia po ukończeniu ścieżek (ścieżki są ukończone od 23 IX 2026).
-- **Stan:** do omówienia.
+  Książka zawiera 59 tabel (42 w części „Python Notatki”, 17 w części „Python
+  Zastosowania”); przy układzie z zakładkami czwarta zakładka pasowałaby
+  naturalnie.
+- **Rozważone warianty:** pełne ściągawki tematyczne (osobny projekt z planem,
+  treść powielona z rozdziałów), spis istniejących tabel (niewiele ponad
+  wyszukiwarkę serwisu), odłożenie.
+- **Stan:** odłożone (2 X 2026). Wracamy, gdy pojawi się konkretna potrzeba
+  (np. materiał do wydruku); wtedy zaczynamy od planu z listą ściągawek do
+  akceptacji autora.
 
 ### Ćwiczenia interaktywne dla nowych rozdziałów
 
