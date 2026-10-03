@@ -135,7 +135,8 @@ Gałąź `SYNC` od `origin/cwiczenia` (`<sha>`); scalono `origin/dev` (`<sha>`) 
 | … | … |
 | G7 | <wynik z tabeli bramki> |
 
-**Podgląd:** http://127.0.0.1:8002/ (port 8002, gałąź `SYNC`).
+**Podgląd:** http://127.0.0.1:8002/ (gałąź `SYNC`), serwer uruchomiony poleceniem:
+`PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002`
 
 Proszę o „akceptuję” albo o uwagi.
 ```
