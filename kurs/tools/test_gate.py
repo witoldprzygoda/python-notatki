@@ -569,18 +569,22 @@ class StageG4Test(RepositoryTestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.reviewed = self.commit(
-            "Book pages", {"docs/petle.md": PAGE, "docs/inna.md": OTHER_PAGE}
-        )
-        self.git("switch", "-q", "cwiczenia")
-        self.git("merge", "-q", "--no-ff", "-m", "Sync", "dev")
-        self.commit(
-            "Activities",
-            {LAYER[0]: ACTIVITIES, "activities/rozdzial/inna.yaml": OTHER_ACTIVITIES},
-        )
-        code, _ = self.approve("2026-10-01")
-        self.assertEqual(code, gate.EXIT_OK)
-        self.commit("Review", {})
+        try:
+            self.reviewed = self.commit(
+                "Book pages", {"docs/petle.md": PAGE, "docs/inna.md": OTHER_PAGE}
+            )
+            self.git("switch", "-q", "cwiczenia")
+            self.git("merge", "-q", "--no-ff", "-m", "Sync", "dev")
+            self.commit(
+                "Activities",
+                {LAYER[0]: ACTIVITIES, "activities/rozdzial/inna.yaml": OTHER_ACTIVITIES},
+            )
+            code, _ = self.approve("2026-10-01")
+            self.assertEqual(code, gate.EXIT_OK)
+            self.commit("Review", {})
+        except BaseException:
+            self.tearDown()  # unittest nie wywołuje tearDown po błędzie w setUp
+            raise
 
     def approve(self, today: str = "2026-10-03") -> tuple[int, str]:
         output = io.StringIO()
