@@ -20,6 +20,7 @@ Względem wspólnego przodka z `dev` (ang. *merge-base*) gałąź ćwiczeń moż
 - `mkdocs.kurs.yml`
 - `kurs/**`
 - `.github/workflows/kurs.yml`
+- `.claude/skills/synchronizuj-cwiczenia/**` (skill Claude Code prowadzący synchronizację)
 
 Plików książki (`docs/**/*.md`, `mkdocs.yml`, `docs/stylesheets/extra.css`, `CLAUDE.md` i pozostałych) nie zmieniamy ani nie usuwamy. Markdown książki nie zawiera żadnych znaczników ćwiczeń: aktywność wiąże się z nagłówkiem przez identyfikator generowany przez MkDocs (`section_id` w YAML), a hook `scripts/build_activities.py` podczas budowania wydania kursowego oznacza takie nagłówki i dopisuje slot na końcu strony. Paski postępu („prostokąciki”) pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami; stoją w lewym wcięciu nawigacji, więc etykiety wszystkich pozycji zostają tam, gdzie w książce.
 
@@ -89,7 +90,9 @@ Bramka opisze ten pierwszy commit scalający jako scalenie; jest to wejście war
 
 ## Synchronizacja z dev
 
-Warunek wstępny: autor wypchnął `dev`. Wszystkie kroki odwołują się do tej samej gałęzi książki, `origin/dev`; scalanie lokalnego `dev` nie jest dozwolone, ponieważ bramka uznałaby jego commity za zmiany plików książki.
+Warunek wstępny: autor wypchnął `dev`. Wszystkie kroki odwołują się do tej samej gałęzi książki, `origin/dev`; scalanie lokalnego `dev` nie jest dozwolone, ponieważ bramka uznałaby jego commity za zmiany plików książki. Synchronizacja nie musi następować po każdej zmianie książki. Jeśli po `git fetch origin` polecenie `git rev-list --count origin/cwiczenia..origin/dev` zwraca 0, nie ma czego synchronizować.
+
+Procedurę przeprowadza skill Claude Code `/synchronizuj-cwiczenia` (`.claude/skills/synchronizuj-cwiczenia/SKILL.md`), uruchamiany w katalogu `../python-notatki-cwiczenia`. Skill wykonuje kroki 1–7 i przed krokiem 8 czeka na akceptację autora; wiążący pozostaje niniejszy opis.
 
 1. `git fetch origin`
 2. `git switch -c sync/RRRR-MM-DD origin/cwiczenia`
@@ -138,6 +141,7 @@ Następnym etapem są wydania, czyli nazwane zestawy ustawień (np. wydanie na r
 - `kurs/aktualnosc.json` — odciski sekcji powiązanych z aktywnościami przy ostatnim przeglądzie (etap G4);
 - `kurs/bez-weryfikacji.txt` — pytania zwolnione z bloku `verify`;
 - `kurs/SYNC_LOG.md` — dziennik synchronizacji;
+- `.claude/skills/synchronizuj-cwiczenia/SKILL.md` — skill przeprowadzający synchronizację;
 - `CLAUDE.md` — reguły redakcyjne książki, obowiązujące także w tekstach ćwiczeń.
 
 W razie rozbieżności co do modelu gałęzi, poleceń i procedur obowiązuje niniejszy przewodnik.

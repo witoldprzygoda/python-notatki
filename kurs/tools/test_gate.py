@@ -236,6 +236,13 @@ class VerdictTest(unittest.TestCase):
         self.assertIn("G3", sentence)
 
 
+class AllowlistTest(unittest.TestCase):
+    def test_only_the_sync_skill_is_allowed_under_claude(self) -> None:
+        self.assertTrue(gate.is_allowed(".claude/skills/synchronizuj-cwiczenia/SKILL.md"))
+        self.assertFalse(gate.is_allowed(".claude/skills/inny/SKILL.md"))
+        self.assertFalse(gate.is_allowed(".claude/settings.json"))
+
+
 class ListingTest(unittest.TestCase):
     def test_lists_first_paths_and_counts_the_rest(self) -> None:
         self.assertEqual(gate.listing(["a", "b"]), "a, b")

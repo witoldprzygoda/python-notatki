@@ -99,6 +99,8 @@ ALLOWED_PREFIXES = (
     "docs/javascripts/interactive/",
     "tests/interactive/",
     "kurs/",
+    # Skill Claude Code, który przeprowadza synchronizację w katalogu ćwiczeń.
+    ".claude/skills/synchronizuj-cwiczenia/",
 )
 ALLOWED_FILES = frozenset(
     {

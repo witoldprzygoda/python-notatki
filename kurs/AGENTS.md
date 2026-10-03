@@ -198,6 +198,11 @@ Usługa serwerowa nie przechowuje kopii treści podręcznika. Jej odpowiedzialno
 Wszystkie pliki warstwy leżą na liście dozwolonej z `kurs/README.md`; plik spoza tej listy (np. nowy skrypt w `scripts/` albo dokument w katalogu głównym) bramka odrzuca w etapie G1.
 
 ```text
+.claude/
+  skills/
+    synchronizuj-cwiczenia/
+      SKILL.md            skill Claude Code prowadzący synchronizację z dev
+
 activities/
   04-sterowanie/
     petle-i-iteratory.yaml
@@ -278,7 +283,8 @@ Przed rozpoczęciem pracy:
 cwiczenia      → gałąź długotrwała; zmiany wyłącznie przez --ff-only
 fala/*         → fala ćwiczeń do rozdziału
 platform/*     → hook, JavaScript, CSS, bramka, CI i wydania
-sync/*         → synchronizacja z dev (jedyne gałęzie scalające dev)
+sync/*         → synchronizacja z dev (jedyne gałęzie scalające dev);
+                 przeprowadza ją skill /synchronizuj-cwiczenia
 ```
 
 `kurs/README.md` jest autorytatywnym źródłem modelu gałęzi, zasady wyłącznego dodawania i procedury synchronizacji; `DEVELOPMENT_WORKFLOW.md` opisuje pracę nad książką.
