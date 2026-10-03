@@ -90,7 +90,7 @@ def porownaj(poprzedni, biezacy):
     }
 ```
 
-Porównanie działa na zbiorach kluczy z rozdziału 5 „Python Notatki”: część wspólna daje produkty do porównania cen, różnice — produkty nowe i brakujące. Zmiana procentowa ma sens tylko wtedy, gdy obie ceny są liczbami, a stara jest różna od zera; w pozostałych przypadkach jest `None`, a zmiana i tak trafia do listy, bo pojawienie się albo zniknięcie ceny jest informacją. Wzorzec z rozdziału 19 sprawdza SKU przed zapisem — błędny identyfikator zniekształciłby porównania w każdym późniejszym raporcie.
+Porównanie działa na zbiorach kluczy z rozdziału 5 „Python Podstawy”: część wspólna daje produkty do porównania cen, różnice — produkty nowe i brakujące. Zmiana procentowa ma sens tylko wtedy, gdy obie ceny są liczbami, a stara jest różna od zera; w pozostałych przypadkach jest `None`, a zmiana i tak trafia do listy, bo pojawienie się albo zniknięcie ceny jest informacją. Wzorzec z rozdziału 19 sprawdza SKU przed zapisem — błędny identyfikator zniekształciłby porównania w każdym późniejszym raporcie.
 
 ## Raport
 

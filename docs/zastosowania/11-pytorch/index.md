@@ -24,7 +24,7 @@ torch==2.14.0
 python -m pip install -r requirements.txt
 ```
 
-Rozdział buduje na rozdziale 2 (rozgłaszanie, najmniejsze kwadraty), 7 (podział danych, przeuczenie, powtarzalność, zapis modelu), 8 (regresja logistyczna), 9 (przygotowanie danych) i 10 (dane); z części „Python Notatki” korzysta z rozdziałów 10 (klasy i dziedziczenie) i 11 (wywołanie obiektu). Pozostałe wersje jak w rozdziale 7: scikit-learn 1.9.1, pandas 3.0.5, NumPy 2.5.3, Matplotlib 3.11.2.
+Rozdział buduje na rozdziale 2 (rozgłaszanie, najmniejsze kwadraty), 7 (podział danych, przeuczenie, powtarzalność, zapis modelu), 8 (regresja logistyczna), 9 (przygotowanie danych) i 10 (dane); z części „Python Podstawy” korzysta z rozdziałów 10 (klasy i dziedziczenie) i 11 (wywołanie obiektu). Pozostałe wersje jak w rozdziale 7: scikit-learn 1.9.1, pandas 3.0.5, NumPy 2.5.3, Matplotlib 3.11.2.
 
 ---
 

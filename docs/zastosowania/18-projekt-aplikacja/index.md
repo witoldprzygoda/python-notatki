@@ -9,7 +9,7 @@ okno (CustomTkinter)  ──HTTP/JSON──▶  usługa (FastAPI)  ──sesja�
 
 Podział na warstwy ma cenę — dwa procesy zamiast jednego (SQLite działa w procesie usługi), umowa interfejsu (ang. *API contract*) do utrzymania — i zysk: każdą warstwę można testować, wymieniać i uruchamiać osobno. Okno nie zna SQL-a, usługa nie zna widżetów, a ta sama usługa obsłuży inne okno, skrypt albo przeglądarkę.
 
-Rozdział buduje na rozdziałach 13–17 tej części: kod warstwy danych i usługi pochodzi z rozdziałów 13 i 15 (ze zmianami omówionymi na następnej stronie), klient API ze wzorca rozdziału 14, okno z rozdziału 16, a pakiet, punkty wejścia i plik wykonywalny z rozdziału 17. Z części „Python Notatki” korzysta z rozdziałów 7 (`__main__`, argumenty), 15 (wątki) i 16 (pytest). Wersje bibliotek jak w tamtych rozdziałach; plik wymagań narzędzi:
+Rozdział buduje na rozdziałach 13–17 tej części: kod warstwy danych i usługi pochodzi z rozdziałów 13 i 15 (ze zmianami omówionymi na następnej stronie), klient API ze wzorca rozdziału 14, okno z rozdziału 16, a pakiet, punkty wejścia i plik wykonywalny z rozdziału 17. Z części „Python Podstawy” korzysta z rozdziałów 7 (`__main__`, argumenty), 15 (wątki) i 16 (pytest). Wersje bibliotek jak w tamtych rozdziałach; plik wymagań narzędzi:
 
 ```text title="requirements.txt"
 pytest==9.1.1

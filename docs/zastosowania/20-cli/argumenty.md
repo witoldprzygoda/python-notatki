@@ -1,6 +1,6 @@
 # Argumenty i opcje
 
-Interfejs narzędzia to jego argumenty. Rozdział 7 „Python Notatki” pokazał argument pozycyjny, opcję z wartością i pomoc; narzędzie do codziennej pracy potrzebuje więcej: ścieżek jako obiektów `Path`, wyboru z listy, przełączników z formą przeczącą, stopniowanej szczegółowości komunikatów i próbnego uruchomienia, które pokazuje plan, zanim coś zmieni.
+Interfejs narzędzia to jego argumenty. Rozdział 7 „Python Podstawy” pokazał argument pozycyjny, opcję z wartością i pomoc; narzędzie do codziennej pracy potrzebuje więcej: ścieżek jako obiektów `Path`, wyboru z listy, przełączników z formą przeczącą, stopniowanej szczegółowości komunikatów i próbnego uruchomienia, które pokazuje plan, zanim coś zmieni.
 
 ## Narzędzie porządkujące
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-Parser powstaje w osobnej funkcji, żeby testy i pomoc mogły go zbudować bez uruchamiania narzędzia. Nowe elementy względem rozdziału 7: `type=Path` zamienia tekst w obiekt ścieżki, `nargs="?"` z `default` czyni argument pozycyjny opcjonalnym, `choices` ogranicza wartość do listy, a `%(default)s` w `help` wstawia wartość domyślną do pomocy, więc istnieje ona w jednym miejscu. `action="store_true"` to zwykły przełącznik, `action="count"` liczy powtórzenia (`-vv`), a `BooleanOptionalAction` tworzy parę `--ukryte`/`--no-ukryte`. Grupa wzajemnie wykluczająca nie pozwala podać naraz `-v` i `-q`. `metavar` nadaje nazwę wartości w pomocy. Narzędzie pisze wyniki przez `print()` na `stdout`, a komunikaty o przebiegu przez `logging` z rozdziału 8 „Python Notatki” na `stderr`, z poziomem zależnym od opcji; `force=True` w `basicConfig()` pozwala wywołać `main()` wiele razy w jednym procesie, co przyda się w testach. Kod wyjścia wraca z `main()` do `sys.exit()` jak w rozdziale 7.
+Parser powstaje w osobnej funkcji, żeby testy i pomoc mogły go zbudować bez uruchamiania narzędzia. Nowe elementy względem rozdziału 7: `type=Path` zamienia tekst w obiekt ścieżki, `nargs="?"` z `default` czyni argument pozycyjny opcjonalnym, `choices` ogranicza wartość do listy, a `%(default)s` w `help` wstawia wartość domyślną do pomocy, więc istnieje ona w jednym miejscu. `action="store_true"` to zwykły przełącznik, `action="count"` liczy powtórzenia (`-vv`), a `BooleanOptionalAction` tworzy parę `--ukryte`/`--no-ukryte`. Grupa wzajemnie wykluczająca nie pozwala podać naraz `-v` i `-q`. `metavar` nadaje nazwę wartości w pomocy. Narzędzie pisze wyniki przez `print()` na `stdout`, a komunikaty o przebiegu przez `logging` z rozdziału 8 „Python Podstawy” na `stderr`, z poziomem zależnym od opcji; `force=True` w `basicConfig()` pozwala wywołać `main()` wiele razy w jednym procesie, co przyda się w testach. Kod wyjścia wraca z `main()` do `sys.exit()` jak w rozdziale 7.
 
 ## Uruchomienie i pomoc
 

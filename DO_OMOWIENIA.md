@@ -11,7 +11,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 - **Miejsce:** `docs/01-instalacja/pip.md` — sekcje „Przykład instalacji”
   i „Przydatne polecenia”.
-- **Opis:** część „Python Notatki” nie mówi, że pip instaluje razem z pakietem
+- **Opis:** część „Python Podstawy” nie mówi, że pip instaluje razem z pakietem
   jego zależności, ani jak sprawdzić, czy są dostępne nowsze wersje
   zainstalowanych pakietów. Część „Python Zastosowania” omawia już numery wersji
   i ostrzeżenia o wycofaniu (rozdział 1, `dokumentacja-bibliotek.md`, sekcja
@@ -62,7 +62,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
   odniesienia po ukończeniu ścieżek (ścieżki są ukończone od 23 IX 2026).
-  Książka zawiera 59 tabel (42 w części „Python Notatki”, 17 w części „Python
+  Książka zawiera 59 tabel (42 w części „Python Podstawy”, 17 w części „Python
   Zastosowania”); przy układzie z zakładkami czwarta zakładka pasowałaby
   naturalnie.
 - **Rozważone warianty:** pełne ściągawki tematyczne (osobny projekt z planem,
@@ -94,7 +94,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   trafiają do `dev` ani `master`.
 - **Opis:** decyzje autora z 3 X 2026: slajdy nie należą do książki, ale
   czerpią z niej logikę materiału. Pierwszy zestaw obejmuje część „Python
-  Notatki” (rozdziały 1–16); slajdy do części „Python Zastosowania” powstaną
+  Podstawy” (rozdziały 1–16); slajdy do części „Python Zastosowania” powstaną
   później jako osobny zestaw. Dobór treści i kolejność tematów przejmujemy
   z dawnych wykładów (`sources/lectures/`), lecz slajdy powstają od nowa,
   zgodnie z tekstem książki, metodą i w stylu projektu `cpp-notatki`.
@@ -203,14 +203,16 @@ rozdziałów; nazwy plików bez zmian (branch `content/etykiety-polpauza`).
 
 ### Zakładki w górnym pasku (2 X 2026)
 
-Wariant C: części „Python Notatki” i „Python Zastosowania” (oraz strona główna)
-jako zakładki w górnym pasku (`navigation.tabs`), rozdziały bieżącej części
-zwijane w lewym panelu (bez `navigation.sections`). Usunięto komentarz
-o wariantach układu w `mkdocs.yml` i reguły `docs/stylesheets/extra.css`
-dla nagłówków grup `navigation.sections`, w tym ukrywanie etykiety „Python
-Notatki” — w poprzednim układzie na stronach części „Python Zastosowania”
-lewy panel nosił tytuł „Python Notatki” (nazwa serwisu). Porównanie
-wariantów A–C na zrzutach (branch `content/zakladki-czesci`).
+Wariant C: części „Python Notatki” (obecnie „Python Podstawy”) i „Python
+Zastosowania” (oraz strona główna) jako zakładki w górnym pasku
+(`navigation.tabs`), rozdziały bieżącej części zwijane w lewym panelu (bez
+`navigation.sections`). Usunięto komentarz o wariantach układu w `mkdocs.yml`
+i reguły `docs/stylesheets/extra.css` dla nagłówków grup `navigation.sections`,
+w tym ukrywanie etykiety „Python Notatki” — w poprzednim układzie na stronach
+części „Python Zastosowania” lewy panel nosił tytuł „Python Notatki” (nazwa
+serwisu). Porównanie wariantów A–C na zrzutach (branch
+`content/zakladki-czesci`). Osobny pasek zakładek zastąpiło
+3 X 2026 menu części w belce tytułowej (wpis „Menu części w belce tytułowej”).
 
 ### Ćwiczenia interaktywne dla nowych rozdziałów (3 X 2026)
 
@@ -234,9 +236,54 @@ zachowuje tag `przed-rozdzieleniem-cwiczen`.
 `scripts/install_git_hooks.py`, instalacja po odbiorze rozdzielenia) oraz
 reguły na GitHubie: zakaz nadpisywania historii i zakaz usuwania gałęzi `dev`,
 `master` i `cwiczenia`. Wymóg liniowej historii `dev` i `master` (bez commitów
-scalających, ang. *merge commits*) jako reguła GitHuba czeka na potwierdzenie
-autora; lokalnie pilnuje go hook `pre-push`. Sprawy do ustalenia przed
+scalających, ang. *merge commits*) autor zatwierdził 3 X 2026 także jako
+regułę GitHuba, aktywną od tego dnia w zestawie reguł `ksiazka`; lokalnie
+pilnuje go hook `pre-push`. Sprawy do ustalenia przed
 startem kursu (plan fal, serwer wydania kursowego, częstotliwość
 synchronizacji) zbiera pozycja „Projekt ćwiczeń: plan fal, serwer kursu
 i synchronizacja” w sekcji „Otwarte”. Zasady pracy opisuje
 `DEVELOPMENT_WORKFLOW.md`.
+
+### Nazwa części pierwszej: „Python Podstawy” (3 X 2026)
+
+Część pierwsza (rozdziały 1–16) nosi nazwę „Python Podstawy”, a „Python
+Notatki” pozostaje nazwą serwisu, książki i repozytorium (`site_name`, tytuł
+strony głównej, zdania o całej książce). Uzasadnienie autora: nazwa ma
+wskazywać to, co należy do samego języka, bez nadmiernego udziału bibliotek
+zewnętrznych, choć słowo „podstawy” może się kojarzyć z węższym zakresem, niż
+obejmuje część. Nowa nazwa usuwa też powtórzenie nazwy serwisu w nazwie części.
+Rozważone warianty: „Python Język”, „Python Fundamenty” oraz zmiana nazwy
+serwisu zamiast nazwy części.
+
+Zakres zmiany: etykieta części w nawigacji (`mkdocs.yml`); na stronie głównej
+nagłówek listy rozdziałów, wstęp i akapit o części „Python Zastosowania”;
+odwołania w treści obu części (133 wystąpienia na 80 stronach, w większości
+wskazania rozdziałów części pierwszej na stronach części „Python Zastosowania”);
+zapisy bieżące w `PLAN_ZASTOSOWANIA.md` i w tym pliku. Nagłówek listy rozdziałów
+ma obecnie identyfikator `python-podstawy` zamiast `python-notatki_1`, do
+którego nie prowadził żaden odsyłacz; identyfikator `python-notatki` należy do
+tytułu strony i się nie zmienia. Zapisy datowane zachowują dawną nazwę,
+z dopiskiem obecnej nazwy tam, gdzie dawna mogłaby wprowadzać w błąd; plany
+rozdziałów w `plans/` pozostają bez zmian jako zapis historii (branch
+`content/python-podstawy`).
+
+### Menu części w belce tytułowej (3 X 2026)
+
+Osobny pasek zakładek znikał przy przewijaniu strony. Zastąpiło go menu
+w nieruchomej belce tytułowej, między tytułem serwisu a przełącznikiem motywu,
+w wariancie „pigułki” wybranym przez autora spośród trzech („podkreślenie”,
+„pigułki”, „segment”), ze zrzutami i podglądem. Menu zawiera tylko dwie
+części, „Python Podstawy” i „Python Zastosowania”, zawsze z pełnymi nazwami;
+odnośnik „Strona główna” usunięto z menu (strona pozostaje dostępna przez logo
+i tytuł serwisu, który prowadzi do strony głównej). Od szerokości 640 px belka
+ma jeden rząd, poniżej — dwa rzędy z parą części w drugim; skrypt
+`docs/javascripts/naglowek.js` dopasowuje odstęp przeskoków do sekcji do
+rzeczywistej wysokości belki. Autor zaakceptował też ciemniejszą belkę
+w motywie ciemnym (#1975d2; kontrast białego tekstu 4,65:1 zamiast 3,19:1).
+Zmiany: `custom_dir: overrides` i `navigation.tabs.sticky` w `mkdocs.yml`,
+`overrides/partials/header.html` (kopia szablonu Material 9.7.7 z trzema
+opisanymi zmianami — po każdej aktualizacji Material porównać z oryginałem),
+`overrides/partials/czesci.html` i style w `docs/stylesheets/extra.css`. Nie
+wprowadzono: proponowanej poprawki widoczności fokusu przy nawigacji
+klawiaturą pod wysoką belką (WCAG 2.4.11) — do ewentualnej decyzji (branch
+`infra/menu-czesci-w-belce`).

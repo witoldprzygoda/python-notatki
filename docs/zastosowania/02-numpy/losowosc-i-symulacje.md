@@ -1,6 +1,6 @@
 # Losowość i symulacje
 
-Generator `default_rng()` z rozdziału 14 „Python Notatki” dostarcza liczby z kilkudziesięciu rozkładów, a tablice pozwalają symulować tysiące powtórzeń eksperymentu jednym wywołaniem. W tym podrozdziale losowość służy trzem celom: generowania danych testowych o znanych własnościach, szacowania wielkości trudnych do policzenia analitycznie i oceny niepewności wyniku.
+Generator `default_rng()` z rozdziału 14 „Python Podstawy” dostarcza liczby z kilkudziesięciu rozkładów, a tablice pozwalają symulować tysiące powtórzeń eksperymentu jednym wywołaniem. W tym podrozdziale losowość służy trzem celom: generowania danych testowych o znanych własnościach, szacowania wielkości trudnych do policzenia analitycznie i oceny niepewności wyniku.
 
 ## Generator i rozkłady
 
@@ -43,7 +43,7 @@ fig.savefig("rozklady.png", dpi=120)
 
 ## Ziarno i niezależne strumienie
 
-To samo ziarno daje ten sam ciąg — na tym opiera się [powtarzalność](../01-jupyter/srodowisko-projektu.md#powtarzalnosc) z rozdziału 1 tej części. Gdy symulacja ma działać w kilku procesach z rozdziału 15 „Python Notatki”, każdy potrzebuje własnego, niezależnego strumienia: nie „ziarno + numer procesu”, bo takie ziarna powtarzają się między uruchomieniami (ziarno 4 dla procesu 2 daje to samo, co ziarno 5 dla procesu 1), lecz `spawn()`:
+To samo ziarno daje ten sam ciąg — na tym opiera się [powtarzalność](../01-jupyter/srodowisko-projektu.md#powtarzalnosc) z rozdziału 1 tej części. Gdy symulacja ma działać w kilku procesach z rozdziału 15 „Python Podstawy”, każdy potrzebuje własnego, niezależnego strumienia: nie „ziarno + numer procesu”, bo takie ziarna powtarzają się między uruchomieniami (ziarno 4 dla procesu 2 daje to samo, co ziarno 5 dla procesu 1), lecz `spawn()`:
 
 ```python title="ziarno.py"
 import numpy as np

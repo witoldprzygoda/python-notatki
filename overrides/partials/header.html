@@ -1,0 +1,101 @@
+{#-
+  Python Notatki: kopia partials/header.html z mkdocs-material 9.7.7 (wersja
+  przypięta w requirements.txt) z trzema zmianami, które dotyczą wyłącznie
+  funkcji navigation.tabs.sticky (zmienna czesci); po aktualizacji Materiala
+  porównać plik z nowym oryginałem i przenieść te zmiany:
+  1. belka nie dostaje klasy md-header--lifted, która od szerokości 76.25em
+     odsuwa panele boczne i kotwice o wysokość drugiego wiersza; przy tych
+     szerokościach belka ma jeden wiersz, a drugi wiersz z menu pojawia się
+     tylko na wąskich ekranach, z własnymi przesunięciami w extra.css
+     (sekcja 7a);
+  2. menu części podręcznika (partials/czesci.html) trafia do belki, między
+     tytuł a przełącznik palety, zamiast drugiego wiersza z paskiem zakładek
+     (partials/tabs.html po </nav>); belka otrzymuje przy tym klasę
+     pn-naglowek-czesci, na której opierają się reguły sekcji 7a extra.css;
+  3. nazwa serwisu w belce jest odnośnikiem do strony głównej, ponieważ menu
+     nie ma pozycji „Strona główna”, a logo w belce Material ukrywa poniżej
+     szerokości 76.25em. Nawigacja natychmiastowa nie podmienia tej części
+     belki, dlatego adres jest bezwzględny (site_url) i pozostaje poprawny
+     na każdej stronie, niezależnie od tego, na której stronie belka
+     powstała; bez site_url mapa witryny jest pusta, nawigacja
+     natychmiastowa nie przechwytuje odnośników, każda strona ładuje się
+     w całości i wystarcza adres względny, jak w logo. Po przewinięciu
+     strony nazwę serwisu zastępuje tytuł strony, dlatego odnośnik ma
+     tabindex="-1": niewidoczny element nie przyjmuje fokusu z klawiatury.
+  Bez navigation.tabs.sticky plik działa jak oryginał: wraca osobny pasek
+  zakładek pod belką, a menu w belce, klasa i odnośnik nie powstają.
+-#}
+{% set czesci = "navigation.tabs.sticky" in features and "navigation.tabs" in features %}
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--shadow" %}
+  {% if czesci %}
+    {% set class = class ~ " pn-naglowek-czesci" %}
+  {% endif %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
+{% endif %}
+<header class="{{ class }}" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+      {% include "partials/logo.html" %}
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/menu" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          {% if czesci %}
+            <a href="{{ config.site_url or (nav.homepage.url | url) }}" class="md-ellipsis" tabindex="-1">
+              {{ config.site_name }}
+            </a>
+          {% else %}
+            <span class="md-ellipsis">
+              {{ config.site_name }}
+            </span>
+          {% endif %}
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            {% if page.meta and page.meta.title %}
+              {{ page.meta.title }}
+            {% else %}
+              {{ page.title }}
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% if czesci %}
+      {% include "partials/czesci.html" %}
+    {% endif %}
+    {% if config.theme.palette %}
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/palette.html" %}
+      {% endif %}
+    {% endif %}
+    {% if not config.theme.palette is mapping %}
+      {% include "partials/javascripts/palette.html" %}
+    {% endif %}
+    {% if config.extra.alternate %}
+      {% include "partials/alternate.html" %}
+    {% endif %}
+    {% if "material/search" in config.plugins %}
+      {% set search = config.plugins["material/search"] | attr("config") %}
+      {% if search.enabled %}
+        <label class="md-header__button md-icon" for="__search">
+          {% set icon = config.theme.icon.search or "material/magnify" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+        </label>
+        {% include "partials/search.html" %}
+      {% endif %}
+    {% endif %}
+    {% if config.repo_url %}
+      <div class="md-header__source">
+        {% include "partials/source.html" %}
+      </div>
+    {% endif %}
+  </nav>
+</header>

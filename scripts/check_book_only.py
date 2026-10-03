@@ -20,7 +20,8 @@ Naruszeniem jest:
   - plik warstwy ćwiczeń: activities/**, scripts/build_activities.py,
     docs/javascripts/interactive/**, docs/stylesheets/interactive.css,
     tests/interactive/**, tests/test_build_activities.py, mkdocs.kurs.yml,
-    kurs/**, .github/workflows/kurs.yml (te same ścieżki, które gałąź
+    kurs/**, .github/workflows/kurs.yml,
+    .claude/skills/synchronizuj-cwiczenia/** (te same ścieżki, które gałąź
     cwiczenia może dodawać);
   - plik dawnej warstwy ćwiczeń, usuniętej z książki 3 X 2026:
     mkdocs.clean.yml, INTERACTIVE_SYSTEM_SPEC.md;
@@ -51,6 +52,8 @@ KATALOGI_CWICZEN = (
     "docs/javascripts/interactive/",
     "tests/interactive/",
     "kurs/",
+    # Skill Claude Code, który przeprowadza synchronizację w katalogu ćwiczeń.
+    ".claude/skills/synchronizuj-cwiczenia/",
 )
 PLIKI_CWICZEN = {
     "scripts/build_activities.py",

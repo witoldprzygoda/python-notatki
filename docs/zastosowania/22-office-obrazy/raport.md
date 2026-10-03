@@ -214,7 +214,7 @@ Testy używają małego CSV wpisanego w kod, więc oczekiwane liczby da się spr
 
 ## Inne formaty
 
-Prezentacje `.pptx` obsługuje biblioteka python-pptx tym samym modelem co python-docx: slajd, układ, pola tekstowe, obrazy. Z formatem PDF wiążą się dwa zadania: tekst i strony istniejących plików czyta pypdf, a dokumenty od zera tworzy reportlab; obie biblioteki są poza zakresem tej książki. Formaty OpenDocument (`.ods`, `.odt`) LibreOffice konwertuje z formatów Office i na nie poleceniem `soffice --headless --convert-to` ze strony o dokumentach Word. Dla samych danych tabelarycznych najprostszym formatem wymiany pozostaje CSV z rozdziału 9 „Python Notatki” — arkusz i dokument są dla odbiorcy, nie dla programu.
+Prezentacje `.pptx` obsługuje biblioteka python-pptx tym samym modelem co python-docx: slajd, układ, pola tekstowe, obrazy. Z formatem PDF wiążą się dwa zadania: tekst i strony istniejących plików czyta pypdf, a dokumenty od zera tworzy reportlab; obie biblioteki są poza zakresem tej książki. Formaty OpenDocument (`.ods`, `.odt`) LibreOffice konwertuje z formatów Office i na nie poleceniem `soffice --headless --convert-to` ze strony o dokumentach Word. Dla samych danych tabelarycznych najprostszym formatem wymiany pozostaje CSV z rozdziału 9 „Python Podstawy” — arkusz i dokument są dla odbiorcy, nie dla programu.
 
 ## Lista kontrolna
 

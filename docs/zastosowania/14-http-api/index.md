@@ -4,7 +4,7 @@ Warstwa danych z rozdziału 13 działa w jednym procesie na jednej maszynie. Apl
 
 Rozdział zaczyna od samego protokołu: co dokładnie jest przesyłane, gdy program prosi o dane, i jak wygląda odpowiedź. Serwer piszemy najpierw w bibliotece standardowej — moduł `http.server` z trasami, kodami stanu i odpowiedziami JSON — żeby zobaczyć, co w rozdziale 15 przejmie framework FastAPI. Klientem jest biblioteka **httpx** (wersja 0.28.1) — nowsza od popularnej biblioteki `requests`, o niemal identycznym interfejsie, używana przez FastAPI w testach. Rozdział zamyka klient API jako moduł z własnymi wyjątkami, ponawianiem i testami bez sieci oraz zasady projektowania interfejsu, które serwer z rozdziału spełnia.
 
-Dane rozdziału to sklep w pamięci lokalnego serwera — trzy produkty i składane do nich zamówienia — oraz jedno prawdziwe API: kursy walut Narodowego Banku Polskiego, dostępne bez klucza. Plików do pobrania nie ma. Rozdział buduje na rozdziałach 8 (wyjątki, `with`), 9 (JSON), 10 (klasy, własne wyjątki), 15 (wątki, `urllib.request`) i 16 (pytest, atrapy) części „Python Notatki” oraz na rozdziale 13 tej części. Do pliku wymagań dopisujemy jeden wiersz:
+Dane rozdziału to sklep w pamięci lokalnego serwera — trzy produkty i składane do nich zamówienia — oraz jedno prawdziwe API: kursy walut Narodowego Banku Polskiego, dostępne bez klucza. Plików do pobrania nie ma. Rozdział buduje na rozdziałach 8 (wyjątki, `with`), 9 (JSON), 10 (klasy, własne wyjątki), 15 (wątki, `urllib.request`) i 16 (pytest, atrapy) części „Python Podstawy” oraz na rozdziale 13 tej części. Do pliku wymagań dopisujemy jeden wiersz:
 
 ```text title="requirements.txt"
 pandas==3.0.5

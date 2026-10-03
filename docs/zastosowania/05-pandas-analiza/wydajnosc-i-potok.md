@@ -1,6 +1,6 @@
 # Wydajność i potok analizy
 
-Na 240 wierszach każda operacja trwa milisekundy; na dwóch milionach różnice między sposobami zapisu tej samej analizy rosną do sekund i setek megabajtów. Ten podrozdział mierzy je narzędziami z rozdziału 13 „Python Notatki”, a potem składa poznane operacje w **potok** (ang. *pipeline*): łańcuch funkcji, który z pliku wejściowego produkuje tabele raportu i daje się przetestować.
+Na 240 wierszach każda operacja trwa milisekundy; na dwóch milionach różnice między sposobami zapisu tej samej analizy rosną do sekund i setek megabajtów. Ten podrozdział mierzy je narzędziami z rozdziału 13 „Python Podstawy”, a potem składa poznane operacje w **potok** (ang. *pipeline*): łańcuch funkcji, który z pliku wejściowego produkuje tabele raportu i daje się przetestować.
 
 ## Pomiar na dużej tabeli
 
@@ -161,7 +161,7 @@ Analiza to ciąg przekształceń: wczytaj i oczyść, dołącz tabele słownikow
 
 ## Z notatnika do modułu i testu
 
-Funkcje potoku przenosimy z notatnika do modułu w katalogu `skrypty/` projektu z rozdziału 1 — tu, dla zwięzłości, moduł i test leżą w jednym katalogu, jak w rozdziale 16 „Python Notatki” — a obok powstaje test na kilkuwierszowej ramce, dla której wynik znamy z góry:
+Funkcje potoku przenosimy z notatnika do modułu w katalogu `skrypty/` projektu z rozdziału 1 — tu, dla zwięzłości, moduł i test leżą w jednym katalogu, jak w rozdziale 16 „Python Podstawy” — a obok powstaje test na kilkuwierszowej ramce, dla której wynik znamy z góry:
 
 ```python title="analiza.py"
 """Potok analizy zamówień: wczytanie, złączenie z klientami, agregacje miesięczne."""

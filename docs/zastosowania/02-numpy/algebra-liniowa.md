@@ -1,6 +1,6 @@
 # Algebra liniowa i dopasowanie
 
-Rozdział 14 „Python Notatki” pokazał operator `@` i moduł `np.linalg` w kilku wierszach. Tu używamy ich do zadań praktycznych: rozwiązania układu równań, dopasowania prostej do punktów pomiarowych, znalezienia kierunku największej zmienności, obrotu figury i liczenia odległości między wieloma punktami naraz.
+Rozdział 14 „Python Podstawy” pokazał operator `@` i moduł `np.linalg` w kilku wierszach. Tu używamy ich do zadań praktycznych: rozwiązania układu równań, dopasowania prostej do punktów pomiarowych, znalezienia kierunku największej zmienności, obrotu figury i liczenia odległości między wieloma punktami naraz.
 
 ## Układy równań
 

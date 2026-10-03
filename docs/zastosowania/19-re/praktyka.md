@@ -47,7 +47,7 @@ print(Counter(z["adres"] for z in zadania if not z["kod"].startswith("2")))
 Counter({'10.0.0.7': 2, '127.0.0.1': 1})
 ```
 
-Wiersz żądania w dzienniku uvicorn z rozdziału 15 ma stały układ: adres z portem, myślnik, linia żądania w cudzysłowie, kod i opis. Wzorzec w trybie `VERBOSE` zapisuje ten układ z grupami nazwanymi — cztery liczby adresu IP przez grupę nieprzechwytującą z powtórzeniem, ścieżka jako ciąg znaków niebiałych — a wiersze bez dopasowania (start, zatrzymanie) odpadają w warunku `if m`. Dalej pracują `Counter` z rozdziału 7 „Python Notatki” i drugie, małe wyrażenie, które zastępuje liczby w ścieżce wspólnym symbolem, żeby zliczyć trasy, nie pojedyncze produkty.
+Wiersz żądania w dzienniku uvicorn z rozdziału 15 ma stały układ: adres z portem, myślnik, linia żądania w cudzysłowie, kod i opis. Wzorzec w trybie `VERBOSE` zapisuje ten układ z grupami nazwanymi — cztery liczby adresu IP przez grupę nieprzechwytującą z powtórzeniem, ścieżka jako ciąg znaków niebiałych — a wiersze bez dopasowania (start, zatrzymanie) odpadają w warunku `if m`. Dalej pracują `Counter` z rozdziału 7 „Python Podstawy” i drugie, małe wyrażenie, które zastępuje liczby w ścieżce wspólnym symbolem, żeby zliczyć trasy, nie pojedyncze produkty.
 
 ## Dane z tekstu
 
@@ -108,7 +108,7 @@ raport_15.08.2026_final.pdf → raport-2026-08-15-final.pdf
 ['notatki.txt', 'raport-2026-08-15-final.pdf', 'raport-2026-09-23-v2.pdf', 'raport-2026-10-01.pdf']
 ```
 
-Nazwy plików z datą w zapisie polskim nie sortują się chronologicznie; po zmianie na zapis `rok-miesiąc-dzień` sortowanie alfabetyczne jest sortowaniem po dacie. `fullmatch()` na nazwie odrzuca pliki spoza schematu, `(?i)` znosi rozróżnianie wielkości liter w całym wzorcu (`Raport`, także `.PDF`), a grupa `reszta` przenosi dopiski (`v2`, `final`) w ujednoliconej postaci. `Path.rename()` z rozdziału 9 „Python Notatki” wykonuje zmianę; przy większej liczbie plików warto najpierw wypisać plan, a zmieniać dopiero po sprawdzeniu.
+Nazwy plików z datą w zapisie polskim nie sortują się chronologicznie; po zmianie na zapis `rok-miesiąc-dzień` sortowanie alfabetyczne jest sortowaniem po dacie. `fullmatch()` na nazwie odrzuca pliki spoza schematu, `(?i)` znosi rozróżnianie wielkości liter w całym wzorcu (`Raport`, także `.PDF`), a grupa `reszta` przenosi dopiski (`v2`, `final`) w ujednoliconej postaci. `Path.rename()` z rozdziału 9 „Python Podstawy” wykonuje zmianę; przy większej liczbie plików warto najpierw wypisać plan, a zmieniać dopiero po sprawdzeniu.
 
 ## Dokument wielowierszowy
 

@@ -1,6 +1,6 @@
 # Co dalej
 
-Część „Python Notatki” kończy się na języku i jego bibliotece standardowej — to fundament, na którym stoją wszystkie zastosowania Pythona. Ten podrozdział wskazuje najczęstsze kierunki dalszej nauki, zbiera narzędzia z całej książki w jedną ściągawkę i podaje, gdzie szukać materiałów.
+Część „Python Podstawy” kończy się na języku i jego bibliotece standardowej — to fundament, na którym stoją wszystkie zastosowania Pythona. Ten podrozdział wskazuje najczęstsze kierunki dalszej nauki, zbiera narzędzia ze wszystkich rozdziałów tej części w jedną ściągawkę i podaje, gdzie szukać materiałów.
 
 ## Programowanie asynchroniczne
 

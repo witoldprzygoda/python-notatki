@@ -1,6 +1,6 @@
 # Pierwsza aplikacja
 
-Aplikacja FastAPI to obiekt klasy `FastAPI` i funkcje przypisane do adresów dekoratorami z rozdziału 6 „Python Notatki”. Ten podrozdział buduje najmniejszy sklep — trzy trasy do odczytu — i pokazuje, co framework robi sam: rozbiera ścieżkę, sprawdza typy, zamienia wynik funkcji na JSON i dokumentuje interfejs.
+Aplikacja FastAPI to obiekt klasy `FastAPI` i funkcje przypisane do adresów dekoratorami z rozdziału 6 „Python Podstawy”. Ten podrozdział buduje najmniejszy sklep — trzy trasy do odczytu — i pokazuje, co framework robi sam: rozbiera ścieżkę, sprawdza typy, zamienia wynik funkcji na JSON i dokumentuje interfejs.
 
 ## Aplikacja i trasy
 
@@ -124,4 +124,4 @@ Tytuł i wersja pochodzą z argumentów `FastAPI()`, nazwy parametrów, typy i o
 
 ## Klient testowy
 
-Skrypty tego rozdziału (poza jednym na trzeciej stronie) nie uruchamiają serwera: `TestClient(app)` z modułu `fastapi.testclient` wywołuje aplikację w tym samym procesie, a z zewnątrz wygląda jak `httpx.Client` z rozdziału 14 — te same metody `get()` i `post()`, argumenty `params`, `json`, `headers` i taki sam obiekt odpowiedzi. Adres bazowy `http://testserver` jest umowny, port nie jest potrzebny. Klient testowy służy testom z ostatniej strony rozdziału, a tutaj — pokazaniu zachowania aplikacji bez okna terminala z serwerem. Funkcje obsługi piszemy jako zwykłe `def`; FastAPI wykonuje je w puli wątków z rozdziału 15 „Python Notatki”, więc kilka żądań może być obsługiwanych równocześnie, a wersja `async def` ma sens dopiero z bibliotekami asynchronicznymi, których nie używamy.
+Skrypty tego rozdziału (poza jednym na trzeciej stronie) nie uruchamiają serwera: `TestClient(app)` z modułu `fastapi.testclient` wywołuje aplikację w tym samym procesie, a z zewnątrz wygląda jak `httpx.Client` z rozdziału 14 — te same metody `get()` i `post()`, argumenty `params`, `json`, `headers` i taki sam obiekt odpowiedzi. Adres bazowy `http://testserver` jest umowny, port nie jest potrzebny. Klient testowy służy testom z ostatniej strony rozdziału, a tutaj — pokazaniu zachowania aplikacji bez okna terminala z serwerem. Funkcje obsługi piszemy jako zwykłe `def`; FastAPI wykonuje je w puli wątków z rozdziału 15 „Python Podstawy”, więc kilka żądań może być obsługiwanych równocześnie, a wersja `async def` ma sens dopiero z bibliotekami asynchronicznymi, których nie używamy.

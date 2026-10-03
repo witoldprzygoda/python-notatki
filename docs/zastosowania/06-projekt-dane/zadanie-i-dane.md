@@ -15,7 +15,7 @@ Każde pytanie otrzyma w raporcie tabelę lub rysunek, a czwarte — sekcję o j
 
 ## Układ projektu
 
-Układ z rozdziału 1 tej części — bez katalogu `notatniki/`, bo projekt działa skryptami — uzupełniony o katalog testów z rozdziału 7 i `conftest.py` z rozdziału 16 „Python Notatki”:
+Układ z rozdziału 1 tej części — bez katalogu `notatniki/`, bo projekt działa skryptami — uzupełniony o katalog testów z rozdziału 7 i `conftest.py` z rozdziału 16 „Python Podstawy”:
 
 ```{ .text .no-copy }
 raport-sprzedazy/
@@ -176,4 +176,4 @@ dane/przetworzone/
 wyniki/
 ```
 
-Plik `.gitignore` z rozdziału 16 „Python Notatki” wyłącza z repozytorium to, co powstaje z kodu — dane przetworzone i wyniki odtwarza skrypt, więc w historii zmian zostają tylko dane surowe, kod i README. Progi i reguły — „ponad cztery mediany”, „brak to zero” — są decyzjami merytorycznymi, nie technicznymi; w prawdziwym projekcie uzgadniamy je z odbiorcą i zapisujemy, kto i kiedy je przyjął.
+Plik `.gitignore` z rozdziału 16 „Python Podstawy” wyłącza z repozytorium to, co powstaje z kodu — dane przetworzone i wyniki odtwarza skrypt, więc w historii zmian zostają tylko dane surowe, kod i README. Progi i reguły — „ponad cztery mediany”, „brak to zero” — są decyzjami merytorycznymi, nie technicznymi; w prawdziwym projekcie uzgadniamy je z odbiorcą i zapisujemy, kto i kiedy je przyjął.

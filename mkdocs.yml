@@ -4,6 +4,7 @@ site_author: Witold Przygoda
 
 theme:
   name: material
+  custom_dir: overrides
   language: pl
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -36,6 +37,7 @@ theme:
     - content.code.copy
     - content.tabs.link
     - navigation.tabs
+    - navigation.tabs.sticky
 
 plugins:
   - search:
@@ -59,10 +61,12 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/naglowek.js
 
 nav:
   - Strona główna: index.md
-  - Python Notatki:
+  - Python Podstawy:
       - 1. Instalacja i środowisko pracy:
           - Wprowadzenie: 01-instalacja/index.md
           - Instalacja Pythona: 01-instalacja/instalacja.md

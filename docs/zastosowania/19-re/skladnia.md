@@ -26,7 +26,7 @@ None <re.Match object; span=(0, 3), match='Zam'>
 True 1 2
 ```
 
-`re.search()` szuka wzorca w dowolnym miejscu tekstu i zwraca obiekt **dopasowania** (ang. *match*) albo `None`, gdy nic nie znajdzie — dlatego wynik sprawdzamy w warunku, zanim odczytamy `group()` (dopasowany fragment), `start()`, `end()` i `span()`. `re.match()` dopasowuje tylko od początku tekstu, `re.fullmatch()` wymaga, by wzorzec objął cały tekst — spacja na końcu `"1042 "` wyklucza dopasowanie. Wzorce zapisujemy jako **surowe łańcuchy** (ang. *raw string*) `r"…"` z rozdziału 3 „Python Notatki”: w zwykłym łańcuchu Python sam interpretuje sekwencje ucieczki, więc ukośnik trzeba by podwoić (`"\\d"` to ten sam łańcuch co `r"\d"`), `"\n"` jest jednym znakiem nowego wiersza, nie dwoma znakami dla modułu `re`, a `"\b"` — znakiem cofania zamiast granicy słowa.
+`re.search()` szuka wzorca w dowolnym miejscu tekstu i zwraca obiekt **dopasowania** (ang. *match*) albo `None`, gdy nic nie znajdzie — dlatego wynik sprawdzamy w warunku, zanim odczytamy `group()` (dopasowany fragment), `start()`, `end()` i `span()`. `re.match()` dopasowuje tylko od początku tekstu, `re.fullmatch()` wymaga, by wzorzec objął cały tekst — spacja na końcu `"1042 "` wyklucza dopasowanie. Wzorce zapisujemy jako **surowe łańcuchy** (ang. *raw string*) `r"…"` z rozdziału 3 „Python Podstawy”: w zwykłym łańcuchu Python sam interpretuje sekwencje ucieczki, więc ukośnik trzeba by podwoić (`"\\d"` to ten sam łańcuch co `r"\d"`), `"\n"` jest jednym znakiem nowego wiersza, nie dwoma znakami dla modułu `re`, a `"\b"` — znakiem cofania zamiast granicy słowa.
 
 ## Metaznaki, klasy i kwantyfikatory
 

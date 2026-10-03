@@ -1,6 +1,6 @@
 # Anatomia wykresu i style
 
-Każdy element wykresu — linia, podziałka, napis, ramka — jest obiektem, do którego można sięgnąć i który można zmienić. Rozdział 14 „Python Notatki” pokazał tę hierarchię w zarysie; tu omawiamy szczegółowo obiekty, które decydują o czytelności: podziałek i ich opisów, skal osi, ramki i siatki oraz ustawień globalnych, którymi nadaje się wszystkim wykresom jeden styl.
+Każdy element wykresu — linia, podziałka, napis, ramka — jest obiektem, do którego można sięgnąć i który można zmienić. Rozdział 14 „Python Podstawy” pokazał tę hierarchię w zarysie; tu omawiamy szczegółowo obiekty, które decydują o czytelności: podziałek i ich opisów, skal osi, ramki i siatki oraz ustawień globalnych, którymi nadaje się wszystkim wykresom jeden styl.
 
 ## Obiekty rysunku
 
@@ -182,4 +182,4 @@ print(mpl.rcParams["lines.linewidth"])
 
 ![Dwa panele z tymi samymi trzema krzywymi: w ustawieniach domyślnych oraz z własną paletą, grubszymi liniami i siatką](img/style.png){ width="760" }
 
-`mpl.rcParams["klucz"] = wartość` zmienia ustawienie dla wszystkich kolejnych rysunków; `mpl.rc_context()` — menedżer kontekstu z rozdziału 8 „Python Notatki” — tylko wewnątrz bloku `with`, po czym przywraca poprzednie wartości, co potwierdza ostatni wydruk. Klucz `axes.prop_cycle` z obiektem `cycler` ustala kolejność kolorów kolejnych linii; `plt.style.use()` znane z rozdziału 14 wczytuje ze ścieżką do pliku `.mplstyle` własny zestaw, o czym w ostatnim podrozdziale. Ustawienia z `rcParams` dotyczą obiektów tworzonych później; już istniejących nie zmieniają — dlatego drugi panel powstaje metodą `add_subplot()` wewnątrz bloku `with`, a nie razem z pierwszym przed nim: paletę, siatkę i rozmiar czcionki panel dostaje w chwili utworzenia.
+`mpl.rcParams["klucz"] = wartość` zmienia ustawienie dla wszystkich kolejnych rysunków; `mpl.rc_context()` — menedżer kontekstu z rozdziału 8 „Python Podstawy” — tylko wewnątrz bloku `with`, po czym przywraca poprzednie wartości, co potwierdza ostatni wydruk. Klucz `axes.prop_cycle` z obiektem `cycler` ustala kolejność kolorów kolejnych linii; `plt.style.use()` znane z rozdziału 14 wczytuje ze ścieżką do pliku `.mplstyle` własny zestaw, o czym w ostatnim podrozdziale. Ustawienia z `rcParams` dotyczą obiektów tworzonych później; już istniejących nie zmieniają — dlatego drugi panel powstaje metodą `add_subplot()` wewnątrz bloku `with`, a nie razem z pierwszym przed nim: paletę, siatkę i rozmiar czcionki panel dostaje w chwili utworzenia.

@@ -1,6 +1,6 @@
 # Wiele paneli i układ
 
-Jeden wykres rzadko odpowiada na wszystkie pytania; kilka paneli o wspólnych osiach, kolorach i legendzie robi to lepiej niż kilka osobnych rysunków. Siatkę `subplots(2, 2)` znamy z rozdziału 14 „Python Notatki”; ten podrozdział dodaje wzorzec małych wielokrotności, układy nieregularne, wstawki, wspólne kolory i wybór między układem automatycznym a ręcznym.
+Jeden wykres rzadko odpowiada na wszystkie pytania; kilka paneli o wspólnych osiach, kolorach i legendzie robi to lepiej niż kilka osobnych rysunków. Siatkę `subplots(2, 2)` znamy z rozdziału 14 „Python Podstawy”; ten podrozdział dodaje wzorzec małych wielokrotności, układy nieregularne, wstawki, wspólne kolory i wybór między układem automatycznym a ręcznym.
 
 ## Małe wielokrotności
 

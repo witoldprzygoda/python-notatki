@@ -1,6 +1,6 @@
 # Modele danych — Pydantic
 
-Treść żądania POST to JSON, którego kształtu nie znamy, dopóki go nie sprawdzimy. FastAPI opisuje ten kształt klasami biblioteki **Pydantic**: klasa z adnotowanymi polami — jak klasa danych z rozdziału 12 „Python Notatki” — sprawdza dane przy tworzeniu obiektu, zamienia typy, zgłasza wszystkie błędy naraz i opisuje sama siebie w dokumentacji. Ten podrozdział pokazuje Pydantic najpierw bez sieci, potem w trasach.
+Treść żądania POST to JSON, którego kształtu nie znamy, dopóki go nie sprawdzimy. FastAPI opisuje ten kształt klasami biblioteki **Pydantic**: klasa z adnotowanymi polami — jak klasa danych z rozdziału 12 „Python Podstawy” — sprawdza dane przy tworzeniu obiektu, zamienia typy, zgłasza wszystkie błędy naraz i opisuje sama siebie w dokumentacji. Ten podrozdział pokazuje Pydantic najpierw bez sieci, potem w trasach.
 
 ## Model i walidacja
 

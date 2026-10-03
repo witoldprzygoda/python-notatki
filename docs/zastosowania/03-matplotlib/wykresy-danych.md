@@ -1,6 +1,6 @@
 # Wykresy dla danych
 
-Podstawowe typy wykresów z rozdziału 14 „Python Notatki” rzadko wystarczają do przedstawienia danych pomiarowych: wynik ma niepewność, kategorie mają podgrupy, rozkład ma kształt, a punktów bywa tak wiele, że zlewają się w jednolity obszar. Ten podrozdział pokazuje cztery odpowiedzi Matplotlib na te sytuacje; dane losowe pochodzą z generatora z ziarnem, jak w rozdziale 2 tej części.
+Proste typy wykresów z rozdziału 14 „Python Podstawy” rzadko wystarczają do przedstawienia danych pomiarowych: wynik ma niepewność, kategorie mają podgrupy, rozkład ma kształt, a punktów bywa tak wiele, że zlewają się w jednolity obszar. Ten podrozdział pokazuje cztery odpowiedzi Matplotlib na te sytuacje; dane losowe pochodzą z generatora z ziarnem, jak w rozdziale 2 tej części.
 
 ## Przedziały niepewności — `fill_between()` i `errorbar()`
 

@@ -123,7 +123,7 @@ serwer.shutdown()
 ['id;nazwa;cena', '1;Python. Wprowadzenie;59.0']
 ```
 
-Zwykłe `get()` wczytuje całą treść do pamięci, zanim odda odpowiedź. Przy plikach do pobrania — raportach, obrazach, archiwach — `stream()` w bloku `with` oddaje odpowiedź po nagłówkach, a `iter_bytes()` wydaje treść porcjami, które zapisujemy do pliku w trybie binarnym z rozdziału 9 „Python Notatki”. Pamięć programu nie zależy wtedy od rozmiaru pliku; ten sam wzorzec (`iter_lines()`) obsługuje odpowiedzi wysyłane wiersz po wierszu.
+Zwykłe `get()` wczytuje całą treść do pamięci, zanim odda odpowiedź. Przy plikach do pobrania — raportach, obrazach, archiwach — `stream()` w bloku `with` oddaje odpowiedź po nagłówkach, a `iter_bytes()` wydaje treść porcjami, które zapisujemy do pliku w trybie binarnym z rozdziału 9 „Python Podstawy”. Pamięć programu nie zależy wtedy od rozmiaru pliku; ten sam wzorzec (`iter_lines()`) obsługuje odpowiedzi wysyłane wiersz po wierszu.
 
 ## Prawdziwe API — kursy NBP
 
