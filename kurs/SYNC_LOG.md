@@ -9,7 +9,7 @@ Kolumny:
 - **`cwiczenia`** — commit scalający, który wprowadził ten stan książki do gałęzi ćwiczeń;
 - **Rodzaj** — utworzenie gałęzi, synchronizacja albo procedura naprawcza;
 - **Bramka** — kod pełnej bramki (`--book origin/dev`) dla stanu przed dopisaniem wiersza;
-- **Uwagi** — zmienione wiązania, decyzje przeglądu G4, podniesione wersje aktywności i usterki książki zgłoszone do poprawy.
+- **Uwagi** — zmienione wiązania; decyzje przeglądu G4 i inne zmiany definicji aktywności (np. po zmianie reguł redakcyjnych); podniesione wersje aktywności; zmiany plików ćwiczeń poza definicjami aktywności (np. poprawki nakładki po G2); usterki książki zgłoszone do poprawy.
 
 | Data | `dev` | `cwiczenia` | Rodzaj | Bramka | Uwagi |
 |---|---|---|---|---|---|
