@@ -1,13 +1,13 @@
 ---
 name: synchronizuj-cwiczenia
-description: Synchronizuje projekt ćwiczeń (gałąź cwiczenia) z książką z origin/dev według kurs/README.md — scalenie na gałęzi sync/RRRR-MM-DD, bramka kurs/tools/gate.py z obsługą wiązań (G3) i przeglądem aktywności w sekcjach o zmienionej treści (G4), poprawki wyłącznie w plikach ćwiczeń, jednostronicowy raport dla autora i oczekiwanie na akceptację. Uruchamiany ręcznie w katalogu ../python-notatki-cwiczenia.
+description: Synchronizuje projekt ćwiczeń (gałąź cwiczenia) z książką z origin/dev według kurs/README.md — scalenie na gałęzi sync/RRRR-MM-DD, bramka kurs/tools/gate.py z obsługą wiązań (G3) i przeglądem aktywności w sekcjach o zmienionej treści (G4), poprawki wyłącznie w plikach ćwiczeń, kontrola wydania w przeglądarce, jednostronicowy raport dla autora i oczekiwanie na akceptację. Uruchamiany ręcznie w katalogu ../python-notatki-cwiczenia.
 argument-hint: "[RRRR-MM-DD]"
 disable-model-invocation: true
 ---
 
 # Synchronizacja ćwiczeń z książką
 
-Skill przeprowadza procedurę „Synchronizacja z dev” z `kurs/README.md` od warunków wstępnych do raportu dla autora i zatrzymuje się przed jej krokiem 8 (przewinięcie `cwiczenia` i wypchnięcie). Wiążący jest `kurs/README.md`. Przed rozpoczęciem przeczytaj w nim sekcje „Zasada jednokierunkowa”, „Zasada wyłącznego dodawania”, „Bramka” (z podsekcją „Aktualność powiązanych sekcji (G4)”), „Synchronizacja z dev” i „Procedura naprawcza”, a także `kurs/AGENTS.md`, reguły redakcyjne z `CLAUDE.md` i rozdział „Wersjonowanie aktywności” z `kurs/INTERACTIVE_SYSTEM_SPEC.md`. Jeśli skill i przewodnik się rozchodzą, przerwij pracę i zgłoś rozbieżność autorowi.
+Skill przeprowadza procedurę „Synchronizacja z dev” z `kurs/README.md` od warunków wstępnych do raportu dla autora i zatrzymuje się przed jej krokiem 8 (przewinięcie `cwiczenia` i wypchnięcie). Wiążący jest `kurs/README.md`. Przed rozpoczęciem przeczytaj w nim sekcje „Zasada jednokierunkowa”, „Zasada wyłącznego dodawania (ang. *add-only*)”, „Bramka” (z podsekcją „Aktualność powiązanych sekcji (G4)”), „Kontrola wydania w przeglądarce”, „Synchronizacja z dev” i „Procedura naprawcza: ćwiczenia w książce”, a także `kurs/AGENTS.md`, reguły redakcyjne z `CLAUDE.md` i rozdział „10. Wersjonowanie aktywności” z `kurs/INTERACTIVE_SYSTEM_SPEC.md`. Jeśli skill i przewodnik się rozchodzą, przerwij pracę i zgłoś rozbieżność autorowi.
 
 Data synchronizacji: `$ARGUMENTS`. Gdy argument jest pusty, przyjmij dzisiejszą datę w zapisie RRRR-MM-DD. Dalej oznaczamy ją DATA, a gałąź synchronizacji — SYNC (zwykle `sync/DATA`).
 
@@ -15,19 +15,19 @@ Data synchronizacji: `$ARGUMENTS`. Gdy argument jest pusty, przyjmij dzisiejszą
 
 - Pracujemy w katalogu `D:/PYTHON/NOTATKI/python-notatki-cwiczenia`. Katalogu książki `D:/PYTHON/NOTATKI/python-notatki` i jego gałęzi nie zmieniamy.
 - Polecenia wykonujemy narzędziem Bash (Git Bash), a nie w PowerShell: zapis poleceń, zmienne środowiskowe przed poleceniem i ścieżki w tym skillu dotyczą Git Bash.
-- Zmieniamy wyłącznie ścieżki z listy dozwolonej (`kurs/README.md`, „Zasada wyłącznego dodawania”). Plików książki (`docs/**`, `mkdocs.yml`, `CLAUDE.md` i pozostałych) nie poprawiamy, także wtedy, gdy książka wydaje się błędna: usterkę opisujemy w raporcie jako poprawkę dla gałęzi `content/*` tworzonej z `dev`.
+- Zmieniamy wyłącznie ścieżki z listy dozwolonej (`kurs/README.md`, „Zasada wyłącznego dodawania (ang. *add-only*)”). Plików książki (`docs/**`, `mkdocs.yml`, `CLAUDE.md` i pozostałych) nie poprawiamy, także wtedy, gdy książka wydaje się błędna: usterkę opisujemy w raporcie jako poprawkę dla gałęzi `content/*` tworzonej z `dev`.
 - Niczego nie scalamy do `dev` ani `master` i niczego do nich nie wypychamy. Nie przebudowujemy historii (`rebase`), nie nadpisujemy jej (`push --force`, `commit --amend` po wypchnięciu) i nie pomijamy hooków (`--no-verify`).
 - Do commitu dodajemy jawnie wskazane ścieżki (`git add <ścieżki>`), nigdy `git add -A` ani `git add .`.
-- Każde polecenie Pythona uruchamiamy interpreterem środowiska książki z kodowaniem UTF-8, poprzedzając je zmiennymi środowiskowymi: `PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe …`. Bramkę uruchamiamy zawsze z `--book origin/dev`.
+- Każde polecenie Pythona uruchamiamy interpreterem środowiska książki z kodowaniem UTF-8, poprzedzając je zmiennymi środowiskowymi: `PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe …`. Bramkę uruchamiamy zawsze z `--book origin/dev`. Wyjątkiem jest kontrola wydania w przeglądarce (punkt 5): uruchamia ją uv, który dostarcza Playwright, a wydanie buduje ten sam interpreter książki, podany w opcji `--python`.
 - Przed słowem „akceptuję” autora nie zmieniamy gałęzi `cwiczenia` i niczego nie wypychamy. Jedynym wyjątkiem jest przewinięcie lokalnej gałęzi `cwiczenia` do `origin/cwiczenia` w punkcie 1.5.
-- Port 8000 należy do autora, a 8001 do innego projektu; podgląd ćwiczeń uruchamiamy wyłącznie na porcie 8002.
+- Port 8000 należy do autora, a 8001 do innego projektu; podgląd ćwiczeń uruchamiamy wyłącznie na porcie 8002. Kontrola wydania w przeglądarce sama wybiera wolny port z zakresu 8050–8069 i zatrzymuje swój serwer przed zakończeniem.
 - Aktywności nie usuwamy ani nie wiążemy z całą stroną bez decyzji autora. Teksty aktywności piszemy w rejestrze i konwencjach z `CLAUDE.md` (polskie cudzysłowy „…”, terminologia książki).
 
 ## 1. Warunki wstępne
 
 1. `git rev-parse --show-toplevel` wskazuje katalog ćwiczeń, a `git branch --show-current` — gałąź `cwiczenia`; na gałęzi innej niż `cwiczenia` i `sync/…` przerywamy. Jeśli bieżąca gałąź to `sync/…` z przerwanej synchronizacji, nie tworzymy nowej: przedstawiamy autorowi jej stan (`git log --oneline --first-parent origin/cwiczenia..HEAD` i wynik pełnej bramki) i pytamy, czy ją kontynuować. Po zgodzie autora wznawiamy ją tak:
     1. `git fetch origin`;
-    2. jeśli `git merge-base --is-ancestor origin/dev HEAD` kończy się kodem różnym od 0, książka zmieniła się od przerwania: na bieżącej gałęzi SYNC, bez tworzenia nowej gałęzi, wykonujemy próbne scalenie `PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe kurs/tools/gate.py --book origin/dev --przed-scaleniem` (kod 3 pozwala scalać), a potem `git -c merge.directoryRenames=false merge --no-ff origin/dev -m "Sync with dev (DATA)"` z obsługą konfliktów jak w punkcie 2; jeśli autor tak woli, zaczynamy zamiast tego od nowa na nowej gałęzi (punkt 1.7);
+    2. jeśli `git merge-base --is-ancestor origin/dev HEAD` kończy się kodem różnym od 0, książka zmieniła się od przerwania: na bieżącej gałęzi SYNC, bez tworzenia nowej gałęzi, wykonujemy próbne scalenie `PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe kurs/tools/gate.py --book origin/dev --przed-scaleniem` (kod 3 pozwala scalać), a potem `git -c merge.directoryRenames=false merge --no-ff origin/dev -m "Sync with dev (DATA)"` z wierszem atrybucji i obsługą konfliktów jak w punkcie 2; jeśli autor tak woli, zaczynamy zamiast tego od nowa na nowej gałęzi (punkt 1.7);
     3. jeśli `git merge-base --is-ancestor origin/cwiczenia HEAD` kończy się kodem różnym od 0, scalamy `origin/cwiczenia` jak w punkcie 6;
     4. przeliczamy dane z punktu 1.8 i kontynuujemy od punktu 3 pełną bramką.
 2. `git status --porcelain --untracked-files=no` nie zwraca nic; w przeciwnym razie przerywamy i pytamy autora. Pliki nieśledzone nie przeszkadzają, ponieważ dodajemy jawnie wskazane ścieżki; ich listę (`git status --porcelain --untracked-files=all | grep '^??'`) podajemy w raporcie.
@@ -36,20 +36,27 @@ Data synchronizacji: `$ARGUMENTS`. Gdy argument jest pusty, przyjmij dzisiejszą
 5. `git rev-list --left-right --count cwiczenia...origin/cwiczenia` porównuje lokalną gałąź `cwiczenia` z `origin/cwiczenia`. Wynik `0 0` oznacza zgodność; `0 N` — gałąź lokalna jest za `origin/cwiczenia`, więc ją przewijamy (`git merge --ff-only origin/cwiczenia`); pierwsza liczba większa od 0 — gałąź lokalna zawiera commity spoza `origin/cwiczenia`, więc przerywamy i pytamy autora.
 6. Jeśli lokalna gałąź `dev` istnieje (`git rev-parse -q --verify refs/heads/dev` kończy się kodem 0; w przeciwnym razie pomijamy ten punkt), a `git rev-list --count origin/dev..refs/heads/dev` zwraca liczbę większą od 0, lokalna gałąź `dev` ma niewypchnięte commity: informujemy autora, że synchronizacja ich nie obejmie (scalamy wyłącznie `origin/dev`), i pytamy, czy kontynuować.
 7. Gałąź SYNC: jeśli `git branch --list "sync/DATA*"` i `git branch -r --list "origin/sync/DATA*"` niczego nie zwracają, SYNC to `sync/DATA`. Istniejąca gałąź `sync/DATA` pochodzi zwykle z przerwanej synchronizacji: zanim ją pominiemy, pytamy autora, czy ją kontynuować (punkt 1.1 po przełączeniu na nią), czy rozpocząć nową. Nowa gałąź otrzymuje pierwszą wolną nazwę `sync/DATA-2`, `sync/DATA-3`…; istniejącej gałęzi nie tworzymy od nowa ani nie przestawiamy.
-8. Do raportu zapisujemy zakres zmian książki: poprzedni stan `dev` to `git merge-base origin/cwiczenia origin/dev` (równy kolumnie `dev` ostatniego wiersza `kurs/SYNC_LOG.md`), commity podaje `git log --oneline --no-merges origin/cwiczenia..origin/dev`, a zmienione pliki — `git diff --stat origin/cwiczenia...origin/dev -- docs mkdocs.yml`.
+8. Do raportu zapisujemy zakres zmian książki:
+    - poprzedni stan `dev`: `git merge-base origin/cwiczenia origin/dev` (równy kolumnie `dev` ostatniego wiersza `kurs/SYNC_LOG.md`);
+    - commity: `git log --oneline --no-merges origin/cwiczenia..origin/dev`, a ich liczba: `git rev-list --count --no-merges origin/cwiczenia..origin/dev`;
+    - zmienione pliki treści, konfiguracji i motywu: `git diff --stat origin/cwiczenia...origin/dev -- docs mkdocs.yml overrides`; katalog `overrides/` (szablony motywu, `theme.custom_dir`) zmienia także wydanie kursowe, które dziedziczy konfigurację książki;
+    - pozostałe zmienione ścieżki książki: `git diff --name-status origin/cwiczenia...origin/dev -- . ':!docs' ':!mkdocs.yml' ':!overrides'` (wzorce wykluczeń piszemy w apostrofach, ponieważ w cudzysłowie interaktywna powłoka Git Bash traktuje znak `!` jako odwołanie do historii poleceń); jeśli jest wśród nich `CLAUDE.md`, którego reguły redakcyjne obowiązują także teksty ćwiczeń, w punkcie 3 sprawdzamy teksty aktywności względem zmienionych reguł;
+    - zmiany wspólne wydania kursowego, które dotyczą każdej strony, także stron z ćwiczeniami: `git diff --name-status origin/cwiczenia...origin/dev -- mkdocs.yml overrides docs/stylesheets docs/javascripts`.
 
 ## 2. Scalenie książki (kroki 1–4 przewodnika)
 
 ```bash
-git switch -c SYNC origin/cwiczenia
+git switch --no-track -c SYNC origin/cwiczenia
 PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe kurs/tools/gate.py --book origin/dev --przed-scaleniem
 ```
 
-Kod 3 pozwala scalać. Przy kodzie 1 przerywamy i składamy raport: kolizję ścieżek rozstrzyga autor (zmiana nazwy po stronie ćwiczeń albo usunięcie ścieżki z książki), a książkę z plikami lub historią ćwiczeń naprawia procedura naprawcza, którą wykonujemy wyłącznie na polecenie autora. Kod 2 oznacza błąd wywołania (np. brak `origin/dev`).
+Opcja `--no-track` sprawia, że SYNC nie śledzi `origin/cwiczenia`: samo `git pull` nie scali wtedy `origin/cwiczenia`, a samo `git push` (np. przy `push.default=upstream`) nie przesunie `origin/cwiczenia` przed akceptacją autora; hook `pre-push` chroni wyłącznie `dev` i `master`. Kod 3 pozwala scalać. Przy kodzie 1 przerywamy i składamy raport: kolizję ścieżek rozstrzyga autor (zmiana nazwy po stronie ćwiczeń albo usunięcie ścieżki z książki), a książkę z plikami lub historią ćwiczeń naprawia procedura naprawcza, którą wykonujemy wyłącznie na polecenie autora. Kod 2 oznacza błąd wywołania (np. brak `origin/dev`).
 
 ```bash
 git -c merge.directoryRenames=false merge --no-ff origin/dev -m "Sync with dev (DATA)"
 ```
+
+Jeśli sesja dopisuje do commitów wiersz atrybucji (np. `Co-Authored-By: …` z instrukcji sesji), dodajemy go także do komunikatu scalenia jako drugi akapit, drugą opcją `-m`: `… -m "Sync with dev (DATA)" -m "<wiersz atrybucji>"`. Treść wiersza bierzemy z instrukcji sesji i nie przepisujemy jej z wcześniejszych commitów.
 
 - Konflikt w ścieżce spoza listy dozwolonej rozstrzygamy zawsze na korzyść książki: `git checkout origin/dev -- <ścieżka>`, a po rozstrzygnięciu wszystkich konfliktów `git commit --no-edit`. Plików książki nie poprawiamy ręcznie.
 - Konflikt w pliku ćwiczeń albo usunięcie plików ćwiczeń przez scalenie zatrzymane na konflikcie: `git merge --abort`, przerwanie pracy i raport.
@@ -64,13 +71,15 @@ PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Sc
 
 Pełna bramka trwa około minuty. Czytamy cały wynik, nie tylko tabelę podsumowania. Ustalenia obsługujemy w kolejności etapów, każdą grupę poprawek zatwierdzamy osobnym commitem (np. „Rebind exercises after heading changes in dev”, „Adapt exercises to the changed loop sections”) i powtarzamy bramkę aż do kodu 0. Do odbioru służy wyłącznie kod 0; tryb `--katalog-roboczy` (kod 3) wolno stosować tylko w pętli roboczej.
 
+Ustaleniami są wiersze `BŁĄD`. Wiersze `uwaga` są informacyjne i nie wymagają działania, np. uwaga G7 o plikach JS warstwy, które build książki kopiuje jako pliki statyczne, powtarzana w każdym przebiegu. Wyjątkiem są uwagi G7 z przedrostkiem `usterka książki:`, które przenosimy do raportu (G3 i G7 niżej). Ostrzeżenie albo błąd buildu nie jest uwagą: obsługujemy je według reguły G7.
+
 - **G1** (kolizja, usunięte pliki ćwiczeń, stan książki spoza `origin/dev`, zmieniony plik książki): przerywamy i składamy raport; nie naprawiamy samodzielnie.
-- **G2** (lista nakładki nie zaczyna się dokładnie od listy książki: pomija jej pozycję, zmienia postać pozycji, podaje pozycje książki w innej kolejności, stawia pozycję nakładki przed pozycją książki albo powtarza pozycję książki): poprawiamy listę w `mkdocs.kurs.yml` tak, aby zaczynała się od wszystkich pozycji listy książki, przepisanych dosłownie (w tej samej postaci YAML, np. napis pozostaje napisem i nie staje się mapą z polem `path`) i w kolejności z `mkdocs.yml`, a własne pozycje nakładki stały po nich. Brakującą pozycję dopisujemy więc na jej miejscu z listy książki, przed pozycjami warstwy.
+- **G2** (lista nakładki nie zaczyna się dokładnie od listy książki: pomija jej pozycję, zmienia postać pozycji, podaje pozycje książki w innej kolejności, stawia pozycję nakładki przed pozycją książki albo powtarza pozycję książki): poprawiamy listę w `mkdocs.kurs.yml` tak, aby zaczynała się od wszystkich pozycji listy książki, przepisanych dosłownie (w tej samej postaci YAML, np. napis pozostaje napisem i nie staje się mapą z polem `path`) i w kolejności z `mkdocs.yml`, a własne pozycje nakładki stały po nich. Brakującą pozycję dopisujemy więc na jej miejscu z listy książki, przed pozycjami warstwy. Poprawkę odnotowujemy w raporcie (część „Zmiany plików ćwiczeń poza definicjami aktywności”) i w uwagach dziennika.
 - **G3** (zerwane wiązanie):
     - przy „prawdopodobnej zmianie nagłówka” czytamy nową sekcję w `docs/<strona>` i, jeśli omawia ten sam materiał, zmieniamy `section_id` w `activities/**/*.yaml` na identyfikator następcy;
     - przy przeniesionej stronie zmieniamy `page` na ścieżkę podaną przez G3; `slot_id` i `activity_id` pozostają bez zmian;
     - przy identyfikatorze z sufiksem `_1`, `_2`… oraz gdy zestawienie nagłówków nie wskazuje następcy, szukamy materiału w książce (`git grep` po charakterystycznych terminach) i przedstawiamy autorowi propozycję: nowe wiązanie, wiązanie z całą stroną (`section_id: null`) albo wycofanie aktywności;
-    - przy każdej zmianie nagłówka szukamy odsyłaczy książki do dawnego identyfikatora: polecenie `git grep -n -o -E '[^ (]*#<stary-id>([^a-z0-9_-]|$)' origin/dev -- docs` wypisuje plik, wiersz i cel każdego odsyłacza zakończonego dokładnie tym identyfikatorem; bierzemy odsyłacze do tej strony (`…<plik strony>#<stary-id>`) i odsyłacze wewnątrz niej (sam `#<stary-id>` w pliku strony). Build zgłasza taki zerwany odsyłacz wyłącznie jako informację, więc `--strict` go nie zatrzymuje; znalezione odsyłacze wpisujemy do raportu (plik i wiersz) jako usterki książki do poprawy na `content/*`;
+    - odsyłacze książki do brakujących kotwic, także do dawnego identyfikatora zmienionego nagłówka, na innej stronie albo na tej samej, wypisuje etap G7 jako uwagi z przedrostkiem `usterka książki:` (plik, odsyłacz i brakująca kotwica). Build zgłasza taki odsyłacz wyłącznie jako informację, więc `--strict` go nie zatrzymuje; każdą taką uwagę wpisujemy do raportu w części „Usterki książki do poprawy na `content/*`”, niezależnie od tego, czy dotyczy nagłówka powiązanego z aktywnością;
     - każdą zmianę wiązania zapisujemy do raportu jako parę: stary identyfikator („stary nagłówek”) → nowy identyfikator („nowy nagłówek”); G3 wypisuje te pary w notatkach „zmiana wiązania względem …”.
 - **G4** (zmieniona treść sekcji, zmienione wiązanie, nowe lub usunięte aktywności). Sekcja h2 obejmuje swoje podsekcje h3–h6, więc aktywność powiązana z podsekcją nie reaguje na zmiany wstępu sekcji nadrzędnej; odcisk pomija m.in. adresy odnośników, ścieżki obrazów i rodzaj wyróżnienia (szczegóły w `kurs/README.md`). Dla każdego zgłoszenia:
     1. jeśli G4 podaje, że identyfikator należy teraz do innego nagłówka albo że treść z przeglądu znajduje się teraz najpewniej w innej sekcji, poprawiamy wiązanie jak w G3, a nie aktywność; identyfikator z sufiksem deduplikacji przedstawiamy autorowi jak w G3;
@@ -88,9 +97,12 @@ Pełna bramka trwa około minuty. Czytamy cały wynik, nie tylko tabelę podsumo
     ```
 
     Polecenie odmawia zapisu (kod 1), dopóki którekolwiek wiązanie jest zerwane albo lista nie obejmuje dokładnie aktywności wymagających przeglądu; wypisuje wtedy oczekiwaną listę z opisem każdej pozycji. Nie uruchamiamy go przed zakończeniem przeglądu i nie wpisujemy aktywności, których nie przejrzeliśmy. Wypisane wpisy porównujemy z przeglądem: „dodano” oznacza nową aktywność, „zmieniono” — zmianę wiązania (także po zmianie nagłówka), nagłówka albo treści sekcji tej aktywności, „usunięto” — aktywność, której już nie ma. Następnie zatwierdzamy `kurs/aktualnosc.json` („Record the review of sections changed in dev (DATA)”).
+
+    Jeśli G4 przechodzi bez zgłoszeń (wynik OK, bez listy „aktywności do przejrzenia”), polecenia `--zatwierdz-aktualnosc` nie uruchamiamy: plik `kurs/aktualnosc.json` pozostaje bez zmian, a tabela „Przegląd aktywności” w raporcie zawiera „brak”, chyba że definicje aktywności zmieniono z innego powodu (np. po ustaleniu G5 albo G6 albo po zmianie reguł redakcyjnych).
+- **Reguły redakcyjne** (`CLAUDE.md` wśród pozostałych zmienionych ścieżek z punktu 1.8): czytamy różnicę pliku (`git diff origin/cwiczenia...origin/dev -- CLAUDE.md`) i sprawdzamy teksty wszystkich aktywności (polecenia, warianty odpowiedzi, informacje zwrotne, omówienia, komentarze w kodzie) względem zmienionych reguł. Tekst niezgodny z nową regułą poprawiamy w plikach ćwiczeń. Poprawka kosmetyczna nie zmienia `version`, a zmiana polecenia, poprawnej odpowiedzi albo innego elementu semantycznego podnosi ją według rozdziału „10. Wersjonowanie aktywności” specyfikacji (razem z wersją oczekiwaną w teście aktywności pilotażowych). Każdą zmienioną aktywność wpisujemy do tabeli „Przegląd aktywności” jako inną zmianę definicji.
 - **G5** (rozwiązanie albo blok `verify` nie daje oczekiwanego wyniku): poprawiamy aktywność tak, aby rozwiązanie wzorcowe i warianty wypisywały dokładnie `expected_lines`, a `starter_code` ich nie wypisywał; sprawdzenia nie osłabiamy.
 - **G6** (testy): test, który utrwala dane aktywności (np. wersje w `tests/test_build_activities.py`), aktualizujemy razem ze świadomą zmianą aktywności i odnotowujemy w raporcie; awarię kodu warstwy (hook, JavaScript, bramka) zgłaszamy jako zadanie dla gałęzi `platform/*` i przerywamy.
-- **G7** (buildy `--strict`): ostrzeżenie buildu książki (`mkdocs.yml`) jest usterką książki — przerywamy i zgłaszamy ją do poprawy na `content/*`; błąd wydania kursowego wynikający z wiązań poprawiamy jak w G3.
+- **G7** (buildy `--strict`): ostrzeżenie buildu książki (`mkdocs.yml`) jest usterką książki — przerywamy i zgłaszamy ją do poprawy na `content/*`; błąd wydania kursowego wynikający z wiązań poprawiamy jak w G3. Uwagi `usterka książki:` (odsyłacze do brakujących kotwic) nie zatrzymują etapu ani synchronizacji: przenosimy je do raportu jak w G3, a ich liczbę podaje szczegół etapu w tabeli bramki.
 
 ## 4. Dziennik i ostatnia bramka (krok 6 przewodnika)
 
@@ -104,28 +116,57 @@ Zatwierdzamy go („Log the sync with dev (DATA)”) i ostatni raz uruchamiamy p
 
 ## 5. Raport dla autora (krok 7 przewodnika)
 
+Po ostatniej bramce z kodem 0, a przed raportem, zawsze uruchamiamy kontrolę wydania w przeglądarce (`kurs/README.md`, „Kontrola wydania w przeglądarce”). Trwa około dwóch minut i sprawdza commit `HEAD` gałęzi SYNC:
+
+```bash
+PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 uv run --no-project --with playwright==1.63.0 python kurs/tools/sprawdz_wydanie.py --python D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe
+```
+
+- Kod 0: tabelę podsumowania narzędzia przenosimy do raportu, a jego uwagi (np. niedostępne zewnętrzne serwery czcionek) streszczamy jednym zdaniem.
+- Kod 1: każde zgłoszenie `BŁĄD` przenosimy do raportu z oceną przyczyny. Usterkę plików ćwiczeń zmienionych w tej synchronizacji (np. listy nakładki albo wiązania) poprawiamy na gałęzi SYNC i wracamy do punktu 3. Awarię kodu warstwy (hook, JavaScript, CSS warstwy) zgłaszamy jako zadanie dla gałęzi `platform/*`, a usterkę wynikającą ze zmiany książki (np. jej stylów, skryptów albo szablonów motywu) — jako usterkę książki do poprawy na `content/*`; w tych dwóch przypadkach plików nie poprawiamy, raport podaje kod 1, a o dalszym postępowaniu decyduje autor.
+- Kod 2: kontroli nie przeprowadzono (np. brak Playwright, Microsoft Edge albo wolnego portu z zakresu 8050–8069, albo błąd narzędzia). Raport podaje to wraz z przyczyną z wyniku narzędzia i przenosi listę kontrolną podglądu z `kurs/README.md` („Kontrola wydania w przeglądarce”), którą autor wykonuje w podglądzie na porcie 8002.
+
 Przed uruchomieniem podglądu sprawdzamy, czy port 8002 jest zajęty: `netstat -ano | grep -E ':8002 +[^ ]+ +LISTENING'`. Puste wyjście oznacza wolny port; wiersze w stanie `TIME_WAIT` po wcześniejszym podglądzie nie mają znaczenia. Jeśli port nasłuchuje, a serwer uruchomiła ta sesja (podgląd tej synchronizacji z katalogu ćwiczeń), zatrzymujemy go; w przeciwnym razie pytamy autora i portu nie zmieniamy. Następnie uruchamiamy w tle podgląd z katalogu ćwiczeń:
 
 ```bash
 PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002
 ```
 
-Raport przedstawiamy w odpowiedzi, nie w pliku, według wzoru (puste części wypełniamy słowem „brak”). Tabela „Przegląd aktywności” ma jeden wiersz dla każdej aktywności, której wpis w `kurs/aktualnosc.json` zmienia ta synchronizacja (`git diff origin/cwiczenia...SYNC -- kurs/aktualnosc.json`; jeden wiersz pliku odpowiada jednej aktywności), oraz dla każdej aktywności, której definicję zmieniono z innego powodu (np. wersję podniesioną po ustaleniu G5 albo G6), tak aby autor mógł porównać tabelę z różnicą pliku. Kolumna „Wpis” podaje „dodano”, „zmieniono”, „usunięto” albo „bez zmian”, a kolumna „Wersja” — „n (bez zmian)” albo „n → n+1”.
+Raport przedstawiamy w odpowiedzi, nie w pliku, według wzoru (puste części wypełniamy słowem „brak”).
+
+- Część „Strony z ćwiczeniami, których Markdown zmienia synchronizacja” wymienia strony wskazane polem `page` definicji w `activities/`, których plik `docs/<page>` jest wśród zmienionych plików z punktu 1.8. Zmiany wspólne, które dotyczą każdej strony (np. etykieta części w `nav` albo menu w belce), trafiają do części „Zmiany wspólne wydania kursowego” razem z wynikiem kontroli w przeglądarce.
+- Tabela „Przegląd aktywności” ma jeden wiersz dla każdej aktywności, której wpis w `kurs/aktualnosc.json` zmienia ta synchronizacja (`git diff origin/cwiczenia...SYNC -- kurs/aktualnosc.json`; jeden wiersz pliku odpowiada jednej aktywności), oraz dla każdej aktywności, której definicję zmieniono z innego powodu (np. wersję podniesioną po ustaleniu G5 albo G6), tak aby autor mógł porównać tabelę z różnicą pliku. Kolumna „Wpis” podaje „dodano”, „zmieniono”, „usunięto” albo „bez zmian”, a kolumna „Wersja” — „n (bez zmian)” albo „n → n+1”.
+- Część „Zmiany plików ćwiczeń poza definicjami aktywności” opisuje pozostałe zmiany ścieżek ćwiczeń na gałęzi SYNC po scaleniu książki (np. poprawkę listy w `mkdocs.kurs.yml` po ustaleniu G2 albo wersję w teście aktywności pilotażowych). Polecenie pomija definicje aktywności i `kurs/aktualnosc.json`, które opisuje tabela przeglądu, oraz `kurs/SYNC_LOG.md`, czyli dziennik tej synchronizacji.
 
 ```markdown
 ## Synchronizacja ćwiczeń z książką — DATA
 
 Gałąź `SYNC` od `origin/cwiczenia` (`<sha>`); scalono `origin/dev` (`<sha>`) commitem `<sha>`.
 
-**Zmiany książki** (`<poprzedni dev>..<nowy dev>`, <liczba> commitów):
+**Zmiany książki** (`<poprzedni dev>..<nowy dev>`, liczba commitów: <N>):
 - `<sha>` <temat commitu>
 
-Zmienione pliki: <podsumowanie `git diff --stat` z punktu 1.8>
+Zmienione pliki `docs/`, `mkdocs.yml` i `overrides/`: <podsumowanie `git diff --stat` z punktu 1.8>
 
-**Strony z ćwiczeniami, których dotyczą zmiany:**
+Pozostałe zmienione ścieżki książki: <lista `git diff --name-status` z punktu 1.8; przy `CLAUDE.md` wynik sprawdzenia tekstów aktywności>
+
+**Commity gałęzi SYNC** (`git log --oneline --first-parent origin/cwiczenia..SYNC`):
+- `<sha>` <temat commitu>
+
+**Strony z ćwiczeniami, których Markdown zmienia synchronizacja:**
 
 | Strona | Sekcja (nagłówek) | Aktywności | Zmiana w książce |
 |---|---|---|---|
+
+**Zmiany wspólne wydania kursowego** (`mkdocs.yml`, `overrides/`, `docs/stylesheets/`, `docs/javascripts/`; dotyczą każdej strony, także stron z ćwiczeniami): <lista z punktu 1.8 albo „brak”>; kontrola w przeglądarce: kod <0, 1 albo 2> (niżej)
+
+**Kontrola wydania w przeglądarce** (`kurs/tools/sprawdz_wydanie.py`, commit `<sha>`): kod <0, 1 albo 2>
+
+| Kontrola | jasny 1280 | ciemny 1280 | jasny 375 | ciemny 375 |
+|---|---|---|---|---|
+| <wiersz z tabeli narzędzia> | … | … | … | … |
+
+<przy kodzie 2 zamiast tabeli: przyczyna z wyniku narzędzia i lista kontrolna podglądu z `kurs/README.md`>
 
 **Zmienione wiązania (G3):**
 
@@ -137,7 +178,9 @@ Zmienione pliki: <podsumowanie `git diff --stat` z punktu 1.8>
 | Aktywność | Wpis | Decyzja | Wersja | Uzasadnienie |
 |---|---|---|---|---|
 
-**Usterki książki do poprawy na `content/*`:** <lista albo „brak”>
+**Zmiany plików ćwiczeń poza definicjami aktywności** (`git diff --stat <commit scalenia> SYNC -- . ':!activities' ':!kurs/aktualnosc.json' ':!kurs/SYNC_LOG.md'`): <pliki z opisem zmiany albo „brak”>
+
+**Usterki książki do poprawy na `content/*`:** <uwagi G7 `usterka książki:`, usterki z przeglądu G4 i z kontroli w przeglądarce albo „brak”>
 
 **Pliki nieśledzone w katalogu ćwiczeń:** <lista albo „brak”>
 
@@ -155,7 +198,7 @@ Zmienione pliki: <podsumowanie `git diff --stat` z punktu 1.8>
 Proszę o „akceptuję” albo o uwagi.
 ```
 
-Następnie czekamy na odpowiedź autora. Uwagi wprowadzamy na gałęzi SYNC (wyłącznie w plikach ćwiczeń), powtarzamy bramkę, a po zmianie aktywności z przeglądu G4 także zatwierdzenie aktualności; jeśli zmieniają się przy tym wiązania, decyzje albo wersje, poprawiamy wiersz dziennika (punkt 4). Potem przedstawiamy poprawiony raport i ponownie czekamy na „akceptuję”. Serwer podglądu działa do decyzji autora; jeśli sesja kończy się bez akceptacji, zatrzymujemy go przed jej zakończeniem, a gałąź SYNC pozostaje do kontynuacji (punkt 1.1).
+Następnie czekamy na odpowiedź autora. Uwagi wprowadzamy na gałęzi SYNC (wyłącznie w plikach ćwiczeń), powtarzamy bramkę i kontrolę wydania w przeglądarce, a po zmianie aktywności z przeglądu G4 także zatwierdzenie aktualności; jeśli zmieniają się przy tym wiązania, decyzje albo wersje, poprawiamy wiersz dziennika (punkt 4). Potem przedstawiamy poprawiony raport i ponownie czekamy na „akceptuję”. Serwer podglądu działa do decyzji autora; jeśli sesja kończy się bez akceptacji, zatrzymujemy go przed jej zakończeniem, a gałąź SYNC pozostaje do kontynuacji (punkt 1.1).
 
 ## 6. Po akceptacji (krok 8 przewodnika)
 
@@ -177,4 +220,4 @@ git branch -d SYNC
 
 Następnie zatrzymujemy serwer podglądu i podajemy autorowi skrót nowego `origin/cwiczenia`. Gałęzi SYNC nie wypychamy; jeśli jednak ją wypchnięto, usuwamy ją także w `origin` (`git push origin --delete SYNC`).
 
-Jeśli `git merge-base --is-ancestor` kończy się kodem 1, przewinięcie się nie udaje albo `git push` zostaje odrzucony, ponieważ na `cwiczenia` trafiła w międzyczasie inna zmiana, nie przebudowujemy gałęzi: `git fetch origin`, `git switch SYNC`, `git merge --no-ff origin/cwiczenia`, pełna bramka do kodu 0 (z przeglądem G4 i zatwierdzeniem, jeśli bramka go wymaga), krótkie uzupełnienie raportu i ponowne oczekiwanie na akceptację. Lokalna gałąź `cwiczenia` przewinięta przed odrzuconym wypchnięciem pozostaje przodkiem SYNC, więc po akceptacji przewija się ponownie. Konflikt w `kurs/aktualnosc.json` (git zgłasza go jako konflikt pliku binarnego) rozstrzygamy wyłącznie poleceniem `git checkout origin/cwiczenia -- kurs/aktualnosc.json` (pliku nie scalamy ręcznie, nie wybieramy fragmentów i nie usuwamy go), a po zatwierdzeniu scalenia przeglądamy ponownie wszystkie aktywności wskazane przez G4. Plik `kurs/aktualnosc.json` zapisuje odcisk treści książki, a nie definicji aktywności, dlatego przed tym przeglądem wypisujemy także pliki aktywności zmienione po drugiej stronie (`git diff --name-only SYNC^1...origin/cwiczenia -- activities`, gdzie `SYNC^1` to stan SYNC sprzed scalenia `origin/cwiczenia`). Każdą aktywność z tych plików, której sekcję przeglądaliśmy w tej synchronizacji, sprawdzamy ponownie wobec nowej treści książki i odnotowujemy w raporcie.
+Jeśli `git merge-base --is-ancestor` kończy się kodem 1, przewinięcie się nie udaje albo `git push` zostaje odrzucony, ponieważ na `cwiczenia` trafiła w międzyczasie inna zmiana, nie przebudowujemy gałęzi: `git fetch origin`, `git switch SYNC`, `git merge --no-ff origin/cwiczenia`, pełna bramka do kodu 0 (z przeglądem G4 i zatwierdzeniem, jeśli bramka go wymaga), kontrola wydania w przeglądarce (punkt 5), krótkie uzupełnienie raportu i ponowne oczekiwanie na akceptację. Lokalna gałąź `cwiczenia` przewinięta przed odrzuconym wypchnięciem pozostaje przodkiem SYNC, więc po akceptacji przewija się ponownie. Konflikt w `kurs/aktualnosc.json` (git zgłasza go jako konflikt pliku binarnego) rozstrzygamy wyłącznie poleceniem `git checkout origin/cwiczenia -- kurs/aktualnosc.json` (pliku nie scalamy ręcznie, nie wybieramy fragmentów i nie usuwamy go), a po zatwierdzeniu scalenia przeglądamy ponownie wszystkie aktywności wskazane przez G4. Plik `kurs/aktualnosc.json` zapisuje odcisk treści książki, a nie definicji aktywności, dlatego przed tym przeglądem wypisujemy także pliki aktywności zmienione po drugiej stronie (`git diff --name-only SYNC^1...origin/cwiczenia -- activities`, gdzie `SYNC^1` to stan SYNC sprzed scalenia `origin/cwiczenia`). Każdą aktywność z tych plików, której sekcję przeglądaliśmy w tej synchronizacji, sprawdzamy ponownie wobec nowej treści książki i odnotowujemy w raporcie.
