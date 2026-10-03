@@ -92,24 +92,25 @@ Bramka sprawdza wydanie kursowe wyłącznie buildem. Działanie wydania w przegl
 uv run --no-project --with playwright==1.63.0 python kurs/tools/sprawdz_wydanie.py --python D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe [--katalog-roboczy] [--zrzuty KATALOG]
 ```
 
-Narzędzie buduje wydanie kursowe z opcją `--strict` z czystego eksportu commitu `HEAD` (z opcją `--katalog-roboczy` z kopii katalogu roboczego razem z niezatwierdzonymi zmianami; to wynik roboczy), serwuje je statycznie na pierwszym wolnym porcie z zakresu 8050–8069 i w nowym kontekście przeglądarki Microsoft Edge (Playwright, kanał `msedge`) sprawdza tryb jasny i ciemny przy szerokości okna 1280 i 375 px:
+Narzędzie sprawdza repozytorium, w którym leży, niezależnie od katalogu bieżącego; względne ścieżki opcji `--python` i `--zrzuty` odnosi do katalogu bieżącego. Buduje wydanie kursowe z opcją `--strict` z czystego eksportu commitu `HEAD` (z opcją `--katalog-roboczy` z kopii katalogu roboczego razem z niezatwierdzonymi zmianami i plikami nieśledzonymi, bez ignorowanych; to wynik roboczy z kodem 3), serwuje je statycznie pod adresem 127.0.0.1 na pierwszym porcie z zakresu 8050–8069, którego nie zajmuje inne gniazdo pod żadnym adresem, i w nowym kontekście przeglądarki Microsoft Edge (Playwright, kanał `msedge`) sprawdza tryb jasny i ciemny przy szerokości okna 1280 i 375 px:
 
 - konsolę i sieć: brak błędów konsoli i błędów strony, nieudanych żądań i odpowiedzi HTTP o kodzie co najmniej 400; niepowodzenie żądania do innego serwera (np. czcionek) i ostrzeżenie konsoli spoza warstwy ćwiczeń narzędzie wypisuje jako uwagę;
 - menu części w belce nagłówka: każda część z `nav` jest widoczna w całości, nieprzycięta i niezasłonięta, a oznaczona jest część bieżącej strony;
 - brak poziomego przewijania strony;
 - strony z ćwiczeniami: dokładnie jeden slot, oczekiwaną liczbę wyrenderowanych aktywności, atrybut `data-activity-section` przy każdym powiązanym nagłówku i przy żadnym innym elemencie oraz wskaźniki postępu stron w nawigacji i sekcji w spisie treści (w wąskim oknie widoczne w szufladzie nawigacji);
 - wybrane strony bez ćwiczeń (strona główna, strony wejściowe części i rozdziałów ze stronami z ćwiczeniami): brak slotu, oznaczonych nagłówków i własnych wskaźników postępu;
-- skok do kotwicy każdej powiązanej sekcji, który kończy się pod przypiętą belką nagłówka;
+- po skoku do kotwicy każdej powiązanej sekcji jej nagłówek jest widoczny poniżej przypiętej belki nagłówka;
 - rozwiązanie jednego pytania `single_choice` na każdej stronie z ćwiczeniami poprawną odpowiedzią z definicji YAML: aktywność zostaje oznaczona jako wykonana, wskaźniki postępu pokazują nowy stan, a stan przetrwa przeładowanie strony;
 - nawigację natychmiastową (ang. *instant navigation*) z jednej strony z ćwiczeniami na drugą i dalej na stronę bez ćwiczeń: po każdym przejściu slot i wskaźniki postępu odpowiadają nowej stronie.
 
-Build ustawia `site_url` na adres serwera, tak jak `mkdocs serve` w podglądzie na porcie 8002: bez `site_url` Material nie przechwytuje odnośników nawigacją natychmiastową. Wynik podsumowuje tabela z kontrolami w wierszach i wariantami okna w kolumnach. Opcja `--zrzuty` zapisuje zrzuty ekranu sprawdzanych stron, szuflady nawigacji i rozwiązanego pytania.
+Build ustawia `site_url` na adres serwera, tak jak `mkdocs serve` w podglądzie na porcie 8002: bez `site_url` Material nie przechwytuje odnośników nawigacją natychmiastową. Wynik podsumowuje tabela z kontrolami w wierszach i wariantami okna w kolumnach. Opcja `--zrzuty` zapisuje zrzuty ekranu sprawdzanych stron, szuflady nawigacji i rozwiązanego pytania. Kontrola trwa zwykle około półtorej minuty. Gdy warstwa ćwiczeń raz nie zakończy pracy w ciągu 20 s, narzędzie skraca dalsze oczekiwania do 4 s, więc nawet przy niedziałającej warstwie kontrola kończy się po kilku minutach; każdą stronę, na której warstwa nie zdążyła, zgłasza jako błąd.
 
 | Kod | Znaczenie |
 |---|---|
-| 0 | wszystkie kontrole przeszły |
+| 0 | wszystkie kontrole przeszły dla commitu `HEAD`; wyłącznie ten wynik służy do odbioru i do raportu synchronizacji |
 | 1 | co najmniej jedna kontrola nie przeszła, także build `--strict` |
-| 2 | kontroli nie przeprowadzono: brak Playwright albo Microsoft Edge, interpretera z pakietami książki, repozytorium git lub wolnego portu w zakresie 8050–8069 albo błąd samego narzędzia |
+| 2 | kontroli nie przeprowadzono: brak Playwright albo Microsoft Edge, interpretera z pakietami książki, repozytorium git z narzędziem lub wolnego portu w zakresie 8050–8069 albo błąd samego narzędzia |
+| 3 | kontrole przeszły dla katalogu roboczego (`--katalog-roboczy`); wynik roboczy, który nie służy do odbioru |
 
 Testy jednostkowe narzędzia (`kurs/tools/test_sprawdz_wydanie.py`) nie wymagają przeglądarki, dlatego uruchamia je etap G6 bramki. Samą kontrolę uruchamiamy po każdej zmianie JavaScript, CSS albo szablonów motywu w warstwie ćwiczeń oraz w każdej synchronizacji (krok 7). Nie ocenia ona estetyki (np. kolorów i odstępów), dlatego nowy wygląd oglądamy dodatkowo w podglądzie na porcie 8002.
 

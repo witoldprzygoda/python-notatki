@@ -116,11 +116,13 @@ Zatwierdzamy go („Log the sync with dev (DATA)”) i ostatni raz uruchamiamy p
 
 ## 5. Raport dla autora (krok 7 przewodnika)
 
-Po ostatniej bramce z kodem 0, a przed raportem, zawsze uruchamiamy kontrolę wydania w przeglądarce (`kurs/README.md`, „Kontrola wydania w przeglądarce”). Trwa około dwóch minut i sprawdza commit `HEAD` gałęzi SYNC:
+Po ostatniej bramce z kodem 0, a przed raportem, zawsze uruchamiamy kontrolę wydania w przeglądarce (`kurs/README.md`, „Kontrola wydania w przeglądarce”). Sprawdza ona commit `HEAD` gałęzi SYNC i trwa zwykle około półtorej minuty, a gdy warstwa ćwiczeń nie działa — kilka minut. Domyślny limit czasu narzędzia Bash (2 minuty) nie wystarcza, dlatego polecenie uruchamiamy z limitem 600000 ms albo w tle (`run_in_background`) i czekamy na jego zakończenie:
 
 ```bash
 PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 uv run --no-project --with playwright==1.63.0 python kurs/tools/sprawdz_wydanie.py --python D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe
 ```
+
+Do raportu służy wyłącznie przebieg bez opcji `--katalog-roboczy`, która daje wynik roboczy (kod 3).
 
 - Kod 0: tabelę podsumowania narzędzia przenosimy do raportu, a jego uwagi (np. niedostępne zewnętrzne serwery czcionek) streszczamy jednym zdaniem.
 - Kod 1: każde zgłoszenie `BŁĄD` przenosimy do raportu z oceną przyczyny. Usterkę plików ćwiczeń, którą usuwa poprawka na gałęzi SYNC — w nakładce `mkdocs.kurs.yml` (listy, `watch`) albo w wiązaniach, także gdy wynika ze zmiany książki (np. pozycja usunięta z listy książki) — poprawiamy na gałęzi SYNC i wracamy do punktu 3. Awarię kodu warstwy (hook, JavaScript, CSS warstwy) zgłaszamy jako zadanie dla gałęzi `platform/*`, a usterkę samej książki (np. jej stylów, skryptów albo szablonów motywu) — jako usterkę książki do poprawy na `content/*`; w tych dwóch przypadkach plików nie poprawiamy, raport podaje kod 1, a o dalszym postępowaniu decyduje autor.

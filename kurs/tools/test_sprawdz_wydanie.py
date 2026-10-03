@@ -5,18 +5,21 @@ Etap G6 bramki uruchamia je razem z testami bramki:
     python -m unittest discover -s kurs/tools -p "test_*.py"
 
 Testy sprawdzają logikę narzędzia bez przeglądarki: plan kontroli z nav
-i definicji aktywności, ocenę stanu strony, zdarzenia konsoli i sieci, wybór
-portu i tabelę podsumowania. Same kontrole w przeglądarce wymagają Playwright
+i definicji aktywności (także odczytany interpreterem z MkDocs), ocenę stanu
+strony, zdarzenia konsoli i sieci, wybór portu, kopię katalogu roboczego
+i tabelę podsumowania. Same kontrole w przeglądarce wymagają Playwright
 i Microsoft Edge (kurs/README.md, „Kontrola wydania w przeglądarce”).
 """
 
 from __future__ import annotations
 
 import functools
+import importlib.util
 import os
 import socket
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -87,6 +90,19 @@ DEFINITIONS = [
 ]
 FEATURES = ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky"]
 DATA = {"nav": NAV, "use_directory_urls": True, "features": FEATURES, "definitions": DEFINITIONS}
+GIT_IDENTITY = {
+    "GIT_AUTHOR_NAME": "Kontrola",
+    "GIT_AUTHOR_EMAIL": "kontrola@example.invalid",
+    "GIT_COMMITTER_NAME": "Kontrola",
+    "GIT_COMMITTER_EMAIL": "kontrola@example.invalid",
+}
+
+
+def write_files(root: Path, files: dict[str, str]) -> None:
+    for name, content in files.items():
+        target = root / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content, encoding="utf-8", newline="\n")
 
 
 class ImportTest(unittest.TestCase):
@@ -365,8 +381,53 @@ class PageCheckTest(unittest.TestCase):
                 "wskaźnik postępu przy sekcjach bez ćwiczeń: #petla-while",
                 "wskaźnik postępu bieżącej strony w nawigacji jest niewidoczny",
                 "wskaźnik postępu sekcji #petla-for w spisie treści jest niewidoczny",
-                "wskaźnik postępu sekcji #iteratory w spisie treści jest niewidoczny",
             ],
+        )
+
+    def test_missing_rail_is_not_reported_again_as_hidden(self) -> None:
+        state = self.good_state()
+        state["navLinks"] = [
+            link for link in state["navLinks"]
+            if link["key"] != self.key
+        ]
+        state["tocLinks"] = [toc("petla-for")]
+
+        found = self.check(state)["wskazniki"]
+
+        self.assertEqual(
+            found,
+            [
+                "brak wskaźnika postępu bieżącej strony w nawigacji",
+                "brak wskaźnika postępu sekcji #iteratory w spisie treści",
+            ],
+        )
+
+    def test_drawer_reports_only_rails_that_exist_elsewhere_on_the_page(self) -> None:
+        state = self.good_state()
+        shown = {"present": True, "visible": True}
+        good = {"page": shown, "sections": {"petla-for": shown, "iteratory": shown}}
+        bad = {
+            "page": {"present": True, "visible": False},
+            "sections": {
+                "petla-for": {"present": False, "visible": False},
+                "iteratory": {"present": True, "visible": False},
+            },
+        }
+        absent = {"present": False, "visible": False}
+        bare = dict(state, navLinks=[], tocLinks=[])
+
+        self.assertEqual(sw.drawer_problems(good, state, self.key), [])
+        self.assertEqual(
+            sw.drawer_problems(bad, state, self.key),
+            [
+                "w szufladzie nawigacji wskaźnik postępu bieżącej strony jest niewidoczny",
+                "w szufladzie nawigacji brak wskaźnika postępu sekcji #petla-for",
+                "w szufladzie nawigacji wskaźnik postępu sekcji #iteratory jest niewidoczny",
+            ],
+        )
+        self.assertEqual(
+            sw.drawer_problems({"page": absent, "sections": {"petla-for": absent}}, bare, self.key),
+            [],
         )
 
     def test_narrow_window_leaves_visibility_to_the_drawer_check(self) -> None:
@@ -460,9 +521,17 @@ class ReportTest(unittest.TestCase):
             sw.verdict(report, "abcdef0123", False),
             (sw.EXIT_OK, "Wynik: kontrola wydania przeszła dla commitu abcdef0."),
         )
-        self.assertIn("katalogu roboczego", sw.verdict(report, "abcdef0123", True)[1])
+        self.assertEqual(
+            sw.verdict(report, "abcdef0123", True),
+            (
+                sw.EXIT_PARTIAL,
+                "Wynik: kontrola wydania przeszła dla katalogu roboczego; to wynik roboczy, "
+                "który nie służy do odbioru (kod 3).",
+            ),
+        )
         report.build_failed = True
         self.assertEqual(sw.verdict(report, "abcdef0123", False)[0], sw.EXIT_FAILED)
+        self.assertEqual(sw.verdict(report, "abcdef0123", True)[0], sw.EXIT_FAILED)
         self.assertIn("(build --strict)", sw.verdict(report, "abcdef0123", False)[1])
 
 
@@ -473,24 +542,168 @@ class PortTest(unittest.TestCase):
                 raise OSError("zajęty")
             return f"serwer {port}"
 
-        self.assertEqual(sw.bind_first_free(sw.PORTS, factory), (8052, "serwer 8052"))
-        self.assertIsNone(sw.bind_first_free(range(8050, 8052), factory))
+        free = functools.partial(sw.bind_first_free, taken=lambda port: False)
 
-    def test_port_used_by_another_socket_is_not_shared(self) -> None:
-        with socket.socket() as other:
-            other.bind(("127.0.0.1", 0))
-            other.listen()
-            port = other.getsockname()[1]
+        self.assertEqual(free(sw.PORTS, factory), (8052, "serwer 8052"))
+        self.assertIsNone(free(range(8050, 8052), factory))
 
-            bound = sw.bind_first_free([port], functools.partial(sw.make_server, Path(".")))
+    def test_taken_port_is_skipped_before_binding(self) -> None:
+        tried = []
 
-        self.assertIsNone(bound)
+        def factory(port: int) -> str:
+            tried.append(port)
+            return f"serwer {port}"
+
+        bound = sw.bind_first_free([1, 2, 3], factory, taken=lambda port: port < 3)
+
+        self.assertEqual(bound, (3, "serwer 3"))
+        self.assertEqual(tried, [3])
+
+    def test_port_held_by_another_socket_on_any_address_is_skipped(self) -> None:
+        # Gniazdo pod adresem wieloznacznym (0.0.0.0, :: z obsługą IPv4, jak
+        # python -m http.server) nie blokuje w Windows powiązania z 127.0.0.1;
+        # bez próby port_taken serwer narzędzia przejąłby jego ruch.
+        cases = [("127.0.0.1", socket.AF_INET, None), ("0.0.0.0", socket.AF_INET, None)]
+        if socket.has_ipv6:
+            cases += [("::", socket.AF_INET6, 0), ("::1", socket.AF_INET6, None)]
+        for address, family, v6only in cases:
+            with self.subTest(address=address), socket.socket(family) as other:
+                if v6only is not None:
+                    other.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, v6only)
+                try:
+                    other.bind((address, 0))
+                except OSError as error:
+                    self.skipTest(f"adres {address} niedostępny: {error}")
+                other.listen()
+                port = other.getsockname()[1]
+
+                self.assertTrue(sw.port_taken(port))
+                self.assertIsNone(
+                    sw.bind_first_free([port], functools.partial(sw.make_server, Path(".")))
+                )
+
+    def test_released_port_is_free(self) -> None:
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            port = probe.getsockname()[1]
+
+        self.assertFalse(sw.port_taken(port))
+        bound = sw.bind_first_free([port], functools.partial(sw.make_server, Path(".")))
+        self.assertIsNotNone(bound)
+        bound[1].server_close()
 
     def test_ports_and_slugs(self) -> None:
         self.assertEqual((sw.PORTS.start, sw.PORTS.stop), (8050, 8070))
         self.assertEqual(sw.slug(""), "strona-glowna")
         self.assertEqual(sw.slug("04-sterowanie/petle/"), "04-sterowanie_petle")
         self.assertEqual(sw.slug("a/b.html"), "a_b")
+
+
+class InterpreterPathTest(unittest.TestCase):
+    def test_relative_paths_are_fixed_before_the_tool_changes_directory(self) -> None:
+        relative = os.path.join("srodowisko", "Scripts", "python.exe")
+
+        self.assertEqual(sw.interpreter_path("python"), Path("python"))
+        self.assertEqual(sw.interpreter_path(relative), Path(os.path.abspath(relative)))
+        self.assertTrue(sw.interpreter_path("./python").is_absolute())
+
+
+@unittest.skipUnless(
+    importlib.util.find_spec("mkdocs") and importlib.util.find_spec("yaml"),
+    "odczyt planu wymaga MkDocs i PyYAML (środowisko książki, etap G6)",
+)
+class ReadPlanTest(unittest.TestCase):
+    def test_plan_comes_from_the_inherited_config_and_the_definitions(self) -> None:
+        files = {
+            "mkdocs.yml": (
+                "site_name: Test\nuse_directory_urls: false\n"
+                "theme:\n  name: mkdocs\n  features:\n    - navigation.tabs\n"
+                "nav:\n  - Strona główna: index.md\n  - Część:\n      - Rozdział:\n"
+                "          - Wprowadzenie: r/index.md\n          - Strona: r/strona.md\n"
+            ),
+            "mkdocs.kurs.yml": (
+                "INHERIT: mkdocs.yml\ntheme:\n  features:\n    - navigation.instant\n"
+                "    - navigation.tabs\n    - navigation.tabs.sticky\n"
+            ),
+            "activities/r/strona.yaml": (
+                "page: r/strona.md\nslot_id: strona-activities\nactivities:\n"
+                "  - activity_id: pytanie\n    type: single_choice\n    section_id: sekcja\n"
+                "    correct_option_id: b\n    options:\n      - option_id: a\n"
+                "      - option_id: b\n"
+                "  - activity_id: potwierdzenie\n    type: acknowledgement\n"
+                "    section_id: null\n"
+            ),
+            "activities/lista.yaml": "- definicja w postaci listy jest pomijana\n",
+        }
+        with tempfile.TemporaryDirectory(prefix="kurs-wydanie-test-") as directory:
+            tree, work = Path(directory) / "drzewo", Path(directory) / "praca"
+            write_files(tree, files)
+            work.mkdir()
+
+            plan = sw.read_plan(Path(sys.executable), tree, work)
+
+        (page,) = plan.exercise_pages
+        self.assertEqual((page.src, page.url, page.slot_id),
+                         ("r/strona.md", "r/strona.html", "strona-activities"))
+        self.assertEqual(
+            page.activities,
+            [
+                sw.Activity("pytanie", "single_choice", "sekcja", "b", ("a", "b")),
+                sw.Activity("potwierdzenie", "acknowledgement", None, None, ()),
+            ],
+        )
+        self.assertEqual(plan.plain_pages, ["index.md", "r/index.md"])
+        self.assertEqual(plan.parts, [("Część", "r/index.md")])
+        self.assertTrue(plan.pill_menu)  # cechy motywu z nakładki zastępują cechy książki
+        self.assertEqual(plan.route, ("r/index.md", "r/strona.md", "r/index.md"))
+        self.assertEqual(plan.urls["index.md"], "index.html")
+
+    def test_failed_reading_is_reported(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="kurs-wydanie-test-") as directory:
+            tree, work = Path(directory) / "drzewo", Path(directory) / "praca"
+            write_files(tree, {"mkdocs.kurs.yml": "INHERIT: brak.yml\n"})
+            work.mkdir()
+
+            with self.assertRaises(RuntimeError) as raised:
+                sw.read_plan(Path(sys.executable), tree, work)
+
+        self.assertIn("odczyt nav i definicji aktywności nie powiódł się", str(raised.exception))
+
+
+class CopyWorkingTreeTest(unittest.TestCase):
+    def git(self, repo: Path, *args: str) -> None:
+        subprocess.run(
+            ["git", "-c", "core.autocrlf=false", *args], cwd=repo, check=True,
+            capture_output=True, env={**os.environ, **GIT_IDENTITY}, stdin=subprocess.DEVNULL,
+        )
+
+    def test_copy_holds_changes_and_untracked_files_but_no_ignored_ones(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="kurs-wydanie-test-") as directory:
+            repo, target = Path(directory) / "repo", Path(directory) / "kopia"
+            write_files(repo, {
+                ".gitignore": "*.log\n", "a.txt": "a\n", "b.txt": "b\n", "e.txt": "e\n",
+                "katalog/ą.txt": "ą\n",
+            })
+            self.git(repo, "init", "-q")
+            self.git(repo, "add", "--all")
+            self.git(repo, "commit", "-q", "-m", "Start")
+            write_files(repo, {"b.txt": "b zmienione\n", "c.txt": "c\n", "d.log": "d\n"})
+            (repo / "e.txt").unlink()
+            previous = os.getcwd()
+            os.chdir(repo)
+            try:
+                sw.copy_working_tree(target)
+            finally:
+                os.chdir(previous)
+
+            copied = sorted(
+                path.relative_to(target).as_posix() for path in target.rglob("*")
+                if path.is_file()
+            )
+            changed = (target / "b.txt").read_text(encoding="utf-8")
+
+        self.assertEqual(copied, [".gitignore", "a.txt", "b.txt", "c.txt", "katalog/ą.txt"])
+        self.assertEqual(changed, "b zmienione\n")
 
 
 if __name__ == "__main__":

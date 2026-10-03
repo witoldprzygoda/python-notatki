@@ -11,14 +11,18 @@ dostarcza Playwright, a build wykonuje interpreter środowiska książki
 --python           interpreter z zależnościami książki (mkdocs-material), którym
                    budujemy wydanie i odczytujemy definicje aktywności i nav.
 --katalog-roboczy  buduje kopię katalogu roboczego razem z niezatwierdzonymi
-                   i nieśledzonymi plikami zamiast commitu HEAD (pętla robocza).
+                   zmianami i plikami nieśledzonymi (bez ignorowanych) zamiast
+                   commitu HEAD (pętla robocza, wynik roboczy z kodem 3).
 --zrzuty KATALOG   zapisuje zrzuty ekranu sprawdzanych stron.
 
-Narzędzie buduje wydanie kursowe (mkdocs.kurs.yml) z opcją --strict z czystego
-eksportu commitu HEAD, serwuje je statycznie na pierwszym wolnym porcie
-z zakresu 8050–8069 i sprawdza w Microsoft Edge (Playwright, kanał msedge),
-w nowym kontekście przeglądarki, w trybie jasnym i ciemnym, przy szerokości
-okna 1280 i 375 px:
+Narzędzie sprawdza repozytorium, w którym leży (katalog dwa poziomy nad
+kurs/tools), niezależnie od katalogu bieżącego; względne ścieżki opcji
+--python i --zrzuty odnosi do katalogu bieżącego. Buduje wydanie kursowe
+(mkdocs.kurs.yml) z opcją --strict z czystego eksportu commitu HEAD, serwuje
+je statycznie pod adresem 127.0.0.1 na pierwszym porcie z zakresu 8050–8069,
+którego nie zajmuje inne gniazdo pod żadnym adresem, i sprawdza w Microsoft
+Edge (Playwright, kanał msedge), w nowym kontekście przeglądarki, w trybie
+jasnym i ciemnym, przy szerokości okna 1280 i 375 px:
   - konsola i sieć: brak błędów konsoli i błędów strony, nieudanych żądań
     i odpowiedzi HTTP o kodzie co najmniej 400 (niepowodzenia żądań do innych
     serwerów, np. czcionek, i ostrzeżenia spoza warstwy ćwiczeń są uwagami);
@@ -34,7 +38,8 @@ okna 1280 i 375 px:
   - wybrane strony bez ćwiczeń (strona główna, strony wejściowe części
     i rozdziałów ze stronami z ćwiczeniami): brak slotu, oznaczonych
     nagłówków i własnych wskaźników postępu;
-  - skok do kotwicy każdej powiązanej sekcji kończy się pod przypiętą belką;
+  - po skoku do kotwicy każdej powiązanej sekcji jej nagłówek jest widoczny
+    poniżej przypiętej belki nagłówka;
   - rozwiązanie jednego pytania single_choice na każdej stronie z ćwiczeniami
     (poprawna odpowiedź z definicji YAML) oznacza je jako wykonane, wskaźniki
     postępu pokazują nowy stan, a stan przetrwa przeładowanie strony;
@@ -49,12 +54,20 @@ interpreter --python, więc narzędzie wymaga wyłącznie biblioteki standardowe
 i Playwright. Moduł playwright importuje dopiero przy uruchomieniu kontroli,
 dzięki czemu testy jednostkowe działają w środowisku książki bez Playwright.
 
+Gdy warstwa ćwiczeń raz nie zakończy pracy w ciągu 20 s, narzędzie skraca
+dalsze oczekiwania do kilku sekund, aby niedziałająca warstwa nie wydłużała
+kontroli do kilkunastu minut; każda strona, na której warstwa nie zdążyła,
+pozostaje błędem.
+
 Kod wyjścia:
-  0  wszystkie kontrole przeszły;
+  0  wszystkie kontrole przeszły dla commitu HEAD (wynik do odbioru);
   1  co najmniej jedna kontrola nie przeszła (także build --strict);
   2  kontroli nie można było przeprowadzić: brak Playwright albo Microsoft
-     Edge, interpretera --python z pakietami książki, repozytorium git lub
-     wolnego portu w zakresie 8050–8069, albo błąd samego narzędzia.
+     Edge, interpretera --python z pakietami książki, repozytorium git
+     z narzędziem lub wolnego portu w zakresie 8050–8069, albo błąd samego
+     narzędzia;
+  3  kontrole przeszły dla katalogu roboczego (--katalog-roboczy); to wynik
+     roboczy, który nie służy do odbioru.
 """
 
 from __future__ import annotations
@@ -81,6 +94,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gate  # noqa: E402  (polecenia git i eksport commitu, wspólne z bramką)
 
 PORTS = range(8050, 8070)
+# Katalog roboczy repozytorium, w którym leży narzędzie (<katalog>/kurs/tools).
+TOOL_ROOT = Path(__file__).resolve().parents[2]
 PLAYWRIGHT = "playwright==1.63.0"
 CHECK_CONFIG = "mkdocs.sprawdz-wydanie.yml"
 COMMAND = (
@@ -90,6 +105,9 @@ COMMAND = (
 NAVIGATION_TIMEOUT = 30_000  # ms na wczytanie strony
 LAYER_TIMEOUT = 20_000  # ms na zakończenie pracy warstwy ćwiczeń po wczytaniu
 ACTION_TIMEOUT = 10_000  # ms na pojedynczą akcję (kliknięcie, ukończenie)
+# Po pierwszym przekroczeniu LAYER_TIMEOUT warstwa uchodzi za niedziałającą:
+# każde dalsze oczekiwanie na nią i na akcję trwa najwyżej tyle ms.
+STALLED_TIMEOUT = 4_000
 BUILD_TIMEOUT = 900  # s na build wydania
 WIDE = 1220  # px: od 76.25em Material pokazuje oba panele boczne
 LAYER_SCRIPTS = "/javascripts/interactive/"
@@ -97,6 +115,7 @@ LAYER_SCRIPTS = "/javascripts/interactive/"
 EXIT_OK = 0
 EXIT_FAILED = 1
 EXIT_ENVIRONMENT = 2
+EXIT_PARTIAL = 3
 
 
 @dataclass(frozen=True)
@@ -494,8 +513,11 @@ def check_exercise_page(
     rails = found["wskazniki"]
     rails.extend(nav_rail_problems(state, exercise_keys, page_key))
     toc = state.get("tocLinks") or []
+    present = []  # sekcje, których wskaźnik istnieje w którymś spisie treści
     for section_id in page.sections:
-        if not any(link["section"] == section_id and link.get("rail") for link in toc):
+        if any(link["section"] == section_id and link.get("rail") for link in toc):
+            present.append(section_id)
+        else:
             rails.append(f"brak wskaźnika postępu sekcji #{section_id} w spisie treści")
     stray = sorted({
         link["section"] for link in toc
@@ -507,12 +529,15 @@ def check_exercise_page(
             + ", ".join(f"#{section_id}" for section_id in stray)
         )
     if wide:
-        if not any(
-            link["key"] == page_key and link.get("railShown")
-            for link in state.get("navLinks") or []
-        ):
+        # Widoczność oceniamy wyłącznie dla istniejących wskaźników: brak
+        # wskaźnika zgłosiły już kontrole wyżej.
+        current = [
+            link for link in state.get("navLinks") or []
+            if link["key"] == page_key and link.get("rail")
+        ]
+        if current and not any(link.get("railShown") for link in current):
             rails.append("wskaźnik postępu bieżącej strony w nawigacji jest niewidoczny")
-        for section_id in page.sections:
+        for section_id in present:
             if not any(
                 link["section"] == section_id and link.get("secondary") and link.get("railShown")
                 for link in toc
@@ -521,6 +546,38 @@ def check_exercise_page(
                     f"wskaźnik postępu sekcji #{section_id} w spisie treści jest niewidoczny"
                 )
     return found
+
+
+def drawer_problems(seen: dict, state: dict, page_key: str) -> list[str]:
+    """Szuflada nawigacji w wąskim oknie: wskaźniki bieżącej strony i sekcji.
+
+    seen to wynik DRAWER_JS (obecność i widoczność wskaźników w szufladzie),
+    a state — stan strony, który oceniła check_exercise_page. Wskaźnika, którego
+    nie ma w żadnym miejscu strony, nie zgłaszamy ponownie: jego brak zgłosiła
+    już tamta kontrola. Zgłaszamy wskaźnik nieobecny w samej szufladzie albo
+    w niej niewidoczny.
+    """
+    problems: list[str] = []
+    page_rail = any(
+        link["key"] == page_key and link.get("rail") for link in state.get("navLinks") or []
+    )
+    railed = {link["section"] for link in state.get("tocLinks") or [] if link.get("rail")}
+    page = seen.get("page")
+    if page is not None and page_rail:
+        if not page.get("present"):
+            problems.append("w szufladzie nawigacji brak wskaźnika postępu bieżącej strony")
+        elif not page.get("visible"):
+            problems.append("w szufladzie nawigacji wskaźnik postępu bieżącej strony jest niewidoczny")
+    for section_id, found in (seen.get("sections") or {}).items():
+        if section_id not in railed:
+            continue
+        if not found.get("present"):
+            problems.append(f"w szufladzie nawigacji brak wskaźnika postępu sekcji #{section_id}")
+        elif not found.get("visible"):
+            problems.append(
+                f"w szufladzie nawigacji wskaźnik postępu sekcji #{section_id} jest niewidoczny"
+            )
+    return problems
 
 
 def check_plain_page(state: dict, page_key: str, exercise_keys: set[str]) -> dict[str, list[str]]:
@@ -598,6 +655,7 @@ class Report:
         self.notes: list[str] = []
         self.build = "nie uruchomiono"
         self.build_failed = False
+        self.stalled = False  # warstwa raz nie zakończyła pracy w LAYER_TIMEOUT
 
     def mark(self, check: str, variant: Variant) -> None:
         self.ran.add((check, variant.label))
@@ -651,18 +709,28 @@ def summary_lines(report: Report, variants=VARIANTS) -> list[str]:
 
 
 def verdict(report: Report, head: str, working_tree: bool) -> tuple[int, str]:
+    """Kod wyjścia i zdanie podsumowania; wynik roboczy nigdy nie daje kodu 0."""
     failed = report.failed()
     if failed:
         return EXIT_FAILED, f"Wynik: kontrola wydania nie przeszła ({', '.join(failed)})."
-    state = "katalogu roboczego (wynik roboczy)" if working_tree else f"commitu {head[:7]}"
-    return EXIT_OK, f"Wynik: kontrola wydania przeszła dla {state}."
+    if working_tree:
+        return EXIT_PARTIAL, (
+            "Wynik: kontrola wydania przeszła dla katalogu roboczego; to wynik roboczy, "
+            "który nie służy do odbioru (kod 3)."
+        )
+    return EXIT_OK, f"Wynik: kontrola wydania przeszła dla commitu {head[:7]}."
 
 
 # ---------------------------------------------------------------- serwer i build
 
 
 class StaticServer(ThreadingHTTPServer):
-    """Serwer plików statycznych, który nie dzieli portu z innym procesem."""
+    """Serwer plików statycznych pod adresem 127.0.0.1.
+
+    Wyłączne powiązanie (SO_EXCLUSIVEADDRUSE) odrzuca port, który inne gniazdo
+    zajmuje pod adresem 127.0.0.1, lecz w Windows nie port zajęty pod adresem
+    wieloznacznym; taki port pomija wcześniej port_taken (bind_first_free).
+    """
 
     allow_reuse_address = False
     daemon_threads = True
@@ -696,9 +764,49 @@ class QuietHandler(SimpleHTTPRequestHandler):
         pass
 
 
-def bind_first_free(ports, factory):
-    """Wiąże serwer z pierwszym wolnym portem; zwraca (port, serwer) albo None."""
+def port_taken(port: int) -> bool:
+    """Czy port zajmuje inne gniazdo pod dowolnym adresem IPv4 albo IPv6.
+
+    W Windows serwer narzędzia powiązałby się z 127.0.0.1 także wtedy, gdy inny
+    proces nasłuchuje na tym samym porcie pod adresem wieloznacznym (0.0.0.0
+    albo ::, którego domyślnie używa np. python -m http.server), i przejąłby
+    jego ruch kierowany na 127.0.0.1. Dlatego port sprawdzamy próbnym,
+    wyłącznym powiązaniem z adresem wieloznacznym IPv4 oraz IPv6 obsługującym
+    także IPv4 (próba na samym 0.0.0.0 nie wykrywa gniazda na ::). Nieudane
+    powiązanie oznacza zajęty port; próbne gniazdo zamykamy od razu.
+    """
+    probes = [(socket.AF_INET, "0.0.0.0")]
+    if socket.has_ipv6:
+        probes.append((socket.AF_INET6, "::"))
+    for family, address in probes:
+        try:
+            probe = socket.socket(family, socket.SOCK_STREAM)
+        except OSError:
+            continue  # system bez obsługi tej rodziny adresów
+        with probe:
+            if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+                probe.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+            if family == socket.AF_INET6:
+                try:
+                    probe.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+                except OSError:
+                    pass  # próba obejmie wtedy wyłącznie IPv6
+            try:
+                probe.bind((address, port))
+            except OSError:
+                return True
+    return False
+
+
+def bind_first_free(ports, factory, taken=port_taken):
+    """Wiąże serwer z pierwszym wolnym portem; zwraca (port, serwer) albo None.
+
+    Port, który zajmuje inne gniazdo (taken), pomijamy, zanim factory spróbuje
+    powiązać z nim serwer.
+    """
     for port in ports:
+        if taken(port):
+            continue
         try:
             return port, factory(port)
         except OSError:
@@ -962,21 +1070,24 @@ async (id) => {
 
 DRAWER_JS = "({pageKey, sections}) => {" + KEY_JS + r"""
   const visible = (marker) => {
-    if (!marker) return false;
     const visual = marker.querySelector(".interactive-progress-rail__visual") || marker;
     const style = getComputedStyle(visual);
     const r = visual.getBoundingClientRect();
     return style.visibility !== "hidden" && style.display !== "none" && r.width > 0
       && r.height > 0 && r.left >= 0 && r.right <= innerWidth;
   };
-  const page = navEntries(pageKey).some(({element, key}) => key === pageKey
-    && visible(element.querySelector("[data-interactive-page-progress]")));
+  const found = (markers) => {
+    const present = markers.filter((marker) => marker !== null);
+    return {present: present.length > 0, visible: present.some(visible)};
+  };
+  const page = found(navEntries(pageKey).filter(({key}) => key === pageKey)
+    .map(({element}) => element.querySelector("[data-interactive-page-progress]")));
   const links = [...document.querySelectorAll(
     '.md-sidebar--primary [data-md-component="toc"] a[href]')];
   const result = {};
   for (const section of sections) {
-    result[section] = links.some((link) => sectionOf(link) === section
-      && visible(link.querySelector("[data-interactive-section-progress]")));
+    result[section] = found(links.filter((link) => sectionOf(link) === section)
+      .map((link) => link.querySelector("[data-interactive-section-progress]")));
   }
   return {page, sections: result};
 }
@@ -1049,7 +1160,7 @@ class VariantRun:
             device_scale_factor=1,
         )
         self.page = self.context.new_page()
-        self.page.set_default_timeout(ACTION_TIMEOUT)
+        self.page.set_default_timeout(STALLED_TIMEOUT if report.stalled else ACTION_TIMEOUT)
         self.page.set_default_navigation_timeout(NAVIGATION_TIMEOUT)
         self.where = "/"
         self.events: list[tuple[str, str, str, str | None]] = []
@@ -1124,8 +1235,9 @@ class VariantRun:
 
     def wait_ready(self, check: str, page: ExercisePage | None,
                    gone: ExercisePage | None = None) -> bool:
+        limit = STALLED_TIMEOUT if self.report.stalled else LAYER_TIMEOUT
         try:
-            self.page.wait_for_load_state("networkidle", timeout=LAYER_TIMEOUT)
+            self.page.wait_for_load_state("networkidle", timeout=limit)
         except self.timeout:
             pass  # o gotowości rozstrzyga warunek warstwy
         try:
@@ -1137,13 +1249,20 @@ class VariantRun:
                     "goneSlot": gone.slot_id if gone else None,
                     "pageKeys": sorted(self.exercise_keys),
                 },
-                timeout=LAYER_TIMEOUT,
+                timeout=limit,
             )
         except self.timeout:
             self.report.problem(
                 check, self.variant, self.where,
-                f"warstwa ćwiczeń nie zakończyła pracy w ciągu {LAYER_TIMEOUT // 1000} s",
+                f"warstwa ćwiczeń nie zakończyła pracy w ciągu {limit // 1000} s",
             )
+            if not self.report.stalled:
+                self.report.stalled = True
+                self.page.set_default_timeout(STALLED_TIMEOUT)
+                self.report.note(
+                    f"warstwa ćwiczeń nie zakończyła pracy w ciągu {LAYER_TIMEOUT // 1000} s; "
+                    f"dalsze oczekiwania kontroli skrócono do {STALLED_TIMEOUT // 1000} s"
+                )
             return False
         self.page.wait_for_timeout(300)
         return True
@@ -1191,7 +1310,7 @@ class VariantRun:
         self.anchors(page)
         self.solve(page)
         if not self.variant.wide:
-            self.drawer(page)
+            self.drawer(page, state)
 
     def anchors(self, page: ExercisePage) -> None:
         """Pierwszą kotwicę zawiera adres otwarcia strony, kolejne ustawiamy w location.hash."""
@@ -1263,28 +1382,23 @@ class VariantRun:
         for message in self.rails_problems(page, quiz, "po przeładowaniu"):
             problem(message)
 
-    def drawer(self, page: ExercisePage) -> None:
+    def drawer(self, page: ExercisePage, state: dict) -> None:
         """Wąskie okno: wskaźniki strony i sekcji widoczne w szufladzie nawigacji."""
         problem = functools.partial(self.report.problem, "wskazniki", self.variant, self.where)
+        key = self.key(page.src)
         try:
             self.open_drawer()
-            seen = self.page.evaluate(DRAWER_JS, {"pageKey": self.key(page.src), "sections": []})
-            if not seen["page"]:
-                problem("w szufladzie nawigacji wskaźnik postępu bieżącej strony jest niewidoczny")
+            seen = self.page.evaluate(DRAWER_JS, {"pageKey": key, "sections": []})
+            for message in drawer_problems(seen, state, key):
+                problem(message)
             self.shot(f"{slug(page.url)}-szuflada")
             toc = self.page.locator('.md-sidebar--primary label.md-nav__link[for="__toc"]')
             if page.sections and toc.count():
                 toc.first.click()
                 self.page.wait_for_timeout(600)
-                seen = self.page.evaluate(
-                    DRAWER_JS, {"pageKey": self.key(page.src), "sections": page.sections}
-                )
-                for section_id, visible in seen["sections"].items():
-                    if not visible:
-                        problem(
-                            f"w szufladzie nawigacji wskaźnik postępu sekcji #{section_id} "
-                            "jest niewidoczny"
-                        )
+                seen = self.page.evaluate(DRAWER_JS, {"pageKey": key, "sections": page.sections})
+                for message in drawer_problems({"sections": seen["sections"]}, state, key):
+                    problem(message)
                 self.shot(f"{slug(page.url)}-szuflada-spis")
         except self.error as error:
             problem(f"nie udało się otworzyć szuflady nawigacji ({first_line(error)})")
@@ -1404,6 +1518,19 @@ def environment_problem(message: str) -> int:
     return EXIT_ENVIRONMENT
 
 
+def interpreter_path(value: str) -> Path:
+    """Interpreter --python: ścieżkę względną odnosimy do katalogu bieżącego.
+
+    Samą nazwę programu (np. python) pozostawiamy wyszukiwaniu w PATH. Ścieżki
+    nie rozwiązujemy przez dowiązania symboliczne: interpreter środowiska
+    wirtualnego może być dowiązaniem do interpretera bazowego.
+    """
+    separators = [separator for separator in (os.sep, os.altsep) if separator]
+    if any(separator in value for separator in separators):
+        return Path(os.path.abspath(value))
+    return Path(value)
+
+
 def main(argv: list[str] | None = None) -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
@@ -1416,21 +1543,33 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--katalog-roboczy", action="store_true",
-        help="buduje kopię katalogu roboczego zamiast commitu HEAD (wynik roboczy)",
+        help="buduje kopię katalogu roboczego zamiast commitu HEAD (wynik roboczy, kod 3)",
     )
     parser.add_argument("--zrzuty", metavar="KATALOG", help="katalog na zrzuty ekranu")
     args = parser.parse_args(argv)
+    # Względne ścieżki z wiersza poleceń ustalamy przed przejściem do katalogu
+    # repozytorium, tak jak rozumie je wywołujący.
+    python = interpreter_path(args.python)
+    shots = Path(os.path.abspath(args.zrzuty)) if args.zrzuty else None
 
+    # Sprawdzamy repozytorium, w którym leży narzędzie, a nie katalog bieżący:
+    # wywołanie z innego katalogu roboczego nie może ocenić cudzego commitu.
     try:
+        os.chdir(TOOL_ROOT)
         root = Path(gate.git("rev-parse", "--show-toplevel").strip())
         head = gate.git("rev-parse", "HEAD").strip()
         branch = gate.git("rev-parse", "--abbrev-ref", "HEAD").strip()
+        own = os.path.samefile(root, TOOL_ROOT)
     except (gate.GateError, OSError) as error:
-        return environment_problem(f"Kontrola wymaga repozytorium git: {error}")
-    os.chdir(root)
-    print(f"Kontrola wydania kursowego w przeglądarce: {branch} @ {head[:7]}")
+        return environment_problem(
+            f"Kontrola wymaga repozytorium git, w którym leży narzędzie ({TOOL_ROOT}): {error}"
+        )
+    if not own:
+        return environment_problem(
+            f"Narzędzie nie leży w katalogu kurs/tools repozytorium {root}"
+        )
+    print(f"Kontrola wydania kursowego w przeglądarce: {branch} @ {head[:7]} ({root})")
 
-    python = Path(args.python)
     try:
         probe = run_python(python, "-c", "import mkdocs, material, yaml", cwd=root, timeout=120)
     except (OSError, subprocess.TimeoutExpired) as error:
@@ -1447,7 +1586,6 @@ def main(argv: list[str] | None = None) -> int:
     except ImportError:
         return environment_problem(f"Brak modułu playwright; uruchamiamy: {COMMAND}")
 
-    shots = Path(args.zrzuty).resolve() if args.zrzuty else None
     if shots:
         shots.mkdir(parents=True, exist_ok=True)
     report = Report()
@@ -1478,7 +1616,7 @@ def main(argv: list[str] | None = None) -> int:
                     tree = workdir / "drzewo"
                     copy_working_tree(tree)
                     print("Sprawdzany stan: katalog roboczy z niezatwierdzonymi zmianami "
-                          "(wynik roboczy)")
+                          "i plikami nieśledzonymi (wynik roboczy)")
                 else:
                     exported = gate.export_commit(head)
                     tree = exported / "drzewo"
