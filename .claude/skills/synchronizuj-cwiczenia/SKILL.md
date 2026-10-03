@@ -1,6 +1,6 @@
 ---
 name: synchronizuj-cwiczenia
-description: Synchronizuje projekt ćwiczeń (gałąź cwiczenia) z książką z origin/dev według kurs/README.md – scalenie na gałęzi sync/RRRR-MM-DD, bramka kurs/tools/gate.py z obsługą wiązań (G3) i przeglądem aktywności w sekcjach o zmienionej treści (G4), poprawki wyłącznie w plikach ćwiczeń, jednostronicowy raport dla autora i oczekiwanie na akceptację. Uruchamiany ręcznie w katalogu ../python-notatki-cwiczenia.
+description: Synchronizuje projekt ćwiczeń (gałąź cwiczenia) z książką z origin/dev według kurs/README.md — scalenie na gałęzi sync/RRRR-MM-DD, bramka kurs/tools/gate.py z obsługą wiązań (G3) i przeglądem aktywności w sekcjach o zmienionej treści (G4), poprawki wyłącznie w plikach ćwiczeń, jednostronicowy raport dla autora i oczekiwanie na akceptację. Uruchamiany ręcznie w katalogu ../python-notatki-cwiczenia.
 argument-hint: "[RRRR-MM-DD]"
 disable-model-invocation: true
 ---
@@ -67,7 +67,7 @@ Pełna bramka trwa około minuty. Czytamy cały wynik, nie tylko tabelę podsumo
 - **G4** (zmieniona treść sekcji, zmienione wiązanie, nowe lub usunięte aktywności). Dla każdego zgłoszenia:
     1. czytamy różnicę wypisaną przez G4, a gdy jest skrócona albo niejasna, pełne zmiany strony poleceniem `git diff …` podanym przez bramkę; czytamy też całą bieżącą sekcję w `docs/<strona>`;
     2. każdą wymienioną aktywność sprawdzamy względem nowej treści: polecenie (`prompt`), kod startowy (`starter_code`), oczekiwany wynik (`checker.expected_lines`), rozwiązanie wzorcowe i warianty, omówienie (`solution.discussion`), warianty odpowiedzi i `correct_option_id` (klucz odpowiedzi), informacje zwrotne (`feedback`) oraz blok `verify`; sprawdzamy także, czy terminy i zapis zgadzają się z książką i czy nowy przykład książki nie podaje gotowej odpowiedzi na pytanie;
-    3. dostosowujemy wyłącznie pliki ćwiczeń; `version` podnosimy o 1, gdy zmienia się polecenie, poprawna odpowiedź, checker albo inny element semantyczny, a poprawka kosmetyczna wersji nie zmienia;
+    3. dostosowujemy wyłącznie pliki ćwiczeń; `version` podnosimy o 1, gdy zmienia się polecenie, poprawna odpowiedź, checker albo inny element semantyczny, a poprawka kosmetyczna wersji nie zmienia; wersje aktywności pilotażowych utrwala test `test_pilot_manifest_emits_all_solutions_and_preserves_versions` w `tests/test_build_activities.py`, więc po podniesieniu wersji zmieniamy w nim oczekiwaną wartość w tym samym commicie;
     4. dla każdej aktywności zapisujemy decyzję: „bez zmian” z jednozdaniowym uzasadnieniem, „dostosowano” z opisem zmiany i wersją albo „do decyzji autora”;
     5. błąd w książce (np. wynik przykładu niezgodny z kodem, sprzeczne zdanie) opisujemy w raporcie jako usterkę do poprawy na `content/*`; aktywność dostosowujemy tylko na tyle, by nie opierała się na błędnym fragmencie.
 
@@ -79,7 +79,7 @@ Pełna bramka trwa około minuty. Czytamy cały wynik, nie tylko tabelę podsumo
 
     Sprawdzamy, że wypisane wpisy („dodano”, „zmieniono”, „usunięto”) odpowiadają przeglądowi, i zatwierdzamy `kurs/aktualnosc.json` („Record the review of sections changed in dev (DATA)”). Polecenie odmawia zapisu (kod 1), dopóki którekolwiek wiązanie jest zerwane; nie uruchamiamy go przed zakończeniem przeglądu.
 - **G5** (rozwiązanie albo blok `verify` nie daje oczekiwanego wyniku): poprawiamy aktywność tak, aby rozwiązanie wzorcowe i warianty wypisywały dokładnie `expected_lines`, a `starter_code` ich nie wypisywał; sprawdzenia nie osłabiamy.
-- **G6** (testy): awarię wynikającą z dostosowania ćwiczeń poprawiamy; awarię kodu warstwy (hook, JavaScript, bramka) zgłaszamy jako zadanie dla gałęzi `platform/*` i przerywamy.
+- **G6** (testy): test, który utrwala dane aktywności (np. wersje w `tests/test_build_activities.py`), aktualizujemy razem ze świadomą zmianą aktywności i odnotowujemy w raporcie; awarię kodu warstwy (hook, JavaScript, bramka) zgłaszamy jako zadanie dla gałęzi `platform/*` i przerywamy.
 - **G7** (buildy `--strict`): ostrzeżenie buildu książki (`mkdocs.yml`) jest usterką książki — przerywamy i zgłaszamy ją do poprawy na `content/*`; błąd wydania kursowego wynikający z wiązań poprawiamy jak w G3.
 
 ## 4. Dziennik i ostatnia bramka (krok 6 przewodnika)
@@ -140,7 +140,7 @@ Gałąź `SYNC` od `origin/cwiczenia` (`<sha>`); scalono `origin/dev` (`<sha>`) 
 Proszę o „akceptuję” albo o uwagi.
 ```
 
-Następnie czekamy na odpowiedź autora. Uwagi wprowadzamy na gałęzi SYNC (wyłącznie w plikach ćwiczeń), powtarzamy bramkę, a po zmianie aktywności z przeglądu G4 także zatwierdzenie aktualności; potem przedstawiamy poprawiony raport i ponownie czekamy na „akceptuję”.
+Następnie czekamy na odpowiedź autora. Uwagi wprowadzamy na gałęzi SYNC (wyłącznie w plikach ćwiczeń), powtarzamy bramkę, a po zmianie aktywności z przeglądu G4 także zatwierdzenie aktualności; potem przedstawiamy poprawiony raport i ponownie czekamy na „akceptuję”. Serwer podglądu działa do decyzji autora; jeśli sesja kończy się bez akceptacji, zatrzymujemy go przed jej zakończeniem, a gałąź SYNC pozostaje do kontynuacji (punkt 1.1).
 
 ## 6. Po akceptacji (krok 8 przewodnika)
 
