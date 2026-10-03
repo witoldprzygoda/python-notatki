@@ -250,6 +250,130 @@ class ListingTest(unittest.TestCase):
         self.assertTrue(gate.listing([f"p{i}" for i in range(13)]).endswith("i 5 kolejnych"))
 
 
+class OverlayListTest(unittest.TestCase):
+    """Etap G2: lista nakładki zaczyna się dokładnie od listy książki."""
+
+    BOOK = ["javascripts/naglowek.js", "javascripts/menu.js"]
+    OWN = {"path": "javascripts/interactive/bootstrap.js", "type": "module"}
+    WHERE = "lista 'extra_javascript' w mkdocs.kurs.yml"
+
+    def problems(self, overlay: list) -> list[str]:
+        return gate.list_problems("extra_javascript", overlay, self.BOOK)
+
+    def test_book_entries_first_and_then_own_entries_pass(self) -> None:
+        self.assertEqual(self.problems([*self.BOOK, self.OWN]), [])
+        self.assertEqual(self.problems(list(self.BOOK)), [])
+        self.assertEqual(gate.list_problems("extra_css", ["a.css"], []), [])
+
+    def test_missing_book_entry_keeps_the_message_of_the_stage(self) -> None:
+        problems = self.problems(["javascripts/naglowek.js", self.OWN])
+
+        self.assertEqual(
+            problems,
+            [f"{self.WHERE} zastępuje listę książki i pomija: ['javascripts/menu.js']"],
+        )
+
+    def test_book_entry_in_another_yaml_form_is_reported_as_changed(self) -> None:
+        mapping = {"path": "javascripts/naglowek.js"}
+
+        problems = self.problems([mapping, "javascripts/menu.js", self.OWN])
+
+        self.assertEqual(
+            problems,
+            [
+                f"{self.WHERE} zmienia postać pozycji książki: 'javascripts/naglowek.js' "
+                "→ {'path': 'javascripts/naglowek.js'}; pozycję przepisujemy z "
+                "mkdocs.yml dosłownie"
+            ],
+        )
+
+    def test_book_entries_in_another_order_are_reported(self) -> None:
+        problems = self.problems(["javascripts/menu.js", "javascripts/naglowek.js", self.OWN])
+
+        self.assertEqual(len(problems), 1, problems)
+        self.assertIn("w innej kolejności niż mkdocs.yml", problems[0])
+        self.assertIn(
+            "['javascripts/menu.js', 'javascripts/naglowek.js'] zamiast "
+            "['javascripts/naglowek.js', 'javascripts/menu.js']",
+            problems[0],
+        )
+
+    def test_own_entry_before_a_book_entry_is_reported(self) -> None:
+        problems = self.problems(["javascripts/naglowek.js", self.OWN, "javascripts/menu.js"])
+
+        self.assertEqual(len(problems), 1, problems)
+        self.assertIn(
+            f"pozycja nakładki {self.OWN!r} poprzedza pozycję książki 'javascripts/menu.js'",
+            problems[0],
+        )
+
+    def test_book_entry_repeated_after_the_prefix_is_reported(self) -> None:
+        problems = self.problems([*self.BOOK, self.OWN, "javascripts/naglowek.js"])
+
+        self.assertIn(
+            f"{self.WHERE} powtarza pozycje książki: ['javascripts/naglowek.js']", problems
+        )
+        self.assertTrue(any("poprzedza pozycję książki" in item for item in problems), problems)
+
+    def test_identity_covers_strings_paths_and_single_key_mappings(self) -> None:
+        self.assertEqual(gate.item_identity("a.js"), "a.js")
+        self.assertEqual(gate.item_identity({"path": "a.js", "type": "module"}), "a.js")
+        self.assertEqual(gate.item_identity({"toc": {"permalink": True}}), "toc")
+        self.assertIsNone(gate.item_identity({"a": 1, "b": 2}))
+        self.assertIsNone(gate.item_identity(5))
+
+    def test_lists_shared_with_the_book_are_found_at_every_level(self) -> None:
+        book = {"extra_css": ["a.css"], "theme": {"features": ["x"]}, "nav": ["i.md"]}
+        overlay = {
+            "INHERIT": "mkdocs.yml",
+            "hooks": ["h.py"],
+            "extra_css": ["a.css", "b.css"],
+            "theme": {"features": ["x", "y"]},
+        }
+
+        found = {key: base for key, _, base in gate.overlay_lists(overlay, book)}
+
+        self.assertEqual(found, {"extra_css": ["a.css"], "theme.features": ["x"]})
+
+
+class StageG2Test(unittest.TestCase):
+    def run_g2(self, book: str, overlay: str) -> gate.Stage:
+        with tempfile.TemporaryDirectory(prefix="kurs-gate-g2-") as directory:
+            root = Path(directory)
+            (root / gate.BOOK_CONFIG).write_text(book, encoding="utf-8")
+            (root / gate.COURSE_CONFIG).write_text(overlay, encoding="utf-8")
+            context = gate.Context(book="dev", head="0" * 40, tree=root)
+            with contextlib.redirect_stdout(io.StringIO()):
+                return gate.stage_g2(context)
+
+    def test_stage_checks_every_shared_list_and_names_them(self) -> None:
+        book = "extra_css:\n  - extra.css\nextra_javascript:\n  - naglowek.js\n"
+        good = (
+            "INHERIT: mkdocs.yml\nextra_css:\n  - extra.css\n  - interactive.css\n"
+            "extra_javascript:\n  - naglowek.js\n  - path: bootstrap.js\n    type: module\n"
+        )
+        wrong = good.replace(
+            "  - naglowek.js\n  - path: bootstrap.js\n    type: module\n",
+            "  - path: bootstrap.js\n    type: module\n  - naglowek.js\n",
+        )
+
+        passed = self.run_g2(book, good)
+        failed = self.run_g2(book, wrong)
+
+        self.assertEqual(passed.problems, [])
+        self.assertEqual(
+            passed.detail,
+            "sprawdzone listy wspólne z książką: 2 (extra_css, extra_javascript)",
+        )
+        self.assertEqual(len(failed.problems), 1, failed.problems)
+        self.assertIn("poprzedza pozycję książki 'naglowek.js'", failed.problems[0])
+
+    def test_missing_inherit_is_reported(self) -> None:
+        stage = self.run_g2("site_name: t\n", "extra:\n  a: 1\n")
+
+        self.assertTrue(any("INHERIT: mkdocs.yml" in item for item in stage.problems))
+
+
 class RepositoryTestCase(unittest.TestCase):
     """Tymczasowe repozytorium: dev (książka) i cwiczenia (warstwa)."""
 

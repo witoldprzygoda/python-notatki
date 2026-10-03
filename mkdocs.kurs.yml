@@ -1,9 +1,10 @@
 # Wydanie kursowe z ćwiczeniami (gałąź cwiczenia).
 # Dziedziczy całą konfigurację książki z mkdocs.yml i dodaje tylko warstwę ćwiczeń.
 # MkDocs scala słowniki, lecz listy z tego pliku zastępują listy książki.
-# Dlatego extra_css i extra_javascript powtarzają pozycje książki (w jej
-# kolejności, przed plikami warstwy); gate (etap G2) sprawdza,
-# czy żadna pozycja list książki nie została tu pominięta.
+# Dlatego extra_css i extra_javascript zaczynają się od pozycji książki,
+# przepisanych dosłownie i w kolejności z mkdocs.yml, a pliki warstwy stoją
+# po nich; bramka (etap G2) sprawdza, czy każda lista wspólna z książką
+# zaczyna się dokładnie od listy książki.
 INHERIT: mkdocs.yml
 
 hooks:

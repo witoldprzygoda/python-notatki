@@ -43,7 +43,7 @@ python kurs/tools/gate.py --zatwierdz-aktualnosc [--book dev] --przejrzane ID[,I
 
 Bramka ocenia commit `HEAD`: etapy G2–G7 działają na czystym eksporcie jego drzewa w katalogu tymczasowym, dlatego niezatwierdzone i nieśledzone pliki nie wpływają na wynik. Niezatwierdzona zmiana pliku książki w katalogu ćwiczeń jest jednak błędem w każdym trybie.
 
-Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — listy nakładki zawierają listy książki; G3 — schemat YAML i wiązania z nagłówkami; G4 — aktualność treści powiązanych sekcji względem ostatniego przeglądu (niżej); G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
+Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — każda lista nakładki wspólna z książką zaczyna się dokładnie od listy książki; G3 — schemat YAML i wiązania z nagłówkami; G4 — aktualność treści powiązanych sekcji względem ostatniego przeglądu (niżej); G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
 
 Kody wyjścia:
 
@@ -55,6 +55,8 @@ Kody wyjścia:
 | 3 | wynik częściowy albo roboczy: `--pomin-testy`, `--katalog-roboczy` lub `--przed-scaleniem` |
 
 Opcja `--katalog-roboczy` sprawdza katalog roboczy razem z niezatwierdzonymi zmianami i służy wyłącznie do szybkiej pętli roboczej. Opcja `--przed-scaleniem` uruchamia tylko etap G1 i próbne scalenie książki (`git merge-tree`) bez zmiany katalogu roboczego.
+
+MkDocs scala słowniki nakładki z konfiguracją książki, lecz listę nakładki przyjmuje w miejsce listy książki. Dlatego każda lista nakładki wspólna z książką (obecnie `extra_css` i `extra_javascript`) zaczyna się od pozycji listy książki, przepisanych dosłownie (w tej samej postaci YAML) i w kolejności z `mkdocs.yml`, a własne pozycje nakładki stoją dopiero po nich. G2 porównuje pozycje przez równość i zgłasza pominiętą pozycję książki, pozycję w zmienionej postaci (np. napis zamieniony na mapę z polem `path`), inną kolejność pozycji książki, pozycję nakładki przed pozycją książki oraz powtórzoną pozycję książki. Brakującą pozycję dopisujemy do nakładki na jej miejscu z listy książki.
 
 Przy zerwanym wiązaniu G3 zestawia nagłówki strony sprzed ostatniego scalenia książki z obecnymi i wskazuje następcę dawnego nagłówka, np. `prawdopodobna zmiana nagłówka: „Pętla for” → „Pętla for i sekwencje”`. Identyfikatory o podobnym zapisie podaje tylko wtedy, gdy zestawienie nie wskazuje następcy, i opisuje je jako samo podobieństwo napisów. Etap wypisuje też każdą zmianę wiązania względem stanu sprzed scalenia, razem z tekstami nagłówków, które przenosimy do raportu dla autora.
 

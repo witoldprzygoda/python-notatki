@@ -65,7 +65,7 @@ PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Sc
 Pełna bramka trwa około minuty. Czytamy cały wynik, nie tylko tabelę podsumowania. Ustalenia obsługujemy w kolejności etapów, każdą grupę poprawek zatwierdzamy osobnym commitem (np. „Rebind exercises after heading changes in dev”, „Adapt exercises to the changed loop sections”) i powtarzamy bramkę aż do kodu 0. Do odbioru służy wyłącznie kod 0; tryb `--katalog-roboczy` (kod 3) wolno stosować tylko w pętli roboczej.
 
 - **G1** (kolizja, usunięte pliki ćwiczeń, stan książki spoza `origin/dev`, zmieniony plik książki): przerywamy i składamy raport; nie naprawiamy samodzielnie.
-- **G2** (lista nakładki pomija pozycję listy książki): dopisujemy brakującą pozycję do `mkdocs.kurs.yml` w kolejności z `mkdocs.yml`.
+- **G2** (lista nakładki nie zaczyna się dokładnie od listy książki: pomija jej pozycję, zmienia postać pozycji, podaje pozycje książki w innej kolejności, stawia pozycję nakładki przed pozycją książki albo powtarza pozycję książki): poprawiamy listę w `mkdocs.kurs.yml` tak, aby zaczynała się od wszystkich pozycji listy książki, przepisanych dosłownie (w tej samej postaci YAML, np. napis pozostaje napisem i nie staje się mapą z polem `path`) i w kolejności z `mkdocs.yml`, a własne pozycje nakładki stały po nich. Brakującą pozycję dopisujemy więc na jej miejscu z listy książki, przed pozycjami warstwy.
 - **G3** (zerwane wiązanie):
     - przy „prawdopodobnej zmianie nagłówka” czytamy nową sekcję w `docs/<strona>` i, jeśli omawia ten sam materiał, zmieniamy `section_id` w `activities/**/*.yaml` na identyfikator następcy;
     - przy przeniesionej stronie zmieniamy `page` na ścieżkę podaną przez G3; `slot_id` i `activity_id` pozostają bez zmian;

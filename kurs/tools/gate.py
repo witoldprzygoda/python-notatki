@@ -37,8 +37,10 @@ Etapy (każdy jest blokujący):
       scaliła stanu książki spoza REF; żadna lokalna gałąź nie nosi nazwy
       śledzonej ścieżki; katalog roboczy nie zawiera niezatwierdzonych zmian
       plików książki;
-  G2  nakładka mkdocs.kurs.yml dziedziczy mkdocs.yml, a każda jej lista zawiera
-      wszystkie pozycje odpowiedniej listy książki (MkDocs zastępuje listy);
+  G2  nakładka mkdocs.kurs.yml dziedziczy mkdocs.yml, a każda jej lista wspólna
+      z książką zaczyna się dokładnie od listy książki (MkDocs zastępuje listy):
+      te same pozycje, w tej samej postaci YAML i w tej samej kolejności,
+      a własne pozycje nakładki dopiero po nich;
   G3  schemat definicji activities/**/*.yaml oraz wiązania: strona istnieje,
       a section_id jest identyfikatorem nagłówka h2–h6 wygenerowanym na tej
       stronie i nie ma sufiksu deduplikacji; przy zerwanym wiązaniu etap
@@ -551,8 +553,117 @@ def overlay_lists(overlay: dict, book: dict, prefix: tuple[str, ...] = ()):
             yield ".".join((*prefix, key)), value, base
 
 
+# Reguła G2: lista nakładki wspólna z książką zaczyna się dokładnie od listy
+# książki (te same pozycje, w tej samej postaci YAML i w tej samej kolejności),
+# a własne pozycje nakładki stoją po niej. Dziś overlay_lists zwraca wyłącznie
+# extra_css i extra_javascript, lecz regułę stosujemy do każdej wspólnej listy:
+# MkDocs zastępuje całą listę, a kolejność pozycji ma znaczenie w każdej liście
+# konfiguracji, którą nakładka mogłaby powtórzyć (kaskada arkuszy stylów,
+# kolejność wykonania skryptów, kolejność obsługi zdarzeń przez wtyczki
+# i hooki, wariant domyślny palety). Tylko dosłowny prefiks gwarantuje, że
+# wydanie kursowe przetwarza książkę tak jak build książki, a warstwa jedynie
+# dopisuje swoje pozycje na końcu; liście, w której kolejność nie ma znaczenia
+# (np. theme.features), reguła niczego nie odbiera. Pozycje porównujemy przez
+# równość, dlatego zmiana postaci (napis 'a.js' zamieniony na mapę z polem
+# path) jest błędem: mapa może zmieniać sposób ładowania pliku.
+
+
+def item_identity(item) -> str | None:
+    """Plik, wtyczka albo rozszerzenie, które pozycja listy wskazuje.
+
+    Ta sama pozycja może mieć postać napisu ('a.js', 'toc') albo mapy
+    ({'path': 'a.js', 'type': 'module'}, {'toc': {'permalink': True}});
+    tożsamość pozwala rozpoznać pozycję książki przepisaną w innej postaci.
+    """
+    if isinstance(item, str):
+        return item
+    if isinstance(item, dict):
+        if isinstance(item.get("path"), str):
+            return item["path"]
+        if len(item) == 1:
+            key = next(iter(item))
+            return key if isinstance(key, str) else None
+    return None
+
+
+def list_problems(key: str, overlay: list, book: list) -> list[str]:
+    """Zgłoszenia G2 dla jednej listy nakładki wspólnej z książką.
+
+    Lista jest poprawna, gdy zaczyna się od listy książki, a dalej zawiera
+    wyłącznie pozycje spoza niej (własne pozycje nakładki).
+    """
+    if overlay[:len(book)] == book and not any(
+        item in book for item in overlay[len(book):]
+    ):
+        return []
+    where = f"lista {key!r} w {COURSE_CONFIG}"
+    problems: list[str] = []
+    missing = []
+    changed = []  # (pozycja książki, ta sama pozycja w innej postaci w nakładce)
+    for item in book:
+        if item in overlay:
+            continue
+        identity = item_identity(item)
+        twin = next(
+            (
+                candidate for candidate in overlay
+                if candidate not in book
+                and identity is not None
+                and item_identity(candidate) == identity
+            ),
+            None,
+        )
+        if twin is None:
+            missing.append(item)
+        else:
+            changed.append((item, twin))
+    if missing:
+        problems.append(f"{where} zastępuje listę książki i pomija: {missing}")
+    for item, twin in changed:
+        problems.append(
+            f"{where} zmienia postać pozycji książki: {item!r} → {twin!r}; "
+            f"pozycję przepisujemy z {BOOK_CONFIG} dosłownie"
+        )
+    repeated = []
+    for item in book:
+        if overlay.count(item) > 1 and item not in repeated:
+            repeated.append(item)
+    if repeated:
+        problems.append(f"{where} powtarza pozycje książki: {repeated}")
+    present = []  # pozycje książki w kolejności nakładki (pierwsze wystąpienia)
+    for item in overlay:
+        if item in book and item not in present:
+            present.append(item)
+    expected = [item for item in book if item in present]
+    if present != expected:
+        problems.append(
+            f"{where} podaje pozycje książki w innej kolejności niż {BOOK_CONFIG}: "
+            f"{present} zamiast {expected}"
+        )
+    twins = [twin for _, twin in changed]
+    last_book = max(
+        (index for index, item in enumerate(overlay) if item in book), default=None
+    )
+    first_own = next(
+        (
+            index for index, item in enumerate(overlay)
+            if item not in book and item not in twins
+        ),
+        None,
+    )
+    if last_book is not None and first_own is not None and first_own < last_book:
+        problems.append(
+            f"{where}: pozycja nakładki {overlay[first_own]!r} poprzedza pozycję "
+            f"książki {overlay[last_book]!r}; pozycje książki stoją na początku "
+            "listy, przed pozycjami nakładki"
+        )
+    if not problems:  # zabezpieczenie: prefiksu brak z innego powodu
+        problems.append(f"{where} nie zaczyna się od listy książki {book}")
+    return problems
+
+
 def stage_g2(ctx: Context) -> Stage:
-    stage = Stage("G2", "listy nakładki zachowują listy książki")
+    stage = Stage("G2", "listy nakładki zaczynają się od list książki")
     stage.start()
     import yaml
     from mkdocs.utils.yaml import get_yaml_loader
@@ -566,16 +677,14 @@ def stage_g2(ctx: Context) -> Stage:
 
     if overlay.get("INHERIT") != BOOK_CONFIG:
         stage.problem(f"{COURSE_CONFIG} musi dziedziczyć konfigurację: INHERIT: {BOOK_CONFIG}")
-    checked = 0
+    checked = []
     for key, value, base in overlay_lists(overlay, book):
-        checked += 1
-        missing = [item for item in base if item not in value]
-        if missing:
-            stage.problem(
-                f"lista {key!r} w {COURSE_CONFIG} zastępuje listę książki "
-                f"i pomija: {missing}"
-            )
-    stage.detail = f"sprawdzone listy wspólne z książką: {checked}"
+        checked.append(key)
+        for problem in list_problems(key, value, base):
+            stage.problem(problem)
+    stage.detail = f"sprawdzone listy wspólne z książką: {len(checked)}"
+    if checked:
+        stage.detail += f" ({', '.join(checked)})"
     return stage
 
 
@@ -2344,7 +2453,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         stages = [guarded("G1", "wyłączne dodawanie, kolizje i nazwy gałęzi", stage_g1, ctx)]
         if not args.przed_scaleniem:
-            stages.append(guarded("G2", "listy nakładki zachowują listy książki", stage_g2, ctx))
+            stages.append(
+                guarded("G2", "listy nakładki zaczynają się od list książki", stage_g2, ctx)
+            )
             stages.append(guarded("G3", "schemat i wiązania aktywności", stage_g3, ctx))
             stages.append(guarded("G4", "aktualność powiązanych sekcji", stage_g4, ctx))
             stages.append(guarded("G5", "rozwiązania wzorcowe i bloki verify", stage_g5, ctx))
