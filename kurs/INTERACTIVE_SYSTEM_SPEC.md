@@ -58,7 +58,7 @@ python-notatki-service
 - podpowiedzi;
 - lokalny postęp anonimowego użytkownika;
 - trwały postęp użytkownika Moodle;
-- wskaźniki postępu ćwiczeń dla stron i sekcji w nawigacji wariantu `interactive`;
+- wskaźniki postępu ćwiczeń w nawigacji wydania kursowego, wyłącznie dla stron i sekcji z ćwiczeniami;
 - opcjonalne raportowanie lekkiego postępu do Moodle.
 
 ### Poza zakresem
@@ -498,28 +498,34 @@ nie publikuje modelu ani kodu wskaźników.
 
 ### 9.5 Wskaźniki stron i sekcji w nawigacji
 
-W wariancie `interactive` rzeczywiste linki stron w lewej nawigacji kursu oraz
-jawnie oznaczone sekcje w obu kopiach lokalnego spisu treści mogą mieć
-dyskretny pionowy rail postępu. Rail jest osobnym elementem DOM umieszczonym w
-własnej kolumnie po lewej stronie nazwy. Nie przejmuje ani nie modyfikuje
-istniejącego niebieskiego markera aktywnej pozycji Material/`extra.css`: marker
-aktywny oznacza bieżące położenie, a rail wyłącznie stan ćwiczeń.
+W wydaniu kursowym dyskretny pionowy rail postępu mają wyłącznie rzeczywiste
+linki stron z ćwiczeniami w lewej nawigacji oraz sekcje z ćwiczeniami w obu
+kopiach lokalnego spisu treści. Strony i sekcje bez ćwiczeń nie otrzymują
+raila. Rail jest osobnym elementem DOM umieszczonym we własnej kolumnie po
+lewej stronie nazwy. Nie przejmuje ani nie modyfikuje istniejącego niebieskiego
+markera aktywnej pozycji Material/`extra.css`: marker aktywny oznacza bieżące
+położenie, a rail wyłącznie stan ćwiczeń.
 
 Lewy rail agreguje wszystkie aktywności o danym `page`, korzystając z
-generowanego `page_url`. Otrzymują go wyłącznie rzeczywiste linki `<a>` do stron;
-organizacyjne etykiety i grupy nawigacji pozostają bez statusu. Prawy rail
-używa `slot_id` bieżącej strony oraz `section_id`; aktywność z
+generowanego `page_url`. Otrzymują go wyłącznie rzeczywiste linki `<a>` do stron
+z ćwiczeniami; organizacyjne etykiety i grupy nawigacji pozostają bez statusu.
+Prawy rail używa `slot_id` bieżącej strony oraz `section_id`; aktywność z
 `section_id: null` nie zasila wskaźnika sekcji. Wskaźników nie umieszcza się
 przy nagłówkach artykułu.
 
 Dla strony lub sekcji oblicza się liczbę przypisanych aktywności `N` oraz liczbę
-stanów `status === "completed"` równą `C`. Stany to: `none` dla `N == 0`,
-`none_completed` dla `N > 0` i `C == 0`, `partial` dla `0 < C < N` oraz
-`completed` dla `C == N`. Oprócz szarego, czerwonego, pomarańczowego i
-zielonego koloru stany rozróżnia kształt: subtelne szare wypełnienie z
-przerywanym obrysem, ciągły pusty obrys, częściowe wypełnienie albo pełne
-wypełnienie. Pełny tekst dostępny w obrębie linku przekazuje znaczenie
-niezależnie od koloru, a rail nie tworzy osobnego punktu Tab.
+stanów `status === "completed"` równą `C`. Przy `N == 0` agregat ma stan `none`
+i rail nie powstaje. Pozostałe stany to: `none_completed` dla `C == 0`,
+`partial` dla `0 < C < N` oraz `completed` dla `C == N`. Oprócz czerwonego,
+pomarańczowego i zielonego koloru stany rozróżnia kształt: ciągły pusty obrys,
+częściowe wypełnienie albo pełne wypełnienie. Pełny tekst dostępny w obrębie
+linku przekazuje znaczenie niezależnie od koloru, a rail nie tworzy osobnego
+punktu Tab.
+
+Aby etykiety pozostały wyrównane, w liście nawigacji lub spisu treści, w której
+choć jedna pozycja ma rail, pozostałe pozycje otrzymują z CSS pustą kolumnę tej
+samej szerokości (pseudoelement `::before`, bez elementu DOM). Listy bez raili
+zachowują wygląd książki.
 
 Jedynym cache'em statusów pozostaje mapa należąca do centralnego modelu
 postępu. Udostępnia on wyłącznie odczyt pojedynczego statusu i subskrypcję
@@ -529,12 +535,12 @@ przechowują własnych map ukończeń. Mogą przechowywać jedynie statyczne ind
 manifestu oraz referencje do markerów aktualnego dokumentu. Po `save`, resecie
 częściowym lub pełnym przeliczają tylko odpowiednie strony i sekcje.
 
-Brak slotu oznacza pusty zbiór aktywności bieżącej strony, dlatego jawnie
-oznaczone sekcje mogą otrzymać stan `none`. Brak spisu treści albo oznaczonych
-sekcji jest bezpiecznym brakiem działania. Niedostępny manifest lub nieudana
+Strona bez slotu nie ma ćwiczeń, dlatego jej sekcje nie otrzymują raili, nawet
+jeśli nagłówek nosi znacznik sekcji. Brak spisu treści albo sekcji z ćwiczeniami
+jest bezpiecznym brakiem działania. Niedostępny manifest lub nieudana
 hydratacja postępu nie są żadnym ze stanów strony ani sekcji: w takim przypadku
-markerów nie tworzy się albo usuwa się markery utworzone wcześniej. Wariant
-`clean` nie publikuje modułów ani stylów wskaźników.
+markerów nie tworzy się albo usuwa się markery utworzone wcześniej. Książka
+budowana z `mkdocs.yml` nie ładuje modułów ani stylów wskaźników.
 
 ---
 

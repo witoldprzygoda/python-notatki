@@ -395,7 +395,7 @@ test("dekoruje tylko rzeczywiste linki stron i nie zmienia linków Material", ()
   const lessonClass = lesson.className;
   const lessonStyle = lesson.getAttribute("style");
 
-  assert.equal(controller.decorateNavigation(), 2);
+  assert.equal(controller.decorateNavigation(), 1);
 
   assert.equal(pageMarkers(lesson).length, 1);
   assert.equal(pageMarkers(lesson)[0].getAttribute("data-state"), "partial");
@@ -405,12 +405,85 @@ test("dekoruje tylko rzeczywiste linki stron i nie zmienia linków Material", ()
   assert.equal(lesson.className, lessonClass);
   assert.equal(lesson.getAttribute("style"), lessonStyle);
 
-  assert.equal(pageMarkers(plain).length, 1);
-  assert.equal(pageMarkers(plain)[0].getAttribute("data-state"), "none");
+  assert.equal(pageMarkers(plain).length, 0);
   assert.equal(pageMarkers(group).length, 0);
   assert.equal(pageMarkers(external).length, 0);
   assert.equal(pageMarkers(fragment).length, 0);
   assert.equal(pageMarkers(tocLink).length, 0);
+});
+
+
+test("strona bez ćwiczeń nie otrzymuje raila ani po aktualizacji", () => {
+  const document = createDocument();
+  const navigation = appendSidebar(document);
+  const introduction = appendLink(
+    document,
+    navigation,
+    "../04-sterowanie/",
+    "Wprowadzenie",
+  );
+  const conditions = appendLink(
+    document,
+    navigation,
+    "../04-sterowanie/wyrazenia-warunkowe/",
+    "Wyrażenia warunkowe",
+  );
+  const loops = appendLink(
+    document,
+    navigation,
+    "../04-sterowanie/petle-i-iteratory/",
+    "Pętle i iteratory",
+  );
+  const source = new CompletionSource({ "flow-if-quiz-001": true });
+  const controller = createPageProgressController({
+    document,
+    manifest: {
+      activities: [
+        activity("flow-if-quiz-001", "04-sterowanie/wyrazenia-warunkowe/"),
+        activity("flow-for-quiz-001", "04-sterowanie/petle-i-iteratory/"),
+      ],
+    },
+    completionSource: source,
+    siteBaseUrl: "https://example.test/course/",
+  });
+
+  assert.equal(controller.decorateNavigation(), 2);
+  assert.equal(pageMarkers(introduction).length, 0);
+  assert.deepEqual(introduction.children.map((child) => child.className), [
+    "md-ellipsis",
+  ]);
+  assert.equal(pageMarkers(conditions)[0].getAttribute("data-state"), "completed");
+  assert.equal(pageMarkers(loops)[0].getAttribute("data-state"), "none_completed");
+
+  source.set("flow-for-quiz-001", true);
+  source.emit(["flow-if-quiz-001", "flow-for-quiz-001", "unknown"]);
+  assert.equal(pageMarkers(introduction).length, 0);
+  assert.equal(pageMarkers(loops)[0].getAttribute("data-state"), "completed");
+
+  assert.equal(controller.decorateNavigation(), 2);
+  assert.equal(pageMarkers(introduction).length, 0);
+  assert.equal(
+    document.querySelectorAll("[data-interactive-page-progress]").length,
+    2,
+  );
+});
+
+
+test("bez ćwiczeń w manifeście nawigacja pozostaje bez raili", () => {
+  const document = createDocument();
+  const navigation = appendSidebar(document);
+  const first = appendLink(document, navigation, "../lesson/");
+  const second = appendLink(document, navigation, "../other/");
+  const controller = createPageProgressController({
+    document,
+    manifest: { activities: [] },
+    completionSource: new CompletionSource(),
+    siteBaseUrl: "https://example.test/course/",
+  });
+
+  assert.equal(controller.decorateNavigation(), 0);
+  assert.equal(pageMarkers(first).length, 0);
+  assert.equal(pageMarkers(second).length, 0);
 });
 
 

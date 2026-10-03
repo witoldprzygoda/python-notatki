@@ -89,7 +89,7 @@ test("wstawia osobny marker po etykiecie bez zmiany linku Material", () => {
   const marker = createProgressRail({
     document,
     kind: "page",
-    progress: { completed: 0, state: "none", total: 0 },
+    progress: { completed: 0, state: "none_completed", total: 1 },
   });
   assert.equal(insertProgressRail(link, marker), true);
 
@@ -100,8 +100,32 @@ test("wstawia osobny marker po etykiecie bez zmiany linku Material", () => {
   assert.equal(link.getAttribute("style"), "border-left: 3px solid blue");
   assert.equal(
     marker.getAttribute("title"),
-    "Do tej strony nie przypisano ćwiczeń.",
+    "Ćwiczenia na tej stronie: ukończono 0 z 1.",
   );
+});
+
+
+test("nie tworzy raila dla strony ani sekcji bez ćwiczeń", () => {
+  const document = createFakeDocument();
+  const empty = { completed: 0, state: "none", total: 0 };
+
+  for (const kind of ["page", "section"]) {
+    assert.throws(
+      () => createProgressRail({ document, kind, progress: empty }),
+      { name: "TypeError", message: /wyłącznie przypisane ćwiczenia/ },
+    );
+  }
+
+  const marker = createProgressRail({
+    document,
+    kind: "section",
+    progress: { completed: 1, state: "partial", total: 2 },
+  });
+  assert.throws(
+    () => updateProgressRail(marker, { kind: "section", progress: empty }),
+    TypeError,
+  );
+  assert.equal(marker.getAttribute("data-state"), "partial");
 });
 
 

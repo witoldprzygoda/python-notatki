@@ -167,8 +167,9 @@ function collectManifestIndex(manifest, siteBaseUrl) {
 
 
 /**
- * Dekoruje wyłącznie rzeczywiste linki stron w głównej nawigacji.
- * Nie modyfikuje href, klas ani obramowania linku Material.
+ * Dekoruje wyłącznie rzeczywiste linki stron w głównej nawigacji, i to tylko
+ * tych stron, do których przypisano ćwiczenia; pozostałe linki nie otrzymują
+ * raila. Nie modyfikuje href, klas ani obramowania linku Material.
  */
 export function createPageProgressController({
   document,
@@ -294,6 +295,9 @@ export function createPageProgressController({
 
     let markerCount = 0;
     for (const { link, pageKey } of pageLinks()) {
+      if (!activitiesByPageKey.has(pageKey)) {
+        continue;
+      }
       const progress = progressForPage(pageKey);
       if (!progress) {
         removeCurrentMarkers();

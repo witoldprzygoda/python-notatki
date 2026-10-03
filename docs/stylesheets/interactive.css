@@ -27,14 +27,18 @@
   border-radius: 1px;
 }
 
-.interactive-progress-rail--none {
-  --interactive-progress-rail-color: var(--md-default-fg-color--light);
-}
-
-.interactive-progress-rail--none
-  .interactive-progress-rail__visual {
-  background-color: var(--md-default-fg-color--lighter);
-  border-style: dashed;
+/* Strony i sekcje bez ćwiczeń nie mają raila. Jeśli w tej samej liście
+   nawigacji choć jedna pozycja ma rail, pozostałe pozycje otrzymują pustą
+   kolumnę tej samej szerokości, aby etykiety pozostały wyrównane. Listy bez
+   raili zachowują wygląd książki. */
+.md-nav__list:has(
+    > .md-nav__item > .md-nav__link > .interactive-progress-rail
+  )
+  > .md-nav__item
+  > .md-nav__link:not(:has(> .interactive-progress-rail))::before {
+  flex: 0 0 .28rem;
+  order: -1;
+  content: "";
 }
 
 .interactive-progress-rail--none_completed {

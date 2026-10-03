@@ -209,13 +209,27 @@ function appendPrimarySidebar(document, container) {
   scrollwrap.append(inner);
   sidebar.append(scrollwrap);
   container.append(sidebar);
+  return navigation;
 }
 
 
+// bootstrap.js wyznacza adres serwisu jako ../../ względem własnego pliku.
+const siteBaseUrl = new URL("../../docs/", import.meta.url);
+
+
+/**
+ * Bieżąca strona nie ma ćwiczeń (brak slotu), choć jej nagłówek nosi znacznik
+ * sekcji. Nawigacja prowadzi do innej strony, do której ćwiczenia przypisano.
+ */
 function installSlotlessTocPage(document, sectionId) {
   const container = document.querySelector("[data-md-component=\"container\"]");
   container.replaceChildren();
-  appendPrimarySidebar(document, container);
+  const navigation = appendPrimarySidebar(document, container);
+  const pageLink = document.createElement("a");
+  pageLink.className = "md-nav__link";
+  pageLink.setAttribute("href", new URL("other-page/", siteBaseUrl).href);
+  pageLink.textContent = "Strona z ćwiczeniami";
+  navigation.append(pageLink);
 
   const heading = document.createElement("h2");
   heading.setAttribute("id", sectionId);
@@ -287,6 +301,15 @@ function assertNoGlobalProgressUi(document) {
 }
 
 
+/** Liczba raili: [strony w nawigacji, sekcje w lokalnym spisie treści]. */
+function railCounts(document) {
+  return [
+    document.querySelectorAll("[data-interactive-page-progress]").length,
+    document.querySelectorAll("[data-interactive-section-progress]").length,
+  ];
+}
+
+
 const manifest = {
   schema_version: 2,
   activities: [
@@ -343,27 +366,18 @@ test("szybkie emisje używają jednego manifestu bez globalnego UI", async () =>
     assert.equal(fetchCount, 1);
     assertNoGlobalProgressUi(document);
     assert.equal(document.querySelector("[data-activity-slot]"), null);
-    assert.equal(
-      document.querySelectorAll("[data-interactive-section-progress]").length,
-      2,
-    );
+    assert.deepEqual(railCounts(document), [1, 0]);
 
     await documentStream.emit();
     assert.equal(fetchCount, 1);
     assertNoGlobalProgressUi(document);
-    assert.equal(
-      document.querySelectorAll("[data-interactive-section-progress]").length,
-      2,
-    );
+    assert.deepEqual(railCounts(document), [1, 0]);
 
     installSlotlessTocPage(document, "second-section");
     await documentStream.emit();
     assert.equal(fetchCount, 1);
     assertNoGlobalProgressUi(document);
-    assert.equal(
-      document.querySelectorAll("[data-interactive-section-progress]").length,
-      2,
-    );
+    assert.deepEqual(railCounts(document), [1, 0]);
     assert.equal(workerWasCreated(), false);
   } finally {
     removeGlobals();
@@ -403,18 +417,12 @@ test("nieudane pobranie manifestu jest ponawiane przy następnej emisji", async 
       document.querySelector("[data-interactive-global-progress]"),
       null,
     );
-    assert.equal(
-      document.querySelectorAll("[data-interactive-section-progress]").length,
-      0,
-    );
+    assert.deepEqual(railCounts(document), [0, 0]);
 
     await documentStream.emit();
     assert.equal(fetchCount, 2);
     assertNoGlobalProgressUi(document);
-    assert.equal(
-      document.querySelectorAll("[data-interactive-section-progress]").length,
-      2,
-    );
+    assert.deepEqual(railCounts(document), [1, 0]);
     assert.equal(workerWasCreated(), false);
   } finally {
     console.warn = originalWarn;
@@ -455,10 +463,7 @@ test("błąd hydratacji postępu nie tworzy fałszywych markerów sekcji", async
     await import("../../docs/javascripts/interactive/bootstrap.js?hydration-failure");
     await documentStream.emit();
 
-    assert.equal(
-      document.querySelectorAll("[data-interactive-section-progress]").length,
-      0,
-    );
+    assert.deepEqual(railCounts(document), [0, 0]);
     assertNoGlobalProgressUi(document);
     assert.equal(workerWasCreated(), false);
   } finally {

@@ -188,14 +188,17 @@ export function createSectionProgressController({
     return [...sectionIds];
   }
 
+  /**
+   * Rail otrzymują wyłącznie sekcje, do których na bieżącej stronie
+   * przypisano ćwiczenia. Oznaczony nagłówek bez ćwiczeń pozostaje bez raila.
+   */
   function createCurrentSectionMap(sectionIds) {
     const activitiesBySection = currentSlotId === null
       ? new Map()
       : activitiesBySlotAndSection.get(currentSlotId) ?? new Map();
-    return new Map(sectionIds.map((sectionId) => [
-      sectionId,
-      activitiesBySection.get(sectionId) ?? [],
-    ]));
+    return new Map(sectionIds
+      .filter((sectionId) => activitiesBySection.has(sectionId))
+      .map((sectionId) => [sectionId, activitiesBySection.get(sectionId)]));
   }
 
   function progressForSection(sectionId) {
@@ -246,10 +249,11 @@ export function createSectionProgressController({
 
     currentSlotId = currentSlot();
     currentActivityIdsBySection = createCurrentSectionMap(sectionIds);
-    const tocLinksBySection = linksBySection(sectionIds);
+    const sectionsWithActivities = [...currentActivityIdsBySection.keys()];
+    const tocLinksBySection = linksBySection(sectionsWithActivities);
     let markerCount = 0;
 
-    for (const sectionId of sectionIds) {
+    for (const sectionId of sectionsWithActivities) {
       const progress = progressForSection(sectionId);
       if (!progress) {
         removeCurrentMarkers();

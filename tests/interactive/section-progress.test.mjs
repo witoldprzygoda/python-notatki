@@ -436,11 +436,11 @@ test("dekoruje obie kopie ToC bez zmiany href i klas linków", () => {
 });
 
 
-test("strona bez slotu dekoruje oznaczone sekcje stanem none", () => {
+test("strona bez ćwiczeń nie otrzymuje raili sekcji mimo oznaczonego nagłówka", () => {
   const { container, document } = createDocument();
   appendMarkedSection(document, container, "bez-cwiczen");
-  appendTocLink(document, container, "#bez-cwiczen");
-  appendTocLink(document, container, "./#bez-cwiczen");
+  const firstLink = appendTocLink(document, container, "#bez-cwiczen");
+  const secondLink = appendTocLink(document, container, "./#bez-cwiczen");
   const completionSource = new CompletionSource({ other: true });
   const controller = createSectionProgressController({
     document,
@@ -450,12 +450,50 @@ test("strona bez slotu dekoruje oznaczone sekcje stanem none", () => {
     completionSource,
   });
 
-  assert.equal(controller.decorateCurrentPage(), 2);
-  assert.deepEqual(markers(document).map(markerState), ["none", "none"]);
-  assert.deepEqual(
-    markers(document).map((marker) => marker.children[0].className),
-    ["interactive-progress-rail__visual", "interactive-progress-rail__visual"],
+  assert.equal(controller.decorateCurrentPage(), 0);
+  assert.equal(markers(document).length, 0);
+  assert.deepEqual(firstLink.children.map((child) => child.className), [
+    "md-ellipsis",
+  ]);
+  assert.deepEqual(secondLink.children.map((child) => child.className), [
+    "md-ellipsis",
+  ]);
+
+  completionSource.set("other", false);
+  assert.equal(markers(document).length, 0);
+});
+
+
+test("rail otrzymują tylko sekcje z ćwiczeniami bieżącej strony", () => {
+  const { container, document } = createDocument();
+  appendMarkedSection(document, container, "petla-for");
+  appendMarkedSection(document, container, "petla-while");
+  appendSlot(document, container, "page-slot");
+  const forLink = appendTocLink(document, container, "#petla-for");
+  const whileLink = appendTocLink(document, container, "#petla-while");
+  const completionSource = new CompletionSource({ first: true });
+  const controller = createSectionProgressController({
+    document,
+    manifest: {
+      activities: [
+        activity("first", "page-slot", "petla-for"),
+        activity("elsewhere", "other-slot", "petla-while"),
+      ],
+    },
+    completionSource,
+  });
+
+  assert.equal(controller.decorateCurrentPage(), 1);
+  assert.equal(
+    forLink.children[1].hasAttribute("data-interactive-section-progress"),
+    true,
   );
+  assert.equal(markerState(forLink.children[1]), "completed");
+  assert.equal(whileLink.children.length, 1);
+
+  completionSource.set("elsewhere", true);
+  assert.equal(whileLink.children.length, 1);
+  assert.equal(markers(document).length, 1);
 });
 
 
@@ -485,12 +523,13 @@ test("niedostępny model usuwa markery zamiast pokazywać fałszywy stan", () =>
 test("wielokrotne dekorowanie nie tworzy duplikatów", () => {
   const { container, document } = createDocument();
   appendMarkedSection(document, container, "sekcja");
+  appendSlot(document, container, "page-slot");
   appendTocLink(document, container, "#sekcja");
   appendTocLink(document, container, "./#sekcja");
   const completionSource = new CompletionSource();
   const controller = createSectionProgressController({
     document,
-    manifest: { activities: [] },
+    manifest: { activities: [activity("first", "page-slot", "sekcja")] },
     completionSource,
   });
 
@@ -505,6 +544,7 @@ test("wielokrotne dekorowanie nie tworzy duplikatów", () => {
 test("zagnieżdżone rooty ToC nie dublują markera tego samego linku", () => {
   const { container, document } = createDocument();
   appendMarkedSection(document, container, "sekcja");
+  appendSlot(document, container, "page-slot");
   const outerToc = document.createElement("nav");
   outerToc.setAttribute("data-md-component", "toc");
   const innerToc = document.createElement("nav");
@@ -516,7 +556,7 @@ test("zagnieżdżone rooty ToC nie dublują markera tego samego linku", () => {
   container.append(outerToc);
   const controller = createSectionProgressController({
     document,
-    manifest: { activities: [] },
+    manifest: { activities: [activity("first", "page-slot", "sekcja")] },
     completionSource: new CompletionSource(),
   });
 
@@ -724,19 +764,26 @@ test("Zacznij od nowa w rendererze natychmiast cofa completed do partial", async
 test("section_id null i nieoznaczone wpisy ToC nie otrzymują markera", () => {
   const { container, document } = createDocument();
   appendMarkedSection(document, container, "oznaczona");
+  appendMarkedSection(document, container, "z-cwiczeniem");
   appendSlot(document, container, "page-slot");
-  appendTocLink(document, container, "#oznaczona");
-  appendTocLink(document, container, "#nieoznaczona");
+  const markedLink = appendTocLink(document, container, "#oznaczona");
+  const unmarkedLink = appendTocLink(document, container, "#nieoznaczona");
+  const exerciseLink = appendTocLink(document, container, "#z-cwiczeniem");
   const completionSource = new CompletionSource({ page: true });
   const controller = createSectionProgressController({
     document,
     manifest: {
-      activities: [activity("page", "page-slot", null)],
+      activities: [
+        activity("page", "page-slot", null),
+        activity("section", "page-slot", "z-cwiczeniem"),
+      ],
     },
     completionSource,
   });
 
   assert.equal(controller.decorateCurrentPage(), 1);
   assert.equal(markers(document).length, 1);
-  assert.equal(markerState(markers(document)[0]), "none");
+  assert.equal(markedLink.children.length, 1);
+  assert.equal(unmarkedLink.children.length, 1);
+  assert.equal(markerState(exerciseLink.children[1]), "none_completed");
 });

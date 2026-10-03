@@ -1,14 +1,12 @@
 const KINDS = Object.freeze({
   page: Object.freeze({
     attribute: "data-interactive-page-progress",
-    emptyDescription: "Do tej strony nie przypisano ćwiczeń.",
     progressDescription(completed, total) {
       return `Ćwiczenia na tej stronie: ukończono ${completed} z ${total}.`;
     },
   }),
   section: Object.freeze({
     attribute: "data-interactive-section-progress",
-    emptyDescription: "Do tej sekcji nie przypisano ćwiczeń.",
     progressDescription(completed, total) {
       return `Ćwiczenia w tej sekcji: ukończono ${completed} z ${total}.`;
     },
@@ -46,17 +44,29 @@ function findEllipsis(link) {
 }
 
 
+/**
+ * Rail opisuje wyłącznie przypisane ćwiczenia. Strona lub sekcja bez ćwiczeń
+ * (stan agregatu `none`) nie otrzymuje wskaźnika.
+ */
+function requireAssignedProgress(progress) {
+  if (!(progress?.total > 0)) {
+    throw new TypeError(
+      "Wskaźnik postępu opisuje wyłącznie przypisane ćwiczenia.",
+    );
+  }
+}
+
+
 function descriptionFor(kind, progress) {
   const definition = requireKind(kind);
-  return progress.total === 0
-    ? definition.emptyDescription
-    : definition.progressDescription(progress.completed, progress.total);
+  return definition.progressDescription(progress.completed, progress.total);
 }
 
 
 /**
  * Wylicza stan agregatu bez tworzenia dodatkowego cache'u ukończeń.
- * `null` oznacza, że współdzielony model postępu nie jest dostępny.
+ * `null` oznacza, że współdzielony model postępu nie jest dostępny,
+ * a stan `none` — że nie przypisano żadnych ćwiczeń (bez raila).
  */
 export function deriveCompletionProgress(
   activityIds,
@@ -101,6 +111,7 @@ export function updateProgressRail(marker, { kind, progress }) {
   if (!marker || !progress) {
     throw new TypeError("Aktualizacja wskaźnika wymaga elementu i stanu.");
   }
+  requireAssignedProgress(progress);
 
   const [visual, accessibleDescription] = marker.children ?? [];
   if (!visual || !accessibleDescription) {
@@ -128,6 +139,7 @@ export function createProgressRail({ document, kind, progress }) {
     throw new TypeError("Wskaźnik postępu wymaga obiektu document.");
   }
   requireKind(kind);
+  requireAssignedProgress(progress);
 
   const marker = document.createElement("span");
 
