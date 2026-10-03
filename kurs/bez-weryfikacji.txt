@@ -1,0 +1,14 @@
+# Pytania single_choice zwolnione z obowiązkowego bloku verify (etap G5 bramki).
+#
+# Wpis: identyfikator aktywności, znak # i uzasadnienie. Zwolnienie przysługuje
+# pytaniom pojęciowym, których poprawności nie rozstrzyga uruchomienie kodu;
+# odpowiedź na takie pytanie sprawdza dodatkowo niezależny, drugi przegląd,
+# a rozbieżności trafiają do raportu fali.
+#
+# Pięć pytań rozdziału 4 pochodzi z prototypu (POC) sprzed wprowadzenia bloków
+# verify. Po dopisaniu bloku verify wpis usuwamy.
+flow-if-quiz-001        # pytanie z prototypu; blok verify do dopisania
+flow-ternary-quiz-001   # pytanie z prototypu; blok verify do dopisania
+flow-for-quiz-001       # pytanie z prototypu; blok verify do dopisania
+flow-range-quiz-001     # pytanie z prototypu; blok verify do dopisania
+flow-iterator-quiz-001  # pytanie z prototypu; blok verify do dopisania
