@@ -71,13 +71,13 @@ Pełna bramka trwa około minuty. Czytamy cały wynik, nie tylko tabelę podsumo
     4. dla każdej aktywności zapisujemy decyzję: „bez zmian” z jednozdaniowym uzasadnieniem, „dostosowano” z opisem zmiany i wersją albo „do decyzji autora”;
     5. błąd w książce (np. wynik przykładu niezgodny z kodem, sprzeczne zdanie) opisujemy w raporcie jako usterkę do poprawy na `content/*`; aktywność dostosowujemy tylko na tyle, by nie opierała się na błędnym fragmencie.
 
-    Po przejrzeniu wszystkich zgłoszeń G4 i zatwierdzeniu poprawek zapisujemy nowy stan przeglądu:
+    Po przejrzeniu wszystkich aktywności, które G4 wymienia na końcu etapu („aktywności do przejrzenia (N): …”), i zatwierdzeniu poprawek zapisujemy nowy stan przeglądu, podając dokładnie te aktywności:
 
     ```bash
-    PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe kurs/tools/gate.py --zatwierdz-aktualnosc --book origin/dev
+    PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe kurs/tools/gate.py --zatwierdz-aktualnosc --book origin/dev --przejrzane <identyfikatory rozdzielone przecinkami>
     ```
 
-    Sprawdzamy, że wypisane wpisy („dodano”, „zmieniono”, „usunięto”) odpowiadają przeglądowi, i zatwierdzamy `kurs/aktualnosc.json` („Record the review of sections changed in dev (DATA)”). Polecenie odmawia zapisu (kod 1), dopóki którekolwiek wiązanie jest zerwane; nie uruchamiamy go przed zakończeniem przeglądu.
+    Polecenie odmawia zapisu (kod 1), dopóki którekolwiek wiązanie jest zerwane albo lista nie obejmuje dokładnie aktywności wymagających przeglądu; wypisuje wtedy oczekiwaną listę z opisem każdej pozycji. Nie uruchamiamy go przed zakończeniem przeglądu i nie wpisujemy aktywności, których nie przejrzeliśmy. Wypisane wpisy porównujemy z przeglądem: „dodano” oznacza nową aktywność, „zmieniono” — zmianę wiązania (także po zmianie nagłówka), nagłówka albo treści sekcji tej aktywności, „usunięto” — aktywność, której już nie ma. Następnie zatwierdzamy `kurs/aktualnosc.json` („Record the review of sections changed in dev (DATA)”).
 - **G5** (rozwiązanie albo blok `verify` nie daje oczekiwanego wyniku): poprawiamy aktywność tak, aby rozwiązanie wzorcowe i warianty wypisywały dokładnie `expected_lines`, a `starter_code` ich nie wypisywał; sprawdzenia nie osłabiamy.
 - **G6** (testy): test, który utrwala dane aktywności (np. wersje w `tests/test_build_activities.py`), aktualizujemy razem ze świadomą zmianą aktywności i odnotowujemy w raporcie; awarię kodu warstwy (hook, JavaScript, bramka) zgłaszamy jako zadanie dla gałęzi `platform/*` i przerywamy.
 - **G7** (buildy `--strict`): ostrzeżenie buildu książki (`mkdocs.yml`) jest usterką książki — przerywamy i zgłaszamy ją do poprawy na `content/*`; błąd wydania kursowego wynikający z wiązań poprawiamy jak w G3.
@@ -156,4 +156,4 @@ git branch -d SYNC
 
 Następnie zatrzymujemy serwer podglądu i podajemy autorowi skrót nowego `origin/cwiczenia`. Gałęzi SYNC nie wypychamy; jeśli jednak ją wypchnięto, usuwamy ją także w `origin` (`git push origin --delete SYNC`).
 
-Jeśli przewinięcie się nie udaje, ponieważ na `cwiczenia` trafiła w międzyczasie inna zmiana, nie przebudowujemy gałęzi: `git fetch origin`, na gałęzi SYNC `git merge --no-ff origin/cwiczenia`, pełna bramka do kodu 0 (z przeglądem G4 i zatwierdzeniem, jeśli bramka go wymaga), krótkie uzupełnienie raportu i ponowne oczekiwanie na akceptację.
+Jeśli przewinięcie się nie udaje, ponieważ na `cwiczenia` trafiła w międzyczasie inna zmiana, nie przebudowujemy gałęzi: `git fetch origin`, na gałęzi SYNC `git merge --no-ff origin/cwiczenia`, pełna bramka do kodu 0 (z przeglądem G4 i zatwierdzeniem, jeśli bramka go wymaga), krótkie uzupełnienie raportu i ponowne oczekiwanie na akceptację. Konflikt w `kurs/aktualnosc.json` rozstrzygamy wyłącznie poleceniem `git checkout origin/cwiczenia -- kurs/aktualnosc.json` (pliku nie scalamy ręcznie, nie wybieramy fragmentów i nie usuwamy go), a po zatwierdzeniu scalenia przeglądamy ponownie wszystkie aktywności wskazane przez G4.

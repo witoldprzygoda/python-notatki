@@ -270,8 +270,8 @@ class RepositoryTestCase(unittest.TestCase):
         os.chdir(self._previous_cwd)
         self._directory.cleanup()
 
-    def git(self, *args: str) -> str:
-        result = subprocess.run(
+    def run_git(self, *args: str) -> subprocess.CompletedProcess:
+        return subprocess.run(
             ["git", "-c", "core.autocrlf=false", *args],
             cwd=self.path,
             capture_output=True,
@@ -282,6 +282,9 @@ class RepositoryTestCase(unittest.TestCase):
             stdin=subprocess.DEVNULL,
             check=False,
         )
+
+    def git(self, *args: str) -> str:
+        result = self.run_git(*args)
         if result.returncode != 0:
             raise AssertionError(f"git {' '.join(args)}: {result.stderr}")
         return result.stdout.strip()
@@ -516,6 +519,21 @@ class SectionTextTest(unittest.TestCase):
                 self.assertNotEqual(before[None], after[None])
                 self.assertEqual(before["petla-while"], after["petla-while"])
 
+    def test_bom_and_front_matter_are_read_like_in_mkdocs(self) -> None:
+        variants = {
+            "BOM": "﻿" + PAGE,
+            "tytuł w metadanych": "---\ntitle: Pętle\n---\n\n" + PAGE,
+            "ukryty spis treści": "---\nhide:\n  - toc\n---\n" + PAGE,
+        }
+        for label, variant in variants.items():
+            with self.subTest(label):
+                self.assertEqual(
+                    gate.page_headings(variant, BOOK_MARKDOWN),
+                    gate.page_headings(PAGE, BOOK_MARKDOWN),
+                )
+                self.assertEqual(gate.page_text(variant, BOOK_MARKDOWN).heading(None), "Pętle")
+                self.assertEqual(section_fingerprints(variant), section_fingerprints(PAGE))
+
     def test_sentences_split_without_breaking_on_abbreviations_and_numbers(self) -> None:
         text = "Zdanie pierwsze. Zdanie drugie, np. Python. Zob. rozdział 5. Typy złożone."
 
@@ -526,15 +544,19 @@ class SectionTextTest(unittest.TestCase):
 
 
 class ReadLockTest(unittest.TestCase):
-    ENTRY = {
+    RECORD = {
+        "activity_id": "for-quiz",
         "page": "petle.md",
         "section_id": "petla-for",
         "heading": "Pętla for",
-        "activity_ids": ["for-quiz"],
         "fingerprint": "sha256:" + "0" * 64,
         "book_commit": "a" * 40,
         "reviewed_on": "2026-10-03",
     }
+
+    @staticmethod
+    def lock(*records: dict) -> dict:
+        return {"format": gate.LOCK_FORMAT, "fingerprint_version": 1, "activities": list(records)}
 
     def read(self, data) -> tuple[dict | None, list[str]]:
         with tempfile.TemporaryDirectory(prefix="kurs-gate-lock-") as directory:
@@ -544,18 +566,19 @@ class ReadLockTest(unittest.TestCase):
             return gate.read_lock(path)
 
     def test_reads_a_valid_file(self) -> None:
-        lock, errors = self.read({"fingerprint_version": 1, "bindings": [self.ENTRY]})
+        lock, errors = self.read(self.lock(self.RECORD))
 
         self.assertEqual(errors, [])
-        self.assertEqual(list(lock["entries"]), [("petle.md", "petla-for")])
+        self.assertEqual(list(lock["records"]), ["for-quiz"])
 
     def test_reports_format_errors(self) -> None:
-        broken = dict(self.ENTRY, fingerprint="md5:0", reviewed_on="3 X 2026")
+        broken = dict(self.RECORD, fingerprint="md5:0", reviewed_on="3 X 2026")
+        old_format = {"fingerprint_version": 1, "bindings": []}
         cases = {
             "niepoprawny JSON": "{",
-            "fingerprint, reviewed_on": {"fingerprint_version": 1, "bindings": [broken]},
-            "powtórzone wiązanie": {"fingerprint_version": 1, "bindings": [self.ENTRY] * 2},
-            "oczekiwano mapy": {"bindings": []},
+            "fingerprint, reviewed_on": self.lock(broken),
+            "powtórzona aktywność": self.lock(self.RECORD, self.RECORD),
+            "oczekiwano mapy z polami format": old_format,
         }
         for fragment, data in cases.items():
             with self.subTest(fragment):
@@ -563,9 +586,70 @@ class ReadLockTest(unittest.TestCase):
                 self.assertIsNone(lock)
                 self.assertTrue(any(fragment in error for error in errors), errors)
 
+    def test_writes_each_activity_with_its_review_on_one_line(self) -> None:
+        first = dict(self.RECORD, activity_id="a-pierwsza", section_id=None)
+        with tempfile.TemporaryDirectory(prefix="kurs-gate-lock-") as directory:
+            path = Path(directory) / "aktualnosc.json"
+            gate.write_lock(path, {"for-quiz": self.RECORD, "a-pierwsza": first})
+            rows = [
+                line for line in path.read_text(encoding="utf-8").splitlines()
+                if '"activity_id"' in line
+            ]
+            lock, errors = gate.read_lock(path)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(lock["records"], {"a-pierwsza": first, "for-quiz": self.RECORD})
+        self.assertEqual(len(rows), 2)
+        self.assertIn('"a-pierwsza"', rows[0])
+        for row in rows:
+            self.assertIn('"fingerprint"', row)
+            self.assertIn('"book_commit"', row)
+
+
+class BindingRulesTest(unittest.TestCase):
+    HEADINGS = [
+        (1, "petle", "Pętle"),
+        (2, "przykad", "Przykład"),
+        (2, "przykad_1", "Przykład"),
+        (3, "wersja_2", "wersja_2"),
+    ]
+
+    def test_rules_shared_by_g3_and_the_approval(self) -> None:
+        self.assertIsNone(gate.binding_problem(None, self.HEADINGS))
+        self.assertIsNone(gate.binding_problem("przykad", self.HEADINGS))
+        self.assertIsNone(gate.binding_problem("wersja_2", self.HEADINGS))
+        self.assertIs(gate.binding_problem("petle", self.HEADINGS), gate.UNKNOWN_HEADING)
+        self.assertIs(gate.binding_problem("brak", self.HEADINGS), gate.UNKNOWN_HEADING)
+        self.assertIs(gate.binding_problem(5, self.HEADINGS), gate.UNKNOWN_HEADING)
+        self.assertIs(
+            gate.binding_problem("przykad_1", self.HEADINGS), gate.DEDUPLICATED_HEADING
+        )
+
+
+class ContentDiffTest(unittest.TestCase):
+    def test_a_long_diff_keeps_the_first_added_lines_and_counts_all(self) -> None:
+        old = ["## A"] + [f"Stare zdanie {number}." for number in range(60)]
+        new = ["## A"] + [f"Nowe zdanie {number}." for number in range(5)]
+
+        diff = gate.content_diff(old, new, "przegląd", "teraz")
+
+        self.assertIn("+Nowe zdanie 0.", diff)
+        self.assertIn("+Nowe zdanie 4.", diff)
+        self.assertLessEqual(len(diff), gate.DIFF_LINES + 2)
+        self.assertTrue(
+            diff[-1].endswith("łącznie usunięto 60 wierszy, dodano 5 wierszy"), diff[-1]
+        )
+
+    def test_a_short_diff_is_complete(self) -> None:
+        diff = gate.content_diff(["## A", "x"], ["## A", "y"], "przegląd", "teraz")
+
+        self.assertEqual(diff[-2:], ["-x", "+y"])
+
 
 class StageG4Test(RepositoryTestCase):
     """Synchronizacje w tymczasowym repozytorium: książka (dev) i ćwiczenia."""
+
+    ALL = ["for-code", "for-quiz", "inna-ack", "przyklad-quiz", "while-quiz"]
 
     def setUp(self) -> None:
         super().setUp()
@@ -579,26 +663,28 @@ class StageG4Test(RepositoryTestCase):
                 "Activities",
                 {LAYER[0]: ACTIVITIES, "activities/rozdzial/inna.yaml": OTHER_ACTIVITIES},
             )
-            code, _ = self.approve("2026-10-01")
+            code, _ = self.approve(self.ALL, "2026-10-01")
             self.assertEqual(code, gate.EXIT_OK)
             self.commit("Review", {})
         except BaseException:
             self.tearDown()  # unittest nie wywołuje tearDown po błędzie w setUp
             raise
 
-    def approve(self, today: str = "2026-10-03") -> tuple[int, str]:
+    def approve(
+        self, reviewed: list[str] | None = None, today: str = "2026-10-03", book: str = "dev"
+    ) -> tuple[int, str]:
         output = io.StringIO()
-        with contextlib.redirect_stdout(output):
-            code = gate.approve_currency("dev", self.path, BOOK_MARKDOWN, today=today)
+        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
+            code = gate.approve_currency(book, self.path, reviewed, BOOK_MARKDOWN, today=today)
         return code, output.getvalue()
 
     def lock(self) -> dict:
-        return gate.read_lock(self.path / gate.LOCK_FILE)[0]["entries"]
+        return gate.read_lock(self.path / gate.LOCK_FILE)[0]["records"]
 
-    def sync_book(self, files: dict[str, str]) -> None:
+    def sync_book(self, files: dict[str, str], branch: str = "cwiczenia") -> None:
         self.git("switch", "-q", "dev")
         self.commit("Book change", files)
-        self.git("switch", "-q", "cwiczenia")
+        self.git("switch", "-q", branch)
         self.git("merge", "-q", "--no-ff", "-m", "Sync", "dev")
 
     def run_g4(self) -> tuple[gate.Stage, str]:
@@ -614,7 +700,7 @@ class StageG4Test(RepositoryTestCase):
         stage, _ = self.run_g4()
 
         self.assertEqual(stage.problems, [])
-        self.assertIn("zgodne z przeglądem: 4", stage.detail)
+        self.assertEqual(stage.detail, "aktywności: 5 (wiązania: 4), zgodne z przeglądem: 5")
 
     def test_text_change_inside_a_bound_section_is_flagged_with_a_diff(self) -> None:
         changed = PAGE.replace("Kolejne zdanie opisu.", "Zmienione zdanie opisu.")
@@ -629,6 +715,7 @@ class StageG4Test(RepositoryTestCase):
         self.assertIn("-Kolejne zdanie opisu.", output)
         self.assertIn("+Zmienione zdanie opisu.", output)
         self.assertIn(f"git diff {self.reviewed[:7]}", output)
+        self.assertIn("aktywności do przejrzenia (2): for-code, for-quiz", output)
 
     def test_code_example_change_is_flagged(self) -> None:
         self.sync_book({"docs/petle.md": PAGE.replace("# a\n", "# a\n# b\n# c\n")})
@@ -697,12 +784,16 @@ class StageG4Test(RepositoryTestCase):
             "poza nagłówkiem treść sekcji bez zmian",
         )
 
-        code, report = self.approve()
+        code, report = self.approve(["while-quiz"])
         self.commit("Review", {})
         reviewed, _ = self.run_g4()
         self.assertEqual(code, gate.EXIT_OK)
-        self.assertIn("dodano     petle.md#petla-while-i-warunek", report)
-        self.assertIn("usunięto   petle.md#petla-while", report)
+        self.assertIn(
+            "zmieniono  while-quiz: wiązanie petle.md#petla-while → "
+            "petle.md#petla-while-i-warunek; nagłówek „Pętla while” → "
+            "„Pętla while i warunek”",
+            report,
+        )
         self.assertEqual(reviewed.problems, [])
 
     def test_new_moved_and_removed_activities_are_reported(self) -> None:
@@ -724,19 +815,18 @@ class StageG4Test(RepositoryTestCase):
 
         stage, _ = self.run_g4()
 
-        self.assertProblem(
-            stage, "petle.md#petla-for", "for-nowa (nowa)",
-            "for-code (obecnie petle.md#odmiana-z-else)",
-        )
+        self.assertProblem(stage, "nowe aktywności bez wpisu", "for-nowa", "petle.md#petla-for")
         self.assertProblem(
             stage, "zmiana wiązania bez przeglądu: for-code", "petle.md#odmiana-z-else"
         )
         self.assertProblem(stage, "nowe aktywności bez wpisu", "else-quiz")
         self.assertProblem(stage, "nieaktualny wpis", "petle.md#przykad", "przyklad-quiz")
 
-        code, _ = self.approve()
+        code, report = self.approve(["for-nowa", "else-quiz", "for-code"])
         self.commit("Review", {})
         self.assertEqual(code, gate.EXIT_OK)
+        self.assertIn("usunięto   przyklad-quiz", report)
+        self.assertNotIn("przyklad-quiz", self.lock())
         self.assertEqual(self.run_g4()[0].problems, [])
 
     def test_missing_lock_blocks(self) -> None:
@@ -753,26 +843,170 @@ class StageG4Test(RepositoryTestCase):
         renamed = PAGE.replace("## Pętla while", "## Pętla while i warunek")
         self.sync_book({"docs/petle.md": renamed})
 
-        refused, report = self.approve()
+        refused, report = self.approve(["while-quiz"])
 
         self.assertEqual(refused, gate.EXIT_FAILED)
-        self.assertIn("petle.md#petla-while", report)
+        self.assertIn("while-quiz: petle.md#petla-while", report)
+        self.assertIn("zob. G3", report)
         self.assertEqual((self.path / gate.LOCK_FILE).read_bytes(), before)
 
         changed = PAGE.replace("Kolejne zdanie opisu.", "Inne zdanie opisu.")
         self.sync_book({"docs/petle.md": changed})
-        code, report = self.approve("2026-10-05")
-        entries = self.lock()
+        code, report = self.approve(["for-code", "for-quiz"], "2026-10-05")
+        records = self.lock()
         book = self.git("rev-parse", "dev")
 
         self.assertEqual(code, gate.EXIT_OK)
-        self.assertIn("zmieniono  petle.md#petla-for", report)
-        self.assertEqual(entries["petle.md", "petla-for"]["book_commit"], book)
-        self.assertEqual(entries["petle.md", "petla-for"]["reviewed_on"], "2026-10-05")
-        self.assertEqual(entries["petle.md", "petla-while"]["book_commit"], self.reviewed)
-        self.assertEqual(entries["petle.md", "petla-while"]["reviewed_on"], "2026-10-01")
+        self.assertIn("zmieniono  for-code: odcisk treści", report)
+        self.assertEqual(records["for-code"]["book_commit"], book)
+        self.assertEqual(records["for-code"]["reviewed_on"], "2026-10-05")
+        self.assertEqual(records["while-quiz"]["book_commit"], self.reviewed)
+        self.assertEqual(records["while-quiz"]["reviewed_on"], "2026-10-01")
         self.assertEqual(self.approve()[0], gate.EXIT_OK)
         self.assertIn("jest aktualny", self.approve()[1])
+
+    def test_approval_requires_exactly_the_activities_that_need_review(self) -> None:
+        self.sync_book({"docs/petle.md": PAGE.replace("Kolejne zdanie", "Inne zdanie")})
+        before = (self.path / gate.LOCK_FILE).read_bytes()
+        cases = {
+            "bez listy": (None, "--przejrzane ID"),
+            "część": (["for-code"], "nie wymieniono aktywności wymagających przeglądu: for-quiz"),
+            "nadmiar": (
+                ["for-code", "for-quiz", "while-quiz"],
+                "nie wymagają przeglądu albo nie istnieją: while-quiz",
+            ),
+        }
+        for label, (reviewed, fragment) in cases.items():
+            with self.subTest(label):
+                code, report = self.approve(reviewed)
+                self.assertEqual(code, gate.EXIT_FAILED)
+                self.assertIn(fragment, report)
+                self.assertIn("Aktywności wymagające przeglądu (2):", report)
+                self.assertIn("for-quiz: odcisk treści", report)
+                self.assertEqual((self.path / gate.LOCK_FILE).read_bytes(), before)
+
+        self.assertEqual(self.approve(["for-quiz", "for-code"])[0], gate.EXIT_OK)
+
+    def test_approval_applies_the_g3_rules_and_requires_a_book_branch(self) -> None:
+        bound = ACTIVITIES.replace("section_id: petla-while\n", "section_id: petle\n").replace(
+            "section_id: przykad\n", "section_id: przykad_1\n"
+        )
+        self.commit("Bindings G3 refuses", {LAYER[0]: bound})
+        before = (self.path / gate.LOCK_FILE).read_bytes()
+
+        code, report = self.approve(["przyklad-quiz", "while-quiz"])
+        usage, message = self.approve(book="HEAD")
+
+        self.assertEqual(code, gate.EXIT_FAILED)
+        self.assertIn(f"while-quiz: petle.md#petle: {gate.UNKNOWN_HEADING} (zob. G3)", report)
+        self.assertIn(
+            f"przyklad-quiz: petle.md#przykad_1: {gate.DEDUPLICATED_HEADING} (zob. G3)", report
+        )
+        self.assertEqual(usage, gate.EXIT_USAGE)
+        self.assertIn("--book musi wskazywać gałąź książki", message)
+        self.assertEqual((self.path / gate.LOCK_FILE).read_bytes(), before)
+
+    def test_reused_heading_id_points_to_the_renamed_heading(self) -> None:
+        page = PAGE.replace("## Pętla while\n", "## Pętla while i warunek\n")
+        self.sync_book({"docs/petle.md": page + "\n## Pętla while\n\nNowa, inna treść.\n"})
+
+        stage, output = self.run_g4()
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertProblem(
+            stage,
+            "petle.md#petla-while",
+            "zmieniła się treść",
+            "while-quiz",
+            "identyfikator petla-while należy teraz do innego nagłówka",
+            "(petla-while → petla-while-i-warunek)",
+        )
+        self.assertIn("+++ petle.md#petla-while-i-warunek", output)
+        self.assertIn("+## Pętla while i warunek", output)
+
+    def test_duplicate_heading_inserted_before_points_to_the_moved_content(self) -> None:
+        self.sync_book(
+            {
+                "docs/petle.md": PAGE.replace(
+                    "## Przykład\n\nPierwszy przykład.\n",
+                    "## Przykład\n\nWstawiony przykład.\n\n## Przykład\n\nPierwszy przykład.\n",
+                )
+            }
+        )
+
+        stage, output = self.run_g4()
+
+        self.assertProblem(
+            stage,
+            "petle.md#przykad",
+            "przyklad-quiz",
+            "najpewniej w sekcji przykad_1",
+            "sufiksem deduplikacji",
+        )
+        self.assertIn("treść sekcji bez zmian", output)
+
+    def test_page_moved_twice_is_followed_to_its_current_name(self) -> None:
+        self.git("switch", "-q", "dev")
+        self.git("mv", "docs/inna.md", "docs/inna2.md")
+        self.git("commit", "-q", "-m", "Move the page")
+        self.git("mv", "docs/inna2.md", "docs/inna3.md")
+        self.git("commit", "-q", "-m", "Move the page again")
+        self.git("switch", "-q", "cwiczenia")
+        self.git("merge", "-q", "--no-ff", "-m", "Sync", "dev")
+
+        stage, output = self.run_g4()
+
+        self.assertEqual(gate.renamed_page("inna.md", "dev"), "inna3.md")
+        self.assertProblem(stage, "inna.md (cała strona)", "książka przeniosła ją do inna3.md")
+        self.assertIn("treść sekcji bez zmian", output)
+
+    def wave_and_sync(self, activity_id: str) -> None:
+        """Fala dodaje aktywność do „Pętla for”, a synchronizacja zmienia tę sekcję.
+
+        Fala trafia na cwiczenia przez przewinięcie, gdy synchronizacja jest
+        w toku, a gałąź sync/test pozostaje bieżąca przed scaleniem cwiczenia.
+        """
+        self.git("switch", "-q", "-c", "fala/test", "cwiczenia")
+        extra = f"  - activity_id: {activity_id}\n    section_id: petla-for\n"
+        self.commit("Wave", {LAYER[0]: ACTIVITIES + extra})
+        self.assertEqual(self.approve([activity_id])[0], gate.EXIT_OK)
+        self.commit("Review the wave", {})
+        self.git("switch", "-q", "-c", "sync/test", "cwiczenia")
+        changed = PAGE.replace("Kolejne zdanie opisu.", "Zmienione zdanie opisu.")
+        self.sync_book({"docs/petle.md": changed}, "sync/test")
+        self.assertEqual(self.approve(["for-code", "for-quiz"])[0], gate.EXIT_OK)
+        self.commit("Review the sync", {})
+        self.git("switch", "-q", "cwiczenia")
+        self.git("merge", "-q", "--ff-only", "fala/test")
+        self.git("switch", "-q", "sync/test")
+
+    def test_a_merged_review_never_covers_another_activity(self) -> None:
+        # Wpis zz-nowa trafia na koniec pliku, więc scalenie wierszami przechodzi
+        # bez konfliktu; przegląd synchronizacji nie obejmuje nowej aktywności.
+        self.wave_and_sync("zz-nowa")
+        self.git("merge", "-q", "--no-ff", "-m", "Merge cwiczenia", "cwiczenia")
+
+        stage, _ = self.run_g4()
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertProblem(
+            stage, "petle.md#petla-for", "zmieniła się treść", "do przejrzenia: zz-nowa"
+        )
+
+    def test_a_lock_changed_on_both_sides_stops_the_merge(self) -> None:
+        attributes = Path(gate.__file__).resolve().parents[1] / ".gitattributes"
+        self.commit("Attributes", {"kurs/.gitattributes": attributes.read_text(encoding="utf-8")})
+        self.wave_and_sync("for-nowa")
+
+        merge = self.run_git("merge", "--no-ff", "-m", "Merge cwiczenia", "cwiczenia")
+
+        self.assertNotEqual(merge.returncode, 0, merge.stdout)
+        self.assertEqual(self.git("diff", "--name-only", "--diff-filter=U"), gate.LOCK_FILE)
+        self.git("checkout", "cwiczenia", "--", gate.LOCK_FILE)
+        self.git("commit", "-q", "--no-edit")
+        stage, _ = self.run_g4()
+        self.assertProblem(stage, "petle.md#petla-for", "zmieniła się treść", "for-code, for-quiz")
+        self.assertProblem(stage, "petle.md#petla-for", "zmieniła się treść", "for-nowa")
 
 
 if __name__ == "__main__":

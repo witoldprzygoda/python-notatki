@@ -1,0 +1,5 @@
+# kurs/aktualnosc.json nie podlega scalaniu wierszami: gdy obie scalane gałęzie
+# zmieniły ten plik, scalenie zatrzymuje się na konflikcie. Konflikt rozstrzyga
+# wersja z origin/cwiczenia, a następnie przegląd aktywności wskazanych przez
+# etap G4 (kurs/README.md, „Aktualność powiązanych sekcji (G4)”).
+/aktualnosc.json -merge

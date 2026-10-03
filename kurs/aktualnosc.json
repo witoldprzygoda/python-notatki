@@ -1,83 +1,14 @@
 {
+  "format": 2,
   "fingerprint_version": 1,
-  "bindings": [
-    {
-      "page": "04-sterowanie/petle-i-iteratory.md",
-      "section_id": "break-continue-pass",
-      "heading": "Break, continue, pass",
-      "activity_ids": [
-        "flow-continue-code-001"
-      ],
-      "fingerprint": "sha256:ac0fb7064560b2fc311c89fe14a6978a179c7f7b405260051c48975f251cf720",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    },
-    {
-      "page": "04-sterowanie/petle-i-iteratory.md",
-      "section_id": "iteratory",
-      "heading": "Iteratory",
-      "activity_ids": [
-        "flow-iterator-quiz-001"
-      ],
-      "fingerprint": "sha256:7ec4324fc5ab7cf2940410fe5fd974dd6957c6559a59e67a07257d9f42e4c833",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    },
-    {
-      "page": "04-sterowanie/petle-i-iteratory.md",
-      "section_id": "leniwa-sekwencja-range",
-      "heading": "Leniwa sekwencja range",
-      "activity_ids": [
-        "flow-range-quiz-001"
-      ],
-      "fingerprint": "sha256:c8a28dcf0af44e76fd38df18ee0a3dc918152f09210d3447c839e1782197d2ff",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    },
-    {
-      "page": "04-sterowanie/petle-i-iteratory.md",
-      "section_id": "petla-for",
-      "heading": "Pętla for",
-      "activity_ids": [
-        "flow-for-code-001",
-        "flow-for-quiz-001"
-      ],
-      "fingerprint": "sha256:ec032ab02cd23caf8f5c78576a3665447e1d883d7108a235af94719a5d4b7f57",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    },
-    {
-      "page": "04-sterowanie/wyrazenia-warunkowe.md",
-      "section_id": "operator-trojskadnikowy",
-      "heading": "Operator trójskładnikowy",
-      "activity_ids": [
-        "flow-ternary-quiz-001"
-      ],
-      "fingerprint": "sha256:b07423e953c2eb72c62f7785479565dee8308e1971db642b0fca58436af00206",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    },
-    {
-      "page": "04-sterowanie/wyrazenia-warunkowe.md",
-      "section_id": "pola-wyboru-match",
-      "heading": "Pola wyboru match",
-      "activity_ids": [
-        "flow-match-code-001"
-      ],
-      "fingerprint": "sha256:35bcf203d2462e9c538de5efb8667e80ad1ad5b024b62ca603fc2795afa83b80",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    },
-    {
-      "page": "04-sterowanie/wyrazenia-warunkowe.md",
-      "section_id": "wyrazenie-if-elif-else",
-      "heading": "Wyrażenie if, elif, else",
-      "activity_ids": [
-        "flow-if-quiz-001"
-      ],
-      "fingerprint": "sha256:acbd107206493c2ab851f49a18e1de036c0b70e8422190bf3a648e1f2bb06c30",
-      "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed",
-      "reviewed_on": "2026-10-03"
-    }
+  "activities": [
+    {"activity_id": "flow-continue-code-001", "page": "04-sterowanie/petle-i-iteratory.md", "section_id": "break-continue-pass", "heading": "Break, continue, pass", "fingerprint": "sha256:ac0fb7064560b2fc311c89fe14a6978a179c7f7b405260051c48975f251cf720", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-for-code-001", "page": "04-sterowanie/petle-i-iteratory.md", "section_id": "petla-for", "heading": "Pętla for", "fingerprint": "sha256:ec032ab02cd23caf8f5c78576a3665447e1d883d7108a235af94719a5d4b7f57", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-for-quiz-001", "page": "04-sterowanie/petle-i-iteratory.md", "section_id": "petla-for", "heading": "Pętla for", "fingerprint": "sha256:ec032ab02cd23caf8f5c78576a3665447e1d883d7108a235af94719a5d4b7f57", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-if-quiz-001", "page": "04-sterowanie/wyrazenia-warunkowe.md", "section_id": "wyrazenie-if-elif-else", "heading": "Wyrażenie if, elif, else", "fingerprint": "sha256:acbd107206493c2ab851f49a18e1de036c0b70e8422190bf3a648e1f2bb06c30", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-iterator-quiz-001", "page": "04-sterowanie/petle-i-iteratory.md", "section_id": "iteratory", "heading": "Iteratory", "fingerprint": "sha256:7ec4324fc5ab7cf2940410fe5fd974dd6957c6559a59e67a07257d9f42e4c833", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-match-code-001", "page": "04-sterowanie/wyrazenia-warunkowe.md", "section_id": "pola-wyboru-match", "heading": "Pola wyboru match", "fingerprint": "sha256:35bcf203d2462e9c538de5efb8667e80ad1ad5b024b62ca603fc2795afa83b80", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-range-quiz-001", "page": "04-sterowanie/petle-i-iteratory.md", "section_id": "leniwa-sekwencja-range", "heading": "Leniwa sekwencja range", "fingerprint": "sha256:c8a28dcf0af44e76fd38df18ee0a3dc918152f09210d3447c839e1782197d2ff", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"},
+    {"activity_id": "flow-ternary-quiz-001", "page": "04-sterowanie/wyrazenia-warunkowe.md", "section_id": "operator-trojskadnikowy", "heading": "Operator trójskładnikowy", "fingerprint": "sha256:b07423e953c2eb72c62f7785479565dee8308e1971db642b0fca58436af00206", "book_commit": "7e792230327cb59bce82827034d1eba2e05424ed", "reviewed_on": "2026-10-03"}
   ]
 }

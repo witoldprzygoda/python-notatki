@@ -7,6 +7,7 @@ Node.js 22 lub nowszego (zalecany 24):
     python kurs/tools/gate.py [--book REF] [--pomin-testy]
                               [--katalog-roboczy | --przed-scaleniem]
     python kurs/tools/gate.py --zatwierdz-aktualnosc [--book REF]
+                              [--przejrzane ID[,ID…]]
 
 --book             gałąź książki, względem której wyznaczamy merge-base
                    (domyślnie dev; podczas synchronizacji origin/dev).
@@ -20,6 +21,9 @@ Node.js 22 lub nowszego (zalecany 24):
                    w kurs/aktualnosc.json odciski powiązanych sekcji książki
                    w stanie merge-base(HEAD, REF) i wypisuje zmiany pliku.
                    Definicje aktywności odczytuje z katalogu roboczego.
+--przejrzane       z --zatwierdz-aktualnosc: przejrzane aktywności, dokładnie
+                   te, które wymagają przeglądu (nowe, o zmienionym wiązaniu
+                   albo o zmienionej treści sekcji).
 
 Bez --katalog-roboczy bramka ocenia commit HEAD: etapy G2–G7 działają na
 czystym eksporcie jego drzewa w katalogu tymczasowym, dlatego niezatwierdzone
@@ -41,12 +45,13 @@ Etapy (każdy jest blokujący):
       zestawia nagłówki strony sprzed ostatniego scalenia książki z obecnymi
       i wskazuje następcę dawnego nagłówka; zmiany wiązań względem tego stanu
       wypisuje razem z tekstami nagłówków;
-  G4  aktualność: odcisk treści każdej powiązanej sekcji (od jej nagłówka do
-      następnego nagłówka tego samego lub wyższego poziomu, a przy section_id:
-      null cała strona) jest równy odciskowi zapisanemu przy ostatnim
-      przeglądzie w kurs/aktualnosc.json; zmieniona treść, zmienione wiązanie
-      oraz nowe i usunięte aktywności wymagają przeglądu, a etap pokazuje
-      różnicę treści sekcji od stanu książki z przeglądu;
+  G4  aktualność: odcisk treści sekcji powiązanej z każdą aktywnością (od jej
+      nagłówka do następnego nagłówka tego samego lub wyższego poziomu, a przy
+      section_id: null cała strona) jest równy odciskowi zapisanemu we wpisie
+      tej aktywności przy jej ostatnim przeglądzie w kurs/aktualnosc.json;
+      zmieniona treść, zmienione wiązanie oraz nowe i usunięte aktywności
+      wymagają przeglądu, a etap pokazuje różnicę treści sekcji od stanu
+      książki z przeglądu i wskazuje sekcję, do której ta treść przeszła;
   G5  rozwiązanie wzorcowe i rozwiązania alternatywne każdego zadania code
       wypisują w CPython dokładnie checker.expected_lines, a starter_code ich
       nie wypisuje; każde pytanie single_choice ma blok verify, który wypisuje
@@ -68,8 +73,9 @@ Kod wyjścia:
      (--pomin-testy, --katalog-roboczy, --przed-scaleniem) i nie służy do
      odbioru.
 Z opcją --zatwierdz-aktualnosc: 0 — plik zapisano albo był aktualny;
-1 — wiązania lub definicje wymagają poprawy i pliku nie zmieniono;
-2 — błąd wywołania.
+1 — wiązania lub definicje wymagają poprawy albo lista --przejrzane nie
+obejmuje dokładnie aktywności wymagających przeglądu, a pliku nie zmieniono;
+2 — błąd wywołania, w tym --book, którego stan zawiera pliki ćwiczeń.
 """
 
 from __future__ import annotations
@@ -419,10 +425,9 @@ def stage_g1(ctx: Context) -> Stage:
         )
     if in_book or in_base:
         stage.note(
-            "książka zawiera warstwę ćwiczeń. Przed przewinięciem dev do stanu po "
-            "rozdzieleniu bramkę uruchamiamy z --book infra/rozdzielenie-cwiczen; "
-            "jeżeli ćwiczenia trafiły do książki później, nie scalamy jej i "
-            "stosujemy procedurę naprawczą z kurs/README.md"
+            "takiej książki nie scalamy: kolizję pojedynczej ścieżki rozwiązuje "
+            "zmiana jej nazwy po stronie ćwiczeń albo usunięcie jej z książki, "
+            "a warstwę ćwiczeń w książce — procedura naprawcza z kurs/README.md"
         )
 
     added = 0
@@ -593,12 +598,17 @@ def render_page(text: str, config) -> tuple[str, list[tuple[int, str, str]]]:
     rozszerzenia i ustawienia toc nadają identyfikatory nagłówkom w buildzie.
     """
     import markdown
+    from mkdocs.utils import meta
 
+    # Źródło przygotowujemy jak MkDocs (File.content_string i Page.read_source):
+    # znaki końca wiersza \n, bez BOM i bez metadanych na początku pliku.
+    text = text.replace("\r\n", "\n").replace("\r", "\n").removeprefix("\ufeff")
+    text, _ = meta.get_data(text)
     renderer = markdown.Markdown(
         extensions=config["markdown_extensions"],
         extension_configs=config["mdx_configs"],
     )
-    html = renderer.convert(text.replace("\r\n", "\n").replace("\r", "\n"))
+    html = renderer.convert(text)
     headings: list[tuple[int, str, str]] = []
 
     def walk(tokens) -> None:
@@ -613,6 +623,30 @@ def render_page(text: str, config) -> tuple[str, list[tuple[int, str, str]]]:
 def page_headings(text: str, config) -> list[tuple[int, str, str]]:
     """Zwraca (poziom, id, tekst) nagłówków strony z ustawieniami toc książki."""
     return render_page(text, config)[1]
+
+
+UNKNOWN_HEADING = "nie jest identyfikatorem nagłówka h2–h6 strony"
+DEDUPLICATED_HEADING = "ma sufiks deduplikacji powtórzonego nagłówka"
+
+
+def binding_problem(section_id, headings: list[tuple[int, str, str]]) -> str | None:
+    """Reguły wiązania G3, wspólne dla etapu G3 i polecenia --zatwierdz-aktualnosc.
+
+    Zwraca UNKNOWN_HEADING, gdy section_id nie jest identyfikatorem nagłówka
+    h2–h6 strony, DEDUPLICATED_HEADING, gdy ma sufiks deduplikacji nagłówka
+    powtórzonego na stronie, albo None, gdy wiązanie jest dozwolone (także
+    wiązanie z całą stroną, section_id None).
+    """
+    if section_id is None:
+        return None
+    if not isinstance(section_id, str) or section_id not in {
+        heading_id for level, heading_id, _ in headings if level >= 2
+    }:
+        return UNKNOWN_HEADING
+    deduplicated = DEDUPLICATED_ID.fullmatch(section_id)
+    if deduplicated and deduplicated.group(1) in {heading_id for _, heading_id, _ in headings}:
+        return DEDUPLICATED_HEADING
+    return None
 
 
 def headings_at(commit: str, page: str, config) -> list[tuple[int, str, str]] | None:
@@ -714,18 +748,34 @@ def rebinding_hint(
 
 
 def renamed_page(page: str, book: str) -> str | None:
-    """Szuka w historii książki nowej nazwy strony przeniesionej przez git mv."""
+    """Szuka w historii książki obecnej nazwy strony przeniesionej przez git mv.
+
+    Śledzi kolejne przeniesienia (stara nazwa → nowa, od najnowszych), aż
+    ścieżka istnieje w książce; zwraca None, gdy łańcuch do niej nie prowadzi.
+    """
     output = git(
         "log", book, "--format=", "--name-status", "-z",
         "--find-renames", "--diff-filter=R", "-n", "500",
         check=False,
     )
     fields = [item.strip("\n") for item in output.split("\0")]
-    old = f"docs/{page}"
-    for index, item in enumerate(fields[:-2]):
-        if item.startswith("R") and fields[index + 1] == old:
-            new = fields[index + 2]
-            return new.removeprefix("docs/")
+    renames: dict[str, str] = {}
+    index = 0
+    while index < len(fields) - 2:
+        if fields[index].startswith("R"):
+            renames.setdefault(fields[index + 1], fields[index + 2])  # najnowsze
+            index += 3
+        else:
+            index += 1
+    path = f"docs/{page}"
+    seen = {path}
+    while path in renames:
+        path = renames[path]
+        if path in seen:
+            return None
+        seen.add(path)
+        if git_run("cat-file", "-e", f"{book}:{path}").returncode == 0:
+            return path.removeprefix("docs/")
     return None
 
 
@@ -836,7 +886,6 @@ def stage_g3(ctx: Context) -> Stage:
         headings = page_headings((docs_dir / page).read_text(encoding="utf-8"), config)
         headings_now[page] = headings
         bindable = [heading_id for level, heading_id, _ in headings if level >= 2]
-        all_ids = {heading_id for _, heading_id, _ in headings}
         for activity in document.get("activities") or []:
             if not isinstance(activity, dict):
                 continue
@@ -845,9 +894,8 @@ def stage_g3(ctx: Context) -> Stage:
             activity_id = activity.get("activity_id")
             if isinstance(activity_id, str):
                 current[activity_id] = (page, section_id)
-            if section_id is None:
-                continue
-            if section_id not in bindable:
+            problem = binding_problem(section_id, headings)
+            if problem is UNKNOWN_HEADING:
                 hint = rebinding_hint(str(section_id), page, headings, previous, config)
                 stage.problem(
                     f"{relative}: aktywność {activity_id!r} ma section_id "
@@ -855,9 +903,7 @@ def stage_g3(ctx: Context) -> Stage:
                     f"strony {page}{hint}"
                 )
                 print(f"         dostępne: {', '.join(bindable) or 'brak'}")
-                continue
-            deduplicated = DEDUPLICATED_ID.fullmatch(section_id)
-            if deduplicated and deduplicated.group(1) in all_ids:
+            elif problem is DEDUPLICATED_HEADING:
                 stage.problem(
                     f"{relative}: aktywność {activity_id!r} ma section_id "
                     f"{section_id!r} z sufiksem deduplikacji powtórzonego "
@@ -887,9 +933,15 @@ def stage_g3(ctx: Context) -> Stage:
 # wiersz zaczynający się od # w bloku kodu nie jest nagłówkiem, a powtórzony
 # nagłówek ma własny identyfikator z sufiksem. Bieżącą treść czytamy z katalogu
 # docs sprawdzanego drzewa, a treść z przeglądu — z commitu książki zapisanego
-# w kurs/aktualnosc.json (git show). Nie korzystamy z HTML budowanego w G7:
-# zatwierdzenie i odtworzenie dawnej treści wymagałyby pełnego buildu, a strona
-# zawiera szablon motywu i znaczniki hooka, które trzeba by usuwać.
+# we wpisie aktywności w kurs/aktualnosc.json (git show). Nie korzystamy z HTML
+# budowanego w G7: zatwierdzenie i odtworzenie dawnej treści wymagałyby pełnego
+# buildu, a strona zawiera szablon motywu i znaczniki hooka, które trzeba by
+# usuwać.
+#
+# Stan przeglądu należy do aktywności, a nie do sekcji: każda aktywność ma
+# własny wpis w osobnym wierszu pliku, a kurs/.gitattributes nadaje plikowi
+# atrybut -merge. Scalenie gałęzi nie może więc przypisać przeglądu jednej
+# aktywności innej aktywności powiązanej z tą samą sekcją.
 
 BLOCK_TAGS = frozenset(
     {
@@ -911,13 +963,22 @@ ABBREVIATIONS = frozenset(
         "rozdz", "rys", "str", "tab", "tj", "tzw", "wg", "zob",
     }
 )
-LOCK_FIELDS = (
-    "page", "section_id", "heading", "activity_ids",
+# Format pliku kurs/aktualnosc.json: 2 — wpis dla każdej aktywności
+# (format 1, z wpisem dla wiązania, istniał wyłącznie na gałęzi roboczej).
+LOCK_FORMAT = 2
+RECORD_FIELDS = (
+    "activity_id", "page", "section_id", "heading",
     "fingerprint", "book_commit", "reviewed_on",
 )
 FINGERPRINT_PATTERN = re.compile(r"sha256:[0-9a-f]{64}")
 COMMIT_PATTERN = re.compile(r"[0-9a-f]{40}")
 DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
+# Podobieństwo treści (od 0 do 1), od którego G4 wskazuje sekcję, w której
+# znajduje się teraz treść z przeglądu.
+RELOCATION_RATIO = 0.8
+RESTORE_LOCK = f"git checkout origin/cwiczenia -- {LOCK_FILE}"
+# Kolejność zgłoszeń G4 dotyczących jednego wiązania.
+REPORT_ORDER = ("broken", "moved", "changed", "new", "stale")
 
 
 def sentences(text: str) -> list[str]:
@@ -1103,15 +1164,15 @@ def binding_name(key: tuple[str, str | None]) -> str:
     return f"{page}#{section_id}" if section_id is not None else f"{page} (cała strona)"
 
 
-def bindings_in(tree: Path) -> tuple[dict[tuple[str, str | None], list[str]], list[str]]:
-    """Wiązania z definicji w drzewie: {(strona, section_id): [activity_id…]}.
+def activity_bindings(tree: Path) -> tuple[dict[str, tuple[str, str | None]], list[str]]:
+    """Wiązania z definicji w drzewie: {activity_id: (strona, section_id)}.
 
     Zwraca też błędy definicji: etap G4 je pomija, ponieważ zgłasza je G3,
     a polecenie --zatwierdz-aktualnosc z ich powodu nie zapisuje pliku.
     """
     import yaml
 
-    found: dict[tuple[str, str | None], list[str]] = {}
+    found: dict[str, tuple[str, str | None]] = {}
     errors: list[str] = []
     for source in sorted((tree / "activities").rglob("*.yaml")):
         relative = source.relative_to(tree).as_posix()
@@ -1138,26 +1199,27 @@ def bindings_in(tree: Path) -> tuple[dict[tuple[str, str | None], list[str]], li
                     "activity_id albo section_id"
                 )
                 continue
-            found.setdefault((page, section_id), []).append(activity_id)
-    return {key: sorted(ids) for key, ids in found.items()}, errors
+            if activity_id in found:
+                errors.append(f"{relative}: powtórzony activity_id {activity_id!r}")
+                continue
+            found[activity_id] = (page, section_id)
+    return found, errors
 
 
-def lock_entry_problem(entry) -> str | None:
-    """Opis błędu formatu wpisu kurs/aktualnosc.json albo None."""
-    if not isinstance(entry, dict) or set(entry) != set(LOCK_FIELDS):
-        return "oczekiwano dokładnie pól: " + ", ".join(LOCK_FIELDS)
-    ids = entry["activity_ids"]
+def lock_record_problem(record) -> str | None:
+    """Opis błędu formatu wpisu aktywności w kurs/aktualnosc.json albo None."""
+    if not isinstance(record, dict) or set(record) != set(RECORD_FIELDS):
+        return "oczekiwano dokładnie pól: " + ", ".join(RECORD_FIELDS)
 
     def text(name: str, pattern: re.Pattern[str] | None = None) -> bool:
-        value = entry[name]
+        value = record[name]
         return isinstance(value, str) and (pattern is None or bool(pattern.fullmatch(value)))
 
     valid = {
+        "activity_id": text("activity_id") and bool(record["activity_id"]),
         "page": text("page"),
-        "section_id": entry["section_id"] is None or text("section_id"),
+        "section_id": record["section_id"] is None or text("section_id"),
         "heading": text("heading"),
-        "activity_ids": isinstance(ids, list) and bool(ids)
-        and all(isinstance(item, str) for item in ids) and len(set(ids)) == len(ids),
         "fingerprint": text("fingerprint", FINGERPRINT_PATTERN),
         "book_commit": text("book_commit", COMMIT_PATTERN),
         "reviewed_on": text("reviewed_on", DATE_PATTERN),
@@ -1169,7 +1231,7 @@ def lock_entry_problem(entry) -> str | None:
 def read_lock(path: Path) -> tuple[dict | None, list[str]]:
     """Odczytuje kurs/aktualnosc.json.
 
-    Zwraca ({"version": wersja odcisku, "entries": {wiązanie: wpis}}, błędy);
+    Zwraca ({"version": wersja odcisku, "records": {activity_id: wpis}}, błędy);
     przy błędzie formatu pierwszym elementem jest None.
     """
     if not path.is_file():
@@ -1177,87 +1239,167 @@ def read_lock(path: Path) -> tuple[dict | None, list[str]]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except ValueError as error:
-        return None, [f"{LOCK_FILE}: niepoprawny JSON: {error}"]
+        return None, [
+            f"{LOCK_FILE}: niepoprawny JSON (np. znaczniki konfliktu scalenia): {error}"
+        ]
+    version = data.get("fingerprint_version") if isinstance(data, dict) else None
     if (
         not isinstance(data, dict)
-        or set(data) != {"fingerprint_version", "bindings"}
-        or not isinstance(data["fingerprint_version"], int)
-        or not isinstance(data["bindings"], list)
+        or set(data) != {"format", "fingerprint_version", "activities"}
+        or data["format"] != LOCK_FORMAT
+        or not isinstance(version, int)
+        or isinstance(version, bool)
+        or not isinstance(data["activities"], list)
     ):
         return None, [
-            f"{LOCK_FILE}: oczekiwano mapy z polami fingerprint_version (liczba) "
-            "i bindings (lista)"
+            f"{LOCK_FILE}: oczekiwano mapy z polami format ({LOCK_FORMAT}), "
+            "fingerprint_version (liczba) i activities (lista wpisów aktywności)"
         ]
-    entries: dict[tuple[str, str | None], dict] = {}
-    owners: dict[str, tuple[str, str | None]] = {}
+    records: dict[str, dict] = {}
     errors: list[str] = []
-    for number, entry in enumerate(data["bindings"], 1):
-        problem = lock_entry_problem(entry)
+    for number, record in enumerate(data["activities"], 1):
+        problem = lock_record_problem(record)
         if problem:
             errors.append(f"{LOCK_FILE}: wpis {number}: {problem}")
-            continue
-        key = (entry["page"], entry["section_id"])
-        if key in entries:
-            errors.append(f"{LOCK_FILE}: wpis {number}: powtórzone wiązanie {binding_name(key)}")
-            continue
-        for activity_id in entry["activity_ids"]:
-            if activity_id in owners:
-                errors.append(
-                    f"{LOCK_FILE}: wpis {number}: aktywność {activity_id!r} występuje "
-                    f"także we wpisie {binding_name(owners[activity_id])}"
-                )
-            owners[activity_id] = key
-        entries[key] = entry
+        elif record["activity_id"] in records:
+            errors.append(
+                f"{LOCK_FILE}: wpis {number}: powtórzona aktywność "
+                f"{record['activity_id']!r}"
+            )
+        else:
+            records[record["activity_id"]] = record
     if errors:
         return None, errors
-    return {"version": data["fingerprint_version"], "entries": entries}, []
+    return {"version": version, "records": records}, []
 
 
-def write_lock(path: Path, entries: dict[tuple[str, str | None], dict]) -> None:
-    data = {
-        "fingerprint_version": FINGERPRINT_VERSION,
-        "bindings": [entries[key] for key in sorted(entries, key=binding_order)],
-    }
+def write_lock(path: Path, records: dict[str, dict]) -> None:
+    """Zapisuje kurs/aktualnosc.json: wpis każdej aktywności w osobnym wierszu.
+
+    Wiersz łączy identyfikator aktywności ze stanem jej przeglądu, więc ani
+    scalenie wierszami, ani wybór fragmentu przy konflikcie nie przypisze
+    przeglądu jednej aktywności innej aktywności.
+    """
+    rows = [
+        "    " + json.dumps(
+            {name: records[activity_id][name] for name in RECORD_FIELDS},
+            ensure_ascii=False,
+        )
+        for activity_id in sorted(records)
+    ]
+    lines = [
+        "{",
+        f'  "format": {LOCK_FORMAT},',
+        f'  "fingerprint_version": {FINGERPRINT_VERSION},',
+        '  "activities": [',
+        *(row + ("," if number < len(rows) else "") for number, row in enumerate(rows, 1)),
+        "  ]",
+        "}",
+    ]
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
 def content_diff(old: list[str], new: list[str], old_label: str, new_label: str) -> list[str]:
-    """Różnica unified treści sekcji, skrócona do DIFF_LINES wierszy."""
+    """Różnica unified treści sekcji, skrócona do około DIFF_LINES wierszy.
+
+    Skrócona różnica zawsze pokazuje pierwsze dodane wiersze (także wtedy, gdy
+    poprzedza je długi ciąg usuniętych) i kończy się liczbą wszystkich
+    usuniętych i dodanych wierszy.
+    """
     lines = list(difflib.unified_diff(old, new, old_label, new_label, n=1, lineterm=""))
-    if len(lines) > DIFF_LINES:
-        rest = len(lines) - DIFF_LINES
-        lines = lines[:DIFF_LINES] + [
-            "… pominięto " + plural(rest, "wiersz", "wiersze", "wierszy") + " różnicy"
-        ]
-    return lines
+    if len(lines) <= DIFF_LINES:
+        return lines
+    body = lines[2:]
+    removed = sum(line.startswith("-") for line in body)
+    added = sum(line.startswith("+") for line in body)
+    shown = lines[:DIFF_LINES]
+    if added and not any(line.startswith("+") for line in shown[2:]):
+        half = (DIFF_LINES - 2) // 2
+        first = next(
+            index for index in range(2, len(lines)) if lines[index].startswith("+")
+        )
+        shown = lines[:2 + half] + ["…"] + lines[first:first + half]
+    return shown + [
+        "… różnica skrócona; łącznie usunięto "
+        + plural(removed, "wiersz", "wiersze", "wierszy")
+        + ", dodano "
+        + plural(added, "wiersz", "wiersze", "wierszy")
+    ]
 
 
 def quoted(text: str) -> str:
     return f"„{text}”" if text else "bez nagłówka"
 
 
-class BookPages:
-    """Teksty stron: bieżące z katalogu docs drzewa, dawne z commitów książki."""
+def section_similarity(old: list[str], new: list[str]) -> float:
+    """Podobieństwo treści dwóch sekcji bez wierszy nagłówków (od 0 do 1)."""
+    return difflib.SequenceMatcher(None, old[1:], new[1:], autojunk=False).ratio()
 
-    def __init__(self, docs_dir: Path, config) -> None:
-        self.docs_dir = docs_dir
+
+def relocated_content(
+    reviewed: list[str], text: PageText, section_id: str | None
+) -> tuple[tuple[int, str, str], float] | None:
+    """Nagłówek sekcji, w której znajduje się teraz treść z przeglądu.
+
+    Wskazuje sekcję h2–h6 inną niż section_id, której treść jest podobna do
+    treści z przeglądu co najmniej w stopniu RELOCATION_RATIO i bardziej niż
+    treść sekcji section_id; w przeciwnym razie zwraca None.
+    """
+    if len(reviewed) < 2:
+        return None  # sekcji bez treści poza nagłówkiem nie da się odnaleźć
+    bound = text.lines(section_id) if section_id is not None else None
+    bound_ratio = section_similarity(reviewed, bound) if bound is not None else None
+    best: tuple[tuple[int, str, str], float] | None = None
+    for heading in text.headings:
+        level, heading_id, _ = heading
+        lines = text.sections.get(heading_id)
+        if level < 2 or heading_id == section_id or lines is None:
+            continue
+        ratio = section_similarity(reviewed, lines)
+        if ratio < RELOCATION_RATIO or (bound_ratio is not None and ratio <= bound_ratio):
+            continue
+        if best is None or ratio > best[1]:
+            best = (heading, ratio)
+    return best
+
+
+def describe_relocation(heading: tuple[int, str, str], headings) -> str:
+    _, heading_id, name = heading
+    message = (
+        f"treść z przeglądu znajduje się teraz najpewniej w sekcji {heading_id} "
+        f"(„{name}”)"
+    )
+    if binding_problem(heading_id, headings) is DEDUPLICATED_HEADING:
+        return message + (
+            "; z identyfikatorem z sufiksem deduplikacji G3 nie pozwala wiązać, "
+            "więc o wiązaniu decyduje autor"
+        )
+    return message + "; należy sprawdzić wiązanie (jak w G3), zamiast dostosowywać aktywność"
+
+
+class BookPages:
+    """Teksty stron książki: bieżące (z katalogu docs albo z commitu) i dawne."""
+
+    def __init__(self, config, *, docs_dir: Path | None = None,
+                 commit: str | None = None) -> None:
         self.config = config
+        self.docs_dir = docs_dir
+        self.commit = commit
         self._now: dict[str, PageText | None] = {}
         self._at: dict[tuple[str, str], PageText | None] = {}
 
     def now(self, page: str) -> PageText | None:
         if page not in self._now:
-            source = self.docs_dir / page
-            self._now[page] = (
-                page_text(source.read_text(encoding="utf-8"), self.config)
-                if source.is_file()
-                else None
-            )
+            if self.docs_dir is None:
+                self._now[page] = self.at(self.commit, page)
+            else:
+                source = self.docs_dir / page
+                self._now[page] = (
+                    page_text(source.read_text(encoding="utf-8"), self.config)
+                    if source.is_file()
+                    else None
+                )
         return self._now[page]
 
     def at(self, commit: str, page: str) -> PageText | None:
@@ -1266,140 +1408,223 @@ class BookPages:
         return self._at[commit, page]
 
 
+def reviewed_lines(record: dict, pages: BookPages) -> list[str] | None:
+    """Treść sekcji z przeglądu odtworzona z commitu książki zapisanego we wpisie."""
+    text = pages.at(record["book_commit"], record["page"])
+    return text.lines(record["section_id"]) if text else None
+
+
+def review_state(
+    binding: tuple[str, str | None] | None,
+    record: dict | None,
+    pages: BookPages,
+    version: int,
+) -> str:
+    """Stan przeglądu aktywności względem bieżącej treści książki.
+
+    ok — treść i wiązanie jak przy przeglądzie; refresh — jak wyżej, ale wpis
+    ma odcisk dawnej wersji; new — brak wpisu; moved — wiązanie inne niż przy
+    przeglądzie; changed — zmieniona treść sekcji; broken — wiązanie nie
+    wskazuje sekcji książki (G3); stale — wpis aktywności, której już nie ma.
+    """
+    if binding is None:
+        return "stale"
+    page, section_id = binding
+    text = pages.now(page)
+    lines = text.lines(section_id) if text else None
+    if lines is None:
+        return "broken"
+    if record is None:
+        return "new"
+    if (record["page"], record["section_id"]) != binding:
+        return "moved"
+    if version == FINGERPRINT_VERSION:
+        expected = record["fingerprint"]
+    else:
+        old = reviewed_lines(record, pages)
+        expected = fingerprint(old) if old is not None else None
+    if fingerprint(lines) != expected:
+        return "changed"
+    return "ok" if version == FINGERPRINT_VERSION else "refresh"
+
+
 class CurrencyReview:
     """Porównanie wiązań sprawdzanego drzewa z wpisami kurs/aktualnosc.json."""
 
-    def __init__(self, stage: Stage, pages: BookPages, lock: dict, current: dict,
-                 book: str, base: str) -> None:
+    def __init__(self, stage: Stage, pages: BookPages, lock: dict,
+                 placed: dict[str, tuple[str, str | None]], book: str, base: str) -> None:
         self.stage = stage
         self.pages = pages
-        self.entries: dict[tuple[str, str | None], dict] = lock["entries"]
+        self.records: dict[str, dict] = lock["records"]
         self.version = lock["version"]
-        self.current = current
+        self.placed = placed
         self.book = book
         self.base = base
         self.unchanged = 0
-        # activity_id → wiązanie z przeglądu oraz wiązanie bieżące
-        self.reviewed = {
-            activity_id: key
-            for key, entry in self.entries.items()
-            for activity_id in entry["activity_ids"]
-        }
-        self.placed = {activity_id: key for key, ids in current.items() for activity_id in ids}
+        self.to_review: list[str] = []
 
     def run(self) -> None:
         if self.version != FINGERPRINT_VERSION:
             self.stage.problem(
                 f"{LOCK_FILE} zawiera odciski w wersji {self.version}, a bramka "
                 f"oblicza wersję {FINGERPRINT_VERSION}; treść porównujemy ze stanem "
-                "książki z przeglądu, a plik należy odświeżyć"
+                "książki z przeglądu, a wpisy odświeża polecenie --zatwierdz-aktualnosc"
             )
-        for key in sorted(set(self.current) | set(self.entries), key=binding_order):
-            ids = self.current.get(key)
-            entry = self.entries.get(key)
-            if ids is None:
-                self.stale(key, entry)
-            elif entry is None:
-                self.unreviewed(key, ids)
-            else:
-                self.compare(key, entry, ids)
+        groups: dict[tuple, list[str]] = {}
+        for activity_id in sorted(set(self.placed) | set(self.records)):
+            binding = self.placed.get(activity_id)
+            record = self.records.get(activity_id)
+            state = review_state(binding, record, self.pages, self.version)
+            if state in ("ok", "refresh"):
+                self.unchanged += 1
+                continue
+            if state != "stale":
+                self.to_review.append(activity_id)
+            signature = None if record is None else tuple(
+                record[name] for name in RECORD_FIELDS[1:]
+            )
+            groups.setdefault((state, binding, signature), []).append(activity_id)
 
-    def reviewed_lines(self, entry: dict) -> list[str] | None:
-        text = self.pages.at(entry["book_commit"], entry["page"])
-        return text.lines(entry["section_id"]) if text else None
+        def order(key: tuple) -> tuple:
+            state, binding, signature = key
+            target = binding or (signature[0], signature[1])
+            return binding_order(target), REPORT_ORDER.index(state), str(signature)
 
-    def expected(self, entry: dict) -> str | None:
-        if self.version == FINGERPRINT_VERSION:
-            return entry["fingerprint"]
-        lines = self.reviewed_lines(entry)
-        return fingerprint(lines) if lines is not None else None
+        for key in sorted(groups, key=order):
+            state, binding, signature = key
+            ids = groups[key]
+            record = self.records[ids[0]] if signature else None
+            getattr(self, f"report_{state}")(binding, record, ids)
 
-    def show_diff(self, entry: dict, key: tuple[str, str | None], lines: list[str]) -> None:
+    def show_diff(self, record: dict, binding: tuple[str, str | None],
+                  lines: list[str]) -> None:
         """Różnica treści od przeglądu i polecenie pokazujące pełne zmiany stron."""
-        commit = entry["book_commit"]
-        old_key = (entry["page"], entry["section_id"])
-        old_lines = self.reviewed_lines(entry)
+        commit = record["book_commit"]
+        source = (record["page"], record["section_id"])
+        old_lines = reviewed_lines(record, self.pages)
         if old_lines is None:
             Stage.note(
                 f"treści z przeglądu nie można odtworzyć: commit {commit[:7]} nie "
-                f"zawiera {binding_name(old_key)}"
+                f"zawiera {binding_name(source)}"
             )
             return
-        if self.version == FINGERPRINT_VERSION and fingerprint(old_lines) != entry["fingerprint"]:
+        if self.version == FINGERPRINT_VERSION and fingerprint(old_lines) != record["fingerprint"]:
             Stage.note(
                 "treść odtworzona z commitu przeglądu nie odpowiada zapisanemu "
                 "odciskowi (np. po zmianie rozszerzeń Markdown książki); różnica "
                 "może obejmować także skutki tej zmiany"
             )
+        if old_lines == lines:
+            print("         treść sekcji bez zmian")
+            return
         diff = content_diff(
             old_lines,
             lines,
-            f"{binding_name(old_key)} @ {commit[:7]} (przegląd {entry['reviewed_on']})",
-            f"{binding_name(key)} @ {self.base[:7]}",
+            f"{binding_name(source)} @ {commit[:7]} (przegląd {record['reviewed_on']})",
+            f"{binding_name(binding)} @ {self.base[:7]}",
         )
         for line in diff:
             print(f"         {line}")
-        paths = dict.fromkeys((f"docs/{entry['page']}", f"docs/{key[0]}"))
+        paths = dict.fromkeys((f"docs/{record['page']}", f"docs/{binding[0]}"))
         print(
             f"         pełne zmiany: git diff {commit[:7]} {self.base[:7]} -- "
             + " ".join(paths)
         )
 
-    def origin(self, activity_id: str) -> str:
-        source = self.reviewed.get(activity_id)
-        return f"{activity_id} (nowa)" if source is None else (
-            f"{activity_id} (wcześniej {binding_name(source)})"
-        )
+    def relocation(self, binding: tuple[str, str | None],
+                   record: dict) -> tuple[list[str], str | None]:
+        """Wskazówki i sekcja, gdy treść z przeglądu przeszła pod inny nagłówek.
 
-    def destination(self, activity_id: str) -> str:
-        target = self.placed.get(activity_id)
-        return f"{activity_id} (usunięta)" if target is None else (
-            f"{activity_id} (obecnie {binding_name(target)})"
-        )
-
-    def compare(self, key, entry: dict, ids: list[str]) -> None:
-        page, section_id = key
+        Zwraca opisy oraz identyfikator sekcji, z którą należy porównać treść
+        z przeglądu: najpierw sekcję o najbardziej podobnej treści, a gdy jej
+        nie ma — następcę nagłówka z zestawienia nagłówków (jak w G3).
+        """
+        page, section_id = binding
         text = self.pages.now(page)
-        lines = text.lines(section_id) if text else None
-        if lines is None:
-            self.broken(key, entry, ids)
-            return
-        changed = fingerprint(lines) != self.expected(entry)
-        added = [item for item in ids if item not in entry["activity_ids"]]
-        dropped = [item for item in entry["activity_ids"] if item not in ids]
-        if not (changed or added or dropped):
-            self.unchanged += 1
-            return
+        if section_id is None or text is None:
+            return [], None
+        hints: list[str] = []
+        target = None
+        old = self.pages.at(record["book_commit"], record["page"])
+        match = align_heading(section_id, old.headings, text.headings) if old else None
+        if match and match[1][1] != section_id:
+            target = match[1][1]
+            hints.append(
+                f"identyfikator {section_id} należy teraz do innego nagłówka: "
+                + describe_successor(*match)
+                + "; należy poprawić wiązanie (jak w G3), zamiast dostosowywać aktywność"
+            )
+        reviewed = reviewed_lines(record, self.pages)
+        found = relocated_content(reviewed, text, section_id) if reviewed else None
+        if found and found[0][1] != target:
+            hints.append(describe_relocation(found[0], text.headings))
+            target = found[0][1]
+        return hints, target
+
+    def report_changed(self, binding, record: dict, ids: list[str]) -> None:
+        page, section_id = binding
+        text = self.pages.now(page)
         heading = text.heading(section_id)
         title = quoted(heading)
-        if heading != entry["heading"]:
-            title = f"{quoted(entry['heading'])} → {title}"
-        parts = []
-        if changed:
-            parts.append(
-                f"zmieniła się treść od przeglądu przy {entry['book_commit'][:7]} "
-                f"({entry['reviewed_on']})"
-            )
-        if added:
-            parts.append(
-                "aktywności bez przeglądu tej sekcji: "
-                + ", ".join(self.origin(item) for item in added)
-            )
-        if dropped:
-            parts.append(
-                "aktywności, które opuściły wiązanie: "
-                + ", ".join(self.destination(item) for item in dropped)
-            )
-        message = f"{binding_name(key)} ({title}): " + "; ".join(parts)
-        if changed:
-            message += "; aktywności do przejrzenia: " + ", ".join(ids)
-        self.stage.problem(message)
-        if changed:
-            self.show_diff(entry, key, lines)
+        if heading != record["heading"]:
+            title = f"{quoted(record['heading'])} → {title}"
+        message = (
+            f"{binding_name(binding)} ({title}): zmieniła się treść od przeglądu przy "
+            f"{record['book_commit'][:7]} ({record['reviewed_on']}); aktywności do "
+            "przejrzenia: " + ", ".join(ids)
+        )
+        hints, target = self.relocation(binding, record)
+        self.stage.problem("; ".join([message, *hints]))
+        if target is None:
+            self.show_diff(record, binding, text.lines(section_id))
+        else:  # różnica względem sekcji, do której przeszła treść z przeglądu
+            self.show_diff(record, (page, target), text.lines(target))
 
-    def broken(self, key, entry: dict, ids: list[str]) -> None:
-        """Wiązanie z przeglądu, którego sekcji nie ma w książce (błąd G3)."""
-        page, section_id = key
+    def report_moved(self, binding, record: dict, ids: list[str]) -> None:
+        page, section_id = binding
+        text = self.pages.now(page)
+        lines = text.lines(section_id)
+        source = (record["page"], record["section_id"])
+        message = (
+            f"zmiana wiązania bez przeglądu: {', '.join(ids)} z {binding_name(source)} "
+            f"({quoted(record['heading'])}, przegląd przy {record['book_commit'][:7]}) "
+            f"do {binding_name(binding)} ({quoted(text.heading(section_id))})"
+        )
+        old_lines = reviewed_lines(record, self.pages)
+        if old_lines == lines:
+            message += "; treść sekcji bez zmian"
+        elif old_lines is not None and old_lines[1:] == lines[1:]:
+            message += "; poza nagłówkiem treść sekcji bez zmian"
+        self.stage.problem(message + "; aktywności do przejrzenia: " + ", ".join(ids))
+        if old_lines != lines:
+            self.show_diff(record, binding, lines)
+
+    def report_new(self, binding, record: None, ids: list[str]) -> None:
+        page, section_id = binding
+        text = self.pages.now(page)
+        self.stage.problem(
+            f"nowe aktywności bez wpisu w {LOCK_FILE}: {', '.join(ids)}; wiązanie "
+            f"{binding_name(binding)} ({quoted(text.heading(section_id))})"
+        )
+
+    def report_broken(self, binding, record: dict | None, ids: list[str]) -> None:
+        """Wiązanie, którego sekcji nie ma w książce (błąd G3)."""
+        if record is None:
+            self.stage.problem(
+                f"nowe aktywności bez wpisu w {LOCK_FILE}: {', '.join(ids)}; wiązanie "
+                f"{binding_name(binding)} nie wskazuje sekcji książki (zob. G3)"
+            )
+            return
+        source = (record["page"], record["section_id"])
+        if source != binding:
+            self.stage.problem(
+                f"zmiana wiązania bez przeglądu: {', '.join(ids)} z "
+                f"{binding_name(source)} ({quoted(record['heading'])}, przegląd przy "
+                f"{record['book_commit'][:7]}) do {binding_name(binding)}; nowego "
+                "wiązania nie ma w książce (zob. G3)"
+            )
+            return
+        page, section_id = binding
         target_page = page
         text = self.pages.now(page)
         if text is None:
@@ -1416,68 +1641,33 @@ class CurrencyReview:
             if section_id is None or section_id in text.sections:
                 target = (target_page, section_id)
             else:
-                old = self.pages.at(entry["book_commit"], page)
+                old = self.pages.at(record["book_commit"], page)
                 match = align_heading(section_id, old.headings, text.headings) if old else None
                 if match:
                     reason += "; " + describe_successor(*match)
                     target = (target_page, match[1][1])
                 else:
                     reason += "; zestawienie nagłówków nie wskazuje następcy"
+                    reviewed = reviewed_lines(record, self.pages)
+                    found = relocated_content(reviewed, text, None) if reviewed else None
+                    if found:
+                        reason += "; " + describe_relocation(found[0], text.headings)
+                        target = (target_page, found[0][1])
         self.stage.problem(
-            f"{binding_name(key)} ({quoted(entry['heading'])}): {reason}; aktywności "
+            f"{binding_name(binding)} ({quoted(record['heading'])}): {reason}; aktywności "
             "do przejrzenia po poprawie wiązania: " + ", ".join(ids)
         )
         if target is not None:
-            self.show_diff(entry, target, text.lines(target[1]))
+            self.show_diff(record, target, text.lines(target[1]))
 
-    def unreviewed(self, key, ids: list[str]) -> None:
-        """Wiązanie bez wpisu: aktywności przeniesione z innej sekcji albo nowe."""
-        page, section_id = key
-        text = self.pages.now(page)
-        lines = text.lines(section_id) if text else None
-        label = binding_name(key)
-        if lines is not None:
-            label += f" ({quoted(text.heading(section_id))})"
-        sources = sorted({self.reviewed[item] for item in ids if item in self.reviewed},
-                         key=binding_order)
-        for source in sources:
-            entry = self.entries[source]
-            moved = [item for item in ids if self.reviewed.get(item) == source]
-            message = (
-                f"zmiana wiązania bez przeglądu: {', '.join(moved)} z "
-                f"{binding_name(source)} ({quoted(entry['heading'])}, przegląd przy "
-                f"{entry['book_commit'][:7]}) do {label}"
-            )
-            if lines is None:
-                self.stage.problem(message + "; nowego wiązania nie ma w książce (zob. G3)")
-                continue
-            old_lines = self.reviewed_lines(entry)
-            if old_lines == lines:
-                message += "; treść sekcji bez zmian"
-            elif old_lines is not None and old_lines[1:] == lines[1:]:
-                message += "; poza nagłówkiem treść sekcji bez zmian"
-            self.stage.problem(message + "; aktywności do przejrzenia: " + ", ".join(moved))
-            if old_lines != lines:
-                self.show_diff(entry, key, lines)
-        new = [item for item in ids if item not in self.reviewed]
-        if new:
-            message = (
-                f"nowe aktywności bez wpisu w {LOCK_FILE}: {', '.join(new)}; "
-                f"wiązanie {label}"
-            )
-            if lines is None:
-                message += " nie wskazuje sekcji książki (zob. G3)"
-            self.stage.problem(message)
-
-    def stale(self, key, entry: dict) -> None:
-        """Wpis bez aktywności w tym wiązaniu; przeniesienia zgłasza nowe wiązanie."""
-        removed = [item for item in entry["activity_ids"] if item not in self.placed]
-        if removed:
-            self.stage.problem(
-                f"nieaktualny wpis {LOCK_FILE}: {binding_name(key)} "
-                f"({quoted(entry['heading'])}); aktywności, których już nie ma: "
-                + ", ".join(removed)
-            )
+    def report_stale(self, binding: None, record: dict, ids: list[str]) -> None:
+        """Wpis aktywności, której nie ma już w definicjach."""
+        source = (record["page"], record["section_id"])
+        self.stage.problem(
+            f"nieaktualny wpis {LOCK_FILE}: {binding_name(source)} "
+            f"({quoted(record['heading'])}); aktywności, których już nie ma: "
+            + ", ".join(ids)
+        )
 
 
 def stage_g4(ctx: Context, config=None) -> Stage:
@@ -1488,42 +1678,96 @@ def stage_g4(ctx: Context, config=None) -> Stage:
 
         config = load_config(str(ctx.tree / COURSE_CONFIG))
     docs_dir = Path(config["docs_dir"]) if "docs_dir" in config else ctx.tree / "docs"
-    current, _ = bindings_in(ctx.tree)  # błędy definicji zgłasza G3
-    approve = f"python kurs/tools/gate.py --zatwierdz-aktualnosc --book {ctx.book}"
-    lock, errors = read_lock(ctx.tree / LOCK_FILE)
+    placed, _ = activity_bindings(ctx.tree)  # błędy definicji zgłasza G3
+    approve = (
+        f"python kurs/tools/gate.py --zatwierdz-aktualnosc --book {ctx.book} "
+        "--przejrzane ID[,ID…]"
+    )
+    counted = f"aktywności: {len(placed)} (wiązania: {len(set(placed.values()))})"
+    lock_path = ctx.tree / LOCK_FILE
+    lock, errors = read_lock(lock_path)
     for error in errors:
         stage.problem(error)
     if lock is None:
-        stage.note(f"plik tworzy i odświeża po przeglądzie aktywności polecenie: {approve}")
-        stage.detail = f"wiązania: {len(current)}, brak poprawnego pliku {LOCK_FILE}"
+        if lock_path.is_file():
+            stage.note(
+                f"pliku nie poprawiamy ręcznie: przywracamy wersję z origin/cwiczenia "
+                f"({RESTORE_LOCK}), uruchamiamy bramkę, a po przeglądzie wskazanych "
+                f"aktywności zapisujemy stan poleceniem: {approve}"
+            )
+        else:
+            stage.note(f"plik tworzy po przeglądzie aktywności polecenie: {approve}")
+        stage.detail = f"{counted}, brak poprawnego pliku {LOCK_FILE}"
         return stage
     base = ctx.base or git("merge-base", "HEAD", ctx.book).strip()
-    review = CurrencyReview(stage, BookPages(docs_dir, config), lock, current, ctx.book, base)
+    review = CurrencyReview(
+        stage, BookPages(config, docs_dir=docs_dir), lock, placed, ctx.book, base
+    )
     review.run()
+    if review.to_review:
+        stage.note(
+            f"aktywności do przejrzenia ({len(review.to_review)}): "
+            + ", ".join(review.to_review)
+        )
     if stage.problems:
         stage.note(
-            f"po przeglądzie aktywności: {approve}; zmieniony plik {LOCK_FILE} "
-            "zatwierdzamy commitem"
+            f"po przeglądzie: {approve}; zmieniony plik {LOCK_FILE} zatwierdzamy commitem"
         )
-    stage.detail = (
-        f"wiązania: {len(current)}, zgodne z przeglądem: {review.unchanged}"
-    )
+    stage.detail = f"{counted}, zgodne z przeglądem: {review.unchanged}"
     return stage
 
 
-def approve_currency(book: str, root: Path, config=None, today: str | None = None) -> int:
-    """Polecenie --zatwierdz-aktualnosc: zapis odcisków po przeglądzie aktywności.
+def describe_review(state: str, record: dict | None, entry: dict) -> str:
+    """Opis wpisu, który zapisuje zatwierdzenie aktywności wymagającej przeglądu."""
+    binding = (entry["page"], entry["section_id"])
+    if record is None:
+        return f"{binding_name(binding)} ({quoted(entry['heading'])})"
+    what = []
+    source = (record["page"], record["section_id"])
+    if state == "moved":
+        what.append(f"wiązanie {binding_name(source)} → {binding_name(binding)}")
+    if record["heading"] != entry["heading"]:
+        what.append(f"nagłówek {quoted(record['heading'])} → {quoted(entry['heading'])}")
+    if state == "changed":
+        what.append("odcisk treści")
+    what.append(
+        f"przegląd {record['book_commit'][:7]} ({record['reviewed_on']}) → "
+        f"{entry['book_commit'][:7]} ({entry['reviewed_on']})"
+    )
+    return "; ".join(what)
+
+
+def approve_currency(book: str, root: Path, reviewed: list[str] | None = None,
+                     config=None, today: str | None = None) -> int:
+    """Polecenie --zatwierdz-aktualnosc: zapis stanu przeglądu aktywności.
 
     Wiązania odczytuje z definicji w katalogu roboczym, a odciski oblicza dla
-    książki w stanie merge-base(HEAD, book). Wpis bez zmian (ten sam odcisk,
-    nagłówek i aktywności) zachowuje dawny commit i datę przeglądu. Gdy
-    którekolwiek wiązanie jest zerwane, pliku nie zmienia.
+    książki w stanie merge-base(HEAD, book). Aktywność nowa, o zmienionym
+    wiązaniu albo o zmienionej treści sekcji wymaga przeglądu: lista reviewed
+    (--przejrzane) musi obejmować dokładnie takie aktywności, inaczej pliku nie
+    zmienia. Wpis bez zmian zachowuje dawny commit i datę przeglądu, wpis
+    o niezmienionej treści, lecz z odciskiem dawnej wersji, dostaje bieżący
+    odcisk z tym samym commitem i datą, a wpis aktywności, której już nie ma,
+    znika. Gdy któreś wiązanie jest zerwane albo niedozwolone według G3, pliku
+    nie zmienia.
     """
-    print(f"Zatwierdzenie aktualności powiązanych sekcji ({LOCK_FILE}), książka: {book}")
+    print(
+        f"Zatwierdzenie aktualności powiązanych sekcji ({LOCK_FILE}), książka: {book}",
+        flush=True,
+    )
     try:
         base = git("merge-base", "HEAD", book).strip()
     except GateError as error:
         print(f"Nie można wyznaczyć merge-base z {book!r}: {error}", file=sys.stderr)
+        return EXIT_USAGE
+    exercise_paths = allowed_paths_in(base)
+    if exercise_paths:
+        print(
+            f"--book musi wskazywać gałąź książki: stan merge-base(HEAD, {book}) = "
+            f"{base[:7]} zawiera pliki ćwiczeń ({len(exercise_paths)}, np. "
+            f"{exercise_paths[0]}).",
+            file=sys.stderr,
+        )
         return EXIT_USAGE
     today = today or date.today().isoformat()
     print(f"  stan książki: merge-base(HEAD, {book}) = {base[:7]}, data przeglądu: {today}")
@@ -1531,104 +1775,127 @@ def approve_currency(book: str, root: Path, config=None, today: str | None = Non
         from mkdocs.config import load_config
 
         config = load_config(str(root / COURSE_CONFIG))
-    current, errors = bindings_in(root)
-    if not current and not errors:
+    placed, errors = activity_bindings(root)
+    if not placed and not errors:
         errors.append("activities/ nie zawiera żadnej aktywności")
     lock_path = root / LOCK_FILE
-    previous: dict[tuple[str, str | None], dict] = {}
-    up_to_date = lock_path.exists()  # plik istnieje i ma bieżącą wersję odcisku
+    lock = None
     if lock_path.exists():
         lock, problems = read_lock(lock_path)
         if lock is None:
             errors += problems
-            errors.append(f"należy poprawić {LOCK_FILE} albo go usunąć i zapisać od nowa")
-        else:
-            previous = lock["entries"]
-            if lock["version"] != FINGERPRINT_VERSION:
-                up_to_date = False
-                print(
-                    f"  uwaga  zmiana wersji odcisku {lock['version']} → "
-                    f"{FINGERPRINT_VERSION}: zapisujemy wszystkie wpisy"
-                )
-    pages: dict[str, PageText | None] = {}
-    entries: dict[tuple[str, str | None], dict] = {}
-    for key in sorted(current, key=binding_order):
-        page, section_id = key
-        if page not in pages:
-            pages[page] = page_text_at(base, page, config)
-            if pages[page] is None:
-                errors.append(f"docs/{page}: strony nie ma w książce w {base[:7]} (zob. G3)")
-            elif (
-                git_run("rev-parse", f"HEAD:docs/{page}").stdout
-                != git_run("rev-parse", f"{base}:docs/{page}").stdout
-            ):
-                errors.append(
-                    f"docs/{page} w HEAD różni się od książki w {base[:7]}; --book "
-                    "musi wskazywać gałąź książki scaloną z HEAD (np. origin/dev "
-                    "po git fetch)"
-                )
-        text = pages[page]
-        if text is None:
-            continue
-        lines = text.lines(section_id)
-        if lines is None:
             errors.append(
-                f"{binding_name(key)}: strona nie ma nagłówka o tym identyfikatorze "
-                "(zob. G3)"
+                f"pliku nie poprawiamy ręcznie: należy przywrócić wersję z "
+                f"origin/cwiczenia ({RESTORE_LOCK}) i uruchomić bramkę"
             )
-            continue
-        entries[key] = {
-            "page": page,
-            "section_id": section_id,
-            "heading": text.heading(section_id),
-            "activity_ids": current[key],
-            "fingerprint": fingerprint(lines),
-            "book_commit": base,
-            "reviewed_on": today,
-        }
+    pages = BookPages(config, commit=base)
+    for page in sorted({page for page, _ in placed.values()}):
+        if pages.now(page) is None:
+            errors.append(f"docs/{page}: strony nie ma w książce w {base[:7]} (zob. G3)")
+        elif (
+            git_run("rev-parse", f"HEAD:docs/{page}").stdout
+            != git_run("rev-parse", f"{base}:docs/{page}").stdout
+        ):
+            errors.append(
+                f"docs/{page} w HEAD różni się od książki w {base[:7]}; --book "
+                "musi wskazywać gałąź książki scaloną z HEAD (np. origin/dev "
+                "po git fetch)"
+            )
+    for activity_id, binding in sorted(placed.items()):
+        text = pages.now(binding[0])
+        problem = binding_problem(binding[1], text.headings) if text else None
+        if problem:
+            errors.append(f"{activity_id}: {binding_name(binding)}: {problem} (zob. G3)")
     if errors:
         for error in errors:
             print(f"  BŁĄD   {error}")
         print(f"Nie zapisano {LOCK_FILE}: najpierw należy poprawić definicje i wiązania.")
         return EXIT_FAILED
 
-    result: dict[tuple[str, str | None], dict] = {}
-    counts = {"dodano": 0, "zmieniono": 0, "usunięto": 0, "bez zmian": 0}
-    for key, entry in entries.items():
-        old = previous.get(key)
-        if old is not None and all(
-            old[name] == entry[name] for name in ("heading", "activity_ids", "fingerprint")
-        ):
-            result[key] = old
-            counts["bez zmian"] += 1
+    records: dict[str, dict] = lock["records"] if lock else {}
+    version = lock["version"] if lock else FINGERPRINT_VERSION
+    result: dict[str, dict] = {}
+    pending: dict[str, str] = {}  # aktywność wymagająca przeglądu → opis wpisu
+    changes: list[tuple[str, str, str]] = []  # (aktywność, rodzaj zmiany, opis)
+    unchanged = 0
+    for activity_id in sorted(set(placed) | set(records)):
+        binding = placed.get(activity_id)
+        record = records.get(activity_id)
+        state = review_state(binding, record, pages, version)
+        if state == "broken":  # wykluczone przez kontrole wyżej; dla pewności
+            print(f"  BŁĄD   {activity_id}: wiązanie nie wskazuje sekcji książki (zob. G3)")
+            print(f"Nie zapisano {LOCK_FILE}: najpierw należy poprawić definicje i wiązania.")
+            return EXIT_FAILED
+        if state == "stale":
+            source = (record["page"], record["section_id"])
+            changes.append(
+                (activity_id, "usunięto", f"{binding_name(source)} ({quoted(record['heading'])})")
+            )
             continue
-        result[key] = entry
-        label = f"{binding_name(key)} ({quoted(entry['heading'])})"
-        if old is None:
-            counts["dodano"] += 1
-            print(f"  dodano     {label}: {', '.join(entry['activity_ids'])}")
+        if state == "ok":
+            result[activity_id] = record
+            unchanged += 1
             continue
-        counts["zmieniono"] += 1
-        what = []
-        if old["fingerprint"] != entry["fingerprint"]:
-            what.append("odcisk treści")
-        if old["heading"] != entry["heading"]:
-            what.append(f"nagłówek {quoted(old['heading'])} → {quoted(entry['heading'])}")
-        if old["activity_ids"] != entry["activity_ids"]:
-            what.append("aktywności: " + ", ".join(entry["activity_ids"]))
-        print(
-            f"  zmieniono  {label}: {'; '.join(what)}; przegląd {old['book_commit'][:7]} "
-            f"({old['reviewed_on']}) → {base[:7]} ({today})"
+        page, section_id = binding
+        text = pages.now(page)
+        current = fingerprint(text.lines(section_id))
+        if state == "refresh":
+            result[activity_id] = dict(record, fingerprint=current)
+            changes.append(
+                (
+                    activity_id, "odświeżono",
+                    f"odcisk w wersji {version} → {FINGERPRINT_VERSION}, treść bez zmian "
+                    f"od przeglądu {record['book_commit'][:7]} ({record['reviewed_on']})",
+                )
+            )
+            continue
+        entry = {
+            "activity_id": activity_id,
+            "page": page,
+            "section_id": section_id,
+            "heading": text.heading(section_id),
+            "fingerprint": current,
+            "book_commit": base,
+            "reviewed_on": today,
+        }
+        result[activity_id] = entry
+        pending[activity_id] = describe_review(state, record, entry)
+        changes.append(
+            (activity_id, "dodano" if record is None else "zmieniono", pending[activity_id])
         )
-    for key in sorted(set(previous) - set(entries), key=binding_order):
-        counts["usunięto"] += 1
-        old = previous[key]
+
+    listed = list(dict.fromkeys(reviewed or []))
+    if set(listed) != set(pending):
+        if reviewed is None:
+            print(
+                "  BŁĄD   zatwierdzenie wymaga wskazania przejrzanych aktywności: "
+                "--przejrzane ID[,ID…]"
+            )
+        missing = [item for item in pending if item not in listed]
+        extra = [item for item in listed if item not in pending]
+        if missing and reviewed is not None:
+            print("  BŁĄD   nie wymieniono aktywności wymagających przeglądu: " + ", ".join(missing))
+        if extra:
+            print(
+                "  BŁĄD   wymienione aktywności nie wymagają przeglądu albo nie "
+                "istnieją: " + ", ".join(extra)
+            )
+        print(f"  Aktywności wymagające przeglądu ({len(pending)}):" + ("" if pending else " brak"))
+        for activity_id, what in pending.items():
+            print(f"    {activity_id}: {what}")
         print(
-            f"  usunięto   {binding_name(key)} ({quoted(old['heading'])}): "
-            + ", ".join(old["activity_ids"])
+            f"Nie zapisano {LOCK_FILE}: lista --przejrzane musi obejmować dokładnie "
+            "aktywności wymagające przeglądu."
         )
+        return EXIT_FAILED
+
+    counts = dict.fromkeys(("dodano", "zmieniono", "odświeżono", "usunięto"), 0)
+    for activity_id, kind, what in changes:
+        counts[kind] += 1
+        print(f"  {kind:<10} {activity_id}: {what}")
+    counts["bez zmian"] = unchanged
     summary = ", ".join(f"{name}: {count}" for name, count in counts.items())
-    if up_to_date and counts["bez zmian"] == len(result) == len(previous):
+    if lock is not None and not changes:
         print(f"Plik {LOCK_FILE} jest aktualny ({summary}); nie wprowadzono zmian.")
         return EXIT_OK
     write_lock(lock_path, result)
@@ -2015,9 +2282,22 @@ def main(argv: list[str] | None = None) -> int:
         help=f"po przeglądzie aktywności zapisuje odciski sekcji w {LOCK_FILE}; "
         "nie uruchamia etapów",
     )
+    parser.add_argument(
+        "--przejrzane", action="append", metavar="ID[,ID…]",
+        help="z --zatwierdz-aktualnosc: przejrzane aktywności, dokładnie te, "
+        "które wymagają przeglądu",
+    )
     args = parser.parse_args(argv)
     if args.zatwierdz_aktualnosc and args.pomin_testy:
         parser.error("opcji --pomin-testy nie łączymy z --zatwierdz-aktualnosc")
+    if args.przejrzane and not args.zatwierdz_aktualnosc:
+        parser.error("opcję --przejrzane łączymy wyłącznie z --zatwierdz-aktualnosc")
+    reviewed = None
+    if args.przejrzane:
+        reviewed = [
+            item.strip() for value in args.przejrzane for item in value.split(",")
+            if item.strip()
+        ]
 
     try:
         root = Path(git("rev-parse", "--show-toplevel").strip())
@@ -2032,7 +2312,7 @@ def main(argv: list[str] | None = None) -> int:
         return EXIT_USAGE
     logging.getLogger("mkdocs").setLevel(logging.ERROR)
     if args.zatwierdz_aktualnosc:
-        return approve_currency(args.book, root)
+        return approve_currency(args.book, root, reviewed)
     print(f"Bramka gałęzi ćwiczeń: {branch} @ {head[:7]}, książka: {args.book}")
 
     partial: list[str] = []
