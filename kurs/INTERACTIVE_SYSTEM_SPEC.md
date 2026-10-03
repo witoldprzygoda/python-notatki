@@ -1,6 +1,6 @@
 # Interaktywny podręcznik Python — specyfikacja architektury i plan MVP
 
-> **Uwaga (październik 2026).** Dokument opisuje projekt ćwiczeń rozwijany na gałęzi `cwiczenia`; książka na gałęziach `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Raile postępu pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Sekcje 3, 6, 9.5 i 11 uwzględniają te zmiany; opisy wariantów `clean`/`interactive` oraz pliku `mkdocs.clean.yml` (sekcje 1, 5, 12, 17, 18 i 20) i historyczny model gałęzi (sekcja 2) czekają na pełną rewizję. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
+> **Uwaga (październik 2026).** Dokument opisuje projekt ćwiczeń rozwijany na gałęzi `cwiczenia`; książka na gałęziach `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Paski postępu („prostokąciki”) pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Sekcje 3, 6, 9.5 i 11 uwzględniają te zmiany; opisy wariantów `clean`/`interactive` oraz pliku `mkdocs.clean.yml` (sekcje 1, 5, 12, 17, 18 i 20) i historyczny model gałęzi (sekcja 2) czekają na pełną rewizję. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
 
 ## 1. Kontekst
 
@@ -188,7 +188,7 @@ Identyfikator generowany zależy od tekstu nagłówka. Zmianę nagłówka w ksi�
 
 Zasady wiązania:
 
-- sekcję wiąże się tylko tam, gdzie rail sekcji wnosi informację; aktywność dotycząca całej strony używa jawnego `section_id: null`, które nie zależy od nagłówków;
+- sekcję wiąże się tylko tam, gdzie pasek postępu sekcji wnosi informację; aktywność dotycząca całej strony używa jawnego `section_id: null`, które nie zależy od nagłówków;
 - `section_id` składa się z małych liter, cyfr, podkreśleń (np. z nazw takich jak `__init__`) i pojedynczych łączników;
 - odrzucany jest identyfikator z sufiksem deduplikacji (`_1`, `_2`…), który MkDocs nadaje powtórzonemu nagłówkowi, ponieważ przesuwa się on po dodaniu lub usunięciu nagłówka o tej samej treści; taką aktywność wiąże się z całą stroną;
 - nie wolno wiązać aktywności z numerem linii ani pozycją elementu DOM.
@@ -479,7 +479,7 @@ i sekcji opisanym w sekcji 9.5.
 Do modelu nie wchodzą `score`, `attempts`, odwiedzone strony, stan rozwinięcia
 bloku ćwiczeń ani osierocone rekordy nieobecne w manifeście.
 Nie wchodzą do niego również `completion_method` ani flagi ujawnienia pomocy:
-wszystkie drogi świadomego ukończenia dają ten sam stan raila.
+wszystkie drogi świadomego ukończenia dają ten sam stan paska postępu.
 
 Aktualizacje zapewnia neutralny względem DOM dekorator `NotifyingProgressStore`.
 Zachowuje on pełny interfejs magazynu i dodaje subskrypcję zmian. Po udanym
@@ -581,7 +581,7 @@ semantyczny uzasadniający ponowne rozpatrzenie wcześniejszego postępu.
 
 ## 11. Reagowanie na zmiany podręcznika
 
-Obowiązujący kontrakt to `page` + top-level `slot_id` + per-activity `section_id` + `activity_id`. Build sprawdza globalną unikalność slotu, jego pojedyncze wystąpienie na właściwej stronie oraz to, że każdy niepusty `section_id` jest identyfikatorem nagłówka h2–h6 wygenerowanym na tej stronie i nie ma sufiksu deduplikacji. Po każdej synchronizacji z `dev` te same wiązania sprawdza etap G3 bramki `kurs/tools/gate.py`.
+Obowiązujący kontrakt to `page` + top-level `slot_id` + per-activity `section_id` + `activity_id`. Build sprawdza globalną unikalność slotu, jego pojedyncze wystąpienie na właściwej stronie oraz to, że każdy niepusty `section_id` jest identyfikatorem nagłówka h2–h6 wygenerowanym na tej stronie i nie ma sufiksu deduplikacji. Po każdej synchronizacji z `dev` te same wiązania sprawdza etap G3 bramki `kurs/tools/gate.py`. Przy zerwanym wiązaniu bramka zestawia nagłówki strony sprzed scalenia książki z obecnymi i wskazuje następcę dawnego nagłówka; podobieństwo samych identyfikatorów podaje wyłącznie jako oznaczoną podpowiedź zastępczą.
 
 Mechanizm hashy treści jest wartościowy, ale nie należy go jeszcze implementować.
 
@@ -595,6 +595,8 @@ Automat nie powinien sam unieważniać zaliczenia studenta po zwykłej zmianie t
 ---
 
 ## 12. Proponowana struktura katalogów w `python-notatki`
+
+> Drzewo pochodzi z etapu POC i czeka na pełną rewizję. Aktualną strukturę warstwy opisuje `kurs/AGENTS.md`. Na gałęzi ćwiczeń nie dodajemy plików spoza listy dozwolonej z `kurs/README.md` (np. `scripts/validate_activities.py` ani dokumentów w katalogu głównym).
 
 ```text
 python-notatki/

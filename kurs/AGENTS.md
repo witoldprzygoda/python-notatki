@@ -1,6 +1,6 @@
 # AGENTS.md — python-notatki: interaktywna warstwa podręcznika
 
-> **Uwaga (październik 2026).** Dokument dotyczy projektu ćwiczeń na gałęzi `cwiczenia` i jej gałęziach pomocniczych (`fala/*`, `platform/*`, `sync/*`); książka na `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Raile postępu pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
+> **Uwaga (październik 2026).** Dokument dotyczy projektu ćwiczeń na gałęzi `cwiczenia` i jej gałęziach pomocniczych (`fala/*`, `platform/*`, `sync/*`); książka na `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Paski postępu („prostokąciki”) pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
 
 ## Cel projektu
 
@@ -45,7 +45,7 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 
 Aktywność ma stabilny `activity_id`. Miejsce osadzenia na stronie ma stabilny `slot_id`, deklarowany w YAML.
 
-Do Markdown książki nie dodaje się żadnych punktów osadzenia: ani elementów z `data-activity-slot`, ani atrybutów `data-activity-section`, ani identyfikatorów `{#…}` wprowadzanych ze względu na ćwiczenia. Aktywność wiąże się z sekcją przez `section_id` równy identyfikatorowi nagłówka h2–h6, który MkDocs generuje z jego tekstu, albo z całą stroną przez `section_id: null`. Hook `scripts/build_activities.py`, włączany wyłącznie przez `mkdocs.kurs.yml`, podczas budowania oznacza takie nagłówki i dopisuje slot na końcu strony. Zmianę nagłówka w książce wykrywa build wydania kursowego i bramka `kurs/tools/gate.py`; wiązanie poprawia się w YAML. Wiązanie z numerem linii lub pozycją elementu DOM jest niedopuszczalne.
+Do Markdown książki nie dodaje się żadnych punktów osadzenia: ani elementów z `data-activity-slot`, ani atrybutów `data-activity-section`, ani identyfikatorów `{#…}` wprowadzanych ze względu na ćwiczenia. Aktywność wiąże się z sekcją przez `section_id` równy identyfikatorowi nagłówka h2–h6, który MkDocs generuje z jego tekstu, albo z całą stroną przez `section_id: null`. Hook `scripts/build_activities.py`, włączany wyłącznie przez `mkdocs.kurs.yml`, podczas budowania oznacza takie nagłówki i dopisuje slot na końcu strony. Zmianę nagłówka w książce wykrywa build wydania kursowego i bramka `kurs/tools/gate.py`, która wskazuje następcę dawnego nagłówka; wiązanie poprawia się w YAML. Wiązanie z numerem linii lub pozycją elementu DOM jest niedopuszczalne.
 
 Przykład ideowy slotu dopisywanego przez hook:
 
@@ -65,7 +65,7 @@ MVP musi wspierać dokładnie trzy reprezentatywne typy:
 
 Nie implementuj kolejnych typów, dopóki powyższe trzy nie działają w jednym spójnym przepływie i nie mają wspólnego API postępu.
 
-## Activity Engine
+## Silnik aktywności
 
 Komponenty UI nie zapisują postępu bezpośrednio do `localStorage` ani nie wywołują endpointów Moodle/LTI.
 
@@ -193,44 +193,54 @@ Usługa serwerowa nie przechowuje kopii treści podręcznika. Jej odpowiedzialno
 - opcjonalne raportowanie do Moodle,
 - kontrola trybu `MOODLE_ONLY` / `PUBLIC_FULL` na poziomie wdrożenia.
 
-## Proponowana struktura POC w tym repozytorium
+## Struktura warstwy w repozytorium
+
+Wszystkie pliki warstwy leżą na liście dozwolonej z `kurs/README.md`; plik spoza tej listy (np. nowy skrypt w `scripts/` albo dokument w katalogu głównym) bramka odrzuca w etapie G1.
 
 ```text
 activities/
   04-sterowanie/
     petle-i-iteratory.yaml
+    wyrazenia-warunkowe.yaml
 
 docs/
   javascripts/
-    interactive/
-      bootstrap.js
-      activity-engine.js
-      progress-store.js
-      activities/
-        acknowledgement.js
-        single-choice.js
-        code.js
-      pyodide-worker.js
+    interactive/          moduły ES warstwy (bootstrap.js, silnik, magazyn
+                          postępu, rendery aktywności, Pyodide, paski postępu)
   stylesheets/
     interactive.css
 
 scripts/
-  build_activities.py
-  validate_activities.py
+  build_activities.py     hook MkDocs włączany wyłącznie przez mkdocs.kurs.yml
 
-AGENTS.md
-INTERACTIVE_SYSTEM_SPEC.md
+tests/
+  interactive/            testy node --test modułów warstwy
+  test_build_activities.py
+
+kurs/
+  README.md               przewodnik gałęzi: model, procedury, bramka
+  AGENTS.md               niniejszy dokument
+  INTERACTIVE_SYSTEM_SPEC.md
+  SYNC_LOG.md             dziennik synchronizacji z dev
+  bez-weryfikacji.txt     pytania zwolnione z bloku verify
+  tools/
+    gate.py               bramka jakości (etapy G1–G3, G5–G7)
+    test_gate.py
+
+mkdocs.kurs.yml           nakładka wydania kursowego
 ```
 
-Nazwy mogą zostać skorygowane, ale nie zmieniaj podziału odpowiedzialności bez uzasadnienia.
+Główne `AGENTS.md` i `CLAUDE.md` należą do książki; na gałęzi ćwiczeń ich nie zmieniamy.
 
 ## Walidacja i jakość
 
-Po każdej zmianie uruchom bramkę gałęzi ćwiczeń (etapy G1–G7, w tym testy i buildy `--strict` książki oraz wydania kursowego):
+Po każdej zmianie uruchom bramkę gałęzi ćwiczeń (etapy G1–G3 i G5–G7, w tym testy i buildy `--strict` książki oraz wydania kursowego; etapy G4 i G8 są planowane):
 
 ```bash
-python kurs/tools/gate.py
+python kurs/tools/gate.py --book origin/dev
 ```
+
+Do odbioru służy wyłącznie pełne uruchomienie zakończone kodem 0. Kod 3 oznacza wynik częściowy albo roboczy (`--pomin-testy`, `--katalog-roboczy`, `--przed-scaleniem`). Do czasu przewinięcia `dev` do stanu po rozdzieleniu bramkę uruchamiamy z `--book infra/rozdzielenie-cwiczen`.
 
 Każda nowa aktywność musi mieć:
 
@@ -242,7 +252,9 @@ Każda nowa aktywność musi mieć:
 - zachowanie po odświeżeniu strony,
 - sensowny stan początkowy i zakończony.
 
-Każda zmiana JavaScript powinna zostać sprawdzona przynajmniej w trybie jasnym i ciemnym oraz przy wąskim viewportcie.
+Każda zmiana JavaScript powinna zostać sprawdzona przynajmniej w trybie jasnym i ciemnym oraz przy wąskim oknie przeglądarki.
+
+Każde pytanie `single_choice` ma blok `verify`, który wypisuje dokładnie etykietę poprawnej odpowiedzi; pytanie pojęciowe bez takiej możliwości wpisujemy z uzasadnieniem do `kurs/bez-weryfikacji.txt`.
 
 ## Bezpieczeństwo i prywatność
 
@@ -252,7 +264,7 @@ Każda zmiana JavaScript powinna zostać sprawdzona przynajmniej w trybie jasnym
 - Nie dodawaj analityki śledzącej ani zewnętrznych usług telemetrycznych bez jawnej decyzji autora.
 - Minimalizuj zbieranie danych. Postęp kursowy powinien używać technicznego identyfikatora LTI; e-mail nie jest kluczem użytkownika.
 
-## Zasady pracy z Codex
+## Zasady pracy narzędzi AI
 
 Przed rozpoczęciem pracy:
 
@@ -267,7 +279,7 @@ platform/*     → hook, JavaScript, CSS, bramka, CI i wydania
 sync/*         → synchronizacja z dev (jedyne gałęzie scalające dev)
 ```
 
-`kurs/README.md` jest autorytatywnym źródłem modelu gałęzi, zasady add-only i procedury synchronizacji; `DEVELOPMENT_WORKFLOW.md` opisuje pracę nad książką.
+`kurs/README.md` jest autorytatywnym źródłem modelu gałęzi, zasady wyłącznego dodawania i procedury synchronizacji; `DEVELOPMENT_WORKFLOW.md` opisuje pracę nad książką.
 
 - Najpierw przeczytaj `CLAUDE.md` oraz `kurs/INTERACTIVE_SYSTEM_SPEC.md`, jeśli zadanie dotyczy interaktywnej warstwy.
 - Przy zadaniu obejmującym architekturę przedstaw najpierw minimalny plan i wskaż pliki, które zamierzasz zmienić.
@@ -277,7 +289,7 @@ sync/*         → synchronizacja z dev (jedyne gałęzie scalające dev)
 - Nie rozszerzaj zakresu na formalny system oceniania.
 - Po implementacji podsumuj: zmienione pliki, zachowanie, testy, znane ograniczenia i proponowany następny krok.
 
-## Code Review Rules
+## Zasady przeglądu kodu
 
 Przy przeglądzie zmian zwracaj szczególną uwagę na:
 
@@ -286,7 +298,7 @@ Przy przeglądzie zmian zwracaj szczególną uwagę na:
 - logikę postępu zaszytą w komponentach UI;
 - wiązania oparte na numerze linii lub pozycji elementu DOM oraz `section_id` z sufiksem deduplikacji (`_1`, `_2`…); wiązanie z identyfikatorem nagłówka generowanym przez MkDocs jest zamierzone;
 - jakiekolwiek znaczniki ćwiczeń dodane do Markdown książki;
-- zmianę lub usunięcie pliku książki na gałęzi ćwiczeń (zasada add-only, etap G1 bramki);
+- zmianę lub usunięcie pliku książki na gałęzi ćwiczeń (zasada wyłącznego dodawania, etap G1 bramki);
 - wycieki sekretów lub danych osobowych;
 - pogorszenie działania statycznego MkDocs;
 - ciężkie zależności dodane dla funkcji możliwej do wykonania prostym kodem;
