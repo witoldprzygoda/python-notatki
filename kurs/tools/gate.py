@@ -6,6 +6,7 @@ Node.js 22 lub nowszego (zalecany 24):
 
     python kurs/tools/gate.py [--book REF] [--pomin-testy]
                               [--katalog-roboczy | --przed-scaleniem]
+    python kurs/tools/gate.py --zatwierdz-aktualnosc [--book REF]
 
 --book             gałąź książki, względem której wyznaczamy merge-base
                    (domyślnie dev; podczas synchronizacji origin/dev).
@@ -14,6 +15,11 @@ Node.js 22 lub nowszego (zalecany 24):
                    zamiast commitu HEAD (szybka pętla robocza).
 --przed-scaleniem  uruchamia wyłącznie etap G1 przed scaleniem książki
                    w gałęzi sync/*, łącznie z próbnym scaleniem.
+--zatwierdz-aktualnosc
+                   nie uruchamia etapów: po przeglądzie aktywności zapisuje
+                   w kurs/aktualnosc.json odciski powiązanych sekcji książki
+                   w stanie merge-base(HEAD, REF) i wypisuje zmiany pliku.
+                   Definicje aktywności odczytuje z katalogu roboczego.
 
 Bez --katalog-roboczy bramka ocenia commit HEAD: etapy G2–G7 działają na
 czystym eksporcie jego drzewa w katalogu tymczasowym, dlatego niezatwierdzone
@@ -35,6 +41,12 @@ Etapy (każdy jest blokujący):
       zestawia nagłówki strony sprzed ostatniego scalenia książki z obecnymi
       i wskazuje następcę dawnego nagłówka; zmiany wiązań względem tego stanu
       wypisuje razem z tekstami nagłówków;
+  G4  aktualność: odcisk treści każdej powiązanej sekcji (od jej nagłówka do
+      następnego nagłówka tego samego lub wyższego poziomu, a przy section_id:
+      null cała strona) jest równy odciskowi zapisanemu przy ostatnim
+      przeglądzie w kurs/aktualnosc.json; zmieniona treść, zmienione wiązanie
+      oraz nowe i usunięte aktywności wymagają przeglądu, a etap pokazuje
+      różnicę treści sekcji od stanu książki z przeglądu;
   G5  rozwiązanie wzorcowe i rozwiązania alternatywne każdego zadania code
       wypisują w CPython dokładnie checker.expected_lines, a starter_code ich
       nie wypisuje; każde pytanie single_choice ma blok verify, który wypisuje
@@ -45,8 +57,8 @@ Etapy (każdy jest blokujący):
       do katalogu tymczasowego; książka nie może zawierać znaczników ćwiczeń
       ani ładować warstwy, a wydanie kursowe musi zawierać manifest i sloty.
 
-Etapów G4 (aktualność powiązanych sekcji) i G8 (liczby kontrolne i metadane
-wydania) jeszcze nie ma; numeracja pozostaje zgodna z planem.
+Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma; numeracja
+pozostaje zgodna z planem.
 
 Kod wyjścia:
   0  pełna bramka przeszła dla commitu HEAD (wynik do odbioru);
@@ -55,13 +67,18 @@ Kod wyjścia:
   3  uruchomione etapy przeszły, lecz wynik jest częściowy lub roboczy
      (--pomin-testy, --katalog-roboczy, --przed-scaleniem) i nie służy do
      odbioru.
+Z opcją --zatwierdz-aktualnosc: 0 — plik zapisano albo był aktualny;
+1 — wiązania lub definicje wymagają poprawy i pliku nie zmieniono;
+2 — błąd wywołania.
 """
 
 from __future__ import annotations
 
 import argparse
 import difflib
+import hashlib
 import importlib.util
+import json
 import logging
 import os
 import re
@@ -69,7 +86,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unicodedata
 from dataclasses import dataclass, field
+from datetime import date
+from html.parser import HTMLParser
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -94,6 +114,10 @@ CORE_FILES = ("kurs/README.md", "kurs/tools/gate.py", "mkdocs.kurs.yml")
 BOOK_CONFIG = "mkdocs.yml"
 COURSE_CONFIG = "mkdocs.kurs.yml"
 EXEMPTIONS_FILE = "kurs/bez-weryfikacji.txt"
+LOCK_FILE = "kurs/aktualnosc.json"
+# Wersja algorytmu odcisku sekcji (etap G4); zmiana algorytmu ją podnosi.
+FINGERPRINT_VERSION = 1
+DIFF_LINES = 40  # tyle wierszy różnicy treści G4 pokazuje dla jednego wiązania
 MANIFEST = Path("assets") / "generated" / "activities.json"
 LAYER_SCRIPT = "javascripts/interactive/bootstrap.js"
 EXERCISE_BRANCHES = ("cwiczenia",)
@@ -560,15 +584,19 @@ def load_hook(root: Path):
     return module
 
 
-def page_headings(text: str, config) -> list[tuple[int, str, str]]:
-    """Zwraca (poziom, id, tekst) nagłówków strony z ustawieniami toc książki."""
+def render_page(text: str, config) -> tuple[str, list[tuple[int, str, str]]]:
+    """Przetwarza Markdown strony rozszerzeniami książki (etapy G3 i G4).
+
+    Zwraca HTML treści strony oraz (poziom, id, tekst) jej nagłówków; te same
+    rozszerzenia i ustawienia toc nadają identyfikatory nagłówkom w buildzie.
+    """
     import markdown
 
     renderer = markdown.Markdown(
         extensions=config["markdown_extensions"],
         extension_configs=config["mdx_configs"],
     )
-    renderer.convert(text)
+    html = renderer.convert(text.replace("\r\n", "\n").replace("\r", "\n"))
     headings: list[tuple[int, str, str]] = []
 
     def walk(tokens) -> None:
@@ -577,7 +605,12 @@ def page_headings(text: str, config) -> list[tuple[int, str, str]]:
             walk(token["children"])
 
     walk(renderer.toc_tokens)
-    return headings
+    return html, headings
+
+
+def page_headings(text: str, config) -> list[tuple[int, str, str]]:
+    """Zwraca (poziom, id, tekst) nagłówków strony z ustawieniami toc książki."""
+    return render_page(text, config)[1]
 
 
 def headings_at(commit: str, page: str, config) -> list[tuple[int, str, str]] | None:
@@ -636,6 +669,18 @@ def align_heading(
     return None
 
 
+def describe_successor(before: tuple[int, str, str], after: tuple[int, str, str]) -> str:
+    """Opis następcy nagłówka wspólny dla G3 i G4."""
+    if heading_key(before)[1] == heading_key(after)[1]:
+        return (
+            f"identyfikator nagłówka „{after[2]}” zmienił się: {before[1]} → {after[1]}"
+        )
+    return (
+        f"prawdopodobna zmiana nagłówka: „{before[2]}” → „{after[2]}” "
+        f"({before[1]} → {after[1]})"
+    )
+
+
 def rebinding_hint(
     section_id: str,
     page: str,
@@ -649,16 +694,7 @@ def rebinding_hint(
     if old:
         match = align_heading(section_id, old, headings)
         if match:
-            before, after = match
-            if heading_key(before)[1] == heading_key(after)[1]:
-                return (
-                    f"; identyfikator nagłówka „{after[2]}” zmienił się: "
-                    f"{before[1]} → {after[1]}"
-                )
-            return (
-                f"; prawdopodobna zmiana nagłówka: „{before[2]}” → „{after[2]}” "
-                f"({before[1]} → {after[1]})"
-            )
+            return "; " + describe_successor(*match)
         removed = next((h for h in old if h[1] == section_id), None)
         if removed:
             hint = (
@@ -838,6 +874,764 @@ def stage_g3(ctx: Context) -> Stage:
     if previous:
         stage.detail += ", zmienione wiązania: " + str(rebinds)
     return stage
+
+
+# ---------------------------------------------------------------- G4
+
+# Źródło treści sekcji: Markdown strony przetworzony funkcją render_page, czyli
+# tym samym rendererem i tymi samymi rozszerzeniami książki, z których G3 bierze
+# identyfikatory nagłówków. Identyfikatory są więc z definicji zgodne z G3
+# i z buildem, a granice sekcji wyznaczają elementy nagłówków wynikowego HTML:
+# wiersz zaczynający się od # w bloku kodu nie jest nagłówkiem, a powtórzony
+# nagłówek ma własny identyfikator z sufiksem. Bieżącą treść czytamy z katalogu
+# docs sprawdzanego drzewa, a treść z przeglądu — z commitu książki zapisanego
+# w kurs/aktualnosc.json (git show). Nie korzystamy z HTML budowanego w G7:
+# zatwierdzenie i odtworzenie dawnej treści wymagałyby pełnego buildu, a strona
+# zawiera szablon motywu i znaczniki hooka, które trzeba by usuwać.
+
+BLOCK_TAGS = frozenset(
+    {
+        "address", "article", "aside", "blockquote", "caption", "dd", "details",
+        "div", "dl", "dt", "figcaption", "figure", "footer", "header", "hr",
+        "label", "li", "main", "nav", "ol", "p", "section", "summary", "table",
+        "tbody", "td", "tfoot", "th", "thead", "tr", "ul",
+    }
+)
+HEADING_LEVELS = {f"h{level}": level for level in range(1, 7)}
+SKIPPED_TAGS = frozenset({"script", "style", "template"})
+# Granica zdania: znak końca zdania, ewentualny cudzysłów albo nawias zamykający,
+# odstęp i wielka litera (także po cudzysłowie albo nawiasie otwierającym).
+SENTENCE_BREAK = re.compile(r"[.!?…]+[”\"»)\]]*\s+(?=[„\"«(\[]?[A-ZĄĆĘŁŃÓŚŹŻ])")
+# Skróty, po których kropka zwykle nie kończy zdania.
+ABBREVIATIONS = frozenset(
+    {
+        "ang", "cd", "ew", "godz", "m.in", "np", "nr", "ok", "pkt", "por",
+        "rozdz", "rys", "str", "tab", "tj", "tzw", "wg", "zob",
+    }
+)
+LOCK_FIELDS = (
+    "page", "section_id", "heading", "activity_ids",
+    "fingerprint", "book_commit", "reviewed_on",
+)
+FINGERPRINT_PATTERN = re.compile(r"sha256:[0-9a-f]{64}")
+COMMIT_PATTERN = re.compile(r"[0-9a-f]{40}")
+DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
+
+
+def sentences(text: str) -> list[str]:
+    """Dzieli tekst akapitu na zdania, po jednym w wierszu odcisku i różnicy.
+
+    Podział służy czytelności różnicy: zmiana jednego słowa wskazuje zdanie,
+    a nie cały akapit. Jest deterministyczny i działa na tekście po złączeniu
+    białych znaków, więc nie zależy od łamania wierszy; skrót, liczba albo
+    pojedyncza litera przed kropką nie kończą zdania.
+    """
+    parts: list[str] = []
+    start = 0
+    for match in SENTENCE_BREAK.finditer(text):
+        words = text[start:match.start()].split()
+        word = words[-1].lstrip("([„\"«").casefold() if words else ""
+        if len(word) <= 1 or word.isdigit() or word in ABBREVIATIONS:
+            continue
+        parts.append(text[start:match.end()].rstrip())
+        start = match.end()
+    parts.append(text[start:])
+    return [part for part in parts if part]
+
+
+class SectionText(HTMLParser):
+    """Wiersze tekstu strony i jej sekcji wyznaczonych przez nagłówki HTML.
+
+    Sekcja trwa od swojego nagłówka do następnego nagłówka tego samego lub
+    wyższego poziomu, więc obejmuje podsekcje. Tekst bloku (akapitu, punktu
+    listy, komórki tabeli) po złączeniu białych znaków dzielimy na zdania;
+    blok kodu zachowuje wiersze i wcięcia, bez spacji końcowych i skrajnych
+    pustych wierszy. Znaki końca wiersza, spacje końcowe i ponowne łamanie
+    akapitu nie zmieniają więc wierszy, a zmienia je każda zmiana słów, liczb
+    i kodu. Znak ¶ odnośnika nagłówka, skrypty i style pomijamy, obraz wnosi
+    tekst alternatywny, a adresy odnośników i atrybuty HTML nie należą do
+    tekstu.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.page: list[str] = []
+        self.sections: dict[str, list[str]] = {}
+        self._open: list[tuple[int, str]] = []
+        self._prose: list[str] = []
+        self._code: list[str] | None = None
+        self._heading: int | None = None
+        self._skipped: list[str] = []
+
+    def _emit(self, line: str) -> None:
+        line = unicodedata.normalize("NFC", line)
+        self.page.append(line)
+        for _, section_id in self._open:
+            self.sections[section_id].append(line)
+
+    def _flush(self) -> None:
+        text = " ".join("".join(self._prose).split())
+        self._prose = []
+        for sentence in sentences(text):
+            self._emit(sentence)
+
+    def _end_code(self) -> None:
+        code = "".join(self._code or []).replace("\r\n", "\n").replace("\r", "\n")
+        self._code = None
+        lines = [line.rstrip() for line in code.split("\n")]
+        while lines and not lines[0]:
+            lines.pop(0)
+        while lines and not lines[-1]:
+            lines.pop()
+        for line in ("```", *lines, "```"):
+            self._emit(line)
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if self._skipped:
+            if tag == self._skipped[-1]:
+                self._skipped.append(tag)
+            return
+        classes = (attributes.get("class") or "").split()
+        if tag in SKIPPED_TAGS or (tag == "a" and "headerlink" in classes):
+            self._skipped.append(tag)
+            return
+        if self._code is not None:
+            if tag == "br":
+                self._code.append("\n")
+            return
+        if tag in HEADING_LEVELS:
+            self._flush()
+            level = HEADING_LEVELS[tag]
+            self._open = [item for item in self._open if item[0] < level]
+            section_id = attributes.get("id")
+            if section_id:
+                self._open.append((level, section_id))
+                self.sections[section_id] = []
+            self._heading = level
+        elif tag == "pre":
+            self._flush()
+            self._code = []
+        elif tag in BLOCK_TAGS:
+            self._flush()
+        elif tag == "br":
+            self._prose.append(" ")
+        elif tag == "img" and attributes.get("alt"):
+            self._prose.append(f" {attributes['alt']} ")
+
+    def handle_endtag(self, tag: str) -> None:
+        if self._skipped:
+            if tag == self._skipped[-1]:
+                self._skipped.pop()
+            return
+        if self._code is not None:
+            if tag == "pre":
+                self._end_code()
+            return
+        if tag in HEADING_LEVELS and self._heading is not None:
+            text = " ".join("".join(self._prose).split())
+            self._prose = []
+            self._emit("#" * self._heading + " " + text)
+            self._heading = None
+        elif tag in BLOCK_TAGS:
+            self._flush()
+
+    def handle_data(self, data: str) -> None:
+        if self._skipped:
+            return
+        if self._code is not None:
+            self._code.append(data)
+        else:
+            self._prose.append(data)
+
+    def close(self) -> None:
+        super().close()
+        if self._code is not None:
+            self._end_code()
+        self._flush()
+
+
+@dataclass
+class PageText:
+    """Nagłówki strony (jak w G3) oraz wiersze tekstu całej strony i sekcji."""
+
+    headings: list[tuple[int, str, str]]
+    page: list[str]
+    sections: dict[str, list[str]]
+
+    def lines(self, section_id: str | None) -> list[str] | None:
+        return self.page if section_id is None else self.sections.get(section_id)
+
+    def heading(self, section_id: str | None) -> str:
+        """Tekst nagłówka sekcji; dla całej strony — tytuł h1."""
+        for level, heading_id, name in self.headings:
+            if heading_id == section_id or (section_id is None and level == 1):
+                return name
+        return ""
+
+
+def page_text(text: str, config) -> PageText:
+    html, headings = render_page(text, config)
+    parser = SectionText()
+    parser.feed(html)
+    parser.close()
+    return PageText(headings, parser.page, parser.sections)
+
+
+def page_text_at(commit: str, page: str, config) -> PageText | None:
+    """Tekst strony docs/<page> w danym commicie albo None, gdy jej tam nie ma."""
+    result = git_run("show", f"{commit}:docs/{page}")
+    if result.returncode != 0:
+        return None
+    return page_text(result.stdout, config)
+
+
+def fingerprint(lines: list[str]) -> str:
+    digest = hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()
+    return f"sha256:{digest}"
+
+
+def binding_order(key: tuple[str, str | None]) -> tuple[str, bool, str]:
+    page, section_id = key
+    return page, section_id is not None, section_id or ""
+
+
+def binding_name(key: tuple[str, str | None]) -> str:
+    page, section_id = key
+    return f"{page}#{section_id}" if section_id is not None else f"{page} (cała strona)"
+
+
+def bindings_in(tree: Path) -> tuple[dict[tuple[str, str | None], list[str]], list[str]]:
+    """Wiązania z definicji w drzewie: {(strona, section_id): [activity_id…]}.
+
+    Zwraca też błędy definicji: etap G4 je pomija, ponieważ zgłasza je G3,
+    a polecenie --zatwierdz-aktualnosc z ich powodu nie zapisuje pliku.
+    """
+    import yaml
+
+    found: dict[tuple[str, str | None], list[str]] = {}
+    errors: list[str] = []
+    for source in sorted((tree / "activities").rglob("*.yaml")):
+        relative = source.relative_to(tree).as_posix()
+        try:
+            document = yaml.safe_load(source.read_text(encoding="utf-8"))
+        except yaml.YAMLError as error:
+            errors.append(f"{relative}: niepoprawny YAML: {error}")
+            continue
+        page = document.get("page") if isinstance(document, dict) else None
+        if not isinstance(page, str):
+            errors.append(f"{relative}: brak tekstowego pola page")
+            continue
+        for activity in document.get("activities") or []:
+            if not isinstance(activity, dict):
+                errors.append(f"{relative}: aktywność musi być mapą")
+                continue
+            activity_id = activity.get("activity_id")
+            section_id = activity.get("section_id")
+            if not isinstance(activity_id, str) or not (
+                section_id is None or isinstance(section_id, str)
+            ):
+                errors.append(
+                    f"{relative}: aktywność {activity_id!r} nie ma tekstowego "
+                    "activity_id albo section_id"
+                )
+                continue
+            found.setdefault((page, section_id), []).append(activity_id)
+    return {key: sorted(ids) for key, ids in found.items()}, errors
+
+
+def lock_entry_problem(entry) -> str | None:
+    """Opis błędu formatu wpisu kurs/aktualnosc.json albo None."""
+    if not isinstance(entry, dict) or set(entry) != set(LOCK_FIELDS):
+        return "oczekiwano dokładnie pól: " + ", ".join(LOCK_FIELDS)
+    ids = entry["activity_ids"]
+
+    def text(name: str, pattern: re.Pattern[str] | None = None) -> bool:
+        value = entry[name]
+        return isinstance(value, str) and (pattern is None or bool(pattern.fullmatch(value)))
+
+    valid = {
+        "page": text("page"),
+        "section_id": entry["section_id"] is None or text("section_id"),
+        "heading": text("heading"),
+        "activity_ids": isinstance(ids, list) and bool(ids)
+        and all(isinstance(item, str) for item in ids) and len(set(ids)) == len(ids),
+        "fingerprint": text("fingerprint", FINGERPRINT_PATTERN),
+        "book_commit": text("book_commit", COMMIT_PATTERN),
+        "reviewed_on": text("reviewed_on", DATE_PATTERN),
+    }
+    wrong = [name for name, ok in valid.items() if not ok]
+    return "niepoprawne pola: " + ", ".join(wrong) if wrong else None
+
+
+def read_lock(path: Path) -> tuple[dict | None, list[str]]:
+    """Odczytuje kurs/aktualnosc.json.
+
+    Zwraca ({"version": wersja odcisku, "entries": {wiązanie: wpis}}, błędy);
+    przy błędzie formatu pierwszym elementem jest None.
+    """
+    if not path.is_file():
+        return None, [f"brak pliku {LOCK_FILE}"]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except ValueError as error:
+        return None, [f"{LOCK_FILE}: niepoprawny JSON: {error}"]
+    if (
+        not isinstance(data, dict)
+        or set(data) != {"fingerprint_version", "bindings"}
+        or not isinstance(data["fingerprint_version"], int)
+        or not isinstance(data["bindings"], list)
+    ):
+        return None, [
+            f"{LOCK_FILE}: oczekiwano mapy z polami fingerprint_version (liczba) "
+            "i bindings (lista)"
+        ]
+    entries: dict[tuple[str, str | None], dict] = {}
+    owners: dict[str, tuple[str, str | None]] = {}
+    errors: list[str] = []
+    for number, entry in enumerate(data["bindings"], 1):
+        problem = lock_entry_problem(entry)
+        if problem:
+            errors.append(f"{LOCK_FILE}: wpis {number}: {problem}")
+            continue
+        key = (entry["page"], entry["section_id"])
+        if key in entries:
+            errors.append(f"{LOCK_FILE}: wpis {number}: powtórzone wiązanie {binding_name(key)}")
+            continue
+        for activity_id in entry["activity_ids"]:
+            if activity_id in owners:
+                errors.append(
+                    f"{LOCK_FILE}: wpis {number}: aktywność {activity_id!r} występuje "
+                    f"także we wpisie {binding_name(owners[activity_id])}"
+                )
+            owners[activity_id] = key
+        entries[key] = entry
+    if errors:
+        return None, errors
+    return {"version": data["fingerprint_version"], "entries": entries}, []
+
+
+def write_lock(path: Path, entries: dict[tuple[str, str | None], dict]) -> None:
+    data = {
+        "fingerprint_version": FINGERPRINT_VERSION,
+        "bindings": [entries[key] for key in sorted(entries, key=binding_order)],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def content_diff(old: list[str], new: list[str], old_label: str, new_label: str) -> list[str]:
+    """Różnica unified treści sekcji, skrócona do DIFF_LINES wierszy."""
+    lines = list(difflib.unified_diff(old, new, old_label, new_label, n=1, lineterm=""))
+    if len(lines) > DIFF_LINES:
+        rest = len(lines) - DIFF_LINES
+        lines = lines[:DIFF_LINES] + [
+            "… pominięto " + plural(rest, "wiersz", "wiersze", "wierszy") + " różnicy"
+        ]
+    return lines
+
+
+def quoted(text: str) -> str:
+    return f"„{text}”" if text else "bez nagłówka"
+
+
+class BookPages:
+    """Teksty stron: bieżące z katalogu docs drzewa, dawne z commitów książki."""
+
+    def __init__(self, docs_dir: Path, config) -> None:
+        self.docs_dir = docs_dir
+        self.config = config
+        self._now: dict[str, PageText | None] = {}
+        self._at: dict[tuple[str, str], PageText | None] = {}
+
+    def now(self, page: str) -> PageText | None:
+        if page not in self._now:
+            source = self.docs_dir / page
+            self._now[page] = (
+                page_text(source.read_text(encoding="utf-8"), self.config)
+                if source.is_file()
+                else None
+            )
+        return self._now[page]
+
+    def at(self, commit: str, page: str) -> PageText | None:
+        if (commit, page) not in self._at:
+            self._at[commit, page] = page_text_at(commit, page, self.config)
+        return self._at[commit, page]
+
+
+class CurrencyReview:
+    """Porównanie wiązań sprawdzanego drzewa z wpisami kurs/aktualnosc.json."""
+
+    def __init__(self, stage: Stage, pages: BookPages, lock: dict, current: dict,
+                 book: str, base: str) -> None:
+        self.stage = stage
+        self.pages = pages
+        self.entries: dict[tuple[str, str | None], dict] = lock["entries"]
+        self.version = lock["version"]
+        self.current = current
+        self.book = book
+        self.base = base
+        self.unchanged = 0
+        # activity_id → wiązanie z przeglądu oraz wiązanie bieżące
+        self.reviewed = {
+            activity_id: key
+            for key, entry in self.entries.items()
+            for activity_id in entry["activity_ids"]
+        }
+        self.placed = {activity_id: key for key, ids in current.items() for activity_id in ids}
+
+    def run(self) -> None:
+        if self.version != FINGERPRINT_VERSION:
+            self.stage.problem(
+                f"{LOCK_FILE} zawiera odciski w wersji {self.version}, a bramka "
+                f"oblicza wersję {FINGERPRINT_VERSION}; treść porównujemy ze stanem "
+                "książki z przeglądu, a plik należy odświeżyć"
+            )
+        for key in sorted(set(self.current) | set(self.entries), key=binding_order):
+            ids = self.current.get(key)
+            entry = self.entries.get(key)
+            if ids is None:
+                self.stale(key, entry)
+            elif entry is None:
+                self.unreviewed(key, ids)
+            else:
+                self.compare(key, entry, ids)
+
+    def reviewed_lines(self, entry: dict) -> list[str] | None:
+        text = self.pages.at(entry["book_commit"], entry["page"])
+        return text.lines(entry["section_id"]) if text else None
+
+    def expected(self, entry: dict) -> str | None:
+        if self.version == FINGERPRINT_VERSION:
+            return entry["fingerprint"]
+        lines = self.reviewed_lines(entry)
+        return fingerprint(lines) if lines is not None else None
+
+    def show_diff(self, entry: dict, key: tuple[str, str | None], lines: list[str]) -> None:
+        """Różnica treści od przeglądu i polecenie pokazujące pełne zmiany stron."""
+        commit = entry["book_commit"]
+        old_key = (entry["page"], entry["section_id"])
+        old_lines = self.reviewed_lines(entry)
+        if old_lines is None:
+            Stage.note(
+                f"treści z przeglądu nie można odtworzyć: commit {commit[:7]} nie "
+                f"zawiera {binding_name(old_key)}"
+            )
+            return
+        if self.version == FINGERPRINT_VERSION and fingerprint(old_lines) != entry["fingerprint"]:
+            Stage.note(
+                "treść odtworzona z commitu przeglądu nie odpowiada zapisanemu "
+                "odciskowi (np. po zmianie rozszerzeń Markdown książki); różnica "
+                "może obejmować także skutki tej zmiany"
+            )
+        diff = content_diff(
+            old_lines,
+            lines,
+            f"{binding_name(old_key)} @ {commit[:7]} (przegląd {entry['reviewed_on']})",
+            f"{binding_name(key)} @ {self.base[:7]}",
+        )
+        for line in diff:
+            print(f"         {line}")
+        paths = dict.fromkeys((f"docs/{entry['page']}", f"docs/{key[0]}"))
+        print(
+            f"         pełne zmiany: git diff {commit[:7]} {self.base[:7]} -- "
+            + " ".join(paths)
+        )
+
+    def origin(self, activity_id: str) -> str:
+        source = self.reviewed.get(activity_id)
+        return f"{activity_id} (nowa)" if source is None else (
+            f"{activity_id} (wcześniej {binding_name(source)})"
+        )
+
+    def destination(self, activity_id: str) -> str:
+        target = self.placed.get(activity_id)
+        return f"{activity_id} (usunięta)" if target is None else (
+            f"{activity_id} (obecnie {binding_name(target)})"
+        )
+
+    def compare(self, key, entry: dict, ids: list[str]) -> None:
+        page, section_id = key
+        text = self.pages.now(page)
+        lines = text.lines(section_id) if text else None
+        if lines is None:
+            self.broken(key, entry, ids)
+            return
+        changed = fingerprint(lines) != self.expected(entry)
+        added = [item for item in ids if item not in entry["activity_ids"]]
+        dropped = [item for item in entry["activity_ids"] if item not in ids]
+        if not (changed or added or dropped):
+            self.unchanged += 1
+            return
+        heading = text.heading(section_id)
+        title = quoted(heading)
+        if heading != entry["heading"]:
+            title = f"{quoted(entry['heading'])} → {title}"
+        parts = []
+        if changed:
+            parts.append(
+                f"zmieniła się treść od przeglądu przy {entry['book_commit'][:7]} "
+                f"({entry['reviewed_on']})"
+            )
+        if added:
+            parts.append(
+                "aktywności bez przeglądu tej sekcji: "
+                + ", ".join(self.origin(item) for item in added)
+            )
+        if dropped:
+            parts.append(
+                "aktywności, które opuściły wiązanie: "
+                + ", ".join(self.destination(item) for item in dropped)
+            )
+        message = f"{binding_name(key)} ({title}): " + "; ".join(parts)
+        if changed:
+            message += "; aktywności do przejrzenia: " + ", ".join(ids)
+        self.stage.problem(message)
+        if changed:
+            self.show_diff(entry, key, lines)
+
+    def broken(self, key, entry: dict, ids: list[str]) -> None:
+        """Wiązanie z przeglądu, którego sekcji nie ma w książce (błąd G3)."""
+        page, section_id = key
+        target_page = page
+        text = self.pages.now(page)
+        if text is None:
+            reason = "strony nie ma w książce (zob. G3)"
+            moved = renamed_page(page, self.book)
+            if moved:
+                reason += f"; książka przeniosła ją do {moved}"
+                target_page = moved
+                text = self.pages.now(moved)
+        else:
+            reason = "nagłówka nie ma na stronie (zob. G3)"
+        target = None
+        if text is not None:
+            if section_id is None or section_id in text.sections:
+                target = (target_page, section_id)
+            else:
+                old = self.pages.at(entry["book_commit"], page)
+                match = align_heading(section_id, old.headings, text.headings) if old else None
+                if match:
+                    reason += "; " + describe_successor(*match)
+                    target = (target_page, match[1][1])
+                else:
+                    reason += "; zestawienie nagłówków nie wskazuje następcy"
+        self.stage.problem(
+            f"{binding_name(key)} ({quoted(entry['heading'])}): {reason}; aktywności "
+            "do przejrzenia po poprawie wiązania: " + ", ".join(ids)
+        )
+        if target is not None:
+            self.show_diff(entry, target, text.lines(target[1]))
+
+    def unreviewed(self, key, ids: list[str]) -> None:
+        """Wiązanie bez wpisu: aktywności przeniesione z innej sekcji albo nowe."""
+        page, section_id = key
+        text = self.pages.now(page)
+        lines = text.lines(section_id) if text else None
+        label = binding_name(key)
+        if lines is not None:
+            label += f" ({quoted(text.heading(section_id))})"
+        sources = sorted({self.reviewed[item] for item in ids if item in self.reviewed},
+                         key=binding_order)
+        for source in sources:
+            entry = self.entries[source]
+            moved = [item for item in ids if self.reviewed.get(item) == source]
+            message = (
+                f"zmiana wiązania bez przeglądu: {', '.join(moved)} z "
+                f"{binding_name(source)} ({quoted(entry['heading'])}, przegląd przy "
+                f"{entry['book_commit'][:7]}) do {label}"
+            )
+            if lines is None:
+                self.stage.problem(message + "; nowego wiązania nie ma w książce (zob. G3)")
+                continue
+            old_lines = self.reviewed_lines(entry)
+            if old_lines == lines:
+                message += "; treść sekcji bez zmian"
+            elif old_lines is not None and old_lines[1:] == lines[1:]:
+                message += "; poza nagłówkiem treść sekcji bez zmian"
+            self.stage.problem(message + "; aktywności do przejrzenia: " + ", ".join(moved))
+            if old_lines != lines:
+                self.show_diff(entry, key, lines)
+        new = [item for item in ids if item not in self.reviewed]
+        if new:
+            message = (
+                f"nowe aktywności bez wpisu w {LOCK_FILE}: {', '.join(new)}; "
+                f"wiązanie {label}"
+            )
+            if lines is None:
+                message += " nie wskazuje sekcji książki (zob. G3)"
+            self.stage.problem(message)
+
+    def stale(self, key, entry: dict) -> None:
+        """Wpis bez aktywności w tym wiązaniu; przeniesienia zgłasza nowe wiązanie."""
+        removed = [item for item in entry["activity_ids"] if item not in self.placed]
+        if removed:
+            self.stage.problem(
+                f"nieaktualny wpis {LOCK_FILE}: {binding_name(key)} "
+                f"({quoted(entry['heading'])}); aktywności, których już nie ma: "
+                + ", ".join(removed)
+            )
+
+
+def stage_g4(ctx: Context, config=None) -> Stage:
+    stage = Stage("G4", "aktualność powiązanych sekcji")
+    stage.start()
+    if config is None:
+        from mkdocs.config import load_config
+
+        config = load_config(str(ctx.tree / COURSE_CONFIG))
+    docs_dir = Path(config["docs_dir"]) if "docs_dir" in config else ctx.tree / "docs"
+    current, _ = bindings_in(ctx.tree)  # błędy definicji zgłasza G3
+    approve = f"python kurs/tools/gate.py --zatwierdz-aktualnosc --book {ctx.book}"
+    lock, errors = read_lock(ctx.tree / LOCK_FILE)
+    for error in errors:
+        stage.problem(error)
+    if lock is None:
+        stage.note(f"plik tworzy i odświeża po przeglądzie aktywności polecenie: {approve}")
+        stage.detail = f"wiązania: {len(current)}, brak poprawnego pliku {LOCK_FILE}"
+        return stage
+    base = ctx.base or git("merge-base", "HEAD", ctx.book).strip()
+    review = CurrencyReview(stage, BookPages(docs_dir, config), lock, current, ctx.book, base)
+    review.run()
+    if stage.problems:
+        stage.note(
+            f"po przeglądzie aktywności: {approve}; zmieniony plik {LOCK_FILE} "
+            "zatwierdzamy commitem"
+        )
+    stage.detail = (
+        f"wiązania: {len(current)}, zgodne z przeglądem: {review.unchanged}"
+    )
+    return stage
+
+
+def approve_currency(book: str, root: Path, config=None, today: str | None = None) -> int:
+    """Polecenie --zatwierdz-aktualnosc: zapis odcisków po przeglądzie aktywności.
+
+    Wiązania odczytuje z definicji w katalogu roboczym, a odciski oblicza dla
+    książki w stanie merge-base(HEAD, book). Wpis bez zmian (ten sam odcisk,
+    nagłówek i aktywności) zachowuje dawny commit i datę przeglądu. Gdy
+    którekolwiek wiązanie jest zerwane, pliku nie zmienia.
+    """
+    print(f"Zatwierdzenie aktualności powiązanych sekcji ({LOCK_FILE}), książka: {book}")
+    try:
+        base = git("merge-base", "HEAD", book).strip()
+    except GateError as error:
+        print(f"Nie można wyznaczyć merge-base z {book!r}: {error}", file=sys.stderr)
+        return EXIT_USAGE
+    today = today or date.today().isoformat()
+    print(f"  stan książki: merge-base(HEAD, {book}) = {base[:7]}, data przeglądu: {today}")
+    if config is None:
+        from mkdocs.config import load_config
+
+        config = load_config(str(root / COURSE_CONFIG))
+    current, errors = bindings_in(root)
+    if not current and not errors:
+        errors.append("activities/ nie zawiera żadnej aktywności")
+    lock_path = root / LOCK_FILE
+    previous: dict[tuple[str, str | None], dict] = {}
+    up_to_date = lock_path.exists()  # plik istnieje i ma bieżącą wersję odcisku
+    if lock_path.exists():
+        lock, problems = read_lock(lock_path)
+        if lock is None:
+            errors += problems
+            errors.append(f"należy poprawić {LOCK_FILE} albo go usunąć i zapisać od nowa")
+        else:
+            previous = lock["entries"]
+            if lock["version"] != FINGERPRINT_VERSION:
+                up_to_date = False
+                print(
+                    f"  uwaga  zmiana wersji odcisku {lock['version']} → "
+                    f"{FINGERPRINT_VERSION}: zapisujemy wszystkie wpisy"
+                )
+    pages: dict[str, PageText | None] = {}
+    entries: dict[tuple[str, str | None], dict] = {}
+    for key in sorted(current, key=binding_order):
+        page, section_id = key
+        if page not in pages:
+            pages[page] = page_text_at(base, page, config)
+            if pages[page] is None:
+                errors.append(f"docs/{page}: strony nie ma w książce w {base[:7]} (zob. G3)")
+            elif (
+                git_run("rev-parse", f"HEAD:docs/{page}").stdout
+                != git_run("rev-parse", f"{base}:docs/{page}").stdout
+            ):
+                errors.append(
+                    f"docs/{page} w HEAD różni się od książki w {base[:7]}; --book "
+                    "musi wskazywać gałąź książki scaloną z HEAD (np. origin/dev "
+                    "po git fetch)"
+                )
+        text = pages[page]
+        if text is None:
+            continue
+        lines = text.lines(section_id)
+        if lines is None:
+            errors.append(
+                f"{binding_name(key)}: strona nie ma nagłówka o tym identyfikatorze "
+                "(zob. G3)"
+            )
+            continue
+        entries[key] = {
+            "page": page,
+            "section_id": section_id,
+            "heading": text.heading(section_id),
+            "activity_ids": current[key],
+            "fingerprint": fingerprint(lines),
+            "book_commit": base,
+            "reviewed_on": today,
+        }
+    if errors:
+        for error in errors:
+            print(f"  BŁĄD   {error}")
+        print(f"Nie zapisano {LOCK_FILE}: najpierw należy poprawić definicje i wiązania.")
+        return EXIT_FAILED
+
+    result: dict[tuple[str, str | None], dict] = {}
+    counts = {"dodano": 0, "zmieniono": 0, "usunięto": 0, "bez zmian": 0}
+    for key, entry in entries.items():
+        old = previous.get(key)
+        if old is not None and all(
+            old[name] == entry[name] for name in ("heading", "activity_ids", "fingerprint")
+        ):
+            result[key] = old
+            counts["bez zmian"] += 1
+            continue
+        result[key] = entry
+        label = f"{binding_name(key)} ({quoted(entry['heading'])})"
+        if old is None:
+            counts["dodano"] += 1
+            print(f"  dodano     {label}: {', '.join(entry['activity_ids'])}")
+            continue
+        counts["zmieniono"] += 1
+        what = []
+        if old["fingerprint"] != entry["fingerprint"]:
+            what.append("odcisk treści")
+        if old["heading"] != entry["heading"]:
+            what.append(f"nagłówek {quoted(old['heading'])} → {quoted(entry['heading'])}")
+        if old["activity_ids"] != entry["activity_ids"]:
+            what.append("aktywności: " + ", ".join(entry["activity_ids"]))
+        print(
+            f"  zmieniono  {label}: {'; '.join(what)}; przegląd {old['book_commit'][:7]} "
+            f"({old['reviewed_on']}) → {base[:7]} ({today})"
+        )
+    for key in sorted(set(previous) - set(entries), key=binding_order):
+        counts["usunięto"] += 1
+        old = previous[key]
+        print(
+            f"  usunięto   {binding_name(key)} ({quoted(old['heading'])}): "
+            + ", ".join(old["activity_ids"])
+        )
+    summary = ", ".join(f"{name}: {count}" for name, count in counts.items())
+    if up_to_date and counts["bez zmian"] == len(result) == len(previous):
+        print(f"Plik {LOCK_FILE} jest aktualny ({summary}); nie wprowadzono zmian.")
+        return EXIT_OK
+    write_lock(lock_path, result)
+    print(f"Zapisano {LOCK_FILE} ({summary}). Plik zatwierdzamy commitem na bieżącej gałęzi.")
+    return EXIT_OK
 
 
 # ---------------------------------------------------------------- G5
@@ -1196,7 +1990,7 @@ def main(argv: list[str] | None = None) -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(
-        description="Bramka jakości gałęzi ćwiczeń (etapy G1–G3, G5–G7)."
+        description="Bramka jakości gałęzi ćwiczeń (etapy G1–G7)."
     )
     parser.add_argument(
         "--book", default="dev", help="gałąź książki dla merge-base (domyślnie dev)"
@@ -1214,7 +2008,14 @@ def main(argv: list[str] | None = None) -> int:
         "--przed-scaleniem", action="store_true",
         help="wyłącznie etap G1 z próbnym scaleniem książki; wynik częściowy, kod 3",
     )
+    mode.add_argument(
+        "--zatwierdz-aktualnosc", action="store_true",
+        help=f"po przeglądzie aktywności zapisuje odciski sekcji w {LOCK_FILE}; "
+        "nie uruchamia etapów",
+    )
     args = parser.parse_args(argv)
+    if args.zatwierdz_aktualnosc and args.pomin_testy:
+        parser.error("opcji --pomin-testy nie łączymy z --zatwierdz-aktualnosc")
 
     try:
         root = Path(git("rev-parse", "--show-toplevel").strip())
@@ -1228,6 +2029,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Gałąź książki {args.book!r} nie wskazuje commitu.", file=sys.stderr)
         return EXIT_USAGE
     logging.getLogger("mkdocs").setLevel(logging.ERROR)
+    if args.zatwierdz_aktualnosc:
+        return approve_currency(args.book, root)
     print(f"Bramka gałęzi ćwiczeń: {branch} @ {head[:7]}, książka: {args.book}")
 
     partial: list[str] = []
@@ -1261,6 +2064,7 @@ def main(argv: list[str] | None = None) -> int:
         if not args.przed_scaleniem:
             stages.append(guarded("G2", "listy nakładki zachowują listy książki", stage_g2, ctx))
             stages.append(guarded("G3", "schemat i wiązania aktywności", stage_g3, ctx))
+            stages.append(guarded("G4", "aktualność powiązanych sekcji", stage_g4, ctx))
             stages.append(guarded("G5", "rozwiązania wzorcowe i bloki verify", stage_g5, ctx))
             stages.append(guarded("G6", "testy unittest i node", stage_g6, ctx, args.pomin_testy))
             stages.append(guarded("G7", "buildy --strict: książka i wydanie kursowe", stage_g7, ctx))

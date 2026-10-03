@@ -45,7 +45,7 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 
 Aktywność ma stabilny `activity_id`. Miejsce osadzenia na stronie ma stabilny `slot_id`, deklarowany w YAML.
 
-Do Markdown książki nie dodaje się żadnych punktów osadzenia: ani elementów z `data-activity-slot`, ani atrybutów `data-activity-section`, ani identyfikatorów `{#…}` wprowadzanych ze względu na ćwiczenia. Aktywność wiąże się z sekcją przez `section_id` równy identyfikatorowi nagłówka h2–h6, który MkDocs generuje z jego tekstu, albo z całą stroną przez `section_id: null`. Hook `scripts/build_activities.py`, włączany wyłącznie przez `mkdocs.kurs.yml`, podczas budowania oznacza takie nagłówki i dopisuje slot na końcu strony. Zmianę nagłówka w książce wykrywa build wydania kursowego i bramka `kurs/tools/gate.py`, która wskazuje następcę dawnego nagłówka; wiązanie poprawia się w YAML. Wiązanie z numerem linii lub pozycją elementu DOM jest niedopuszczalne.
+Do Markdown książki nie dodaje się żadnych punktów osadzenia: ani elementów z `data-activity-slot`, ani atrybutów `data-activity-section`, ani identyfikatorów `{#…}` wprowadzanych ze względu na ćwiczenia. Aktywność wiąże się z sekcją przez `section_id` równy identyfikatorowi nagłówka h2–h6, który MkDocs generuje z jego tekstu, albo z całą stroną przez `section_id: null`. Hook `scripts/build_activities.py`, włączany wyłącznie przez `mkdocs.kurs.yml`, podczas budowania oznacza takie nagłówki i dopisuje slot na końcu strony. Zmianę nagłówka w książce wykrywa build wydania kursowego i bramka `kurs/tools/gate.py`, która wskazuje następcę dawnego nagłówka; wiązanie poprawia się w YAML. Zmianę treści powiązanej sekcji przy niezmienionym nagłówku wykrywa etap G4 bramki, porównując odcisk treści z zapisanym przy ostatnim przeglądzie w `kurs/aktualnosc.json`; aktywności przegląda się wtedy względem nowej treści. Wiązanie z numerem linii lub pozycją elementu DOM jest niedopuszczalne.
 
 Przykład ideowy slotu dopisywanego przez hook:
 
@@ -222,9 +222,10 @@ kurs/
   AGENTS.md               niniejszy dokument
   INTERACTIVE_SYSTEM_SPEC.md
   SYNC_LOG.md             dziennik synchronizacji z dev
+  aktualnosc.json         odciski sekcji powiązanych z aktywnościami (etap G4)
   bez-weryfikacji.txt     pytania zwolnione z bloku verify
   tools/
-    gate.py               bramka jakości (etapy G1–G3, G5–G7)
+    gate.py               bramka jakości (etapy G1–G7)
     test_gate.py
 
 mkdocs.kurs.yml           nakładka wydania kursowego
@@ -234,7 +235,7 @@ Główne `AGENTS.md` i `CLAUDE.md` należą do książki; na gałęzi ćwiczeń 
 
 ## Walidacja i jakość
 
-Po każdej zmianie uruchom bramkę gałęzi ćwiczeń (etapy G1–G3 i G5–G7, w tym testy i buildy `--strict` książki oraz wydania kursowego; etapy G4 i G8 są planowane):
+Po każdej zmianie uruchom bramkę gałęzi ćwiczeń (etapy G1–G7, w tym aktualność powiązanych sekcji, testy i buildy `--strict` książki oraz wydania kursowego; etap G8 jest planowany):
 
 ```bash
 python kurs/tools/gate.py --book origin/dev
@@ -248,6 +249,7 @@ Każda nowa aktywność musi mieć:
 - jawny `version`,
 - `slot_id` strony zadeklarowany w YAML,
 - `section_id` wskazujący nagłówek h2–h6 tej strony albo `null`,
+- wpis w `kurs/aktualnosc.json`, zapisany poleceniem `python kurs/tools/gate.py --zatwierdz-aktualnosc --book origin/dev` po sprawdzeniu, że aktywność odpowiada bieżącej treści powiązanej sekcji,
 - poprawną definicję zgodną ze schematem,
 - zachowanie po odświeżeniu strony,
 - sensowny stan początkowy i zakończony.

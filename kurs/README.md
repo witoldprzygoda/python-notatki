@@ -37,11 +37,12 @@ Po zmianie hooka trzeba uruchomić `mkdocs serve` ponownie, ponieważ przebudowa
 
 ```bash
 python kurs/tools/gate.py [--book dev] [--pomin-testy] [--katalog-roboczy | --przed-scaleniem]
+python kurs/tools/gate.py --zatwierdz-aktualnosc [--book dev]
 ```
 
 Bramka ocenia commit `HEAD`: etapy G2–G7 działają na czystym eksporcie jego drzewa w katalogu tymczasowym, dlatego niezatwierdzone i nieśledzone pliki nie wpływają na wynik. Niezatwierdzona zmiana pliku książki w katalogu ćwiczeń jest jednak błędem w każdym trybie.
 
-Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — listy nakładki zawierają listy książki; G3 — schemat YAML i wiązania z nagłówkami; G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapów G4 (aktualność powiązanych sekcji) i G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
+Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — listy nakładki zawierają listy książki; G3 — schemat YAML i wiązania z nagłówkami; G4 — aktualność treści powiązanych sekcji względem ostatniego przeglądu (niżej); G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
 
 Kody wyjścia:
 
@@ -59,6 +60,18 @@ Przy zerwanym wiązaniu G3 zestawia nagłówki strony sprzed ostatniego scalenia
 Każde pytanie `single_choice` ma blok `verify`, którego kod wypisuje dokładnie etykietę poprawnej odpowiedzi. Pytanie pojęciowe, którego nie da się tak sprawdzić, wpisujemy z uzasadnieniem do `kurs/bez-weryfikacji.txt`.
 
 Do czasu przewinięcia `dev` do stanu po rozdzieleniu (gałąź `infra/rozdzielenie-cwiczen`) książka na `dev` zawiera jeszcze warstwę ćwiczeń, a G1 zgłasza to jako kolizję. W tym okresie bramkę uruchamiamy z `--book infra/rozdzielenie-cwiczen`, a gałąź `cwiczenia` tworzymy dopiero po przewinięciu `dev`.
+
+### Aktualność powiązanych sekcji (G4)
+
+Etap G4 porównuje treść sekcji, z którymi wiążą się aktywności, ze stanem z ostatniego przeglądu zapisanym w `kurs/aktualnosc.json`. Plik zawiera dla każdego wiązania (strona i `section_id`, a przy `section_id: null` sama strona) identyfikatory aktywności, tekst nagłówka, odcisk SHA-256 treści, commit książki, przy którym treść przejrzano, oraz datę przeglądu. Sekcja obejmuje tekst od swojego nagłówka do następnego nagłówka tego samego lub wyższego poziomu, łącznie z blokami kodu i wynikami; przy `section_id: null` odcisk obejmuje całą stronę. Treść odczytujemy z Markdown strony przetworzonego tymi samymi rozszerzeniami książki, z których G3 wyznacza identyfikatory nagłówków, dlatego granice sekcji zgadzają się z identyfikatorami G3 i buildu, a wiersz zaczynający się od `#` w bloku kodu nie dzieli sekcji. Znaki końca wiersza, spacje końcowe, ponowne łamanie akapitów, adresy odnośników i formatowanie tekstu nie zmieniają odcisku; zmienia go każda zmiana słów, liczb i kodu.
+
+G4 zgłasza jako błąd zmienioną treść sekcji, wiązanie zerwane w G3 (z tym samym następcą nagłówka co G3), zmienione wiązanie, nowe aktywności bez wpisu oraz wpisy aktywności, których już nie ma. Przy zmianie treści wypisuje aktywności do przejrzenia, różnicę treści sekcji od przeglądu (najwyżej 40 wierszy, po jednym zdaniu w wierszu) i polecenie `git diff`, które pokazuje pełne zmiany strony. Po przejrzeniu wszystkich zgłoszonych aktywności zapisujemy nowy stan:
+
+```bash
+python kurs/tools/gate.py --zatwierdz-aktualnosc --book origin/dev
+```
+
+Polecenie nie uruchamia etapów bramki. Definicje aktywności odczytuje z katalogu roboczego, odciski oblicza dla książki w stanie `merge-base(HEAD, origin/dev)` i wypisuje dodane, zmienione i usunięte wpisy; wpis bez zmian zachowuje dawny commit i datę przeglądu. Przy zerwanym wiązaniu albo błędnej definicji kończy się kodem 1 i pliku nie zmienia, a kod 2 oznacza błąd wywołania. Bramka nigdy nie zapisuje tego pliku sama, a zmieniony plik zatwierdzamy osobnym commitem. W ten sam sposób fala dodająca aktywności zapisuje ich wpisy, gdy sprawdzi, że odpowiadają bieżącej treści sekcji.
 
 ## Utworzenie gałęzi `cwiczenia`
 
@@ -82,9 +95,12 @@ Warunek wstępny: autor wypchnął `dev`. Wszystkie kroki odwołują się do tej
 2. `git switch -c sync/RRRR-MM-DD origin/cwiczenia`
 3. `python kurs/tools/gate.py --book origin/dev --przed-scaleniem` — kod 3 pozwala scalać. Przy kodzie 1 przerywamy i składamy raport: kolizję rozwiązuje zmiana nazwy ścieżki po stronie ćwiczeń albo usunięcie ścieżki z książki, a książkę z plikami lub historią ćwiczeń — procedura naprawcza (niżej).
 4. `git -c merge.directoryRenames=false merge --no-ff origin/dev -m "Sync with dev (RRRR-MM-DD)"`. W razie konfliktu ścieżka spoza listy dozwolonej zawsze przyjmuje wersję z książki: `git checkout origin/dev -- <ścieżka>`; plików książki nie poprawiamy ręcznie. Jeśli scalenie usunęło pliki ćwiczeń, nie zatwierdzamy go (`git merge --abort`) i stosujemy procedurę naprawczą.
-5. `python kurs/tools/gate.py --book origin/dev`. Poprawiamy wyłącznie pliki ćwiczeń, np. `section_id` po zmianie nagłówka albo `page` po przeniesieniu strony, zatwierdzamy poprawki i powtarzamy bramkę aż do kodu 0.
+5. `python kurs/tools/gate.py --book origin/dev`. Poprawiamy wyłącznie pliki ćwiczeń, zatwierdzamy poprawki i powtarzamy bramkę aż do kodu 0:
+   - wiązania zerwane według G3: `section_id` po zmianie nagłówka (następcę wskazuje bramka) albo `page` po przeniesieniu strony;
+   - aktywności z sekcji, których treść według G4 zmieniła się od przeglądu: polecenie, kod startowy, oczekiwany wynik, rozwiązania i klucz odpowiedzi sprawdzamy względem nowej treści, a `version` podnosimy, gdy zmienia się polecenie, poprawna odpowiedź albo checker (`kurs/INTERACTIVE_SYSTEM_SPEC.md`, „Wersjonowanie aktywności”); błędu w książce nie poprawiamy na tej gałęzi, lecz zgłaszamy go w raporcie do poprawki na gałęzi `content/*`;
+   - po przejrzeniu wszystkich wiązań zgłoszonych przez G4 zapisujemy nowy stan poleceniem `python kurs/tools/gate.py --zatwierdz-aktualnosc --book origin/dev` i zatwierdzamy `kurs/aktualnosc.json`.
 6. Dopisujemy wiersz do `kurs/SYNC_LOG.md`, zatwierdzamy go i ostatni raz uruchamiamy bramkę (kod 0).
-7. Przygotowujemy dla autora jednostronicowy raport: zakres zmian `dev`, strony z ćwiczeniami, których dotyczą zmiany, zmienione wiązania (stary → nowy identyfikator wraz z tekstami nagłówków z etapu G3), wynik bramki i polecenie podglądu.
+7. Przygotowujemy dla autora jednostronicowy raport: zakres zmian `dev` (commity), strony z ćwiczeniami, których dotyczą zmiany, zmienione wiązania (stary → nowy identyfikator wraz z tekstami nagłówków z etapu G3), decyzje przeglądu G4 dla każdej aktywności, podniesione wersje, usterki książki do poprawy na gałęzi `content/*`, wynik bramki i polecenie podglądu.
 8. Po „akceptuję”: `git switch cwiczenia`, `git merge --ff-only sync/RRRR-MM-DD` i `git push origin cwiczenia`. Następnie usuwamy gałąź `sync/…` lokalnie (`git branch -d sync/RRRR-MM-DD`), a jeśli ją wypchnięto — także w repozytorium zdalnym (`git push origin --delete sync/RRRR-MM-DD`).
 
 Jeśli w międzyczasie na `cwiczenia` trafiła inna zmiana i przewinięcie (ang. *fast-forward*) się nie udaje, nie przebudowujemy gałęzi: scalamy `origin/cwiczenia` do gałęzi `sync/…` i ponownie uruchamiamy bramkę. Gałęzi o tej samej nazwie nie tworzymy od nowa; jeśli trzeba zacząć od początku, tworzymy nową gałąź `sync/RRRR-MM-DD-2` od aktualnego `origin/cwiczenia`. Zmian z gałęzi ćwiczeń nigdy nie scalamy z powrotem do `dev`.
@@ -119,6 +135,7 @@ Następnym etapem są wydania, czyli nazwane zestawy ustawień (np. wydanie na r
 - `kurs/INTERACTIVE_SYSTEM_SPEC.md` — specyfikacja architektury warstwy;
 - `kurs/AGENTS.md` — zasady pracy nad warstwą;
 - `kurs/tools/gate.py` i `kurs/tools/test_gate.py` — bramka i jej testy;
+- `kurs/aktualnosc.json` — odciski sekcji powiązanych z aktywnościami przy ostatnim przeglądzie (etap G4);
 - `kurs/bez-weryfikacji.txt` — pytania zwolnione z bloku `verify`;
 - `kurs/SYNC_LOG.md` — dziennik synchronizacji;
 - `CLAUDE.md` — reguły redakcyjne książki, obowiązujące także w tekstach ćwiczeń.

@@ -583,14 +583,9 @@ semantyczny uzasadniający ponowne rozpatrzenie wcześniejszego postępu.
 
 Obowiązujący kontrakt to `page` + top-level `slot_id` + per-activity `section_id` + `activity_id`. Build sprawdza globalną unikalność slotu, jego pojedyncze wystąpienie na właściwej stronie oraz to, że każdy niepusty `section_id` jest identyfikatorem nagłówka h2–h6 wygenerowanym na tej stronie i nie ma sufiksu deduplikacji. Po każdej synchronizacji z `dev` te same wiązania sprawdza etap G3 bramki `kurs/tools/gate.py`. Przy zerwanym wiązaniu bramka zestawia nagłówki strony sprzed scalenia książki z obecnymi i wskazuje następcę dawnego nagłówka; podobieństwo samych identyfikatorów podaje wyłącznie jako oznaczoną podpowiedź zastępczą.
 
-Mechanizm hashy treści jest wartościowy, ale nie należy go jeszcze implementować.
+Zmianę treści powiązanej sekcji przy niezmienionym nagłówku wykrywa etap G4 bramki. Plik `kurs/aktualnosc.json` przechowuje odcisk treści każdej powiązanej sekcji (przy `section_id: null` całej strony) z ostatniego przeglądu aktywności. Po zmianie treści bramka wypisuje różnicę i aktywności do przejrzenia, a nowy stan zapisuje dopiero polecenie `--zatwierdz-aktualnosc`, wykonane po przeglądzie. Szczegóły opisuje `kurs/README.md`.
 
-Etap późniejszy może dodać:
-
-- zapisywanie hasha fragmentu treści przy ostatnim przeglądzie aktywności;
-- raport `REVIEW`, gdy powiązana treść uległa zmianie.
-
-Automat nie powinien sam unieważniać zaliczenia studenta po zwykłej zmianie tekstu.
+Automat nie powinien sam unieważniać zaliczenia studenta po zwykłej zmianie tekstu: o podniesieniu `version` decyduje przegląd.
 
 ---
 

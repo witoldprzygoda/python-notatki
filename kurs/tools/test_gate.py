@@ -24,6 +24,74 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gate  # noqa: E402
 
 MARKDOWN_CONFIG = {"markdown_extensions": ["toc"], "mdx_configs": {}}
+# Rozszerzenia Markdown książki (mkdocs.yml) wraz z wbudowanymi rozszerzeniami
+# MkDocs, w kolejności, w jakiej podaje je load_config; służą testom etapu G4.
+BOOK_MARKDOWN = {
+    "markdown_extensions": [
+        "toc", "tables", "fenced_code", "admonition", "attr_list", "md_in_html",
+        "pymdownx.details", "pymdownx.highlight", "pymdownx.inlinehilite",
+        "pymdownx.superfences", "pymdownx.tabbed", "pymdownx.keys",
+        "pymdownx.smartsymbols",
+    ],
+    "mdx_configs": {
+        "toc": {"permalink": True},
+        "pymdownx.highlight": {"anchor_linenums": True},
+        "pymdownx.tabbed": {"alternate_style": True},
+    },
+}
+FENCE = "`" * 3
+PAGE = f"""# Pętle
+
+Wstęp do rozdziału.
+
+## Pętla for
+
+Pętla for przechodzi po elementach sekwencji.
+Kolejne zdanie opisu.
+
+{FENCE}python title="petla.py"
+for znak in "abc":
+    print(znak)
+# a
+{FENCE}
+
+### Odmiana z else
+
+Blok else wykonuje się po pełnym przejściu.
+
+## Pętla while
+
+Pętla while powtarza blok, dopóki warunek jest prawdziwy.
+
+{FENCE}text
+## To nie jest nagłówek
+{FENCE}
+
+## Przykład
+
+Pierwszy przykład.
+
+## Przykład
+
+Drugi przykład.
+"""
+OTHER_PAGE = "# Inna strona\n\nTreść innej strony.\n"
+ACTIVITIES = """page: petle.md
+activities:
+  - activity_id: for-quiz
+    section_id: petla-for
+  - activity_id: for-code
+    section_id: petla-for
+  - activity_id: while-quiz
+    section_id: petla-while
+  - activity_id: przyklad-quiz
+    section_id: przykad
+"""
+OTHER_ACTIVITIES = """page: inna.md
+activities:
+  - activity_id: inna-ack
+    section_id: null
+"""
 GIT_IDENTITY = {
     "GIT_AUTHOR_NAME": "Bramka",
     "GIT_AUTHOR_EMAIL": "bramka@example.invalid",
@@ -354,6 +422,346 @@ class RebindingHintTest(RepositoryTestCase):
 
         self.assertIn("wyłącznie podobieństwo napisów", hint)
         self.assertIn("petla-while", hint)
+
+
+def section_fingerprints(text: str) -> dict[str | None, str]:
+    """Odciski całej strony (klucz None) i każdej jej sekcji."""
+    page = gate.page_text(text, BOOK_MARKDOWN)
+    prints = {None: gate.fingerprint(page.page)}
+    prints.update({key: gate.fingerprint(lines) for key, lines in page.sections.items()})
+    return prints
+
+
+class SectionTextTest(unittest.TestCase):
+    def test_section_runs_to_the_next_heading_of_the_same_or_higher_level(self) -> None:
+        page = gate.page_text(PAGE, BOOK_MARKDOWN)
+
+        loop = page.lines("petla-for")
+        subsection = page.lines("odmiana-z-else")
+
+        self.assertEqual(loop[0], "## Pętla for")
+        self.assertIn("### Odmiana z else", loop)
+        self.assertIn("Blok else wykonuje się po pełnym przejściu.", loop)
+        self.assertNotIn("## Pętla while", loop)
+        self.assertEqual(
+            subsection, ["### Odmiana z else", "Blok else wykonuje się po pełnym przejściu."]
+        )
+        self.assertEqual(page.lines(None)[0], "# Pętle")
+        self.assertIn("Drugi przykład.", page.lines(None))
+        self.assertEqual(page.heading(None), "Pętle")
+        self.assertEqual(page.heading("petla-for"), "Pętla for")
+
+    def test_code_blocks_keep_lines_and_skip_the_permalink_sign(self) -> None:
+        loop = gate.page_text(PAGE, BOOK_MARKDOWN).lines("petla-for")
+
+        start = loop.index("```")
+        self.assertEqual(loop[start - 1], "petla.py")
+        self.assertEqual(
+            loop[start:start + 5],
+            ["```", 'for znak in "abc":', "    print(znak)", "# a", "```"],
+        )
+        self.assertNotIn("¶", "".join(loop))
+
+    def test_heading_inside_fenced_code_does_not_split_the_section(self) -> None:
+        page = gate.page_text(PAGE, BOOK_MARKDOWN)
+
+        self.assertIn("## To nie jest nagłówek", page.lines("petla-while"))
+        self.assertNotIn("to-nie-jest-naglowek", page.sections)
+
+    def test_duplicate_headings_have_separate_sections(self) -> None:
+        before = section_fingerprints(PAGE)
+        after = section_fingerprints(PAGE.replace("Drugi przykład.", "Trzeci przykład."))
+
+        page = gate.page_text(PAGE, BOOK_MARKDOWN)
+        # Identyfikator pomija literę „ł” (slugify toc), a powtórzenie dostaje sufiks.
+        self.assertEqual(page.lines("przykad"), ["## Przykład", "Pierwszy przykład."])
+        self.assertEqual(page.lines("przykad_1"), ["## Przykład", "Drugi przykład."])
+        self.assertEqual(before["przykad"], after["przykad"])
+        self.assertNotEqual(before["przykad_1"], after["przykad_1"])
+
+    def test_line_endings_trailing_spaces_and_rewrapping_keep_the_fingerprint(self) -> None:
+        rewrapped = PAGE.replace(
+            "Pętla for przechodzi po elementach sekwencji.\nKolejne zdanie opisu.\n",
+            "Pętla for przechodzi\npo elementach sekwencji.   Kolejne\n\tzdanie opisu.\n",
+        )
+        trailing = "\n".join(line + "  " for line in rewrapped.split("\n"))
+
+        self.assertEqual(section_fingerprints(PAGE), section_fingerprints(rewrapped))
+        self.assertEqual(section_fingerprints(PAGE), section_fingerprints(trailing))
+        self.assertEqual(
+            section_fingerprints(PAGE), section_fingerprints(trailing.replace("\n", "\r\n"))
+        )
+
+    def test_changes_of_words_numbers_and_code_change_the_fingerprint(self) -> None:
+        before = section_fingerprints(PAGE)
+        variants = {
+            "słowo": PAGE.replace("elementach sekwencji", "znakach sekwencji"),
+            "liczba": PAGE.replace("Kolejne zdanie", "Kolejne 2 zdania"),
+            "kod": PAGE.replace("print(znak)", "print(znak, end=' ')"),
+            "wcięcie": PAGE.replace("    print(znak)", "        print(znak)"),
+            "wynik": PAGE.replace("# a\n", "# a b c\n"),
+            "tytuł bloku": PAGE.replace('title="petla.py"', 'title="petla-for.py"'),
+        }
+        for label, variant in variants.items():
+            with self.subTest(label):
+                after = section_fingerprints(variant)
+                self.assertNotEqual(before["petla-for"], after["petla-for"])
+                self.assertNotEqual(before[None], after[None])
+                self.assertEqual(before["petla-while"], after["petla-while"])
+
+    def test_sentences_split_without_breaking_on_abbreviations_and_numbers(self) -> None:
+        text = "Zdanie pierwsze. Zdanie drugie, np. Python. Zob. rozdział 5. Typy złożone."
+
+        self.assertEqual(
+            gate.sentences(text),
+            ["Zdanie pierwsze.", "Zdanie drugie, np. Python.", "Zob. rozdział 5. Typy złożone."],
+        )
+
+
+class ReadLockTest(unittest.TestCase):
+    ENTRY = {
+        "page": "petle.md",
+        "section_id": "petla-for",
+        "heading": "Pętla for",
+        "activity_ids": ["for-quiz"],
+        "fingerprint": "sha256:" + "0" * 64,
+        "book_commit": "a" * 40,
+        "reviewed_on": "2026-10-03",
+    }
+
+    def read(self, data) -> tuple[dict | None, list[str]]:
+        with tempfile.TemporaryDirectory(prefix="kurs-gate-lock-") as directory:
+            path = Path(directory) / "aktualnosc.json"
+            text = data if isinstance(data, str) else gate.json.dumps(data)
+            path.write_text(text, encoding="utf-8")
+            return gate.read_lock(path)
+
+    def test_reads_a_valid_file(self) -> None:
+        lock, errors = self.read({"fingerprint_version": 1, "bindings": [self.ENTRY]})
+
+        self.assertEqual(errors, [])
+        self.assertEqual(list(lock["entries"]), [("petle.md", "petla-for")])
+
+    def test_reports_format_errors(self) -> None:
+        broken = dict(self.ENTRY, fingerprint="md5:0", reviewed_on="3 X 2026")
+        cases = {
+            "niepoprawny JSON": "{",
+            "fingerprint, reviewed_on": {"fingerprint_version": 1, "bindings": [broken]},
+            "powtórzone wiązanie": {"fingerprint_version": 1, "bindings": [self.ENTRY] * 2},
+            "oczekiwano mapy": {"bindings": []},
+        }
+        for fragment, data in cases.items():
+            with self.subTest(fragment):
+                lock, errors = self.read(data)
+                self.assertIsNone(lock)
+                self.assertTrue(any(fragment in error for error in errors), errors)
+
+
+class StageG4Test(RepositoryTestCase):
+    """Synchronizacje w tymczasowym repozytorium: książka (dev) i ćwiczenia."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.reviewed = self.commit(
+            "Book pages", {"docs/petle.md": PAGE, "docs/inna.md": OTHER_PAGE}
+        )
+        self.git("switch", "-q", "cwiczenia")
+        self.git("merge", "-q", "--no-ff", "-m", "Sync", "dev")
+        self.commit(
+            "Activities",
+            {LAYER[0]: ACTIVITIES, "activities/rozdzial/inna.yaml": OTHER_ACTIVITIES},
+        )
+        code, _ = self.approve("2026-10-01")
+        self.assertEqual(code, gate.EXIT_OK)
+        self.commit("Review", {})
+
+    def approve(self, today: str = "2026-10-03") -> tuple[int, str]:
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = gate.approve_currency("dev", self.path, BOOK_MARKDOWN, today=today)
+        return code, output.getvalue()
+
+    def lock(self) -> dict:
+        return gate.read_lock(self.path / gate.LOCK_FILE)[0]["entries"]
+
+    def sync_book(self, files: dict[str, str]) -> None:
+        self.git("switch", "-q", "dev")
+        self.commit("Book change", files)
+        self.git("switch", "-q", "cwiczenia")
+        self.git("merge", "-q", "--no-ff", "-m", "Sync", "dev")
+
+    def run_g4(self) -> tuple[gate.Stage, str]:
+        context = gate.Context(book="dev", head=self.git("rev-parse", "HEAD"), tree=self.path)
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            stage = gate.stage_g4(context, BOOK_MARKDOWN)
+        return stage, output.getvalue()
+
+    def test_unchanged_book_passes(self) -> None:
+        self.sync_book({"docs/index.md": "# Książka po zmianie\n"})
+
+        stage, _ = self.run_g4()
+
+        self.assertEqual(stage.problems, [])
+        self.assertIn("zgodne z przeglądem: 4", stage.detail)
+
+    def test_text_change_inside_a_bound_section_is_flagged_with_a_diff(self) -> None:
+        changed = PAGE.replace("Kolejne zdanie opisu.", "Zmienione zdanie opisu.")
+        self.sync_book({"docs/petle.md": changed})
+
+        stage, output = self.run_g4()
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertProblem(
+            stage, "petle.md#petla-for", "zmieniła się treść", "for-code, for-quiz"
+        )
+        self.assertIn("-Kolejne zdanie opisu.", output)
+        self.assertIn("+Zmienione zdanie opisu.", output)
+        self.assertIn(f"git diff {self.reviewed[:7]}", output)
+
+    def test_code_example_change_is_flagged(self) -> None:
+        self.sync_book({"docs/petle.md": PAGE.replace("# a\n", "# a\n# b\n# c\n")})
+
+        stage, output = self.run_g4()
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertProblem(stage, "petle.md#petla-for")
+        self.assertIn("+# b", output)
+
+    def test_changes_in_other_sections_and_pages_are_not_flagged(self) -> None:
+        self.sync_book(
+            {
+                "docs/petle.md": PAGE.replace("Drugi przykład.", "Drugi, zmieniony przykład.")
+                .replace("Wstęp do rozdziału.", "Nowy wstęp do rozdziału."),
+                "docs/index.md": "# Książka po zmianie\n",
+            }
+        )
+
+        stage, _ = self.run_g4()
+
+        self.assertEqual(stage.problems, [])
+
+    def test_line_ending_and_trailing_space_changes_are_not_flagged(self) -> None:
+        trailing = "\n".join(line + " " for line in PAGE.split("\n")).replace("\n", "\r\n")
+        self.sync_book(
+            {"docs/petle.md": trailing, "docs/inna.md": OTHER_PAGE.replace("\n", "\r\n")}
+        )
+
+        stage, _ = self.run_g4()
+
+        self.assertEqual(stage.problems, [])
+
+    def test_page_level_binding_covers_the_whole_page(self) -> None:
+        self.sync_book({"docs/inna.md": OTHER_PAGE + "\n## Dodatek\n\nNowy akapit.\n"})
+
+        stage, output = self.run_g4()
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertProblem(stage, "inna.md (cała strona)", "inna-ack")
+        self.assertIn("+Nowy akapit.", output)
+
+    def test_heading_rename_is_reported_like_in_g3_and_cleared_by_review(self) -> None:
+        renamed = PAGE.replace("## Pętla while", "## Pętla while i warunek")
+        self.sync_book({"docs/petle.md": renamed})
+        headings = gate.page_headings(renamed, BOOK_MARKDOWN)
+        hint = gate.rebinding_hint(
+            "petla-while", "petle.md", headings, self.reviewed, BOOK_MARKDOWN
+        )
+
+        broken, output = self.run_g4()
+
+        self.assertTrue(hint.startswith("; prawdopodobna zmiana nagłówka"), hint)
+        self.assertProblem(broken, "petle.md#petla-while", "zob. G3", hint[2:], "while-quiz")
+        self.assertIn("+## Pętla while i warunek", output)
+        self.assertNotIn("+Pętla while powtarza", output)
+
+        rebound_yaml = ACTIVITIES.replace("petla-while\n", "petla-while-i-warunek\n")
+        self.commit("Rebind", {LAYER[0]: rebound_yaml})
+        rebound, _ = self.run_g4()
+        self.assertEqual(len(rebound.problems), 1, rebound.problems)
+        self.assertProblem(
+            rebound,
+            "zmiana wiązania bez przeglądu: while-quiz",
+            "petle.md#petla-while-i-warunek",
+            "poza nagłówkiem treść sekcji bez zmian",
+        )
+
+        code, report = self.approve()
+        self.commit("Review", {})
+        reviewed, _ = self.run_g4()
+        self.assertEqual(code, gate.EXIT_OK)
+        self.assertIn("dodano     petle.md#petla-while-i-warunek", report)
+        self.assertIn("usunięto   petle.md#petla-while", report)
+        self.assertEqual(reviewed.problems, [])
+
+    def test_new_moved_and_removed_activities_are_reported(self) -> None:
+        changed = (
+            ACTIVITIES.replace(  # nowa aktywność w wiązaniu z przeglądu
+                "  - activity_id: while-quiz\n",
+                "  - activity_id: for-nowa\n    section_id: petla-for\n"
+                "  - activity_id: while-quiz\n",
+            )
+            .replace(  # przyklad-quiz usunięta, a nowa aktywność w nowym wiązaniu
+                "  - activity_id: przyklad-quiz\n    section_id: przykad\n",
+                "  - activity_id: else-quiz\n    section_id: odmiana-z-else\n",
+            )
+            .replace(  # for-code przeniesiona do podsekcji
+                "for-code\n    section_id: petla-for", "for-code\n    section_id: odmiana-z-else"
+            )
+        )
+        self.commit("Activities changed", {LAYER[0]: changed})
+
+        stage, _ = self.run_g4()
+
+        self.assertProblem(
+            stage, "petle.md#petla-for", "for-nowa (nowa)",
+            "for-code (obecnie petle.md#odmiana-z-else)",
+        )
+        self.assertProblem(
+            stage, "zmiana wiązania bez przeglądu: for-code", "petle.md#odmiana-z-else"
+        )
+        self.assertProblem(stage, "nowe aktywności bez wpisu", "else-quiz")
+        self.assertProblem(stage, "nieaktualny wpis", "petle.md#przykad", "przyklad-quiz")
+
+        code, _ = self.approve()
+        self.commit("Review", {})
+        self.assertEqual(code, gate.EXIT_OK)
+        self.assertEqual(self.run_g4()[0].problems, [])
+
+    def test_missing_lock_blocks(self) -> None:
+        self.git("rm", "-q", gate.LOCK_FILE)
+        self.git("commit", "-q", "-m", "Remove the lock")
+
+        stage, output = self.run_g4()
+
+        self.assertProblem(stage, "brak pliku kurs/aktualnosc.json")
+        self.assertIn("--zatwierdz-aktualnosc", output)
+
+    def test_approval_refuses_broken_bindings_and_keeps_unchanged_entries(self) -> None:
+        before = (self.path / gate.LOCK_FILE).read_bytes()
+        renamed = PAGE.replace("## Pętla while", "## Pętla while i warunek")
+        self.sync_book({"docs/petle.md": renamed})
+
+        refused, report = self.approve()
+
+        self.assertEqual(refused, gate.EXIT_FAILED)
+        self.assertIn("petle.md#petla-while", report)
+        self.assertEqual((self.path / gate.LOCK_FILE).read_bytes(), before)
+
+        changed = PAGE.replace("Kolejne zdanie opisu.", "Inne zdanie opisu.")
+        self.sync_book({"docs/petle.md": changed})
+        code, report = self.approve("2026-10-05")
+        entries = self.lock()
+        book = self.git("rev-parse", "dev")
+
+        self.assertEqual(code, gate.EXIT_OK)
+        self.assertIn("zmieniono  petle.md#petla-for", report)
+        self.assertEqual(entries["petle.md", "petla-for"]["book_commit"], book)
+        self.assertEqual(entries["petle.md", "petla-for"]["reviewed_on"], "2026-10-05")
+        self.assertEqual(entries["petle.md", "petla-while"]["book_commit"], self.reviewed)
+        self.assertEqual(entries["petle.md", "petla-while"]["reviewed_on"], "2026-10-01")
+        self.assertEqual(self.approve()[0], gate.EXIT_OK)
+        self.assertIn("jest aktualny", self.approve()[1])
 
 
 if __name__ == "__main__":
