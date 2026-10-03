@@ -1,6 +1,6 @@
 # AGENTS.md — python-notatki: interaktywna warstwa podręcznika
 
-> **Uwaga (październik 2026).** Dokument dotyczy projektu ćwiczeń na gałęzi `cwiczenia` i jej gałęziach pomocniczych (`fala/*`, `platform/*`, `sync/*`); książka na `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Paski postępu („prostokąciki”) pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
+> **Uwaga (październik 2026).** Dokument dotyczy projektu ćwiczeń na gałęzi `cwiczenia` i jej gałęziach pomocniczych (`fala/*`, `platform/*`, `sync/*`); książka na `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Wskaźniki postępu (paski, „prostokąciki”) pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
 
 ## Cel projektu
 
@@ -266,7 +266,7 @@ Każda nowa aktywność musi mieć:
 - zachowanie po odświeżeniu strony,
 - sensowny stan początkowy i zakończony.
 
-Każdą zmianę JavaScript, CSS i szablonów motywu sprawdzamy w przeglądarce w trybie jasnym i ciemnym oraz przy szerokim i wąskim oknie. Robi to kontrola `kurs/tools/sprawdz_wydanie.py` (`kurs/README.md`, „Kontrola wydania w przeglądarce”); wygląd, którego narzędzie nie ocenia (np. kolory i odstępy), oglądamy dodatkowo w podglądzie na porcie 8002.
+Każdą zmianę JavaScript albo CSS warstwy, hooka `scripts/build_activities.py` albo nakładki `mkdocs.kurs.yml` sprawdzamy w przeglądarce w trybie jasnym i ciemnym oraz przy szerokim i wąskim oknie. Służy do tego kontrola `kurs/tools/sprawdz_wydanie.py` (`kurs/README.md`, „Kontrola wydania w przeglądarce”), którą uruchamiamy także na gałęziach `platform/*` przed akceptacją oraz w każdej synchronizacji; wygląd, którego narzędzie nie ocenia (np. kolory i odstępy), oglądamy dodatkowo w podglądzie na porcie 8002.
 
 Każde pytanie `single_choice` ma blok `verify`, który wypisuje dokładnie etykietę poprawnej odpowiedzi; pytanie pojęciowe bez takiej możliwości wpisujemy z uzasadnieniem do `kurs/bez-weryfikacji.txt`.
 
