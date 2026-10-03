@@ -70,9 +70,13 @@ Etapy (każdy jest blokujący):
       jako informację, etap wypisuje jako uwagi z przedrostkiem
       „usterka książki:” (nie zatrzymują etapu).
 
-Wiersze „uwaga” są informacyjne i nie zmieniają wyniku etapu; uwagi
-z przedrostkiem „usterka książki:” przenosimy do raportu jako usterki książki
-do poprawy na gałęzi content/*.
+Wiersze „uwaga” nie zmieniają wyniku etapu. Działania wymagają wyłącznie:
+zmiany wiązań wypisane przez G3 (do raportu), lista aktywności do przejrzenia
+i polecenie zatwierdzenia z G4, uwagi G5 o zbędnym albo osieroconym wpisie
+w kurs/bez-weryfikacji.txt (wpis usuwamy) oraz uwagi G7 z przedrostkiem
+„usterka książki:” (do raportu jako usterki książki do poprawy na gałęzi
+content/*). Pozostałe uwagi objaśniają stan albo sąsiedni wiersz „BŁĄD”
+i nie wymagają osobnego działania.
 
 Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma; numeracja
 pozostaje zgodna z planem.
