@@ -60,6 +60,20 @@ Każde pytanie `single_choice` ma blok `verify`, którego kod wypisuje dokładni
 
 Do czasu przewinięcia `dev` do stanu po rozdzieleniu (gałąź `infra/rozdzielenie-cwiczen`) książka na `dev` zawiera jeszcze warstwę ćwiczeń, a G1 zgłasza to jako kolizję. W tym okresie bramkę uruchamiamy z `--book infra/rozdzielenie-cwiczen`, a gałąź `cwiczenia` tworzymy dopiero po przewinięciu `dev`.
 
+## Utworzenie gałęzi `cwiczenia`
+
+Gałąź powstaje jednorazowo, po odbiorze rozdzielenia: gdy `dev` w repozytorium zdalnym zawiera już commity, które usuwają warstwę ćwiczeń z książki i opisują nowy model pracy. Jej pierwszym commitem jest scalenie zaakceptowanej gałęzi podglądu:
+
+```bash
+git fetch origin
+git switch -c cwiczenia origin/dev
+git -c merge.directoryRenames=false merge --no-ff podglad/cwiczenia -m "Start the exercises branch from the accepted preview"
+python kurs/tools/gate.py --book origin/dev
+git push -u origin cwiczenia
+```
+
+Bramka opisze ten pierwszy commit scalający jako scalenie; jest to wejście warstwy ćwiczeń z gałęzi podglądu, a nie synchronizacja książki, i tak odnotowujemy go w raporcie dla autora. Po wypchnięciu gałąź `podglad/cwiczenia` usuwamy, a dalsze zmiany książki przyjmujemy wyłącznie według procedury synchronizacji.
+
 ## Synchronizacja z dev
 
 Warunek wstępny: autor wypchnął `dev`. Wszystkie kroki odwołują się do tej samej gałęzi książki, `origin/dev`; scalanie lokalnego `dev` nie jest dozwolone, ponieważ bramka uznałaby jego commity za zmiany plików książki.

@@ -281,7 +281,7 @@ sync/*         → synchronizacja z dev (jedyne gałęzie scalające dev)
 
 `kurs/README.md` jest autorytatywnym źródłem modelu gałęzi, zasady wyłącznego dodawania i procedury synchronizacji; `DEVELOPMENT_WORKFLOW.md` opisuje pracę nad książką.
 
-- Najpierw przeczytaj `CLAUDE.md` oraz `kurs/INTERACTIVE_SYSTEM_SPEC.md`, jeśli zadanie dotyczy interaktywnej warstwy.
+- Najpierw przeczytaj `CLAUDE.md` oraz `kurs/INTERACTIVE_SYSTEM_SPEC.md`, jeśli zadanie dotyczy interaktywnej warstwy. Specyfikacja czeka na pełną rewizję po zmianie modelu gałęzi: tam, gdzie różni się od `kurs/README.md`, rozstrzyga `kurs/README.md`.
 - Przy zadaniu obejmującym architekturę przedstaw najpierw minimalny plan i wskaż pliki, które zamierzasz zmienić.
 - Nie dodawaj frameworka frontendowego, bundlera, bazy danych ani nowej usługi bez wyraźnej potrzeby i uzasadnienia.
 - Preferuj małe, odwracalne kroki oraz działający pionowy wycinek zamiast dużej jednorazowej przebudowy.
