@@ -32,7 +32,7 @@ Gałąź ma własny katalog roboczy `../python-notatki-cwiczenia`, położony ob
 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002
 ```
 
-Po zmianie hooka trzeba uruchomić `mkdocs serve` ponownie, ponieważ przebudowa strony korzysta z modułu wczytanego przy starcie. Wszystkie polecenia Pythona uruchamiamy tym samym interpreterem środowiska książki; w dalszych przykładach oznaczamy go krótko jako `python`. Testy JavaScript wymagają Node.js 22 lub nowszego (zalecany 24, jak w planowanym CI).
+Podgląd przebudowuje wydanie po każdej zmianie w katalogach `docs/`, `activities/` i `overrides/` oraz w plikach `mkdocs.kurs.yml` i `mkdocs.yml`. Konfiguracji dziedziczonej przez `INHERIT` i szablonów motywu z katalogu `theme.custom_dir` MkDocs sam nie obserwuje, dlatego nakładka dopisuje je do listy `watch`; serwer pozostawiony podczas scalenia książki pokazuje wtedy jej nowy stan bez ponownego uruchomienia. Po zmianie hooka trzeba uruchomić `mkdocs serve` ponownie, ponieważ przebudowa strony korzysta z modułu wczytanego przy starcie. Wszystkie polecenia Pythona uruchamiamy tym samym interpreterem środowiska książki; w dalszych przykładach oznaczamy go krótko jako `python`. Testy JavaScript wymagają Node.js 22 lub nowszego (zalecany 24, jak w planowanym CI).
 
 ## Bramka
 

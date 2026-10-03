@@ -10,8 +10,15 @@ INHERIT: mkdocs.yml
 hooks:
   - scripts/build_activities.py
 
+# Podgląd (mkdocs serve) sam obserwuje docs i ten plik. Lista dodaje definicje
+# aktywności oraz konfigurację książki (INHERIT) i szablony motywu z katalogu
+# overrides (theme.custom_dir), których MkDocs bez niej nie obserwuje: serwer
+# pozostawiony podczas scalenia książki przebudowuje wtedy wydanie z jej nowym
+# stanem. Jeśli książka usunie katalog overrides, usuwamy go także z listy.
 watch:
   - activities
+  - mkdocs.yml
+  - overrides
 
 extra_css:
   - stylesheets/extra.css
