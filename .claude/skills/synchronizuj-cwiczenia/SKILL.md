@@ -131,7 +131,7 @@ Do raportu służy wyłącznie przebieg bez opcji `--katalog-roboczy`, która da
 Przed uruchomieniem podglądu sprawdzamy, czy port 8002 jest zajęty: `netstat -ano | grep -E ':8002 +[^ ]+ +LISTENING'`. Puste wyjście oznacza wolny port; wiersze w stanie `TIME_WAIT` po wcześniejszym podglądzie nie mają znaczenia. Jeśli port nasłuchuje, a serwer uruchomiła ta sesja (podgląd tej synchronizacji z katalogu ćwiczeń), zatrzymujemy go; w przeciwnym razie pytamy autora i portu nie zmieniamy. Następnie uruchamiamy w tle podgląd z katalogu ćwiczeń:
 
 ```bash
-PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002
+PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002 --watch-theme
 ```
 
 Raport przedstawiamy w odpowiedzi, nie w pliku, według wzoru (puste części wypełniamy słowem „brak”).
@@ -195,7 +195,7 @@ Pozostałe zmienione ścieżki książki: <lista `git diff --name-status` z punk
 | G7 | <wynik z tabeli bramki> |
 
 **Podgląd:** http://127.0.0.1:8002/ (gałąź `SYNC`), serwer uruchomiony poleceniem:
-`PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002`
+`PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002 --watch-theme`
 
 Proszę o „akceptuję” albo o uwagi.
 ```

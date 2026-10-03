@@ -11,14 +11,16 @@ hooks:
   - scripts/build_activities.py
 
 # Podgląd (mkdocs serve) sam obserwuje docs i ten plik. Lista dodaje definicje
-# aktywności oraz konfigurację książki (INHERIT) i szablony motywu z katalogu
-# overrides (theme.custom_dir), których MkDocs bez niej nie obserwuje: serwer
-# pozostawiony podczas scalenia książki przebudowuje wtedy wydanie z jej nowym
-# stanem. Jeśli książka usunie katalog overrides, usuwamy go także z listy.
+# aktywności i konfigurację książki (INHERIT), której MkDocs bez niej nie
+# obserwuje: serwer pozostawiony podczas scalenia książki przebudowuje wtedy
+# wydanie z jej nowym stanem. Szablony motywu z katalogu wskazanego
+# w theme.custom_dir książki obserwuje podgląd uruchomiony z opcją
+# --watch-theme (kurs/README.md); lista ich nie wymienia, ponieważ MkDocs
+# odrzuca konfigurację, której ścieżka z listy nie istnieje, a katalog należy
+# do książki.
 watch:
   - activities
   - mkdocs.yml
-  - overrides
 
 extra_css:
   - stylesheets/extra.css

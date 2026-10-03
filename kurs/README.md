@@ -29,10 +29,10 @@ Plików książki (`docs/**/*.md`, `mkdocs.yml`, `docs/stylesheets/extra.css`, `
 Gałąź ma własny katalog roboczy `../python-notatki-cwiczenia`, położony obok katalogu książki; katalog książki i port 8000 pozostają przy `dev`. Podgląd wydania kursowego uruchamiamy na porcie 8002 i zatrzymujemy po zakończeniu pracy:
 
 ```bash
-D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002
+D:/PYTHON/NOTATKI/python-notatki/.venv/Scripts/python.exe -m mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002 --watch-theme
 ```
 
-Podgląd przebudowuje wydanie po każdej zmianie w katalogach `docs/`, `activities/` i `overrides/` oraz w plikach `mkdocs.kurs.yml` i `mkdocs.yml`. Konfiguracji dziedziczonej przez `INHERIT` i szablonów motywu z katalogu `theme.custom_dir` MkDocs sam nie obserwuje, dlatego nakładka dopisuje je do listy `watch`; serwer pozostawiony podczas scalenia książki pokazuje wtedy jej nowy stan bez ponownego uruchomienia. Po zmianie hooka trzeba uruchomić `mkdocs serve` ponownie, ponieważ przebudowa strony korzysta z modułu wczytanego przy starcie. Wszystkie polecenia Pythona uruchamiamy tym samym interpreterem środowiska książki; w dalszych przykładach oznaczamy go krótko jako `python`. Testy JavaScript wymagają Node.js 22 lub nowszego (zalecany 24, jak w planowanym CI).
+Podgląd przebudowuje wydanie po każdej zmianie w katalogach `docs/` i `activities/`, w szablonach motywu z katalogu wskazanego w `theme.custom_dir` książki (dziś `overrides/`) oraz w plikach `mkdocs.kurs.yml` i `mkdocs.yml`; dzięki temu serwer pozostawiony podczas scalenia książki pokazuje jej nowy stan bez ponownego uruchomienia. Konfiguracji dziedziczonej przez `INHERIT` MkDocs sam nie obserwuje, dlatego nakładka dopisuje `mkdocs.yml` do listy `watch`. Szablony motywu obserwuje opcja `--watch-theme` (obejmuje także szablony Material w środowisku książki); katalogu szablonów nie wpisujemy do listy `watch`, ponieważ należy do książki, a MkDocs odrzuca konfigurację, w której ścieżka z tej listy nie istnieje. Po zmianie hooka trzeba uruchomić `mkdocs serve` ponownie, ponieważ przebudowa strony korzysta z modułu wczytanego przy starcie. Wszystkie polecenia Pythona uruchamiamy tym samym interpreterem środowiska książki; w dalszych przykładach oznaczamy go krótko jako `python`. Testy JavaScript wymagają Node.js 22 lub nowszego (zalecany 24, jak w planowanym CI).
 
 ## Bramka
 
