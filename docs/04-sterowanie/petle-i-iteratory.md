@@ -1,6 +1,6 @@
 # Pętle i iteratory
 
-## Pętla for {#petla-for data-activity-section="true"}
+## Pętla for
 
 Chyba najpopularniejsza struktura językowa, w wersji po pełnym zakresie jakiegoś obiektu złożonego (kontenera — rozdział [5. Typy złożone](../05-typy-zlozone/index.md)) — tutaj na przykładzie łańcucha znakowego:
 
@@ -56,7 +56,7 @@ Iterator zwracany przez `enumerate()` jest **jednorazowy**: każdy odczyt konsum
 
 Znaczek podkreślenia `_` użyty w pętli for to nie jest żaden tajemny trik, tylko zwykła nazwa zmiennej. Jest taki obyczaj, że znaczkiem `_` nazywamy obiekty, których zawartości de facto nie potrzebujemy.
 
-## Leniwa sekwencja range {#leniwa-sekwencja-range data-activity-section="true"}
+## Leniwa sekwencja range
 
 Funkcja `range()` zwraca **leniwą, niemodyfikowalną sekwencję** liczb całkowitych. Składnia range() zawiera do trzech parametrów. Z jednym parametrem oznacza, ile elementów (zaczynając od 0, z krokiem 1) wygenerować: `range(5)` reprezentuje liczby 0, 1, 2, 3, 4 — ale jeśli ich nie „rozpakujemy”, zobaczymy tylko obiekt range. Dlaczego nie widzimy sekwencji liczb? Ponieważ range stosuje **leniwą ewaluację**: nie przechowuje elementów, lecz oblicza je na żądanie — w przeciwnym razie musiałby powstać obiekt obciążający pamięć lub kosztowny w obliczaniu.
 
@@ -82,7 +82,7 @@ range(4, -1, -1)
 
 Konstruktor `list()` — kontener list omawiamy w rozdziale [5. Typy złożone](../05-typy-zlozone/lista.md) — jest kanonicznym sposobem „zmaterializowania” leniwej sekwencji do postaci przechowującej wszystkie elementy. (W zewnętrznym module NumPy dostępna jest funkcja `numpy.arange()` przyjmująca krok zmiennoprzecinkowy; dla kroków ułamkowych dokumentacja NumPy zaleca jednak `numpy.linspace()` — obie funkcje omawiamy w podrozdziale [Tablice ndarray](../14-numpy-matplotlib/ndarray.md#tworzenie-tablic) rozdziału 14.)
 
-## Iteratory {#iteratory data-activity-section="true"}
+## Iteratory
 
 Kolejność sekwencji można odwrócić również za pomocą wbudowanej funkcji `reversed()` — zwraca ona **iterator**; jego konkretna klasa zależy od argumentu (`range_iterator` dla range, `reversed` dla str, `list_reverseiterator` dla list).
 
@@ -133,7 +133,7 @@ Stosując pusty łańcuch jako separator, wytworzyliśmy łańcuch znakowy z obi
 True
 ```
 
-## Pętla while {#petla-while data-activity-section="true"}
+## Pętla while
 
 Dopóki warunek logiczny jest spełniony, blok należący do while (czyli odpowiednio wcięty) jest wykonywany. Poniższy przykład wykorzystuje wycinki łańcucha (opisane w rozdziale [3. Nazwy i typy](../03-nazwy-typy/typy-proste.md)) oraz fakt, że pusty łańcuch jest logicznie fałszywy:
 
@@ -156,7 +156,7 @@ else:
 # a = 1 a = 2 wykonano!
 ```
 
-## Break, continue, pass {#break-continue-pass data-activity-section="true"}
+## Break, continue, pass
 
 Są to słowa kluczowe języka Python, których znaczenie zapewne dobrze znamy. Kilka przykładów ilustrujących działanie:
 
@@ -204,5 +204,3 @@ while True:
 ```
 
 Powyższa pętla jest nieskończona, aż do zatrzymania programu za pomocą ++ctrl+c++. Komendę `pass` używa się często w kodzie, który później zostanie napisany, a początkowo wymaga instrukcji pustej.
-
-<div data-activity-slot="petle-i-iteratory-activities"></div>
