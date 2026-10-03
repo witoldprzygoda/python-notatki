@@ -237,6 +237,8 @@ kurs/
   tools/
     gate.py               bramka jakości (etapy G1–G7)
     test_gate.py
+    sprawdz_wydanie.py    kontrola wydania kursowego w przeglądarce
+    test_sprawdz_wydanie.py
 
 mkdocs.kurs.yml           nakładka wydania kursowego
 ```
@@ -264,7 +266,7 @@ Każda nowa aktywność musi mieć:
 - zachowanie po odświeżeniu strony,
 - sensowny stan początkowy i zakończony.
 
-Każda zmiana JavaScript powinna zostać sprawdzona przynajmniej w trybie jasnym i ciemnym oraz przy wąskim oknie przeglądarki.
+Każdą zmianę JavaScript, CSS i szablonów motywu sprawdzamy w przeglądarce w trybie jasnym i ciemnym oraz przy szerokim i wąskim oknie. Robi to kontrola `kurs/tools/sprawdz_wydanie.py` (`kurs/README.md`, „Kontrola wydania w przeglądarce”); wygląd, którego narzędzie nie ocenia (np. kolory i odstępy), oglądamy dodatkowo w podglądzie na porcie 8002.
 
 Każde pytanie `single_choice` ma blok `verify`, który wypisuje dokładnie etykietę poprawnej odpowiedzi; pytanie pojęciowe bez takiej możliwości wpisujemy z uzasadnieniem do `kurs/bez-weryfikacji.txt`.
 
