@@ -1,7 +1,8 @@
 # Wydanie kursowe z ćwiczeniami (gałąź cwiczenia).
 # Dziedziczy całą konfigurację książki z mkdocs.yml i dodaje tylko warstwę ćwiczeń.
 # MkDocs scala słowniki, lecz listy z tego pliku zastępują listy książki.
-# Dlatego extra_css powtarza arkusz książki; gate (etap G2) sprawdza,
+# Dlatego extra_css i extra_javascript powtarzają pozycje książki (w jej
+# kolejności, przed plikami warstwy); gate (etap G2) sprawdza,
 # czy żadna pozycja list książki nie została tu pominięta.
 INHERIT: mkdocs.yml
 
@@ -16,6 +17,7 @@ extra_css:
   - stylesheets/interactive.css
 
 extra_javascript:
+  - javascripts/naglowek.js
   - path: javascripts/interactive/bootstrap.js
     type: module
 
