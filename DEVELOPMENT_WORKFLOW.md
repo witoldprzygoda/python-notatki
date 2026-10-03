@@ -69,12 +69,21 @@ dev  →  sync/*  →  cwiczenia  ←  fala/*, platform/*
   gałęzi `content/*` utworzonej z `dev`; do projektu ćwiczeń poprawka trafia
   przy kolejnej synchronizacji.
 
+Projekt ćwiczeń synchronizujemy z książką w jego katalogu roboczym
+`../python-notatki-cwiczenia` poleceniem `/synchronizuj-cwiczenia`. Polecenie
+uruchamia skill Claude Code, czyli zapisany na gałęzi `cwiczenia` zestaw
+instrukcji, według których to narzędzie przeprowadza synchronizację; jej
+zasady opisuje `kurs/README.md` na tej gałęzi. Synchronizacja obejmuje zmiany
+książki włączone do `dev` i wypchnięte na `origin`; nie musi następować po
+każdej zmianie książki i nie wstrzymuje pracy nad nią.
+
 ## Elementy niedozwolone na `dev` i `master`
 
 - pliki warstwy ćwiczeń: `activities/**`, `scripts/build_activities.py`,
   `docs/javascripts/interactive/**`, `docs/stylesheets/interactive.css`,
   `tests/interactive/**`, `tests/test_build_activities.py`, `mkdocs.kurs.yml`,
-  `kurs/**`, `.github/workflows/kurs.yml`;
+  `kurs/**`, `.github/workflows/kurs.yml` oraz skill synchronizacji ćwiczeń
+  `.claude/skills/synchronizuj-cwiczenia/**`;
 - pliki dawnej warstwy ćwiczeń: `mkdocs.clean.yml`,
   `INTERACTIVE_SYSTEM_SPEC.md`;
 - slajdy wykładowe: `slajdy/**`;
@@ -86,8 +95,9 @@ dev  →  sync/*  →  cwiczenia  ←  fala/*, platform/*
 Ćwiczenia wiążą się z nagłówkami przez identyfikatory, które MkDocs generuje
 automatycznie; znaczniki dodaje dopiero budowanie projektu ćwiczeń. Nagłówki,
 strony i odsyłacze zmieniamy wyłącznie ze względu na jakość książki; jeśli
-zmiana zerwie powiązanie ćwiczenia z nagłówkiem, dostosowuje się projekt
-ćwiczeń podczas synchronizacji. Jawny identyfikator `{#…}` pozostaje zwykłym
+zmiana zerwie powiązanie ćwiczenia z nagłówkiem albo zmieni treść sekcji lub
+strony, z którą ćwiczenie jest powiązane, dostosowuje się projekt ćwiczeń
+podczas synchronizacji. Jawny identyfikator `{#…}` pozostaje zwykłym
 elementem książki, służącym jej własnym odsyłaczom.
 
 ## Zabezpieczenia
@@ -104,10 +114,16 @@ elementem książki, służącym jej własnym odsyłaczom.
   zdalnej. `pre-rebase` odmawia przebudowy historii gałęzi `cwiczenia`
   i `sync/*`. Opcja `--sprawdz` pokazuje stan hooków, `--usun` je usuwa.
   Hooków nie pomijamy (`--no-verify`).
-- Reguły repozytorium na GitHubie uzupełnią je po stronie serwera, także dla
-  zmian wprowadzanych w przeglądarce: zakaz nadpisywania historii i usuwania
-  gałęzi `dev`, `master` i `cwiczenia`; wymóg liniowej historii `dev`
-  i `master` jako reguła GitHuba czeka na potwierdzenie autora.
+- Zestawy reguł repozytorium na GitHubie (ang. *rulesets*), aktywne od
+  3 X 2026 i obowiązujące również administratora repozytorium (listy
+  wyjątków, ang. *bypass list*, są puste), uzupełniają je po stronie serwera,
+  także dla zmian wprowadzanych w przeglądarce:
+    - `ksiazka` dla gałęzi `dev` i `master`: zakaz usuwania gałęzi, zakaz
+      nadpisywania historii (wypychania zmian, które nie są przewinięciem)
+      i wymóg liniowej historii, czyli odrzucanie commitów scalających;
+    - `cwiczenia` dla gałęzi `cwiczenia`: zakaz usuwania gałęzi i zakaz
+      nadpisywania historii; wymogu liniowej historii celowo nie ma, ponieważ
+      synchronizacje z `dev` wnoszą do tej gałęzi commity scalające.
 
 ## Naprawa po przedostaniu się warstwy ćwiczeń na `dev`
 

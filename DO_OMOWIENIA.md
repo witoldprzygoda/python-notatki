@@ -234,8 +234,9 @@ zachowuje tag `przed-rozdzieleniem-cwiczen`.
 `scripts/install_git_hooks.py`, instalacja po odbiorze rozdzielenia) oraz
 reguły na GitHubie: zakaz nadpisywania historii i zakaz usuwania gałęzi `dev`,
 `master` i `cwiczenia`. Wymóg liniowej historii `dev` i `master` (bez commitów
-scalających, ang. *merge commits*) jako reguła GitHuba czeka na potwierdzenie
-autora; lokalnie pilnuje go hook `pre-push`. Sprawy do ustalenia przed
+scalających, ang. *merge commits*) autor zatwierdził 3 X 2026 także jako
+regułę GitHuba, aktywną od tego dnia w zestawie reguł `ksiazka`; lokalnie
+pilnuje go hook `pre-push`. Sprawy do ustalenia przed
 startem kursu (plan fal, serwer wydania kursowego, częstotliwość
 synchronizacji) zbiera pozycja „Projekt ćwiczeń: plan fal, serwer kursu
 i synchronizacja” w sekcji „Otwarte”. Zasady pracy opisuje

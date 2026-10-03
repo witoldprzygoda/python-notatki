@@ -53,7 +53,9 @@ nie trafiają do `dev` ani `master`. Na tych gałęziach przed pracą przeczytaj
 
 Treść książki jest nadrzędna: nagłówki, strony i odsyłacze zmieniamy wyłącznie
 ze względu na jakość książki. Jeśli zmiana książki zerwie powiązanie ćwiczenia
-z nagłówkiem, dostosowuje się projekt ćwiczeń podczas synchronizacji z `dev`.
+z nagłówkiem albo zmieni treść sekcji lub strony, z którą ćwiczenie jest
+powiązane, dostosowuje się projekt ćwiczeń podczas synchronizacji z `dev`
+(skill `/synchronizuj-cwiczenia` w katalogu `../python-notatki-cwiczenia`).
 
 Kroki w `plans/*.md` i `PLAN_ROZWOJU.md` dotyczące `mkdocs.clean.yml`, testów
 warstwy interaktywnej i ograniczeń zmian stron rozdziału 4 są nieaktualne
