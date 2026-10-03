@@ -14,3 +14,4 @@ Kolumny:
 | Data | `dev` | `cwiczenia` | Rodzaj | Bramka | Uwagi |
 |---|---|---|---|---|---|
 | 2026-10-03 | `7e79223` | `11bcb3d` | utworzenie gałęzi | 0 | scalenie zaakceptowanej gałęzi podglądu `podglad/cwiczenia` z `origin/dev`: 8 aktywności rozdziału 4 na 2 stronach; wiązań nie zmieniano |
+| 2026-10-03 | `348846c` | `3931222` | synchronizacja | 0 | 3 commity książki (nazwa części pierwszej „Python Podstawy”, menu części w belce nagłówka, zasady pracy); G2: do listy `extra_javascript` w `mkdocs.kurs.yml` dopisano `javascripts/naglowek.js`; wiązań nie zmieniano; G4: zmiany nie objęły sekcji powiązanych z aktywnościami, przeglądu nie wymagano; wersji nie podnoszono; usterek książki nie zgłoszono |
