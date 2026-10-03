@@ -906,6 +906,28 @@ class StageG4Test(RepositoryTestCase):
         self.assertIn("--book musi wskazywać gałąź książki", message)
         self.assertEqual((self.path / gate.LOCK_FILE).read_bytes(), before)
 
+    def test_older_fingerprint_version_is_refreshed_without_a_new_review(self) -> None:
+        path = self.path / gate.LOCK_FILE
+        data = gate.json.loads(path.read_text(encoding="utf-8"))
+        data["fingerprint_version"] = gate.FINGERPRINT_VERSION - 1
+        for record in data["activities"]:
+            record["fingerprint"] = "sha256:" + "0" * 64
+        path.write_text(gate.json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        self.commit("Lock written by an older algorithm", {})
+
+        stage, _ = self.run_g4()
+        code, report = self.approve()
+        records = self.lock()
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertProblem(stage, "zawiera odciski w wersji")
+        self.assertEqual(code, gate.EXIT_OK)
+        self.assertEqual(report.count("odświeżono "), len(self.ALL))
+        self.assertEqual({record["reviewed_on"] for record in records.values()}, {"2026-10-01"})
+        self.assertEqual({record["book_commit"] for record in records.values()}, {self.reviewed})
+        self.commit("Refreshed lock", {})
+        self.assertEqual(self.run_g4()[0].problems, [])
+
     def test_reused_heading_id_points_to_the_renamed_heading(self) -> None:
         page = PAGE.replace("## Pętla while\n", "## Pętla while i warunek\n")
         self.sync_book({"docs/petle.md": page + "\n## Pętla while\n\nNowa, inna treść.\n"})
