@@ -203,6 +203,10 @@ Wszystkie pliki warstwy leżą na liście dozwolonej z `kurs/README.md`; plik sp
     synchronizuj-cwiczenia/
       SKILL.md            skill Claude Code prowadzący synchronizację z dev
 
+.github/
+  workflows/
+    kurs.yml              workflow CI projektu ćwiczeń (planowany; pliku jeszcze nie ma)
+
 activities/
   04-sterowanie/
     petle-i-iteratory.yaml
