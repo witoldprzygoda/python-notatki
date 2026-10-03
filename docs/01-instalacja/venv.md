@@ -158,15 +158,21 @@ Ręczne aktywowanie środowiska przy każdym otwarciu terminala można zautomaty
 
 === "Windows (PowerShell)"
 
-    Analogiczną funkcję umieszczamy w profilu PowerShell. Plik profilu otwieramy poleceniem
-    `notepad $PROFILE`; jeżeli nie istnieje, najpierw go tworzymy:
+    Analogiczną funkcję umieszczamy w profilu PowerShell, czyli skrypcie wykonywanym przy
+    każdym uruchomieniu powłoki. Plik profilu otwieramy poleceniem `notepad $PROFILE`.
+    Pierwsze z poniższych poleceń tworzy go tylko wtedy, gdy jeszcze nie istnieje (opcja
+    `-Force` zakłada przy tym brakujący katalog), dzięki czemu istniejący profil pozostaje
+    nienaruszony:
 
     ```powershell title="Terminal"
-    New-Item -ItemType File -Force $PROFILE
+    if (-not (Test-Path $PROFILE)) { New-Item -ItemType File -Force $PROFILE }
     notepad $PROFILE
     ```
 
-    Zawartość:
+    Windows PowerShell 5.1, wbudowany w system, i PowerShell 7 korzystają z osobnych plików
+    profilu (ścieżkę profilu bieżącej powłoki wypisuje polecenie `$PROFILE`), dlatego
+    funkcję umieszczamy w profilu tej powłoki, z której korzystamy. Na końcu pliku
+    dopisujemy:
 
     ```powershell title="Profil PowerShell ($PROFILE)"
     Remove-Item Alias:cd -ErrorAction SilentlyContinue
@@ -179,8 +185,8 @@ Ręczne aktywowanie środowiska przy każdym otwarciu terminala można zautomaty
     }
     ```
 
-    Skrypt `Activate.ps1` wymaga zezwolenia na uruchamianie lokalnych skryptów —
-    jednorazowo: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+    Profil, podobnie jak skrypt `Activate.ps1`, wymaga zezwolenia na uruchamianie
+    lokalnych skryptów — jednorazowo: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
 W środowisku Visual Studio Code analogiczną automatyzację zapewnia sam edytor (opis w podrozdziale [Konfigurowanie narzędzi](konfiguracja.md)).
 
