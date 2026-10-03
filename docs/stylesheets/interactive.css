@@ -1,7 +1,17 @@
+/* Pasek postępu (w kodzie: rail) stoi w lewym wcięciu nawigacji i nie
+   przesuwa etykiety: ujemny lewy margines oddaje jego szerokość (.28rem)
+   oraz odstęp flex linku Material (.4rem), a ujemny dolny margines jego
+   wysokość, więc etykieta i kolejne pozycje zostają dokładnie tam, gdzie
+   w książce, a pozycje bez ćwiczeń nie zmieniają się wcale.
+   Właściwość --interactive-progress-rail-shift dosuwa pasek do krawędzi
+   linku (boczne panele) albo do etykiety (szuflada nawigacji); jej wartość
+   zależy od układu i od obramowania linku w extra.css. */
 .interactive-progress-rail {
   --interactive-progress-rail-color: var(--md-default-fg-color--lighter);
+  --interactive-progress-rail-shift: .15rem;
 
   position: relative;
+  inset-inline-start: var(--interactive-progress-rail-shift);
   order: -1;
   display: inline-flex;
   flex: 0 0 .28rem;
@@ -11,6 +21,8 @@
   width: .28rem;
   height: 1rem;
   margin-top: .08rem;
+  margin-bottom: -1.08rem;
+  margin-inline-start: -.68rem;
   color: var(--interactive-progress-rail-color);
   line-height: 1;
 }
@@ -25,20 +37,6 @@
   background-color: transparent;
   border: 1px solid currentcolor;
   border-radius: 1px;
-}
-
-/* Strony i sekcje bez ćwiczeń nie mają raila. Jeśli w tej samej liście
-   nawigacji choć jedna pozycja ma rail, pozostałe pozycje otrzymują pustą
-   kolumnę tej samej szerokości, aby etykiety pozostały wyrównane. Listy bez
-   raili zachowują wygląd książki. */
-.md-nav__list:has(
-    > .md-nav__item > .md-nav__link > .interactive-progress-rail
-  )
-  > .md-nav__item
-  > .md-nav__link:not(:has(> .interactive-progress-rail))::before {
-  flex: 0 0 .28rem;
-  order: -1;
-  content: "";
 }
 
 .interactive-progress-rail--none_completed {
@@ -82,13 +80,29 @@
   --interactive-progress-rail-color: #81c784;
 }
 
+@media screen and (min-width: 60em) {
+  /* Prawy spis treści bez stylów extra.css (60–76.25em): link nie ma
+     wcięcia, więc pasek przechodzi do wcięcia listy, przed krawędź linku. */
+  .md-sidebar--secondary .interactive-progress-rail {
+    --interactive-progress-rail-shift: .25rem;
+  }
+}
+
 @media screen and (min-width: 76.25em) {
-  /* Kompensacja dotyczy wyłącznie własnej kolumny raila. Istniejący
-     border aktywnego linku pozostaje nietkniętym, niezależnym sygnałem. */
-  .md-sidebar--primary
-    .md-nav__link--active
-    > .interactive-progress-rail--page {
-    inset-inline-start: -3px;
+  /* extra.css nadaje linkom wcięcie .4rem, a obramowanie 3px (aktywna
+     pozycja lewej nawigacji) albo 2px (prawy spis treści). Pasek stoi
+     we wcięciu listy przed krawędzią linku i nie zasłania obramowania,
+     które pozostaje niezależnym sygnałem bieżącego położenia. */
+  .md-sidebar--primary .interactive-progress-rail {
+    --interactive-progress-rail-shift: -.15rem;
+  }
+
+  .md-sidebar--primary .md-nav__link--active > .interactive-progress-rail {
+    --interactive-progress-rail-shift: calc(-.15rem - 3px);
+  }
+
+  .md-sidebar--secondary .interactive-progress-rail {
+    --interactive-progress-rail-shift: calc(-.15rem - 2px);
   }
 }
 

@@ -500,34 +500,42 @@ nie publikuje modelu ani kodu wskaźników.
 
 ### 9.5 Wskaźniki stron i sekcji w nawigacji
 
-W wydaniu kursowym dyskretny pionowy rail postępu mają wyłącznie rzeczywiste
-linki stron z ćwiczeniami w lewej nawigacji oraz sekcje z ćwiczeniami w obu
-kopiach lokalnego spisu treści. Strony i sekcje bez ćwiczeń nie otrzymują
-raila. Rail jest osobnym elementem DOM umieszczonym we własnej kolumnie po
-lewej stronie nazwy. Nie przejmuje ani nie modyfikuje istniejącego niebieskiego
+W wydaniu kursowym dyskretny pionowy pasek postępu („prostokącik”; w kodzie:
+rail) mają wyłącznie rzeczywiste linki stron z ćwiczeniami w lewej nawigacji
+oraz sekcje z ćwiczeniami w obu kopiach lokalnego spisu treści. Strony i
+sekcje bez ćwiczeń nie otrzymują paska. Pasek jest osobnym elementem DOM
+wewnątrz linku. Nie przejmuje ani nie modyfikuje istniejącego niebieskiego
 markera aktywnej pozycji Material/`extra.css`: marker aktywny oznacza bieżące
-położenie, a rail wyłącznie stan ćwiczeń.
+położenie, a pasek wyłącznie stan ćwiczeń.
 
-Lewy rail agreguje wszystkie aktywności o danym `page`, korzystając z
+Lewy pasek agreguje wszystkie aktywności o danym `page`, korzystając z
 generowanego `page_url`. Otrzymują go wyłącznie rzeczywiste linki `<a>` do stron
 z ćwiczeniami; organizacyjne etykiety i grupy nawigacji pozostają bez statusu.
-Prawy rail używa `slot_id` bieżącej strony oraz `section_id`; aktywność z
+Wyjątkiem jest etykieta przełącznika spisu treści bieżącej strony
+(`label.md-nav__link[for="__toc"]`), którą Material w wąskim układzie pokazuje
+zamiast linku tej strony; otrzymuje ona ten sam pasek co link.
+Prawy pasek używa `slot_id` bieżącej strony oraz `section_id`; aktywność z
 `section_id: null` nie zasila wskaźnika sekcji. Wskaźników nie umieszcza się
 przy nagłówkach artykułu.
 
 Dla strony lub sekcji oblicza się liczbę przypisanych aktywności `N` oraz liczbę
 stanów `status === "completed"` równą `C`. Przy `N == 0` agregat ma stan `none`
-i rail nie powstaje. Pozostałe stany to: `none_completed` dla `C == 0`,
+i pasek nie powstaje. Pozostałe stany to: `none_completed` dla `C == 0`,
 `partial` dla `0 < C < N` oraz `completed` dla `C == N`. Oprócz czerwonego,
 pomarańczowego i zielonego koloru stany rozróżnia kształt: ciągły pusty obrys,
 częściowe wypełnienie albo pełne wypełnienie. Pełny tekst dostępny w obrębie
-linku przekazuje znaczenie niezależnie od koloru, a rail nie tworzy osobnego
+linku przekazuje znaczenie niezależnie od koloru, a pasek nie tworzy osobnego
 punktu Tab.
 
-Aby etykiety pozostały wyrównane, w liście nawigacji lub spisu treści, w której
-choć jedna pozycja ma rail, pozostałe pozycje otrzymują z CSS pustą kolumnę tej
-samej szerokości (pseudoelement `::before`, bez elementu DOM). Listy bez raili
-zachowują wygląd książki.
+Pasek stoi w lewym wcięciu nawigacji i nie zajmuje miejsca w układzie: ujemne
+marginesy znoszą jego szerokość, odstęp flex linku i wysokość. Etykiety
+wszystkich pozycji, z paskiem i bez niego, oraz odstępy między pozycjami są
+więc identyczne jak w książce, także w rozdziałach, w których tylko część
+stron ma ćwiczenia. W bocznych panelach pasek stoi tuż przed lewą krawędzią
+linku, na lewo od obramowania aktywnej pozycji i od szyny spisu treści z
+`extra.css`; w szufladzie nawigacji zajmuje lewe wcięcie linku przed etykietą.
+Położenie w poszczególnych układach ustala właściwość
+`--interactive-progress-rail-shift`.
 
 Jedynym cache'em statusów pozostaje mapa należąca do centralnego modelu
 postępu. Udostępnia on wyłącznie odczyt pojedynczego statusu i subskrypcję
@@ -537,7 +545,7 @@ przechowują własnych map ukończeń. Mogą przechowywać jedynie statyczne ind
 manifestu oraz referencje do markerów aktualnego dokumentu. Po `save`, resecie
 częściowym lub pełnym przeliczają tylko odpowiednie strony i sekcje.
 
-Strona bez slotu nie ma ćwiczeń, dlatego jej sekcje nie otrzymują raili, nawet
+Strona bez slotu nie ma ćwiczeń, dlatego jej sekcje nie otrzymują pasków, nawet
 jeśli nagłówek nosi znacznik sekcji. Brak spisu treści albo sekcji z ćwiczeniami
 jest bezpiecznym brakiem działania. Niedostępny manifest lub nieudana
 hydratacja postępu nie są żadnym ze stanów strony ani sekcji: w takim przypadku

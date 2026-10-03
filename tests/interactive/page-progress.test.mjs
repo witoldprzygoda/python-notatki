@@ -210,6 +210,30 @@ function appendLocalTocLink(document, parent, href) {
 }
 
 
+function appendActivePageItem(document, parent, href, labelText) {
+  const item = document.createElement("li");
+  item.className = "md-nav__item md-nav__item--active";
+  const toggle = document.createElement("input");
+  toggle.className = "md-nav__toggle md-toggle";
+  toggle.setAttribute("id", "__toc");
+  const label = document.createElement("label");
+  label.className = "md-nav__link md-nav__link--active";
+  label.setAttribute("for", "__toc");
+  const text = document.createElement("span");
+  text.className = "md-ellipsis";
+  text.textContent = labelText;
+  const icon = document.createElement("span");
+  icon.className = "md-nav__icon md-icon";
+  label.append(text, icon);
+  item.append(toggle, label);
+  parent.append(item);
+  const link = appendLink(document, item, href, labelText);
+  link.className = "md-nav__link md-nav__link--active";
+  const tocLink = appendLocalTocLink(document, item, "#sekcja");
+  return { label, link, tocLink };
+}
+
+
 function pageMarkers(element) {
   return element.querySelectorAll("[data-interactive-page-progress]");
 }
@@ -410,6 +434,75 @@ test("dekoruje tylko rzeczywiste linki stron i nie zmienia linków Material", ()
   assert.equal(pageMarkers(external).length, 0);
   assert.equal(pageMarkers(fragment).length, 0);
   assert.equal(pageMarkers(tocLink).length, 0);
+});
+
+
+test("etykieta spisu treści bieżącej strony ma ten sam rail co link", () => {
+  const document = createDocument();
+  const navigation = appendSidebar(document);
+  const other = appendLink(document, navigation, "../other/", "Inna strona");
+  const current = appendActivePageItem(
+    document,
+    navigation,
+    "./",
+    "Wyrażenia warunkowe",
+  );
+  const source = new CompletionSource({ first: false, second: false });
+  const controller = createPageProgressController({
+    document,
+    manifest: {
+      activities: [
+        activity("first", "current/"),
+        activity("second", "current/"),
+      ],
+    },
+    completionSource: source,
+    siteBaseUrl: "https://example.test/course/",
+  });
+
+  assert.equal(controller.decorateNavigation(), 2);
+  assert.equal(pageMarkers(other).length, 0);
+  assert.equal(pageMarkers(current.tocLink).length, 0);
+  assert.equal(pageMarkers(current.link)[0].getAttribute("data-state"), "none_completed");
+  assert.equal(pageMarkers(current.label)[0].getAttribute("data-state"), "none_completed");
+  assert.deepEqual(current.label.children.map((child) => child.className), [
+    "md-ellipsis",
+    "interactive-progress-rail interactive-progress-rail--page "
+      + "interactive-progress-rail--none_completed",
+    "md-nav__icon md-icon",
+  ]);
+
+  source.set("first", true);
+  assert.equal(pageMarkers(current.link)[0].getAttribute("data-state"), "partial");
+  assert.equal(pageMarkers(current.label)[0].getAttribute("data-state"), "partial");
+
+  source.set("second", true);
+  assert.equal(controller.decorateNavigation(), 2);
+  assert.equal(pageMarkers(current.label).length, 1);
+  assert.equal(pageMarkers(current.label)[0].getAttribute("data-state"), "completed");
+  assert.equal(
+    pageMarkers(current.label)[0].getAttribute("title"),
+    "Ćwiczenia na tej stronie: ukończono 2 z 2.",
+  );
+});
+
+
+test("etykieta spisu treści strony bez ćwiczeń pozostaje bez raila", () => {
+  const document = createDocument();
+  const navigation = appendSidebar(document);
+  const lesson = appendLink(document, navigation, "../lesson/");
+  const current = appendActivePageItem(document, navigation, "./", "Wprowadzenie");
+  const controller = createPageProgressController({
+    document,
+    manifest: { activities: [activity("first", "lesson/")] },
+    completionSource: new CompletionSource({ first: true }),
+    siteBaseUrl: "https://example.test/course/",
+  });
+
+  assert.equal(controller.decorateNavigation(), 1);
+  assert.equal(pageMarkers(lesson).length, 1);
+  assert.equal(pageMarkers(current.label).length, 0);
+  assert.equal(pageMarkers(current.link).length, 0);
 });
 
 

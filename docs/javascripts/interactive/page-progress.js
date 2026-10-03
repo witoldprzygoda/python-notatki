@@ -68,6 +68,27 @@ function isAnchor(element) {
 }
 
 
+/**
+ * W wąskim układzie Material ukrywa link bieżącej strony i pokazuje zamiast
+ * niego poprzedzającą go etykietę przełącznika spisu treści
+ * (`label.md-nav__link[for="__toc"]`). Etykieta reprezentuje tę samą stronę,
+ * więc otrzymuje taki sam wskaźnik jak link.
+ */
+function tocToggleLabelBefore(link) {
+  const siblings = [...(link?.parentNode?.children ?? [])];
+  const index = siblings.indexOf(link);
+  const previous = index > 0 ? siblings[index - 1] : null;
+  if (
+    String(previous?.tagName).toLowerCase() === "label"
+    && hasClass(previous, "md-nav__link")
+    && attributeValue(previous, "for") === "__toc"
+  ) {
+    return previous;
+  }
+  return null;
+}
+
+
 function belongsToLocalToc(link, sidebar) {
   let element = link.parentNode;
   while (element && element !== sidebar) {
@@ -168,8 +189,9 @@ function collectManifestIndex(manifest, siteBaseUrl) {
 
 /**
  * Dekoruje wyłącznie rzeczywiste linki stron w głównej nawigacji, i to tylko
- * tych stron, do których przypisano ćwiczenia; pozostałe linki nie otrzymują
- * raila. Nie modyfikuje href, klas ani obramowania linku Material.
+ * tych stron, do których przypisano ćwiczenia, oraz zastępującą link bieżącej
+ * strony etykietę spisu treści; pozostałe pozycje nie otrzymują raila.
+ * Nie modyfikuje href, klas ani obramowania linku Material.
  */
 export function createPageProgressController({
   document,
@@ -277,6 +299,10 @@ export function createPageProgressController({
         const pageKey = pageKeyForLink(link);
         if (pageKey) {
           links.push({ link, pageKey });
+          const label = tocToggleLabelBefore(link);
+          if (label) {
+            links.push({ link: label, pageKey });
+          }
         }
       }
     }
