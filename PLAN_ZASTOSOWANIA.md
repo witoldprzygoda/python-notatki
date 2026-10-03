@@ -54,4 +54,4 @@ Kolejność realizacji: ścieżka Dane (1–6, ukończona) → Uczenie maszynowe
 
 1. Zakładki w górnym pasku (`navigation.tabs`) jako alternatywa dla grup w lewym panelu — do decyzji autora po obejrzeniu układu. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).
 2. Osobna zakładka „Ściągawki” (tabele odniesienia) po ukończeniu ścieżek. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).
-3. Zadania do stron przez istniejącą infrastrukturę aktywności — które rozdziały części „Python Zastosowania” mają je dostać. Omawiane w `DO_OMOWIENIA.md` (2 X 2026).
+3. Zadania do stron przez istniejącą infrastrukturę aktywności — które rozdziały części „Python Zastosowania” mają je dostać. Omawiane w `DO_OMOWIENIA.md` (2 X 2026). *Rozstrzygnięte 3 X 2026:* zadania przygotowuje osobny projekt ćwiczeń na gałęzi `cwiczenia`, poza książką; wybór rozdziałów pozostaje do uzgodnienia w planie tego projektu (`DEVELOPMENT_WORKFLOW.md`, `DO_OMOWIENIA.md`).

@@ -72,12 +72,39 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   (np. materiał do wydruku); wtedy zaczynamy od planu z listą ściągawek do
   akceptacji autora.
 
-### Ćwiczenia interaktywne dla nowych rozdziałów
+### Projekt ćwiczeń: plan fal, serwer kursu i synchronizacja
 
-- **Opis:** pytania z `PLAN_ROZWOJU.md` §8.6 i `PLAN_ZASTOSOWANIA.md` §3.3 —
-  które rozdziały mają dostać ćwiczenia; obecnie mają je dwie strony rozdziału 4
-  części „Python Notatki” (`petle-i-iteratory.md`, `wyrazenia-warunkowe.md`).
-- **Stan:** do omówienia.
+- **Miejsce:** projekt ćwiczeń na gałęzi `cwiczenia` (katalog
+  `../python-notatki-cwiczenia`, zasady w `kurs/README.md` na tej gałęzi).
+- **Opis:** model rozdzielenia książki i ćwiczeń jest rozstrzygnięty (sekcja
+  „Rozstrzygnięte”, 3 X 2026). Przed startem kursu pozostaje ustalić:
+    1. plan fal, czyli kolejność rozdziałów z ćwiczeniami względem planu
+       wykładów;
+    2. serwer wydania kursowego i dostęp do niego (wydanie publiczne albo
+       wydanie dla wybranej grupy z kontrolą dostępu);
+    3. częstotliwość synchronizacji `dev` → `cwiczenia`;
+    4. termin etapu z postępem widocznym dla prowadzącego (Moodle) — osobny,
+       późniejszy etap, wstępnie na przełomie semestrów.
+- **Propozycja:** do przygotowania w projekcie ćwiczeń.
+- **Stan:** do omówienia przed startem kursu (3 X 2026).
+
+### Slajdy wykładowe
+
+- **Miejsce:** osobna gałąź `slajdy` (katalog `slajdy/`), której zmiany nie
+  trafiają do `dev` ani `master`.
+- **Opis:** decyzje autora z 3 X 2026: slajdy nie należą do książki, ale
+  czerpią z niej logikę materiału. Pierwszy zestaw obejmuje część „Python
+  Notatki” (rozdziały 1–16); slajdy do części „Python Zastosowania” powstaną
+  później jako osobny zestaw. Dobór treści i kolejność tematów przejmujemy
+  z dawnych wykładów (`sources/lectures/`), lecz slajdy powstają od nowa,
+  zgodnie z tekstem książki, metodą i w stylu projektu `cpp-notatki`.
+- **Propozycja:** tryb gałęzi — gałąź osierocona (ang. *orphan branch*) albo
+  gałąź przyjmująca zmiany z `dev` jednokierunkowo — do rekomendacji po
+  analizie metody. Katalog `slajdy/` jest już niedozwolony na `dev`
+  i `master` (`scripts/check_book_only.py`).
+- **Stan:** do omówienia; prace ruszą po dalszych wskazówkach autora
+  (3 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
@@ -163,9 +190,12 @@ tkinter domknięta 22 IX 2026), a pozostałe przeniesiono do tego pliku jako
 osobne sprawy. Historia pytań w planach pozostaje bez zmian (branch
 `content/porzadki-planow`).
 
-### Etykiety nawigacji: półpauza (2 X 2026)
+### Etykiety nawigacji: pauza (2 X 2026)
 
-Etykiety z dopowiedzeniem zapisujemy z półpauzą, jak w pozostałych 16 etykietach.
+Etykiety z dopowiedzeniem zapisujemy z pauzą (—, U+2014), jak w pozostałych 16 etykietach.
+Znak nazwano tu pierwotnie omyłkowo półpauzą, także w nazwie gałęzi
+`content/etykiety-polpauza` i w opisie commita `2158425`; książka konsekwentnie
+używa pauzy, a półpauza (–) występuje wyłącznie w zakresach liczb i dat.
 Trzy etykiety z dwukropkiem ujednolicono: „Mini-projekt — menedżer kontaktów”
 (rozdział 16 części „Python Zastosowania”), „Serwer — baza i API” i „Klient —
 moduł API i okno” (rozdział 18) — w `mkdocs.yml`, nagłówkach H1 i spisach
@@ -181,3 +211,32 @@ dla nagłówków grup `navigation.sections`, w tym ukrywanie etykiety „Python
 Notatki” — w poprzednim układzie na stronach części „Python Zastosowania”
 lewy panel nosił tytuł „Python Notatki” (nazwa serwisu). Porównanie
 wariantów A–C na zrzutach (branch `content/zakladki-czesci`).
+
+### Ćwiczenia interaktywne dla nowych rozdziałów (3 X 2026)
+
+Diagnoza: warstwa ćwiczeń trafiła na `dev` 4 IX 2026 przez przewinięcie
+(ang. *fast-forward*) gałęzi `feature/interactive-poc`, zgodnie z ówczesnym
+poleceniem; cel — rozwój książki niezależny od ćwiczeń — pozostaje ten sam,
+zmienia się mechanizm: osobna gałąź zamiast przełącznika konfiguracji
+budowania na jednej gałęzi. Model: `dev`, `master`, `content/*` i `infra/*`
+zawierają wyłącznie książkę; ćwiczenia rozwija długotrwała gałąź `cwiczenia`
+(katalog `../python-notatki-cwiczenia`, gałęzie robocze `fala/*`, `platform/*`
+i `sync/*`), która przyjmuje książkę z `dev` jednokierunkowo przez `sync/*`
+i jedynie dodaje własne pliki, a ćwiczenia wiążą się z nagłówkami przez
+identyfikatory generowane przez MkDocs, bez znaczników w Markdown. Dotychczasowe
+ćwiczenia rozdziału 4 przechodzą na gałąź `cwiczenia`; stan sprzed rozdzielenia
+zachowuje tag `przed-rozdzieleniem-cwiczen`.
+
+Ćwiczenia wraz z rozwiązaniami mogą być publiczne. Paski postępu w nawigacji
+(„prostokąciki”) pojawiają się tylko na stronach z ćwiczeniami; na stronach bez
+ćwiczeń są ukryte. Zatwierdzone zabezpieczenia: strażnik
+`scripts/check_book_only.py`, hooki Git `pre-push` i `pre-rebase` (instalator
+`scripts/install_git_hooks.py`, instalacja po odbiorze rozdzielenia) oraz
+reguły na GitHubie: zakaz nadpisywania historii i zakaz usuwania gałęzi `dev`,
+`master` i `cwiczenia`. Wymóg liniowej historii `dev` i `master` (bez commitów
+scalających, ang. *merge commits*) jako reguła GitHuba czeka na potwierdzenie
+autora; lokalnie pilnuje go hook `pre-push`. Sprawy do ustalenia przed
+startem kursu (plan fal, serwer wydania kursowego, częstotliwość
+synchronizacji) zbiera pozycja „Projekt ćwiczeń: plan fal, serwer kursu
+i synchronizacja” w sekcji „Otwarte”. Zasady pracy opisuje
+`DEVELOPMENT_WORKFLOW.md`.

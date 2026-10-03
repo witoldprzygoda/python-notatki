@@ -38,13 +38,26 @@ Polskojęzyczne notatki do kursu Pythona (podręcznik kursowy). Framework: **MkD
 
 Przed rozpoczęciem pracy przeczytaj `DEVELOPMENT_WORKFLOW.md`.
 
-Jeśli bieżący branch ma prefiks `content/`, pracujesz w trybie CONTENT
-AUTHORING: rozwijasz treść książki i nie modyfikujesz `activities/**` ani
-infrastruktury interaktywnej, chyba że użytkownik jawnie zmieni zakres zadania.
+Gałąź `dev` zawiera wyłącznie książkę i narzędzia służące jej przygotowaniu
+(tak samo `master`, `content/*` i `infra/*`). Nie dodajemy na niej plików
+ćwiczeń (`activities/**` i pozostałych ścieżek warstwy ćwiczeń), atrybutów
+`data-activity-*`, slotów aktywności, hooka ćwiczeń w `mkdocs.yml` ani slajdów
+wykładowych (`slajdy/`, osobna gałąź `slajdy`); naruszenia wykrywa
+`scripts/check_book_only.py`.
 
-Treść książki jest nadrzędna wobec istniejących aktywności. Jeśli sensowna
-zmiana treści wpływa na ich kontrakt, zgłoś to w CONTENT HANDOFF zamiast
-dostosowywać książkę do ćwiczeń.
+Ćwiczenia rozwijamy na gałęzi `cwiczenia` (katalog roboczy
+`../python-notatki-cwiczenia`, gałęzie robocze `fala/*`, `platform/*`
+i `sync/*`), która przyjmuje książkę z `dev` jednokierunkowo; jej zmiany nigdy
+nie trafiają do `dev` ani `master`. Na tych gałęziach przed pracą przeczytaj
+`kurs/README.md` i `kurs/AGENTS.md`.
+
+Treść książki jest nadrzędna: nagłówki, strony i odsyłacze zmieniamy wyłącznie
+ze względu na jakość książki. Jeśli zmiana książki zerwie powiązanie ćwiczenia
+z nagłówkiem, dostosowuje się projekt ćwiczeń podczas synchronizacji z `dev`.
+
+Kroki w `plans/*.md` i `PLAN_ROZWOJU.md` dotyczące `mkdocs.clean.yml`, testów
+warstwy interaktywnej i ograniczeń zmian stron rozdziału 4 są nieaktualne
+od 3 X 2026.
 
 ## Zasady współpracy
 
