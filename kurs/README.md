@@ -41,7 +41,7 @@ python kurs/tools/gate.py [--book dev] [--pomin-testy] [--katalog-roboczy | --pr
 
 Bramka ocenia commit `HEAD`: etapy G2–G7 działają na czystym eksporcie jego drzewa w katalogu tymczasowym, dlatego niezatwierdzone i nieśledzone pliki nie wpływają na wynik. Niezatwierdzona zmiana pliku książki w katalogu ćwiczeń jest jednak błędem w każdym trybie.
 
-Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — listy nakładki zawierają listy książki; G3 — schemat YAML i wiązania z nagłówkami; G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapów G4 (aktualność powiązanych sekcji) i G8 (kontrola opublikowanego wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
+Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — listy nakładki zawierają listy książki; G3 — schemat YAML i wiązania z nagłówkami; G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapów G4 (aktualność powiązanych sekcji) i G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
 
 Kody wyjścia:
 

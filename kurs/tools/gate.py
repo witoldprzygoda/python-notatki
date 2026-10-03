@@ -45,7 +45,7 @@ Etapy (każdy jest blokujący):
       do katalogu tymczasowego; książka nie może zawierać znaczników ćwiczeń
       ani ładować warstwy, a wydanie kursowe musi zawierać manifest i sloty.
 
-Etapów G4 (aktualność powiązanych sekcji) i G8 (kontrola opublikowanego
+Etapów G4 (aktualność powiązanych sekcji) i G8 (liczby kontrolne i metadane
 wydania) jeszcze nie ma; numeracja pozostaje zgodna z planem.
 
 Kod wyjścia:
