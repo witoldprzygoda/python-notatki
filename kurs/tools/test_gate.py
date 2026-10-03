@@ -263,7 +263,9 @@ class OverlayListTest(unittest.TestCase):
     def test_book_entries_first_and_then_own_entries_pass(self) -> None:
         self.assertEqual(self.problems([*self.BOOK, self.OWN]), [])
         self.assertEqual(self.problems(list(self.BOOK)), [])
-        self.assertEqual(gate.list_problems("extra_css", ["a.css"], []), [])
+        self.assertEqual(
+            gate.list_problems("extra_css", ["stylesheets/interactive.css"], []), []
+        )
 
     def test_missing_book_entry_keeps_the_message_of_the_stage(self) -> None:
         problems = self.problems(["javascripts/naglowek.js", self.OWN])
@@ -307,13 +309,81 @@ class OverlayListTest(unittest.TestCase):
             problems[0],
         )
 
-    def test_book_entry_repeated_after_the_prefix_is_reported(self) -> None:
+    def test_book_entry_repeated_after_the_prefix_is_reported_once(self) -> None:
         problems = self.problems([*self.BOOK, self.OWN, "javascripts/naglowek.js"])
 
-        self.assertIn(
-            f"{self.WHERE} powtarza pozycje książki: ['javascripts/naglowek.js']", problems
+        self.assertEqual(
+            problems, [f"{self.WHERE} powtarza pozycje książki: ['javascripts/naglowek.js']"]
         )
-        self.assertTrue(any("poprzedza pozycję książki" in item for item in problems), problems)
+
+    def test_book_entry_repeated_in_another_form_is_reported(self) -> None:
+        module = {"path": "javascripts/naglowek.js", "type": "module"}
+
+        problems = self.problems([*self.BOOK, self.OWN, module])
+
+        self.assertEqual(
+            problems,
+            [
+                f"{self.WHERE} powtarza pozycję książki 'javascripts/naglowek.js' w innej "
+                f"postaci: {module!r}; powtórzenie usuwamy z nakładki"
+            ],
+        )
+
+    def test_entry_in_another_form_before_a_book_entry_is_out_of_order(self) -> None:
+        mapping = {"path": "javascripts/menu.js"}
+
+        problems = self.problems([mapping, "javascripts/naglowek.js", self.OWN])
+
+        self.assertEqual(len(problems), 2, problems)
+        self.assertIn("zmienia postać pozycji książki: 'javascripts/menu.js'", problems[0])
+        self.assertIn(
+            "['javascripts/menu.js', 'javascripts/naglowek.js'] zamiast "
+            "['javascripts/naglowek.js', 'javascripts/menu.js']",
+            problems[1],
+        )
+
+    def test_entry_removed_or_renamed_by_the_book_is_reported_in_file_lists(self) -> None:
+        book = ["javascripts/naglowek2.js"]
+        overlay = ["javascripts/naglowek2.js", "javascripts/naglowek.js", self.OWN]
+
+        problems = gate.list_problems("extra_javascript", overlay, book)
+
+        self.assertEqual(
+            problems,
+            [
+                f"{self.WHERE}: pozycja nakładki 'javascripts/naglowek.js' wskazuje plik "
+                "docs/javascripts/naglowek.js, który nie należy do warstwy ćwiczeń; "
+                "pozycję, którą książka usunęła albo przemianowała w mkdocs.yml, "
+                "usuwamy także z nakładki"
+            ],
+        )
+        self.assertEqual(gate.list_problems("extra_javascript", overlay[1:], []), problems)
+
+    def test_own_entries_of_file_lists_point_to_layer_files(self) -> None:
+        own = [
+            "stylesheets/interactive.css",
+            {"path": "javascripts/interactive/bootstrap.js", "type": "module"},
+            "./javascripts/interactive/inny.js",
+            "https://example.invalid/zewnetrzny.js",
+        ]
+
+        self.assertEqual(gate.list_problems("extra_javascript", own, []), [])
+        self.assertEqual(
+            len(gate.list_problems("extra_css", ["stylesheets/extra2.css"], [])), 1
+        )
+        self.assertEqual(gate.list_problems("extra_css", ["x.css"], [], docs_dir=None), [])
+        self.assertEqual(gate.list_problems("theme.features", ["a", "b"], ["a"]), [])
+        self.assertEqual(
+            gate.list_problems("extra_css", ["x.css"], [], docs_dir="src"),
+            [
+                "lista 'extra_css' w mkdocs.kurs.yml: pozycja nakładki 'x.css' wskazuje "
+                "plik src/x.css, który nie należy do warstwy ćwiczeń; pozycję, którą "
+                "książka usunęła albo przemianowała w mkdocs.yml, usuwamy także z nakładki"
+            ],
+        )
+
+    def test_book_list_with_a_repeated_entry_can_be_copied(self) -> None:
+        self.assertEqual(gate.list_problems("theme.features", ["a", "a", "b"], ["a", "a"]), [])
 
     def test_identity_covers_strings_paths_and_single_key_mappings(self) -> None:
         self.assertEqual(gate.item_identity("a.js"), "a.js")
@@ -347,14 +417,21 @@ class StageG2Test(unittest.TestCase):
                 return gate.stage_g2(context)
 
     def test_stage_checks_every_shared_list_and_names_them(self) -> None:
-        book = "extra_css:\n  - extra.css\nextra_javascript:\n  - naglowek.js\n"
+        book = (
+            "extra_css:\n  - stylesheets/extra.css\n"
+            "extra_javascript:\n  - javascripts/naglowek.js\n"
+        )
         good = (
-            "INHERIT: mkdocs.yml\nextra_css:\n  - extra.css\n  - interactive.css\n"
-            "extra_javascript:\n  - naglowek.js\n  - path: bootstrap.js\n    type: module\n"
+            "INHERIT: mkdocs.yml\n"
+            "extra_css:\n  - stylesheets/extra.css\n  - stylesheets/interactive.css\n"
+            "extra_javascript:\n  - javascripts/naglowek.js\n"
+            "  - path: javascripts/interactive/bootstrap.js\n    type: module\n"
         )
         wrong = good.replace(
-            "  - naglowek.js\n  - path: bootstrap.js\n    type: module\n",
-            "  - path: bootstrap.js\n    type: module\n  - naglowek.js\n",
+            "  - javascripts/naglowek.js\n"
+            "  - path: javascripts/interactive/bootstrap.js\n    type: module\n",
+            "  - path: javascripts/interactive/bootstrap.js\n    type: module\n"
+            "  - javascripts/naglowek.js\n",
         )
 
         passed = self.run_g2(book, good)
@@ -366,7 +443,19 @@ class StageG2Test(unittest.TestCase):
             "sprawdzone listy wspólne z książką: 2 (extra_css, extra_javascript)",
         )
         self.assertEqual(len(failed.problems), 1, failed.problems)
-        self.assertIn("poprzedza pozycję książki 'naglowek.js'", failed.problems[0])
+        self.assertIn("poprzedza pozycję książki 'javascripts/naglowek.js'", failed.problems[0])
+
+    def test_file_lists_are_resolved_against_the_docs_dir_of_the_book(self) -> None:
+        book = "docs_dir: src\nextra_css:\n  - stylesheets/extra.css\n"
+        overlay = (
+            "INHERIT: mkdocs.yml\nextra_css:\n  - stylesheets/extra.css\n"
+            "  - stylesheets/interactive.css\n"
+        )
+
+        stage = self.run_g2(book, overlay)
+
+        self.assertEqual(len(stage.problems), 1, stage.problems)
+        self.assertIn("wskazuje plik src/stylesheets/interactive.css", stage.problems[0])
 
     def test_missing_inherit_is_reported(self) -> None:
         stage = self.run_g2("site_name: t\n", "extra:\n  a: 1\n")

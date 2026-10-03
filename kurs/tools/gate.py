@@ -40,7 +40,10 @@ Etapy (każdy jest blokujący):
   G2  nakładka mkdocs.kurs.yml dziedziczy mkdocs.yml, a każda jej lista wspólna
       z książką zaczyna się dokładnie od listy książki (MkDocs zastępuje listy):
       te same pozycje, w tej samej postaci YAML i w tej samej kolejności,
-      a własne pozycje nakładki dopiero po nich;
+      a dopiero po nich własne pozycje nakładki, bez powtórzeń pozycji
+      książki; w listach plików (extra_css, extra_javascript) własne pozycje
+      nakładki wskazują wyłącznie pliki warstwy ćwiczeń, co ujawnia pozycję
+      usuniętą albo przemianowaną przez książkę;
   G3  schemat definicji activities/**/*.yaml oraz wiązania: strona istnieje,
       a section_id jest identyfikatorem nagłówka h2–h6 wygenerowanym na tej
       stronie i nie ma sufiksu deduplikacji; przy zerwanym wiązaniu etap
@@ -96,6 +99,7 @@ import importlib.util
 import json
 import logging
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -572,7 +576,18 @@ def overlay_lists(overlay: dict, book: dict, prefix: tuple[str, ...] = ()):
 # dopisuje swoje pozycje na końcu; liście, w której kolejność nie ma znaczenia
 # (np. theme.features), reguła niczego nie odbiera. Pozycje porównujemy przez
 # równość, dlatego zmiana postaci (napis 'a.js' zamieniony na mapę z polem
-# path) jest błędem: mapa może zmieniać sposób ładowania pliku.
+# path) jest błędem: mapa może zmieniać sposób ładowania pliku. Błędem jest
+# też powtórzenie pozycji książki, dosłowne albo w innej postaci: wydanie
+# kursowe wczytałoby wtedy ten sam plik albo rozszerzenie dwukrotnie.
+#
+# Sama reguła prefiksu nie wykrywa pozycji, którą książka usunęła albo
+# przemianowała, a nakładka zachowała: taka pozycja wygląda jak własna pozycja
+# nakładki. W listach plików serwisu (FILE_LISTS) pozycja wskazuje plik
+# względem docs_dir, dlatego każda własna pozycja nakładki musi tam wskazywać
+# plik warstwy ćwiczeń z listy dozwolonej; plik spoza niej należy do książki.
+# W pozostałych listach własnej pozycji nie da się tak odróżnić od dawnej
+# pozycji książki; sprawdza to procedura synchronizacji (różnica mkdocs.yml).
+FILE_LISTS = ("extra_css", "extra_javascript")
 
 
 def item_identity(item) -> str | None:
@@ -593,78 +608,107 @@ def item_identity(item) -> str | None:
     return None
 
 
-def list_problems(key: str, overlay: list, book: list) -> list[str]:
+def site_file(entry: str, docs_dir: str) -> str | None:
+    """Ścieżka w repozytorium pliku, który wskazuje pozycja listy plików serwisu.
+
+    Adres zewnętrzny (np. https://… albo //…) nie wskazuje pliku serwisu: None.
+    """
+    if "://" in entry or entry.startswith("//"):
+        return None
+    return posixpath.normpath(posixpath.join(docs_dir.replace("\\", "/"), entry.lstrip("/")))
+
+
+def list_problems(key: str, overlay: list, book: list, docs_dir: str | None = "docs") -> list[str]:
     """Zgłoszenia G2 dla jednej listy nakładki wspólnej z książką.
 
     Lista jest poprawna, gdy zaczyna się od listy książki, a dalej zawiera
-    wyłącznie pozycje spoza niej (własne pozycje nakładki).
+    wyłącznie własne pozycje nakładki: żadnej pozycji książki, także w innej
+    postaci, a w listach plików serwisu (FILE_LISTS; docs_dir None pomija tę
+    kontrolę) wyłącznie pliki warstwy ćwiczeń.
     """
-    if overlay[:len(book)] == book and not any(
-        item in book for item in overlay[len(book):]
-    ):
-        return []
     where = f"lista {key!r} w {COURSE_CONFIG}"
-    problems: list[str] = []
-    missing = []
-    changed = []  # (pozycja książki, ta sama pozycja w innej postaci w nakładce)
-    for item in book:
-        if item in overlay:
+    identities = [item_identity(item) for item in book]
+    verbatim = {index for index, item in enumerate(book) if item in overlay}
+    # Rola każdej pozycji nakładki: ("książka", i) — wystąpienie pozycji
+    # książki o indeksie i; ("postać", i) — pozycja i w innej postaci, gdy
+    # dosłownej postaci w nakładce brak; ("powtórzenie", i) — kolejne
+    # wystąpienie pozycji i, dosłowne albo w innej postaci; ("własna", None).
+    roles: list[tuple[str, int | None]] = []
+    used: set[int] = set()
+    for item in overlay:
+        matches = [index for index, entry in enumerate(book) if entry == item]
+        if matches:
+            fresh = [index for index in matches if index not in used]
+            if fresh:
+                roles.append(("książka", fresh[0]))
+                used.add(fresh[0])
+            else:
+                roles.append(("powtórzenie", matches[0]))
             continue
         identity = item_identity(item)
-        twin = next(
-            (
-                candidate for candidate in overlay
-                if candidate not in book
-                and identity is not None
-                and item_identity(candidate) == identity
-            ),
-            None,
-        )
-        if twin is None:
-            missing.append(item)
+        same = [
+            index for index, other in enumerate(identities)
+            if identity is not None and other == identity
+        ]
+        free = [index for index in same if index not in verbatim and index not in used]
+        if free:
+            roles.append(("postać", free[0]))
+            used.add(free[0])
+        elif same:
+            roles.append(("powtórzenie", same[0]))
         else:
-            changed.append((item, twin))
+            roles.append(("własna", None))
+
+    problems: list[str] = []
+    missing = [item for index, item in enumerate(book) if index not in used]
     if missing:
         problems.append(f"{where} zastępuje listę książki i pomija: {missing}")
-    for item, twin in changed:
-        problems.append(
-            f"{where} zmienia postać pozycji książki: {item!r} → {twin!r}; "
-            f"pozycję przepisujemy z {BOOK_CONFIG} dosłownie"
-        )
+    for (role, index), item in zip(roles, overlay):
+        if role == "postać":
+            problems.append(
+                f"{where} zmienia postać pozycji książki: {book[index]!r} → {item!r}; "
+                f"pozycję przepisujemy z {BOOK_CONFIG} dosłownie"
+            )
     repeated = []
-    for item in book:
-        if overlay.count(item) > 1 and item not in repeated:
+    for (role, index), item in zip(roles, overlay):
+        if role == "powtórzenie" and item == book[index] and item not in repeated:
             repeated.append(item)
     if repeated:
         problems.append(f"{where} powtarza pozycje książki: {repeated}")
-    present = []  # pozycje książki w kolejności nakładki (pierwsze wystąpienia)
-    for item in overlay:
-        if item in book and item not in present:
-            present.append(item)
-    expected = [item for item in book if item in present]
-    if present != expected:
+    for (role, index), item in zip(roles, overlay):
+        if role == "powtórzenie" and item != book[index]:
+            problems.append(
+                f"{where} powtarza pozycję książki {book[index]!r} w innej postaci: "
+                f"{item!r}; powtórzenie usuwamy z nakładki"
+            )
+    sequence = [index for role, index in roles if role in ("książka", "postać")]
+    if sequence != sorted(sequence):
         problems.append(
             f"{where} podaje pozycje książki w innej kolejności niż {BOOK_CONFIG}: "
-            f"{present} zamiast {expected}"
+            f"{[book[index] for index in sequence]} zamiast "
+            f"{[book[index] for index in sorted(sequence)]}"
         )
-    twins = [twin for _, twin in changed]
-    last_book = max(
-        (index for index, item in enumerate(overlay) if item in book), default=None
-    )
-    first_own = next(
-        (
-            index for index, item in enumerate(overlay)
-            if item not in book and item not in twins
-        ),
-        None,
-    )
-    if last_book is not None and first_own is not None and first_own < last_book:
+    # Powtórzenia nie wyznaczają miejsca pozycji książki: zgłasza je komunikat
+    # o powtórzeniu, a przestawienie pozycji niczego by nie naprawiło.
+    book_places = [place for place, (role, _) in enumerate(roles) if role in ("książka", "postać")]
+    own_places = [place for place, (role, _) in enumerate(roles) if role == "własna"]
+    if book_places and own_places and own_places[0] < book_places[-1]:
         problems.append(
-            f"{where}: pozycja nakładki {overlay[first_own]!r} poprzedza pozycję "
-            f"książki {overlay[last_book]!r}; pozycje książki stoją na początku "
+            f"{where}: pozycja nakładki {overlay[own_places[0]]!r} poprzedza pozycję "
+            f"książki {overlay[book_places[-1]]!r}; pozycje książki stoją na początku "
             "listy, przed pozycjami nakładki"
         )
-    if not problems:  # zabezpieczenie: prefiksu brak z innego powodu
+    if key in FILE_LISTS and docs_dir is not None:
+        for place in own_places:
+            identity = item_identity(overlay[place])
+            path = site_file(identity, docs_dir) if identity is not None else None
+            if path is not None and not is_allowed(path):
+                problems.append(
+                    f"{where}: pozycja nakładki {overlay[place]!r} wskazuje plik {path}, "
+                    "który nie należy do warstwy ćwiczeń; pozycję, którą książka usunęła "
+                    f"albo przemianowała w {BOOK_CONFIG}, usuwamy także z nakładki"
+                )
+    if not problems and overlay[:len(book)] != book:  # zabezpieczenie
         problems.append(f"{where} nie zaczyna się od listy książki {book}")
     return problems
 
@@ -684,10 +728,15 @@ def stage_g2(ctx: Context) -> Stage:
 
     if overlay.get("INHERIT") != BOOK_CONFIG:
         stage.problem(f"{COURSE_CONFIG} musi dziedziczyć konfigurację: INHERIT: {BOOK_CONFIG}")
+    # Pliki list serwisu leżą w docs_dir książki; katalogu podanego ścieżką
+    # bezwzględną nie odnosimy do listy dozwolonej i kontrolę plików pomijamy.
+    docs_dir = book.get("docs_dir", "docs")
+    if not isinstance(docs_dir, str) or Path(docs_dir).is_absolute():
+        docs_dir = None
     checked = []
     for key, value, base in overlay_lists(overlay, book):
         checked.append(key)
-        for problem in list_problems(key, value, base):
+        for problem in list_problems(key, value, base, docs_dir):
             stage.problem(problem)
     stage.detail = f"sprawdzone listy wspólne z książką: {len(checked)}"
     if checked:
