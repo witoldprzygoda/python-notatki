@@ -755,5 +755,182 @@ class RenderedPageValidationTest(unittest.TestCase):
         self.assertIn("brakuje wymaganego slotu", str(raised.exception))
 
 
+class MarkerFreeBindingTest(unittest.TestCase):
+    """The book carries no markers; the hook binds to generated heading ids."""
+
+    def _render(
+        self,
+        temporary_directory: str,
+        bindings: list[tuple[str, str | None]],
+        html: str,
+        *,
+        page_name: str = "page.md",
+    ) -> str:
+        project_dir = Path(temporary_directory)
+        docs_dir = project_dir / "docs"
+        activities_dir = project_dir / "activities"
+        docs_dir.mkdir()
+        activities_dir.mkdir()
+        (docs_dir / "page.md").write_text("# Test\n", encoding="utf-8")
+        (docs_dir / "other.md").write_text("# Inna\n", encoding="utf-8")
+        entries = "".join(
+            f"""\
+  - activity_id: {activity_id}
+    version: 1
+    section_id: {"null" if section_id is None else json.dumps(section_id)}
+    type: acknowledgement
+    label: Test
+"""
+            for activity_id, section_id in bindings
+        )
+        (activities_dir / "page.yaml").write_text(
+            "schema_version: 3\n"
+            "page: page.md\n"
+            "slot_id: page-activities\n"
+            "activities:\n" + entries,
+            encoding="utf-8",
+        )
+        config = SimpleNamespace(
+            config_file_path=project_dir / "mkdocs.yml",
+            docs_dir=docs_dir,
+            site_dir=project_dir / "site",
+            extra={"presentation_mode": "interactive"},
+        )
+        page = SimpleNamespace(
+            file=SimpleNamespace(src_uri=page_name),
+            url=page_name.removesuffix(".md") + "/",
+        )
+
+        build_activities.on_pre_build(config=config)
+        return build_activities.on_page_content(html, page=page, config=config)
+
+    def test_marks_bound_headings_and_appends_one_slot(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            html = self._render(
+                temporary_directory,
+                [("loop-quiz-001", "petla-for"), ("page-quiz-001", None)],
+                '<h1 id="petle">Pętle</h1>'
+                '<h2 id="petla-for">Pętla for</h2>'
+                '<h2 id="petla-while">Pętla while</h2>',
+            )
+
+        self.assertIn('<h2 id="petla-for" data-activity-section="true">', html)
+        self.assertIn('<h2 id="petla-while">', html)
+        self.assertEqual(html.count("data-activity-section"), 1)
+        self.assertTrue(
+            html.endswith('\n<div data-activity-slot="page-activities"></div>')
+        )
+        self.assertEqual(html.count("data-activity-slot"), 1)
+
+    def test_leaves_pages_without_activities_untouched(self) -> None:
+        source = '<h2 id="petla-for">Pętla for</h2><p>Tekst</p>'
+        with TemporaryDirectory() as temporary_directory:
+            html = self._render(
+                temporary_directory,
+                [("loop-quiz-001", "petla-for")],
+                source,
+                page_name="other.md",
+            )
+
+        self.assertEqual(html, source)
+
+    def test_keeps_an_existing_marker_and_slot(self) -> None:
+        source = (
+            '<h2 id="petla-for" data-activity-section="true">Pętla for</h2>'
+            '<div data-activity-slot="page-activities"></div>'
+        )
+        with TemporaryDirectory() as temporary_directory:
+            html = self._render(
+                temporary_directory,
+                [("loop-quiz-001", "petla-for")],
+                source,
+            )
+
+        self.assertEqual(html, source)
+
+    def test_unresolved_section_names_activity_and_available_headings(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            with self.assertRaises(ValueError) as raised:
+                self._render(
+                    temporary_directory,
+                    [("loop-quiz-001", "petla-do"), ("loop-code-001", "petla-do")],
+                    '<h1 id="petle">Pętle</h1>'
+                    '<h2 id="petla-for">Pętla for</h2>'
+                    '<h3 id="for-else">for… else</h3>',
+                )
+
+        message = str(raised.exception)
+        self.assertIn("page.md", message)
+        self.assertIn("'loop-quiz-001', 'loop-code-001'", message)
+        self.assertIn("section_id 'petla-do'", message)
+        self.assertIn("nie wskazuje żadnego nagłówka h2–h6", message)
+        self.assertTrue(
+            message.endswith(
+                "Dostępne identyfikatory nagłówków: petla-for, for-else"
+            )
+        )
+
+    def test_does_not_bind_to_the_page_title(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            with self.assertRaises(ValueError) as raised:
+                self._render(
+                    temporary_directory,
+                    [("title-quiz-001", "petle")],
+                    '<h1 id="petle">Pętle</h1><h2 id="petla-for">Pętla for</h2>',
+                )
+
+        self.assertIn("section_id 'petle'", str(raised.exception))
+        self.assertIn("nagłówków: petla-for", str(raised.exception))
+
+    def test_binds_heading_ids_generated_from_dunder_names(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            html = self._render(
+                temporary_directory,
+                [("init-quiz-001", "plik-__init__py")],
+                '<h2 id="plik-__init__py">Plik __init__.py</h2>',
+            )
+
+        self.assertIn(
+            '<h2 id="plik-__init__py" data-activity-section="true">',
+            html,
+        )
+
+    def test_rejects_section_ids_that_toc_cannot_generate(self) -> None:
+        for section_id in ("Petla-for", "petla--for", "-petla", "petla for"):
+            with (
+                self.subTest(section_id=section_id),
+                TemporaryDirectory() as temporary_directory,
+                self.assertRaises(ValueError) as raised,
+            ):
+                self._render(temporary_directory, [("quiz-001", section_id)], "")
+
+            self.assertIn("generowanym przez MkDocs", str(raised.exception))
+
+    def test_rejects_heading_id_with_deduplication_suffix(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            with self.assertRaises(ValueError) as raised:
+                self._render(
+                    temporary_directory,
+                    [("example-quiz-001", "przyklad_1")],
+                    '<h2 id="przyklad">Przykład</h2>'
+                    '<h2 id="przyklad_1">Przykład</h2>',
+                )
+
+        message = str(raised.exception)
+        self.assertIn("'example-quiz-001'", message)
+        self.assertIn("section_id 'przyklad_1'", message)
+        self.assertIn("section_id: null", message)
+
+    def test_accepts_trailing_digits_without_a_repeated_heading(self) -> None:
+        with TemporaryDirectory() as temporary_directory:
+            html = self._render(
+                temporary_directory,
+                [("version-quiz-001", "wersja-python_3")],
+                '<h2 id="wersja-python_3">Wersja python_3</h2>',
+            )
+
+        self.assertIn('data-activity-section="true"', html)
+
+
 if __name__ == "__main__":
     unittest.main()

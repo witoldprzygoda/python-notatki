@@ -163,24 +163,33 @@ Przełączenie trybu dostępu powinno odbywać się konfiguracją wdrożenia, ni
 
 ## 6. Kontrakt między tekstem a aktywnością
 
-Treść Markdown nie zawiera definicji quizu ani rozwiązania. Strona z aktywnościami zapewnia wyłącznie:
+Treść Markdown książki nie zawiera definicji quizu, rozwiązania ani żadnych znaczników ćwiczeń. Wiązanie aktywności z tekstem istnieje wyłącznie po stronie ćwiczeń (gałąź `cwiczenia`) i opiera się na dwóch elementach:
 
-1. jawne, stabilne identyfikatory sekcji, których dotyczą ćwiczenia;
-2. dokładnie jeden globalnie unikalny slot na końcu strony.
+1. identyfikatorach nagłówków h2–h6, które MkDocs generuje z tekstu nagłówka (rozszerzenie `toc` z ustawieniami książki);
+2. dokładnie jednym globalnie unikalnym slocie strony, deklarowanym w YAML jako `slot_id`.
 
-Przykład:
+Przykład: strona „Pętle i iteratory” zawiera w książce zwykły nagłówek, któremu MkDocs nadaje identyfikator `petla-for`:
 
 ```markdown
-## Pętla for {#petla-for data-activity-section="true"}
-
-<!-- treść podrozdziału -->
-
-<div data-activity-slot="petle-i-iteratory-activities"></div>
+## Pętla for
 ```
 
-Anchor oznaczony `data-activity-section="true"` jest decyzją autora i nie może być automatycznym slugiem zależnym od tekstu nagłówka. `slot_id` identyfikuje fizyczne miejsce renderowania; może wystąpić tylko na jednej stronie. W wariancie `interactive` Activity Engine umieszcza w nim jedno domyślnie zamknięte `<details>` z nagłówkiem „Ćwiczenia i pytania” i renderuje aktywności w kolejności YAML. W wariancie `clean` pusty slot pozostaje niewidoczny.
+Podczas budowania wydania kursowego (`mkdocs.kurs.yml`) hook `scripts/build_activities.py` dla każdej strony z aktywnościami:
 
-Nie wolno wiązać aktywności z numerem linii, tekstem nagłówka ani pozycją elementu DOM. Aktywność dotycząca całej strony używa jawnego `section_id: null`.
+- dodaje atrybut `data-activity-section="true"` do nagłówków h2–h6, których identyfikator jest równy `section_id` z YAML;
+- dopisuje na końcu treści strony slot `<div data-activity-slot="petle-i-iteratory-activities"></div>`;
+- dopiero potem waliduje wynik w taki sam sposób, w jaki wcześniej walidował znaczniki zapisane w Markdown.
+
+Strony bez aktywności pozostają bez zmian. `slot_id` identyfikuje fizyczne miejsce renderowania; może wystąpić tylko na jednej stronie. Activity Engine umieszcza w nim jedno domyślnie zamknięte `<details>` z nagłówkiem „Ćwiczenia i pytania” i renderuje aktywności w kolejności YAML.
+
+Identyfikator generowany zależy od tekstu nagłówka. Zmianę nagłówka w książce wykrywają build wydania kursowego, który przerywa budowanie z komunikatem wskazującym aktywność i dostępne identyfikatory nagłówków, oraz etap G3 bramki `kurs/tools/gate.py`, uruchamianej po każdej synchronizacji z `dev`. Wiązanie poprawia się wyłącznie w YAML po stronie ćwiczeń; tekstu książki nie zmienia się ze względu na ćwiczenia.
+
+Zasady wiązania:
+
+- sekcję wiąże się tylko tam, gdzie rail sekcji wnosi informację; aktywność dotycząca całej strony używa jawnego `section_id: null`, które nie zależy od nagłówków;
+- `section_id` składa się z małych liter, cyfr, podkreśleń (np. z nazw takich jak `__init__`) i pojedynczych łączników;
+- odrzucany jest identyfikator z sufiksem deduplikacji (`_1`, `_2`…), który MkDocs nadaje powtórzonemu nagłówkowi, ponieważ przesuwa się on po dodaniu lub usunięciu nagłówka o tej samej treści; taką aktywność wiąże się z całą stroną;
+- nie wolno wiązać aktywności z numerem linii ani pozycją elementu DOM.
 
 Definicja schema v3 znajduje się poza `docs/`, na przykład w `activities/04-sterowanie/petle-i-iteratory.yaml`:
 
@@ -236,7 +245,7 @@ activities:
 
 Pola `feedback.correct` i `feedback.incorrect` zawierają wyłącznie wyjaśnienie dydaktyczne, a nie etykietę wyniku. Jednolitą etykietę „✓ Poprawnie” albo „! Niepoprawnie” dodaje renderer. Pola te nie powinny rozpoczynać się od „Poprawnie.” ani „Niepoprawnie.”; komunikaty błędów technicznych pozostają odrębną kategorią.
 
-Build waliduje schema v3 przed renderowaniem, a po konwersji Markdown sprawdza dokładnie jeden właściwy slot oraz istnienie wszystkich oznaczonych `section_id`.
+Build waliduje schema v3 przed renderowaniem, a po konwersji Markdown i dodaniu znaczników przez hook sprawdza dokładnie jeden właściwy slot oraz to, że każdy niepusty `section_id` wskazuje nagłówek h2–h6 tej strony.
 
 Autor podaje wyłącznie źródłową ścieżkę `page`. Podczas pełnego buildu hook
 MkDocs odczytuje rzeczywiste `page.url` dla wyrenderowanej strony i dodaje do
@@ -556,7 +565,7 @@ semantyczny uzasadniający ponowne rozpatrzenie wcześniejszego postępu.
 
 ## 11. Reagowanie na zmiany podręcznika
 
-Obowiązujący kontrakt to `page` + top-level `slot_id` + per-activity `section_id` + `activity_id`. Build sprawdza globalną unikalność slotu, jego pojedyncze wystąpienie na właściwej stronie oraz istnienie jawnie oznaczonego anchora dla każdego niepustego `section_id`.
+Obowiązujący kontrakt to `page` + top-level `slot_id` + per-activity `section_id` + `activity_id`. Build sprawdza globalną unikalność slotu, jego pojedyncze wystąpienie na właściwej stronie oraz to, że każdy niepusty `section_id` jest identyfikatorem nagłówka h2–h6 wygenerowanym na tej stronie i nie ma sufiksu deduplikacji. Po każdej synchronizacji z `dev` te same wiązania sprawdza etap G3 bramki `kurs/tools/gate.py`.
 
 Mechanizm hashy treści jest wartościowy, ale nie należy go jeszcze implementować.
 

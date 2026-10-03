@@ -17,7 +17,7 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 ## Nadrzędne zasady architektoniczne
 
 1. **Podręcznik pozostaje statycznym serwisem MkDocs.** Nie przepisuj treści do frameworka SPA ani do aplikacji serwerowej.
-2. **Treść i aktywności są rozdzielone.** Nie wpisuj definicji quizów, odpowiedzi, testów i logiki postępu bezpośrednio do właściwego tekstu Markdown poza minimalnymi, stabilnymi punktami osadzenia.
+2. **Treść i aktywności są rozdzielone.** Nie wpisuj do tekstu Markdown książki definicji quizów, odpowiedzi, testów, logiki postępu ani żadnych znaczników ćwiczeń; wiązanie z tekstem powstaje podczas budowania wydania kursowego.
 3. **Jeden frontend działa w dwóch trybach:**
    - kursowym: użytkownik wchodzi przez Moodle/LTI, postęp zapisuje się po stronie serwera;
    - publicznym: brak logowania, pełna funkcjonalność dydaktyczna, postęp zapisuje się lokalnie w przeglądarce.
@@ -41,17 +41,17 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 
 ## Kontrakt treść ↔ aktywność
 
-Aktywność ma stabilny `activity_id`. Miejsce osadzenia w treści ma stabilny `slot_id`.
+Aktywność ma stabilny `activity_id`. Miejsce osadzenia na stronie ma stabilny `slot_id`, deklarowany w YAML.
 
-Do Markdown wolno dodawać minimalne, niewidoczne lub neutralne semantycznie punkty osadzenia, np. element z `data-activity-slot` albo jawny identyfikator sekcji. Punkt osadzenia nie może zależeć od tekstu nagłówka ani numeru linii.
+Do Markdown książki nie dodaje się żadnych punktów osadzenia: ani elementów z `data-activity-slot`, ani atrybutów `data-activity-section`, ani identyfikatorów `{#…}` wprowadzanych ze względu na ćwiczenia. Aktywność wiąże się z sekcją przez `section_id` równy identyfikatorowi nagłówka h2–h6, który MkDocs generuje z jego tekstu, albo z całą stroną przez `section_id: null`. Hook `scripts/build_activities.py`, włączany wyłącznie przez `mkdocs.kurs.yml`, podczas budowania oznacza takie nagłówki i dopisuje slot na końcu strony. Zmianę nagłówka w książce wykrywa build wydania kursowego i bramka `kurs/tools/gate.py`; wiązanie poprawia się w YAML. Wiązanie z numerem linii lub pozycją elementu DOM jest niedopuszczalne.
 
-Przykład ideowy:
+Przykład ideowy slotu dopisywanego przez hook:
 
 ```html
-<div data-activity-slot="flow-for-basics"></div>
+<div data-activity-slot="petle-i-iteratory-activities"></div>
 ```
 
-Definicja aktywności ma pozostać poza właściwym tekstem, np. w `activities/04-sterowanie/petle-i-iteratory.yaml`.
+Definicja aktywności pozostaje poza tekstem książki, np. w `activities/04-sterowanie/petle-i-iteratory.yaml`.
 
 ## Typy aktywności w zakresie MVP
 
@@ -236,7 +236,8 @@ Każda nowa aktywność musi mieć:
 
 - unikalny `activity_id`,
 - jawny `version`,
-- istniejący `slot_id`,
+- `slot_id` strony zadeklarowany w YAML,
+- `section_id` wskazujący nagłówek h2–h6 tej strony albo `null`,
 - poprawną definicję zgodną ze schematem,
 - zachowanie po odświeżeniu strony,
 - sensowny stan początkowy i zakończony.
@@ -286,7 +287,8 @@ Przy przeglądzie zmian zwracaj szczególną uwagę na:
 - niezamierzone uzależnienie aktywności od Moodle;
 - bezpośrednie użycie `localStorage` poza `BrowserProgressStore`;
 - logikę postępu zaszytą w komponentach UI;
-- identyfikatory oparte na tekście nagłówka lub numerze linii;
+- wiązania oparte na numerze linii lub pozycji elementu DOM oraz `section_id` z sufiksem deduplikacji (`_1`, `_2`…); wiązanie z identyfikatorem nagłówka generowanym przez MkDocs jest zamierzone;
+- jakiekolwiek znaczniki ćwiczeń dodane do Markdown książki;
 - wycieki sekretów lub danych osobowych;
 - pogorszenie działania statycznego MkDocs;
 - ciężkie zależności dodane dla funkcji możliwej do wykonania prostym kodem;
