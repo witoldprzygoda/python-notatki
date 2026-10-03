@@ -43,7 +43,7 @@ python kurs/tools/gate.py --zatwierdz-aktualnosc [--book dev] --przejrzane ID[,I
 
 Bramka ocenia commit `HEAD`: etapy G2–G7 działają na czystym eksporcie jego drzewa w katalogu tymczasowym, dlatego niezatwierdzone i nieśledzone pliki nie wpływają na wynik. Niezatwierdzona zmiana pliku książki w katalogu ćwiczeń jest jednak błędem w każdym trybie.
 
-Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — każda lista nakładki wspólna z książką zaczyna się dokładnie od listy książki; G3 — schemat YAML i wiązania z nagłówkami; G4 — aktualność treści powiązanych sekcji względem ostatniego przeglądu (niżej); G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego. Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
+Etapy: G1 — wyłączne dodawanie, podstawowe pliki warstwy, kolizje ze ścieżkami ćwiczeń w książce, usunięcia plików ćwiczeń przez scalenie książki, scalenia stanu książki spoza `--book` i nazwy gałęzi; G2 — każda lista nakładki wspólna z książką zaczyna się dokładnie od listy książki; G3 — schemat YAML i wiązania z nagłówkami; G4 — aktualność treści powiązanych sekcji względem ostatniego przeglądu (niżej); G5 — rozwiązania wzorcowe zadań `code` i bloki `verify` pytań; G6 — testy unittest (`tests/`, `kurs/tools/`) i node; G7 — buildy `--strict` książki i wydania kursowego oraz odsyłacze książki do brakujących kotwic (niżej). Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma. Każdy etap jest blokujący, a tabela na końcu podsumowuje wynik.
 
 Kody wyjścia:
 
@@ -61,6 +61,8 @@ MkDocs scala słowniki nakładki z konfiguracją książki, lecz listę nakładk
 Przy zerwanym wiązaniu G3 zestawia nagłówki strony sprzed ostatniego scalenia książki z obecnymi i wskazuje następcę dawnego nagłówka, np. `prawdopodobna zmiana nagłówka: „Pętla for” → „Pętla for i sekwencje”`. Identyfikatory o podobnym zapisie podaje tylko wtedy, gdy zestawienie nie wskazuje następcy, i opisuje je jako samo podobieństwo napisów. Etap wypisuje też każdą zmianę wiązania względem stanu sprzed scalenia, razem z tekstami nagłówków, które przenosimy do raportu dla autora.
 
 Każde pytanie `single_choice` ma blok `verify`, którego kod wypisuje dokładnie etykietę poprawnej odpowiedzi. Pytanie pojęciowe, którego nie da się tak sprawdzić, wpisujemy z uzasadnieniem do `kurs/bez-weryfikacji.txt`.
+
+Wiersze `uwaga` w wyniku bramki są informacyjne: nie zmieniają wyniku etapu i nie wymagają działania. Wyjątkiem są uwagi G7 z przedrostkiem `usterka książki:`. Odsyłacz do kotwicy, której nie ma na stronie docelowej (np. do dawnego identyfikatora nagłówka po zmianie jego tekstu, na innej stronie albo na tej samej), MkDocs zgłasza wyłącznie jako informację, więc `--strict` go nie zatrzymuje. G7 odczytuje takie komunikaty z buildu książki, wypisuje każdy odsyłacz (plik, odsyłacz i brakującą kotwicę) jako uwagę z tym przedrostkiem i podaje ich liczbę w tabeli („usterki książki”). Nie poprawiamy ich na gałęzi ćwiczeń, lecz wpisujemy do raportu jako usterki książki do poprawy na gałęzi `content/*`. Ostrzeżenie albo błąd buildu kończy etap G7 błędem.
 
 ### Aktualność powiązanych sekcji (G4)
 

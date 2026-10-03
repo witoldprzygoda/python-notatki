@@ -374,6 +374,112 @@ class StageG2Test(unittest.TestCase):
         self.assertTrue(any("INHERIT: mkdocs.yml" in item for item in stage.problems))
 
 
+# Wiersze buildu MkDocs 1.6.1 (mkdocs build --strict z wyjściem przekierowanym
+# do pliku) dla odsyłaczy do brakujących kotwic: na innej stronie i na tej samej.
+ANCHOR_OUTPUT = """\
+INFO    -  Option search.lang 'pl' is not supported, falling back to 'en'
+INFO    -  Cleaning site directory
+INFO    -  Doc file '04-sterowanie/index.md' contains a link '#nie-ma-takiej', but there \
+is no such anchor on this page.
+INFO    -  Doc file '04-sterowanie/index.md' contains a link \
+'petle-i-iteratory.md#petla-for-dawna', but the doc '04-sterowanie/petle-i-iteratory.md' \
+does not contain an anchor '#petla-for-dawna'.
+INFO    -  Doc file 'podkatalog/inna.md' contains a link 'inna.md#nieobecna', but there is no \
+such anchor on this page.
+INFO    -  Doc file 'index.md' contains a link 'strona.md#pętla-for', but the doc 'strona.md' \
+does not contain an anchor '#pętla-for'.
+INFO    -  Documentation built in 9.97 seconds
+"""
+
+
+class AnchorDefectsTest(unittest.TestCase):
+    def test_both_kinds_of_anchor_messages_become_book_defect_notes(self) -> None:
+        self.assertEqual(
+            gate.anchor_defects(ANCHOR_OUTPUT),
+            [
+                "usterka książki: docs/04-sterowanie/index.md: odsyłacz #nie-ma-takiej "
+                "wskazuje kotwicę #nie-ma-takiej, której nie ma na tej stronie",
+                "usterka książki: docs/04-sterowanie/index.md: odsyłacz "
+                "petle-i-iteratory.md#petla-for-dawna wskazuje kotwicę #petla-for-dawna, "
+                "której nie ma na stronie docs/04-sterowanie/petle-i-iteratory.md",
+                "usterka książki: docs/podkatalog/inna.md: odsyłacz inna.md#nieobecna "
+                "wskazuje kotwicę #nieobecna, której nie ma na tej stronie",
+                "usterka książki: docs/index.md: odsyłacz strona.md#pętla-for wskazuje "
+                "kotwicę #pętla-for, której nie ma na stronie docs/strona.md",
+            ],
+        )
+
+    def test_other_lines_footnotes_warnings_and_unknown_forms(self) -> None:
+        output = "\n".join(
+            [
+                "INFO    -  Doc file 'a.md' contains a link '#fnref:1', but there is no such "
+                "anchor on this page. This seems to be a footnote that is never referenced.",
+                "\x1b[33mWARNING -  \x1b[0mDoc file 'a.md' contains a link 'b.md#x', but the "
+                "doc 'b.md' does not contain an anchor '#x'.",
+                "WARNING -  Doc file 'a.md' contains a link 'b.md#x', but the doc 'b.md' "
+                "does not contain an anchor '#x'.",
+                "INFO    -  Doc file 'a.md' links to the missing anchor '#y' of 'b.md'.",
+                "INFO    -  Doc file 'a.md' contains an unrecognized relative link 'c/', "
+                "it was left as is.",
+                "INFO    -  Documentation built in 0.25 seconds",
+            ]
+        )
+
+        defects = gate.anchor_defects(output)
+
+        self.assertEqual(len(defects), 3, defects)
+        self.assertTrue(
+            defects[0].endswith("(według MkDocs to przypis, do którego nic się nie odwołuje)"),
+            defects[0],
+        )
+        self.assertEqual(
+            defects[1],
+            "usterka książki: docs/a.md: odsyłacz b.md#x wskazuje kotwicę #x, której nie "
+            "ma na stronie docs/b.md",
+        )
+        self.assertEqual(
+            defects[2],
+            "usterka książki: Doc file 'a.md' links to the missing anchor '#y' of 'b.md'. "
+            "(komunikat MkDocs w nierozpoznanej postaci)",
+        )
+
+
+class StageG7NotesTest(unittest.TestCase):
+    def test_book_build_reports_anchor_defects_as_notes_without_failing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="kurs-gate-g7-test-") as directory:
+            root = Path(directory)
+            pages = {
+                "docs/index.md": "# Start\n\n[a](strona.md#brak) i [b](#nie-ma).\n",
+                "docs/strona.md": "# Strona\n\n## Jest\n\nTekst.\n",
+                gate.BOOK_CONFIG: "site_name: t\ntheme:\n  name: mkdocs\n",
+                gate.COURSE_CONFIG: "INHERIT: mkdocs.yml\n",
+            }
+            for name, text in pages.items():
+                (root / name).parent.mkdir(parents=True, exist_ok=True)
+                (root / name).write_text(text, encoding="utf-8")
+            context = gate.Context(book="dev", head="0" * 40, tree=root)
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                stage = gate.stage_g7(context)
+
+        printed = output.getvalue()
+        self.assertIn(
+            "  uwaga  usterka książki: docs/index.md: odsyłacz strona.md#brak wskazuje "
+            "kotwicę #brak, której nie ma na stronie docs/strona.md",
+            printed,
+        )
+        self.assertIn(
+            "  uwaga  usterka książki: docs/index.md: odsyłacz #nie-ma wskazuje kotwicę "
+            "#nie-ma, której nie ma na tej stronie",
+            printed,
+        )
+        self.assertIn("usterki książki: 2", stage.detail)
+        self.assertFalse(
+            [problem for problem in stage.problems if "-f mkdocs.yml" in problem],
+            stage.problems,
+        )
+
+
 class RepositoryTestCase(unittest.TestCase):
     """Tymczasowe repozytorium: dev (książka) i cwiczenia (warstwa)."""
 

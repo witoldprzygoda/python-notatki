@@ -62,7 +62,14 @@ Etapy (każdy jest blokujący):
   G6  testy unittest (tests/ i kurs/tools/) oraz node --test (tests/interactive/);
   G7  buildy --strict książki (mkdocs.yml) i wydania kursowego (mkdocs.kurs.yml)
       do katalogu tymczasowego; książka nie może zawierać znaczników ćwiczeń
-      ani ładować warstwy, a wydanie kursowe musi zawierać manifest i sloty.
+      ani ładować warstwy, a wydanie kursowe musi zawierać manifest i sloty;
+      odsyłacze do brakujących kotwic, które build książki zgłasza wyłącznie
+      jako informację, etap wypisuje jako uwagi z przedrostkiem
+      „usterka książki:” (nie zatrzymują etapu).
+
+Wiersze „uwaga” są informacyjne i nie zmieniają wyniku etapu; uwagi
+z przedrostkiem „usterka książki:” przenosimy do raportu jako usterki książki
+do poprawy na gałęzi content/*.
 
 Etapu G8 (liczby kontrolne i metadane wydania) jeszcze nie ma; numeracja
 pozostaje zgodna z planem.
@@ -2260,6 +2267,58 @@ def stage_g6(ctx: Context, skip: bool) -> Stage:
 
 # ---------------------------------------------------------------- G7
 
+# Odsyłacze do brakujących kotwic. MkDocs 1.6 sprawdza je po zbudowaniu stron
+# (validation.links.anchors, domyślnie poziom info), więc --strict ich nie
+# zatrzymuje. Gdy wyjście nie trafia do terminala, MkDocs wypisuje każdy
+# komunikat w jednym wierszu, bez kolorów i bez łamania (format
+# '%(levelname)-8s-  %(message)s'), w jednej z dwóch postaci:
+#   Doc file 'a.md' contains a link 'b.md#x', but the doc 'b.md' does not
+#   contain an anchor '#x'.
+#   Doc file 'a.md' contains a link '#x', but there is no such anchor on this
+#   page.
+# Etap G7 wypisuje je jako uwagi z przedrostkiem BOOK_DEFECT: to usterki
+# książki do poprawy na gałęzi content/*, które nie zatrzymują etapu.
+BOOK_DEFECT = "usterka książki:"
+ANSI_CODE = re.compile(r"\x1b\[[0-9;]*m")
+ANCHOR_MESSAGE = re.compile(
+    r"^(?:INFO|WARNING)\s*-\s+Doc file '(?P<source>.+?)' contains a link "
+    r"'(?P<link>.*)', but (?:there is no such anchor on this page|the doc "
+    r"'(?P<target>.+?)' does not contain an anchor '#(?P<anchor>.*)')\.(?P<context>.*)$"
+)
+# Komunikat o kotwicy w postaci, której ANCHOR_MESSAGE nie rozpoznaje (np. po
+# zmianie tekstu w nowej wersji MkDocs); wypisujemy go w całości.
+ANCHOR_LINE = re.compile(r"^(?:INFO|WARNING)\s*-\s+(?P<message>Doc file '.*\banchor\b.*)$")
+
+
+def anchor_defects(output: str) -> list[str]:
+    """Opisy odsyłaczy do brakujących kotwic zgłoszonych przez build MkDocs."""
+    found: list[str] = []
+    for line in output.splitlines():
+        line = ANSI_CODE.sub("", line).rstrip()
+        match = ANCHOR_MESSAGE.match(line)
+        if match is None:
+            loose = ANCHOR_LINE.match(line)
+            if loose:
+                found.append(
+                    f"{BOOK_DEFECT} {loose['message']} (komunikat MkDocs w nierozpoznanej postaci)"
+                )
+            continue
+        link, target = match["link"], match["target"]
+        if target is None:
+            anchor = link.partition("#")[2]
+            place = "której nie ma na tej stronie"
+        else:
+            anchor = match["anchor"]
+            place = f"której nie ma na stronie docs/{target}"
+        text = (
+            f"{BOOK_DEFECT} docs/{match['source']}: odsyłacz {link} wskazuje "
+            f"kotwicę #{anchor}, {place}"
+        )
+        if "footnote" in match["context"]:
+            text += " (według MkDocs to przypis, do którego nic się nie odwołuje)"
+        found.append(text)
+    return list(dict.fromkeys(found))
+
 
 def html_pages(site: Path) -> list[tuple[Path, str]]:
     return [
@@ -2285,6 +2344,18 @@ def stage_g7(ctx: Context) -> Stage:
                  "-f", config, "-d", str(site)],
                 cwd=ctx.tree,
             )
+            defects: list[str] = []
+            if folder == "ksiazka":
+                # Wydanie kursowe buduje te same strony i zgłasza te same
+                # odsyłacze, dlatego czytamy wyłącznie build książki.
+                defects = anchor_defects(result.stdout + result.stderr)
+                for defect in defects:
+                    stage.note(defect)
+                if defects:
+                    stage.note(
+                        "usterki książki nie zatrzymują etapu: wpisujemy je do raportu "
+                        "jako usterki do poprawy na gałęzi content/*"
+                    )
             if result.returncode != 0:
                 stage.problem(f"mkdocs build --strict -f {config}: kod {result.returncode}")
                 print_tail(result.stdout + result.stderr)
@@ -2306,12 +2377,16 @@ def stage_g7(ctx: Context) -> Stage:
                 if copied:
                     stage.note(
                         "build książki kopiuje pliki JS warstwy jako pliki statyczne "
-                        f"(nieładowane, plików: {len(copied)}); wydanie bez ćwiczeń "
+                        f"(nieładowane, plików: {len(copied)}); na tej gałęzi to stan "
+                        "oczekiwany, który nie wymaga działania, a wydanie bez ćwiczeń "
                         "musi je wykluczyć we własnej konfiguracji z listy dozwolonej "
                         "(nakładka w kurs/ albo ustawienie wydania w hooku), ponieważ "
                         "mkdocs.yml należy do książki"
                     )
-                built.append("książka: " + plural(len(pages), "strona", "strony", "stron"))
+                built.append(
+                    "książka: " + plural(len(pages), "strona", "strony", "stron")
+                    + f", usterki książki: {len(defects)}"
+                )
             else:
                 if not (site / MANIFEST).is_file():
                     stage.problem(f"wydanie kursowe nie zawiera {MANIFEST.as_posix()}")
