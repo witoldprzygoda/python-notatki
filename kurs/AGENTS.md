@@ -1,5 +1,7 @@
 # AGENTS.md — python-notatki: interaktywna warstwa podręcznika
 
+> **Uwaga (październik 2026).** Dokument dotyczy projektu ćwiczeń na gałęzi `cwiczenia` i jej gałęziach pomocniczych (`fala/*`, `platform/*`, `sync/*`); książka na `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Raile postępu pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
+
 ## Cel projektu
 
 Repozytorium `python-notatki` jest źródłem polskojęzycznego podręcznika do kursu języka Python, publikowanego przez MkDocs Material. Rozwijamy go w kierunku **interaktywnego podręcznika**, nie systemu oceniania kursu i nie zamiennika Moodle.
@@ -31,10 +33,10 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 
 ## Obecny kontrakt z repozytorium
 
-- Źródła treści: `docs/`.
-- Konfiguracja i nawigacja: `mkdocs.yml`.
-- Podstawowy build: `mkdocs build`.
-- Podgląd lokalny: `mkdocs serve`.
+- Źródła treści: `docs/` (pliki książki; na gałęzi ćwiczeń ich nie zmieniamy).
+- Konfiguracja i nawigacja książki: `mkdocs.yml`; wydanie kursowe: nakładka `mkdocs.kurs.yml`.
+- Build wydania kursowego: `mkdocs build --strict -f mkdocs.kurs.yml`; build samej książki: `mkdocs build --strict`.
+- Podgląd lokalny: `mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002`.
 - Po zmianie kodu hooków MkDocs w `scripts/` należy zrestartować `mkdocs serve`; sam rebuild może nadal używać modułu zaimportowanego przy starcie procesu.
 - Istniejące zasady redakcyjne i konwencje bloków kodu znajdują się w `CLAUDE.md`; przed modyfikacją treści **przeczytaj ten plik i stosuj jego reguły**.
 - Nie wykonuj reorganizacji nawigacji ani większych zmian treści tylko po to, aby ułatwić implementację interaktywności.
@@ -178,7 +180,7 @@ Dopiero po zaakceptowaniu POC projektujemy backend LTI.
 
 ## Repozytoria
 
-Na etapie POC **nie twórz osobnego repozytorium frontendowego**. Interaktywna warstwa to część sposobu publikacji podręcznika i powinna być rozwijana razem z treścią, ale w osobnych katalogach/plikach.
+**Nie twórz osobnego repozytorium frontendowego.** Interaktywna warstwa to część sposobu publikacji podręcznika; rozwijamy ją w tym samym repozytorium, na gałęzi `cwiczenia`, w osobnych katalogach i plikach, które jednokierunkowo przyjmują zmiany książki z `dev`.
 
 Nowe repozytorium tworzymy dla usługi serwerowej, roboczo `python-notatki-service`, gdy rozpocznie się etap LTI i zdalnego postępu.
 
@@ -224,13 +226,11 @@ Nazwy mogą zostać skorygowane, ale nie zmieniaj podziału odpowiedzialności b
 
 ## Walidacja i jakość
 
-Po zmianie treści lub konfiguracji zawsze uruchom:
+Po każdej zmianie uruchom bramkę gałęzi ćwiczeń (etapy G1–G7, w tym testy i buildy `--strict` książki oraz wydania kursowego):
 
 ```bash
-mkdocs build
+python kurs/tools/gate.py
 ```
-
-Jeśli w repozytorium istnieją już walidatory aktywności lub testy związane ze zmienianym kodem, uruchom je również.
 
 Każda nowa aktywność musi mieć:
 
@@ -256,23 +256,20 @@ Każda zmiana JavaScript powinna zostać sprawdzona przynajmniej w trybie jasnym
 
 Przed rozpoczęciem pracy:
 
-1. sprawdź bieżący branch;
-2. przeczytaj `DEVELOPMENT_WORKFLOW.md`;
-3. zastosuj tryb wynikający z prefiksu brancha.
+1. sprawdź bieżącą gałąź;
+2. przeczytaj `kurs/README.md`;
+3. zastosuj zasady wynikające z prefiksu gałęzi.
 
 ```text
-content/*      → CONTENT AUTHORING
-activities/*   → ACTIVITY AUTHORING
-integration/*  → CONTENT/ACTIVITY INTEGRATION
-infra/*        → INTERACTIVE INFRASTRUCTURE
-dev            → tylko integracja lub jawnie zlecona praca
-master         → branch wydawniczy; nie modyfikować bez jawnej decyzji
+cwiczenia      → gałąź długotrwała; zmiany wyłącznie przez --ff-only
+fala/*         → fala ćwiczeń do rozdziału
+platform/*     → hook, JavaScript, CSS, bramka, CI i wydania
+sync/*         → synchronizacja z dev (jedyne gałęzie scalające dev)
 ```
 
-`DEVELOPMENT_WORKFLOW.md` jest autorytatywnym źródłem szczegółowych zasad
-organizacji pracy.
+`kurs/README.md` jest autorytatywnym źródłem modelu gałęzi, zasady add-only i procedury synchronizacji; `DEVELOPMENT_WORKFLOW.md` opisuje pracę nad książką.
 
-- Najpierw przeczytaj `CLAUDE.md` oraz `INTERACTIVE_SYSTEM_SPEC.md`, jeśli zadanie dotyczy interaktywnej warstwy.
+- Najpierw przeczytaj `CLAUDE.md` oraz `kurs/INTERACTIVE_SYSTEM_SPEC.md`, jeśli zadanie dotyczy interaktywnej warstwy.
 - Przy zadaniu obejmującym architekturę przedstaw najpierw minimalny plan i wskaż pliki, które zamierzasz zmienić.
 - Nie dodawaj frameworka frontendowego, bundlera, bazy danych ani nowej usługi bez wyraźnej potrzeby i uzasadnienia.
 - Preferuj małe, odwracalne kroki oraz działający pionowy wycinek zamiast dużej jednorazowej przebudowy.
@@ -289,6 +286,7 @@ Przy przeglądzie zmian zwracaj szczególną uwagę na:
 - logikę postępu zaszytą w komponentach UI;
 - wiązania oparte na numerze linii lub pozycji elementu DOM oraz `section_id` z sufiksem deduplikacji (`_1`, `_2`…); wiązanie z identyfikatorem nagłówka generowanym przez MkDocs jest zamierzone;
 - jakiekolwiek znaczniki ćwiczeń dodane do Markdown książki;
+- zmianę lub usunięcie pliku książki na gałęzi ćwiczeń (zasada add-only, etap G1 bramki);
 - wycieki sekretów lub danych osobowych;
 - pogorszenie działania statycznego MkDocs;
 - ciężkie zależności dodane dla funkcji możliwej do wykonania prostym kodem;

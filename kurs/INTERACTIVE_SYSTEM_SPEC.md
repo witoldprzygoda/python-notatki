@@ -1,5 +1,7 @@
 # Interaktywny podręcznik Python — specyfikacja architektury i plan MVP
 
+> **Uwaga (październik 2026).** Dokument opisuje projekt ćwiczeń rozwijany na gałęzi `cwiczenia`; książka na gałęziach `dev` i `master` nie zawiera warstwy ćwiczeń. Wiązanie nie wymaga już znaczników w Markdown: aktywności wiążą się z identyfikatorami nagłówków generowanymi przez MkDocs, a hook `scripts/build_activities.py` podczas budowania wydania kursowego (`mkdocs.kurs.yml`) dodaje atrybut `data-activity-section` i slot strony. Raile postępu pojawiają się wyłącznie przy stronach i sekcjach z ćwiczeniami. Sekcje 3, 6, 9.5 i 11 uwzględniają te zmiany; opisy wariantów `clean`/`interactive` oraz pliku `mkdocs.clean.yml` (sekcje 1, 5, 12, 17, 18 i 20) i historyczny model gałęzi (sekcja 2) czekają na pełną rewizję. Model gałęzi, polecenia i procedury opisuje `kurs/README.md`, który ma pierwszeństwo przed niniejszym dokumentem.
+
 ## 1. Kontekst
 
 Projekt `python-notatki` jest rozwijanym podręcznikiem do kursu języka Python. Źródłowa treść pozostaje w Markdown i jest publikowana przez MkDocs Material. Rozbudowujemy serwis o lekką warstwę interaktywną, która ma zwiększać aktywność studenta podczas pracy z tekstem, ale nie ma zastępować Moodle ani formalnego systemu oceniania kursu.
