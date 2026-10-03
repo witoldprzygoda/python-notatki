@@ -36,7 +36,7 @@ Formalne zestawy zadań, duże quizy, kolokwia i projekty oceniane **nie należ�
 - Źródła treści: `docs/` (pliki książki; na gałęzi ćwiczeń ich nie zmieniamy).
 - Konfiguracja i nawigacja książki: `mkdocs.yml`; wydanie kursowe: nakładka `mkdocs.kurs.yml`.
 - Build wydania kursowego: `mkdocs build --strict -f mkdocs.kurs.yml`; build samej książki: `mkdocs build --strict`.
-- Podgląd lokalny: `mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002`.
+- Podgląd lokalny: `mkdocs serve -f mkdocs.kurs.yml -a 127.0.0.1:8002 --watch-theme`; opcja `--watch-theme` przebudowuje podgląd także po zmianie szablonów motywu (`kurs/README.md`, „Katalog roboczy i podgląd”).
 - Po zmianie kodu hooków MkDocs w `scripts/` należy zrestartować `mkdocs serve`; sam rebuild może nadal używać modułu zaimportowanego przy starcie procesu.
 - Istniejące zasady redakcyjne i konwencje bloków kodu znajdują się w `CLAUDE.md`; przed modyfikacją treści **przeczytaj ten plik i stosuj jego reguły**.
 - Nie wykonuj reorganizacji nawigacji ani większych zmian treści tylko po to, aby ułatwić implementację interaktywności.
