@@ -23,7 +23,7 @@ def uruchom(katalog="sklep"):
     return serwer, f"http://127.0.0.1:{serwer.server_port}/"
 ```
 
-Moduł `http.server` z rozdziału 14 ma gotową klasę `SimpleHTTPRequestHandler` (tam pisaliśmy własną obsługę po `BaseHTTPRequestHandler`), która podaje pliki z katalogu jak zwykły serwer WWW. Port `0` oznacza dowolny wolny port — system przydziela go, a serwer zapisuje w `server_port`, więc skrypty nie kolidują z innymi programami; serwer działa w wątku w tle (rozdział 15 „Python Notatki”), a skrypt kończy go wywołaniem `shutdown()`. Adresy w wynikach różnią się portem między uruchomieniami, dlatego skrypty rozdziału wypisują ścieżki, nie pełne adresy.
+Moduł `http.server` z rozdziału 14 ma gotową klasę `SimpleHTTPRequestHandler` (tam pisaliśmy własną obsługę po `BaseHTTPRequestHandler`), która podaje pliki z katalogu jak zwykły serwer WWW. Port `0` oznacza dowolny wolny port — system przydziela go, a serwer zapisuje w `server_port`, więc skrypty nie kolidują z innymi programami; serwer działa w wątku w tle (rozdział 15 „Python Podstawy”), a skrypt kończy go wywołaniem `shutdown()`. Adresy w wynikach różnią się portem między uruchomieniami, dlatego skrypty rozdziału wypisują ścieżki, nie pełne adresy.
 
 ## Klient httpx
 

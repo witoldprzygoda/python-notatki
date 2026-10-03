@@ -4,7 +4,7 @@ Uczenie maszynowe ma własny język, w którym te same słowa — model, trening
 
 ## Reguły a dane
 
-Program z części „Python Notatki” dostaje reguły i dane, a zwraca odpowiedzi: `if temperatura < 0: stan = "lód"`. Uczenie maszynowe odwraca układ: dostaje dane **i odpowiedzi** — przykłady, dla których wynik jest znany — a zwraca regułę, którą potem stosuje do przypadków bez odpowiedzi. Reguła nie jest spisana przez człowieka, lecz **wyuczona** z przykładów; jej jakość zależy od tego, ile przykładów model widział, czy były reprezentatywne i czy zależność w ogóle istnieje. Uczenie maszynowe opłaca się tam, gdzie reguły są zbyt złożone, aby je spisać (rozpoznanie odręcznej cyfry po pikselach, wykrycie spamu po słowach wiadomości), a przykładów jest dość, aby je odtworzyć.
+Program z części „Python Podstawy” dostaje reguły i dane, a zwraca odpowiedzi: `if temperatura < 0: stan = "lód"`. Uczenie maszynowe odwraca układ: dostaje dane **i odpowiedzi** — przykłady, dla których wynik jest znany — a zwraca regułę, którą potem stosuje do przypadków bez odpowiedzi. Reguła nie jest spisana przez człowieka, lecz **wyuczona** z przykładów; jej jakość zależy od tego, ile przykładów model widział, czy były reprezentatywne i czy zależność w ogóle istnieje. Uczenie maszynowe opłaca się tam, gdzie reguły są zbyt złożone, aby je spisać (rozpoznanie odręcznej cyfry po pikselach, wykrycie spamu po słowach wiadomości), a przykładów jest dość, aby je odtworzyć.
 
 ## Zadania — klasyfikacja, regresja, grupowanie
 

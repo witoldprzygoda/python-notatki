@@ -1,10 +1,10 @@
 # Python Notatki
 
-„Python Notatki” to podręcznik języka Python. Prowadzi czytelnika od instalacji interpretera i przygotowania środowiska pracy, przez pierwsze eksperymenty w konsoli i systematyczne omówienie typów danych oraz konstrukcji języka, po programowanie obiektowe, wydajność, tablice NumPy, współbieżność i warsztat programisty. Druga część, „Python Zastosowania”, obejmuje biblioteki i ich zastosowania, ułożone w niezależne ścieżki do wyboru.
+„Python Notatki” to podręcznik języka Python. Pierwsza część, „Python Podstawy”, prowadzi czytelnika od instalacji interpretera i przygotowania środowiska pracy, przez pierwsze eksperymenty w konsoli i systematyczne omówienie typów danych oraz konstrukcji języka, po programowanie obiektowe, wydajność, tablice NumPy, współbieżność i warsztat programisty. Druga część, „Python Zastosowania”, obejmuje biblioteki i ich zastosowania, ułożone w niezależne ścieżki do wyboru.
 
 Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Python Install Manager** w systemie Windows.
 
-## Python Notatki
+## Python Podstawy
 
 1. [Instalacja i środowisko pracy](01-instalacja/index.md) — Python Install Manager, pip, środowiska wirtualne, konfiguracja narzędzi
 2. [Konsola](02-konsola/index.md) — praca w konsoli interaktywnej i pierwszy skrypt
@@ -25,7 +25,7 @@ Stanem odniesienia jest **Python 3.14** instalowany za pomocą narzędzia **Pyth
 
 ## Python Zastosowania
 
-Część „Python Zastosowania” składa się ze ścieżek — niezależnych, skończonych samouczków bibliotek: dane, uczenie maszynowe, aplikacje, automatyzacja. Każda ścieżka zakłada znajomość języka z części „Python Notatki” i kończy się projektem spinającym jej narzędzia; [wprowadzenie](zastosowania/index.md) opisuje układ i wymagania.
+Część „Python Zastosowania” składa się ze ścieżek — niezależnych, skończonych samouczków bibliotek: dane, uczenie maszynowe, aplikacje, automatyzacja. Każda ścieżka zakłada znajomość języka z części „Python Podstawy” i kończy się projektem spinającym jej narzędzia; [wprowadzenie](zastosowania/index.md) opisuje układ i wymagania.
 
 **Ścieżka danych**
 

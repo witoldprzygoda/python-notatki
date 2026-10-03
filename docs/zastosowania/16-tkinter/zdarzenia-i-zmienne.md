@@ -53,7 +53,7 @@ DeprecationWarning — trace_variable() is deprecated and not supported with Tcl
 
 ![Okno z polem Imię o wartości Ewa i pogrubionym napisem „Witaj, Jan!”](img/zmienne.png)
 
-Zwykła zmienna Pythona nie odświeży etykiety — widżet nie wie, że coś się zmieniło. Zmienna kontrolna jest obiektem po stronie Tk: widżet z opcją `textvariable` wyświetla jej wartość i zapisuje do niej to, co wpisze użytkownik, a program czyta ją `get()` i ustawia `set()` — związanie działa w obie strony. `IntVar` i `DoubleVar` konwertują wartości (`"7"` staje się liczbą całkowitą), `BooleanVar` służy polom wyboru. **Obserwator** (ang. *observer*) z `trace_add("write", …)` jest wywoływany przy każdym zapisie — także przy każdym wpisanym znaku — z trzema argumentami: wewnętrzną nazwą zmiennej, indeksem (dla tablic Tcl, tu pusty) i trybem; funkcje, które ich nie potrzebują, przyjmują `*_`. `trace_add()` zwraca identyfikator do `trace_remove()`, a `trace_info()` wymienia zarejestrowanych obserwatorów; po usunięciu obserwatora `set("Ewa")` już nie zmienia powitania, choć pole pokazuje nową wartość. To wzorzec obserwatora z rozdziału 12 „Python Notatki” w gotowej postaci. Dawna metoda `trace("w", …)` w Tk 9 nie działa: zgłasza ostrzeżenie o wycofaniu i `TclError`, bo polecenie `trace variable` zniknęło z Tcl 9 — w starszym kodzie zamieniamy ją na `trace_add`.
+Zwykła zmienna Pythona nie odświeży etykiety — widżet nie wie, że coś się zmieniło. Zmienna kontrolna jest obiektem po stronie Tk: widżet z opcją `textvariable` wyświetla jej wartość i zapisuje do niej to, co wpisze użytkownik, a program czyta ją `get()` i ustawia `set()` — związanie działa w obie strony. `IntVar` i `DoubleVar` konwertują wartości (`"7"` staje się liczbą całkowitą), `BooleanVar` służy polom wyboru. **Obserwator** (ang. *observer*) z `trace_add("write", …)` jest wywoływany przy każdym zapisie — także przy każdym wpisanym znaku — z trzema argumentami: wewnętrzną nazwą zmiennej, indeksem (dla tablic Tcl, tu pusty) i trybem; funkcje, które ich nie potrzebują, przyjmują `*_`. `trace_add()` zwraca identyfikator do `trace_remove()`, a `trace_info()` wymienia zarejestrowanych obserwatorów; po usunięciu obserwatora `set("Ewa")` już nie zmienia powitania, choć pole pokazuje nową wartość. To wzorzec obserwatora z rozdziału 12 „Python Podstawy” w gotowej postaci. Dawna metoda `trace("w", …)` w Tk 9 nie działa: zgłasza ostrzeżenie o wycofaniu i `TclError`, bo polecenie `trace variable` zniknęło z Tcl 9 — w starszym kodzie zamieniamy ją na `trace_add`.
 
 ## `command` a `bind`
 
@@ -134,7 +134,7 @@ Dobrze 1 → dobrze: 1
 Dobrze 2 → dobrze: 2
 ```
 
-Lambda w pętli zapamiętuje zmienną `numer`, nie jej bieżącą wartość — to późne wiązanie z rozdziału 6 „Python Notatki” — więc każdy przycisk z pierwszego rzędu ustawia ostatnią wartość pętli. Argument domyślny `n=numer` jest obliczany w chwili tworzenia lambdy i wiąże właściwą liczbę z każdym przyciskiem; to samo daje `functools.partial(funkcja, numer)`.
+Lambda w pętli zapamiętuje zmienną `numer`, nie jej bieżącą wartość — to późne wiązanie z rozdziału 6 „Python Podstawy” — więc każdy przycisk z pierwszego rzędu ustawia ostatnią wartość pętli. Argument domyślny `n=numer` jest obliczany w chwili tworzenia lambdy i wiąże właściwą liczbę z każdym przyciskiem; to samo daje `functools.partial(funkcja, numer)`.
 
 ## Zegar, `after` i zamykanie okna
 

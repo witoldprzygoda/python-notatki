@@ -4,7 +4,7 @@
 
 Sklepem jest strona testowa z rozdziału 21 podawana przez lokalny serwer, a zmianę cen między pomiarami symuluje skrypt, który podmienia ceny w plikach HTML wzorcem z rozdziału 19. Pobieranie z uprzejmością i rozbiór stron pochodzą wprost z rozdziału 21 — dwa moduły kopiujemy bez zmian — arkusz i dokument powstają jak w rozdziale 22, a interfejs wiersza poleceń stosuje reguły z rozdziału 20 i podpolecenia z rozdziału 17. Nowe są trzy moduły: historia pomiarów w SQLite (rozdział 13), analiza zmian i raport.
 
-Z części „Python Notatki” rozdział korzysta z rozdziałów 5 (zbiory), 7 (`__main__`) i 16 (pytest). Projekt zamyka ścieżkę i całą część „Python Zastosowania”.
+Z części „Python Podstawy” rozdział korzysta z rozdziałów 5 (zbiory), 7 (`__main__`) i 16 (pytest). Projekt zamyka ścieżkę i całą część „Python Zastosowania”.
 
 ```text title="requirements.txt"
 httpx==0.28.1

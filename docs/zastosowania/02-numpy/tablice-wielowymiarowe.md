@@ -1,6 +1,6 @@
 # Tablice wielowymiarowe
 
-Dane pomiarowe rzadko mieszczą się w dwóch wymiarach: kilka stacji, każda mierzy przez wiele dni kilka wielkości — to trzy osie. NumPy obsługuje dowolną liczbę osi tą samą składnią, co macierze z rozdziału 14 „Python Notatki”; trudność leży nie w zapisie, lecz w ustaleniu, co oznacza każda z osi. Ten podrozdział ćwiczy to myślenie na jednym zestawie danych.
+Dane pomiarowe rzadko mieszczą się w dwóch wymiarach: kilka stacji, każda mierzy przez wiele dni kilka wielkości — to trzy osie. NumPy obsługuje dowolną liczbę osi tą samą składnią, co macierze z rozdziału 14 „Python Podstawy”; trudność leży nie w zapisie, lecz w ustaleniu, co oznacza każda z osi. Ten podrozdział ćwiczy to myślenie na jednym zestawie danych.
 
 ## Osie i kształt
 

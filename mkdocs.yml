@@ -62,7 +62,7 @@ extra_css:
 
 nav:
   - Strona główna: index.md
-  - Python Notatki:
+  - Python Podstawy:
       - 1. Instalacja i środowisko pracy:
           - Wprowadzenie: 01-instalacja/index.md
           - Instalacja Pythona: 01-instalacja/instalacja.md

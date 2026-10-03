@@ -38,7 +38,7 @@ print(zamowienia.columns.tolist())
 ['id', 'data', 'klient', 'miasto', 'kategoria', 'ilosc', 'cena_brutto', 'rabat', 'wartosc', 'netto', 'vat']
 ```
 
-Przypisanie do nieistniejącej nazwy tworzy kolumnę; wyrażenie po prawej jest wektorowe, więc liczy wszystkie wiersze naraz, a `np.where()` z rozdziału 14 „Python Notatki” wybiera wartość według warunku. Czyszczenie z poprzedniego podrozdziału zapisujemy jako łańcuch metod — każda zwraca nową ramkę, którą przyjmuje następna. `assign()` dodaje kolumny w tym samym stylu, przyjmując funkcje, które dostają bieżącą ramkę, więc druga kolumna może korzystać z pierwszej; `eval()` liczy wyrażenie z napisu, jak `query()`. `rename()` i `drop()` zmieniają nazwy i usuwają kolumny, również zwracając nową ramkę.
+Przypisanie do nieistniejącej nazwy tworzy kolumnę; wyrażenie po prawej jest wektorowe, więc liczy wszystkie wiersze naraz, a `np.where()` z rozdziału 14 „Python Podstawy” wybiera wartość według warunku. Czyszczenie z poprzedniego podrozdziału zapisujemy jako łańcuch metod — każda zwraca nową ramkę, którą przyjmuje następna. `assign()` dodaje kolumny w tym samym stylu, przyjmując funkcje, które dostają bieżącą ramkę, więc druga kolumna może korzystać z pierwszej; `eval()` liczy wyrażenie z napisu, jak `query()`. `rename()` i `drop()` zmieniają nazwy i usuwają kolumny, również zwracając nową ramkę.
 
 ## Napisy — akcesor `.str`
 
@@ -70,7 +70,7 @@ print(zamowienia["kategoria"].str.title().head(2).tolist(), zamowienia["miasto"]
 ['Książki', 'Elektronika'] [6.0, 6.0, 6.0, nan, 6.0]
 ```
 
-Akcesor `.str` udostępnia metody napisów z rozdziału 3 „Python Notatki” dla całej kolumny naraz: `upper()`, `len()`, `startswith()`, `contains()`, `replace()`. `split(expand=True)` rozdziela napis na kolumny nowej ramki, a `.str[-1]` wybiera element z listy w każdym wierszu — tu numer domu, który `astype(int)` zamienia na liczbę. Braki przechodzą przez akcesor bez błędu: `len()` miasta o brakującej nazwie daje `NaN`. Do wzorców bardziej złożonych niż stały separator służą wyrażenia regularne (`str.extract()`, `str.match()`), którym poświęcamy osobny rozdział ścieżki automatyzacji.
+Akcesor `.str` udostępnia metody napisów z rozdziału 3 „Python Podstawy” dla całej kolumny naraz: `upper()`, `len()`, `startswith()`, `contains()`, `replace()`. `split(expand=True)` rozdziela napis na kolumny nowej ramki, a `.str[-1]` wybiera element z listy w każdym wierszu — tu numer domu, który `astype(int)` zamienia na liczbę. Braki przechodzą przez akcesor bez błędu: `len()` miasta o brakującej nazwie daje `NaN`. Do wzorców bardziej złożonych niż stały separator służą wyrażenia regularne (`str.extract()`, `str.match()`), którym poświęcamy osobny rozdział ścieżki automatyzacji.
 
 ## `map()`, `replace()` i `apply()`
 
@@ -105,7 +105,7 @@ print(wolno.equals(szybko), f"apply: {czas_apply:.2f} s, wektorowo: {czas_wektor
 True apply: 0.71 s, wektorowo: 1.0 ms
 ```
 
-`map()` ze słownikiem zamienia każdą wartość na odpowiednik (wartości spoza słownika stają się `NaN`), `replace()` — tylko wymienione, resztę zostawia; `replace()` porównuje całe wartości, w odróżnieniu od `str.replace()`, który podmienia fragment napisu. `map()` z funkcją i `apply(axis=1)` wywołują funkcję Pythona dla każdej wartości lub każdego wiersza: to najbardziej ogólne narzędzie i zarazem najwolniejsze — dla dwustu tysięcy wierszy `apply()` potrzebuje ułamka sekundy, gdy operacja wektorowa — około milisekundy, kilkaset razy mniej, bo pandas buduje serię z każdego wiersza i wraca do interpretera, jak pętla w rozdziale 13 „Python Notatki”. Zasada z podrozdziału o wydajności w rozdziale 2 tej części obowiązuje: najpierw szukamy operacji wektorowej, akcesora `.str`/`.dt` albo `np.where()`, a `apply()` zostawiamy dla logiki, której inaczej zapisać się nie da.
+`map()` ze słownikiem zamienia każdą wartość na odpowiednik (wartości spoza słownika stają się `NaN`), `replace()` — tylko wymienione, resztę zostawia; `replace()` porównuje całe wartości, w odróżnieniu od `str.replace()`, który podmienia fragment napisu. `map()` z funkcją i `apply(axis=1)` wywołują funkcję Pythona dla każdej wartości lub każdego wiersza: to najbardziej ogólne narzędzie i zarazem najwolniejsze — dla dwustu tysięcy wierszy `apply()` potrzebuje ułamka sekundy, gdy operacja wektorowa — około milisekundy, kilkaset razy mniej, bo pandas buduje serię z każdego wiersza i wraca do interpretera, jak pętla w rozdziale 13 „Python Podstawy”. Zasada z podrozdziału o wydajności w rozdziale 2 tej części obowiązuje: najpierw szukamy operacji wektorowej, akcesora `.str`/`.dt` albo `np.where()`, a `apply()` zostawiamy dla logiki, której inaczej zapisać się nie da.
 
 ## Przedziały — `cut()` i `qcut()`
 

@@ -31,7 +31,7 @@ def fabryka_sesji(silnik):
     return sessionmaker(silnik)
 ```
 
-Adres bazy pochodzi ze zmiennej środowiskowej z wartością domyślną — `os.environ.get()` z rozdziału 9 „Python Notatki” — więc ten sam kod działa z plikiem SQLite u programisty i z serwerem u odbiorcy. `PRAGMA foreign_keys` dotyczy tylko SQLite, dlatego zdarzenie rejestrujemy warunkowo. `sessionmaker()` zwraca fabrykę sesji związaną z silnikiem: `Sesja()` otwiera sesję, a `Sesja.begin()` — sesję w transakcji, która zatwierdza się po bloku `with` i wycofuje przy wyjątku.
+Adres bazy pochodzi ze zmiennej środowiskowej z wartością domyślną — `os.environ.get()` z rozdziału 9 „Python Podstawy” — więc ten sam kod działa z plikiem SQLite u programisty i z serwerem u odbiorcy. `PRAGMA foreign_keys` dotyczy tylko SQLite, dlatego zdarzenie rejestrujemy warunkowo. `sessionmaker()` zwraca fabrykę sesji związaną z silnikiem: `Sesja()` otwiera sesję, a `Sesja.begin()` — sesję w transakcji, która zatwierdza się po bloku `with` i wycofuje przy wyjątku.
 
 ## Operacje domenowe
 
@@ -127,7 +127,7 @@ BrakTowaru: produkt 5: zamówiono 30, dostępne 19
 {'zamowien': 2, 'wartosc': 515.0} {'zamowien': 0, 'wartosc': 0.0}
 ```
 
-Funkcje operacji przyjmują sesję jako argument i nie zatwierdzają jej same — o granicach transakcji decyduje kod wywołujący, który może złożyć kilka operacji w jedną. Złożenie zamówienia zmienia trzy tabele: dodaje zamówienie z pozycjami i zdejmuje towar ze stanu; gdy drugiej pozycji brakuje na magazynie, wyjątek przerywa blok `Sesja.begin()`, a wycofanie cofa także zdjęcie słuchawek ze stanu z pierwszej pozycji — w bazie nie ma ani zamówienia, ani zmiany stanów. Bez transakcji taki błąd zostawiłby magazyn niezgodny z zamówieniami. `flush()` w `zloz_zamowienie()` zapewnia, że zwracany identyfikator już istnieje. Wyjątek własnej klasy, jak w rozdziale 10 „Python Notatki”, pozwala warstwie wyżej odróżnić brak towaru od błędu programu.
+Funkcje operacji przyjmują sesję jako argument i nie zatwierdzają jej same — o granicach transakcji decyduje kod wywołujący, który może złożyć kilka operacji w jedną. Złożenie zamówienia zmienia trzy tabele: dodaje zamówienie z pozycjami i zdejmuje towar ze stanu; gdy drugiej pozycji brakuje na magazynie, wyjątek przerywa blok `Sesja.begin()`, a wycofanie cofa także zdjęcie słuchawek ze stanu z pierwszej pozycji — w bazie nie ma ani zamówienia, ani zmiany stanów. Bez transakcji taki błąd zostawiłby magazyn niezgodny z zamówieniami. `flush()` w `zloz_zamowienie()` zapewnia, że zwracany identyfikator już istnieje. Wyjątek własnej klasy, jak w rozdziale 10 „Python Podstawy”, pozwala warstwie wyżej odróżnić brak towaru od błędu programu.
 
 ## Testy z bazą w pamięci
 

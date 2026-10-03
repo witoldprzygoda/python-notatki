@@ -1,6 +1,6 @@
 # Series i DataFrame
 
-pandas ma dwie struktury: **serię** (`Series`) — jednowymiarową tablicę z etykietami — i **ramkę danych** (ang. *DataFrame*), czyli tabelę złożoną z serii o wspólnym indeksie wierszy. Kolumny liczbowe obu struktur to tablice NumPy z rozdziału 14 „Python Notatki”, więc operacje wektorowe, maski i funkcje uniwersalne działają na nich tak samo; nowe są etykiety, które pandas zachowuje i dopasowuje przy każdej operacji.
+pandas ma dwie struktury: **serię** (`Series`) — jednowymiarową tablicę z etykietami — i **ramkę danych** (ang. *DataFrame*), czyli tabelę złożoną z serii o wspólnym indeksie wierszy. Kolumny liczbowe obu struktur to tablice NumPy z rozdziału 14 „Python Podstawy”, więc operacje wektorowe, maski i funkcje uniwersalne działają na nich tak samo; nowe są etykiety, które pandas zachowuje i dopasowuje przy każdej operacji.
 
 ## Series — dane z etykietami
 
@@ -185,4 +185,4 @@ with pd.option_context("display.max_rows", 4):
 [100 rows x 10 columns]
 ```
 
-Wydruk dużej tabeli jest skracany: powyżej 60 wierszy pandas pokazuje początek i koniec, a kolumny, które nie mieszczą się w 80 znakach, zastępuje wielokropkiem. `head()` i `tail()` pokazują wybraną liczbę wierszy, `to_string()` wypisuje wszystko bez skracania, a `option_context()` — menedżer kontekstu z rozdziału 8 „Python Notatki” — zmienia ustawienia wyświetlania tylko wewnątrz bloku. W notatniku z rozdziału 1 ramka wyświetla się jako tabela HTML z tą samą granicą 60 wierszy; kolumny skraca dopiero powyżej 20 (`display.max_columns`), bo szerokość wiersza nie ma tam znaczenia.
+Wydruk dużej tabeli jest skracany: powyżej 60 wierszy pandas pokazuje początek i koniec, a kolumny, które nie mieszczą się w 80 znakach, zastępuje wielokropkiem. `head()` i `tail()` pokazują wybraną liczbę wierszy, `to_string()` wypisuje wszystko bez skracania, a `option_context()` — menedżer kontekstu z rozdziału 8 „Python Podstawy” — zmienia ustawienia wyświetlania tylko wewnątrz bloku. W notatniku z rozdziału 1 ramka wyświetla się jako tabela HTML z tą samą granicą 60 wierszy; kolumny skraca dopiero powyżej 20 (`display.max_columns`), bo szerokość wiersza nie ma tam znaczenia.

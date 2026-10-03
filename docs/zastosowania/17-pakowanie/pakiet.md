@@ -1,6 +1,6 @@
 # Pakiet do instalacji
 
-Pakiet to projekt z układem `src`, plikiem `pyproject.toml` i tym, czego rozdział 7 „Python Notatki” jeszcze nie wymagał: metadanymi, które zobaczy odbiorca, i **punktami wejścia** (ang. *entry point*), które zamieniają funkcje w polecenia dostępne z terminala. Budujemy go z logiki menedżera kontaktów z rozdziału 16.
+Pakiet to projekt z układem `src`, plikiem `pyproject.toml` i tym, czego rozdział 7 „Python Podstawy” jeszcze nie wymagał: metadanymi, które zobaczy odbiorca, i **punktami wejścia** (ang. *entry point*), które zamieniają funkcje w polecenia dostępne z terminala. Budujemy go z logiki menedżera kontaktów z rozdziału 16.
 
 ## Od projektu do pakietu
 
@@ -248,7 +248,7 @@ copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED
 "AS IS", WITHOUT WARRANTY OF ANY KIND.
 ```
 
-Logika z rozdziału 16 zmieniła się w jednym miejscu: odczyt rozdzielono na `czytaj_kontakty()`, które przyjmuje otwarty plik, i `wczytaj_csv()` ze ścieżką — bo plik przykładowy leży wewnątrz pakietu i otwiera go `importlib.resources`, nie `open()`. `files("kontakty").joinpath(…)` zwraca obiekt, który działa jak ścieżka niezależnie od tego, czy pakiet leży w katalogu, w archiwum zip czy w pliku wykonywalnym; dane w pakiecie muszą być w nim fizycznie, stąd katalog `dane`. Moduł `cli.py` używa `argparse` z rozdziału 7 „Python Notatki”, rozszerzonego o **podpolecenia** (`sprawdz`, `szukaj`) tworzone przez `add_subparsers()` — każde z własnymi argumentami — których tamten rozdział nie omawiał i zwraca kod wyjścia — `main()` przyjmuje listę argumentów, żeby testy mogły ją wywołać bez procesu. Okno korzysta z tej samej logiki i przyjmuje przełącznik `--zamknij-po` do testów automatycznych, jak zegar z `after()` w rozdziale 16. Plik `LICENSE` (tu skrócony) trafia do pakietu przez `license-files`; identyfikator `MIT` mówi odbiorcy, na jakich zasadach może z kodu korzystać, a pełny tekst dołączamy, bo sama licencja MIT wymaga go w każdej kopii kodu.
+Logika z rozdziału 16 zmieniła się w jednym miejscu: odczyt rozdzielono na `czytaj_kontakty()`, które przyjmuje otwarty plik, i `wczytaj_csv()` ze ścieżką — bo plik przykładowy leży wewnątrz pakietu i otwiera go `importlib.resources`, nie `open()`. `files("kontakty").joinpath(…)` zwraca obiekt, który działa jak ścieżka niezależnie od tego, czy pakiet leży w katalogu, w archiwum zip czy w pliku wykonywalnym; dane w pakiecie muszą być w nim fizycznie, stąd katalog `dane`. Moduł `cli.py` używa `argparse` z rozdziału 7 „Python Podstawy”, rozszerzonego o **podpolecenia** (`sprawdz`, `szukaj`) tworzone przez `add_subparsers()` — każde z własnymi argumentami — których tamten rozdział nie omawiał i zwraca kod wyjścia — `main()` przyjmuje listę argumentów, żeby testy mogły ją wywołać bez procesu. Okno korzysta z tej samej logiki i przyjmuje przełącznik `--zamknij-po` do testów automatycznych, jak zegar z `after()` w rozdziale 16. Plik `LICENSE` (tu skrócony) trafia do pakietu przez `license-files`; identyfikator `MIT` mówi odbiorcy, na jakich zasadach może z kodu korzystać, a pełny tekst dołączamy, bo sama licencja MIT wymaga go w każdej kopii kodu.
 
 ## Instalacja edytowalna i polecenia
 
@@ -346,7 +346,7 @@ python -m pytest -q
 7 passed in 0.06s
 ```
 
-Testy importują `kontakty` jak każdy inny zainstalowany pakiet — bez `sys.path.insert()`, którym w rozdziałach 13–16 docieraliśmy do modułów obok testów; to jedna z korzyści instalacji edytowalnej. Test polecenia wywołuje `main()` z listą argumentów i czyta wydruk przez `capsys` z rozdziału 16 „Python Notatki”; `--wersja` kończy program przez `SystemExit`, którego oczekujemy jawnie.
+Testy importują `kontakty` jak każdy inny zainstalowany pakiet — bez `sys.path.insert()`, którym w rozdziałach 13–16 docieraliśmy do modułów obok testów; to jedna z korzyści instalacji edytowalnej. Test polecenia wywołuje `main()` z listą argumentów i czyta wydruk przez `capsys` z rozdziału 16 „Python Podstawy”; `--wersja` kończy program przez `SystemExit`, którego oczekujemy jawnie.
 
 ## Metadane z wnętrza
 

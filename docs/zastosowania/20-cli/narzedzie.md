@@ -84,7 +84,7 @@ python -m pytest -q
 7 passed in 0.21s
 ```
 
-Testy jednostkowe wywołują `main()` z listą argumentów wskazującą katalog tymczasowy `tmp_path` i czytają oba strumienie przez `capsys` z rozdziału 16 „Python Notatki”; błąd użycia to `SystemExit` z kodem `2`, którego oczekujemy jawnie. Jeden test integracyjny uruchamia narzędzie jako proces z tekstem na `stdin` — sprawdza to, czego `main()` w procesie testów nie pokaże: blok strażnika, `sys.exit()` i czytanie `sys.stdin`. Ustawienia z pliku i środowiska testuje się tak samo, z `monkeypatch.setenv()` dla zmiennych i plikiem TOML w `tmp_path`.
+Testy jednostkowe wywołują `main()` z listą argumentów wskazującą katalog tymczasowy `tmp_path` i czytają oba strumienie przez `capsys` z rozdziału 16 „Python Podstawy”; błąd użycia to `SystemExit` z kodem `2`, którego oczekujemy jawnie. Jeden test integracyjny uruchamia narzędzie jako proces z tekstem na `stdin` — sprawdza to, czego `main()` w procesie testów nie pokaże: blok strażnika, `sys.exit()` i czytanie `sys.stdin`. Ustawienia z pliku i środowiska testuje się tak samo, z `monkeypatch.setenv()` dla zmiennych i plikiem TOML w `tmp_path`.
 
 ## Polecenie w pakiecie
 

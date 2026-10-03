@@ -1,6 +1,6 @@
 # Pierwsza analiza w notatniku
 
-Wszystkie elementy warsztatu składamy w jedną, kompletną analizę: plik z danymi, notatnik, statystyki, wykres, wnioski i zapis wyników. Narzędzia pochodzą z rozdziału 14 „Python Notatki” — tablice NumPy i wykresy Matplotlib — a nowe jest tylko to, jak układają się w notatniku.
+Wszystkie elementy warsztatu składamy w jedną, kompletną analizę: plik z danymi, notatnik, statystyki, wykres, wnioski i zapis wyników. Narzędzia pochodzą z rozdziału 14 „Python Podstawy” — tablice NumPy i wykresy Matplotlib — a nowe jest tylko to, jak układają się w notatniku.
 
 ## Zadanie i dane
 
@@ -167,4 +167,4 @@ Powstały plik `analiza.py` zawiera kod komórek rozdzielony komentarzami `# In[
 
 ## Co dalej
 
-Analiza mieściła się w tablicach NumPy, bo kolumn było cztery i wszystkie były liczbami. Następny rozdział ścieżki, [2. NumPy w praktyce](../02-numpy/index.md), rozwija NumPy poza zakres rozdziału 14 „Python Notatki” — tablice wielowymiarowe, statystykę i porządkowanie danych, algebrę liniową, losowość i wydajność — a [rozdziały o pandas](../04-pandas-tabele/wczytywanie-i-zapis.md#analiza-z-rozdziau-1-w-pandas) wprowadzają tabele z kolumnami różnych typów, brakującymi wartościami i datami, na których ta sama analiza zajmuje kilka wierszy.
+Analiza mieściła się w tablicach NumPy, bo kolumn było cztery i wszystkie były liczbami. Następny rozdział ścieżki, [2. NumPy w praktyce](../02-numpy/index.md), rozwija NumPy poza zakres rozdziału 14 „Python Podstawy” — tablice wielowymiarowe, statystykę i porządkowanie danych, algebrę liniową, losowość i wydajność — a [rozdziały o pandas](../04-pandas-tabele/wczytywanie-i-zapis.md#analiza-z-rozdziau-1-w-pandas) wprowadzają tabele z kolumnami różnych typów, brakującymi wartościami i datami, na których ta sama analiza zajmuje kilka wierszy.

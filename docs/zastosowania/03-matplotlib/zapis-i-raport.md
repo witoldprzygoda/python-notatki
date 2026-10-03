@@ -214,7 +214,7 @@ if __name__ == "__main__":
 ['marza.pdf', 'marza.png', 'sprzedaz.pdf', 'sprzedaz.png']
 ```
 
-Każdy rysunek to funkcja przyjmująca dane i zwracająca `Figure` — bez zapisu w środku, więc tę samą funkcję można wywołać w notatniku, aby obejrzeć rysunek przed zapisem. Funkcja `main()` pod strażnikiem z rozdziału 7 „Python Notatki” wczytuje dane raz, tworzy rysunki i zapisuje każdy w dwóch formatach do katalogu `wyniki/` z układu projektu z rozdziału 1. Skrypt należy do katalogu `skrypty/`, a ścieżki w nim są względne do katalogu roboczego, więc uruchamiamy go z katalogu projektu poleceniem `python skrypty/raport.py`, które trafia do listy poleceń odtwarzających raport w `README.md`; testować go można jak każdy skrypt z rozdziału 16 „Python Notatki”, sprawdzając choćby, czy pliki powstały.
+Każdy rysunek to funkcja przyjmująca dane i zwracająca `Figure` — bez zapisu w środku, więc tę samą funkcję można wywołać w notatniku, aby obejrzeć rysunek przed zapisem. Funkcja `main()` pod strażnikiem z rozdziału 7 „Python Podstawy” wczytuje dane raz, tworzy rysunki i zapisuje każdy w dwóch formatach do katalogu `wyniki/` z układu projektu z rozdziału 1. Skrypt należy do katalogu `skrypty/`, a ścieżki w nim są względne do katalogu roboczego, więc uruchamiamy go z katalogu projektu poleceniem `python skrypty/raport.py`, które trafia do listy poleceń odtwarzających raport w `README.md`; testować go można jak każdy skrypt z rozdziału 16 „Python Podstawy”, sprawdzając choćby, czy pliki powstały.
 
 ## Pułapki prezentacji
 

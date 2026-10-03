@@ -139,7 +139,7 @@ print(pd.concat([pd.DataFrame({"a": [1]}), pd.DataFrame({"b": [2]})]))
 0  NaN  2.0
 ```
 
-Skrypt najpierw dzieli zamówienia na dwa pliki kwartalne, aby odtworzyć sytuację oddzielnych eksportów; `concat()` skleja listę ramek jedna pod drugą; `ignore_index=True` numeruje wynik od nowa, bo inaczej indeksy plików by się powtarzały. Wzorzec „wiele plików jednego kształtu” to `Path.glob()` z rozdziału 9 „Python Notatki” i wyrażenie listowe — tak łączymy miesięczne eksporty. Słownik (`dict`) zamiast listy dodaje poziom indeksu z nazwą źródła, po którym można grupować. `axis=1` skleja kolumny obok siebie, dopasowując wiersze po indeksie. Ramki o różnych kolumnach sklejają się bez błędu, a brakujące komórki dostają `NaN` — po sklejeniu sprawdzamy więc `columns` i `isna().sum()`.
+Skrypt najpierw dzieli zamówienia na dwa pliki kwartalne, aby odtworzyć sytuację oddzielnych eksportów; `concat()` skleja listę ramek jedna pod drugą; `ignore_index=True` numeruje wynik od nowa, bo inaczej indeksy plików by się powtarzały. Wzorzec „wiele plików jednego kształtu” to `Path.glob()` z rozdziału 9 „Python Podstawy” i wyrażenie listowe — tak łączymy miesięczne eksporty. Słownik (`dict`) zamiast listy dodaje poziom indeksu z nazwą źródła, po którym można grupować. `axis=1` skleja kolumny obok siebie, dopasowując wiersze po indeksie. Ramki o różnych kolumnach sklejają się bez błędu, a brakujące komórki dostają `NaN` — po sklejeniu sprawdzamy więc `columns` i `isna().sum()`.
 
 ## `join()` i wyrównanie serii
 

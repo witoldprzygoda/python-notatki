@@ -114,11 +114,11 @@ python -m pytest -q test_wzorce.py
 8 passed in 0.02s
 ```
 
-Wzorzec to kod, więc ma testy: lista tekstów, które mają pasować, z oczekiwanymi grupami, i lista tych, które pasować nie mogą — `parametrize` z rozdziału 16 „Python Notatki” zamienia każdą pozycję w osobny test. Przypadki negatywne są ważniejsze od pozytywnych, bo to one wykrywają wzorzec zbyt luźny; przy każdej poprawce wzorca dopisujemy przypadek, który ją wymusił.
+Wzorzec to kod, więc ma testy: lista tekstów, które mają pasować, z oczekiwanymi grupami, i lista tych, które pasować nie mogą — `parametrize` z rozdziału 16 „Python Podstawy” zamienia każdą pozycję w osobny test. Przypadki negatywne są ważniejsze od pozytywnych, bo to one wykrywają wzorzec zbyt luźny; przy każdej poprawce wzorca dopisujemy przypadek, który ją wymusił.
 
 ## Granice zastosowania
 
-Wyrażenie regularne jest właściwe, gdy tekst ma kształt, który da się opisać w jednym wierszu. Gdy `str` wystarcza — `startswith()`, `in`, `split(";")`, `removeprefix()`, `strip()` — jest czytelniejszy i szybszy. Gdy dane mają format, mają też parser: `csv` i `json` z rozdziału 9 „Python Notatki”, `datetime.strptime()` dla dat, `urllib.parse` dla adresów z rozdziału 14 tej części, a dla HTML parser z rozdziału o pobieraniu stron — wyrażenie na znaczniki działa do pierwszego zagnieżdżenia. Poza biblioteką standardową istnieje moduł `regex` z tym samym interfejsem i dodatkami (klasy właściwości Unicode `\p{…}`, dopasowania rozmyte), potrzebny rzadko. Wzorce dłuższe niż kilkadziesiąt znaków piszemy w trybie `VERBOSE` z komentarzami — bez nich szybko stają się nieczytelne także dla autora.
+Wyrażenie regularne jest właściwe, gdy tekst ma kształt, który da się opisać w jednym wierszu. Gdy `str` wystarcza — `startswith()`, `in`, `split(";")`, `removeprefix()`, `strip()` — jest czytelniejszy i szybszy. Gdy dane mają format, mają też parser: `csv` i `json` z rozdziału 9 „Python Podstawy”, `datetime.strptime()` dla dat, `urllib.parse` dla adresów z rozdziału 14 tej części, a dla HTML parser z rozdziału o pobieraniu stron — wyrażenie na znaczniki działa do pierwszego zagnieżdżenia. Poza biblioteką standardową istnieje moduł `regex` z tym samym interfejsem i dodatkami (klasy właściwości Unicode `\p{…}`, dopasowania rozmyte), potrzebny rzadko. Wzorce dłuższe niż kilkadziesiąt znaków piszemy w trybie `VERBOSE` z komentarzami — bez nich szybko stają się nieczytelne także dla autora.
 
 ## Lista kontrolna
 

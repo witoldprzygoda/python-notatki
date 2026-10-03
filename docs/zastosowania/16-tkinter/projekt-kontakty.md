@@ -90,7 +90,7 @@ python -m pytest -q
 4 passed in 0.04s
 ```
 
-Klasa danych `Kontakt` z rozdziału 12 „Python Notatki” daje porównywanie i `asdict()` bez dodatkowego kodu — stąd prosty test zapisu i odczytu. `sprawdz()` zwraca listę błędów, a nie pierwszy napotkany, żeby okno mogło pokazać wszystkie naraz; `filtruj()` porównuje małe litery, więc wyszukiwanie nie rozróżnia wielkości. CSV z separatorem `;` i `newline=""` to ustalenia z rozdziału 9 „Python Notatki”; zapis w UTF-8, odczyt z `utf-8-sig`, które przyjmuje także pliki z Excela ze znacznikiem BOM; `fields(Kontakt)` daje nazwy kolumn z definicji klasy, więc nowe pole klasy trafi do pliku bez zmian w funkcjach. Żaden test nie tworzy okna — działają w środowisku bez ekranu, na przykład w automatycznej kontroli z rozdziału 16 „Python Notatki”.
+Klasa danych `Kontakt` z rozdziału 12 „Python Podstawy” daje porównywanie i `asdict()` bez dodatkowego kodu — stąd prosty test zapisu i odczytu. `sprawdz()` zwraca listę błędów, a nie pierwszy napotkany, żeby okno mogło pokazać wszystkie naraz; `filtruj()` porównuje małe litery, więc wyszukiwanie nie rozróżnia wielkości. CSV z separatorem `;` i `newline=""` to ustalenia z rozdziału 9 „Python Podstawy”; zapis w UTF-8, odczyt z `utf-8-sig`, które przyjmuje także pliki z Excela ze znacznikiem BOM; `fields(Kontakt)` daje nazwy kolumn z definicji klasy, więc nowe pole klasy trafi do pliku bez zmian w funkcjach. Żaden test nie tworzy okna — działają w środowisku bez ekranu, na przykład w automatycznej kontroli z rozdziału 16 „Python Podstawy”.
 
 ## Okno aplikacji
 
@@ -291,7 +291,7 @@ wynik z wątku: 465
 
 ![Okno z napisem Wynik: 465, pełnym paskiem postępu i przyciskiem Start](img/praca-w-tle.png)
 
-Długie obliczenie lub pobieranie w funkcji zwrotnej zamroziłoby okno, a widżetów nie zmienia wątek roboczy — Tk obsługuje okno w jednym wątku, a wywołania z innych wątków tkinter tylko przekazuje do niego, nie gwarantując bezpieczeństwa wszystkich operacji. Rozwiązanie z rozdziału 15 „Python Notatki”: wątek roboczy wysyła postęp i wynik do kolejki `queue.Queue`, a okno odpytuje ją co 50 ms przez `after()` i tylko ono zmienia widżety. `get_nowait()` opróżnia kolejkę bez czekania, `queue.Empty` kończy rundę i planuje następną, a odebrany wynik przerywa odpytywanie. Wątek jest demonem, więc zamknięcie okna nie czeka na jego koniec. Skrypt uruchamia zadanie sam po 100 ms; przycisk pozwala je powtórzyć.
+Długie obliczenie lub pobieranie w funkcji zwrotnej zamroziłoby okno, a widżetów nie zmienia wątek roboczy — Tk obsługuje okno w jednym wątku, a wywołania z innych wątków tkinter tylko przekazuje do niego, nie gwarantując bezpieczeństwa wszystkich operacji. Rozwiązanie z rozdziału 15 „Python Podstawy”: wątek roboczy wysyła postęp i wynik do kolejki `queue.Queue`, a okno odpytuje ją co 50 ms przez `after()` i tylko ono zmienia widżety. `get_nowait()` opróżnia kolejkę bez czekania, `queue.Empty` kończy rundę i planuje następną, a odebrany wynik przerywa odpytywanie. Wątek jest demonem, więc zamknięcie okna nie czeka na jego koniec. Skrypt uruchamia zadanie sam po 100 ms; przycisk pozwala je powtórzyć.
 
 ## Dobre praktyki i pułapki
 

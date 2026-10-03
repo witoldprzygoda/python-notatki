@@ -57,7 +57,7 @@ dtypes: datetime64[us](1), float64(3), int64(1), str(3)
 memory usage: 1020.0 bytes
 ```
 
-`read_csv()` domyślnie oczekuje przecinka jako separatora i kropki dziesiętnej; `sep=";"` i `decimal=","` dostosowują ją do pliku z polskiego arkusza, `parse_dates=` wskazuje kolumny do zamiany na daty, a `na_values=` — dodatkowe napisy, które oznaczają brak (puste pole oraz napisy w rodzaju `NA`, `null` i `NaN` są brakiem domyślnie). Kodowanie domyślne to UTF-8 — plik z Windows-1250 wymaga `encoding="cp1250"`, jak w rozdziale 9 „Python Notatki”. Metoda `info()` podsumowuje wynik: liczbę wierszy, dla każdej kolumny liczbę wartości niepustych i typ. Kolumna `ilosc` stała się `float64`, choć zawiera liczby całkowite — jeden brak wymusza typ zmiennoprzecinkowy, bo `NaN` jest liczbą zmiennoprzecinkową; podrozdział o typach pokazuje typ `Int64`, który mieści brak w liczbach całkowitych.
+`read_csv()` domyślnie oczekuje przecinka jako separatora i kropki dziesiętnej; `sep=";"` i `decimal=","` dostosowują ją do pliku z polskiego arkusza, `parse_dates=` wskazuje kolumny do zamiany na daty, a `na_values=` — dodatkowe napisy, które oznaczają brak (puste pole oraz napisy w rodzaju `NA`, `null` i `NaN` są brakiem domyślnie). Kodowanie domyślne to UTF-8 — plik z Windows-1250 wymaga `encoding="cp1250"`, jak w rozdziale 9 „Python Podstawy”. Metoda `info()` podsumowuje wynik: liczbę wierszy, dla każdej kolumny liczbę wartości niepustych i typ. Kolumna `ilosc` stała się `float64`, choć zawiera liczby całkowite — jeden brak wymusza typ zmiennoprzecinkowy, bo `NaN` jest liczbą zmiennoprzecinkową; podrozdział o typach pokazuje typ `Int64`, który mieści brak w liczbach całkowitych.
 
 ## Pierwsze oględziny
 

@@ -169,7 +169,7 @@ print(wczytany["model"].predict(nowe), wczytany["model"][-1].n_neighbors)
 [0] 3
 ```
 
-Wytrenowany potok zapisujemy przez `joblib.dump()` — biblioteka joblib, zależność scikit-learn, serializuje obiekty Pythona z dużymi tablicami sprawniej niż `pickle` z rozdziału 9 „Python Notatki” i ma te same ograniczenia: plik wczytujemy tylko z zaufanego źródła i tą samą wersją biblioteki, bo model z innej wersji może się nie wczytać albo liczyć inaczej. Dlatego obok modelu zapisujemy wersję scikit-learn i nazwy klas; słownik jest wygodniejszy niż sam estymator. Wczytany potok przewiduje bez ponownego treningu — tak model trafia do skryptu lub aplikacji, która go używa.
+Wytrenowany potok zapisujemy przez `joblib.dump()` — biblioteka joblib, zależność scikit-learn, serializuje obiekty Pythona z dużymi tablicami sprawniej niż `pickle` z rozdziału 9 „Python Podstawy” i ma te same ograniczenia: plik wczytujemy tylko z zaufanego źródła i tą samą wersją biblioteki, bo model z innej wersji może się nie wczytać albo liczyć inaczej. Dlatego obok modelu zapisujemy wersję scikit-learn i nazwy klas; słownik jest wygodniejszy niż sam estymator. Wczytany potok przewiduje bez ponownego treningu — tak model trafia do skryptu lub aplikacji, która go używa.
 
 ## Powtarzalność
 

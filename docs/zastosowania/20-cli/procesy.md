@@ -68,7 +68,7 @@ False True
 usage True
 ```
 
-`shutil.copytree()` kopiuje katalog z pominięciem wzorców podanych przez `ignore_patterns()`, `make_archive()` tworzy archiwum zip lub tar z katalogu bez otwierania modułu `zipfile` wprost, `disk_usage()` zwraca miejsce na dysku. Katalog tymczasowy z `tempfile` z rozdziału 9 „Python Notatki” znika po bloku `with`, więc kopia robocza nie zostaje na dysku, a archiwum — tak. Nazwa archiwum z datą i wzorce wykluczeń to dwa ustawienia, które narzędzie do kopii zapasowych powinno przyjmować z konfiguracji.
+`shutil.copytree()` kopiuje katalog z pominięciem wzorców podanych przez `ignore_patterns()`, `make_archive()` tworzy archiwum zip lub tar z katalogu bez otwierania modułu `zipfile` wprost, `disk_usage()` zwraca miejsce na dysku. Katalog tymczasowy z `tempfile` z rozdziału 9 „Python Podstawy” znika po bloku `with`, więc kopia robocza nie zostaje na dysku, a archiwum — tak. Nazwa archiwum z datą i wzorce wykluczeń to dwa ustawienia, które narzędzie do kopii zapasowych powinno przyjmować z konfiguracji.
 
 ## Źródła konfiguracji
 
@@ -136,4 +136,4 @@ ze środowiskiem:   {'wg': 'data', 'limit': 5, 'ukryte': True}
 z argumentami:     {'wg': 'rozszerzenie', 'limit': 1, 'ukryte': False}
 ```
 
-Narzędzie uruchamiane codziennie nie powinno wymagać tych samych opcji za każdym razem. Ustalona kolejność źródeł — wartości domyślne w kodzie, plik konfiguracyjny TOML z rozdziału 9 „Python Notatki”, zmienne środowiskowe z przedrostkiem nazwy narzędzia, na końcu argumenty wiersza poleceń — sprawia, że każde źródło może nadpisać poprzednie, a argument podany w terminalu ma zawsze pierwszeństwo. W kodzie to jedno złożenie słowników; istotne jest, by opcje bez wartości domyślnej w parserze (`None`) nie zasłaniały ustawień z pliku, dlatego `z_argumentow` pomija `None`. Zmienne środowiskowe są tekstem, więc wartości liczbowe i logiczne konwertujemy jawnie. Pliku ustawień szukamy w katalogu bieżącym — tak robi `konfiguracja.py` — albo w katalogu konfiguracji użytkownika (`%APPDATA%` na Windows, `~/.config` na Linuksie); inną ścieżkę wskazuje opcja `--config`.
+Narzędzie uruchamiane codziennie nie powinno wymagać tych samych opcji za każdym razem. Ustalona kolejność źródeł — wartości domyślne w kodzie, plik konfiguracyjny TOML z rozdziału 9 „Python Podstawy”, zmienne środowiskowe z przedrostkiem nazwy narzędzia, na końcu argumenty wiersza poleceń — sprawia, że każde źródło może nadpisać poprzednie, a argument podany w terminalu ma zawsze pierwszeństwo. W kodzie to jedno złożenie słowników; istotne jest, by opcje bez wartości domyślnej w parserze (`None`) nie zasłaniały ustawień z pliku, dlatego `z_argumentow` pomija `None`. Zmienne środowiskowe są tekstem, więc wartości liczbowe i logiczne konwertujemy jawnie. Pliku ustawień szukamy w katalogu bieżącym — tak robi `konfiguracja.py` — albo w katalogu konfiguracji użytkownika (`%APPDATA%` na Windows, `~/.config` na Linuksie); inną ścieżkę wskazuje opcja `--config`.

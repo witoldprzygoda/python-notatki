@@ -128,7 +128,7 @@ print(obraz.size, [etykieta for etykieta, _ in dane])
 
 ![Wykres słupkowy sprzedaży sześciu produktów narysowany Pillow](img/wykres.png)
 
-Kilkadziesiąt wierszy `ImageDraw` wystarcza na czytelny wykres słupkowy do raportu: osie, słupki proporcjonalne do maksimum, wartości nad słupkami i skrócone etykiety. Funkcja `czcionka()` szuka czcionki z polskimi literami po nazwie — Arial na Windows i macOS, DejaVu Sans na Linuksie — i dopiero w ostateczności sięga po wbudowaną, bo moduł ma działać na każdym systemie. Do analizy danych właściwy jest matplotlib z rozdziału 14 „Python Notatki”, który rysuje osie, legendy i skale sam; funkcja `wykres_slupkowy()` służy tam, gdzie narzędzie ma nie zależeć od bibliotek naukowych — użyje jej narzędzie na następnej stronie.
+Kilkadziesiąt wierszy `ImageDraw` wystarcza na czytelny wykres słupkowy do raportu: osie, słupki proporcjonalne do maksimum, wartości nad słupkami i skrócone etykiety. Funkcja `czcionka()` szuka czcionki z polskimi literami po nazwie — Arial na Windows i macOS, DejaVu Sans na Linuksie — i dopiero w ostateczności sięga po wbudowaną, bo moduł ma działać na każdym systemie. Do analizy danych właściwy jest matplotlib z rozdziału 14 „Python Podstawy”, który rysuje osie, legendy i skale sam; funkcja `wykres_slupkowy()` służy tam, gdzie narzędzie ma nie zależeć od bibliotek naukowych — użyje jej narzędzie na następnej stronie.
 
 ## Przetwarzanie wsadowe
 
@@ -159,4 +159,4 @@ zdjecie-3.jpg -> (300, 180)
 ['zdjecie-1.png', 'zdjecie-2.png', 'zdjecie-3.png']
 ```
 
-**Przetwarzanie wsadowe** (ang. *batch processing*) to pętla po plikach z `pathlib` z rozdziału 9 „Python Notatki”: dla każdego obrazu miniatura o proporcjach oryginału i zapis pod nową nazwą w innym katalogu, żeby nie nadpisać źródeł. `Image.open()` w bloku `with` zwalnia plik po użyciu, co przy setkach obrazów ma znaczenie. Ten sam wzorzec obsługuje zmianę formatu, obrót zdjęć z telefonu, dodanie znaku wodnego czy podpisu z nazwą pliku — i z opcjami z rozdziału 20 staje się narzędziem `miniatury katalog --rozmiar 300`.
+**Przetwarzanie wsadowe** (ang. *batch processing*) to pętla po plikach z `pathlib` z rozdziału 9 „Python Podstawy”: dla każdego obrazu miniatura o proporcjach oryginału i zapis pod nową nazwą w innym katalogu, żeby nie nadpisać źródeł. `Image.open()` w bloku `with` zwalnia plik po użyciu, co przy setkach obrazów ma znaczenie. Ten sam wzorzec obsługuje zmianę formatu, obrót zdjęć z telefonu, dodanie znaku wodnego czy podpisu z nazwą pliku — i z opcjami z rozdziału 20 staje się narzędziem `miniatury katalog --rozmiar 300`.

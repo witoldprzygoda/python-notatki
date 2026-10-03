@@ -106,7 +106,7 @@ wektor_numpy      1.07 ms
 True
 ```
 
-`np.vectorize()` przyjmuje zwykłą funkcję i pozwala wywołać ją na tablicy, ale wykonuje ją w pętli w Pythonie — to wygoda zapisu, nie przyspieszenie, o czym dokumentacja mówi wprost. Prawdziwa wektoryzacja polega na przepisaniu warunku na operacje tablicowe: `np.where()` liczy obie gałęzie dla wszystkich elementów i wybiera właściwą — dziesiątki razy szybciej mimo nadmiarowych obliczeń. Inne wzorce zastępujące pętle: sumy narastające `cumsum()`, różnice sąsiednich elementów `np.diff()`, wyszukiwanie `searchsorted()` i grupowanie `np.add.at()` z poprzednich podrozdziałów. Gdy warunek zależy od poprzedniego elementu i nie da się go zapisać tablicowo, pozostaje kompilacja pętli w Numbie z rozdziału 13 „Python Notatki”.
+`np.vectorize()` przyjmuje zwykłą funkcję i pozwala wywołać ją na tablicy, ale wykonuje ją w pętli w Pythonie — to wygoda zapisu, nie przyspieszenie, o czym dokumentacja mówi wprost. Prawdziwa wektoryzacja polega na przepisaniu warunku na operacje tablicowe: `np.where()` liczy obie gałęzie dla wszystkich elementów i wybiera właściwą — dziesiątki razy szybciej mimo nadmiarowych obliczeń. Inne wzorce zastępujące pętle: sumy narastające `cumsum()`, różnice sąsiednich elementów `np.diff()`, wyszukiwanie `searchsorted()` i grupowanie `np.add.at()` z poprzednich podrozdziałów. Gdy warunek zależy od poprzedniego elementu i nie da się go zapisać tablicowo, pozostaje kompilacja pętli w Numbie z rozdziału 13 „Python Podstawy”.
 
 ## Duże dane — porcje i `memmap`
 
@@ -170,7 +170,7 @@ float64 int64
 
 - **Przepełnienie typów o stałej szerokości** — `uint8` zawija 260 do 4; dodanie skalara `int64` przenosi obliczenie do szerszego typu, ale to szczegół reguł promocji, nie zabezpieczenie: typ dobieramy do zakresu danych.
 - **Dzielenie** `/` zawsze daje typ zmiennoprzecinkowy — dla tablic całkowitych `float64`; dzielenie całkowite to `//`.
-- **Porównanie liczb zmiennoprzecinkowych** — `==` zawodzi jak w rozdziale 3 „Python Notatki”; `np.isclose()` i `np.allclose()` porównują z tolerancją.
+- **Porównanie liczb zmiennoprzecinkowych** — `==` zawodzi jak w rozdziale 3 „Python Podstawy”; `np.isclose()` i `np.allclose()` porównują z tolerancją.
 - **Przypisanie do wyniku indeksowania maską** — `a[a > 3][0] = 100` zmienia kopię, a zmiana przepada; poprawne jest `a[a > 3] = 100`, bo wtedy przypisanie trafia wprost do `a`.
 - **Rozbudowywanie tablicy w pętli** — `np.append()` kopiuje całość przy każdym wywołaniu; wyniki zbieramy w liście i zamieniamy na tablicę raz, na końcu.
 - **Pomylone osie** — `axis=0` agreguje w dół (przez wiersze), `axis=1` w prawo; przy wątpliwościach sprawdzamy kształt wyniku, a nie wartości.

@@ -4,7 +4,7 @@ Wynik automatyzacji trafia najczęściej do odbiorcy, który nie uruchomi skrypt
 
 Trzy biblioteki, każda z jednym zadaniem: **openpyxl** pisze i czyta pliki `.xlsx` — komórki, formuły, formaty, wykresy; **python-docx** buduje i czyta dokumenty `.docx` — nagłówki, akapity, tabele, obrazy; **Pillow** otwiera, przekształca i rysuje obrazy — miniatury, przycięcia, znaki wodne, proste wykresy. Rozdział kończy narzędzie wiersza poleceń według reguł z rozdziału 20, które z pliku CSV tworzy arkusz z podsumowaniem i wykresem oraz dokument z tabelą i obrazem, wraz z testami otwierającymi wytworzone pliki z powrotem. Przykłady pracują na niewielkiej tabeli sprzedaży zapisanej w CSV; obrazy skrypty rysują same, więc nic nie trzeba pobierać.
 
-Rozdział buduje na rozdziałach 7 (`defaultdict`), 9 (CSV, `pathlib`), 14 (matplotlib) i 16 (pytest) części „Python Notatki” oraz 4 (pandas i Excel), 16 (obrazy w tkinter), 20 (narzędzia wiersza poleceń) i 21 (rekordy z CSV) tej części.
+Rozdział buduje na rozdziałach 7 (`defaultdict`), 9 (CSV, `pathlib`), 14 (matplotlib) i 16 (pytest) części „Python Podstawy” oraz 4 (pandas i Excel), 16 (obrazy w tkinter), 20 (narzędzia wiersza poleceń) i 21 (rekordy z CSV) tej części.
 
 ```text title="requirements.txt"
 openpyxl==3.1.5

@@ -155,7 +155,7 @@ strona 2: 4 produktów
 z ceną: 9, średnia: 351.49 zł, najdroższy: Robot planetarny
 ```
 
-Skrypt najpierw przechodzi po stronach listy i zbiera odsyłacze, potem pobiera stronę każdego produktu i składa rekord — z oceną z listy, bo strona produktu jej nie ma. Rekordy zapisuje `csv.DictWriter` z rozdziału 9 „Python Notatki” z ustaloną listą pól oraz JSON dla programów, które oczekują danych zagnieżdżonych; `None` w CSV staje się pustym polem. Podsumowanie liczy tylko rekordy z ceną. Odstęp zerowy i pamięć podręczna są dopuszczalne wobec serwera testowego; wobec cudzego serwera odstęp należy zachować.
+Skrypt najpierw przechodzi po stronach listy i zbiera odsyłacze, potem pobiera stronę każdego produktu i składa rekord — z oceną z listy, bo strona produktu jej nie ma. Rekordy zapisuje `csv.DictWriter` z rozdziału 9 „Python Podstawy” z ustaloną listą pól oraz JSON dla programów, które oczekują danych zagnieżdżonych; `None` w CSV staje się pustym polem. Podsumowanie liczy tylko rekordy z ceną. Odstęp zerowy i pamięć podręczna są dopuszczalne wobec serwera testowego; wobec cudzego serwera odstęp należy zachować.
 
 ## Strony dynamiczne
 

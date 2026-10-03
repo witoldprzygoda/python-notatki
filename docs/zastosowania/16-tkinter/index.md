@@ -10,7 +10,7 @@ Wersje w chwili pisania: Python 3.14.8 z Tcl/Tk **9.0.4** — tkinter zgłasza w
 python -c "import tkinter; print(tkinter.TkVersion, tkinter.Tk().tk.call('info', 'patchlevel'))"
 ```
 
-CustomTkinter **6.0.0** i Pillow 12.3.0 (obrazy dla płótna i CustomTkinter) to jedyne nowe pakiety spoza biblioteki standardowej; pytest służy testom projektu. Plików do pobrania nie ma — obrazy przykładowe tworzą skrypty. Rozdział buduje na rozdziałach 6 (funkcje jako obiekty, lambda, domknięcia), 8 (wyjątki), 9 (CSV), 10 (klasy), 12 (klasy danych, wzorzec obserwatora), 15 (wątki, kolejka) i 16 (pytest) części „Python Notatki”. Plik wymagań rozdziału potrzebuje trzech wierszy — pytest jest w nim od poprzednich rozdziałów, dopisujemy dwa ostatnie:
+CustomTkinter **6.0.0** i Pillow 12.3.0 (obrazy dla płótna i CustomTkinter) to jedyne nowe pakiety spoza biblioteki standardowej; pytest służy testom projektu. Plików do pobrania nie ma — obrazy przykładowe tworzą skrypty. Rozdział buduje na rozdziałach 6 (funkcje jako obiekty, lambda, domknięcia), 8 (wyjątki), 9 (CSV), 10 (klasy), 12 (klasy danych, wzorzec obserwatora), 15 (wątki, kolejka) i 16 (pytest) części „Python Podstawy”. Plik wymagań rozdziału potrzebuje trzech wierszy — pytest jest w nim od poprzednich rozdziałów, dopisujemy dwa ostatnie:
 
 ```text title="requirements.txt"
 pytest==9.1.1

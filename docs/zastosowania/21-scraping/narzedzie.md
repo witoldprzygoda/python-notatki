@@ -194,7 +194,7 @@ python -m pytest -q
 4 passed in 0.93s
 ```
 
-Fixture o zasięgu modułu uruchamia serwer raz dla wszystkich testów i zamyka go po ostatnim (rozdział 16 „Python Notatki”). Funkcje rozbioru testujemy na plikach z dysku, bez sieci, ze ścieżką liczoną od `__file__`, więc testy działają z dowolnego katalogu; narzędzie — przez `main(argv)` z plikiem w `tmp_path` i strumieniami z `capsys`, jak w rozdziale 20. Wobec prawdziwego serwisu funkcje rozbioru testujemy na zapisanych kopiach jego stron, bez sieci; gdy serwis zmieni układ, narzędzie zacznie zwracać puste albo błędne rekordy — wtedy zapisujemy nową kopię, poprawiamy parser i test.
+Fixture o zasięgu modułu uruchamia serwer raz dla wszystkich testów i zamyka go po ostatnim (rozdział 16 „Python Podstawy”). Funkcje rozbioru testujemy na plikach z dysku, bez sieci, ze ścieżką liczoną od `__file__`, więc testy działają z dowolnego katalogu; narzędzie — przez `main(argv)` z plikiem w `tmp_path` i strumieniami z `capsys`, jak w rozdziale 20. Wobec prawdziwego serwisu funkcje rozbioru testujemy na zapisanych kopiach jego stron, bez sieci; gdy serwis zmieni układ, narzędzie zacznie zwracać puste albo błędne rekordy — wtedy zapisujemy nową kopię, poprawiamy parser i test.
 
 ## Zasady prawne i etyczne
 

@@ -1,6 +1,6 @@
 # Statystyka i porządkowanie danych
 
-Średnia i odchylenie z rozdziału 14 „Python Notatki” to początek; opis rozkładu wymaga kwantyli i histogramu, a praca z tabelą — sortowania po kolumnie, zliczania wartości i postępowania z brakami. Wszystko to NumPy wykonuje na całych tablicach, bez pętli.
+Średnia i odchylenie z rozdziału 14 „Python Podstawy” to początek; opis rozkładu wymaga kwantyli i histogramu, a praca z tabelą — sortowania po kolumnie, zliczania wartości i postępowania z brakami. Wszystko to NumPy wykonuje na całych tablicach, bez pętli.
 
 ## Kwantyle i rozkład
 
@@ -124,7 +124,7 @@ print(np.convolve(sprzedaz, np.ones(3) / 3, mode="valid").round(2))
 
 ## Brakujące wartości
 
-Brak pomiaru zapisujemy jako `np.nan` — specjalną wartość zmiennoprzecinkową „nie-liczbę” (ang. *not a number*) z rozdziału 3 „Python Notatki”, która nie jest równa niczemu, nawet sobie:
+Brak pomiaru zapisujemy jako `np.nan` — specjalną wartość zmiennoprzecinkową „nie-liczbę” (ang. *not a number*) z rozdziału 3 „Python Podstawy”, która nie jest równa niczemu, nawet sobie:
 
 ```python title="brakujace.py"
 import numpy as np

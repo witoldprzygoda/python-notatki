@@ -1,6 +1,6 @@
 # Python Zastosowania
 
-„Python Notatki” opisują język, jego bibliotekę standardową i warsztat programisty; z bibliotek zewnętrznych wprowadzają tylko NumPy i Matplotlib. „Python Zastosowania” prowadzą dalej — do bibliotek, na których opiera się codzienna praca z Pythonem: analiza danych, uczenie maszynowe, aplikacje z bazą danych i interfejsem, automatyzacja. Ta część nie jest przeglądem całego ekosystemu; jest zbiorem **ścieżek** — skończonych samouczków, z których każdy prowadzi od podstaw wybranej dziedziny do projektu spinającego jej narzędzia.
+„Python Podstawy” opisują język, jego bibliotekę standardową i warsztat programisty; z bibliotek zewnętrznych wprowadzają tylko NumPy i Matplotlib. „Python Zastosowania” prowadzą dalej — do bibliotek, na których opiera się codzienna praca z Pythonem: analiza danych, uczenie maszynowe, aplikacje z bazą danych i interfejsem, automatyzacja. Ta część nie jest przeglądem całego ekosystemu; jest zbiorem **ścieżek** — skończonych samouczków, z których każdy prowadzi od elementarnych pojęć wybranej dziedziny do projektu spinającego jej narzędzia.
 
 ## Układ części
 
@@ -15,7 +15,7 @@
 
 ## Wymagania i zasady
 
-Ta część zakłada znajomość języka w zakresie „Python Notatki”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały „Python Notatki”, na których buduje.
+Ta część zakłada znajomość języka w zakresie części „Python Podstawy”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały części „Python Podstawy”, na których buduje.
 
 - **Jedna biblioteka na rozdział.** Gdy zadanie ma kilka równorzędnych narzędzi, wybieramy jedno i wskazuje pozostałe jednym zdaniem.
 - **Wersje w chwili pisania.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, a pakiety instalujemy w środowisku projektu z rozdziału 1 według pliku wymagań z przypiętymi wersjami.

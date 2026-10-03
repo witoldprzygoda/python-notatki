@@ -11,7 +11,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 - **Miejsce:** `docs/01-instalacja/pip.md` — sekcje „Przykład instalacji”
   i „Przydatne polecenia”.
-- **Opis:** część „Python Notatki” nie mówi, że pip instaluje razem z pakietem
+- **Opis:** część „Python Podstawy” nie mówi, że pip instaluje razem z pakietem
   jego zależności, ani jak sprawdzić, czy są dostępne nowsze wersje
   zainstalowanych pakietów. Część „Python Zastosowania” omawia już numery wersji
   i ostrzeżenia o wycofaniu (rozdział 1, `dokumentacja-bibliotek.md`, sekcja
@@ -62,7 +62,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
   odniesienia po ukończeniu ścieżek (ścieżki są ukończone od 23 IX 2026).
-  Książka zawiera 59 tabel (42 w części „Python Notatki”, 17 w części „Python
+  Książka zawiera 59 tabel (42 w części „Python Podstawy”, 17 w części „Python
   Zastosowania”); przy układzie z zakładkami czwarta zakładka pasowałaby
   naturalnie.
 - **Rozważone warianty:** pełne ściągawki tematyczne (osobny projekt z planem,
@@ -94,7 +94,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   trafiają do `dev` ani `master`.
 - **Opis:** decyzje autora z 3 X 2026: slajdy nie należą do książki, ale
   czerpią z niej logikę materiału. Pierwszy zestaw obejmuje część „Python
-  Notatki” (rozdziały 1–16); slajdy do części „Python Zastosowania” powstaną
+  Podstawy” (rozdziały 1–16); slajdy do części „Python Zastosowania” powstaną
   później jako osobny zestaw. Dobór treści i kolejność tematów przejmujemy
   z dawnych wykładów (`sources/lectures/`), lecz slajdy powstają od nowa,
   zgodnie z tekstem książki, metodą i w stylu projektu `cpp-notatki`.
@@ -203,14 +203,15 @@ rozdziałów; nazwy plików bez zmian (branch `content/etykiety-polpauza`).
 
 ### Zakładki w górnym pasku (2 X 2026)
 
-Wariant C: części „Python Notatki” i „Python Zastosowania” (oraz strona główna)
-jako zakładki w górnym pasku (`navigation.tabs`), rozdziały bieżącej części
-zwijane w lewym panelu (bez `navigation.sections`). Usunięto komentarz
-o wariantach układu w `mkdocs.yml` i reguły `docs/stylesheets/extra.css`
-dla nagłówków grup `navigation.sections`, w tym ukrywanie etykiety „Python
-Notatki” — w poprzednim układzie na stronach części „Python Zastosowania”
-lewy panel nosił tytuł „Python Notatki” (nazwa serwisu). Porównanie
-wariantów A–C na zrzutach (branch `content/zakladki-czesci`).
+Wariant C: części „Python Notatki” (obecnie „Python Podstawy”) i „Python
+Zastosowania” (oraz strona główna) jako zakładki w górnym pasku
+(`navigation.tabs`), rozdziały bieżącej części zwijane w lewym panelu (bez
+`navigation.sections`). Usunięto komentarz o wariantach układu w `mkdocs.yml`
+i reguły `docs/stylesheets/extra.css` dla nagłówków grup `navigation.sections`,
+w tym ukrywanie etykiety „Python Notatki” — w poprzednim układzie na stronach
+części „Python Zastosowania” lewy panel nosił tytuł „Python Notatki” (nazwa
+serwisu). Porównanie wariantów A–C na zrzutach (branch
+`content/zakladki-czesci`).
 
 ### Ćwiczenia interaktywne dla nowych rozdziałów (3 X 2026)
 
@@ -241,3 +242,26 @@ startem kursu (plan fal, serwer wydania kursowego, częstotliwość
 synchronizacji) zbiera pozycja „Projekt ćwiczeń: plan fal, serwer kursu
 i synchronizacja” w sekcji „Otwarte”. Zasady pracy opisuje
 `DEVELOPMENT_WORKFLOW.md`.
+
+### Nazwa części pierwszej: „Python Podstawy” (3 X 2026)
+
+Część pierwsza (rozdziały 1–16) nosi nazwę „Python Podstawy”, a „Python
+Notatki” pozostaje nazwą serwisu, książki i repozytorium (`site_name`, tytuł
+strony głównej, zdania o całej książce). Uzasadnienie autora: nazwa ma
+wskazywać to, co należy do samego języka, bez nadmiernego udziału bibliotek
+zewnętrznych, choć słowo „podstawy” może się kojarzyć z węższym zakresem, niż
+obejmuje część. Nowa nazwa usuwa też powtórzenie nazwy serwisu w nazwie części.
+Rozważone warianty: „Python Język”, „Python Fundamenty” oraz zmiana nazwy
+serwisu zamiast nazwy części.
+
+Zakres zmiany: etykieta części w nawigacji (`mkdocs.yml`); na stronie głównej
+nagłówek listy rozdziałów, wstęp i akapit o części „Python Zastosowania”;
+odwołania w treści obu części (133 wystąpienia na 80 stronach, w większości
+wskazania rozdziałów części pierwszej na stronach części „Python Zastosowania”);
+zapisy bieżące w `PLAN_ZASTOSOWANIA.md` i w tym pliku. Nagłówek listy rozdziałów
+ma obecnie identyfikator `python-podstawy` zamiast `python-notatki_1`, do
+którego nie prowadził żaden odsyłacz; identyfikator `python-notatki` należy do
+tytułu strony i się nie zmienia. Zapisy datowane zachowują dawną nazwę,
+z dopiskiem obecnej nazwy tam, gdzie dawna mogłaby wprowadzać w błąd; plany
+rozdziałów w `plans/` pozostają bez zmian jako zapis historii (branch
+`content/python-podstawy`).

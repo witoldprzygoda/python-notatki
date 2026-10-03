@@ -1,6 +1,6 @@
 # Potok — czyszczenie, analiza i testy
 
-Decyzje z poprzedniego podrozdziału zamieniamy w kod: moduł przygotowania, który z pliku surowego tworzy tabelę przetworzoną i liczy, co odrzucił, oraz moduł analizy, który z tabeli przetworzonej wytwarza odpowiedzi na pytania raportu. Oba są zwykłymi modułami z rozdziału 7 „Python Notatki” — funkcje przyjmują ramkę i zwracają ramkę, jak w potoku z rozdziału 5 — a testy sprawdzają je na kilku wierszach o znanym wyniku.
+Decyzje z poprzedniego podrozdziału zamieniamy w kod: moduł przygotowania, który z pliku surowego tworzy tabelę przetworzoną i liczy, co odrzucił, oraz moduł analizy, który z tabeli przetworzonej wytwarza odpowiedzi na pytania raportu. Oba są zwykłymi modułami z rozdziału 7 „Python Podstawy” — funkcje przyjmują ramkę i zwracają ramkę, jak w potoku z rozdziału 5 — a testy sprawdzają je na kilku wierszach o znanym wyniku.
 
 ## Moduł przygotowania
 
@@ -185,7 +185,7 @@ Skrypt w `skrypty/` importuje sąsiednie moduły wprost, bo Python dodaje katalo
 
 ## Testy
 
-Testy — pytest z rozdziałów 7 i 16 „Python Notatki” — leżą w `tests/`; plik `conftest.py` dodaje katalog `skrypty/` do ścieżki importu, żeby testy widziały moduły bez instalowania pakietu — rozwiązanie doraźne, wystarczające dla projektu bez pakietu; w większym projekcie moduły trafiłyby do pakietu z `pyproject.toml` instalowanego edytowalnie, jak w rozdziale 7:
+Testy — pytest z rozdziałów 7 i 16 „Python Podstawy” — leżą w `tests/`; plik `conftest.py` dodaje katalog `skrypty/` do ścieżki importu, żeby testy widziały moduły bez instalowania pakietu — rozwiązanie doraźne, wystarczające dla projektu bez pakietu; w większym projekcie moduły trafiłyby do pakietu z `pyproject.toml` instalowanego edytowalnie, jak w rozdziale 7:
 
 ```python title="tests/conftest.py"
 import sys

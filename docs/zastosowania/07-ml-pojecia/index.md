@@ -4,7 +4,7 @@
 
 Ten rozdział otwiera ścieżkę uczenia maszynowego i daje jej wspólne podstawy: pojęcia, którymi posługują się wszystkie kolejne rozdziały; pierwszy kompletny model — od danych do predykcji dla nowej obserwacji; warsztat biblioteki scikit-learn, w której każdy model ma ten sam interfejs; oraz zasady uczciwej oceny, bez których wynik modelu jest złudzeniem. Rozdziały 8–10 omawiają klasyfikację, regresję z przygotowaniem danych i uczenie bez nadzoru, rozdział 11 sieci neuronowe w PyTorch, a rozdział 12 zamyka ścieżkę projektem.
 
-Rozdział zakłada ścieżkę danych: tablice i generator z ziarnem z rozdziału 2, wykresy z rozdziału 3, ramki pandas z rozdziałów 4–5 i potok z testami z rozdziału 6; z części „Python Notatki” korzysta z rozdziałów 8 (instrukcja `with`), 9 (`pickle`) i 14 (NumPy). Biblioteka **scikit-learn** w wersji 1.9.1 pociąga za sobą między innymi SciPy 1.18.1 i joblib 1.6.0; dane rozdziału to zbiory wbudowane w bibliotekę, więc nie ma plików do pobrania. Do pliku wymagań projektu dopisujemy jeden wiersz:
+Rozdział zakłada ścieżkę danych: tablice i generator z ziarnem z rozdziału 2, wykresy z rozdziału 3, ramki pandas z rozdziałów 4–5 i potok z testami z rozdziału 6; z części „Python Podstawy” korzysta z rozdziałów 8 (instrukcja `with`), 9 (`pickle`) i 14 (NumPy). Biblioteka **scikit-learn** w wersji 1.9.1 pociąga za sobą między innymi SciPy 1.18.1 i joblib 1.6.0; dane rozdziału to zbiory wbudowane w bibliotekę, więc nie ma plików do pobrania. Do pliku wymagań projektu dopisujemy jeden wiersz:
 
 ```text title="requirements.txt"
 numpy==2.5.3
