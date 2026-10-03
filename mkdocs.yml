@@ -4,6 +4,7 @@ site_author: Witold Przygoda
 
 theme:
   name: material
+  custom_dir: overrides
   language: pl
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -36,6 +37,7 @@ theme:
     - content.code.copy
     - content.tabs.link
     - navigation.tabs
+    - navigation.tabs.sticky
 
 plugins:
   - search:
@@ -59,6 +61,8 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/naglowek.js
 
 nav:
   - Strona główna: index.md

@@ -211,7 +211,8 @@ i reguły `docs/stylesheets/extra.css` dla nagłówków grup `navigation.section
 w tym ukrywanie etykiety „Python Notatki” — w poprzednim układzie na stronach
 części „Python Zastosowania” lewy panel nosił tytuł „Python Notatki” (nazwa
 serwisu). Porównanie wariantów A–C na zrzutach (branch
-`content/zakladki-czesci`).
+`content/zakladki-czesci`). Osobny pasek zakładek zastąpiło
+3 X 2026 menu części w belce tytułowej (wpis „Menu części w belce tytułowej”).
 
 ### Ćwiczenia interaktywne dla nowych rozdziałów (3 X 2026)
 
@@ -265,3 +266,24 @@ tytułu strony i się nie zmienia. Zapisy datowane zachowują dawną nazwę,
 z dopiskiem obecnej nazwy tam, gdzie dawna mogłaby wprowadzać w błąd; plany
 rozdziałów w `plans/` pozostają bez zmian jako zapis historii (branch
 `content/python-podstawy`).
+
+### Menu części w belce tytułowej (3 X 2026)
+
+Osobny pasek zakładek znikał przy przewijaniu strony. Zastąpiło go menu
+w nieruchomej belce tytułowej, między tytułem serwisu a przełącznikiem motywu,
+w wariancie „pigułki” wybranym przez autora spośród trzech („podkreślenie”,
+„pigułki”, „segment”), ze zrzutami i podglądem. Menu zawiera tylko dwie
+części, „Python Podstawy” i „Python Zastosowania”, zawsze z pełnymi nazwami;
+odnośnik „Strona główna” usunięto z menu (strona pozostaje dostępna przez logo
+i tytuł serwisu, który prowadzi do strony głównej). Od szerokości 640 px belka
+ma jeden rząd, poniżej — dwa rzędy z parą części w drugim; skrypt
+`docs/javascripts/naglowek.js` dopasowuje odstęp przeskoków do sekcji do
+rzeczywistej wysokości belki. Autor zaakceptował też ciemniejszą belkę
+w motywie ciemnym (#1975d2; kontrast białego tekstu 4,65:1 zamiast 3,19:1).
+Zmiany: `custom_dir: overrides` i `navigation.tabs.sticky` w `mkdocs.yml`,
+`overrides/partials/header.html` (kopia szablonu Material 9.7.7 z trzema
+opisanymi zmianami — po każdej aktualizacji Material porównać z oryginałem),
+`overrides/partials/czesci.html` i style w `docs/stylesheets/extra.css`. Nie
+wprowadzono: proponowanej poprawki widoczności fokusu przy nawigacji
+klawiaturą pod wysoką belką (WCAG 2.4.11) — do ewentualnej decyzji (branch
+`infra/menu-czesci-w-belce`).

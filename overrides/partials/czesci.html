@@ -1,0 +1,37 @@
+{#-
+  Python Notatki: menu części podręcznika w belce nagłówka (pigułki).
+  Pozycjami menu są sekcje najwyższego poziomu nav w mkdocs.yml, czyli części
+  podręcznika; strony najwyższego poziomu (strona główna) do menu nie trafiają.
+  Etykiety i odnośniki pochodzą z nav; odnośnik prowadzi do pierwszej strony
+  części, jak w partials/tabs-item.html.
+  Atrybut data-md-component="tabs" jest istotny: przy navigation.tabs.sticky
+  nawigacja natychmiastowa (navigation.instant) podmienia ten element przy
+  każdym przejściu, więc oznaczenie aktywnej części pozostaje aktualne.
+  Aktywna część otrzymuje aria-current="page" na swojej stronie wejściowej,
+  a aria-current="true" na pozostałych stronach.
+  Odnośnik wyznacza pole dotyku na całą wysokość wiersza belki, a pigułkę
+  rysuje wewnętrzny element span. Jego atrybut data-etykieta służy wyłącznie
+  arkuszowi stylów (rezerwa szerokości pogrubionej etykiety w extra.css,
+  sekcja 7a).
+-#}
+{%- macro landing(item) -%}
+  {%- if item.children -%}
+    {{- landing(item.children | first) -}}
+  {%- else -%}
+    {{- item.url -}}
+  {%- endif -%}
+{%- endmacro -%}
+<nav class="pn-czesci" aria-label="Części podręcznika" data-md-component="tabs">
+  <ul class="pn-czesci__lista">
+    {% for item in nav.items if item.children %}
+      {% set target = landing(item) | string %}
+      <li class="pn-czesci__pozycja">
+        {% if item.active %}
+          <a href="{{ target | url }}" class="pn-czesci__link pn-czesci__link--aktywny" aria-current="{{ 'page' if page and page.url == target else 'true' }}"><span class="pn-czesci__etykieta" data-etykieta="{{ item.title | e }}">{{ item.title }}</span></a>
+        {% else %}
+          <a href="{{ target | url }}" class="pn-czesci__link"><span class="pn-czesci__etykieta" data-etykieta="{{ item.title | e }}">{{ item.title }}</span></a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

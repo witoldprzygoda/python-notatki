@@ -38,9 +38,24 @@
   --md-footer-fg-color--lighter: rgba(0, 0, 0, .40);
 }
 
-/* ---------- 1b. Tryb ciemny: ten sam błękitny akcent ---------- */
+/* ---------- 1b. Tryb ciemny: ten sam błękitny akcent i odcień belki ---------- */
 [data-md-color-scheme="slate"] {
   --md-accent-fg-color: #42a5f5;
+}
+/* Belka w ciemniejszym odcieniu barwy podstawowej (#1975d2, praktycznie równym
+   #1976d2 trybu jasnego): biały tekst w belce ma kontrast 4,65:1 zamiast
+   3,19:1 na domyślnym #2094f3. Ten sam odcień otrzymują tytuł szuflady na
+   węższych ekranach i pasek zakładek (obecny tylko bez navigation.tabs.sticky).
+   Blok nie zależy od menu części; jego usunięcie przywraca odcień domyślny.
+   Selektor tytułu szuflady i próg 76.234375em pochodzą z Materiala 9.7.7. */
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color: var(--md-primary-fg-color--dark);
+}
+@media screen and (max-width: 76.234375em) {
+  [data-md-color-scheme="slate"] .md-nav--primary .md-nav__title[for="__drawer"] {
+    background-color: var(--md-primary-fg-color--dark);
+  }
 }
 
 /* ---------- 2. Treść na białej karcie z cieniem ---------- */
@@ -178,7 +193,7 @@
 [data-md-color-scheme="default"] .md-typeset .admonition.success,
 [data-md-color-scheme="default"] .md-typeset details.success { background: #e8f5e9; border-color: #4caf50; }
 
-/* ---------- 7. Układ i nawigacja (części jako zakładki, rozdziały zwijane) ---------- */
+/* ---------- 7. Układ i nawigacja (części w belce nagłówka, rozdziały zwijane) ---------- */
 @media screen and (min-width: 76.25em) {
   /* szersza kolumna treści (domyślnie 61rem) i węższe panele */
   .md-grid { max-width: 84rem; }
@@ -225,6 +240,143 @@
   /* smukłe suwaki paneli */
   .md-sidebar__scrollwrap::-webkit-scrollbar { width: 4px; }
   .md-sidebar__scrollwrap::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); border-radius: 2px; }
+}
+
+/* ---------- 7a. Menu części w belce nagłówka (pigułki) ---------- */
+/* Menu wymienia części podręcznika (sekcje najwyższego poziomu nav) pełnymi
+   nazwami i pozostaje widoczne przy każdej szerokości ekranu. Belka ma dwa
+   układy: od szerokości 40em menu stoi w jednym wierszu między tytułem
+   a przełącznikiem palety, a poniżej 40em przechodzi do drugiego wiersza
+   belki, zanim zabrakłoby miejsca na pełny tytuł serwisu. Próg 40em wynika
+   z szerokości tytułu i obecnych nazw części; po zmianie nazw należy
+   sprawdzić wygląd belki przy tej szerokości. Gdyby etykiety mimo to nie
+   mieściły się w wierszu (np. przy odstępach liter powiększonych przez
+   użytkownika), menu się zwęża, a etykiety przechodzą do drugiej linii
+   pigułki, zamiast wystawać poza belkę; przy zwykłych ustawieniach
+   pozostają jednoliniowe. Reguły dotyczące całej belki korzystają z klasy
+   pn-naglowek-czesci, którą partials/header.html nadaje belce razem
+   z menu. */
+.pn-czesci {
+  margin: 0 .4rem 0 .6rem;
+}
+.pn-czesci__lista {
+  display: flex;
+  gap: .25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pn-czesci__pozycja {
+  display: flex;
+  margin: 0;
+}
+/* odnośnik wyznacza pole dotyku na całą wysokość wiersza belki,
+   a pigułkę rysuje wewnętrzna etykieta */
+.pn-czesci__link {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.4rem;
+  color: var(--md-primary-bg-color);
+  font-size: .7rem;
+  -webkit-tap-highlight-color: transparent;
+}
+.pn-czesci__etykieta {
+  display: block;
+  padding: .3rem .7rem;
+  border-radius: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  transition: background-color .15s;
+}
+/* niewidoczna pogrubiona kopia etykiety rezerwuje szerokość,
+   więc zmiana aktywnej części nie przesuwa pigułek */
+.pn-czesci__etykieta::after {
+  content: attr(data-etykieta);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 700;
+}
+/* wypełnienia przyciemniają belkę (aktywna pigułka ma odcień pola wyszukiwania),
+   więc biały tekst zachowuje kontrast co najmniej 4,5:1; półprzezroczysta
+   biel rozjaśniałaby tło i obniżała kontrast poniżej tego progu */
+.pn-czesci__link:hover .pn-czesci__etykieta { background-color: rgba(0, 0, 0, .12); }
+.pn-czesci__link--aktywny .pn-czesci__etykieta,
+.pn-czesci__link--aktywny:hover .pn-czesci__etykieta {
+  background-color: rgba(0, 0, 0, .26);
+  font-weight: 700;
+}
+/* pierścień fokusu obejmuje pigułkę, a nie całe pole dotyku */
+.pn-czesci__link:focus-visible { outline: none; }
+.pn-czesci__link:focus-visible .pn-czesci__etykieta {
+  outline: 2px solid #ffffff;
+  outline-offset: 1px;
+}
+/* pole tytułu jest kontenerem zapytań: gdyby było węższe niż 4rem (np. przy
+   powiększonym piśmie), tytuł znika, zamiast pokazywać kilka liter
+   z wielokropkiem; przy zwykłych ustawieniach tytuł mieści się w całości */
+.pn-naglowek-czesci .md-header__title { container: pn-tytul / inline-size; }
+@container pn-tytul (max-width: 4rem) {
+  .md-header__ellipsis { visibility: hidden; }
+}
+/* margines przewijania do kotwic: wysokość belki + 1.2rem, jak w Materialu
+   (3.6rem = 2.4rem + 1.2rem). Rzeczywistą wysokość belki podaje zmienna
+   --pn-naglowek ze skryptu javascripts/naglowek.js, dzięki czemu nagłówek
+   sekcji nie trafia pod belkę także wtedy, gdy belka urośnie (np. przy
+   powiększonej minimalnej wielkości pisma w przeglądarce); bez skryptu
+   obowiązuje wysokość jednego lub dwóch wierszy belki. Pozostałe
+   przesunięcia zależne od belki (przycisk powrotu na górę, panele boczne,
+   zamiana tytułu przy przewijaniu) Material 9.7.7 wylicza w skrypcie
+   z rzeczywistej wysokości belki. */
+.pn-naglowek-czesci ~ .md-container .md-typeset :target {
+  --md-scroll-margin: calc(var(--pn-naglowek, 2.4rem) + 1.2rem);
+}
+/* ekrany węższe niż 40em: menu w drugim wierszu belki, która rośnie z 2.4rem
+   do 4.6rem. Pozycje dzielą między siebie całą szerokość wiersza (pole
+   dotyku bez martwych stref), a skrajne pozycje dosuwają pigułki do środka
+   wiersza, więc para pigułek stoi pośrodku z tym samym odstępem co w belce
+   jednowierszowej. Panele boczne zmian nie wymagają: poniżej 60em
+   nawigacja jest szufladą przykrywającą belkę, a spis treści należy do
+   szuflady. */
+@media screen and (max-width: 39.984375em) {
+  .pn-naglowek-czesci .md-header__inner { flex-wrap: wrap; }
+  .pn-czesci {
+    flex: 1 0 100%;
+    order: 1;
+    margin: 0 -.2rem;
+  }
+  .pn-czesci__lista { gap: 0; }
+  .pn-czesci__pozycja { flex: 1 1 auto; }
+  .pn-czesci__link { min-height: 2.2rem; }
+  .pn-czesci__pozycja:first-child .pn-czesci__link {
+    justify-content: flex-end;
+    padding-right: .125rem;
+  }
+  .pn-czesci__pozycja:last-child .pn-czesci__link {
+    justify-content: flex-start;
+    padding-left: .125rem;
+  }
+  .pn-czesci__etykieta { padding: .3rem .5rem; }
+  .pn-naglowek-czesci ~ .md-container .md-typeset :target {
+    --md-scroll-margin: calc(var(--pn-naglowek, 4.6rem) + 1.2rem);
+  }
+}
+/* ekrany węższe niż 320 px: pismo etykiet 13 px, proporcjonalnie węższe
+   pigułki (zapas na powiększone pismo, np. minimalną wielkość pisma
+   w przeglądarce) i węższy lewy margines tytułu, żeby pełny tytuł serwisu
+   mieścił się przed ikonami */
+@media screen and (max-width: 19.984375em) {
+  .pn-czesci__link { font-size: .65rem; }
+  .pn-czesci__etykieta { padding: .3rem .45rem; }
+  .pn-naglowek-czesci .md-header__title { margin-left: .8rem; }
+}
+/* tryb wymuszonych kolorów (np. motywy kontrastowe systemu Windows) pomija tła,
+   dlatego aktywną część wyróżnia obwódka */
+@media (forced-colors: active) {
+  .pn-czesci__link--aktywny .pn-czesci__etykieta { outline: 1px solid CanvasText; }
 }
 
 /* ---------- 8. Stopka: Poprzedni / Następny jako przyciski ---------- */
