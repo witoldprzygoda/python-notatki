@@ -32,8 +32,10 @@ ipykernel==7.3.0
 jupyterlab==4.6.3
 ```
 
+Środowisko tworzymy tylko wtedy, gdy katalogu `.venv` jeszcze nie ma — powód wyjaśnia podrozdział [Wirtualne środowisko venv](../../01-instalacja/venv.md#utworzenie-srodowiska):
+
 ```powershell title="Terminal"
-python -m venv .venv
+if (-not (Test-Path .venv)) { python -m venv .venv }
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```

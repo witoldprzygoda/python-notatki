@@ -132,7 +132,7 @@ Pasek narzędzi debugowania u góry okna steruje dalszym wykonaniem. **Continue*
 
 Pułapka może zatrzymywać program tylko wtedy, gdy spełniony jest warunek: kliknięcie prawym przyciskiem na kropce i wybór **Edit Breakpoint** pozwala wpisać wyrażenie, na przykład `n == 3`, albo liczbę trafień, po której debugger ma się zatrzymać. Jest to szczególnie przydatne w pętlach o tysiącach obrotów, gdy błąd występuje dla jednej wartości. Podobnym narzędziem jest **pułapka rejestrująca** (ang. *logpoint*) — pułapka, która nie zatrzymuje programu, lecz wypisuje komunikat z wartościami wyrażeń w nawiasach klamrowych; zastępuje tymczasowe `print()` bez zmiany kodu.
 
-Uruchomienie klawiszem ++f5++ z wyborem **Python File** wystarcza do plików uruchamianych bez argumentów. Gdy program przyjmuje argumenty wiersza poleceń z rozdziału 7 albo ma być uruchamiany w innym katalogu, konfigurację zapisujemy w pliku `launch.json` w katalogu `.vscode` projektu; VSC tworzy go po wybraniu w widoku Run and Debug pozycji **create a launch.json file**:
+Uruchomienie klawiszem ++f5++ z wyborem **Python File** wystarcza do plików uruchamianych bez argumentów. Gdy program przyjmuje argumenty wiersza poleceń z rozdziału 7 albo ma być uruchamiany w innym katalogu, konfigurację zapisujemy w pliku `launch.json` w katalogu `.vscode` projektu; VSC tworzy go po wybraniu w widoku Run and Debug pozycji **create a launch.json file**. Poniższa treść dotyczy nowego pliku — jeżeli projekt ma już `launch.json`, nie zastępujemy go, lecz dopisujemy do listy `"configurations"` sam obiekt konfiguracji (od nawiasu `{` przed polem `"name"` do odpowiadającego mu `}`), oddzielony przecinkiem od poprzednich:
 
 ```json title=".vscode/launch.json"
 {

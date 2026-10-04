@@ -183,7 +183,7 @@ bledy.py:11: error: Item "None" of "str | None" has no attribute "upper"  [union
 Found 2 errors in 1 file (checked 1 source file)
 ```
 
-Pierwszy błąd to niezgodność deklaracji z wartością; drugi — wywołanie metody na wartości, która może być `None`: dla `znajdz(-1)` program zakończyłby się wyjątkiem `AttributeError`, a mypy wskazuje to miejsce bez uruchamiania kodu. Kod błędu w nawiasie kwadratowym pozwala wyciszyć pojedynczy wiersz komentarzem `# type: ignore[union-attr]`, gdy sprawdzacz nie zna kontekstu — z umiarem, bo każdy taki komentarz wyłącza fragment kontroli typów. Konfigurację zapisujemy w `pyproject.toml` z rozdziału 7:
+Pierwszy błąd to niezgodność deklaracji z wartością; drugi — wywołanie metody na wartości, która może być `None`: dla `znajdz(-1)` program zakończyłby się wyjątkiem `AttributeError`, a mypy wskazuje to miejsce bez uruchamiania kodu. Kod błędu w nawiasie kwadratowym pozwala wyciszyć pojedynczy wiersz komentarzem `# type: ignore[union-attr]`, gdy sprawdzacz nie zna kontekstu — z umiarem, bo każdy taki komentarz wyłącza fragment kontroli typów. Konfigurację dopisujemy na końcu pliku `pyproject.toml` z rozdziału 7; pozostałe tabele pliku zostają bez zmian:
 
 ```toml title="pyproject.toml"
 [tool.mypy]

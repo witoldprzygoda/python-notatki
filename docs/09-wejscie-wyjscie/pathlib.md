@@ -84,7 +84,7 @@ for sciezka in [
 ]:
     p = Path(sciezka)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text("", encoding="utf-8")
+    p.touch()
 
 projekt = Path("projekt")
 print(sorted(str(x) for x in projekt.iterdir()))
@@ -104,7 +104,7 @@ projekt\kod ['narzedzia'] ['main.py']
 projekt\kod\narzedzia [] ['pomoc.py']
 ```
 
-Pętla tworząca pliki pokazuje typowy zapis `mkdir(parents=True, exist_ok=True)`: tworzy brakujące katalogi nadrzędne i nie zgłasza błędu, gdy katalog już istnieje. W listach ścieżki są wypisane przez `repr()`, stąd podwojone ukośniki; `print()` pojedynczej ścieżki, jak w pętli `walk()`, pokazuje je pojedynczo. Wzorzec `rglob("*.py")` jest skrótem dla `glob("**/*.py")`, gdzie `**` oznacza dowolną liczbę poziomów katalogów.
+Pętla tworząca pliki pokazuje typowy zapis `mkdir(parents=True, exist_ok=True)`: tworzy brakujące katalogi nadrzędne i nie zgłasza błędu, gdy katalog już istnieje; `touch()` tworzy pusty plik, a istniejącego nie opróżnia, lecz zmienia tylko czas jego modyfikacji. W listach ścieżki są wypisane przez `repr()`, stąd podwojone ukośniki; `print()` pojedynczej ścieżki, jak w pętli `walk()`, pokazuje je pojedynczo. Wzorzec `rglob("*.py")` jest skrótem dla `glob("**/*.py")`, gdzie `**` oznacza dowolną liczbę poziomów katalogów.
 
 ## Tworzenie, kopiowanie, przenoszenie i usuwanie
 
@@ -115,8 +115,8 @@ import shutil
 from pathlib import Path
 
 baza = Path("archiwum")
-shutil.rmtree(baza, ignore_errors=True)
-(baza / "2025").mkdir(parents=True)
+baza.mkdir()
+(baza / "2025").mkdir()
 plik = baza / "2025" / "raport.txt"
 plik.write_text("dane\n", encoding="utf-8")
 (baza / "puste.txt").touch()
@@ -143,7 +143,7 @@ False True 'dane\n'
 False
 ```
 
-Program zaczyna od `shutil.rmtree(baza, ignore_errors=True)`, by każde uruchomienie rozpoczynało się od pustego katalogu. Po skopiowaniu i przeniesieniu kopia pod starą nazwą nie istnieje, a pod nową — tak; `unlink(missing_ok=True)` nie zgłasza błędu dla brakującego pliku, w odróżnieniu od domyślnego `unlink()`, które zgłasza `FileNotFoundError`. `rmdir()` usuwa wyłącznie pusty katalog — dlatego wcześniej usunęliśmy `raport.txt` — a `shutil.rmtree()` usuwa całe drzewo bez potwierdzenia, więc ścieżkę przekazywaną do tej funkcji warto sprawdzić szczególnie uważnie. Metoda `replace()` działa jak `rename()`, ale nadpisuje istniejący cel; to ona realizuje bezpieczny zapis z podrozdziału o plikach tekstowych — zapis nowej wersji do pliku tymczasowego i podmianę oryginału jednym wywołaniem.
+Program zaczyna od `baza.mkdir()` bez argumentu `exist_ok`: gdy katalog `archiwum` już istnieje — choćby z plikami czytelnika albo po przerwanym wcześniejszym uruchomieniu — `mkdir()` zgłasza `FileExistsError` i program kończy się, zanim cokolwiek zmieni, więc końcowe `shutil.rmtree()` usuwa wyłącznie katalog utworzony w tym uruchomieniu. Po skopiowaniu i przeniesieniu kopia pod starą nazwą nie istnieje, a pod nową — tak; `unlink(missing_ok=True)` nie zgłasza błędu dla brakującego pliku, w odróżnieniu od domyślnego `unlink()`, które zgłasza `FileNotFoundError`. `rmdir()` usuwa wyłącznie pusty katalog — dlatego wcześniej usunęliśmy `raport.txt` — a `shutil.rmtree()` usuwa całe drzewo bez potwierdzenia, więc ścieżkę przekazywaną do tej funkcji warto sprawdzić szczególnie uważnie. Metoda `replace()` działa jak `rename()`, ale nadpisuje istniejący cel; to ona realizuje bezpieczny zapis z podrozdziału o plikach tekstowych — zapis nowej wersji do pliku tymczasowego i podmianę oryginału jednym wywołaniem.
 
 ## Odczyt i zapis skrótami — `read_text()` i `write_text()`
 

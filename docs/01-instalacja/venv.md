@@ -16,20 +16,20 @@ globalny Python
 
 ## Utworzenie środowiska
 
-Środowisko tworzymy w katalogu projektu:
+Środowisko tworzymy w katalogu projektu (tu `C:\projekty\moj-projekt`; katalog zakładamy wcześniej, np. w Eksploratorze plików). Polecenie `python -m venv` wykonane w katalogu, który zawiera już środowisko o tej nazwie, nie zgłasza błędu, lecz przestawia to środowisko na bieżący interpreter, przez co pakiety zainstalowane dla innej wersji Pythona mogą przestać działać. Dlatego środowisko tworzymy tylko wtedy, gdy katalogu `.venv` jeszcze nie ma — istniejące wystarczy aktywować:
 
 ```powershell title="Terminal"
 cd C:\projekty\moj-projekt
-python -m venv .venv
+if (-not (Test-Path .venv)) { python -m venv .venv }
 ```
 
 Wersję interpretera można wskazać jawnie poleceniem `py` z Python Install Managera (opis w podrozdziale [Instalacja Pythona](instalacja.md)):
 
 ```powershell title="Terminal"
-py -V:3.14 -m venv .venv
+if (-not (Test-Path .venv)) { py -V:3.14 -m venv .venv }
 ```
 
-Ostatni argument (`.venv`) to nazwa katalogu, który zostanie utworzony — może być dowolna, np. `venv` lub `nazwa_srodowiska`.
+Ostatni argument polecenia `venv` (`.venv`) to nazwa katalogu, który zostanie utworzony — może być dowolna, np. `venv` lub `nazwa_srodowiska`; tę samą nazwę podajemy wtedy w warunku `Test-Path`.
 
 !!! tip "Popularna konwencja"
     Najczęściej stosowaną nazwą jest `.venv`. Katalog rozpoczynający się od kropki
@@ -107,7 +107,7 @@ Zainstalowane w ten sposób biblioteki trafiają wyłącznie do katalogu `.venv`
 Dla kompilacji free-threaded (opisanej w podrozdziale [Instalacja Pythona](instalacja.md)) tworzymy odrębne środowisko, np. o nazwie `.venv-t`:
 
 ```powershell title="Terminal"
-py -V:3.14t -m venv .venv-t
+if (-not (Test-Path .venv-t)) { py -V:3.14t -m venv .venv-t }
 .venv-t\Scripts\Activate.ps1
 ```
 
@@ -142,8 +142,10 @@ Ręczne aktywowanie środowiska przy każdym otwarciu terminala można zautomaty
 
 === "Windows (Git Bash)"
 
-    W pliku `~/.bashrc` definiujemy funkcję zastępującą polecenie `cd`, która po zmianie
-    katalogu aktywuje środowisko, jeżeli znajdzie w nim plik `.venv/Scripts/activate`:
+    Na końcu pliku `~/.bashrc` (jeżeli go nie ma, tworzymy nowy) dopisujemy funkcję
+    zastępującą polecenie `cd`, która po zmianie katalogu aktywuje środowisko, jeżeli
+    znajdzie w nim plik `.venv/Scripts/activate`; dotychczasowa treść pliku pozostaje
+    bez zmian:
 
     ```bash title="~/.bashrc"
     cd() {
@@ -186,7 +188,10 @@ Ręczne aktywowanie środowiska przy każdym otwarciu terminala można zautomaty
     ```
 
     Profil, podobnie jak skrypt `Activate.ps1`, wymaga zezwolenia na uruchamianie
-    lokalnych skryptów — jednorazowo: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+    lokalnych skryptów. Jeżeli uruchamianie skryptów jest zablokowane (polecenie
+    `Get-ExecutionPolicy` wypisuje wtedy `Restricted`, a bieżące ustawienia pokazuje
+    polecenie `Get-ExecutionPolicy -List`), zezwalamy na nie jednorazowo poleceniem
+    `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
 W środowisku Visual Studio Code analogiczną automatyzację zapewnia sam edytor (opis w podrozdziale [Konfigurowanie narzędzi](konfiguracja.md)).
 

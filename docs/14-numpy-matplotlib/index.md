@@ -25,6 +25,8 @@ print(np.__version__, matplotlib.__version__)
 
 Wykresy w tym rozdziale nie są zrzutami ekranu — każdy powstał z kodu, który go poprzedza, uruchomionego bez zmian.
 
+Skrypty rozdziału zapisują w katalogu bieżącym pliki wynikowe — tablice (`dane.npy`, `zestaw.npz`), pliki tekstowe i rysunki (np. `analiza.png`) — i zastępują bez ostrzeżenia pliki o tych samych nazwach. Uruchamiamy je więc w katalogu przeznaczonym wyłącznie na przykłady książki, a nie w katalogu z własnymi plikami.
+
 ---
 
 ## W tym rozdziale

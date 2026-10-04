@@ -22,7 +22,7 @@ def zbuduj_parser():
         description="Przenosi pliki z katalogu do podkatalogów według rozszerzenia albo miesiąca modyfikacji.",
         epilog="Przykład: porzadek Pobrane --wg data --dry-run",
     )
-    parser.add_argument("katalog", type=Path, nargs="?", default=Path("."), help="katalog do uporządkowania (domyślnie bieżący)")
+    parser.add_argument("katalog", type=Path, nargs="?", help="katalog do uporządkowania (bez niego: tylko plan)")
     parser.add_argument("--wg", choices=["rozszerzenie", "data"], default="rozszerzenie", help="kryterium podziału (domyślnie %(default)s)")
     parser.add_argument("-n", "--dry-run", action="store_true", help="tylko wypisz plan, niczego nie przenoś")
     parser.add_argument("--limit", type=int, metavar="N", help="przenieś najwyżej N plików")
@@ -41,6 +41,9 @@ def podkatalog(plik, wg):
 
 def main(argv=None):
     argumenty = zbuduj_parser().parse_args(argv)
+    if argumenty.katalog is None:
+        argumenty.katalog = Path(".")
+        argumenty.dry_run = True
     poziom = logging.ERROR if argumenty.quiet else [logging.WARNING, logging.INFO, logging.DEBUG][min(argumenty.verbose, 2)]
     logging.basicConfig(level=poziom, format="%(levelname)s: %(message)s", stream=sys.stderr, force=True)
     if not argumenty.katalog.is_dir():
@@ -49,15 +52,20 @@ def main(argv=None):
     pliki = sorted(p for p in argumenty.katalog.iterdir() if p.is_file() and (argumenty.ukryte or not p.name.startswith(".")))
     plan = [(plik, argumenty.katalog / podkatalog(plik, argumenty.wg) / plik.name) for plik in pliki][: argumenty.limit]
     dziennik.debug("kryterium %s, plików %d, w planie %d", argumenty.wg, len(pliki), len(plan))
+    przeniesione = 0
     for zrodlo, cel in plan:
+        if cel.exists():
+            dziennik.warning("pomijam %s: %s już istnieje", zrodlo.name, cel.relative_to(argumenty.katalog))
+            continue
         if argumenty.dry_run:
             print(f"{zrodlo.name} -> {cel.parent.name}/")
             continue
         cel.parent.mkdir(exist_ok=True)
         zrodlo.rename(cel)
+        przeniesione += 1
         dziennik.info("%s -> %s", zrodlo.name, cel.relative_to(argumenty.katalog))
     if not argumenty.dry_run:
-        print(f"Przeniesiono plików: {len(plan)}")
+        print(f"Przeniesiono plików: {przeniesione}")
     return 0
 
 
@@ -65,7 +73,7 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-Parser powstaje w osobnej funkcji, żeby testy i pomoc mogły go zbudować bez uruchamiania narzędzia. Nowe elementy względem rozdziału 7: `type=Path` zamienia tekst w obiekt ścieżki, `nargs="?"` z `default` czyni argument pozycyjny opcjonalnym, `choices` ogranicza wartość do listy, a `%(default)s` w `help` wstawia wartość domyślną do pomocy, więc istnieje ona w jednym miejscu. `action="store_true"` to zwykły przełącznik, `action="count"` liczy powtórzenia (`-vv`), a `BooleanOptionalAction` tworzy parę `--ukryte`/`--no-ukryte`. Grupa wzajemnie wykluczająca nie pozwala podać naraz `-v` i `-q`. `metavar` nadaje nazwę wartości w pomocy. Narzędzie pisze wyniki przez `print()` na `stdout`, a komunikaty o przebiegu przez `logging` z rozdziału 8 „Python Podstawy” na `stderr`, z poziomem zależnym od opcji; `force=True` w `basicConfig()` pozwala wywołać `main()` wiele razy w jednym procesie, co przyda się w testach. Kod wyjścia wraca z `main()` do `sys.exit()` jak w rozdziale 7.
+Parser powstaje w osobnej funkcji, żeby testy i pomoc mogły go zbudować bez uruchamiania narzędzia. Nowe elementy względem rozdziału 7: `type=Path` zamienia tekst w obiekt ścieżki, `nargs="?"` czyni argument pozycyjny opcjonalnym (bez katalogu narzędzie tylko pokazuje plan dla katalogu bieżącego, bo przenoszenie plików wymaga jawnie wskazanego katalogu), `choices` ogranicza wartość do listy, a `%(default)s` w `help` wstawia wartość domyślną do pomocy, więc istnieje ona w jednym miejscu. `action="store_true"` to zwykły przełącznik, `action="count"` liczy powtórzenia (`-vv`), a `BooleanOptionalAction` tworzy parę `--ukryte`/`--no-ukryte`. Grupa wzajemnie wykluczająca nie pozwala podać naraz `-v` i `-q`. `metavar` nadaje nazwę wartości w pomocy. Narzędzie pisze wyniki przez `print()` na `stdout`, a komunikaty o przebiegu przez `logging` z rozdziału 8 „Python Podstawy” na `stderr`, z poziomem zależnym od opcji; `force=True` w `basicConfig()` pozwala wywołać `main()` wiele razy w jednym procesie, co przyda się w testach. Przed przeniesieniem `main()` sprawdza, czy w podkatalogu nie ma już pliku o tej nazwie, i taki plik pomija z ostrzeżeniem w dzienniku: `rename()` przerwałby na Windows pracę wyjątkiem `FileExistsError`, a na Linuksie i macOS zastąpiłby istniejący plik bez ostrzeżenia. Kod wyjścia wraca z `main()` do `sys.exit()` jak w rozdziale 7.
 
 ## Uruchomienie i pomoc
 
@@ -79,7 +87,7 @@ from pathlib import Path
 
 import porzadek
 
-katalog = Path("pobrane")
+katalog = Path("porzadek-proba")
 shutil.rmtree(katalog, ignore_errors=True)
 katalog.mkdir()
 srodowisko = {**os.environ, "PYTHONUTF8": "1"}
@@ -90,15 +98,15 @@ for nazwa, data in (("raport.pdf", "2026-07-14"), ("zdjecie.JPG", "2026-08-02"),
     os.utime(plik, (czas, czas))
 
 print("--- plan według rozszerzenia")
-print("kod:", porzadek.main(["pobrane", "--dry-run"]))
+print("kod:", porzadek.main(["porzadek-proba", "--dry-run"]))
 print("--- plan według daty, z ukrytymi, limit 3")
-print("kod:", porzadek.main(["pobrane", "-n", "--wg", "data", "--ukryte", "--limit", "3"]))
+print("kod:", porzadek.main(["porzadek-proba", "-n", "--wg", "data", "--ukryte", "--limit", "3"]))
 print("--- wykonanie jako proces, oba strumienie razem")
-proces = subprocess.run([sys.executable, "porzadek.py", "pobrane", "--wg", "data", "-v"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", env=srodowisko)
+proces = subprocess.run([sys.executable, "porzadek.py", "porzadek-proba", "--wg", "data", "-v"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", env=srodowisko)
 print(proces.stdout + "kod:", proces.returncode)
 print(sorted(str(p.relative_to(katalog)).replace(os.sep, "/") for p in katalog.rglob("*")))
 print("--- błąd użycia")
-proces = subprocess.run([sys.executable, "porzadek.py", "pobrane", "--wg", "nazwa"], capture_output=True, text=True, encoding="utf-8", env=srodowisko)
+proces = subprocess.run([sys.executable, "porzadek.py", "porzadek-proba", "--wg", "nazwa"], capture_output=True, text=True, encoding="utf-8", env=srodowisko)
 print("kod:", proces.returncode, "| stdout:", repr(proces.stdout), "| stderr:", proces.stderr.splitlines()[-1])
 print("--- pomoc")
 print(subprocess.run([sys.executable, "porzadek.py", "--help"], capture_output=True, text=True, encoding="utf-8", env=srodowisko).stdout)
@@ -137,7 +145,7 @@ Przenosi pliki z katalogu do podkatalogów według rozszerzenia albo miesiąca
 modyfikacji.
 
 positional arguments:
-  katalog               katalog do uporządkowania (domyślnie bieżący)
+  katalog               katalog do uporządkowania (bez niego: tylko plan)
 
 options:
   -h, --help            show this help message and exit
@@ -153,14 +161,14 @@ options:
 Przykład: porzadek Pobrane --wg data --dry-run
 ```
 
-Skrypt kontrolny tworzy katalog z plikami o ustalonych datach modyfikacji (`os.utime()`), więc podział według miesiąca jest przewidywalny, i wywołuje `main()` z listą argumentów — tak samo zrobią testy. Próbne uruchomienie wypisuje plan i niczego nie zmienia. Wykonanie z `-v` skrypt uruchamia jako osobny proces z połączonymi strumieniami: komunikaty `INFO` dziennika idą na `stderr`, podsumowanie na `stdout` — i pojawia się ono na końcu, bo `stdout` skierowany do potoku jest buforowany blokowo i trafia do niego dopiero po zapełnieniu bufora albo przy zakończeniu programu, a `stderr` jest buforowany wierszami. **Procesy potomne** (ang. *child processes*) dostają zmienną środowiskową `PYTHONUTF8=1`, żeby polskie znaki w pomocy przeszły przez potok bez błędu; następna strona wraca do tego tematu. Błędną wartość `--wg` parser odrzuca sam: wypisuje na `stderr` sposób użycia i komunikat, a proces kończy się kodem `2`, zarezerwowanym dla błędów użycia. Pomoc powstaje z opisu argumentów: sposób użycia z nawiasami dla elementów opcjonalnych, argumenty pozycyjne, opcje (z wartością domyślną `--wg` wstawioną przez `%(default)s`) i przykład z `epilog`.
+Skrypt kontrolny usuwa katalog próbny `porzadek-proba` z poprzedniego uruchomienia — wraz z zawartością, dlatego katalog o tej nazwie służy wyłącznie temu przykładowi — i tworzy go od nowa z plikami o ustalonych datach modyfikacji (`os.utime()`), więc podział według miesiąca jest przewidywalny, i wywołuje `main()` z listą argumentów — tak samo zrobią testy. Próbne uruchomienie wypisuje plan i niczego nie zmienia. Wykonanie z `-v` skrypt uruchamia jako osobny proces z połączonymi strumieniami: komunikaty `INFO` dziennika idą na `stderr`, podsumowanie na `stdout` — i pojawia się ono na końcu, bo `stdout` skierowany do potoku jest buforowany blokowo i trafia do niego dopiero po zapełnieniu bufora albo przy zakończeniu programu, a `stderr` jest buforowany wierszami. **Procesy potomne** (ang. *child processes*) dostają zmienną środowiskową `PYTHONUTF8=1`, żeby polskie znaki w pomocy przeszły przez potok bez błędu; następna strona wraca do tego tematu. Błędną wartość `--wg` parser odrzuca sam: wypisuje na `stderr` sposób użycia i komunikat, a proces kończy się kodem `2`, zarezerwowanym dla błędów użycia. Pomoc powstaje z opisu argumentów: sposób użycia z nawiasami dla elementów opcjonalnych, argumenty pozycyjne, opcje (z wartością domyślną `--wg` wstawioną przez `%(default)s`) i przykład z `epilog`.
 
 ## Reguły projektowania opcji
 
 | Reguła | Dlaczego |
 |---|---|
 | Krótkie `-v` i długie `--verbose` dla często używanych opcji; tylko długie dla rzadkich | krótkie pisze się w terminalu, długie czyta w skryptach i harmonogramach |
-| Bez argumentów robi coś sensownego albo pokazuje pomoc | `porzadek` bez argumentów porządkuje katalog bieżący, jak `git status`; narzędzie, które bez argumentów nie ma na czym pracować, wypisuje pomoc zamiast wyjątku |
+| Bez argumentów robi coś bezpiecznego i użytecznego albo pokazuje pomoc | `porzadek` bez argumentów tylko pokazuje plan dla katalogu bieżącego — jak `git status`, niczego nie zmienia — a pliki przenosi dopiero we wskazanym katalogu; narzędzie, które bez argumentów nie ma na czym pracować, wypisuje pomoc zamiast wyjątku |
 | Wartości domyślne w pomocy (`%(default)s`) | użytkownik nie musi czytać kodu |
 | `--dry-run` dla każdej operacji, która zmienia pliki | pozwala sprawdzić plan; skrypt automatyczny może go zapisać do dziennika |
 | Przełączniki z formą przeczącą (`BooleanOptionalAction`) | konfiguracja i skrypty mogą jawnie wyłączyć to, co domyślnie włączone |

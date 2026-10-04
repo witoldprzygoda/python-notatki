@@ -22,7 +22,7 @@ def sredni_promien(promienie: list[float]) -> float | None:
     return sum(promienie) / len(promienie)
 ```
 
-Konfigurację pytest trzymamy w `pyproject.toml`; sekcja `markers` przyda się w dalszej części:
+Konfigurację pytest trzymamy w `pyproject.toml`: jeżeli katalog przykładów ma już ten plik, dopisujemy poniższą tabelę na jego końcu, a w przeciwnym razie tworzymy go z tą treścią; sekcja `markers` przyda się w dalszej części:
 
 ```toml title="pyproject.toml"
 [tool.pytest.ini_options]

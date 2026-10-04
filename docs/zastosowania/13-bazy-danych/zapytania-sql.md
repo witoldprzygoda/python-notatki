@@ -42,8 +42,8 @@ PRODUKTY = [("Python. Wprowadzenie", "książki", 59.0, 12), ("Algorytmy", "ksi�
 ZAMOWIENIA = [(1, "2025-01-04", "wysłane"), (2, "2025-01-15", "wysłane"), (1, "2025-02-02", "wysłane"), (3, "2025-02-20", "anulowane"), (5, "2025-03-03", "wysłane"), (2, "2025-03-18", "nowe"), (4, "2025-03-25", "nowe")]
 POZYCJE = [(1, 1, 2, 59.0), (1, 3, 1, 249.0), (2, 5, 1, 79.0), (3, 2, 1, 89.0), (3, 1, 1, 59.0), (4, 6, 2, 149.0), (5, 3, 1, 249.0), (5, 5, 2, 79.0), (6, 1, 3, 59.0), (7, 6, 1, 149.0), (7, 2, 1, 89.0)]
 
-Path("sklep.db").unlink(missing_ok=True)
-polaczenie = sqlite3.connect("sklep.db")
+Path("sklep-sql.db").unlink(missing_ok=True)
+polaczenie = sqlite3.connect("sklep-sql.db")
 polaczenie.executescript(Path("schemat.sql").read_text(encoding="utf-8"))
 with polaczenie:
     polaczenie.executemany("INSERT INTO klienci (nazwisko, miasto, segment) VALUES (?, ?, ?)", KLIENCI)
@@ -60,14 +60,14 @@ polaczenie.close()
 [6, 6, 7, 11]
 ```
 
-Schemat trzymamy w osobnym pliku SQL, który `executescript()` wykonuje w całości — to jedyna metoda przyjmująca wiele poleceń naraz. Kolumna `klient_id` z `REFERENCES klienci(id)` to **klucz obcy** (ang. *foreign key*): zamówienie musi wskazywać istniejącego klienta, a pozycja — istniejące zamówienie i produkt; `ON DELETE CASCADE` każe usuwać pozycje razem z zamówieniem. `CHECK` ogranicza wartości (segment z listy, cena dodatnia, stan nieujemny), `DEFAULT` podaje wartość dla pominiętej kolumny. Pozycja zapamiętuje cenę z chwili zakupu, bo cena produktu może się zmienić, a wartość starych zamówień nie powinna. Tabela `sqlite_master` opisuje schemat bazy — tak sprawdzamy, co w niej jest.
+Skrypt usuwa najpierw bazę `sklep-sql.db` z poprzedniego uruchomienia, więc zawsze tworzy ją od nowa; nazwa odróżnia ją od bazy `sklep.db` aplikacji z rozdziału 18. Schemat trzymamy w osobnym pliku SQL, który `executescript()` wykonuje w całości — to jedyna metoda przyjmująca wiele poleceń naraz. Kolumna `klient_id` z `REFERENCES klienci(id)` to **klucz obcy** (ang. *foreign key*): zamówienie musi wskazywać istniejącego klienta, a pozycja — istniejące zamówienie i produkt; `ON DELETE CASCADE` każe usuwać pozycje razem z zamówieniem. `CHECK` ogranicza wartości (segment z listy, cena dodatnia, stan nieujemny), `DEFAULT` podaje wartość dla pominiętej kolumny. Pozycja zapamiętuje cenę z chwili zakupu, bo cena produktu może się zmienić, a wartość starych zamówień nie powinna. Tabela `sqlite_master` opisuje schemat bazy — tak sprawdzamy, co w niej jest.
 
 ## Ograniczenia
 
 ```python title="ograniczenia.py"
 import sqlite3
 
-polaczenie = sqlite3.connect("sklep.db")
+polaczenie = sqlite3.connect("sklep-sql.db")
 print(polaczenie.execute("PRAGMA foreign_keys").fetchone())
 polaczenie.execute("INSERT INTO zamowienia (klient_id, data) VALUES (99, '2025-04-01')")
 print(polaczenie.execute("SELECT COUNT(*) FROM zamowienia WHERE klient_id = 99").fetchone()[0])
@@ -108,7 +108,7 @@ Klucze obce SQLite egzekwuje dopiero po `PRAGMA foreign_keys = ON`, które trzeb
 ```python title="zlaczenia.py"
 import sqlite3
 
-polaczenie = sqlite3.connect("sklep.db")
+polaczenie = sqlite3.connect("sklep-sql.db")
 polaczenie.row_factory = sqlite3.Row
 wartosc_zamowien = """
 SELECT z.id, k.nazwisko, z.data, SUM(p.ilosc * p.cena) AS wartosc
@@ -166,7 +166,7 @@ polaczenie.close()
 ```python title="zmiany.py"
 import sqlite3
 
-polaczenie = sqlite3.connect("sklep.db")
+polaczenie = sqlite3.connect("sklep-sql.db")
 polaczenie.execute("PRAGMA foreign_keys = ON")
 with polaczenie:
     print(polaczenie.execute("UPDATE zamowienia SET status = 'wysłane' WHERE status = 'nowe' AND data < '2025-03-20'").rowcount)
@@ -198,7 +198,7 @@ import sqlite3
 
 import pandas as pd
 
-polaczenie = sqlite3.connect("sklep.db")
+polaczenie = sqlite3.connect("sklep-sql.db")
 zamowienia = pd.read_sql("SELECT z.id, k.nazwisko, z.data, z.status FROM zamowienia z JOIN klienci k ON k.id = z.klient_id", polaczenie, parse_dates=["data"], index_col="id")
 print(zamowienia.dtypes.to_dict())
 print(zamowienia.groupby(zamowienia["data"].dt.month)["nazwisko"].count().to_dict())

@@ -355,9 +355,9 @@ Przy pierwszym uruchomieniu pliku nie ma i `wczytaj()` zwraca pustą listę; ka�
 
 ## Inne formaty — `tomllib`, `pickle` i `compression` (dla dociekliwych)
 
-Format TOML poznaliśmy w rozdziale 7 jako zapis pliku `pyproject.toml` (tu w uproszczonej postaci); moduł `tomllib` (od Pythona 3.11) go odczytuje — wyłącznie odczytuje, plik otwarty w trybie binarnym — do zagnieżdżonych słowników:
+Format TOML poznaliśmy w rozdziale 7 jako zapis pliku `pyproject.toml`; moduł `tomllib` (od Pythona 3.11) go odczytuje — wyłącznie odczytuje, plik otwarty w trybie binarnym — do zagnieżdżonych słowników. Przykład czyta osobny plik `przyklad.toml` z uproszczoną tabelą `[project]`, aby nie zastąpić pliku `pyproject.toml` projektu z rozdziału 7:
 
-```toml title="pyproject.toml"
+```toml title="przyklad.toml"
 [project]
 name = "geometria"
 version = "0.1.0"
@@ -367,7 +367,7 @@ dependencies = []
 ```python title="tomllib-demo.py"
 import tomllib
 
-with open("pyproject.toml", "rb") as plik:
+with open("przyklad.toml", "rb") as plik:
     konfiguracja = tomllib.load(plik)
 print(konfiguracja)
 print(konfiguracja["project"]["version"])

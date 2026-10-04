@@ -30,6 +30,7 @@ def zbuduj_parser():
     parser.add_argument("--opoznienie", type=float, default=1.0, metavar="SEK", help="odstęp między żądaniami (domyślnie %(default)s s)")
     parser.add_argument("--limit", type=int, metavar="N", help="pobierz najwyżej N produktów")
     parser.add_argument("--pamiec", type=Path, help="katalog pamięci podręcznej")
+    parser.add_argument("--nadpisz", action="store_true", help="zastąp istniejący plik wynikowy")
     parser.add_argument("-v", "--verbose", action="count", default=0, help="więcej komunikatów")
     return parser
 
@@ -40,6 +41,9 @@ def main(argv=None):
     logging.basicConfig(level=poziom, format="%(levelname)s: %(message)s", stream=sys.stderr, force=True)
     for biblioteka in ("httpx", "httpcore"):
         logging.getLogger(biblioteka).setLevel(logging.WARNING)
+    if argumenty.wyjscie.exists() and not argumenty.nadpisz:
+        dziennik.error("%s już istnieje — podaj inną nazwę pliku albo opcję --nadpisz", argumenty.wyjscie)
+        return 1
     try:
         pobieracz = Pobieracz(argumenty.adres, opoznienie=argumenty.opoznienie, pamiec=argumenty.pamiec)
     except httpx.TransportError as blad:
@@ -53,7 +57,7 @@ def main(argv=None):
         for pozycja in pozycje[: argumenty.limit]:
             zupa = BeautifulSoup(pobieracz.pobierz(pozycja["url"]), "html.parser")
             rekordy.append({**rekord_produktu(zupa), "ocena": pozycja["ocena"]})
-        with open(argumenty.wyjscie, "w", newline="", encoding="utf-8") as plik:
+        with open(argumenty.wyjscie, "w" if argumenty.nadpisz else "x", newline="", encoding="utf-8") as plik:
             pisarz = csv.DictWriter(plik, fieldnames=POLA)
             pisarz.writeheader()
             pisarz.writerows(rekordy)
@@ -90,12 +94,12 @@ def narzedzie(*argumenty):
     print(proces.stdout + f"[kod {proces.returncode}]")
 
 
-narzedzie(adres + "index.html", "-v", "--pamiec", "pamiec")
+narzedzie(adres + "index.html", "-v", "--pamiec", "pamiec", "--nadpisz")
 print(Path("produkty.csv").read_text(encoding="utf-8").splitlines()[:2])
-narzedzie(adres + "index.html", "--limit", "3", "-o", "trzy.csv", "-vv", "--pamiec", "pamiec")
+narzedzie(adres + "index.html", "--limit", "3", "-o", "trzy.csv", "-vv", "--pamiec", "pamiec", "--nadpisz")
 print(len(Path("trzy.csv").read_text(encoding="utf-8").splitlines()) - 1, "rekordy")
-narzedzie(adres + "koszyk/")
-narzedzie(adres + "brak.html")
+narzedzie(adres + "koszyk/", "-o", "koszyk.csv")
+narzedzie(adres + "brak.html", "-o", "brak.csv")
 serwer.shutdown()
 ```
 
@@ -129,7 +133,7 @@ ERROR: serwer odpowiedział 404 dla /brak.html
 [kod 1]
 ```
 
-Narzędzie ma tylko jedno zadanie: złożyć moduły i zamienić wynik na kody wyjścia — `0` po zapisie, `1` przy błędzie serwera, zakazie z `robots.txt` albo błędzie zapisu pliku, `2` przy błędnych argumentach z `argparse`. Biblioteki httpx i httpcore również piszą do dziennika — httpx każde żądanie z pełnym adresem na poziomie `INFO`, httpcore szczegóły połączenia na poziomie `DEBUG` — więc ich dzienniki ustawiamy na poziom ostrzeżeń, by `-v` pokazywał komunikaty narzędzia, nie bibliotek. Skrypt kontrolny uruchamia je jako proces z połączonymi strumieniami, jak w rozdziale 20: przy `-v` dziennik pokazuje każde pobranie ze ścieżką i rozmiarem, przy `-vv` także trafienia w pamięć podręczną (drugie uruchomienie pobrało tylko `robots.txt`), a podsumowanie ze `stdout` pojawia się na końcu. Zakaz z `robots.txt` i odpowiedź 404 dają komunikat błędu i kod `1` — bez śladu wywołań.
+Narzędzie ma tylko jedno zadanie: złożyć moduły i zamienić wynik na kody wyjścia — `0` po zapisie, `1` przy błędzie serwera, zakazie z `robots.txt` albo błędzie zapisu pliku, `2` przy błędnych argumentach z `argparse`. Istniejącego pliku wynikowego narzędzie nie zastępuje bez opcji `--nadpisz`, lecz kończy się komunikatem i kodem `1`; sprawdza to na początku, zanim wyśle pierwsze żądanie, a tryb `x` funkcji `open()` (rozdział 9 „Python Podstawy”) chroni dodatkowo plik, który powstałby w trakcie pobierania. Biblioteki httpx i httpcore również piszą do dziennika — httpx każde żądanie z pełnym adresem na poziomie `INFO`, httpcore szczegóły połączenia na poziomie `DEBUG` — więc ich dzienniki ustawiamy na poziom ostrzeżeń, by `-v` pokazywał komunikaty narzędzia, nie bibliotek. Skrypt kontrolny uruchamia je jako proces z połączonymi strumieniami, jak w rozdziale 20: przy `-v` dziennik pokazuje każde pobranie ze ścieżką i rozmiarem, przy `-vv` także trafienia w pamięć podręczną (drugie uruchomienie pobrało tylko `robots.txt`), a podsumowanie ze `stdout` pojawia się na końcu. Opcję `--nadpisz` skrypt podaje przy dwóch pierwszych uruchomieniach narzędzia, bo plik `produkty.csv` zapisał już skrypt `zbierz.py` z poprzedniej strony, a każde ponowne wykonanie skryptu kontrolnego zapisuje te same pliki. Przy dwóch ostatnich wskazuje osobne pliki wynikowe, ponieważ istniejący plik `produkty.csv` zatrzymałby narzędzie przed pierwszym żądaniem, a więc przed błędami, które te wywołania pokazują. Zakaz z `robots.txt` i odpowiedź 404 dają komunikat błędu i kod `1` — bez śladu wywołań; pliki `koszyk.csv` i `brak.csv` nie powstają, bo błąd przerywa pracę przed zapisem.
 
 ## Testy z serwerem testowym
 
@@ -180,8 +184,8 @@ def test_narzedzie_zapisuje_csv(adres, tmp_path, capsys):
     assert "Zapisano rekordów: 10" in capsys.readouterr().out
 
 
-def test_robots_zabrania_koszyka(adres, capsys):
-    assert zbieracz.main([adres + "koszyk/", "--opoznienie", "0"]) == 1
+def test_robots_zabrania_koszyka(adres, tmp_path, capsys):
+    assert zbieracz.main([adres + "koszyk/", "-o", str(tmp_path / "koszyk.csv"), "--opoznienie", "0"]) == 1
     assert "robots.txt" in capsys.readouterr().err
 ```
 

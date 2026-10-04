@@ -57,7 +57,7 @@ Dokumenty **PEP**, wprowadzone w rozdziale [1. Instalacja i środowisko pracy](.
 python -m pip install ruff
 ```
 
-Zanim uruchomimy Ruff, zapisujemy konfigurację w `pyproject.toml`. Bez niej Ruff od wersji 0.16 włącza obszerny domyślny zestaw ponad czterystu reguł z kilkudziesięciu rodzin (między innymi `F`, `I`, `UP`, `B`), ale nie wszystkie reguły `E` — na przykład `E401` z poniższego raportu domyślnie nie jest zgłaszane; jawne `select` ustala zestaw niezależnie od zmian domyślnych między wydaniami:
+Zanim uruchomimy Ruff, dopisujemy jego konfigurację na końcu pliku `pyproject.toml` — pozostałe tabele pliku zostają bez zmian, a gdy pliku jeszcze nie ma, tworzymy go. Bez niej Ruff od wersji 0.16 włącza obszerny domyślny zestaw ponad czterystu reguł z kilkudziesięciu rodzin (między innymi `F`, `I`, `UP`, `B`), ale nie wszystkie reguły `E` — na przykład `E401` z poniższego raportu domyślnie nie jest zgłaszane; jawne `select` ustala zestaw niezależnie od zmian domyślnych między wydaniami:
 
 ```toml title="pyproject.toml"
 [tool.ruff]
@@ -119,7 +119,7 @@ def suma(liczby: list[int]) -> int:
 print(suma([1, 2, 3]))
 ```
 
-Nieużywane importy zniknęły — wraz z nimi przestarzały `typing.List`, zastąpiony przez `list` — a formater ustawił odstępy i puste wiersze (w plikach z łańcuchami ujednolica też cudzysłowy na podwójne). Raport po `--fix` wymienia pięć uwag zamiast sześciu: gdy `UP006` zamienił `List` na `list`, import z `typing` stał się nieużywany i został usunięty jako `F401`, więc uwaga `UP035` — jedyna bez gwiazdki — straciła przedmiot. Uwagi, których Ruff nie naprawia sam, pozostają w raporcie: zmiana zachowania kodu wymaga decyzji programisty. Polecenia `python -m ruff check .` i `python -m ruff format .` sprawdzają cały projekt, a `python -m ruff format --check .` tylko raportuje pliki do sformatowania, nie zmieniając ich — w tej postaci trafią do automatyzacji w następnym podrozdziale.
+Nieużywane importy zniknęły — wraz z nimi przestarzały `typing.List`, zastąpiony przez `list` — a formater ustawił odstępy i puste wiersze (w plikach z łańcuchami ujednolica też cudzysłowy na podwójne). Raport po `--fix` wymienia pięć uwag zamiast sześciu: gdy `UP006` zamienił `List` na `list`, import z `typing` stał się nieużywany i został usunięty jako `F401`, więc uwaga `UP035` — jedyna bez gwiazdki — straciła przedmiot. Uwagi, których Ruff nie naprawia sam, pozostają w raporcie: zmiana zachowania kodu wymaga decyzji programisty. Polecenie `python -m ruff check .` sprawdza cały projekt, a `python -m ruff format .` przepisuje w miejscu wszystkie pliki Pythona i notatniki w katalogu bieżącym i jego podkatalogach, dlatego wydajemy je wyłącznie w katalogu projektu, najlepiej po zatwierdzeniu zmian w repozytorium Git — nie w katalogu domowym ani w katalogu z wieloma projektami. Polecenie `python -m ruff format --check .` tylko raportuje pliki do sformatowania, nie zmieniając ich (opcja `--diff` pokazuje dodatkowo planowane zmiany) — w tej postaci trafią do automatyzacji w następnym podrozdziale.
 
 ## Alternatywy
 

@@ -82,10 +82,10 @@ Tekst pisany dla ludzi nie ma stałego układu, więc wzorce opisują kształt d
 import re
 from pathlib import Path
 
-katalog = Path("raporty")
+katalog = Path("raporty-przyklad")
 katalog.mkdir(exist_ok=True)
 for nazwa in ("raport 23.09.2026 v2.pdf", "Raport 1.10.2026.pdf", "raport_15.08.2026_final.pdf", "notatki.txt"):
-    (katalog / nazwa).write_text("", encoding="utf-8")
+    (katalog / nazwa).touch()
 
 WZORZEC = re.compile(r"(?i)raport[ _](?P<d>\d{1,2})\.(?P<m>\d{1,2})\.(?P<rok>\d{4})(?P<reszta>.*)\.pdf")
 for plik in sorted(katalog.iterdir()):
@@ -95,6 +95,9 @@ for plik in sorted(katalog.iterdir()):
         continue
     dopisek = re.sub(r"[ _]+", "-", m["reszta"]).strip("-")
     nowa = f"raport-{m['rok']}-{int(m['m']):02d}-{int(m['d']):02d}" + (f"-{dopisek}" if dopisek else "") + ".pdf"
+    if (katalog / nowa).exists():
+        print("pomijam, istnieje:", nowa)
+        continue
     plik.rename(katalog / nowa)
     print(plik.name, "→", nowa)
 print(sorted(p.name for p in katalog.iterdir()))
@@ -108,7 +111,7 @@ raport_15.08.2026_final.pdf → raport-2026-08-15-final.pdf
 ['notatki.txt', 'raport-2026-08-15-final.pdf', 'raport-2026-09-23-v2.pdf', 'raport-2026-10-01.pdf']
 ```
 
-Nazwy plików z datą w zapisie polskim nie sortują się chronologicznie; po zmianie na zapis `rok-miesiąc-dzień` sortowanie alfabetyczne jest sortowaniem po dacie. `fullmatch()` na nazwie odrzuca pliki spoza schematu, `(?i)` znosi rozróżnianie wielkości liter w całym wzorcu (`Raport`, także `.PDF`), a grupa `reszta` przenosi dopiski (`v2`, `final`) w ujednoliconej postaci. `Path.rename()` z rozdziału 9 „Python Podstawy” wykonuje zmianę; przy większej liczbie plików warto najpierw wypisać plan, a zmieniać dopiero po sprawdzeniu.
+Nazwy plików z datą w zapisie polskim nie sortują się chronologicznie; po zmianie na zapis `rok-miesiąc-dzień` sortowanie alfabetyczne jest sortowaniem po dacie. `fullmatch()` na nazwie odrzuca pliki spoza schematu, `(?i)` znosi rozróżnianie wielkości liter w całym wzorcu (`Raport`, także `.PDF`), a grupa `reszta` przenosi dopiski (`v2`, `final`) w ujednoliconej postaci. `Path.rename()` z rozdziału 9 „Python Podstawy” wykonuje zmianę, a sprawdzenie `exists()` przed nią chroni plik, który już nosi nazwę docelową: bez niego `rename()` zgłosiłby na Windows `FileExistsError` w połowie przebiegu, a na Linuksie i macOS zastąpiłby ten plik bez ostrzeżenia. Skrypt tworzy puste pliki próbne w katalogu `raporty-przyklad`, przeznaczonym tylko dla nich; przy prawdziwych plikach najpierw wypisujemy plan, a nazwy zmieniamy dopiero po jego sprawdzeniu.
 
 ## Dokument wielowierszowy
 

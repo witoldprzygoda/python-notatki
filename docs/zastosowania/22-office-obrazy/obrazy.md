@@ -137,12 +137,12 @@ from pathlib import Path
 
 from PIL import Image
 
-zrodlo = Path("zdjecia")
+zrodlo = Path("zdjecia-przyklad")
 zrodlo.mkdir(exist_ok=True)
 for numer, kolor in enumerate(("navy", "darkgreen", "maroon"), 1):
     Image.new("RGB", (1200 + 100 * numer, 900), kolor).save(zrodlo / f"zdjecie-{numer}.jpg", quality=80)
 
-cel = Path("miniatury")
+cel = Path("miniatury-przyklad")
 cel.mkdir(exist_ok=True)
 for sciezka in sorted(zrodlo.glob("*.jpg")):
     with Image.open(sciezka) as obraz:
@@ -159,4 +159,4 @@ zdjecie-3.jpg -> (300, 180)
 ['zdjecie-1.png', 'zdjecie-2.png', 'zdjecie-3.png']
 ```
 
-**Przetwarzanie wsadowe** (ang. *batch processing*) to pętla po plikach z `pathlib` z rozdziału 9 „Python Podstawy”: dla każdego obrazu miniatura o proporcjach oryginału i zapis pod nową nazwą w innym katalogu, żeby nie nadpisać źródeł. `Image.open()` w bloku `with` zwalnia plik po użyciu, co przy setkach obrazów ma znaczenie. Ten sam wzorzec obsługuje zmianę formatu, obrót zdjęć z telefonu, dodanie znaku wodnego czy podpisu z nazwą pliku — i z opcjami z rozdziału 20 staje się narzędziem `miniatury katalog --rozmiar 300`.
+**Przetwarzanie wsadowe** (ang. *batch processing*) to pętla po plikach z `pathlib` z rozdziału 9 „Python Podstawy”: dla każdego obrazu miniatura o proporcjach oryginału i zapis pod nową nazwą w innym katalogu, żeby nie nadpisać źródeł. Zdjęcia próbne i ich miniatury trafiają do katalogów o nazwach właściwych przykładowi (`zdjecia-przyklad`, `miniatury-przyklad`), żeby skrypt nie zastąpił prawdziwych zdjęć ani miniatur o tych samych nazwach. `Image.open()` w bloku `with` zwalnia plik po użyciu, co przy setkach obrazów ma znaczenie. Ten sam wzorzec obsługuje zmianę formatu, obrót zdjęć z telefonu, dodanie znaku wodnego czy podpisu z nazwą pliku — i z opcjami z rozdziału 20 staje się narzędziem `miniatury katalog --rozmiar 300`.

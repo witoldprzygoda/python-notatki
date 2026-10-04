@@ -75,6 +75,8 @@ def test_podsumowanie_pomija_anulowane(klient):
     assert klient.get("/klienci/1/podsumowanie").json() == {"zamowien": 2, "wartosc": 515.0}
 ```
 
+Sekcję konfiguracji pytest dopisujemy na końcu pliku `pyproject.toml` w katalogu projektu, a jeśli plik ma już tabelę `[tool.pytest.ini_options]` — sam wiersz `filterwarnings` do tej tabeli; jeśli pliku nie ma, tworzymy go:
+
 ```toml title="pyproject.toml"
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::DeprecationWarning:starlette.testclient"]
@@ -94,7 +96,7 @@ Fixture buduje bazę w pliku w katalogu tymczasowym `tmp_path` z rozdziału 16 �
 ## Uruchomienie u odbiorcy
 
 ```powershell title="Terminal"
-$env:SKLEP_BAZA = "sqlite:///C:\dane\sklep.db"
+$env:SKLEP_BAZA = "sqlite:///C:\sklep-api\sklep.db"
 python -m uvicorn sklep_baza:app --host 0.0.0.0 --port 8000 --workers 2
 ```
 
@@ -106,7 +108,7 @@ python -m uvicorn sklep_baza:app --host 0.0.0.0 --port 8000 --workers 2
 | `--reload` | przeładowanie po zmianie plików; tylko przy pisaniu |
 | `--log-level warning` | mniej wpisów w dzienniku; domyślnie `info` z każdym żądaniem |
 
-Konfigurację przekazujemy zmiennymi środowiskowymi, jak adres bazy w rozdziale 13 i klucz API w rozdziale 14 — kod nie zmienia się między maszyną programisty a odbiorcą, a wartości nie trafiają do repozytorium. Wiersz dziennika uvicorn dla każdego żądania — adres klienta, linia żądania, kod — jest pierwszym narzędziem diagnostyki; własne wpisy dodajemy modułem `logging` z rozdziału 8 „Python Podstawy”. Kilka procesów roboczych zwielokrotnia przepustowość, ale wymaga, by stan aplikacji był w bazie, nie w słowniku modułu — sklep w pamięci ze strony trzeciej działałby w każdym procesie osobno. Serwer dostępny z internetu umieszczamy za serwerem pośredniczącym (ang. *reverse proxy*), który obsługuje HTTPS i ogranicza ruch; uvicorn przyjmuje wprawdzie certyfikat opcjami `--ssl-keyfile` i `--ssl-certfile`, ale nie odnawia go ani nie ogranicza ruchu.
+Konfigurację przekazujemy zmiennymi środowiskowymi, jak adres bazy w rozdziale 13 i klucz API w rozdziale 14 — kod nie zmienia się między maszyną programisty a odbiorcą, a wartości nie trafiają do repozytorium. Plik bazy wskazujemy w osobnym katalogu, założonym wcześniej i przeznaczonym tylko dla tej usługi: przy starcie usługa tworzy w bazie brakujące tabele, a żądania zmieniają jej dane. Wiersz dziennika uvicorn dla każdego żądania — adres klienta, linia żądania, kod — jest pierwszym narzędziem diagnostyki; własne wpisy dodajemy modułem `logging` z rozdziału 8 „Python Podstawy”. Kilka procesów roboczych zwielokrotnia przepustowość, ale wymaga, by stan aplikacji był w bazie, nie w słowniku modułu — sklep w pamięci ze strony trzeciej działałby w każdym procesie osobno. Serwer dostępny z internetu umieszczamy za serwerem pośredniczącym (ang. *reverse proxy*), który obsługuje HTTPS i ogranicza ruch; uvicorn przyjmuje wprawdzie certyfikat opcjami `--ssl-keyfile` i `--ssl-certfile`, ale nie odnawia go ani nie ogranicza ruchu.
 
 ## Lista kontrolna
 

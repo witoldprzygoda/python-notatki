@@ -21,7 +21,7 @@ rezygnacja-klientow/
 │   ├── rysunki/           PNG do raportu
 │   ├── model-rezygnacja.joblib
 │   ├── raport.md
-│   └── ryzyko.csv         wynik oceny nowych klientów
+│   └── ryzyko.csv         wynik oceny klientów z przykładu (kolejne listy: ryzyko-RRRR-MM.csv)
 ├── generuj_surowe.py      generator pliku surowego — poza potokiem
 ├── .gitignore
 ├── requirements.txt
@@ -162,7 +162,8 @@ kolumna powod_rezygnacji usunięta (wyciek celu — znana dopiero po odejściu).
 
 Odtworzenie: `python -m pip install -r requirements.txt`, `python -m pytest -q`,
 `python skrypty/trenuj.py` → wyniki/model-rezygnacja.joblib, wyniki/raport.md.
-Ocena nowych klientów: `python skrypty/przewiduj.py plik.csv wyniki/ryzyko.csv`.
+Ocena nowych klientów: `python skrypty/przewiduj.py plik.csv wyniki/ryzyko-RRRR-MM.csv`;
+skrypt nie zastępuje istniejącego pliku wynikowego.
 ```
 
 ```text title=".gitignore"

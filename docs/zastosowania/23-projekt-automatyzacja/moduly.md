@@ -333,11 +333,11 @@ from sklep_serwer import uruchom
 
 srodowisko = {**os.environ, "PYTHONUTF8": "1"}
 subprocess.run([sys.executable, "zbuduj_sklep.py"], check=True, capture_output=True)
-Path("monitor.sqlite").unlink(missing_ok=True)
+Path("monitor-proba.sqlite").unlink(missing_ok=True)
 serwer, adres = uruchom("sklep")
 
 
-def monitor(*argumenty, baza="monitor.sqlite"):
+def monitor(*argumenty, baza="monitor-proba.sqlite"):
     proces = subprocess.run([sys.executable, "-m", "monitor", "--baza", baza, *argumenty], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", env=srodowisko)
     print(proces.stdout.rstrip() + f" [kod {proces.returncode}]")
 
@@ -373,4 +373,4 @@ Raport: zmian cen 2, nowych 0, brakujących 1 -> raporty [kod 0]
 ['Monitor cen — raport', 'Porównanie pomiarów 2026-09-22 08:00 i 2026-09-23 08:00: 9 produktów, zmian cen: 2, nowych: 0, brakujących: 1.', 'Brakujące produkty: Grill elektryczny']
 ```
 
-Skrypt kontrolny odtwarza sklep, usuwa poprzednią bazę i uruchamia narzędzie jako proces `python -m monitor` z połączonymi strumieniami, jak w rozdziale 20. Pierwszy pomiar zapisuje dziesięć produktów; raport po jednym pomiarze kończy się błędem i kodem `1`. Symulacja obniża cenę ekspresu, podnosi cenę robota i usuwa grill z listy — wzorzec z rozdziału 19 podmienia ceny w tekście, `replace()` — w danych JSON-LD. Drugi pomiar pisze dziennik do pliku; skrypt wypisuje treść ostatniego wpisu bez daty i poziomu, które stoją na początku każdego wiersza. Historia produktu pokazuje obie ceny, nieznany SKU daje kod `1`, a raport po dwóch pomiarach wypisuje liczbę zmian i zapisuje oba pliki: arkusz „Zmiany” ma dwie zmiany cen i jeden brakujący produkt, dokument — akapit z liczbami i listę brakujących.
+Skrypt kontrolny odtwarza sklep, usuwa bazę poprzedniego przebiegu — własny plik `monitor-proba.sqlite`, a nie domyślną bazę narzędzia `monitor.sqlite`, w której mogą być pomiary z prawdziwego sklepu — i uruchamia narzędzie jako proces `python -m monitor` z połączonymi strumieniami, jak w rozdziale 20. Pierwszy pomiar zapisuje dziesięć produktów; raport po jednym pomiarze kończy się błędem i kodem `1`. Symulacja obniża cenę ekspresu, podnosi cenę robota i usuwa grill z listy — wzorzec z rozdziału 19 podmienia ceny w tekście, `replace()` — w danych JSON-LD. Drugi pomiar pisze dziennik do pliku; skrypt wypisuje treść ostatniego wpisu bez daty i poziomu, które stoją na początku każdego wiersza. Historia produktu pokazuje obie ceny, nieznany SKU daje kod `1`, a raport po dwóch pomiarach wypisuje liczbę zmian i zapisuje oba pliki: arkusz „Zmiany” ma dwie zmiany cen i jeden brakujący produkt, dokument — akapit z liczbami i listę brakujących.

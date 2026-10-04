@@ -163,7 +163,7 @@ Gdy analiza się ustabilizuje, zamieniamy ją w skrypt, który powtarza obliczen
 python -m jupyter nbconvert --to script analiza.ipynb
 ```
 
-Powstały plik `analiza.py` zawiera kod komórek rozdzielony komentarzami `# In[2]:`; komórki Markdown stają się komentarzami. Zwykle porządkujemy go ręcznie: funkcje do modułu w `skrypty/`, wczytanie i zapis pod strażnikiem `if __name__ == "__main__":` z rozdziału 7, ścieżki jako argumenty z wiersza poleceń. Notatnik zostaje jako zapis drogi do wyniku i raport; skrypt — jako narzędzie.
+Powstały plik `analiza.py` zawiera kod komórek rozdzielony komentarzami `# In[2]:`; komórki Markdown stają się komentarzami. Ponowne wykonanie polecenia — na przykład po zmianie notatnika — zastępuje ten plik bez ostrzeżenia, dlatego nie poprawiamy go w miejscu, lecz porządkujemy kod w osobnych plikach: funkcje do modułu w `skrypty/`, wczytanie i zapis — do skryptu pod strażnikiem `if __name__ == "__main__":` z rozdziału 7, ścieżki jako argumenty z wiersza poleceń. Notatnik zostaje jako zapis drogi do wyniku i raport; skrypt — jako narzędzie.
 
 ## Co dalej
 

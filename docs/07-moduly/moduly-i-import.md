@@ -8,7 +8,7 @@ Mechanizm najlepiej pokazać na module własnym, a nie bibliotecznym — wtedy w
 
 **Moduł** (ang. *module*) to plik z kodem Pythona. Jego nazwą jest nazwa pliku bez rozszerzenia `.py`, dlatego musi być poprawnym identyfikatorem według zasad z rozdziału [3. Nazwy i typy](../03-nazwy-typy/nazwy-i-slowa-kluczowe.md#zasady-nazywania): `narzedzia.py` jest modułem `narzedzia`, ale pliku `moje-narzedzia.py` nie da się zaimportować instrukcją `import`, bo `moje-narzedzia` nie jest identyfikatorem. Skrypty uruchamiane bezpośrednio, jak `pole-prostokata.py` z rozdziału 6, mogą nosić dowolne nazwy; plik przeznaczony do importu nazywamy w konwencji `snake_case`.
 
-Zapiszmy prosty moduł z docstringiem, stałą i funkcją:
+Przykłady rozdziału zapisujemy w nowym katalogu `projekt`, przeznaczonym wyłącznie na przykłady książki (jeżeli katalog o tej nazwie już istnieje, wybieramy inną nazwę), ponieważ programy z kolejnych rozdziałów zapisują w nim pliki i zastępują pliki o tych samych nazwach; w nim też otwieramy terminal. Zapiszmy prosty moduł z docstringiem, stałą i funkcją:
 
 ```python title="narzedzia.py"
 """Udostępnia proste narzędzia do pracy z tekstem."""
@@ -21,7 +21,7 @@ def policz_slowa(tekst):
     return len(tekst.split())
 ```
 
-W tym samym katalogu — nazwijmy go `projekt` i w nim otwierajmy terminal — umieszczamy program, który z modułu korzysta:
+W tym samym katalogu umieszczamy program, który z modułu korzysta:
 
 ```python title="program.py"
 import narzedzia

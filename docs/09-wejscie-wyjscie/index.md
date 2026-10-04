@@ -6,6 +6,8 @@ Wspólny model rozdziału to **strumień tekstowy**: obiekt, do którego `print(
 
 Rozdział domyka zapowiedzi z rozdziału [8. Wyjątki i zarządzanie zasobami](../08-wyjatki/index.md) — pełne omówienie `open()`, `redirect_stdout()` i `chdir()`, dziennik `logging` w pliku, operator `%` — oraz sygnaturę `print()` z rozdziału 2 i typy binarne z katalogu typów rozdziału 3.
 
+Przykłady rozdziału zapisują pliki w katalogu roboczym pod krótkimi nazwami, takimi jak `notatki.txt`, `raport.txt`, `obrazek.png` czy `ustawienia.json`, i zastępują bez ostrzeżenia pliki o tych samych nazwach. Uruchamiamy je więc w katalogu przeznaczonym wyłącznie na przykłady książki — jak katalog `projekt` z rozdziału 7 — a nie w katalogu z własnymi plikami.
+
 ---
 
 ## W tym rozdziale

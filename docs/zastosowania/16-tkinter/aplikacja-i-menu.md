@@ -55,9 +55,14 @@ class Notatnik(tk.Tk):
     def otworz(self):
         sciezka = filedialog.askopenfilename(filetypes=[("Pliki tekstowe", "*.txt"), ("Wszystkie", "*.*")])
         if sciezka:
+            try:
+                tresc = Path(sciezka).read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError) as blad:
+                messagebox.showerror("Notatnik", f"Nie można otworzyć pliku:\n{blad}")
+                return
             self.plik = Path(sciezka)
             self.tekst.delete("1.0", "end")
-            self.tekst.insert("1.0", self.plik.read_text(encoding="utf-8"))
+            self.tekst.insert("1.0", tresc)
             self.stan.set(f"Otwarto {self.plik.name}")
 
     def zapisz(self):
@@ -90,7 +95,7 @@ if __name__ == "__main__":
 
 ![Okno Notatnik z menu Plik i Pomoc, polem tekstowym i paskiem stanu](img/aplikacja.png)
 
-Klasa dziedziczy po `tk.Tk`, więc obiekt aplikacji jest oknem głównym — `super().__init__()` tworzy okno, a konstruktor dzieli budowę na metody: menu, widżety, skróty. Pasek stanu pakujemy przed polem tekstowym z `side="bottom"`, bo gdy okno robi się za małe, `pack()` odbiera miejsce widżetom dodanym później — inaczej pasek zniknąłby pierwszy. Stan aplikacji (`plik`, zmienna paska stanu) to atrybuty, do których każda metoda ma dostęp. Menu składa się z paska `Menu` przypiętego do okna opcją `menu` i podmenu dodawanych `add_cascade()`; pozycje to `add_command()` z funkcją zwrotną, `add_separator()` rysuje kreskę. Opcja `accelerator` tylko wyświetla skrót obok pozycji — samo działanie skrótu trzeba związać `bind()`, jak w `_buduj_skroty()`; `Text` ma własne wiązanie `<Control-o>` (wstawia pusty wiersz), wykonywane przed wiązaniem okna, więc `unbind_class()` je usuwa. W Tk 9 podmenu nie mają przerywanej linii odrywającej (opcja `tearoff` domyślnie `0`); w Tk 8.6 trzeba ją wyłączyć jawnie: `tk.Menu(pasek, tearoff=0)`. Metody odczytu — `index("end")`, `type()`, `entrycget()` — pozwalają sprawdzić menu w skrypcie. `Text` z `undo=True` obsługuje cofanie (++ctrl+z++) i pamięta w `edit_modified()`, czy dokument zmienił się od ostatniego zapisu; tu zwraca `1` (prawdę), bo wstawiliśmy notatkę. Blok strażnika `__main__` z rozdziału 7 „Python Podstawy” pozwala importować klasę do testów bez otwierania okna.
+Klasa dziedziczy po `tk.Tk`, więc obiekt aplikacji jest oknem głównym — `super().__init__()` tworzy okno, a konstruktor dzieli budowę na metody: menu, widżety, skróty. Pasek stanu pakujemy przed polem tekstowym z `side="bottom"`, bo gdy okno robi się za małe, `pack()` odbiera miejsce widżetom dodanym później — inaczej pasek zniknąłby pierwszy. Stan aplikacji (`plik`, zmienna paska stanu) to atrybuty, do których każda metoda ma dostęp. Menu składa się z paska `Menu` przypiętego do okna opcją `menu` i podmenu dodawanych `add_cascade()`; pozycje to `add_command()` z funkcją zwrotną, `add_separator()` rysuje kreskę. Opcja `accelerator` tylko wyświetla skrót obok pozycji — samo działanie skrótu trzeba związać `bind()`, jak w `_buduj_skroty()`; `Text` ma własne wiązanie `<Control-o>` (wstawia pusty wiersz), wykonywane przed wiązaniem okna, więc `unbind_class()` je usuwa. W Tk 9 podmenu nie mają przerywanej linii odrywającej (opcja `tearoff` domyślnie `0`); w Tk 8.6 trzeba ją wyłączyć jawnie: `tk.Menu(pasek, tearoff=0)`. Metody odczytu — `index("end")`, `type()`, `entrycget()` — pozwalają sprawdzić menu w skrypcie. `Text` z `undo=True` obsługuje cofanie (++ctrl+z++) i pamięta w `edit_modified()`, czy dokument zmienił się od ostatniego zapisu; tu zwraca `1` (prawdę), bo wstawiliśmy notatkę. Blok strażnika `__main__` z rozdziału 7 „Python Podstawy” pozwala importować klasę do testów bez otwierania okna. Metoda `otworz()` zmienia `self.plik` i treść pola dopiero po udanym odczycie: pliku, którego nie da się odczytać jako tekstu w UTF-8 (na przykład zapisanego w kodowaniu Windows-1250), nie przypisuje do okna, tylko pokazuje komunikat błędu — inaczej pole zostałoby puste, a następne „Zapisz” zastąpiłoby ten plik pustą treścią.
 
 ## Dialogi
 
