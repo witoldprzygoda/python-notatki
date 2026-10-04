@@ -161,7 +161,7 @@ True
 ```
 
 !!! note "IEEE-754"
-    Na praktycznie wszystkich platformach — zarówno 64-, jak i 32-bitowych — wartości
+    Na niemal wszystkich platformach — zarówno 64-, jak i 32-bitowych — wartości
     typu float są liczbami zmiennoprzecinkowymi IEEE-754 „podwójnej precyzji”
     (64 bity): 1 bit na znak, 11 bitów na wykładnik i pozostałe 52 bity na mantysę.
     Ponieważ liczba znormalizowana ma zawsze postać 1.xxx…, wiodąca jedynka nie jest

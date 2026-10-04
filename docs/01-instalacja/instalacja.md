@@ -119,11 +119,12 @@ Python install manager
     oficjalna dokumentacja zaleca sprawdzenie powyższych aliasów, a jeśli są już
     włączone — ich wyłączenie i ponowne włączenie. Zmienna `PATH` powinna ponadto
     zawierać katalog `%UserProfile%\AppData\Local\Microsoft\WindowsApps`. Zapis
-    `%UserProfile%` oznacza wartość zmiennej środowiskowej; w tej postaci ścieżki
-    podaje system Windows i dokumentacja Pythona. Program PowerShell nie rozwija
-    takiego zapisu — tę samą wartość zwraca w nim wyrażenie `$env:USERPROFILE`
-    (podobnie `%LocalAppData%` odpowiada `$env:LOCALAPPDATA`). Po zmianie
-    aliasów należy zamknąć terminal i otworzyć nowe okno programu PowerShell.
+    `%UserProfile%` oznacza wartość zmiennej środowiskowej `UserProfile`; w tej postaci
+    ścieżki zapisują dokumentacja Pythona i okno edycji zmiennych środowiskowych systemu
+    Windows. Program PowerShell nie rozwija takiego zapisu — tę samą wartość zwraca
+    w nim wyrażenie `$env:USERPROFILE` (podobnie `%LocalAppData%` odpowiada
+    `$env:LOCALAPPDATA`). Po zmianie aliasów należy zamknąć terminal i otworzyć nowe
+    okno programu PowerShell.
 
 ## Sprawdzenie managera
 

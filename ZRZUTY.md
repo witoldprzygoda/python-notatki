@@ -56,7 +56,10 @@ Brak (stan z 4 X 2026).
 - `zastosowania/22-office-obrazy/img/{oryginal,znak-wodny,wykres}.png` — obrazy generowane przez skrypty
   rozdziału (`przeksztalcenia.py`, `rysowanie.py`, `wykres-slupkowy.py`) w stagingu; odświeżanie: ponowne
   uruchomienie skryptów i skopiowanie plików, nie ręcznie.
-- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera (konfiguracja.md)
+- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera w projekcie `moj-projekt`
+  ze środowiskami `.venv` i `.venv-t` z venv.md (konfiguracja.md); VS Code 1.140.0, rozszerzenie
+  Python 2026.6.0, Python 3.14.8 i 3.14t (4 X 2026); sterownik `vsc_zrzuty.py` wywołany scenariuszem
+  spoza repozytorium — do przeniesienia do `SCENARIUSZE` (pozycja w `DO_OMOWIENIA.md`).
 - `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (konfiguracja.md)
 
 ## Zrezygnowano (decyzja autora z 2 X 2026)
