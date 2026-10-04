@@ -36,28 +36,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
        rozdziału 1 części „Python Zastosowania”.
 - **Stan:** odłożone (2 X 2026).
 
-### Zrzuty ekranu
-
-- **Miejsce:** 18 znaczników `<!-- TODO: screenshot … -->` w obu częściach;
-  lista w `ZRZUTY.md`.
-- **Decyzje (2 X 2026):**
-    - usunąć jako zbędne zrzuty 2 (panel Problems), 3 (otwieranie
-      `settings.json`), 6 (menu New → Notebook), 17 i 18 (Excel, Word);
-    - zrzuty wykonujemy automatycznie skryptami (zakres pracy rozszerzony
-      o `scripts/`, branch `infra/zrzuty-ekranu`), autor tylko akceptuje
-      wyniki; przebiegi z VS Code w Windows Sandbox (funkcja włączona
-      2 X 2026, wymaga restartu komputera);
-    - zrzuty REPL w jasnym schemacie Windows Terminal („One Half Light”).
-- **Pilotaż:** gotowe zrzuty 16 (Swagger UI, `scripts/screenshots/fastapi_docs.py`)
-  i 7 (kolorowy REPL: przechwycenie przez ConPTY, render xterm.js z czcionką
-  Cascadia Mono; skrypty jeszcze w scratchpadzie). Pogrubienie w REPL rysujemy
-  zwykłymi kolorami schematu (ustawienie Windows Terminal
-  `intenseTextStyle: "bold"`) — lepszy kontrast na jasnym tle (decyzja 2 X 2026).
-- **Do potwierdzenia:** zastąpienie zrzutów 4 (wynik Code Runnera) i 9
-  (ostrzeżenie mypy) blokami tekstowymi.
-- **Stan:** pilotaż VS Code (zrzut 10, pułapka w debugerze) po restarcie
-  komputera; potem decyzja o całości.
-
 ### Zakładka „Ściągawki”
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
@@ -327,3 +305,25 @@ części „Python Zastosowania”) i zbieracz stron (rozdział 21) odmawiają z
 gdy plik wynikowy już istnieje, przy czym zbieracz sprawdza to przed pierwszym
 żądaniem. Strona odbioru ze stanem przed i po każdej poprawce została
 opublikowana jako artefakt (branch `content/bezpieczne-polecenia`).
+Wskazówkę o zablokowanym uruchamianiu skryptów przeniesiono do pierwszej
+aktywacji venv (sekcja „Aktywacja”), a przy profilu i w rozdziale 1 części
+„Python Zastosowania” zostały odsyłacze (decyzja autora z 4 X 2026).
+
+### Zrzuty ekranu (4 X 2026)
+
+Wszystkie 18 znaczników `<!-- TODO: screenshot … -->` rozstrzygnięto.
+W treści jest 12 zrzutów: pylint, strona główna Jupyter Notebook, kolorowy
+REPL, podpowiedzi typów Pylance, błąd typu mypy, trzy zrzuty debuggera,
+widok Testing, nowy notatnik i wybór jądra w VS Code oraz Swagger UI. Wynik
+Code Runnera pokazuje blok tekstowy (zasada bloków tekstowych z `CLAUDE.md`),
+a zrzuty 2, 3, 6, 17 i 18 usunięto zgodnie z decyzją autora z 2 X 2026.
+Zrzuty powstają automatycznie skryptami z `scripts/screenshots/`; zrzuty
+VS Code — w Windows Sandbox, bez naruszania profilu użytkownika, w motywie
+Light+ i skali 1,5 jak wcześniejsze zrzuty z rozdziału 1, a kolorowy REPL —
+w schemacie One Half Light z pogrubieniem rysowanym zwykłymi kolorami.
+Sposób odtworzenia każdego zrzutu opisuje `ZRZUTY.md`. Przy wykonywaniu
+zrzutów poprawiono opisy, które rozminęły się z VS Code 1.140: Code Runner
+pisze do panelu Output, klawisz F5 pyta najpierw o debugger, **Select Kernel**
+proponuje najpierw **Python Environments…**, mypy zgłasza błąd typu,
+a podpowiedzi Pylance pokazuje krótki listing bez adnotacji (branch
+`infra/zrzuty-ekranu`).
