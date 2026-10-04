@@ -97,6 +97,65 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   albo zakładki z wariantami.
 - **Stan:** do omówienia (4 X 2026).
 
+### Tytuł strony „Wyrażenia warunkowe”
+
+- **Miejsce:** `docs/04-sterowanie/wyrazenia-warunkowe.md` (H1), etykieta
+  nawigacji w `mkdocs.yml`, spis rozdziału w `docs/04-sterowanie/index.md`
+  oraz 3 odsyłacze z tekstem „Wyrażenia warunkowe” na innych stronach
+  (pozostałe odsyłacze do tej strony mają tekst „4. Sterowanie przepływem”).
+- **Opis:** pierwsza sekcja strony nosi od commita `39ce8cc` (gałąź
+  `content/poprawki-z-talii`) tytuł „Instrukcja if, elif, else”, ponieważ
+  `if`/`elif`/`else` jest instrukcją, a wyrażeniem jest wyłącznie forma
+  trójskładnikowa. Tytuł strony, obejmującej także instrukcję `match`, nadal
+  nazywa całość wyrażeniami. Zauważone przy przygotowaniu slajdów wykładowych.
+- **Propozycja:** zmiana H1 i etykiety nawigacji, np. na „Instrukcje
+  warunkowe”, bez zmiany nazwy pliku (adres strony pozostaje); zmiana
+  nawigacji wymaga zgody autora. Ćwiczenia na gałęzi `cwiczenia` są powiązane
+  z nagłówkami tej strony: zmianę identyfikatora sekcji
+  (`#wyrazenie-if-elif-else` → `#instrukcja-if-elif-else`) i ewentualnie H1
+  przejmie najbliższa synchronizacja.
+- **Stan:** do decyzji autora (4 X 2026).
+
+### Scenariusz zrzutu listy wyboru interpretera
+
+- **Miejsce:** `docs/01-instalacja/img/vsc-select-interpreter.png`
+  (konfiguracja.md), `ZRZUTY.md` (sekcja „Wykonane”),
+  `scripts/screenshots/vscode/`.
+- **Opis:** zrzut odświeżony 4 X 2026 (VS Code 1.140.0, rozszerzenie Python
+  2026.6.0, Python 3.14.8 i 3.14t, projekt `moj-projekt` ze środowiskami
+  `.venv` i `.venv-t`) powstał w Windows Sandbox przez wywołanie sterownika
+  `vsc_zrzuty.py` scenariuszem spoza repozytorium, więc nie da się go odtworzyć
+  skryptami z `scripts/screenshots/`, czego wymaga `ZRZUTY.md`. Skrypt
+  `wsb/przygotuj.ps1` nie instaluje kompilacji 3.14t i nie tworzy `.venv-t`.
+  Generatora nie ma także zrzut `vsc-environment-manager.png`
+  (konfiguracja.md).
+- **Propozycja:** na gałęzi `infra/*` dodać scenariusz listy wyboru
+  interpretera do `SCENARIUSZE` w `vsc_zrzuty.py` i uzupełnić
+  `wsb/przygotuj.ps1` o instalację 3.14t i środowisko `.venv-t` z venv.md;
+  rozważyć scenariusz dla `vsc-environment-manager.png`.
+- **Stan:** do wykonania na gałęzi `infra/*` (4 X 2026).
+
+### Drobne poprawki redakcyjne spoza zakresu poprawek z talii
+
+- **Miejsce i opis:**
+    1. `docs/11-model-danych/deskryptory.md`, w. 7: „Python zamiast sięgać do
+       słownika instancji wywołuje…” — brak przecinków wokół wtrącenia
+       z „zamiast” (analogiczne miejsce w `zasieg-nazw-i-domkniecia.md`
+       poprawiono w commicie `39ce8cc`);
+    2. `docs/zastosowania/07-ml-pojecia/warsztat.md`, w. 73: „estymator,
+       który zamiast przewidywać przekształca cechy” — jak wyżej;
+    3. `docs/02-konsola/pierwszy-skrypt.md`, w. 53: „wielolinijkowego
+       łańcucha znakowego” — pozostałe strony piszą „wielowierszowy”;
+    4. `docs/03-nazwy-typy/typy-proste.md`, w. 170: wzór
+       `(-1)^znak * 2^wykładnik * mantysa` używa znaku `^`, który w Pythonie
+       oznacza bitową alternatywę wykluczającą (XOR); komentarze przy `**`
+       poprawiono w `39ce8cc` z tego samego powodu.
+- **Propozycja:** 1–2 — „Python, zamiast sięgać do słownika instancji,
+  wywołuje…”, „estymator, który, zamiast przewidywać, przekształca cechy”
+  (albo przebudowa zdań bez wtrącenia); 3 — „wielowierszowego”; 4 — zapis
+  `(-1)**znak * 2**wykładnik * mantysa` albo wzór matematyczny w prozie.
+- **Stan:** do decyzji autora (4 X 2026).
+
 ### Rozdział 1 a stan z 5 X 2026 (sprawdzenie przy laboratorium 1)
 
 - **Miejsce:** `docs/01-instalacja/instalacja.md`, `sciezki-i-utrzymanie.md`,
@@ -111,7 +170,7 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
        przestarzały i wygaszany”.
     2. `instalacja.md` i `sciezki-i-utrzymanie.md`: wyniki `py list`
        i `py list --online --one` bez kolumny Alias (manager 26.3) — poprawione
-       na niescalonej gałęzi `content/poprawki-z-talii`.
+       w commicie `39ce8cc`.
     3. `instalacja.md`, w. 74–76, ramka „Wersja odniesienia notatek”: zdanie
        o 3.15 jako wersji przedpremierowej zdezaktualizuje się po wydaniu
        3.15.0, planowo 9 X 2026 (PEP 790); dotyczy też wykresu
