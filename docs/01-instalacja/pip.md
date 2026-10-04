@@ -10,7 +10,7 @@ Przy kilku zainstalowanych wersjach Pythona nie zaleca się używania samodzieln
 pip install requests
 ```
 
-ponieważ powstaje wówczas pytanie, który plik `pip.exe` został odnaleziony przez system Windows. Zamiast tego stosujemy formę `INTERPRETER -m pip`, która jednoznacznie wiąże polecenie z konkretnym interpreterem. Dla interpretera domyślnego:
+ponieważ powstaje wówczas pytanie, który plik `pip.exe` został odnaleziony przez system Windows. Po instalacji samym managerem polecenie `pip` zwykle w ogóle nie działa: plik `pip.exe` trafia do katalogu `%LocalAppData%\Python\bin`, którego domyślnie nie ma w zmiennej `PATH` (opis w podrozdziale [Ścieżki i utrzymanie](sciezki-i-utrzymanie.md)). Zamiast tego stosujemy formę `INTERPRETER -m pip`, która jednoznacznie wiąże polecenie z konkretnym interpreterem. Dla interpretera domyślnego:
 
 ```powershell title="Terminal"
 python -m pip install requests
