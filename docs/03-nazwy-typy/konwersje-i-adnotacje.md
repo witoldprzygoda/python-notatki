@@ -58,7 +58,7 @@ ceny: list[float] = []        # od Pythona 3.9 (PEP 585)
 wynik: int | None = None      # od Pythona 3.10 (PEP 604)
 ```
 
-W starszym kodzie można spotkać zapis z modułu `typing` (`List[float]`, `Optional[int]`) — aliasy te są dziś w dokumentacji oznaczone jako przestarzałe i w nowym kodzie nie są zalecane.
+W starszym kodzie można spotkać zapis z modułu `typing`: `List[float]` zamiast `list[float]` oraz `Optional[int]` zamiast `int | None`. Dokumentacja oznacza `List` jako przestarzały alias typu `list`; `Optional` przestarzały nie jest, ale ma krótszy odpowiednik z operatorem `|`. W nowym kodzie stosujemy zapis współczesny.
 
 Pisanie kodu z podaniem typu nie zmienia dynamicznego charakteru tworzenia obiektów — Python w czasie działania programu **nie wymusza** zgodności z adnotacją; stanowi ona rodzaj etykiety zwiększającej czytelność kodu.
 

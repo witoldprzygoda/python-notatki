@@ -73,10 +73,11 @@ python -m pip install ipython
 Po zainstalowaniu powłokę uruchamiamy poleceniem `ipython`:
 
 ```{ .text .no-copy }
-PS C:\> ipython
-Python 3.14.8 (tags/v3.14.8, ...) [MSC v.1944 64 bit (AMD64)]
+(.venv) PS C:\projekty\moj-projekt> ipython
+Python 3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]
 Type 'copyright', 'credits' or 'license' for more information
 IPython 9.17.1 -- An enhanced Interactive Python. Type '?' for help.
+Tip: The `%timeit` magic has a `-o` flag, which returns the results, making it easy to plot. See `%timeit?`.
 
 In [1]: print("hello")
 hello
@@ -84,9 +85,9 @@ hello
 In [2]:
 ```
 
-Znaki zachęty `In [1]:`, `In [2]:` … pokazują wspomnianą numerację kolejnych poleceń. Powłokę opuszczamy poleceniem `exit`.
+Znaki zachęty `In [1]:`, `In [2]:` … pokazują wspomnianą numerację kolejnych poleceń. Wiersz rozpoczynający się od `Tip:` zawiera losowo wybraną wskazówkę dotyczącą pracy w powłoce, dlatego przy kolejnych uruchomieniach może mieć inną treść. Powłokę opuszczamy poleceniem `exit`.
 
-Python często informuje przy tej okazji, że sam pip ma nowszą wersję, i zachęca do aktualizacji — wykonujemy ją poleceniem:
+Jeżeli w PyPI dostępna jest nowsza wersja pip niż zainstalowana, sam pip informuje o tym na końcu wyniku instalacji (wiersze rozpoczynające się od `[notice]`) i zachęca do aktualizacji — wykonujemy ją poleceniem:
 
 ```powershell title="Terminal"
 python -m pip install --upgrade pip

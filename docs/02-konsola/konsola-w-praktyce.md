@@ -12,8 +12,8 @@ Najprostszym zastosowaniem konsoli jest kalkulator. Spróbujmy:
 >>> 17 // 3    # dzielenie bez reszty
 >>> 17 % 3     # modulo, czyli reszta z dzielenia
 >>> 5 * 3 + 2
->>> 5 ** 2     # 5^2
->>> 2 ** 7     # 2^7
+>>> 5 ** 2     # potęgowanie: 5 do kwadratu
+>>> 2 ** 7     # 2 do potęgi 7
 >>> width = 20
 >>> height = 5 * 9
 >>> width * height

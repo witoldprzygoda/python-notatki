@@ -84,8 +84,8 @@ Operacje dla operatorów można połączyć z przypisaniem: `|=` (funkcja update
 Relacje pomiędzy elementami dwóch kontenerów set można sprawdzić za pomocą:
 
 - `s1.isdisjoint(s2)` — jeśli brak elementów wspólnych, zwraca True
-- `s1.issubset(s2)` — prawda, jeśli wszystkie elementy s1 są podzbiorem s2; można też zapisać relacją `<=`
-- `s1.issuperset(s2)` — prawda, jeśli wszystkie elementy s2 są podzbiorem s1; relacja `>=`
+- `s1.issubset(s2)` — prawda, jeśli wszystkie elementy s1 należą do s2 (s1 jest podzbiorem s2); można też zapisać relacją `<=`
+- `s1.issuperset(s2)` — prawda, jeśli wszystkie elementy s2 należą do s1 (s1 jest nadzbiorem s2); relacja `>=`
 
 ```{ .python .no-copy }
 s1 = {2,1}

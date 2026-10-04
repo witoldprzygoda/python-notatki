@@ -1,8 +1,8 @@
 # Wyrażenia warunkowe
 
-## Wyrażenie if, elif, else
+## Instrukcja if, elif, else
 
-Kluczową rolę grają odpowiednie wcięcia kodu. Wyrażenia if mogą być zagnieżdżone, ale odpowiednie głębokości wcięć muszą być zachowane.
+Kluczową rolę grają odpowiednie wcięcia kodu. Instrukcje if mogą być zagnieżdżone, ale odpowiednie głębokości wcięć muszą być zachowane.
 
 ```python title="warunki.py"
 x = int(input("Wpisz liczbe calkowita: "))
@@ -30,7 +30,7 @@ W wielu językach programowania istnieje operator trójargumentowy — jego idea
 'duzo'
 ```
 
-Możliwe jest zagnieżdżanie trójskładnikowych instrukcji warunkowych; trzeba przy tym uważać, żeby zapisana logika odpowiadała rzeczywiście naszym zamiarom. Przykład z podwójnie zagnieżdżonym warunkiem if:
+Możliwe jest zagnieżdżanie wyrażeń z operatorem trójskładnikowym; trzeba przy tym uważać, żeby zapisana logika odpowiadała rzeczywiście naszym zamiarom. Przykład z podwójnie zagnieżdżonym warunkiem if:
 
 ```python title="zagniezdzenia.py"
 a = False

@@ -37,7 +37,7 @@ tab2d = [[0]*Y for _ in range(X)]   # zmiennej _ nie potrzebujemy
     [[7, 0], [7, 0], [7, 0], [7, 0]]
     ```
 
-Nawet w przypadku „poprawnie” skonstruowanej dwuwymiarowej tablicy warto sobie uświadomić, że poszczególne komórki takiej struktury są **referencjami** do określonych miejsc w pamięci. Jeśli zbudujemy tablicę wypełnioną samymi zerami, wszystkie komórki pokazują na ten sam adres — to opisana w rozdziale [3. Nazwy i typy](../03-nazwy-typy/obiekty-i-pamiec.md) optymalizacja małych wartości całkowitych z zakresu [-5, 256]. Jakakolwiek zmiana zawartości komórki pociąga za sobą zmianę dowiązania adresowego:
+Nawet w przypadku „poprawnie” skonstruowanej dwuwymiarowej tablicy warto sobie uświadomić, że poszczególne komórki takiej struktury są **referencjami** do określonych miejsc w pamięci. Jeśli zbudujemy tablicę wypełnioną samymi zerami, wszystkie komórki wskazują ten sam adres. Wynika to z samej konstrukcji tablicy: literał `0` kompilator przechowuje jako jedną stałą, więc w każdym przebiegu złożenia listowego zapis `[0]*Y` powiela referencję do tego samego obiektu — dla tablicy wypełnionej wartością 1000 wynik byłby identyczny. Opisana w rozdziale [3. Nazwy i typy](../03-nazwy-typy/obiekty-i-pamiec.md) optymalizacja małych wartości całkowitych z zakresu [-5, 256] wyjaśnia natomiast, dlaczego ten sam adres zwraca osobno wywołane `id(0)`, a po zmianie komórki — `id(7)`. Jakakolwiek zmiana zawartości komórki pociąga za sobą zmianę dowiązania adresowego:
 
 ```{ .python .no-copy }
 >>> tab2d = [[0]*Y for _ in range(X)]
