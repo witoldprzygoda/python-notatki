@@ -13,7 +13,7 @@ Zestaw operatorów w języku Python jest bardzo podobny do tych spotykanych w in
 (przypisanie w wyrażeniu)   :=
 ```
 
-Warto przypomnieć, że operator dzielenia `/` wykonuje dzielenie rzeczywiste (zmiennoprzecinkowe), a dzielenie z odcięciem części ułamkowej wykonuje się operatorem `//`. Iloraz całkowity i resztę jednocześnie zwraca funkcja wbudowana `divmod()` — `divmod(7, 2)` daje krotkę `(3, 1)`. W Pythonie mamy również operator potęgowania `**`, nieobecny w językach C/C++.
+Warto przypomnieć, że operator dzielenia `/` wykonuje dzielenie rzeczywiste (zmiennoprzecinkowe), a dzielenie całkowite wykonuje się operatorem `//`, który zaokrągla wynik w dół (ang. *floor division*). Dla liczb dodatnich oznacza to odcięcie części ułamkowej (`7 // 2` daje `3`), ale dla ujemnych — wynik mniejszy: `-7 // 2` daje `-4`, a nie `-3`. Iloraz całkowity i resztę jednocześnie zwraca funkcja wbudowana `divmod()` — `divmod(7, 2)` daje krotkę `(3, 1)`, a `divmod(-7, 2)` krotkę `(-4, 1)`, bo reszta ma znak dzielnika. W Pythonie mamy również operator potęgowania `**`, nieobecny w językach C/C++.
 
 Nie ma za to operatorów inkrementacji `++` i dekrementacji `--`. Zapis `++x` jest mimo to poprawny — nie wynika to jednak z obecności „preinkrementacji”, lecz z wielokrotnego zastosowania jednoargumentowych operatorów `+` (nic nie zmienia) i `-` (zmienia znak na przeciwny), które można w dowolnej liczbie umieszczać przed obiektem. Ten sam zapis umieszczony **za** obiektem (`x++`) zostanie zgłoszony jako błąd składniowy.
 

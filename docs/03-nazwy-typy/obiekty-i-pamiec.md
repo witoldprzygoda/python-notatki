@@ -69,9 +69,11 @@ Przypisanie `a = "aaa"` nie zmieniło obiektu `"xyz"` — utworzyło nowy obiekt
     True
     ```
 
-    Jest to szczegół implementacji CPythona, nie część specyfikacji języka — nigdy
-    nie należy polegać na `is` przy porównywaniu **wartości** (opis operatora w
-    podrozdziale [Operatory](operatory.md)).
+    W skrypcie ten sam zapis daje dla 257 wynik `True`: kompilator przechowuje
+    jednakowe stałe jednego bloku kodu tylko raz, a konsola kompiluje każdy wiersz
+    osobno. Jest to szczegół implementacji CPythona, nie część specyfikacji języka —
+    nigdy nie należy polegać na `is` przy porównywaniu **wartości** (opis operatora
+    w podrozdziale [Operatory](operatory.md)).
 
 Można również odczytać (zrzutować) wskazany adres pamięci jako obiekt Pythona, korzystając z modułu `ctypes` z biblioteki standardowej. Ilustrujący fragment kodu:
 
