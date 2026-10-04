@@ -24,6 +24,7 @@ Polskojęzyczne notatki do kursu Pythona (podręcznik kursowy). Framework: **MkD
 - Zawartość plików: belka z nazwą pliku, np. ` ```json title="settings.json" `, ` ```text title="requirements.txt" `, ` ```bash title="~/.bashrc" `.
 - Nigdy goły blok bez `title=` ani `.no-copy`.
 - Polecenia celowo odradzane (np. goły `pip install`) pokazujemy jako `.no-copy`, żeby nie miały ikony kopiowania.
+- Żadne polecenie ani przykład nie może nadpisać, wyczyścić ani usunąć zasobu, którego nie utworzył sam przykład książki (pliku lub katalogu czytelnika, profilu powłoki, ustawień edytora, zmiennej środowiskowej, PATH, interpretera, repozytorium). Zasób tworzymy tylko wtedy, gdy go nie ma (np. `if (-not (Test-Path $PROFILE)) { New-Item -ItemType File -Force $PROFILE }`), do istniejących plików konfiguracyjnych dopisujemy („na końcu pliku dopisujemy”, `>>` zamiast `>`), a przykłady, które usuwają, przenoszą lub nadpisują pliki, działają wyłącznie na plikach i katalogach utworzonych przez siebie, o nazwach niekolidujących z danymi czytelnika. Gdy usunięcie albo nadpisanie jest celem polecenia (np. odinstalowanie), poprzedza je ostrzeżenie `!!! warning`. Każdy taki przypadek sprawdzamy na plikach próbnych.
 
 ## Inne konwencje
 

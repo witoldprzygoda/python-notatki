@@ -105,6 +105,20 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Stan:** do omówienia; prace ruszą po dalszych wskazówkach autora
   (3 X 2026).
 
+### Przekierowanie `2>` w Windows PowerShell 5.1
+
+- **Miejsce:** `docs/09-wejscie-wyjscie/print-i-strumienie.md` — opis
+  przekierowania strumienia błędów do pliku (`2> strumienie-bledy.txt`).
+- **Opis:** opis zgadza się z PowerShell 7. W Windows PowerShell 5.1 tekst,
+  który program zewnętrzny wypisuje do strumienia błędów, trafia do pliku
+  opakowany w rekord błędu PowerShell (`NativeCommandError`, numer wiersza,
+  `CategoryInfo`), a nie jako sam komunikat programu. Zauważone przy przeglądzie
+  bezpieczeństwa poleceń (4 X 2026).
+- **Propozycja:** rozpatrzyć razem z pozostałymi różnicami powłok z raportu
+  „Różnice między powłokami” (3 X 2026): jedno zdanie o Windows PowerShell 5.1
+  albo zakładki z wariantami.
+- **Stan:** do omówienia (4 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
@@ -287,3 +301,29 @@ opisanymi zmianami — po każdej aktualizacji Material porównać z oryginałem
 wprowadzono: proponowanej poprawki widoczności fokusu przy nawigacji
 klawiaturą pod wysoką belką (WCAG 2.4.11) — do ewentualnej decyzji (branch
 `infra/menu-czesci-w-belce`).
+
+### Bezpieczne polecenia i przykłady (4 X 2026)
+
+Polecenie `New-Item -ItemType File -Force $PROFILE` z podrozdziału o venv po
+cichu opróżniało istniejący profil PowerShell (sprawdzone w Windows PowerShell
+5.1 i PowerShell 7). Autor ustalił zasadę: „NIGDY nie może być tak, że
+sugerujesz jakąś komendę niebezpieczną, nadpisującą czyjś zasób”. Zasadę
+rozwija wpis w `CLAUDE.md` (sekcja „Konwencje bloków kodu”): polecenia
+i przykłady nie mogą nadpisać, wyczyścić ani usunąć zasobu, którego nie
+utworzył sam przykład; zasób tworzymy tylko wtedy, gdy go nie ma, do plików
+konfiguracyjnych dopisujemy, przykłady działają na własnych plikach
+i katalogach, a zamierzone usunięcie poprzedza ostrzeżenie.
+
+Przegląd obu części objął wszystkie polecenia, pliki konfiguracyjne
+i przykłady uruchamiane przez czytelnika; każde zagrożenie i każdą poprawkę
+sprawdzono na plikach próbnych. Poprawiono 41 stron, m.in.:
+`pip freeze > requirements.txt` zapisuje tylko wtedy, gdy pliku nie ma;
+przykład w `pathlib.md` nie usuwa już katalogu `archiwum`, a skrypt kontrolny
+narzędzia porządkującego (rozdział 20 części „Python Zastosowania”) — katalogu
+`pobrane`; polecenia odinstalowania poprzedzają ostrzeżenia. Decyzje autora:
+zmianę zasady wykonywania skryptów (`Set-ExecutionPolicy`) wykonujemy tylko
+wtedy, gdy uruchamianie skryptów jest zablokowane; `przewiduj.py` (rozdział 12
+części „Python Zastosowania”) i zbieracz stron (rozdział 21) odmawiają zapisu,
+gdy plik wynikowy już istnieje, przy czym zbieracz sprawdza to przed pierwszym
+żądaniem. Strona odbioru ze stanem przed i po każdej poprawce została
+opublikowana jako artefakt (branch `content/bezpieczne-polecenia`).
