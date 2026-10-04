@@ -43,19 +43,15 @@ print "hello wrong"
 
 Powinien pojawić się problem oraz podpowiedź.
 
-<!-- TODO: screenshot — podkreślenie błędu przez pylint -->
+![Instrukcja print bez nawiasów podkreślona przez pylint i dymek z komunikatem błędu składni E0001](img/vsc-pylint-blad.png)
 
-Albo (++ctrl+shift+m++) zakładka **Problems**:
-
-<!-- TODO: screenshot — zakładka Problems -->
+Te same komunikaty zbiera zakładka **Problems** (++ctrl+shift+m++).
 
 ### Usuwanie Pylance
 
 Możliwe, że wyświetlone zostaną dwie „porady” — druga pochodzi od **Pylance**, który nie jest linterem, lecz serwerem językowym zapewniającym IntelliSense; jego diagnostyka może się dublować z pylintem. Aby go wyłączyć, prostą operację (odszukanie Pylance na liście rozszerzeń i jego dezaktywacja albo odinstalowanie) trzeba uzupełnić wpisem w pliku konfiguracyjnym VSC.
 
 W tym celu otwieramy Command Palette (++ctrl+shift+p++) i wyszukujemy **Preferences: Open User Settings (JSON)** (nie *Default*).
-
-<!-- TODO: screenshot — otwieranie settings.json -->
 
 Otwieramy plik `settings.json` do edycji. Jego treść jest ujęta w nawiasy klamrowe `{` `}`, a kolejne ustawienia oddzielają przecinki. Jeżeli poniższego ustawienia jeszcze w pliku nie ma, dopisujemy je jako ostatni wpis — przed zamykającym nawiasem `}`, stawiając przecinek za poprzednim wpisem (o ile taki jest) — i nie zmieniamy pozostałych wpisów:
 
@@ -117,11 +113,16 @@ Dawne ustawienie `python.linting.pylintArgs` zostało wycofane wraz z wbudowanym
 
 ## Uruchamianie kodu — Code Runner
 
-Plik z instrukcją `print` chcemy teraz uruchomić z poziomu VSC. W tym celu dodajemy jeszcze jedno rozszerzenie: w **Extensions** wyszukujemy `code runner`, wybieramy pozycję z pomarańczową ikoną **.run** i instalujemy.
+Plik z instrukcją `print`, poprawioną na `print("pierwszy program")`, chcemy teraz uruchomić z poziomu VSC. W tym celu dodajemy jeszcze jedno rozszerzenie: w **Extensions** wyszukujemy `code runner`, wybieramy pozycję z pomarańczową ikoną **.run** i instalujemy.
 
-Od tej pory uruchomienie kodu to ++ctrl+alt+n++ (a zatrzymanie ++ctrl+alt+m++).
+Od tej pory uruchomienie kodu to ++ctrl+alt+n++ (a zatrzymanie ++ctrl+alt+m++). Code Runner wykonuje plik poleceniem `python -u` w osobnym procesie, a wynik wypisuje w panelu **Output** (nie w terminalu):
 
-<!-- TODO: screenshot — wynik działania Code Runner w terminalu VSC -->
+```{ .text .no-copy }
+[Running] python -u "c:\projekty\moj-projekt\main.py"
+pierwszy program
+
+[Done] exited with code=0 in 0.056 seconds
+```
 
 !!! note "Wariant bez dodatkowego rozszerzenia"
     Rozszerzenie Code Runner nie jest już aktywnie rozwijane (ostatnie wydanie

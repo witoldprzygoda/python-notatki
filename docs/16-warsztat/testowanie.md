@@ -204,7 +204,7 @@ Kolumna `Missing` wskazuje wiersze, których żaden test nie wykonał — najcz�
 
 Visual Studio Code z rozszerzeniem Python z rozdziału 1 wykrywa testy pytest i pokazuje je w widoku **Testing** na pasku bocznym jako drzewo plików i funkcji; każdy test można uruchomić lub debugować osobno, a wynik pojawia się jako zielony lub czerwony znacznik przy funkcji. Konfigurację włącza polecenie **Python: Configure Tests** z palety poleceń (++ctrl+shift+p++), w którym wybieramy pytest i katalog testów.
 
-<!-- TODO: screenshot — widok Testing w VSC z drzewem testów test_fixtures.py i test_kolo.py po uruchomieniu (zielone znaczniki), kadr: sam pasek boczny -->
+![Widok Testing po uruchomieniu wszystkich testów: 10 z 10 zaliczonych, drzewo z plikami test_fixtures.py i test_kolo.py, przypadki sparametryzowane zero, jednostkowe i podwojne jako osobne pozycje, przy każdej zielony znacznik](img/vsc-testing-panel.png){ width="360" }
 
 ## Atrapy — `monkeypatch` i `unittest.mock` (dla dociekliwych)
 

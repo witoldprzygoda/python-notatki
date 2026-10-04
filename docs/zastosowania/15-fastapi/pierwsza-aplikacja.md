@@ -99,7 +99,7 @@ Argument `aplikacja:app` to nazwa modułu i nazwa obiektu aplikacji w nim. Serwe
 
 Przy uruchomionym serwerze adres `http://127.0.0.1:8000/docs` otwiera dokumentację interfejsu wygenerowaną z kodu: każdą trasę z parametrami, ich typami i ograniczeniami, przykładowe odpowiedzi i przycisk, który wysyła żądanie z przeglądarki.
 
-<!-- TODO: screenshot — strona /docs (Swagger UI) aplikacji z trzema trasami i rozwiniętą trasą /produkty/{produkt_id} -->
+![Strona /docs (Swagger UI) z trzema trasami GET i rozwiniętą trasą /produkty/{produkt_id}: parametr produkt_id typu integer i przycisk Try it out](img/fastapi-docs.png)
 
 Źródłem dokumentacji jest opis interfejsu w standardzie **OpenAPI** — dokument JSON pod adresem `/openapi.json`, z którego korzystają też generatory klientów i narzędzia do testów:
 

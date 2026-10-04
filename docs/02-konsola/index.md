@@ -24,7 +24,7 @@ Konsola interaktywna (**REPL**, ang. *read-eval-print loop* — pętla „czytaj
 
 Python 3.14 dodał do tego **kolorowanie składni na żywo** — słowa kluczowe, łańcuchy znaków, liczby i komentarze otrzymują własne kolory już podczas pisania — oraz **autouzupełnianie nazw modułów** klawiszem ++tab++ w instrukcjach `import`.
 
-<!-- TODO: screenshot — nowy REPL z kolorowaniem składni (kolorów nie odda blok tekstowy) -->
+![Sesja nowego REPL Pythona 3.14 z kolorowaniem składni: słowa kluczowe, łańcuchy znaków, liczby i komentarze mają własne kolory](img/repl-kolorowanie.png)
 
 !!! note "Powrót do klasycznej powłoki"
     Nową powłokę można wyłączyć, ustawiając zmienną środowiskową

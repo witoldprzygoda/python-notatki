@@ -14,11 +14,11 @@ W środowisku wirtualnym projektu instalujemy **ipykernel** — pakiet, który u
 python -m pip install ipykernel jupyterlab
 ```
 
-W VSC potrzebne jest rozszerzenie **Jupyter** (`ms-toolsai.jupyter`) z galerii rozszerzeń, obok rozszerzenia Python z rozdziału 1. Nowy notatnik tworzy polecenie **Create: New Jupyter Notebook** z palety poleceń (++ctrl+shift+p++) albo utworzenie pliku z rozszerzeniem `.ipynb`; przycisk **Select Kernel** w prawym górnym rogu wybiera jądro — wskazujemy interpreter ze środowiska wirtualnego projektu, tak jak przy skryptach w rozdziale 1. Komórkę wykonujemy skrótem ++shift+enter++ (wykonaj i przejdź dalej) albo ++ctrl+enter++ (wykonaj i zostań).
+W VSC potrzebne jest rozszerzenie **Jupyter** (`ms-toolsai.jupyter`) z galerii rozszerzeń, obok rozszerzenia Python z rozdziału 1. Nowy notatnik tworzy polecenie **Create: New Jupyter Notebook** z palety poleceń (++ctrl+shift+p++) albo utworzenie pliku z rozszerzeniem `.ipynb`; przycisk **Select Kernel** w prawym górnym rogu wybiera jądro — po wyborze pozycji **Python Environments…** wskazujemy interpreter ze środowiska wirtualnego projektu, tak jak przy skryptach w rozdziale 1. Komórkę wykonujemy skrótem ++shift+enter++ (wykonaj i przejdź dalej) albo ++ctrl+enter++ (wykonaj i zostań).
 
-<!-- TODO: screenshot — nowy notatnik w VSC: pusta komórka kodu, przycisk Select Kernel w prawym górnym rogu; kadr: górna część edytora -->
+![Nowy notatnik Untitled-1.ipynb w VSC: pasek z przyciskami Code, Markdown i Run All, pusta komórka kodu, a w prawym górnym rogu przycisk Select Kernel](img/vsc-notatnik-nowy.png)
 
-<!-- TODO: screenshot — lista wyboru jądra z interpreterem .venv projektu; kadr: sama lista -->
+![Lista Select a Python Environment z zalecanym interpreterem .venv projektu na pierwszym miejscu i globalnym interpreterem Pythona 3.14 poniżej](img/vsc-notatnik-jadro.png)
 
 ## Komórki kodu i wartość ostatniego wyrażenia
 

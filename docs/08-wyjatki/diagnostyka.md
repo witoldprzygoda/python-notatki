@@ -114,19 +114,19 @@ print(silnia(4))
 
 ### Pułapki i uruchomienie
 
-Debugowanie w VSC obsługuje rozszerzenie **Python Debugger** (identyfikator `ms-python.debugpy`), instalowane automatycznie wraz z rozszerzeniem Python z rozdziału 1; nie wymaga osobnej instalacji ani konfiguracji. **Pułapka** (ang. *breakpoint*) to miejsce, w którym debugger ma zatrzymać program: ustawiamy ją, klikając margines na lewo od numeru wiersza (pojawia się czerwona kropka) albo naciskając ++f9++ w wybranym wierszu. Ustawmy pułapkę w wierszu `return 1`, a następnie naciśnijmy ++f5++. Przy pierwszym uruchomieniu VSC pyta o rodzaj konfiguracji — wybieramy **Python File** — i uruchamia bieżący plik pod kontrolą debuggera w terminalu zintegrowanym. Program zatrzymuje się na pułapce: wiersz jest podświetlony, a wykonanie wstrzymane **przed** jego wykonaniem.
+Debugowanie w VSC obsługuje rozszerzenie **Python Debugger** (identyfikator `ms-python.debugpy`), instalowane automatycznie wraz z rozszerzeniem Python z rozdziału 1; nie wymaga osobnej instalacji ani konfiguracji. **Pułapka** (ang. *breakpoint*) to miejsce, w którym debugger ma zatrzymać program: ustawiamy ją, klikając margines na lewo od numeru wiersza (pojawia się czerwona kropka) albo naciskając ++f9++ w wybranym wierszu. Ustawmy pułapkę w wierszu `return 1`, a następnie naciśnijmy ++f5++. Przy pierwszym uruchomieniu VSC pyta najpierw o debugger — wybieramy **Python Debugger** — a potem o rodzaj konfiguracji — wybieramy **Python File** — i uruchamia bieżący plik pod kontrolą debuggera w terminalu zintegrowanym. Program zatrzymuje się na pułapce: wiersz jest podświetlony, a wykonanie wstrzymane **przed** jego wykonaniem.
 
-<!-- TODO: screenshot — edytor z pułapką (czerwona kropka) w wierszu return 1 i podświetlonym wierszem po zatrzymaniu; kadr: fragment edytora z numerami wierszy -->
+![Plik debug-silnia.py w edytorze: pułapka w wierszu 4 z instrukcją return 1, wiersz podświetlony po zatrzymaniu programu, a obok warunku wartość n = 1](img/vsc-debugger-pulapka.png)
 
 ### Wykonanie krokowe i podgląd zmiennych
 
 Po zatrzymaniu widok **Run and Debug** (ikona trójkąta z sylwetką owada na pasku bocznym, skrót ++ctrl+shift+d++) pokazuje stan programu w kilku panelach. **Variables** wypisuje nazwy lokalne bieżącej ramki i ich wartości — tu `n` równe `1` — oraz nazwy globalne modułu. **Call Stack** pokazuje stos wywołań: cztery ramki `silnia` (dla `n` równego 1, 2, 3 i 4) i ramkę `<module>`, dokładnie jak ramki w śladzie wywołań, tyle że dla programu, który jeszcze się nie zakończył; kliknięcie innej ramki przełącza panel Variables na jej nazwy, więc można obejrzeć `n` w każdym poziomie rekurencji. **Watch** pozwala wpisać własne wyrażenie, na przykład `n * 2`, obliczane ponownie po każdym kroku, a **Debug Console** na dole okna przyjmuje dowolne wyrażenia Pythona obliczane w kontekście wstrzymanej ramki — tak jak konsola interaktywna, ale z dostępem do bieżących nazw programu. Panel **Breakpoints** zbiera pułapki całego projektu i pozwala je wyłączać bez usuwania.
 
-<!-- TODO: screenshot — panele Variables (n = 1) i Call Stack (cztery ramki silnia i <module>) po zatrzymaniu na pułapce; kadr: sam widok Run and Debug -->
+![Widok Run and Debug po zatrzymaniu na pułapce: w panelu Variables zmienna lokalna n = 1, w panelu Call Stack cztery ramki silnia i ramka module, niżej panele Watch i Breakpoints](img/vsc-debugger-stos-i-zmienne.png){ width="360" }
 
 Pasek narzędzi debugowania u góry okna steruje dalszym wykonaniem. **Continue** (++f5++) wznawia program do następnej pułapki albo do końca; **Step Over** (++f10++) wykonuje bieżący wiersz w całości, traktując wywołanie funkcji jako jeden krok; **Step Into** (++f11++) wchodzi do wywoływanej funkcji; **Step Out** (++shift+f11++) kończy bieżącą funkcję i zatrzymuje się po powrocie z niej; **Restart** i **Stop** uruchamiają program od nowa albo przerywają. W naszym programie ++shift+f11++ naciśnięte kilka razy pokazuje, jak kolejne wywołania `silnia()` zwracają `1`, `2`, `6` i `24` — wartość zwracana jest po powrocie z funkcji widoczna w panelu Variables jako osobna pozycja oznaczona słowem *return*.
 
-<!-- TODO: screenshot — pasek narzędzi debugowania (Continue, Step Over, Step Into, Step Out, Restart, Stop); kadr: sam pasek -->
+![Pasek narzędzi debugowania z przyciskami Continue, Step Over, Step Into, Step Out, Restart i Stop](img/vsc-debugger-pasek.png)
 
 ### Pułapki warunkowe i plik `launch.json`
 

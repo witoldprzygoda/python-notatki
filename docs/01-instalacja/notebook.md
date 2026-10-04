@@ -18,10 +18,8 @@ jupyter notebook
 
 Powinna otworzyć się domyślna przeglądarka — jeżeli tak się nie stanie, należy otworzyć ją samodzielnie i w polu adresowym wprowadzić adres wypisany na końcu komunikatów w terminalu.
 
-<!-- TODO: screenshot — interfejs Jupyter Notebook w przeglądarce -->
+![Strona główna Jupyter Notebook w przeglądarce: menu, karty Files i Running, przyciski New i Upload oraz lista plików katalogu projektu](img/jupyter-interfejs.png)
 
 Nowy notebook rozpoczynamy poleceniem menu **New → Notebook**.
-
-<!-- TODO: screenshot — menu New → Notebook -->
 
 W kolejnych polach można pisać kod Pythona lub dokumentację oraz uruchamiać je (**Run**). Takie podejście jest bardzo popularne w szeroko pojętej analizie i przetwarzaniu danych. Notebook można zapisać (pliki z rozszerzeniem `.ipynb`).
