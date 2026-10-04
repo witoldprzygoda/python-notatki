@@ -63,6 +63,11 @@ Aby korzystać z wirtualnego środowiska, trzeba je aktywować. Kroki aktywacji 
     .venv\Scripts\Activate.ps1
     ```
 
+    Jeżeli PowerShell odmawia uruchomienia skryptu `Activate.ps1`, ponieważ uruchamianie
+    skryptów jest zablokowane (polecenie `Get-ExecutionPolicy` wypisuje wtedy `Restricted`,
+    a bieżące ustawienia pokazuje polecenie `Get-ExecutionPolicy -List`), zezwalamy na nie
+    jednorazowo poleceniem `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+
 === "Windows (Git Bash)"
 
     ```bash title="Terminal"
@@ -188,10 +193,8 @@ Ręczne aktywowanie środowiska przy każdym otwarciu terminala można zautomaty
     ```
 
     Profil, podobnie jak skrypt `Activate.ps1`, wymaga zezwolenia na uruchamianie
-    lokalnych skryptów. Jeżeli uruchamianie skryptów jest zablokowane (polecenie
-    `Get-ExecutionPolicy` wypisuje wtedy `Restricted`, a bieżące ustawienia pokazuje
-    polecenie `Get-ExecutionPolicy -List`), zezwalamy na nie jednorazowo poleceniem
-    `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+    lokalnych skryptów; postępowanie przy zablokowanych skryptach opisuje sekcja
+    [Aktywacja](#aktywacja).
 
 W środowisku Visual Studio Code analogiczną automatyzację zapewnia sam edytor (opis w podrozdziale [Konfigurowanie narzędzi](konfiguracja.md)).
 

@@ -40,6 +40,8 @@ if (-not (Test-Path .venv)) { python -m venv .venv }
 python -m pip install -r requirements.txt
 ```
 
+Gdy PowerShell odmawia uruchomienia skryptu `Activate.ps1`, postępujemy jak w sekcji [Aktywacja](../../01-instalacja/venv.md#aktywacja) podrozdziału o venv.
+
 Wersje ustalamy świadomie: `python -m pip index versions numpy` pokazuje wydania dostępne w chwili tworzenia projektu, a `python -m pip freeze` wypisuje wszystko, co zainstalowano — razem z zależnościami, których nie wybieraliśmy. Do pliku wymagań trafiają pakiety, o które prosimy; pełny wydruk `freeze` warto zachować obok jako `requirements-lock.txt`, gdy dokładne odtworzenie środowiska ma znaczenie. Bibliotek nie aktualizujemy w trakcie analizy; zmiana wersji to osobny krok z ponownym wykonaniem wszystkich notatników.
 
 ## Dane wejściowe i ścieżki
