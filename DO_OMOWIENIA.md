@@ -97,6 +97,63 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   albo zakładki z wariantami.
 - **Stan:** do omówienia (4 X 2026).
 
+### Rozdział 1 a stan z 5 X 2026 (sprawdzenie przy laboratorium 1)
+
+- **Miejsce:** `docs/01-instalacja/instalacja.md`, `sciezki-i-utrzymanie.md`,
+  `konfiguracja.md`, `ai-tools.md` (rewizja `67bffc8`).
+- **Opis:** przy przygotowaniu nowej wersji laboratorium 1 (talia L01 na
+  gałęzi `slajdy`) sprawdzono w źródłach pierwotnych stan narzędzi z 5 X 2026.
+  Wykryto miejsca nieaktualne albo nieścisłe:
+    1. `instalacja.md`, w. 3: klasyczny instalator „został wycofany” — jest
+       przestarzały (ang. *deprecated*) i nadal publikowany dla 3.14 i 3.15
+       (python.org: „Or get the standalone installer for Python 3.14.8”);
+       ramka ostrzeżenia poniżej jest poprawna. Propozycja: „uznany za
+       przestarzały i wygaszany”.
+    2. `instalacja.md` i `sciezki-i-utrzymanie.md`: wyniki `py list`
+       i `py list --online --one` bez kolumny Alias (manager 26.3) — poprawione
+       na niescalonej gałęzi `content/poprawki-z-talii`.
+    3. `instalacja.md`, w. 74–76, ramka „Wersja odniesienia notatek”: zdanie
+       o 3.15 jako wersji przedpremierowej zdezaktualizuje się po wydaniu
+       3.15.0, planowo 9 X 2026 (PEP 790); dotyczy też wykresu
+       `img/python-cykl-wydan.svg` i jego tekstu alternatywnego. Brak opisu
+       kreatora pierwszego uruchomienia (`py install --configure`): po
+       wydaniu 3.15 domyślna odpowiedź Y na „Install CPython now?” zainstaluje
+       3.15, a polecenie `python` bez zainstalowanego interpretera — najnowszą
+       wersję samoczynnie; `py install 3.15` instaluje do tego czasu wersję
+       kandydującą 3.15.0rc3 (znacznik `3.15-dev`).
+    4. `konfiguracja.md`, w. 153: automatyczną aktywację `.venv` w terminalu
+       reguluje od VII 2026 ustawienie
+       `python-envs.terminal.autoActivationType` (Python Environments jako
+       domyślne, VS Code 1.131); `python.terminal.activateEnvironment` działa
+       już tylko z wartością `false`.
+    5. `konfiguracja.md`, w. 135: „Terminal → New Terminal (lub
+       ++ctrl+grave++)” — ta pozycja menu ma skrót ++ctrl+shift+grave++,
+       a ++ctrl+grave++ pokazuje i ukrywa panel terminala.
+    6. `konfiguracja.md`, instalacja rozszerzeń: brak informacji, że
+       rozszerzenie „Python” doinstalowuje Pylance, Python Debugger i Python
+       Environments (pakiet rozszerzeń) — luka, nie błąd.
+    7. `ai-tools.md`, w. 47: przy sugestii następnej zmiany pierwszy ++tab++
+       przenosi kursor do proponowanego miejsca, drugi przyjmuje zmianę.
+    8. `ai-tools.md`, w. 29: „Copilot Free z miesięcznymi limitami podpowiedzi
+       i zapytań” — od 1 VI 2026 czat i agenci zużywają pulę kredytów AI, a nie
+       liczbę zapytań; plany Free i Student mają tylko model Auto.
+    9. `ai-tools.md`, sekcja „Czat i agenci”: opis Ask, Plan, Agent i Keep/Undo
+       dotyczy sesji Local; od VS Code 1.140 domyślnym celem sesji może być
+       silnik Copilot, w którym zmiany zapisują się bez Keep/Undo — wystarczy
+       zdanie o wyborze Local.
+    10. `ai-tools.md`, w. 71: odnośnik
+        `https://code.visualstudio.com/docs/copilot/overview` przekierowuje na
+        `https://code.visualstudio.com/docs/agents/overview`.
+- **Źródła:** zestawienie faktów z 5 X 2026 (dokumentacja python.org,
+  docs.python.org, code.visualstudio.com, docs.github.com, kod VS Code 1.140)
+  oraz zrzuty z VS Code 1.140 z zalogowanym Copilotem. Książka poprawnie
+  pomija `@workspace`, tryb Edit, `/optimize`, `/comment`, `/terminal`,
+  ++alt+backslash++ i ++ctrl+enter++.
+- **Propozycja:** poprawki na osobnej gałęzi `content/*`; punkt 3 najlepiej
+  po wydaniu 3.15.0, razem z pozycjami z sekcji „Do wykonania przy przejściu
+  na Pythona 3.15” (w tym „Narzędzia AI”).
+- **Stan:** do omówienia (5 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
