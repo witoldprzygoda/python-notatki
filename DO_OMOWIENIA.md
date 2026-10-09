@@ -154,6 +154,36 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   na Pythona 3.15” (w tym „Narzędzia AI”).
 - **Stan:** do omówienia (5 X 2026).
 
+### Rozdział 7: pułapki importu i układ płaski (sprawdzenie przy talii W06)
+
+- **Miejsce:** `docs/07-moduly/moduly-i-import.md` (sekcja „Pułapki importu”),
+  `docs/07-moduly/struktura-projektu.md` (akapit o układzie `src`).
+- **Opis:** przy przygotowaniu talii W06 przykłady rozdziału uruchomiono
+  w kolejności książki na CPythonie 3.14.8:
+    1. Plik `random.py` z pierwszej pułapki importu zostaje w katalogu
+       `projekt`. Późniejsze `python -m pytest` w tym katalogu (strona
+       „Struktura projektu”) kończy się błędem `ImportError: cannot import
+       name 'Random' from 'random'`, bo pytest korzysta z modułu `tempfile`,
+       a ten importuje `random`.
+    2. Zdanie o imporcie cyklicznym („interpreter nie odróżnia obu sytuacji”)
+       jest zbyt ogólne: podpowiedź o zmianie nazwy pliku pojawia się tylko
+       wtedy, gdy moduł z cyklu leży w katalogu z pierwszej pozycji
+       `sys.path`; w pakiecie 3.14.8 wypisuje jednoznaczny komunikat
+       „partially initialized module … (most likely due to a circular
+       import)”. Tekst podpowiedzi różni się też od tego z pułapki
+       `random.py`.
+    3. Zdanie „Wystarczy uruchomić program z innego miejsca, by import
+       zawiódł” przeczy przykładowi `python projekt\program.py`, który
+       z katalogu nadrzędnego działa (katalog skryptu trafia do `sys.path`).
+       Import zawodzi przy innym katalogu bieżącym albo innym punkcie wejścia
+       (`python -c`, `python -m`, konsola, testy).
+- **Propozycja:** (1) pułapkę `random.py` wykonujemy w osobnym podkatalogu
+  (tak robi talia W06) albo dopisujemy usunięcie pliku utworzonego przez
+  przykład wraz z uzasadnieniem; (2) „podobną podpowiedź” i jedno zdanie
+  o komunikacie w pakiecie; (3) przeredagowanie zdania o katalogu roboczym.
+  Poprawki na gałęzi `content/*`.
+- **Stan:** do omówienia (10 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
