@@ -68,7 +68,7 @@ WARNING:root:pierwszy komunikat
 WARNING:root:drugi komunikat
 ```
 
-Ani próg `DEBUG`, ani nowy format nie zadziałały — pierwszy komunikat już ustalił konfigurację domyślną; jest to najczęstsza przyczyna „niedziałającego” `basicConfig()`. Argument `force=True` sprawia, że `basicConfig()` usuwa dotychczasową konfigurację dziennika głównego i ustala ją od nowa, ale programu, który konfiguruje dziennik na początku, nie trzeba w ten sposób poprawiać. Dziennik nazwany, utworzony przez `getLogger()`, nie konfiguruje niczego sam: bez `basicConfig()` wypisuje na strumień błędów sam komunikat, bez poziomu i nazwy, a późniejsze `basicConfig()` działa normalnie. Niezależnie od odmiany reguła jest jedna: konfigurację ustalamy na początku programu.
+Ani próg `DEBUG`, ani nowy format nie zadziałały — pierwszy komunikat już ustalił konfigurację domyślną; jest to najczęstsza przyczyna „niedziałającego” `basicConfig()`. Argument `force=True` sprawia, że `basicConfig()` najpierw usuwa i zamyka dotychczasowe procedury obsługi dziennika głównego (ang. *handlers*) — obiekty kierujące wpisy na przykład na strumień błędów albo do pliku — a potem konfiguruje dziennik według pozostałych argumentów; próg ważności zmienia się przy tym tylko wtedy, gdy podano argument `level=`. Programu, który konfiguruje dziennik na początku, nie trzeba w ten sposób poprawiać. Dziennik nazwany, utworzony przez `getLogger()`, nie konfiguruje niczego sam: bez `basicConfig()` wypisuje na strumień błędów sam komunikat, bez poziomu i nazwy, a późniejsze `basicConfig()` działa normalnie. Niezależnie od odmiany reguła jest jedna: konfigurację ustalamy na początku programu.
 
 ## Poziomy komunikatów
 
