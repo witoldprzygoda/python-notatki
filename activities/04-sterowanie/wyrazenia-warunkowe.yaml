@@ -5,7 +5,7 @@ slot_id: wyrazenia-warunkowe-activities
 activities:
   - activity_id: flow-if-quiz-001
     version: 1
-    section_id: wyrazenie-if-elif-else
+    section_id: instrukcja-if-elif-else
     type: single_choice
     label: "Sprawdzenie testu pustości"
     prompt: "Który warunek wykona swój blok, gdy data jest pustym łańcuchem?"
