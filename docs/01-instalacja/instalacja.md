@@ -72,9 +72,11 @@ Pionowa linia wskazuje dzień, w którym przewodnik wygenerował wykres (9 paźd
 
 !!! info "Wersja odniesienia notatek"
     Stanem odniesienia niniejszych notatek jest **Python 3.14**; przykłady sprawdzono
-    na wydaniu poprawkowym 3.14.8 z 30 września 2026 roku. Gdy wersji nie wskażemy,
-    manager instaluje najnowszą wersję stabilną (stan na 11 października 2026 roku:
-    Python 3.15.0 z 9 października 2026 roku), dlatego w poleceniach instalacyjnych
+    na wydaniu poprawkowym 3.14.8 z 30 września 2026 roku. Najnowszą wersję stabilną
+    (stan na 11 października 2026 roku: Python 3.15.0 z 9 października 2026 roku)
+    manager instaluje wtedy, gdy wersji nie wskazujemy: przy instalacji samoczynnej,
+    podczas sprawdzania konfiguracji i po poleceniu `py install default` (samo
+    `py install` bez wersji kończy się błędem). Dlatego w poleceniach instalacyjnych
     podajemy wersję 3.14 jawnie.
 
 ## Instalacja managera
@@ -99,18 +101,21 @@ pymanager
     korzystamy więc wyłącznie z poleceń managera opisanych dalej (`py help`,
     `py list`, `py install`).
 
-    Pierwsze uruchomienie aplikacji Python Install Manager, na przykład z menu Start,
-    otwiera kreator konfiguracji (ang. *configuration checker*), który można też
-    wywołać ponownie poleceniem `py install --configure`. Kreator najpierw proponuje
-    zmiany ustawień systemu; te pytania kończą się znacznikiem `[y/N]`, czyli
-    odpowiedzią domyślną jest „nie”. Gdy brakuje najnowszej wersji Pythona, kreator
-    zadaje na końcu pytanie `Install CPython now? [Y/n]`. Na to pytanie odpowiadamy
-    `n`, ponieważ odpowiedź domyślna, wybierana samym klawiszem ++enter++,
-    zainstalowałaby najnowszą wersję stabilną; wersję 3.14 instalujemy jawnie, jak
-    opisują dalsze sekcje. Gdyby
-    najnowsza wersja została już zainstalowana, pozostanie interpreterem domyślnym —
-    wersję 3.14 wskazujemy wtedy jawnie poleceniem `py -V:3.14`, także przy
-    tworzeniu środowiska wirtualnego (podrozdział
+    Każde uruchomienie aplikacji Python Install Manager z menu Start, a także
+    polecenie `py install --configure`, otwiera sprawdzanie konfiguracji (ang.
+    *configuration checker*) — serię pytań w oknie konsoli, zadawanych tylko
+    o ustawienia odbiegające od zalecanych. Pytania o zmiany ustawień systemu kończą
+    się znacznikiem `[y/N]`, czyli odpowiedzią domyślną jest „nie”. Gdy brakuje
+    najnowszej wersji Pythona, ostatnie pytanie brzmi `Install CPython now? [Y/n]`;
+    odpowiadamy na nie `n`, ponieważ odpowiedź domyślna, wybierana samym klawiszem
+    ++enter++, zainstalowałaby najnowszą wersję stabilną, a wersję 3.14 instalujemy
+    jawnie, jak opisują dalsze sekcje. Na wszystkie pytania odpowiadamy wyłącznie
+    literą `y` albo `n` (lub samym klawiszem ++enter++) — inna odpowiedź, na
+    przykład „tak”, może zostać odczytana wbrew intencji.
+
+    Gdyby najnowsza wersja została już zainstalowana, pozostanie interpreterem
+    domyślnym — wersję 3.14 wskazujemy wtedy jawnie poleceniem `py -V:3.14`, także
+    przy tworzeniu środowiska wirtualnego (podrozdział
     [Wirtualne środowisko venv](venv.md#utworzenie-srodowiska)).
 
 ## Aliasy wykonywania aplikacji

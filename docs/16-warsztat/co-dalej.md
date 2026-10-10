@@ -76,7 +76,7 @@ Wydanie 3.15.0 ukazało się 9 października 2026 roku ([PEP 790](https://peps.p
 - **Typ `frozendict`** ([PEP 814](https://peps.python.org/pep-0814/)) — niemodyfikowalny słownik — haszowalny, gdy haszowalne są jego wartości — odpowiednik `frozenset` z rozdziału 5.
 - **Pakiet `profiling`** ([PEP 799](https://peps.python.org/pep-0799/)) — profiler próbkujący zapowiedziany w rozdziale 13.
 
-Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego.
+Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego. Jako najnowsza wersja stabilna spośród zainstalowanych staje się on wtedy interpreterem domyślnym poleceń `python` i `py` poza aktywnym środowiskiem wirtualnym, dlatego do dalszej pracy z wersją 3.14 wskazujemy ją jawnie (`py -V:3.14`), jak w rozdziale 1. Istniejące środowiska wirtualne pozostają przy interpreterze, z którego je utworzono.
 
 ## Ściągawka narzędzi
 

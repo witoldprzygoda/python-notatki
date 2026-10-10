@@ -26,7 +26,7 @@ Dalej omawiamy GitHub Copilot, ponieważ działa bezpośrednio w VSC — edytorz
 
 ### Dostęp i uruchomienie
 
-Copilot wymaga konta w serwisie **GitHub**. Użytkownik bez wykupionej subskrypcji otrzymuje plan **Copilot Free**, w którym liczbę podpowiedzi w kodzie ogranicza miesięczny limit, a czat i agenci zużywają miesięczną pulę kredytów AI (ang. *AI credits*). Zweryfikowani studenci korzystają bezpłatnie z planu **Copilot Student**, bez limitu podpowiedzi w kodzie i z własną pulą kredytów AI: status studenta potwierdza się w programie GitHub Education ([github.com/education](https://github.com/education)), a uprawnienie jest sprawdzane co miesiąc. W obu planach model językowy wybiera automatycznie sam Copilot (opcja **Auto**). Bieżący zakres i limity planów opisuje [dokumentacja GitHub](https://docs.github.com/en/copilot/get-started/plans).
+Copilot wymaga konta w serwisie **GitHub**. Użytkownik bez wykupionej subskrypcji otrzymuje plan **Copilot Free**, w którym liczbę podpowiedzi w kodzie ogranicza miesięczny limit, a czat i agenci zużywają miesięczną pulę kredytów AI (ang. *AI credits*). Zweryfikowani studenci korzystają bezpłatnie z planu **Copilot Student**, bez limitu podpowiedzi w kodzie i z własną pulą kredytów AI: status studenta potwierdza się w programie GitHub Education ([github.com/education](https://github.com/education)), a uprawnienie jest sprawdzane co miesiąc. W obu planach model językowy dla czatu i agentów wybiera automatycznie sam Copilot (opcja **Auto**). Bieżący zakres i limity planów opisuje [dokumentacja GitHub](https://docs.github.com/en/copilot/get-started/plans).
 
 Aby włączyć Copilota, wskazujemy jego ikonę na pasku stanu u dołu okna VSC, wybieramy **Use AI Features** i logujemy się kontem GitHub.
 
@@ -64,13 +64,16 @@ Zmiany wprowadzone przez agenta edytor pokazuje jako różnice względem poprzed
 
 !!! note "Cel sesji: Local"
     Opis agentów Ask, Plan i Agent oraz przyjmowania zmian przyciskami **Keep**
-    i **Undo** dotyczy sesji lokalnych (**Local**). W polu **Session Target** (cel
-    sesji) widoku czatu VSC oferuje także inne silniki agentów (ang. *harness*),
-    w tym silnik **Copilot**, który w części instalacji jest wybierany domyślnie.
-    Ma on inne tryby pracy (np. **Plan** i **Autopilot**), a zmiany agenta zapisuje
-    w plikach od razu, bez przyjmowania ich przyciskami Keep i Undo. Aby przebieg
-    pracy odpowiadał opisowi z tego podrozdziału, w polu Session Target wybieramy
-    **Local**.
+    i **Undo** dotyczy sesji lokalnych (**Local**). Cel sesji wybieramy przy jej
+    rozpoczynaniu w polu **Session Target** widoku czatu, które oferuje
+    także inne silniki agentów (ang. *harness*), w tym silnik **Copilot**, w części
+    instalacji wybierany domyślnie. Silnik ten ma inne tryby pracy (np. **Plan**
+    i **Autopilot**). W obu rodzajach sesji agent zapisuje zmiany w plikach od razu,
+    ale tylko sesja lokalna oznacza je jako oczekujące, do przyjęcia albo wycofania
+    przyciskami Keep i Undo; w sesjach silnika Copilot zmiany przeglądamy w widoku
+    różnic i w panelu **Source Control**. Aby przebieg pracy odpowiadał opisowi
+    z tego podrozdziału, przy rozpoczynaniu sesji wybieramy w polu Session Target
+    wartość **Local**.
 
 Kontekst zapytania wskazujemy w polu czatu:
 

@@ -20,7 +20,7 @@ Bardzo wiele osób używa obecnie **Visual Studio Code** (produktu firmy Microso
 ### Instalacja i rozszerzenia
 
 1. Instalujemy VSC: [code.visualstudio.com/download](https://code.visualstudio.com/download)
-2. Uruchamiamy i dodajemy rozszerzenia **Extensions** (++ctrl+shift+x++): **Python** (IntelliSense od Microsoft); jest to pakiet rozszerzeń (ang. *extension pack*), więc razem z nim instalują się automatycznie rozszerzenia **Pylance**, **Python Debugger** i **Python Environments**
+2. Uruchamiamy i dodajemy rozszerzenia **Extensions** (++ctrl+shift+x++): **Python** (IntelliSense od Microsoft); rozszerzenie to zawiera pakiet rozszerzeń (ang. *extension pack*) i domyślnie instaluje razem z sobą rozszerzenia **Pylance**, **Python Debugger** i **Python Environments**
 3. W ten sam sposób instalujemy linter: w **Extensions** wyszukujemy **Pylint** (wydawca Microsoft) i instalujemy
 
 **Linter** to moduł sprawdzający i podpowiadający składnię. Dawniej wybierało się go poleceniem palety *Python: Select Linter* — polecenie to zostało wycofane, a lintery są obecnie osobnymi rozszerzeniami VSC. Po zainstalowaniu rozszerzenia Pylint linter jest od razu aktywny, bez dodatkowej konfiguracji.
