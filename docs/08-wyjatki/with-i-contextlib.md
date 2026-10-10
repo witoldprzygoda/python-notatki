@@ -115,7 +115,7 @@ Menedżerami kontekstu są obiekty plików, obiekt zwracany przez `pytest.raises
 
 ## Dekorator `contextlib.contextmanager`
 
-Dekorator `contextlib.contextmanager` zamienia funkcję generatorową z podrozdziału [Funkcje generatorowe](../06-funkcje/funkcje-generatorowe.md) w fabrykę menedżerów kontekstu. Funkcja musi zawierać dokładnie jedną instrukcję `yield`: kod przed nią wykonuje się jako `__enter__()`, wartość podana w `yield` trafia do nazwy po `as`, a kod po `yield` wykonuje się jako `__exit__()`. Ponieważ wyjątek z bloku `with` jest zgłaszany wewnątrz funkcji generatorowej w miejscu `yield`, kod zwalniający zasób umieszczamy w klauzuli `finally`. Symulowany zasób, który wypisuje, kiedy jest zajmowany i zwalniany, zapisujemy w module `zasoby.py`, aby korzystać z niego w dalszych przykładach:
+Dekorator `contextlib.contextmanager` zamienia funkcję generatorową z podrozdziału [Funkcje generatorowe](../06-funkcje/funkcje-generatorowe.md) w fabrykę menedżerów kontekstu. Funkcja musi przy każdym użyciu wykonać dokładnie jedną instrukcję `yield` — zwykle zawiera jedną, choć może mieć ich kilka w różnych gałęziach instrukcji `if` — a gdy wykona ich więcej albo żadnej, instrukcja `with` kończy się błędem `RuntimeError`. Kod przed `yield` wykonuje się jako `__enter__()`, wartość podana w `yield` trafia do nazwy po `as`, a kod po `yield` wykonuje się jako `__exit__()`. Ponieważ wyjątek z bloku `with` jest zgłaszany wewnątrz funkcji generatorowej w miejscu `yield`, kod zwalniający zasób umieszczamy w klauzuli `finally`. Symulowany zasób, który wypisuje, kiedy jest zajmowany i zwalniany, zapisujemy w module `zasoby.py`, aby korzystać z niego w dalszych przykładach:
 
 ```python title="zasoby.py"
 """Udostępnia symulowane zasoby do demonstracji instrukcji with."""
@@ -208,7 +208,7 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-Zasób został zwolniony, a wyjątek propagował dalej i przerwał program przed `print("po bloku")` — dokładnie tak, jak przy obiekcie pliku. Gdyby funkcja generatorowa przechwyciła wyjątek klauzulą `except` i nie zgłosiła go ponownie, menedżer stłumiłby go, a program wykonałby `print("po bloku")`; z tej możliwości korzysta `pytest.raises()`, ale w menedżerach zwalniających zasoby jej nie używamy. Menedżer utworzony z funkcji generatorowej jest jednorazowy z założenia: obiektu zwróconego przez `zasob("a")` można użyć tylko w jednej instrukcji `with`, a drugie użycie tego samego obiektu kończy się błędem — dlatego wyrażenie tworzące menedżer zapisujemy bezpośrednio w instrukcji `with`, a nie w nazwie używanej wielokrotnie.
+Zasób został zwolniony, a wyjątek propagował dalej i przerwał program przed `print("po bloku")` — dokładnie tak, jak przy obiekcie pliku. Gdyby funkcja generatorowa przechwyciła wyjątek klauzulą `except` i nie zgłosiła go ponownie, menedżer stłumiłby go, a program wykonałby `print("po bloku")`. Tłumienie oczekiwanego wyjątku jest zadaniem `pytest.raises()`, zbudowanego jednak inaczej — jako klasa, której metoda `__exit__()` zwraca wartość prawdziwą — a w menedżerach zwalniających zasoby z tej możliwości nie korzystamy. Menedżer utworzony z funkcji generatorowej jest jednorazowy z założenia: obiektu zwróconego przez `zasob("a")` można użyć tylko w jednej instrukcji `with`, a drugie użycie tego samego obiektu kończy się błędem — dlatego wyrażenie tworzące menedżer zapisujemy bezpośrednio w instrukcji `with`, a nie w nazwie używanej wielokrotnie.
 
 ## Narzędzia modułu `contextlib` (dla dociekliwych)
 

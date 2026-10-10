@@ -48,9 +48,10 @@ Poniższe tabele zbierają moduły, które pojawiły się dotąd w książce, or
 |---|---|---|
 | `json` | zapis i odczyt danych w formacie JSON | dalsze rozdziały |
 | `pathlib`, `os` | ścieżki, pliki i katalogi, informacje o systemie | dalsze rozdziały |
-| `datetime`, `time` | daty i czas, pomiar czasu wykonania | dalsze rozdziały |
-| `statistics` | średnia, mediana, odchylenie standardowe | dalsze rozdziały |
+| `time` | pomiar czasu wykonania, wstrzymanie programu | dalsze rozdziały |
 | `re` | wyrażenia regularne | część „Python Zastosowania”, [rozdział 19](../zastosowania/19-re/index.md) |
+
+Do często używanych należą także moduły `datetime` (daty i czas) oraz `statistics` (średnia, mediana, odchylenie standardowe); część „Python Podstawy” ich nie omawia, a ich możliwości opisuje dokumentacja biblioteki standardowej.
 
 !!! note "Wyrażenia regularne"
     Moduł `re` implementuje **wyrażenia regularne** (ang. *regular expressions*)
@@ -86,7 +87,7 @@ print(sys.getrecursionlimit())
 1000
 ```
 
-Wartość `1000` jest domyślnym ustawieniem CPythona — szczegółem implementacyjnym, nie gwarancją języka — a rzeczywista głębokość dostępna dla programu jest mniejsza, bo do limitu liczą się wszystkie aktywne ramki, jak wyjaśniliśmy w rozdziale 6. Limit można zmienić funkcją `sys.setrecursionlimit(limit)`. Dokumentacja wymienia dwa zastrzeżenia: zbyt wysoki limit może doprowadzić do awarii interpretera (limit istnieje właśnie po to, by chronić stos języka C przed przepełnieniem), a limit niższy od bieżącej głębokości wywołań powoduje natychmiastowy `RecursionError`. W tej książce z funkcji tej nie korzystamy: rekurencja poprawna osiąga przypadek bazowy po liczbie kroków wynikającej z danych, a zadanie wymagające tysięcy poziomów zapisujemy iteracyjnie, jak ustaliliśmy w rozdziale 6.
+Wartość `1000` jest domyślnym ustawieniem CPythona — szczegółem implementacyjnym, nie gwarancją języka — a rzeczywista głębokość dostępna dla programu jest mniejsza, bo do limitu liczą się wszystkie aktywne ramki, jak wyjaśniliśmy w rozdziale 6. Limit można zmienić funkcją `sys.setrecursionlimit(limit)`. Dokumentacja wymienia dwa zastrzeżenia: zbyt wysoki limit może doprowadzić do awarii interpretera (limit istnieje właśnie po to, by chronić stos języka C przed przepełnieniem), a limit niższy od bieżącej głębokości wywołań powoduje natychmiastowy `RecursionError`. Pierwsze zastrzeżenie pozostaje w mocy, choć w CPythonie 3.14.8 sprawdzony przypadek zakończył się łagodniej: funkcja wywołująca samą siebie za pośrednictwem funkcji `map()`, napisanej w języku C, przy limicie podniesionym do miliona zgłosiła wyjątek `RecursionError` z komunikatem `Stack overflow (used … kB)`, zamiast doprowadzić do awarii interpretera. W tej książce z funkcji tej nie korzystamy: rekurencja poprawna osiąga przypadek bazowy po liczbie kroków wynikającej z danych, a zadanie wymagające tysięcy poziomów zapisujemy iteracyjnie, jak ustaliliśmy w rozdziale 6.
 
 ## Kolejka dwustronna `deque`
 

@@ -285,7 +285,8 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
        (`c:\…`), nie `C:\…` (kosmetyczne).
 - **Propozycja:** poprawki na gałęzi `content/*`; slajdy W07 i W08 pokazują
   już stan rzeczywisty.
-- **Stan:** do omówienia (10 X 2026).
+- **Stan:** wykonane na gałęzi `content/uwagi-z-talii` (11 X 2026), czeka na
+  odbiór autora.
 
 ## Do wykonania przy przejściu na Pythona 3.15
 

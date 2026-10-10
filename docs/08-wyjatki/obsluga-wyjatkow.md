@@ -351,7 +351,7 @@ Liczba (albo koniec): koniec
 suma: 12
 ```
 
-Nasuwa się pytanie, czy zamiast próbować konwersji nie lepiej sprawdzić wpis wcześniej — metoda `str.isdigit()` z podrozdziału [Funkcje jako obiekty](../06-funkcje/funkcje-jako-obiekty.md#funkcje-map-i-filter) zwraca `True`, gdy łańcuch składa się wyłącznie z cyfr. Sprawdzenie takie jest jednak węższe niż reguły funkcji `int()`:
+Nasuwa się pytanie, czy zamiast próbować konwersji nie lepiej sprawdzić wpis wcześniej — metoda `str.isdigit()` z podrozdziału [Funkcje jako obiekty](../06-funkcje/funkcje-jako-obiekty.md#funkcje-map-i-filter) zwraca `True`, gdy łańcuch składa się wyłącznie z cyfr. Sprawdzenie takie nie odtwarza jednak reguł funkcji `int()`:
 
 ```{ .python .no-copy }
 >>> "42".isdigit(), "dwanaście".isdigit()
@@ -362,6 +362,14 @@ Nasuwa się pytanie, czy zamiast próbować konwersji nie lepiej sprawdzić wpis
 (False, 7)
 >>> "1_000".isdigit(), int("1_000")
 (False, 1000)
+>>> "²".isdigit()
+True
+>>> int("²")
+Traceback (most recent call last):
+  File "<python-input-5>", line 1, in <module>
+    int("²")
+    ~~~^^^^^
+ValueError: invalid literal for int() with base 10: '²'
 ```
 
-Liczby ujemne, wpisy ze spacjami i zapis z podkreśleniami `int()` przyjmuje, a `isdigit()` odrzuca; odtworzenie pełnych reguł konwersji własnym warunkiem jest trudne i zbędne, skoro `int()` zna je najlepiej i zgłasza wyjątek, gdy nie są spełnione. Oba podejścia — sprawdzenie przed operacją i próba z obsługą wyjątku — mają swoje miejsce; porównujemy je w podrozdziale o stylu obsługi błędów. Wcześniej jednak trzeba nauczyć się drugiej strony mechanizmu: dotąd wyjątki zgłaszał za nas interpreter i funkcje wbudowane, a w następnym podrozdziale zaczniemy zgłaszać je sami.
+Liczby ujemne, wpisy ze spacjami i zapis z podkreśleniami `int()` przyjmuje, a `isdigit()` odrzuca; z kolei cyfrę w indeksie górnym `"²"` metoda `isdigit()` uznaje za cyfrę, a `int()` zgłasza dla niej `ValueError`. Odtworzenie pełnych reguł konwersji własnym warunkiem jest trudne i zbędne, skoro `int()` zna je najlepiej i zgłasza wyjątek, gdy nie są spełnione. Oba podejścia — sprawdzenie przed operacją i próba z obsługą wyjątku — mają swoje miejsce; porównujemy je w podrozdziale o stylu obsługi błędów. Wcześniej jednak trzeba nauczyć się drugiej strony mechanizmu: dotąd wyjątki zgłaszał za nas interpreter i funkcje wbudowane, a w następnym podrozdziale zaczniemy zgłaszać je sami.

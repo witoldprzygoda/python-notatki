@@ -107,7 +107,7 @@ a ['adam', 'ala']
 b ['bartek', 'basia']
 ```
 
-`groupby()` zwraca pary (klucz, grupa), w których grupa jest iteratorem — jednorazowym i ważnym tylko do chwili pobrania następnej pary, bo obie strony czytają z tego samego źródła. Dlatego grupę materializujemy funkcją `list()` natychmiast, jak w przykładzie. Bez argumentu `key` kluczem jest sam element; funkcja klucza jest tą samą funkcją, którą podajemy `sorted()` — najprościej związać ją z nazwą i użyć w obu miejscach. Wybór między `groupby()` a `defaultdict(list)` zależy od danych: gdy są już posortowane albo napływają strumieniem posortowanym według klucza, `groupby()` nie potrzebuje pamięci na wszystkie grupy naraz; gdy porządek jest dowolny, `defaultdict` jest prostszy i nie wymaga sortowania.
+`groupby()` zwraca pary (klucz, grupa), w których grupa jest iteratorem — jednorazowym i ważnym tylko do chwili pobrania następnej pary, bo obie strony czytają z tego samego źródła. Dlatego grupę materializujemy funkcją `list()` natychmiast, jak w przykładzie. Bez argumentu `key` kluczem jest sam element. W przykładzie słowa sortujemy w całości, co wystarcza, bo taki porządek układa je także według pierwszej litery; w ogólnym przypadku tę samą funkcję klucza podajemy `sorted()` i `groupby()` — najprościej związać ją z nazwą i użyć w obu miejscach. Wybór między `groupby()` a `defaultdict(list)` zależy od danych: gdy są już posortowane albo napływają strumieniem posortowanym według klucza, `groupby()` nie potrzebuje pamięci na wszystkie grupy naraz; gdy porządek jest dowolny, `defaultdict` jest prostszy i nie wymaga sortowania.
 
 ## Kombinatoryka: `product`, `permutations`, `combinations`
 
