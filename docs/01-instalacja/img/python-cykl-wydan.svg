@@ -692,23 +692,23 @@
             <path
                 class="release-cycle-blob release-cycle-status-bugfix"
                 d="
-                    M605.3727272727273,279.0v22.5H505.34999999999997a4.5,4.5 90 0 1-4.5 -4.5
+                    M606.5181818181819,279.0v22.5H506.49545454545455a4.5,4.5 90 0 1-4.5 -4.5
                     v-13.5a4.5,4.5 90 0 14.5 -4.5
                     Z"
             />
             <path
                 class="release-cycle-blob release-cycle-status-security"
                 d="
-                    M605.3727272727273,279.0v22.5H762.0954545454545a4.5,4.5 90 0 04.5 -4.5
+                    M606.5181818181819,279.0v22.5H762.0954545454545a4.5,4.5 90 0 04.5 -4.5
                     v-13.5a4.5,4.5 90 0 0-4.5 -4.5
                     Z"
             />
             <!-- Add a common border -->
             <rect
-                class="release-cycle-border release-cycle-status-prerelease"
-                x="500.84999999999997"
+                class="release-cycle-border release-cycle-status-bugfix"
+                x="501.99545454545455"
                 y="279.0"
-                width="265.7454545454545"
+                width="264.5999999999999"
                 height="22.5"
                 rx="4.5"
                 ry="4.5"
@@ -755,8 +755,8 @@
     <!-- A line for today -->
     <line
         class="release-cycle-today-line"
-        x1="500.84999999999997"
-        x2="500.84999999999997"
+        x1="501.99545454545455"
+        x2="501.99545454545455"
         y1="0"
         y2="351.0"
         font-size="18"
@@ -1055,22 +1055,22 @@
 
         <!-- Add text before/after/inside the blob -->
             <text
-                class="release-cycle-blob-label text-outline release-cycle-status-prerelease"
+                class="release-cycle-blob-label text-outline release-cycle-status-bugfix"
                 font-size="13.5"
                 y="295.2"
-                    x="496.34999999999997"
-                    text-anchor="end"
+                    x="554.2568181818183"
+                    text-anchor="middle"
             >
-                prerelease
+                bugfix
             </text>
             <text
-                class="release-cycle-blob-label text-main release-cycle-status-prerelease"
+                class="release-cycle-blob-label text-main release-cycle-status-bugfix"
                 font-size="13.5"
                 y="295.2"
-                    x="496.34999999999997"
-                    text-anchor="end"
+                    x="554.2568181818183"
+                    text-anchor="middle"
             >
-                prerelease
+                bugfix
             </text>
 
         <!-- Legend on the left -->

@@ -255,7 +255,7 @@ cp1252
 utf-8
 ```
 
-Od Pythona 3.15 tryb UTF-8 ma być domyślny ([PEP 686](https://peps.python.org/pep-0686/)), a `open()` bez `encoding` będzie oznaczać UTF-8 na każdym systemie; kodowanie systemowe można zażądać jawnie zapisem `encoding="locale"`, dostępnym od Pythona 3.10. Do tego czasu jawne `encoding="utf-8"` pozostaje najprostszym sposobem, by program działał tak samo u każdego użytkownika.
+Od Pythona 3.15 tryb UTF-8 jest domyślny ([PEP 686](https://peps.python.org/pep-0686/)), a `open()` bez `encoding` oznacza UTF-8 na każdym systemie; kodowanie systemowe można zażądać jawnie zapisem `encoding="locale"`, dostępnym od Pythona 3.10. Dopóki program może być uruchamiany w Pythonie 3.14 lub starszym, jak przykłady tej książki, jawne `encoding="utf-8"` pozostaje najprostszym sposobem, by działał tak samo u każdego użytkownika.
 
 ## Znaki końca wiersza — argument `newline`
 

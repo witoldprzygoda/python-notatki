@@ -141,7 +141,7 @@ zażółć gęślą jaźń
 !!! note "Wersja PowerShell"
     Opisane zachowanie dotyczy PowerShell 7.4 i nowszego, gdzie przekierowanie `>` i potok `|` przekazują bajty dokładnie tak, jak wypisał je program. Wbudowany w system Windows PowerShell 5.1 oraz wersje 7.0–7.3 dekodują wyjście programu według ustawień konsoli i zapisują je ponownie we własnym kodowaniu, więc zawartość pliku może się różnić od pokazanej. Wersję powłoki sprawdzamy poleceniem `$PSVersionTable.PSVersion`.
 
-Od Pythona 3.15 tryb UTF-8 ma być włączony domyślnie ([PEP 686](https://peps.python.org/pep-0686/)); w Pythonie 3.14 trzeba o nim pamiętać przy przekierowaniach — samo kodowanie strumieni standardowych, bez wpływu na pliki, ustala też zmienna środowiskowa `PYTHONIOENCODING` — a przy zapisie do plików z poziomu programu zawsze podawać kodowanie, o czym mowa w podrozdziale o plikach tekstowych.
+Od Pythona 3.15 tryb UTF-8 jest włączony domyślnie ([PEP 686](https://peps.python.org/pep-0686/)); w Pythonie 3.14 trzeba o nim pamiętać przy przekierowaniach — samo kodowanie strumieni standardowych, bez wpływu na pliki, ustala też zmienna środowiskowa `PYTHONIOENCODING` — a przy zapisie do plików z poziomu programu zawsze podawać kodowanie, o czym mowa w podrozdziale o plikach tekstowych.
 
 ## Buforowanie i argument `flush`
 
