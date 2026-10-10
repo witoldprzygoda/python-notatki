@@ -423,9 +423,9 @@ Jest to doraźna manipulacja środowiskiem wyszukiwania, a nie sposób organizac
 
 ## Pułapki importu
 
-Pierwsza pułapka wynika wprost z reguły pierwszego elementu. Biblioteka standardowa zawiera moduł `random`, który dostarcza liczb pseudolosowych — na przykład `random.randint(1, 6)` zwraca losową liczbę całkowitą od 1 do 6. Jeżeli własny plik w katalogu projektu nazwiemy tak samo, program zamierzający użyć modułu bibliotecznego otrzyma plik własny, bo katalog skryptu jest przeszukiwany jako pierwszy:
+Pierwsza pułapka wynika wprost z reguły pierwszego elementu. Biblioteka standardowa zawiera moduł `random`, który dostarcza liczb pseudolosowych — na przykład `random.randint(1, 6)` zwraca losową liczbę całkowitą od 1 do 6. Jeżeli własny plik w katalogu skryptu nazwiemy tak samo, program zamierzający użyć modułu bibliotecznego otrzyma plik własny, bo katalog skryptu jest przeszukiwany jako pierwszy. Oba pliki przykładu zapisujemy w podkatalogu `pulapka` katalogu `projekt`, utworzonym wyłącznie na potrzeby tej pułapki:
 
-```python title="random.py"
+```python title="pulapka/random.py"
 """Własny moduł, którego nazwa koliduje z modułem biblioteki standardowej."""
 
 
@@ -434,10 +434,17 @@ def losuj():
     return 4
 ```
 
-```python title="gra.py"
+```python title="pulapka/gra.py"
 import random
 
 print(random.randint(1, 6))
+```
+
+Program uruchamiamy z podkatalogu `pulapka`:
+
+```powershell title="Terminal"
+cd pulapka
+python gra.py
 ```
 
 ```{ .text .no-copy }
@@ -445,11 +452,13 @@ Traceback (most recent call last):
   File "gra.py", line 3, in <module>
     print(random.randint(1, 6))
           ^^^^^^^^^^^^^^
-AttributeError: module 'random' has no attribute 'randint' (consider renaming 'C:\...\projekt\random.py' since it has the same name as the standard library module named 'random' and prevents importing that standard library module)
+AttributeError: module 'random' has no attribute 'randint' (consider renaming 'C:\...\projekt\pulapka\random.py' since it has the same name as the standard library module named 'random' and prevents importing that standard library module)
 ```
+
+Po przykładzie wracamy do katalogu `projekt` poleceniem `cd ..`. Osobny podkatalog chroni dalsze przykłady: plik `random.py` zapisany bezpośrednio w katalogu `projekt` przesłaniałby moduł biblioteczny także w programach uruchamianych z tego katalogu, w tym w narzędziach, które z modułu `random` korzystają pośrednio. Na przykład narzędzie pytest, poznane w podrozdziale [Struktura projektu i pierwsze testy](struktura-projektu.md#narzedzie-pytest), korzysta z modułu `tempfile`, który importuje `random`, i nie uruchomiłoby się wtedy wcale, kończąc pracę błędem `ImportError: cannot import name 'Random' from 'random'`.
 
 Od wersji 3.13 CPython rozpoznaje tę sytuację i dopisuje do komunikatu podpowiedź; nie należy jednak polegać na jej brzmieniu, bo diagnostyka interpretera zmienia się z wersji na wersję. Niezależnie od komunikatu problem rozpoznaje się po atrybucie `__file__` — `random.__file__` wskazuje wtedy własny plik zamiast pliku z instalacji Pythona. Przesłonięciu nie podlegają moduły wbudowane w interpreter, jak `sys`, bo są odnajdywane przed przeszukaniem `sys.path`; zdecydowana większość modułów biblioteki standardowej jest jednak odnajdywana przez `sys.path` i własny plik o tej samej nazwie ją przesłania. Wniosek: nazwy własnych modułów nie powinny przesłaniać modułów, które program zamierza importować — dotyczy to biblioteki standardowej, w tym mniej oczywistych nazw, jak `test` czy `email`, które łatwo nadać przez nieuwagę, oraz pakietów zewnętrznych.
 
-Druga pułapka dotyczy dwóch modułów własnych, które importują się wzajemnie — jest to **import cykliczny** (ang. *circular import*). Podczas wykonywania kodu pierwszego modułu instrukcja `import` uruchamia wykonanie drugiego; drugi próbuje zaimportować pierwszy, ale ten jest już w `sys.modules` w postaci częściowo zainicjalizowanej — jego kod nie doszedł jeszcze do definicji funkcji. Sam cykl nie musi kończyć się błędem: dwie instrukcje `import modul`, po których do nazw sięga się przez kropkę dopiero wewnątrz funkcji, zwykle działają. Błąd pojawia się, gdy któryś z modułów podczas własnej inicjalizacji potrzebuje nazwy z modułu częściowo zainicjalizowanego — typowo przy formie `from modul import nazwa`, która kończy się błędem `ImportError` o niemożności zaimportowania nazwy (w Pythonie 3.13 i nowszych komunikat może zawierać mylącą podpowiedź o zmianie nazwy pliku, taką jak w pierwszej pułapce, bo interpreter nie odróżnia obu sytuacji). Właściwym rozwiązaniem jest taki podział kodu, by zależności między modułami biegły w jedną stronę: wspólne funkcje trafiają do osobnego modułu, z którego korzystają oba pozostałe. Przenoszenie instrukcji `import` do wnętrza funkcji bywa spotykane jako obejście, ale nie usuwa przyczyny i nie stosujemy go jako rozwiązania ogólnego.
+Druga pułapka dotyczy dwóch modułów własnych, które importują się wzajemnie — jest to **import cykliczny** (ang. *circular import*). Podczas wykonywania kodu pierwszego modułu instrukcja `import` uruchamia wykonanie drugiego; drugi próbuje zaimportować pierwszy, ale ten jest już w `sys.modules` w postaci częściowo zainicjalizowanej — jego kod nie doszedł jeszcze do definicji funkcji. Sam cykl nie musi kończyć się błędem: dwie instrukcje `import modul`, po których do nazw sięga się przez kropkę dopiero wewnątrz funkcji, zwykle działają. Błąd pojawia się, gdy któryś z modułów podczas własnej inicjalizacji potrzebuje nazwy z modułu częściowo zainicjalizowanego — typowo przy formie `from modul import nazwa`, która kończy się błędem `ImportError` o niemożności zaimportowania nazwy. Brzmienie komunikatu zależy od położenia modułu. Gdy moduł z cyklu leży w katalogu z pierwszej pozycji `sys.path`, jak moduły w katalogu `projekt`, Python 3.13 i nowsze dopisują do komunikatu mylącą podpowiedź o zmianie nazwy pliku, podobną do tej z pierwszej pułapki, bo plik w tym katalogu mógłby równie dobrze przesłaniać bibliotekę. Gdy moduły z cyklu należą do pakietu (podrozdział [Pakiety](pakiety.md)), komunikat nazywa przyczynę wprost: `cannot import name … from partially initialized module … (most likely due to a circular import)`. Właściwym rozwiązaniem jest taki podział kodu, by zależności między modułami biegły w jedną stronę: wspólne funkcje trafiają do osobnego modułu, z którego korzystają oba pozostałe. Przenoszenie instrukcji `import` do wnętrza funkcji bywa spotykane jako obejście, ale nie usuwa przyczyny i nie stosujemy go jako rozwiązania ogólnego.
 
 Model z tego podrozdziału — plik jako moduł, obiekt modułu z przestrzenią nazw, jednokrotne wykonanie kodu i wyszukiwanie w `sys.path` — wystarcza, by w następnym podrozdziale rozstrzygnąć, jak ten sam plik może być raz modułem importowanym przez inne programy, a raz programem uruchamianym z terminala.

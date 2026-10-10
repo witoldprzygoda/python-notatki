@@ -242,7 +242,8 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   przykład wraz z uzasadnieniem; (2) „podobną podpowiedź” i jedno zdanie
   o komunikacie w pakiecie; (3) przeredagowanie zdania o katalogu roboczym.
   Poprawki na gałęzi `content/*`.
-- **Stan:** do omówienia (10 X 2026).
+- **Stan:** wykonane na gałęzi `content/uwagi-z-talii` (11 X 2026), czeka na
+  odbiór autora.
 
 ### Rozdziały 7 i 8: uwagi z talii W07 i W08
 
