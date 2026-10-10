@@ -76,9 +76,9 @@ Koło zawiera pakiet z danymi (`dane/przyklad.csv` jest w środku, bo leży wewn
 ## Instalacja z pliku
 
 ```powershell title="Terminal"
-python -m venv C:\tmp\proba
-C:\tmp\proba\Scripts\python.exe -m pip install dist\kontakty-0.1.0-py3-none-any.whl
-C:\tmp\proba\Scripts\kontakty-csv.exe szukaj ewa
+python -m venv C:\tmp\kontakty-proba
+C:\tmp\kontakty-proba\Scripts\python.exe -m pip install dist\kontakty-0.1.0-py3-none-any.whl
+C:\tmp\kontakty-proba\Scripts\kontakty-csv.exe szukaj ewa
 ```
 
 ```{ .text .no-copy }
@@ -88,7 +88,7 @@ Successfully installed kontakty-0.1.0
 Ewa Lis          ewa.lis                  12 444 55 66
 ```
 
-Nowe środowisko nie ma dostępu do katalogu projektu: pip rozpakowuje koło do `site-packages`, tworzy polecenia w `Scripts` i instaluje zależności z `METADATA` (tu żadnych). Tak samo zainstaluje pakiet odbiorca, któremu prześlemy plik koła, albo pip z opcjami `--no-index --find-links katalog`, które każą szukać plików w katalogu zamiast w indeksie (samo `--find-links` dodaje katalog do źródeł przeszukiwanych obok PyPI) — wystarczające dla pakietów wewnętrznych w firmie. Środowisko próbne warto usunąć po sprawdzeniu.
+Nowe środowisko nie ma dostępu do katalogu projektu: pip rozpakowuje koło do `site-packages`, tworzy polecenia w `Scripts` i instaluje zależności z `METADATA` (tu żadnych). Tak samo zainstaluje pakiet odbiorca, któremu prześlemy plik koła, albo pip z opcjami `--no-index --find-links katalog`, które każą szukać plików w katalogu zamiast w indeksie (samo `--find-links` dodaje katalog do źródeł przeszukiwanych obok PyPI) — wystarczające dla pakietów wewnętrznych w firmie. Po sprawdzeniu usuwamy środowisko próbne, czyli katalog `C:\tmp\kontakty-proba` utworzony pierwszym poleceniem.
 
 ## Kontrola i publikacja
 

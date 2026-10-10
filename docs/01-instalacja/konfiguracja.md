@@ -43,11 +43,9 @@ print "hello wrong"
 
 Powinien pojawić się problem oraz podpowiedź.
 
-<!-- TODO: screenshot — podkreślenie błędu przez pylint -->
+![Instrukcja print bez nawiasów podkreślona przez pylint i dymek z komunikatem błędu składni E0001](img/vsc-pylint-blad.png)
 
-Albo (++ctrl+shift+m++) zakładka **Problems**:
-
-<!-- TODO: screenshot — zakładka Problems -->
+Te same komunikaty zbiera zakładka **Problems** (++ctrl+shift+m++).
 
 ### Usuwanie Pylance
 
@@ -55,9 +53,7 @@ Możliwe, że wyświetlone zostaną dwie „porady” — druga pochodzi od **Py
 
 W tym celu otwieramy Command Palette (++ctrl+shift+p++) i wyszukujemy **Preferences: Open User Settings (JSON)** (nie *Default*).
 
-<!-- TODO: screenshot — otwieranie settings.json -->
-
-Otwieramy plik `settings.json` do edycji i np. na końcu dopisujemy (jeśli nie ma):
+Otwieramy plik `settings.json` do edycji. Jego treść jest ujęta w nawiasy klamrowe `{` `}`, a kolejne ustawienia oddzielają przecinki. Jeżeli poniższego ustawienia jeszcze w pliku nie ma, dopisujemy je jako ostatni wpis — przed zamykającym nawiasem `}`, stawiając przecinek za poprzednim wpisem (o ile taki jest) — i nie zmieniamy pozostałych wpisów:
 
 ```json title="settings.json"
 "python.languageServer": "None"
@@ -117,11 +113,16 @@ Dawne ustawienie `python.linting.pylintArgs` zostało wycofane wraz z wbudowanym
 
 ## Uruchamianie kodu — Code Runner
 
-Plik z instrukcją `print` chcemy teraz uruchomić z poziomu VSC. W tym celu dodajemy jeszcze jedno rozszerzenie: w **Extensions** wyszukujemy `code runner`, wybieramy pozycję z pomarańczową ikoną **.run** i instalujemy.
+Plik z instrukcją `print`, poprawioną na `print("pierwszy program")`, chcemy teraz uruchomić z poziomu VSC. W tym celu dodajemy jeszcze jedno rozszerzenie: w **Extensions** wyszukujemy `code runner`, wybieramy pozycję z pomarańczową ikoną **.run** i instalujemy.
 
-Od tej pory uruchomienie kodu to ++ctrl+alt+n++ (a zatrzymanie ++ctrl+alt+m++).
+Od tej pory uruchomienie kodu to ++ctrl+alt+n++ (a zatrzymanie ++ctrl+alt+m++). Code Runner wykonuje plik poleceniem `python -u` w osobnym procesie, a wynik wypisuje w panelu **Output** (nie w terminalu):
 
-<!-- TODO: screenshot — wynik działania Code Runner w terminalu VSC -->
+```{ .text .no-copy }
+[Running] python -u "c:\projekty\moj-projekt\main.py"
+pierwszy program
+
+[Done] exited with code=0 in 0.056 seconds
+```
 
 !!! note "Wariant bez dodatkowego rozszerzenia"
     Rozszerzenie Code Runner nie jest już aktywnie rozwijane (ostatnie wydanie
@@ -147,7 +148,7 @@ Wybierzmy **Create Virtual Environment**, a następnie menedżera środowiska **
 
 ![Wybór menedżera środowiska w Visual Studio Code](img/vsc-environment-manager.png)
 
-Po wskazaniu wersji interpretera zostanie lokalnie utworzony podkatalog `.venv` wraz z wirtualnym środowiskiem dla danego projektu.
+Po wskazaniu wersji interpretera zostanie lokalnie utworzony podkatalog `.venv` wraz z wirtualnym środowiskiem dla danego projektu. Jeżeli projekt ma już katalog `.venv` — na przykład utworzony poleceniami z podrozdziału [Wirtualne środowisko venv](venv.md) — rozszerzenie pyta, co z nim zrobić: wybieramy **Use Existing**, które wskazuje istniejące środowisko bez zmian, a nie **Delete and Recreate**, które usuwa je razem z zainstalowanymi pakietami.
 
 Po wskazaniu interpretera pochodzącego ze środowiska Visual Studio Code aktywuje `.venv` automatycznie w każdym nowo otwieranym terminalu zintegrowanym — dodatkowa konfiguracja nie jest potrzebna. Odpowiada za to domyślnie włączona opcja `python.terminal.activateEnvironment`.
 

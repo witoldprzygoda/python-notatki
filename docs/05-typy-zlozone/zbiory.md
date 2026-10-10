@@ -81,11 +81,11 @@ s1 ^ s2                       # j.w.
 
 Operacje dla operatorów można połączyć z przypisaniem: `|=` (funkcja update), `&=` (intersection_update), `-=` (difference_update) oraz `^=` (symmetric_difference_update) — wtedy wynik będzie przypisany do nazwy s1. Operacja z przypisaniem jest **wydajniejsza** niż wykonana osobno z późniejszym przypisaniem wyniku, ponieważ modyfikuje istniejący zbiór w miejscu (ang. *in-place*), bez tworzenia pośredniego obiektu z wynikiem — dotyczy to jednak tylko modyfikowalnego typu set (o frozenset — niżej). Analogiczne operatory `|` i `|=` dla słowników opisuje strona [Słownik](slownik.md).
 
-Relacje pomiędzy elementami dwóch kontenerów set można sprawdzić za pomocą:
+Relacje pomiędzy dwoma zbiorami można sprawdzić za pomocą:
 
 - `s1.isdisjoint(s2)` — jeśli brak elementów wspólnych, zwraca True
-- `s1.issubset(s2)` — prawda, jeśli wszystkie elementy s1 są podzbiorem s2; można też zapisać relacją `<=`
-- `s1.issuperset(s2)` — prawda, jeśli wszystkie elementy s2 są podzbiorem s1; relacja `>=`
+- `s1.issubset(s2)` — prawda, jeśli wszystkie elementy s1 należą do s2 (s1 jest podzbiorem s2); można też zapisać relacją `<=`
+- `s1.issuperset(s2)` — prawda, jeśli wszystkie elementy s2 należą do s1 (s1 jest nadzbiorem s2); relacja `>=`
 
 ```{ .python .no-copy }
 s1 = {2,1}

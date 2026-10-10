@@ -118,8 +118,13 @@ Python install manager
     Jeżeli polecenie `python` otwiera sklep Microsoft Store albo nie jest rozpoznawane,
     oficjalna dokumentacja zaleca sprawdzenie powyższych aliasów, a jeśli są już
     włączone — ich wyłączenie i ponowne włączenie. Zmienna `PATH` powinna ponadto
-    zawierać katalog `%UserProfile%\AppData\Local\Microsoft\WindowsApps`. Po zmianie
-    aliasów należy zamknąć terminal i otworzyć nowe okno programu PowerShell.
+    zawierać katalog `%UserProfile%\AppData\Local\Microsoft\WindowsApps`. Zapis
+    `%UserProfile%` oznacza wartość zmiennej środowiskowej `UserProfile`; w tej postaci
+    ścieżki zapisują dokumentacja Pythona i okno edycji zmiennych środowiskowych systemu
+    Windows. Program PowerShell nie rozwija takiego zapisu — tę samą wartość zwraca
+    w nim wyrażenie `$env:USERPROFILE` (podobnie `%LocalAppData%` odpowiada
+    `$env:LOCALAPPDATA`). Po zmianie aliasów należy zamknąć terminal i otworzyć nowe
+    okno programu PowerShell.
 
 ## Sprawdzenie managera
 
@@ -144,7 +149,7 @@ py list
 zwróci:
 
 ```{ .text .no-copy }
-Tag  Name  Managed By  Version  Alias
+Tag     Name  Managed By  Version  Alias
 -- No runtimes. Use 'py install <version>' to install one. --
 ```
 
@@ -170,13 +175,13 @@ py list --online --one 3.14t
 Przykładowe wyniki:
 
 ```{ .text .no-copy }
-Tag           Name           Managed By  Version
-3.14[-64]     Python 3.14.8  PythonCore  3.14.8
+Tag           Name           Managed By  Version  Alias
+3.14[-64]     Python 3.14.8  PythonCore  3.14.8   python3[-64].exe, python3.14[-64].exe
 ```
 
 ```{ .text .no-copy }
-Tag            Name                           Managed By  Version
-3.14t[-64]     Python 3.14.8 (free-threaded)  PythonCore  3.14.8
+Tag            Name                           Managed By  Version  Alias
+3.14t[-64]     Python 3.14.8 (free-threaded)  PythonCore  3.14.8   python3.14t[-64].exe, python3t[-64].exe
 ```
 
 Polecenie to jest szczególnie użyteczne, ponieważ wypisany w ten sposób pakiet jest dokładnie tym, który zostanie wybrany przez polecenie `py install 3.14`.
@@ -192,13 +197,17 @@ py install 3.14 3.14t
 Manager pobierze i zainstaluje oba warianty:
 
 ```{ .text .no-copy }
+The signature for https://www.python.org/ftp/python/index-windows.json was successfully verified.
 Installing Python 3.14.8.
 ...
 Installing Python 3.14.8 (free-threaded).
 ...
+
+Global shortcuts directory is not on PATH. Add it for easy access to global Python aliases.
+Directory to add: C:\Users\...\AppData\Local\Python\bin
 ```
 
-Polecenie `py install` przyjmuje jeden lub wiele tagów jednocześnie.
+Polecenie `py install` przyjmuje jeden lub wiele tagów jednocześnie. Pierwszy wiersz wyniku potwierdza poprawność podpisu cyfrowego pobranego indeksu dostępnych wersji. Końcowy komunikat dotyczy katalogu `%LocalAppData%\Python\bin`, w którym manager umieszcza globalne aliasy interpreterów wymienione w kolumnie `Alias` (np. `python3.14.exe`); dodanie tego katalogu do zmiennej `PATH` jest opcjonalne, co wyjaśnia ramka w podrozdziale [Ścieżki i utrzymanie interpreterów](sciezki-i-utrzymanie.md#path-pierwsze-znaczenie-sciezki).
 
 ## Kontrola po instalacji
 
@@ -209,9 +218,9 @@ py list
 Oczekiwany wynik:
 
 ```{ .text .no-copy }
-Tag            Name                           Managed By  Version
-3.14[-64]   *  Python 3.14.8                  PythonCore  3.14.8
-3.14t[-64]     Python 3.14.8 (free-threaded)  PythonCore  3.14.8
+Tag            Name                           Managed By  Version  Alias
+3.14[-64]   *  Python 3.14.8                  PythonCore  3.14.8   python3[-64].exe, python3.14[-64].exe
+3.14t[-64]     Python 3.14.8 (free-threaded)  PythonCore  3.14.8   python3.14t[-64].exe, python3t[-64].exe
 ```
 
 Gwiazdka `*` oznacza **interpreter domyślny**. Domyślnym interpreterem powinien być wariant standardowy 3.14, a nie 3.14t. Manager domyślnie wybiera najnowszą stabilną wersję, chyba że konfiguracja stanowi inaczej — domyślny tag można ustawić opcją konfiguracyjną `default_tag` lub zmienną środowiskową `PYTHON_MANAGER_DEFAULT`.

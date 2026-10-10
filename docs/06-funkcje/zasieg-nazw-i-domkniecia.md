@@ -250,7 +250,7 @@ Deklaracja obowiązuje w całym ciele funkcji i musi poprzedzać każde użycie 
 !!! warning "global nie jest sposobem na przechowywanie stanu"
     Deklaracja `global` służy do jawnego wskazania nielicznych sytuacji,
     w których funkcja ma zmienić nazwę modułu. Funkcja, która zamiast
-    przyjmować dane przez parametry i oddawać wynik przez `return` sięga do
+    przyjmować dane przez parametry i oddawać wynik przez `return`, sięga do
     nazw globalnych, utrudnia śledzenie przepływu danych: jej wynik zależy od
     tego, co inne fragmenty programu zrobiły wcześniej. Częste używanie
     `global` jest zwykle sygnałem, że kod warto przebudować.

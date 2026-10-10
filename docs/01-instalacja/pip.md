@@ -10,7 +10,7 @@ Przy kilku zainstalowanych wersjach Pythona nie zaleca się używania samodzieln
 pip install requests
 ```
 
-ponieważ powstaje wówczas pytanie, który plik `pip.exe` został odnaleziony przez system Windows. Zamiast tego stosujemy formę `INTERPRETER -m pip`, która jednoznacznie wiąże polecenie z konkretnym interpreterem. Dla interpretera domyślnego:
+ponieważ powstaje wówczas pytanie, który plik `pip.exe` został odnaleziony przez system Windows. Po instalacji samym managerem polecenie `pip` zwykle w ogóle nie działa: plik `pip.exe` trafia do katalogu `%LocalAppData%\Python\bin`, którego domyślnie nie ma w zmiennej `PATH` (opis w podrozdziale [Ścieżki i utrzymanie interpreterów](sciezki-i-utrzymanie.md#path-pierwsze-znaczenie-sciezki)). Zamiast samodzielnego polecenia `pip` stosujemy formę `INTERPRETER -m pip`, która jednoznacznie wiąże polecenie z konkretnym interpreterem. Dla interpretera domyślnego:
 
 ```powershell title="Terminal"
 python -m pip install requests
@@ -57,7 +57,7 @@ Nie należy zakładać, że biblioteka zainstalowana dla jednego interpretera je
     [Wirtualne środowisko venv](venv.md)). Przemawiają za tym dwa względy:
     globalna instalacja jest współdzielona przez wszystkie projekty, co prowadzi do
     konfliktów wersji bibliotek, a ponadto aktualizacja interpretera przez managera
-    może usunąć globalnie doinstalowane pakiety (opis w podrozdziale
+    usuwa globalnie doinstalowane pakiety (opis w podrozdziale
     [Ścieżki i utrzymanie interpreterów](sciezki-i-utrzymanie.md)). Po aktywacji
     środowiska polecenie `python -m pip install ...` instaluje pakiety wyłącznie
     do katalogu `.venv` danego projektu.
@@ -73,10 +73,11 @@ python -m pip install ipython
 Po zainstalowaniu powłokę uruchamiamy poleceniem `ipython`:
 
 ```{ .text .no-copy }
-PS C:\> ipython
-Python 3.14.8 (tags/v3.14.8, ...) [MSC v.1944 64 bit (AMD64)]
+(.venv) PS C:\projekty\moj-projekt> ipython
+Python 3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]
 Type 'copyright', 'credits' or 'license' for more information
 IPython 9.17.1 -- An enhanced Interactive Python. Type '?' for help.
+Tip: The `%timeit` magic has a `-o` flag, which returns the results, making it easy to plot. See `%timeit?`.
 
 In [1]: print("hello")
 hello
@@ -84,9 +85,9 @@ hello
 In [2]:
 ```
 
-Znaki zachęty `In [1]:`, `In [2]:` … pokazują wspomnianą numerację kolejnych poleceń. Powłokę opuszczamy poleceniem `exit`.
+Znaki zachęty `In [1]:`, `In [2]:` … pokazują wspomnianą numerację kolejnych poleceń. Wiersz rozpoczynający się od `Tip:` zawiera losowo wybraną wskazówkę dotyczącą pracy w powłoce, dlatego przy kolejnych uruchomieniach może mieć inną treść. Powłokę opuszczamy poleceniem `exit`.
 
-Python często informuje przy tej okazji, że sam pip ma nowszą wersję, i zachęca do aktualizacji — wykonujemy ją poleceniem:
+Jeżeli w PyPI dostępna jest nowsza wersja pip niż zainstalowana, sam pip informuje o tym na końcu wyniku instalacji (wiersze rozpoczynające się od `[notice]`) i zachęca do aktualizacji — wykonujemy ją poleceniem:
 
 ```powershell title="Terminal"
 python -m pip install --upgrade pip
@@ -103,17 +104,21 @@ Na przykładzie pakietu `requests`:
 - `python -m pip install --upgrade requests` — aktualizacja do najnowszej wersji,
 - `python -m pip list` — wypisanie wszystkich zainstalowanych pakietów.
 
-Jeżeli instalacja pakietu ulegnie uszkodzeniu (zdarza się tak np. w wyniku ręcznych manipulacji zainstalowanymi wersjami Pythona), można wymusić jego ponowną instalację:
+Jeżeli instalacja pakietu ulegnie uszkodzeniu (zdarza się tak np. w wyniku ręcznych manipulacji zainstalowanymi wersjami Pythona), można wymusić jego ponowną instalację w tej samej wersji. Pierwsze polecenie odczytuje zainstalowaną wersję pakietu i zapisuje ją w zmiennej powłoki `$wersja`, drugie instaluje ponownie dokładnie tę wersję, bez zależności; jeżeli pakietu nie ma, oba polecenia kończą się komunikatem o błędzie i niczego nie zmieniają:
 
 ```powershell title="Terminal"
-python -m pip install --force-reinstall requests
+$wersja = python -c "from importlib.metadata import version; print(version('requests'))"
+python -m pip install --force-reinstall --no-deps "requests==$wersja"
 ```
 
 albo dodatkowo z pominięciem pamięci podręcznej (wymuszeniem ponownego pobrania pakietu):
 
 ```powershell title="Terminal"
-python -m pip install --force-reinstall --no-cache-dir requests
+$wersja = python -c "from importlib.metadata import version; print(version('requests'))"
+python -m pip install --force-reinstall --no-deps --no-cache-dir "requests==$wersja"
 ```
+
+Odczyt wersji i opcja `--no-deps` są tu istotne: bez nich `--force-reinstall` instaluje najnowsze wersje pakietu i wszystkich jego zależności, zastępując wersje dotychczasowe — także te przypięte w pliku wymagań projektu.
 
 !!! note "Zgodność pakietu z wersją interpretera"
     Pakiety z rozszerzeniami kompilowanymi (np. NumPy) publikują gotowe pliki binarne
@@ -124,10 +129,10 @@ python -m pip install --force-reinstall --no-cache-dir requests
 
 ## Plik requirements.txt
 
-Informację o zainstalowanych pakietach, sformatowaną pod kątem instalacji całej grupy, zwraca polecenie `python -m pip freeze`. Najczęściej wynik zapisuje się (przekierowując strumień standardowy) do pliku o nazwie `requirements.txt`:
+Informację o zainstalowanych pakietach, sformatowaną pod kątem instalacji całej grupy, zwraca polecenie `python -m pip freeze`. Najczęściej wynik zapisuje się (przekierowując strumień standardowy) do pliku o nazwie `requirements.txt`. Przekierowanie `>` zastępuje bez ostrzeżenia całą zawartość istniejącego pliku — także pliku wymagań przygotowanego ręcznie, jak w przykładach poniżej — dlatego polecenie zapisuje wynik tylko wtedy, gdy pliku jeszcze nie ma; do istniejącego pliku potrzebne wiersze z wydruku `python -m pip freeze` przenosimy ręcznie:
 
 ```powershell title="Terminal"
-python -m pip freeze > requirements.txt
+if (-not (Test-Path requirements.txt)) { python -m pip freeze > requirements.txt }
 ```
 
 Pisząc projekt wymagający określonych bibliotek, warto załączyć do niego taki plik wymagań. Przykładowo, podstawowy zestaw do obliczeń numerycznych, manipulacji danymi oraz wizualizacji:
@@ -153,11 +158,22 @@ Instalacja pakietów z pliku wymagań:
 python -m pip install -r requirements.txt
 ```
 
-Można dodać opcję aktualizacji (`-U` lub `--upgrade`). Odinstalowanie pakietów wraz z domyślnym potwierdzeniem:
+Można dodać opcję aktualizacji (`-U` lub `--upgrade`).
+
+!!! warning "Usuwanie pakietów według pliku wymagań"
+    Następne polecenie usuwa z bieżącego środowiska wszystkie pakiety wymienione
+    w pliku. Wykonujemy je wyłącznie w aktywnym środowisku venv projektu (sprawdzenie
+    opisuje sekcja [Kontrola aktywnego środowiska](venv.md#kontrola-aktywnego-srodowiska));
+    poza nim usunęłoby pakiety globalnej instalacji interpretera, z których mogą
+    korzystać inne programy.
+
+Odinstalowanie pakietów wymienionych w pliku:
 
 ```powershell title="Terminal"
-python -m pip uninstall -r requirements.txt -y
+python -m pip uninstall -r requirements.txt
 ```
+
+Przed usunięciem każdego pakietu pip wypisuje jego pliki i pyta o zgodę (`Proceed (Y/n)?`; samo ++enter++ oznacza zgodę). Opcja `-y` pomija te pytania; przy usuwaniu jej nie dodajemy.
 
 !!! info "Więcej szczegółowych informacji"
     [What Is Pip? A Guide for New Pythonistas](https://realpython.com/what-is-pip/)

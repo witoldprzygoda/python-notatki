@@ -64,7 +64,7 @@ def main():
         f"## Ocena na zbiorze testowym ({n} klientów, {najlepszy})",
         f"AUC {ocena['AUC']}, czułość {ocena['czułość']}, precyzja {ocena['precyzja']}. Koszt na klienta: model {ocena['koszt'] / n:.0f} zł, oferta dla wszystkich {ocena['koszt_wszyscy'] / n:.0f} zł, bez ofert {ocena['koszt_nikt'] / n:.0f} zł.",
         "## Co wpływa na rezygnację", zapisz_rysunek("waznosc", rysunek_waznosc(waznosc)),
-        "## Użycie", "`python skrypty/przewiduj.py plik.csv wyniki/ryzyko.csv` — kolumny jak w `dane/surowe/klienci.csv` bez `rezygnacja` i `powod_rezygnacji`.",
+        "## Użycie", "`python skrypty/przewiduj.py plik.csv wyniki/ryzyko-RRRR-MM.csv` — kolumny jak w `dane/surowe/klienci.csv` bez `rezygnacja` i `powod_rezygnacji`; skrypt nie zastępuje istniejącego pliku wynikowego.",
     ]
     (WYNIKI / "raport.md").write_text("\n\n".join(czesci) + "\n", encoding="utf-8")
     print(najlepszy, prog, ocena)
@@ -174,6 +174,8 @@ def ocen(klienci, paczka):
 def main(argv):
     wejscie = Path(argv[1]) if len(argv) > 1 else Path("dane/nowi_klienci.csv")
     wyjscie = Path(argv[2]) if len(argv) > 2 else Path("wyniki/ryzyko.csv")
+    if wyjscie.exists():
+        raise SystemExit(f"{wyjscie.as_posix()} już istnieje — podaj nazwę nowego pliku wynikowego")
     paczka = joblib.load(PACZKA)
     klienci, uwagi = sprawdz_wejscie(pd.read_csv(wejscie), paczka)
     for uwaga in uwagi:
@@ -202,7 +204,7 @@ UWAGA — wiersz 3: plan='premium plus' nieznane modelowi — potraktowane jak b
 wyniki/ryzyko.csv: 6 klientów, ofert: 3; próg 0.15, model: regresja logistyczna, scikit-learn 1.9.1
 ```
 
-Skrypt oceniający jest jedynym, który uruchomi ktoś spoza projektu, więc poza identyfikatorem klienta nie zakłada niczego, czego nie ma w pakiecie: nazwy kolumn, próg, dopuszczalne zakresy i listy kategorii bierze z pliku, a argumenty czyta z `sys.argv` jak w rozdziale 7 „Python Podstawy” — z wartościami domyślnymi, gdy ich brak. **Kontrola wejścia** ma dwa stopnie. Regułę czyszczenia z README — wiek poza 18–100 to brak — powtarza na nowych danych, bo model uczył się na danych po tej regule; dlatego zakres trafił do pakietu, a wiek 150 zostaje zastąpiony brakiem, który uzupełni imputer. Wartość liczbowa spoza zakresu treningu i kategoria, której model nie zna, dostają tylko uwagę — to najprostsza wersja wykrywania nowości z rozdziału 10, reguła na pojedynczej cesze — bo model i tak odpowie (koder z `handle_unknown="ignore"` zakoduje plan `premium plus` zerami), a uwaga mówi odbiorcy, którym wierszom mniej ufać; numer wiersza w uwadze to indeks ramki, liczony od zera. Klient z umową miesięczną, czterema zgłoszeniami i dwumiesięcznym stażem ma najwyższe ryzyko i dostaje ofertę, klient z umową dwuletnią — nie. Brakująca kolumna zatrzymuje skrypt wyjątkiem, bo bez niej wynik byłby zgadywaniem.
+Skrypt oceniający jest jedynym, który uruchomi ktoś spoza projektu, więc poza identyfikatorem klienta nie zakłada niczego, czego nie ma w pakiecie: nazwy kolumn, próg, dopuszczalne zakresy i listy kategorii bierze z pliku, a argumenty czyta z `sys.argv` jak w rozdziale 7 „Python Podstawy” — z wartościami domyślnymi, gdy ich brak. **Kontrola wejścia** ma dwa stopnie. Regułę czyszczenia z README — wiek poza 18–100 to brak — powtarza na nowych danych, bo model uczył się na danych po tej regule; dlatego zakres trafił do pakietu, a wiek 150 zostaje zastąpiony brakiem, który uzupełni imputer. Wartość liczbowa spoza zakresu treningu i kategoria, której model nie zna, dostają tylko uwagę — to najprostsza wersja wykrywania nowości z rozdziału 10, reguła na pojedynczej cesze — bo model i tak odpowie (koder z `handle_unknown="ignore"` zakoduje plan `premium plus` zerami), a uwaga mówi odbiorcy, którym wierszom mniej ufać; numer wiersza w uwadze to indeks ramki, liczony od zera. Klient z umową miesięczną, czterema zgłoszeniami i dwumiesięcznym stażem ma najwyższe ryzyko i dostaje ofertę, klient z umową dwuletnią — nie. Brakująca kolumna zatrzymuje skrypt wyjątkiem, bo bez niej wynik byłby zgadywaniem. Skrypt nie zastępuje też istniejącego pliku: gdy plik wynikowy już istnieje — także wtedy, gdy omyłkowo podano jako wynik plik wejściowy — kończy się komunikatem, zanim cokolwiek zapisze, więc kolejną listę zapisujemy pod nową nazwą, np. `wyniki/ryzyko-2026-10.csv`.
 
 ```python title="tests/test_przewiduj.py"
 import pandas as pd
@@ -246,7 +248,7 @@ Test kontroli wejścia podaje pakiet jako mały słownik zamiast wczytywać praw
 - **Model bazowy i model prosty** w tabeli porównania; model złożony tylko przy zysku większym od odchylenia.
 - **Zbiór testowy użyty raz**, z progiem z walidacji; wynik podany jako koszt na klienta wobec rozwiązań bez modelu.
 - **Pakiet** zawiera wszystko, czego potrzebuje skrypt oceniający — model, próg, cechy, dopuszczalne zakresy i zakresy treningu, kategorie, wersję biblioteki — oraz ocenę testową dla odbiorcy.
-- **Odtworzenie od zera**: świeże środowisko, `python -m pytest -q`, `python skrypty/trenuj.py`, `python skrypty/przewiduj.py` — bez kroków ręcznych; `wyniki/` w `.gitignore`.
+- **Odtworzenie od zera**: nowy klon repozytorium (bez katalogu `wyniki/`, który jest w `.gitignore`) i świeże środowisko, `python -m pytest -q`, `python skrypty/trenuj.py`, `python skrypty/przewiduj.py` — bez kroków ręcznych.
 
 ## Dalej: ścieżka Aplikacje
 

@@ -58,7 +58,7 @@ ceny: list[float] = []        # od Pythona 3.9 (PEP 585)
 wynik: int | None = None      # od Pythona 3.10 (PEP 604)
 ```
 
-W starszym kodzie można spotkać zapis z modułu `typing` (`List[float]`, `Optional[int]`) — aliasy te są dziś w dokumentacji oznaczone jako przestarzałe i w nowym kodzie nie są zalecane.
+W starszym kodzie można spotkać zapis z modułu `typing`: `List[float]` zamiast `list[float]` oraz `Optional[int]` zamiast `int | None`. Dokumentacja oznacza `List` jako przestarzały alias typu `list`; `Optional` przestarzały nie jest, ale ma krótszy odpowiednik z operatorem `|`. W nowym kodzie stosujemy zapis współczesny.
 
 Pisanie kodu z podaniem typu nie zmienia dynamicznego charakteru tworzenia obiektów — Python w czasie działania programu **nie wymusza** zgodności z adnotacją; stanowi ona rodzaj etykiety zwiększającej czytelność kodu.
 
@@ -69,15 +69,29 @@ Pisanie kodu z podaniem typu nie zmienia dynamicznego charakteru tworzenia obiek
     `python.analysis.inlayHints.variableTypes` oraz
     `python.analysis.inlayHints.functionReturnTypes` w pliku `settings.json`.
 
-<!-- TODO: screenshot — podpowiedź typu (inlay hint) Pylance w VSC -->
+Podpowiedzi dotyczą nazw bez adnotacji, których typ Pylance wywnioskował z kodu, na przykład:
 
-Jeżeli chcemy widzieć w edytorze ostrzeżenia o niewłaściwym używaniu typów — pylint tego nie robi. Klasycznym narzędziem analizy typów jest **mypy**, dostępne w Visual Studio Code jako osobne rozszerzenie **Mypy Type Checker** (wydawca Microsoft): instalujemy je z widoku **Extensions** (++ctrl+shift+x++), tak jak wcześniej Pylint. Rozszerzenie zawiera dołączoną kopię mypy — dodatkowa instalacja nie jest potrzebna, a ostrzeżenia pojawiają się w zakładce **Problems**.
+```python title="podpowiedzi.py"
+ceny = [19.99, 5.49]
+srednia = sum(ceny) / len(ceny)
+wynik = ceny[0] if ceny else None
+
+
+def podwojona(cena: float):
+    return 2 * cena
+```
+
+Po włączeniu obu ustawień edytor dopisuje szarym drukiem typy zmiennych i typ zwracany funkcji:
+
+![Kod z podpowiedziami Pylance: przy zmiennych ceny, srednia i wynik wywnioskowane typy list[float], float oraz float | None, a przy funkcji podwojona typ zwracany float](img/vsc-pylance-inlay-hint.png)
+
+Jeżeli chcemy widzieć w edytorze zgłoszenia niewłaściwego użycia typów — pylint tego nie robi. Klasycznym narzędziem analizy typów jest **mypy**, dostępne w Visual Studio Code jako osobne rozszerzenie **Mypy Type Checker** (wydawca Microsoft): instalujemy je z widoku **Extensions** (++ctrl+shift+x++), tak jak wcześniej Pylint. Rozszerzenie zawiera dołączoną kopię mypy — dodatkowa instalacja nie jest potrzebna, a zgłoszenia pojawiają się w zakładce **Problems**.
 
 !!! note "Mypy z własnego środowiska"
     Analogicznie jak przy pylincie, wersję mypy z aktywnego środowiska projektu
     (zainstalowaną poleceniem `python -m pip install mypy`) wskazuje ustawienie
     `"mypy-type-checker.importStrategy": "fromEnvironment"`.
 
-Wtedy, przykładowo, próba utworzenia obiektu przez przypisanie wielkości o innym niż opisany typ zostanie przez mypy zauważona (ale nie może zostać zabroniona).
+Wtedy, przykładowo, próba utworzenia obiektu przez przypisanie wielkości o innym niż opisany typ — `wiek: int = "25"` — zostanie przez mypy zgłoszona jako błąd typu (ale nie może zostać zabroniona: program nadal da się uruchomić).
 
-<!-- TODO: screenshot — ostrzeżenie Mypy Type Checker w VSC -->
+![Przypisanie napisu 25 do zmiennej wiek z adnotacją int podkreślone na czerwono i dymek mypy z komunikatem o niezgodnych typach str i int](img/vsc-mypy-ostrzezenie.png)

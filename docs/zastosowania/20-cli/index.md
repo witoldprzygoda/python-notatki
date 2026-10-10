@@ -4,7 +4,7 @@ Program automatyzujący pracę najczęściej nie ma okna: uruchamia się go z te
 
 Dwa narzędzia towarzyszą całemu rozdziałowi: `porzadek` porządkuje pliki w katalogu według rozszerzenia albo daty, z **próbnym uruchomieniem** (ang. *dry run*) i dziennikiem, a `licznik` jest filtrem tekstu — liczy wiersze, słowa i dopasowania wzorca w plikach albo na wejściu standardowym, jak narzędzia systemowe. Oba są zwykłymi skryptami z funkcją `main(argv)`, więc da się je wywołać z testu, uruchomić jako proces potomny i zainstalować jako polecenie.
 
-Rozdział korzysta wyłącznie z biblioteki standardowej (`argparse`, `sys`, `logging`, `pathlib`, `shutil`, `subprocess`, `tempfile`, `tomllib`); pytest służy testom. Buduje na rozdziałach 7 (`argparse`, kody wyjścia), 8 (`logging`), 9 (strumienie, `pathlib`, `shutil`, `tomllib`) i 16 (pytest) części „Python Podstawy” oraz na rozdziałach 17 (punkty wejścia) i 19 (wzorce) tej części. Plików do pobrania nie ma — pliki przykładowe tworzą skrypty.
+Rozdział korzysta wyłącznie z biblioteki standardowej (`argparse`, `sys`, `logging`, `pathlib`, `shutil`, `subprocess`, `tempfile`, `tomllib`); pytest służy testom. Buduje na rozdziałach 7 (`argparse`, kody wyjścia), 8 (`logging`), 9 (strumienie, `pathlib`, `shutil`, `tomllib`) i 16 (pytest) części „Python Podstawy” oraz na rozdziałach 17 (punkty wejścia) i 19 (wzorce) tej części. Plików do pobrania nie ma — pliki przykładowe tworzą skrypty. Wiersz z pytest dopisujemy na końcu pliku wymagań projektu, jeśli go w nim nie ma; nowy plik zawiera tylko ten wiersz:
 
 ```text title="requirements.txt"
 pytest==9.1.1

@@ -46,7 +46,7 @@ Copilot zaproponuje kilka wierszy realizujących opis; ich dokładna postać mo�
 
 Oprócz dopisywania kodu w miejscu kursora Copilot przewiduje także następną zmianę w innym miejscu pliku (ang. *next edit suggestions*) — np. po zmianie nazwy zmiennej w jednym wierszu proponuje poprawienie pozostałych wystąpień. Dostępność takiej podpowiedzi sygnalizuje strzałka na marginesie edytora; ++tab++ przenosi do niej kursor i ją przyjmuje.
 
-Podpowiedzi można czasowo wstrzymać poleceniem **Snooze** z menu Copilota na pasku stanu — każde użycie wydłuża przerwę o pięć minut. Wszystkie funkcje AI w VSC wyłącza ustawienie w pliku `settings.json` (otwieranie tego pliku opisuje sekcja [Usuwanie Pylance](konfiguracja.md#usuwanie-pylance)):
+Podpowiedzi można czasowo wstrzymać poleceniem **Snooze** z menu Copilota na pasku stanu — każde użycie wydłuża przerwę o pięć minut. Wszystkie funkcje AI w VSC wyłącza ustawienie w pliku `settings.json`, którego otwieranie opisuje sekcja [Usuwanie Pylance](konfiguracja.md#usuwanie-pylance). Jeśli klucza jeszcze w pliku nie ma, dopisujemy ustawienie jako ostatni wpis — przed zamykającym nawiasem klamrowym `}` pliku, po przecinku za poprzednim wpisem — nie zmieniając pozostałych wpisów:
 
 ```json title="settings.json"
 "chat.disableAIFeatures": true
@@ -60,7 +60,7 @@ Rozmowę z Copilotem prowadzimy w widoku czatu (++ctrl+alt+i++) albo bezpośredn
 - **Plan** — przygotowuje plan zmian i zadaje pytania doprecyzowujące; gotowy plan można przekazać do realizacji,
 - **Agent** — samodzielnie realizuje opisane zadanie: odnajduje potrzebne pliki, zmienia je, uruchamia polecenia w terminalu i poprawia napotkane błędy.
 
-Zmiany wprowadzone przez agenta edytor pokazuje jako różnice względem poprzedniej treści; każdą przyjmujemy (**Keep**) albo wycofujemy (**Undo**), a polecenie **Restore Checkpoint** przywraca pliki do stanu sprzed wybranego zapytania. Polecenia uruchamiane przez agenta podlegają uprawnieniom: w ustawieniu domyślnym typowe polecenia, które jedynie odczytują dane, wykonują się samoczynnie, a pozostałe — np. usuwające pliki — wymagają naszej zgody. Ustawień zezwalających agentowi na wszystkie działania bez potwierdzenia nie włączamy.
+Zmiany wprowadzone przez agenta edytor pokazuje jako różnice względem poprzedniej treści; każdą przyjmujemy (**Keep**) albo wycofujemy (**Undo**), a polecenie **Restore Checkpoint** przywraca pliki obszaru roboczego (ang. *workspace*) i historię czatu do stanu sprzed wybranego zapytania; nie cofa jednak skutków poleceń wykonanych w terminalu, więc nie odtworzy na przykład plików usuniętych takim poleceniem. Polecenia uruchamiane przez agenta podlegają uprawnieniom: w ustawieniu domyślnym typowe polecenia, które jedynie odczytują dane, wykonują się samoczynnie, a pozostałe — np. usuwające pliki — wymagają naszej zgody. Ustawień zezwalających agentowi na wszystkie działania bez potwierdzenia nie włączamy.
 
 Kontekst zapytania wskazujemy w polu czatu:
 

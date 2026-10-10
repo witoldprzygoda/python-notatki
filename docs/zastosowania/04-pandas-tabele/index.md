@@ -22,7 +22,7 @@ python -m pip install -r requirements.txt
 
 Wydanie pandas 3.0 (styczeń 2026) zmieniło dwie rzeczy widoczne w każdym listingu: kolumny tekstowe mają typ `str` zamiast dawnego `object`, a każda ramka lub seria wyprowadzona z innej zachowuje się jak kopia — to model **kopiowania przy zapisie** (ang. *copy-on-write*) — bez ostrzeżeń o „kopii czy widoku” znanych z materiałów o starszych wersjach. Wydruki w rozdziale pochodzą z pandas 3; w starszych wersjach różnią się typami kolumn i ostrzeżeniami.
 
-Rozdział pracuje na dwóch plikach: `zamowienia.csv` (dziesięć wierszy z dziewięcioma zamówieniami sklepu, jedno powtórzone; dane przykładowe) i `pomiary.csv` z rozdziału 1. Oba są osadzone w podrozdziale o wczytywaniu i dostępne do pobrania: [zamowienia.csv](dane/zamowienia.csv), [pomiary.csv](dane/pomiary.csv); skrypty uruchamiamy w katalogu z plikami danych; w projekcie z rozdziału 1 byłby to `dane/surowe/`, a ścieżki w listingach należałoby wtedy dostosować.
+Rozdział pracuje na dwóch plikach: `zamowienia.csv` (dziesięć wierszy z dziewięcioma zamówieniami sklepu, jedno powtórzone; dane przykładowe) i `pomiary.csv` z rozdziału 1. Oba są osadzone w podrozdziale o wczytywaniu i dostępne do pobrania: [zamowienia.csv](dane/zamowienia.csv), [pomiary.csv](dane/pomiary.csv); pobrane pliki zapisujemy w osobnym katalogu przeznaczonym na przykłady rozdziału i w nim uruchamiamy skrypty, które zapisują tam także pliki wynikowe, zastępując pliki o tych samych nazwach. W projekcie z rozdziału 1 dane leżałyby w `dane/surowe/`, a ścieżki w listingach należałoby wtedy dostosować tak, aby pliki wynikowe trafiały do `wyniki/` — zawartości `dane/surowe/` nie zmieniamy.
 
 ---
 

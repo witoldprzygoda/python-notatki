@@ -21,12 +21,16 @@ Istnieją różne implementacje języka Python; w niniejszych notatkach używamy
 !!! note "Dla dociekliwych — jak CPython wykonuje kod"
     Kod źródłowy jest najpierw przetwarzany na drzewo składniowe AST (ang. *Abstract
     Syntax Tree*, [docs.python.org/3/library/ast.html](https://docs.python.org/3/library/ast.html)),
-    a następnie kompilowany do kodu bajtowego, zapisywanego w tymczasowych plikach
-    `*.pyc` — można go podejrzeć za pomocą modułu [dis](https://docs.python.org/3/library/dis.html).
-    Kolejne fragmenty kodu bajtowego są tworzone lub odczytywane z plików i przekazywane
-    do wykonania maszynie wirtualnej Pythona (PVM, ang. *Python Virtual Machine*), która
-    dokonuje ostatecznej konwersji na kod maszynowy i uruchamia go na konkretnym
-    sprzęcie. Maszyna wirtualna stanowi ostatni etap interpretera Pythona.
+    a następnie kompilowany do kodu bajtowego — można go podejrzeć za pomocą modułu
+    [dis](https://docs.python.org/3/library/dis.html). CPython zapisuje kod bajtowy
+    importowanych modułów (również modułu uruchamianego poleceniem `python -m`)
+    w plikach `*.pyc` w katalogu `__pycache__` i przy kolejnych uruchomieniach odczytuje
+    go stamtąd, dopóki plik źródłowy się nie zmieni; skrypt uruchamiany przez podanie
+    ścieżki pliku (np. `python program.py`) jest kompilowany za każdym razem w pamięci.
+    Kod bajtowy trafia do maszyny wirtualnej Pythona (PVM, ang. *Python Virtual
+    Machine*), która wykonuje kolejne jego instrukcje; sama maszyna wirtualna jest
+    programem skompilowanym do kodu maszynowego danego sprzętu. Stanowi ona ostatni
+    etap interpretera Pythona.
 
 Interpreter Pythona może zostać zainstalowany również przy okazji innych produktów, np. środowiska PyCharm czy popularnego pakietu Anaconda, a na jednym komputerze może współistnieć wiele wersji języka. Do ich instalowania i zarządzania nimi służy obecnie oficjalne narzędzie **Python Install Manager** wraz z poleceniem `py` (opis w podrozdziale [Instalacja Pythona](instalacja.md)); zastąpiło ono dawny program uruchomieniowy *py launcher*, instalowany wraz z klasycznym instalatorem. W projekcie można ponadto skonfigurować izolowane wirtualne środowisko pracy z wybraną wersją interpretera (opis w podrozdziale [Wirtualne środowisko venv](venv.md)) — różne środowiska IDE tworzą właśnie takie środowiska (venv), zawierające konkretny plik binarny interpretera Pythona.
 

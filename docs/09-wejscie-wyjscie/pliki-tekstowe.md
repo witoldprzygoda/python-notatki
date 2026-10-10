@@ -241,12 +241,12 @@ Odczyt z `errors="replace"` przydaje się do wstępnego obejrzenia zawartości p
 
 ### Tryb UTF-8 i Python 3.15
 
-Zależność domyślnego kodowania od systemu usuwa **tryb UTF-8** interpretera, poznany w podrozdziale [Funkcja print i strumienie](print-i-strumienie.md#kodowanie-strumieni-konsola-a-przekierowanie): z opcją `-X utf8` (albo zmienną `PYTHONUTF8=1`) `open()` bez argumentu `encoding` używa UTF-8, podobnie jak strumienie standardowe:
+Zależność domyślnego kodowania od systemu usuwa **tryb UTF-8** interpretera, poznany w podrozdziale [Funkcja print i strumienie](print-i-strumienie.md#kodowanie-strumieni-konsola-a-przekierowanie): z opcją `-X utf8` (albo zmienną `PYTHONUTF8=1`) `open()` bez argumentu `encoding` używa UTF-8, podobnie jak strumienie standardowe. Dwa ostatnie polecenia otwierają do zapisu urządzenie puste (ang. *null device*) `os.devnull` (na Windows `nul`), które przyjmuje dane bez zapisywania ich na dysku, więc sprawdzenie nie tworzy ani nie opróżnia żadnego pliku:
 
 ```powershell title="Terminal"
 python -c "import locale; print(locale.getencoding())"
-python -c "with open('proba.txt', 'w') as plik: print(plik.encoding)"
-python -X utf8 -c "with open('proba.txt', 'w') as plik: print(plik.encoding)"
+python -c "import os; print(open(os.devnull, 'w').encoding)"
+python -X utf8 -c "import os; print(open(os.devnull, 'w').encoding)"
 ```
 
 ```{ .text .no-copy }

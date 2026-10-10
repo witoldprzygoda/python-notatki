@@ -44,8 +44,6 @@ A1:F14 =D2*E2 2026-09-01 float
 
 `Workbook()` tworzy skoroszyt z jednym arkuszem (`active`); `append()` dodaje wiersz z listy wartości, a komórkę można też ustawić po adresie, jak w słowniku (`arkusz["F2"]`). Wartości zachowują typy Pythona: data staje się datą Excela, liczby liczbami, a tekst zaczynający się od `=` — formułą, którą openpyxl zapisuje bez wyniku i **nie liczy**: policzy ją Excel przy otwarciu pliku. Kolumna „Wartość” i wiersz „Razem” są więc formułami, nie liczbami z Pythona — gdy użytkownik zmieni ilość, arkusz przeliczy się sam. Formatowanie to obiekty przypisane do komórek: czcionka, wypełnienie, wyrównanie, **format liczbowy** w zapisie Excela (`#,##0.00 zł` — separator tysięcy, dwa miejsca, jednostka), szerokości kolumn w znakach; `freeze_panes` blokuje wiersz nagłówka przy przewijaniu, a `auto_filter` dodaje filtry w nagłówku. Wymiary arkusza (`dimensions`) obejmują wszystkie zapisane komórki.
 
-<!-- TODO: screenshot — arkusz sprzedaz.xlsx otwarty w Excelu: nagłówek z wypełnieniem i filtrami, formaty walutowe, wiersz Razem -->
-
 ## Odczyt arkusza
 
 ```python title="odczyt.py"

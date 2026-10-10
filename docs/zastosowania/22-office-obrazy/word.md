@@ -57,8 +57,6 @@ print(len(dokument.paragraphs), len(dokument.tables), len(tabela.rows), dokument
 
 `Document()` otwiera pusty dokument z domyślnym szablonem biblioteki (wzorowanym na szablonie Worda), w którym istnieją gotowe style: `add_heading(level=1)` używa stylu „Heading 1”, `add_paragraph(style="List Bullet")` — listy punktowanej. Akapit zwrócony przez `add_paragraph()` przyjmuje kolejne biegi przez `add_run()`; bieg ma własne pogrubienie, kursywę i czcionkę (`font.size` w punktach). Liczby formatujemy po polsku — spacja jako separator tysięcy, przecinek dziesiętny — bo dokument czyta człowiek, nie program. Tabela powstaje z liczbą kolumn i wierszem nagłówka, a kolejne wiersze dodaje `add_row()`; komórka ma własne akapity, więc wyrównanie i pogrubienie ustawiamy na jej akapicie i biegu. Styl „Table Grid” daje obramowanie. Wymiary podajemy w jednostkach `Pt` lub `Cm` (szerokość obrazu na stronie o raporcie), nie w surowych liczbach. Właściwości dokumentu (autor, tytuł) Word pokazuje w informacjach o pliku.
 
-<!-- TODO: screenshot — raport.docx otwarty w Wordzie: nagłówek, akapit z pogrubionym zakresem dat, lista punktowana i tabela z obramowaniem -->
-
 ## Odczyt i szablon
 
 ```python title="szablon.py"

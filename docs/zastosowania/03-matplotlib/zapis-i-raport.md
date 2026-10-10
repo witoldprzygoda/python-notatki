@@ -138,7 +138,7 @@ import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 
 rng = np.random.default_rng(42)
-with PdfPages("raport.pdf") as pdf:
+with PdfPages("wielostronicowy.pdf") as pdf:
     for numer in range(1, 4):
         fig, ax = plt.subplots(figsize=(8, 4.5), layout="constrained")
         ax.plot(rng.normal(size=50).cumsum())
@@ -147,7 +147,7 @@ with PdfPages("raport.pdf") as pdf:
         plt.close(fig)
     pdf.infodict()["Title"] = "Raport kwartalny"
     strony = pdf.get_pagecount()
-print(Path("raport.pdf").stat().st_size > 1000, strony)
+print(Path("wielostronicowy.pdf").stat().st_size > 1000, strony)
 ```
 
 ```{ .text .no-copy }

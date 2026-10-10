@@ -9,89 +9,45 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 - Kadr: ciasno, tylko dialog / panel / fragment — nie całe okno.
 - Motyw: stały (jasny), stały poziom powiększenia.
 - Nazwy plików: od treści, bez numerów wersji; zapis do `docs/<rozdział>/img/`.
-- Odświeżanie: tylko gdy zmieni się treść okna, nie jego oprawa.
+- Odświeżanie: tylko gdy zmieni się treść okna, nie jego oprawa; zrzuty odtwarzamy skryptami
+  z `scripts/screenshots/` i `scripts/tk_harness/`, nie ręcznie.
+- Treści terminalowe i listowe pokazujemy blokami tekstowymi (`CLAUDE.md`); zrzut tylko tam,
+  gdzie obraz niesie informację niewyrażalną tekstem.
 
-## Do wykonania — rozdział 01
+## Do wykonania
 
-### konfiguracja.md
-
-1. `img/vsc-pylint-blad.png` — plik `main.py` z treścią `print "hello wrong"`;
-   kadr: linia kodu z podkreśleniem błędu + dymek podpowiedzi pylint.
-2. `img/vsc-problems.png` — panel **Problems** (++ctrl+shift+m++) z widocznym
-   wpisem błędu z punktu 1.
-3. `img/vsc-settings-json.png` — paleta poleceń z wpisanym
-   **Preferences: Open User Settings (JSON)** (przed zatwierdzeniem).
-4. `img/vsc-code-runner.png` — terminal VSC z wynikiem uruchomienia
-   `print("pierwszy program")` przez Code Runner (++ctrl+alt+n++).
-
-### notebook.md
-
-5. `img/jupyter-interfejs.png` — strona główna Jupyter Notebook w przeglądarce
-   (po `jupyter notebook`); kadr: pasek narzędzi + lista plików.
-6. `img/jupyter-new-notebook.png` — rozwinięte menu **New → Notebook**.
-
-## Do wykonania — rozdział 02
-
-### index.md (Konsola)
-
-7. `img/repl-kolorowanie.png` — nowy REPL (Python 3.14) w Windows Terminal
-   z widocznym kolorowaniem składni; wpisać np. definicję krótkiej funkcji
-   i wyrażenie z łańcuchem, liczbą i komentarzem. Jedyne miejsce, gdzie blok
-   tekstowy nie odda treści (kolory).
-
-### konsola-w-praktyce.md
-
-## Do wykonania — rozdział 03
-
-### konwersje-i-adnotacje.md
-
-8. `img/vsc-pylance-inlay-hint.png` — podpowiedź typu (inlay hint) serwera Pylance
-   w VSC przy zmiennej z wywnioskowanym typem; kadr: linia kodu + wyświetlony typ.
-9. `img/vsc-mypy-ostrzezenie.png` — ostrzeżenie rozszerzenia Mypy Type Checker
-    przy przypisaniu wartości o typie innym niż zadeklarowany; kadr: linia kodu
-    + podkreślenie i treść ostrzeżenia.
-
-## Do wykonania — rozdział 08
-
-### diagnostyka.md
-
-10. `img/vsc-debugger-pulapka.png` — edytor z plikiem `debug-silnia.py`, pułapka
-    (czerwona kropka) w wierszu `return 1` i podświetlony wiersz po zatrzymaniu
-    programu (++f5++, konfiguracja **Python File**); kadr: fragment edytora
-    z numerami wierszy.
-11. `img/vsc-debugger-stos-i-zmienne.png` — widok **Run and Debug** po zatrzymaniu
-    na pułapce z punktu 11: panel **Variables** (`n` = 1) i panel **Call Stack**
-    (cztery ramki `silnia` i `<module>`); kadr: sam widok boczny.
-12. `img/vsc-debugger-pasek.png` — pasek narzędzi debugowania (Continue, Step Over,
-    Step Into, Step Out, Restart, Stop) podczas wstrzymania; kadr: sam pasek.
-13. `16-warsztat/img/vsc-testing-panel.png` — widok **Testing** w VSC z drzewem testów
-    `test_fixtures.py` i `test_kolo.py` (w tym `test_pole_kola[zero]` itd.) po uruchomieniu,
-    zielone znaczniki; kadr: sam pasek boczny (testowanie.md, sekcja „Panel Testing w VSC”).
-14. `zastosowania/01-jupyter/img/vsc-notatnik-nowy.png` — nowy notatnik `.ipynb` w VSC:
-    pusta komórka kodu i przycisk **Select Kernel** w prawym górnym rogu; kadr: górna
-    część edytora (notatnik-jupyter.md, sekcja „Instalacja i pierwszy notatnik”).
-15. `zastosowania/01-jupyter/img/vsc-notatnik-jadro.png` — lista wyboru jądra z pozycją
-    interpretera `.venv` projektu; kadr: sama lista (notatnik-jupyter.md, ta sama sekcja).
-16. `zastosowania/15-fastapi/img/fastapi-docs.png` — strona `/docs` (Swagger UI) aplikacji
-    `aplikacja.py` z listą tras `GET /`, `GET /produkty`, `GET /produkty/{produkt_id}` i rozwiniętą
-    trasą `/produkty/{produkt_id}` z polem parametru i przyciskiem **Try it out**; kadr: sama
-    lista tras z jedną rozwiniętą (pierwsza-aplikacja.md, sekcja „Dokumentacja interfejsu”).
-
-## Do wykonania — część „Python Zastosowania”, rozdział 22
-
-17. `zastosowania/22-office-obrazy/img/excel-arkusz.png` — arkusz `sprzedaz.xlsx` otwarty
-    w Excelu: nagłówek z wypełnieniem i przyciskami filtrów, kolumny Cena i Wartość
-    w formacie walutowym, wiersz „Razem” z policzonymi sumami; kadr: sama siatka
-    z nagłówkiem i kilkoma wierszami (excel.md, sekcja „Zapis arkusza”). Decyzja autora:
-    czy zrzut jest potrzebny — tekst opisuje formatowanie, a obraz pokazałby wynik
-    obliczenia formuł, którego openpyxl nie zna.
-18. `zastosowania/22-office-obrazy/img/word-raport.png` — dokument `raport.docx` otwarty
-    w Wordzie: nagłówek „Raport sprzedaży”, akapit z pogrubionym zakresem dat, lista
-    punktowana kategorii i tabela z obramowaniem; kadr: górna część strony (word.md,
-    sekcja „Budowa dokumentu”). Decyzja autora jak wyżej.
+Brak (stan z 4 X 2026).
 
 ## Wykonane
 
+- VS Code (motyw Light+, skala 1,5 jak w dwóch pierwszych zrzutach z rozdziału 1, interfejs angielski;
+  VS Code 1.140, Python 3.14.8) — generowane w Windows Sandbox skryptami
+  `scripts/screenshots/vscode/` (`piaskownica.py` na komputerze, `vsc_zrzuty.py` w piaskownicy,
+  pomocnicze `wsb/przygotuj.ps1` i `wsb/runner.ps1`); profil i rozszerzenia VS Code użytkownika
+  pozostają nietknięte. Odświeżanie: `python scripts/screenshots/vscode/piaskownica.py
+  --katalog <katalog-wymiany> wszystko`, przegląd obrazów, potem `kopiuj`.
+    - `01-instalacja/img/vsc-pylint-blad.png` — `print "hello wrong"` z podkreśleniem pylinta
+      i dymkiem komunikatu E0001 (konfiguracja.md);
+    - `03-nazwy-typy/img/vsc-pylance-inlay-hint.png` — podpowiedzi typów Pylance dla listingu
+      `podpowiedzi.py` (konwersje-i-adnotacje.md);
+    - `03-nazwy-typy/img/vsc-mypy-ostrzezenie.png` — błąd typu zgłoszony przez Mypy Type Checker
+      dla `wiek: int = "25"` (konwersje-i-adnotacje.md);
+    - `08-wyjatki/img/vsc-debugger-pulapka.png`, `vsc-debugger-stos-i-zmienne.png`,
+      `vsc-debugger-pasek.png` — pułapka w `debug-silnia.py`, widok Run and Debug i pasek
+      narzędzi debugowania (diagnostyka.md);
+    - `16-warsztat/img/vsc-testing-panel.png` — widok Testing po uruchomieniu testów
+      (testowanie.md);
+    - `zastosowania/01-jupyter/img/vsc-notatnik-nowy.png`, `vsc-notatnik-jadro.png` — nowy
+      notatnik z przyciskiem Select Kernel i lista wyboru środowiska z `.venv` projektu
+      (notatnik-jupyter.md).
+- `01-instalacja/img/jupyter-interfejs.png` — strona główna Jupyter Notebook (notebook.md);
+  `scripts/screenshots/jupyter_interfejs.py`, przeglądarka Edge bez okna.
+- `02-konsola/img/repl-kolorowanie.png` — kolorowy nowy REPL (index.md); przechwycenie przez
+  pseudokonsolę i render xterm.js w schemacie One Half Light: `scripts/screenshots/repl/`
+  (`przechwyc.py`, `renderuj.py`; przygotowanie opisane w `renderuj.py`).
+- `zastosowania/15-fastapi/img/fastapi-docs.png` — strona `/docs` (Swagger UI)
+  (pierwsza-aplikacja.md); `scripts/screenshots/fastapi_docs.py`, środowisko z wersjami
+  FastAPI i uvicorn z rozdziału.
 - `zastosowania/16-tkinter/img/*.png` (32 zrzuty okien tkinter i CustomTkinter) — generowane automatycznie
   z listingów rozdziału: harness `scripts/tk_harness/sitecustomize.py` (ładowany przez `PYTHONPATH=scripts/tk_harness`)
   podmienia `mainloop()`, podnosi okna na wierzch i składa ujęcia na neutralnym tle; proces świadomy DPI,
@@ -100,5 +56,15 @@ Wyszukiwanie w Git Bash: `grep -rn "TODO: screenshot" docs/`
 - `zastosowania/22-office-obrazy/img/{oryginal,znak-wodny,wykres}.png` — obrazy generowane przez skrypty
   rozdziału (`przeksztalcenia.py`, `rysowanie.py`, `wykres-slupkowy.py`) w stagingu; odświeżanie: ponowne
   uruchomienie skryptów i skopiowanie plików, nie ręcznie.
-- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera (konfiguracja.md)
+- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera w projekcie `moj-projekt`
+  ze środowiskami `.venv` i `.venv-t` z venv.md (konfiguracja.md); VS Code 1.140.0, rozszerzenie
+  Python 2026.6.0, Python 3.14.8 i 3.14t (4 X 2026); sterownik `vsc_zrzuty.py` wywołany scenariuszem
+  spoza repozytorium — do przeniesienia do `SCENARIUSZE` (pozycja w `DO_OMOWIENIA.md`).
 - `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (konfiguracja.md)
+
+## Zrezygnowano (decyzja autora z 2 X 2026)
+
+- panel Problems i otwieranie `settings.json` (konfiguracja.md), menu New → Notebook
+  (notebook.md), arkusz w Excelu i dokument w Wordzie (rozdział 22 części „Python Zastosowania”);
+- wynik Code Runnera (konfiguracja.md) — zamiast zrzutu blok tekstowy z zawartością panelu
+  Output, zgodnie z zasadą bloków tekstowych z `CLAUDE.md` (4 X 2026).

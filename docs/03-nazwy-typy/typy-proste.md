@@ -161,8 +161,9 @@ True
 ```
 
 !!! note "IEEE-754"
-    Komputery 64-bitowe używają arytmetyki zmiennoprzecinkowej IEEE-754 w „podwójnej
-    precyzji”: 1 bit na znak, 11 bitów na wykładnik i pozostałe 52 bity na mantysę.
+    Na niemal wszystkich platformach — zarówno 64-, jak i 32-bitowych — wartości
+    typu float są liczbami zmiennoprzecinkowymi IEEE-754 „podwójnej precyzji”
+    (64 bity): 1 bit na znak, 11 bitów na wykładnik i pozostałe 52 bity na mantysę.
     Ponieważ liczba znormalizowana ma zawsze postać 1.xxx…, wiodąca jedynka nie jest
     przechowywana (tzw. bit ukryty) — 52 bity zapisane jawnie dają więc 53 bity
     precyzji, wspomniane wyżej przy liczniku ułamka. Liczba to:
@@ -352,7 +353,7 @@ Długość obiektu (liczbę elementów w kolekcji) zwraca funkcja `len()` — dl
 >>> "-".join(["a", "b", "c"])   # 'a-b-c' — łączenie elementów separatorem
 ```
 
-Zwróćmy uwagę, że `x.find("AA")` zwraca −1, mimo iż linijkę wyżej wykonaliśmy `replace` — metody zwracają **kopie**, oryginalny `x` pozostał niezmieniony. Warto też zauważyć puste łańcuchy w wyniku `split(" ")` — pochodzą ze spacji na krańcach; praktyczny idiom to `x.strip().split()`. Metodę `join()` — działającą na dowolnym obiekcie iterowalnym — zobaczymy w akcji w rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md). Pełny katalog metod: [docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods).
+Zwróćmy uwagę, że `x.find("AA")` zwraca −1, mimo iż kilka wierszy wcześniej wykonaliśmy `replace` — metody zwracają **kopie**, oryginalny `x` pozostał niezmieniony. Warto też zauważyć puste łańcuchy w wyniku `split(" ")` — pochodzą ze spacji na krańcach; praktyczny idiom to `x.strip().split()`. Metodę `join()` — działającą na dowolnym obiekcie iterowalnym — zobaczymy w akcji w rozdziale [4. Sterowanie przepływem](../04-sterowanie/petle-i-iteratory.md). Pełny katalog metod: [docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods).
 
 ### Unicode: ord i chr
 

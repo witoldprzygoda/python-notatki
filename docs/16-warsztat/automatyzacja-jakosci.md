@@ -4,7 +4,7 @@ Testy, sprawdzacz typów i Ruff przynoszą korzyść tylko wtedy, gdy są urucha
 
 ## Zasada: te same sprawdzenia lokalnie i na serwerze
 
-Konfigurację narzędzi przechowujemy w `pyproject.toml` — sekcje z poprzednich podrozdziałów — a listę narzędzi deweloperskich trzymamy w osobnym pliku wymagań z rozdziału 1:
+Konfigurację narzędzi przechowujemy w `pyproject.toml` — sekcje z poprzednich podrozdziałów — a listę narzędzi deweloperskich trzymamy w osobnym pliku wymagań z rozdziału 1. Pliki pokazane w tym podrozdziale tworzymy, jeżeli projekt ich jeszcze nie ma; plik, który już istnieje — także plik `.github/workflows/ci.yml` — uzupełniamy o brakujące wpisy, zamiast zastępować jego treść:
 
 ```text title="requirements-dev.txt"
 pytest==9.1.1
@@ -29,6 +29,14 @@ repos:
         args: [--fix]
       - id: ruff-format
 ```
+
+!!! warning "Hooki zmieniają pliki projektu"
+    Hooki `ruff-check` z opcją `--fix` i `ruff-format` nie tylko sprawdzają pliki,
+    lecz od razu je poprawiają, a polecenie `pre-commit run --all-files` obejmuje
+    wszystkie pliki śledzone w repozytorium, także te z niezatwierdzonymi zmianami.
+    Uruchamiamy je więc po zatwierdzeniu bieżącej pracy — `git status` nie pokazuje
+    wtedy zmienionych plików — a poprawki narzędzi przeglądamy poleceniem `git diff`,
+    zanim je zatwierdzimy.
 
 ```powershell title="Terminal"
 python -m pip install pre-commit
@@ -85,14 +93,12 @@ Hook uruchamia mypy w osobnym środowisku, w którym nie ma pakietów projektu �
 
 ## Narzędzia w edytorze
 
-Te same sprawdzenia warto widzieć podczas pisania. Rozszerzenie **Ruff** (`charliermarsh.ruff`) w VSC podkreśla uwagi lintera i formatuje plik przy zapisie po dodaniu do ustawień:
+Te same sprawdzenia warto widzieć podczas pisania. Rozszerzenie **Ruff** (`charliermarsh.ruff`) w VSC podkreśla uwagi lintera i formatuje plik przy zapisie po dodaniu dwóch ustawień w bloku `"[python]"` pliku `settings.json` (otwieranego jak w sekcji [Usuwanie Pylance](../01-instalacja/konfiguracja.md#usuwanie-pylance)). Jeżeli plik ma już ten blok — na przykład z domyślnym formaterem ustawionym w rozdziale 1 — zmieniamy w nim wartość `"editor.defaultFormatter"` i dopisujemy `"editor.formatOnSave"`; w przeciwnym razie dopisujemy cały blok jako ostatni wpis — przed zamykającym nawiasem klamrowym `}` pliku, po przecinku za poprzednim wpisem:
 
 ```json title="settings.json"
-{
-    "[python]": {
-        "editor.defaultFormatter": "charliermarsh.ruff",
-        "editor.formatOnSave": true
-    }
+"[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
 }
 ```
 

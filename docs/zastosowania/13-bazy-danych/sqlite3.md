@@ -12,13 +12,13 @@ SQLite przechowuje całą bazę w jednym pliku, a moduł `sqlite3` z biblioteki 
 import sqlite3
 from pathlib import Path
 
-Path("klienci.db").unlink(missing_ok=True)
-polaczenie = sqlite3.connect("klienci.db")
+Path("klienci-sql.db").unlink(missing_ok=True)
+polaczenie = sqlite3.connect("klienci-sql.db")
 polaczenie.execute("CREATE TABLE klienci (id INTEGER PRIMARY KEY, nazwisko TEXT NOT NULL, miasto TEXT, email TEXT UNIQUE)")
 kursor = polaczenie.execute("INSERT INTO klienci (nazwisko, miasto, email) VALUES (?, ?, ?)", ("Nowak", "Kraków", "nowak@example.com"))
 print(kursor.lastrowid, polaczenie.in_transaction)
 polaczenie.commit()
-print(polaczenie.in_transaction, Path("klienci.db").stat().st_size)
+print(polaczenie.in_transaction, Path("klienci-sql.db").stat().st_size)
 print(polaczenie.execute("SELECT * FROM klienci").fetchall())
 polaczenie.close()
 ```
@@ -29,14 +29,14 @@ False 12288
 [(1, 'Nowak', 'Kraków', 'nowak@example.com')]
 ```
 
-`sqlite3.connect()` otwiera plik bazy — tworzy go, gdy nie istnieje — i zwraca **połączenie**; `execute()` wykonuje zapytanie i zwraca **kursor** (ang. *cursor*), przez który odczytujemy wyniki i metadane, jak `lastrowid` — klucz wstawionego wiersza, nadany automatycznie kolumnie `INTEGER PRIMARY KEY`. **Ograniczenia** (ang. *constraint*) w definicji tabeli — `NOT NULL`, `UNIQUE` — baza egzekwuje sama. Zapis nie trafia do pliku od razu: przed `INSERT` moduł otwiera **transakcję** (ang. *transaction*), a dopiero `commit()` ją **zatwierdza**; bez niego zamknięcie połączenia wycofałoby zmiany. `fetchall()` zwraca listę krotek.
+Skrypt usuwa najpierw bazę `klienci-sql.db` z poprzedniego uruchomienia (`unlink(missing_ok=True)` nie zgłasza błędu, gdy pliku nie ma), więc każde uruchomienie daje ten sam wynik. `sqlite3.connect()` otwiera plik bazy — tworzy go, gdy nie istnieje — i zwraca **połączenie**; `execute()` wykonuje zapytanie i zwraca **kursor** (ang. *cursor*), przez który odczytujemy wyniki i metadane, jak `lastrowid` — klucz wstawionego wiersza, nadany automatycznie kolumnie `INTEGER PRIMARY KEY`. **Ograniczenia** (ang. *constraint*) w definicji tabeli — `NOT NULL`, `UNIQUE` — baza egzekwuje sama. Zapis nie trafia do pliku od razu: przed `INSERT` moduł otwiera **transakcję** (ang. *transaction*), a dopiero `commit()` ją **zatwierdza**; bez niego zamknięcie połączenia wycofałoby zmiany. `fetchall()` zwraca listę krotek.
 
 ## Parametry zapytań
 
 ```python title="parametry.py"
 import sqlite3
 
-polaczenie = sqlite3.connect("klienci.db")
+polaczenie = sqlite3.connect("klienci-sql.db")
 nowi = [
     {"nazwisko": "Kowalska", "miasto": "Tarnów", "email": "kowalska@example.com"},
     {"nazwisko": "Lis", "miasto": "Kraków", "email": None},
@@ -69,7 +69,7 @@ Wartości do zapytania podajemy osobno, jako **parametry**: znak `?` z krotką a
 ```python title="wiersze.py"
 import sqlite3
 
-polaczenie = sqlite3.connect("klienci.db")
+polaczenie = sqlite3.connect("klienci-sql.db")
 kursor = polaczenie.execute("SELECT id, nazwisko, miasto FROM klienci ORDER BY nazwisko")
 print(kursor.fetchone())
 print(kursor.fetchall())
@@ -107,7 +107,7 @@ Kursor zwraca wiersze po jednym (`fetchone()`), wszystkie naraz (`fetchall()`) a
 import sqlite3
 from contextlib import closing
 
-polaczenie = sqlite3.connect("klienci.db")
+polaczenie = sqlite3.connect("klienci-sql.db")
 try:
     polaczenie.execute("INSERT INTO klienci (nazwisko, email) VALUES ('Dubel', 'nowak@example.com')")
 except sqlite3.IntegrityError as blad:

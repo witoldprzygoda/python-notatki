@@ -14,11 +14,11 @@ W środowisku wirtualnym projektu instalujemy **ipykernel** — pakiet, który u
 python -m pip install ipykernel jupyterlab
 ```
 
-W VSC potrzebne jest rozszerzenie **Jupyter** (`ms-toolsai.jupyter`) z galerii rozszerzeń, obok rozszerzenia Python z rozdziału 1. Nowy notatnik tworzy polecenie **Create: New Jupyter Notebook** z palety poleceń (++ctrl+shift+p++) albo utworzenie pliku z rozszerzeniem `.ipynb`; przycisk **Select Kernel** w prawym górnym rogu wybiera jądro — wskazujemy interpreter ze środowiska wirtualnego projektu, tak jak przy skryptach w rozdziale 1. Komórkę wykonujemy skrótem ++shift+enter++ (wykonaj i przejdź dalej) albo ++ctrl+enter++ (wykonaj i zostań).
+W VSC potrzebne jest rozszerzenie **Jupyter** (`ms-toolsai.jupyter`) z galerii rozszerzeń, obok rozszerzenia Python z rozdziału 1. Nowy notatnik tworzy polecenie **Create: New Jupyter Notebook** z palety poleceń (++ctrl+shift+p++) albo utworzenie pliku z rozszerzeniem `.ipynb`; przycisk **Select Kernel** w prawym górnym rogu wybiera jądro — po wyborze pozycji **Python Environments…** wskazujemy interpreter ze środowiska wirtualnego projektu, tak jak przy skryptach w rozdziale 1. Komórkę wykonujemy skrótem ++shift+enter++ (wykonaj i przejdź dalej) albo ++ctrl+enter++ (wykonaj i zostań).
 
-<!-- TODO: screenshot — nowy notatnik w VSC: pusta komórka kodu, przycisk Select Kernel w prawym górnym rogu; kadr: górna część edytora -->
+![Nowy notatnik Untitled-1.ipynb w VSC: pasek z przyciskami Code, Markdown i Run All, pusta komórka kodu, a w prawym górnym rogu przycisk Select Kernel](img/vsc-notatnik-nowy.png)
 
-<!-- TODO: screenshot — lista wyboru jądra z interpreterem .venv projektu; kadr: sama lista -->
+![Lista Select a Python Environment z zalecanym interpreterem .venv projektu na pierwszym miejscu i globalnym interpreterem Pythona 3.14 poniżej](img/vsc-notatnik-jadro.png)
 
 ## Komórki kodu i wartość ostatniego wyrażenia
 
@@ -164,4 +164,4 @@ python -m jupyter nbconvert --to script analiza.ipynb
 python -m jupyter nbconvert --execute --to notebook --inplace analiza.ipynb
 ```
 
-Pierwsze polecenie tworzy `analiza.html` do przekazania odbiorcy, który nie ma Pythona; drugie — `analiza.py` z kodem komórek rozdzielonym komentarzami `# In[N]:`; polecenia magiczne stają się w nim wywołaniami `get_ipython().run_line_magic(...)`, które poza IPythonem kończą się `NameError`, więc przed uruchomieniem skryptu trzeba je usunąć; trzecie wykonuje wszystkie komórki w nowym jądrze i zapisuje wyniki w pliku — to samo, co **Restart** i **Run All**, ale z wiersza poleceń, więc nadaje się do automatyzacji z rozdziału 16. W repozytorium Git notatnik z wynikami daje trudne do czytania różnice między wersjami (obrazy zapisane jako tekst); przed commitem wyniki można usunąć poleceniem `python -m jupyter nbconvert --clear-output --inplace analiza.ipynb`, jeśli notatnik jest kodem, a nie raportem.
+Pierwsze polecenie tworzy `analiza.html` do przekazania odbiorcy, który nie ma Pythona; drugie — `analiza.py` z kodem komórek rozdzielonym komentarzami `# In[N]:`; polecenia magiczne stają się w nim wywołaniami `get_ipython().run_line_magic(...)`, które poza IPythonem kończą się `NameError`, więc przed uruchomieniem skryptu trzeba je usunąć — w kopii zapisanej pod inną nazwą, bo ponowna konwersja zastępuje plik `analiza.py` bez ostrzeżenia; trzecie wykonuje wszystkie komórki w nowym jądrze i zapisuje wyniki w pliku — to samo, co **Restart** i **Run All**, ale z wiersza poleceń, więc nadaje się do automatyzacji z rozdziału 16. W repozytorium Git notatnik z wynikami daje trudne do czytania różnice między wersjami (obrazy zapisane jako tekst); przed commitem wyniki można usunąć poleceniem `python -m jupyter nbconvert --clear-output --inplace analiza.ipynb`, jeśli notatnik jest kodem, a nie raportem.

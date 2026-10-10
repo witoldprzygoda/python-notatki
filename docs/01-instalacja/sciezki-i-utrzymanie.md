@@ -67,6 +67,17 @@ py list --online --one 3.14
 py list --online --one 3.14t
 ```
 
+Podczas aktualizacji manager zastępuje interpreter nowszą wersją, o ile jest ona dostępna.
+
+!!! warning "Aktualizacja a modyfikacje globalnej instalacji"
+    Aktualizacja interpretera usuwa wszystkie modyfikacje dokonane bezpośrednio w jego
+    globalnej instalacji — w tym pakiety doinstalowane globalnie poleceniem
+    `python -m pip`; ich listę przed aktualizacją wypisuje polecenie
+    `py -V:3.14 -m pip list` (dla wariantu free-threaded `py -V:3.14t -m pip list`).
+    Istniejące środowiska wirtualne działają natomiast nadal. Jest to kolejny istotny
+    argument za pracą w środowiskach venv (opis w podrozdziale
+    [Wirtualne środowisko venv](venv.md)).
+
 Aktualizację wybranych interpreterów wykonujemy poleceniem:
 
 ```powershell title="Terminal"
@@ -79,16 +90,15 @@ a wszystkich zarządzanych przez managera — bez wskazywania tagów:
 py install --update
 ```
 
-Manager zastąpi interpreter nowszą wersją, o ile jest ona dostępna.
-
-!!! warning "Aktualizacja a modyfikacje globalnej instalacji"
-    Aktualizacja interpretera może usunąć modyfikacje dokonane bezpośrednio w jego
-    globalnej instalacji — w tym pakiety doinstalowane globalnie poleceniem
-    `python -m pip`. Istniejące środowiska wirtualne powinny natomiast działać nadal.
-    Jest to kolejny istotny argument za pracą w środowiskach venv (opis w podrozdziale
-    [Wirtualne środowisko venv](venv.md)).
-
 ## Usuwanie interpreterów
+
+!!! warning "Usuwanie interpreterów"
+    Usunięcie interpretera usuwa również pakiety zainstalowane w nim globalnie,
+    a środowiska wirtualne utworzone z tego interpretera przestają działać — trzeba je
+    utworzyć ponownie z innego interpretera. Opcja `--purge` usuwa naraz wszystkie
+    interpretery zarządzane przez managera. Przed usunięciem sprawdzamy stan poleceniem
+    `py list`; manager prosi o potwierdzenie, a opcji `--yes`, która to pytanie pomija,
+    nie dodajemy.
 
 Wskazany interpreter usuwamy poleceniem:
 

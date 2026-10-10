@@ -79,8 +79,8 @@ W konsoli oba strumienie wyjściowe trafiają na ekran i wynik wygląda tak samo
 Powłoka może **przekierować** (ang. *redirect*) strumienie programu: `>` zapisuje standardowe wyjście do pliku (nadpisując go), `>>` dopisuje na końcu, a `2>` przekierowuje strumień błędów; wyjście nieprzekierowane nadal trafia na ekran:
 
 ```powershell title="Terminal"
-python strumienie.py > wynik.txt
-Get-Content wynik.txt
+python strumienie.py > strumienie-wynik.txt
+Get-Content strumienie-wynik.txt
 ```
 
 ```{ .text .no-copy }
@@ -89,7 +89,7 @@ suma: 42
 koniec
 ```
 
-Komunikat ostrzeżenia pojawił się na ekranie w trakcie pierwszego polecenia, a plik `wynik.txt` — wypisany poleceniem `Get-Content` — zawiera tylko dwa wiersze ze standardowego wyjścia. Przekierowanie `2> bledy.txt` działa odwrotnie: na ekranie zostają wyniki, a do pliku trafia ostrzeżenie. Dlatego komunikaty diagnostyczne piszemy na `stderr`: użytkownik, który zapisuje wynik programu do pliku, nie dostaje w nim ostrzeżeń, a ostrzeżenia nie są tracone. **Potok** (ang. *pipe*), zapisywany znakiem `|`, łączy standardowe wyjście jednego programu ze standardowym wejściem drugiego; ostrzeżenie, jako że idzie osobnym strumieniem, nie trafia do potoku:
+Komunikat ostrzeżenia pojawił się na ekranie w trakcie pierwszego polecenia, a plik `strumienie-wynik.txt` — wypisany poleceniem `Get-Content` — zawiera tylko dwa wiersze ze standardowego wyjścia. Przekierowanie `2> strumienie-bledy.txt` działa odwrotnie: na ekranie zostają wyniki, a do pliku trafia ostrzeżenie. Dlatego komunikaty diagnostyczne piszemy na `stderr`: użytkownik, który zapisuje wynik programu do pliku, nie dostaje w nim ostrzeżeń, a ostrzeżenia nie są tracone. **Potok** (ang. *pipe*), zapisywany znakiem `|`, łączy standardowe wyjście jednego programu ze standardowym wejściem drugiego; ostrzeżenie, jako że idzie osobnym strumieniem, nie trafia do potoku:
 
 ```powershell title="Terminal"
 python strumienie.py | python -c "import sys; print(len(sys.stdin.read().splitlines()), 'wierszy')"

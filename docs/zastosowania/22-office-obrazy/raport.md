@@ -86,7 +86,7 @@ def zapisz_dokument(wiersze, sciezka, obraz_wykresu):
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="raport", description="Tworzy arkusz Excel i dokument Word z pliku CSV sprzedaży.")
     parser.add_argument("csv", type=Path, help="plik CSV z kolumnami data, produkt, kategoria, ilosc, cena")
-    parser.add_argument("-o", "--katalog", type=Path, default=Path("."), help="katalog wynikowy (domyślnie bieżący)")
+    parser.add_argument("-o", "--katalog", type=Path, default=Path("raport-wyniki"), help="katalog wynikowy (domyślnie %(default)s)")
     parser.add_argument("--format", choices=["xlsx", "docx", "oba"], default="oba", help="co wytworzyć (domyślnie %(default)s)")
     argumenty = parser.parse_args(argv)
     nazwa = argumenty.csv.stem
@@ -151,7 +151,7 @@ raport: [Errno 2] No such file or directory: 'brak.csv' [kod 1]
 raport: zly.csv: oczekiwane kolumny data, produkt, kategoria, ilosc, cena [kod 1]
 ```
 
-Narzędzie dzieli pracę na funkcje o jednym zadaniu: wczytanie i sprawdzenie kolumn, podsumowanie po dowolnym kluczu, zapis arkusza, zapis dokumentu. `main()` tylko składa je według argumentów i tłumaczy błędy — brak pliku, złe kolumny, niepoprawną liczbę w wierszu, plik wynikowy otwarty w Excelu — na komunikat na `stderr` i kod `1`. Nazwy plików wynikowych pochodzą od nazwy pliku wejściowego, a katalog wynikowy powstaje w razie potrzeby. Skrypt kontrolny wywołuje `main()` z listą argumentów i otwiera wytworzone pliki obiema bibliotekami: formuła sumy w wierszu 14, pierwszy produkt podsumowania, akapit i tabela dokumentu oraz jeden obraz w dokumencie; przypadki błędne uruchamia jako proces z połączonymi strumieniami, jak w rozdziale 20.
+Narzędzie dzieli pracę na funkcje o jednym zadaniu: wczytanie i sprawdzenie kolumn, podsumowanie po dowolnym kluczu, zapis arkusza, zapis dokumentu. `main()` tylko składa je według argumentów i tłumaczy błędy — brak pliku, złe kolumny, niepoprawną liczbę w wierszu, plik wynikowy otwarty w Excelu — na komunikat na `stderr` i kod `1`. Nazwy plików wynikowych pochodzą od nazwy pliku wejściowego, a katalog wynikowy powstaje w razie potrzeby; domyślnie jest to osobny katalog `raport-wyniki`, bo w katalogu bieżącym arkusz `sprzedaz.xlsx` zastąpiłby arkusz o tej nazwie, na przykład ten, z którego wyeksportowano `sprzedaz.csv`. Skrypt kontrolny wywołuje `main()` z listą argumentów i otwiera wytworzone pliki obiema bibliotekami: formuła sumy w wierszu 14, pierwszy produkt podsumowania, akapit i tabela dokumentu oraz jeden obraz w dokumencie; przypadki błędne uruchamia jako proces z połączonymi strumieniami, jak w rozdziale 20.
 
 ## Testy
 

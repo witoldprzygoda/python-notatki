@@ -32,11 +32,15 @@ ipykernel==7.3.0
 jupyterlab==4.6.3
 ```
 
+Środowisko tworzymy tylko wtedy, gdy katalogu `.venv` jeszcze nie ma — powód wyjaśnia podrozdział [Wirtualne środowisko venv](../../01-instalacja/venv.md#utworzenie-srodowiska):
+
 ```powershell title="Terminal"
-python -m venv .venv
+if (-not (Test-Path .venv)) { python -m venv .venv }
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```
+
+Gdy PowerShell odmawia uruchomienia skryptu `Activate.ps1`, postępujemy jak w sekcji [Aktywacja](../../01-instalacja/venv.md#aktywacja) podrozdziału o venv.
 
 Wersje ustalamy świadomie: `python -m pip index versions numpy` pokazuje wydania dostępne w chwili tworzenia projektu, a `python -m pip freeze` wypisuje wszystko, co zainstalowano — razem z zależnościami, których nie wybieraliśmy. Do pliku wymagań trafiają pakiety, o które prosimy; pełny wydruk `freeze` warto zachować obok jako `requirements-lock.txt`, gdy dokładne odtworzenie środowiska ma znaczenie. Bibliotek nie aktualizujemy w trakcie analizy; zmiana wersji to osobny krok z ponownym wykonaniem wszystkich notatników.
 
