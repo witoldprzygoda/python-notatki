@@ -184,6 +184,48 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   Poprawki na gałęzi `content/*`.
 - **Stan:** do omówienia (10 X 2026).
 
+### Rozdziały 7 i 8: uwagi z talii W07 i W08
+
+- **Miejsce:** `docs/07-moduly/` (`biblioteka-standardowa.md`,
+  `functools.md`, `itertools.md`) i `docs/08-wyjatki/`
+  (`obsluga-wyjatkow.md`, `styl-i-testowanie.md`, `with-i-contextlib.md`,
+  `logging.md`, `diagnostyka.md`).
+- **Opis:** przy przygotowaniu talii W07 i W08 przykłady uruchomiono na
+  CPythonie 3.14.8; niezależni recenzenci potwierdzili poniższe miejsca:
+    1. `itertools.md`, `groupby()`: proza mówi, że funkcja klucza jest tą
+       samą funkcją, którą podajemy `sorted()`, a program sortuje
+       `sorted(slowa)` bez klucza (działa, bo sortowanie całych słów porządkuje
+       je także według pierwszej litery).
+    2. `functools.md`, w. 30: „kilkaset wywołań” — dla `fib(100)` jest ich
+       199 (98 trafień i 101 obliczeń).
+    3. `biblioteka-standardowa.md`: ostrzeżenie, że zbyt wysoki limit
+       rekurencji grozi awarią interpretera, jest zgodne z dokumentacją, ale
+       w 3.14.8 sprawdzone przypadki (rekurencja przez funkcje C) kończą się
+       `RecursionError: Stack overflow …`; tabela modułów wymienia
+       `statistics` i `datetime` jako omawiane w dalszych rozdziałach, choć
+       część „Python Podstawy” do nich nie wraca (obserwacja).
+    4. `obsluga-wyjatkow.md` i `styl-i-testowanie.md`: `isdigit()` nie jest
+       po prostu „węższe” od `int()` — `"²".isdigit()` daje `True`, a
+       `int("²")` zgłasza `ValueError` (podobnie `"①"`).
+    5. `styl-i-testowanie.md`, w. 158: „wyjątek innego typu … kończy test
+       błędem” — pytest zgłasza taki test jako niezaliczony (F), nie jako
+       błąd (E); opis `pytest.raises()` sugeruje menedżer oparty na
+       generatorze, a jest to klasa, której `__exit__()` zwraca wartość
+       prawdziwą.
+    6. `with-i-contextlib.md`, w. 118: „dokładnie jedną instrukcję `yield`” —
+       reguła dotyczy wykonania: `yield` w gałęziach `if`/`else` działa,
+       drugi wykonany `yield` daje `RuntimeError: generator didn't stop`,
+       brak wykonanego — `generator didn't yield`; ponowne użycie menedżera
+       zgłasza `AttributeError: '_GeneratorContextManager' object has no
+       attribute 'args'` (uzupełnienie opcjonalne).
+    7. `logging.md`: „kolejne `basicConfig()` nic nie zmienia” nie dotyczy
+       wywołania z `force=True`.
+    8. `diagnostyka.md`: pdb w Windows wypisuje ścieżkę małymi literami
+       (`c:\…`), nie `C:\…` (kosmetyczne).
+- **Propozycja:** poprawki na gałęzi `content/*`; slajdy W07 i W08 pokazują
+  już stan rzeczywisty.
+- **Stan:** do omówienia (10 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
