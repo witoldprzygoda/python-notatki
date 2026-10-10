@@ -19,12 +19,12 @@ activities:
     correct_option_id: b
     feedback:
       correct: "Pusty łańcuch jest fałszywy w kontekście logicznym, więc not data ma wartość prawdziwą."
-      incorrect: "Zarówno if data, jak i if data is True są fałszywe dla pustego łańcucha. Operator not odwraca jego fałszywą wartość logiczną."
+      incorrect: "Zarówno warunek data, jak i warunek data is True są fałszywe dla pustego łańcucha. Operator not odwraca jego fałszywą wartość logiczną."
     solution:
       discussion: >-
         Pusty łańcuch ma fałszywą wartość logiczną, dlatego if data nie
-        wykonuje swojego bloku. Operator not odwraca tę wartość, więc if not
-        data jest prawdziwe. Porównanie data is True bada tożsamość obiektu z
+        wykonuje swojego bloku. Operator not odwraca tę wartość, więc warunek
+        not data jest prawdziwy. Porównanie data is True bada tożsamość obiektu z
         True, a nie jego ogólną wartość logiczną.
 
   - activity_id: flow-ternary-quiz-001
@@ -32,7 +32,7 @@ activities:
     section_id: operator-trojskadnikowy
     type: single_choice
     label: "Odczytanie zagnieżdżonego warunku"
-    prompt: 'Dla x = 5 jaką wartość otrzyma wynik w wyrażeniu wynik = "A" if x < 0 else "B" if x % 2 == 0 else "C"?'
+    prompt: 'Dla x = 5 jaką wartość otrzyma wynik po wykonaniu przypisania wynik = "A" if x < 0 else "B" if x % 2 == 0 else "C"?'
     options:
       - option_id: a
         label: '"A"'
