@@ -288,6 +288,33 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Stan:** wykonane na gałęzi `content/uwagi-z-talii` (11 X 2026), czeka na
   odbiór autora.
 
+### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
+
+- **Miejsce i opis:** zauważone przy recenzji gałęzi `content/uwagi-z-talii`:
+    1. `docs/01-instalacja/ai-tools.md`, sekcja „Czat i agenci”: „`#` —
+       dołączenie pliku (`#file`) albo całego projektu (`#codebase`)”. Bieżąca
+       dokumentacja VS Code
+       ([tools-reference](https://code.visualstudio.com/docs/agents/reference/tools-reference),
+       10/7/2026) opisuje plik w kontekście jako `#<file>` — znak `#` i nazwę
+       pliku wybraną z listy — i nie wymienia odwołania `#file`.
+    2. `ai-tools.md`, ramka „Cel sesji: Local”: według recenzji eksperyment
+       `chat.editor.localAgent.enabled` może w VS Code 1.141.0 ukryć pozycję
+       Local na liście celów sesji — obserwacja, niesprawdzona.
+    3. `docs/07-moduly/functools.md`, akapit po `fib-cache.py`: zdanie „Same
+       liczby są szczegółem implementacji CPythona” jest dyskusyjne — liczby
+       trafień i obliczeń wynikają z algorytmu i z gwarantowanej przez język
+       kolejności obliczania `fib(n - 1) + fib(n - 2)`.
+    4. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
+       wydobycie pierwszego wykresu `release-cycle-chart` ze strony
+       devguide.python.org/versions; skrypt wykonujący tę operację istnieje
+       tylko poza repozytorium.
+- **Propozycja:** 1 — „`#` — dołączenie pliku (`#` i nazwa pliku) albo całego
+  projektu (`#codebase`)”; 2 — sprawdzić w VS Code przy najbliższym przeglądzie
+  narzędzi AI; 3 — usunąć zdanie albo zastąpić je stwierdzeniem, że liczby
+  wynikają z kolejności wywołań; 4 — dodać skrypt do `scripts/` na gałęzi
+  `infra/*`.
+- **Stan:** do omówienia (11 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
