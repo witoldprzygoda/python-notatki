@@ -211,7 +211,8 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 - **Propozycja:** poprawki na osobnej gałęzi `content/*`; punkt 3 najlepiej
   po wydaniu 3.15.0, razem z pozycjami z sekcji „Do wykonania przy przejściu
   na Pythona 3.15” (w tym „Narzędzia AI”).
-- **Stan:** do omówienia (5 X 2026).
+- **Stan:** wykonane na gałęzi `content/uwagi-z-talii` (11 X 2026), czeka na
+  odbiór autora.
 
 ### Rozdział 7: pułapki importu i układ płaski (sprawdzenie przy talii W06)
 

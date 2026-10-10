@@ -26,7 +26,7 @@ Dalej omawiamy GitHub Copilot, ponieważ działa bezpośrednio w VSC — edytorz
 
 ### Dostęp i uruchomienie
 
-Copilot wymaga konta w serwisie **GitHub**. Użytkownik bez wykupionej subskrypcji otrzymuje plan **Copilot Free** z miesięcznymi limitami podpowiedzi i zapytań. Zweryfikowani studenci korzystają bezpłatnie z planu **Copilot Student**: status studenta potwierdza się w programie GitHub Education ([github.com/education](https://github.com/education)), a uprawnienie jest sprawdzane co miesiąc. Bieżący zakres i limity planów opisuje [dokumentacja GitHub](https://docs.github.com/en/copilot/get-started/plans).
+Copilot wymaga konta w serwisie **GitHub**. Użytkownik bez wykupionej subskrypcji otrzymuje plan **Copilot Free**, w którym liczbę podpowiedzi w kodzie ogranicza miesięczny limit, a czat i agenci zużywają miesięczną pulę kredytów AI (ang. *AI credits*). Zweryfikowani studenci korzystają bezpłatnie z planu **Copilot Student**, bez limitu podpowiedzi w kodzie i z własną pulą kredytów AI: status studenta potwierdza się w programie GitHub Education ([github.com/education](https://github.com/education)), a uprawnienie jest sprawdzane co miesiąc. W obu planach model językowy wybiera automatycznie sam Copilot (opcja **Auto**). Bieżący zakres i limity planów opisuje [dokumentacja GitHub](https://docs.github.com/en/copilot/get-started/plans).
 
 Aby włączyć Copilota, wskazujemy jego ikonę na pasku stanu u dołu okna VSC, wybieramy **Use AI Features** i logujemy się kontem GitHub.
 
@@ -44,7 +44,7 @@ Copilot zaproponuje kilka wierszy realizujących opis; ich dokładna postać mo�
 - ++esc++ — odrzucenie,
 - ++ctrl+right++ — przyjęcie tylko następnego słowa.
 
-Oprócz dopisywania kodu w miejscu kursora Copilot przewiduje także następną zmianę w innym miejscu pliku (ang. *next edit suggestions*) — np. po zmianie nazwy zmiennej w jednym wierszu proponuje poprawienie pozostałych wystąpień. Dostępność takiej podpowiedzi sygnalizuje strzałka na marginesie edytora; ++tab++ przenosi do niej kursor i ją przyjmuje.
+Oprócz dopisywania kodu w miejscu kursora Copilot przewiduje także następną zmianę w innym miejscu pliku (ang. *next edit suggestions*) — np. po zmianie nazwy zmiennej w jednym wierszu proponuje poprawienie pozostałych wystąpień. Dostępność takiej podpowiedzi sygnalizuje strzałka na marginesie edytora; pierwsze naciśnięcie ++tab++ przenosi do niej kursor, a drugie ją przyjmuje.
 
 Podpowiedzi można czasowo wstrzymać poleceniem **Snooze** z menu Copilota na pasku stanu — każde użycie wydłuża przerwę o pięć minut. Wszystkie funkcje AI w VSC wyłącza ustawienie w pliku `settings.json`, którego otwieranie opisuje sekcja [Usuwanie Pylance](konfiguracja.md#usuwanie-pylance). Jeśli klucza jeszcze w pliku nie ma, dopisujemy ustawienie jako ostatni wpis — przed zamykającym nawiasem klamrowym `}` pliku, po przecinku za poprzednim wpisem — nie zmieniając pozostałych wpisów:
 
@@ -62,13 +62,23 @@ Rozmowę z Copilotem prowadzimy w widoku czatu (++ctrl+alt+i++) albo bezpośredn
 
 Zmiany wprowadzone przez agenta edytor pokazuje jako różnice względem poprzedniej treści; każdą przyjmujemy (**Keep**) albo wycofujemy (**Undo**), a polecenie **Restore Checkpoint** przywraca pliki obszaru roboczego (ang. *workspace*) i historię czatu do stanu sprzed wybranego zapytania; nie cofa jednak skutków poleceń wykonanych w terminalu, więc nie odtworzy na przykład plików usuniętych takim poleceniem. Polecenia uruchamiane przez agenta podlegają uprawnieniom: w ustawieniu domyślnym typowe polecenia, które jedynie odczytują dane, wykonują się samoczynnie, a pozostałe — np. usuwające pliki — wymagają naszej zgody. Ustawień zezwalających agentowi na wszystkie działania bez potwierdzenia nie włączamy.
 
+!!! note "Cel sesji: Local"
+    Opis agentów Ask, Plan i Agent oraz przyjmowania zmian przyciskami **Keep**
+    i **Undo** dotyczy sesji lokalnych (**Local**). W polu **Session Target** (cel
+    sesji) widoku czatu VSC oferuje także inne silniki agentów (ang. *harness*),
+    w tym silnik **Copilot**, który w części instalacji jest wybierany domyślnie.
+    Ma on inne tryby pracy (np. **Plan** i **Autopilot**), a zmiany agenta zapisuje
+    w plikach od razu, bez przyjmowania ich przyciskami Keep i Undo. Aby przebieg
+    pracy odpowiadał opisowi z tego podrozdziału, w polu Session Target wybieramy
+    **Local**.
+
 Kontekst zapytania wskazujemy w polu czatu:
 
 - `#` — dołączenie pliku (`#file`) albo całego projektu (`#codebase`),
 - `/` — gotowe polecenia, np. `/explain` (objaśnienie zaznaczonego kodu), `/fix` (propozycja poprawki), `/tests` (propozycja testów),
 - `@` — uczestnicy wyspecjalizowani w danej dziedzinie, np. `@terminal` (polecenia powłoki) czy `@vscode` (funkcje i ustawienia edytora).
 
-Pełny i aktualny opis zawiera [dokumentacja VSC](https://code.visualstudio.com/docs/copilot/overview).
+Pełny i aktualny opis zawiera [dokumentacja VSC](https://code.visualstudio.com/docs/agents/overview).
 
 ## Zasady pracy z asystentem
 
