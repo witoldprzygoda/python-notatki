@@ -2,7 +2,7 @@
 
 ## Krótka historia i cechy języka
 
-Twórcą języka Python jest **Guido van Rossum**, który rozpoczął nad nim pracę w 1989 roku w holenderskim centrum badawczym Centrum Wiskunde & Informatica; pierwsza publiczna wersja (0.9.0) ukazała się w 1991 roku. Nazwa języka pochodzi od brytyjskiej grupy komediowej Monty Python, nie od węża. Do najważniejszych dat w historii języka należą: wydanie Pythona 2.0 (2000), niekompatybilne z poprzednią linią wydanie Pythona 3.0 (2008) oraz zakończenie wsparcia dla linii 2.x (1 stycznia 2020). Współcześnie rozwijana jest wyłącznie linia 3.x — stanem odniesienia niniejszych notatek jest **Python 3.14**.
+Twórcą języka Python jest **Guido van Rossum**, który rozpoczął nad nim pracę w 1989 roku w holenderskim centrum badawczym Centrum Wiskunde & Informatica; pierwsza publiczna wersja (0.9.0) ukazała się w 1991 roku. Nazwa języka pochodzi od brytyjskiej grupy komediowej Monty Python, nie od węża. Do najważniejszych dat w historii języka należą: wydanie Pythona 2.0 (2000), niekompatybilne z poprzednią linią wydanie Pythona 3.0 (2008) oraz zakończenie wsparcia dla linii 2.x (1 stycznia 2020). Współcześnie rozwijana jest wyłącznie linia 3.x: Python 3.14 ukazał się 7 października 2025 roku, a Python 3.15 — 9 października 2026 roku. Stanem odniesienia niniejszych notatek jest **Python 3.14**.
 
 O popularności języka decyduje kilka cech:
 
