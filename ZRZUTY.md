@@ -60,6 +60,13 @@ Brak (stan z 4 X 2026).
   ze środowiskami `.venv` i `.venv-t` z venv.md (konfiguracja.md); VS Code 1.140.0, rozszerzenie
   Python 2026.6.0, Python 3.14.8 i 3.14t (4 X 2026); sterownik `vsc_zrzuty.py` wywołany scenariuszem
   spoza repozytorium — do przeniesienia do `SCENARIUSZE` (pozycja w `DO_OMOWIENIA.md`).
+- `01-instalacja/img/python-cykl-wydan.svg` — wykres okresów wsparcia wersji Pythona ze strony
+  devguide.python.org/versions, wycięty bez zmian (instalacja.md); `python scripts/release_cycle_chart.py
+  <wynik.svg>` pobiera stronę i zapisuje wykres (istniejącego pliku nie nadpisuje bez `--nadpisz`;
+  zapisaną kopię strony czyta opcja `--html=`). Pionowa linia oznacza dzień, w którym devguide wygenerował
+  stronę (nagłówek Last-Modified, wypisywany przez skrypt), w rysunku książki — 9 X 2026. Rysunek
+  odświeżamy przy zmianie statusu którejś wersji, nie przy samym przesunięciu linii dnia; potem
+  sprawdzamy tekst alternatywny i opis faz w instalacja.md.
 - `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (konfiguracja.md)
 
 ## Zrezygnowano (decyzja autora z 2 X 2026)

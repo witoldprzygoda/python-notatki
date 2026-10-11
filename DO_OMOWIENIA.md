@@ -105,20 +105,16 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 ### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 
-- **Miejsce i opis:** zauważone przy recenzji gałęzi `content/uwagi-z-talii`:
-    1. `docs/01-instalacja/ai-tools.md`, ramka „Cel sesji: Local”: według
-       recenzji eksperyment `chat.editor.localAgent.enabled` może w VS Code
-       1.141.0 ukryć pozycję Local na liście celów sesji — obserwacja,
-       niesprawdzona.
-    2. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
-       wydobycie pierwszego wykresu `release-cycle-chart` ze strony
-       devguide.python.org/versions; skrypt wykonujący tę operację istnieje
-       tylko poza repozytorium.
-- **Propozycja:** 1 — sprawdzić w VS Code przy najbliższym przeglądzie
-  narzędzi AI; 2 — dodać skrypt do `scripts/` na gałęzi `infra/*`.
-- **Stan:** do omówienia (11 X 2026); dawne punkty `#file` i zdanie
-  o liczbach w `cache_info()` rozstrzygnięte 11 X 2026 (sekcja
-  „Rozstrzygnięte”).
+- **Miejsce i opis:** `docs/01-instalacja/ai-tools.md`, ramka „Cel sesji:
+  Local”: według recenzji gałęzi `content/uwagi-z-talii` eksperyment
+  `chat.editor.localAgent.enabled` może w VS Code 1.141.0 ukryć pozycję Local
+  na liście celów sesji — obserwacja, niesprawdzona.
+- **Propozycja:** sprawdzić w VS Code przy najbliższym przeglądzie narzędzi AI
+  (pozycja „Narzędzia AI” w sekcji „Do wykonania przy przejściu na Pythona
+  3.15”).
+- **Stan:** do sprawdzenia (11 X 2026); pozostałe punkty wpisu (`#file`,
+  liczby w `cache_info()`, skrypt wykresu cyklu wydań) rozstrzygnięte 11 X 2026
+  (sekcja „Rozstrzygnięte”).
 
 ## Do wykonania przy przejściu na Pythona 3.15
 
@@ -429,3 +425,10 @@ trafień i obliczeń szczegółem implementacji CPythona: wyjaśnia, że wynikaj
 z kolejności obliczania `fib(n - 1) + fib(n - 2)` (101 obliczeń i 98
 trafień). Notatki talii W07 ujednolicono na gałęzi `slajdy` (decyzja autora
 z 11 X 2026, branch `content/fib-cache-liczby`).
+
+### Skrypt wykresu cyklu wydań (11 X 2026)
+
+Rysunek `docs/01-instalacja/img/python-cykl-wydan.svg` odtwarza skrypt
+`scripts/release_cycle_chart.py`, który pobiera stronę devguide.python.org/versions
+i wycina z niej wykres bez zmian; sposób i zasadę odświeżania opisuje `ZRZUTY.md`
+(decyzja autora z 11 X 2026, branch `infra/wykres-cyklu-wydan`).
