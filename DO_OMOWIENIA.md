@@ -106,29 +106,24 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 ### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 
 - **Miejsce i opis:** zauważone przy recenzji gałęzi `content/uwagi-z-talii`:
-    1. `docs/01-instalacja/ai-tools.md`, sekcja „Czat i agenci”: „`#` —
-       dołączenie pliku (`#file`) albo całego projektu (`#codebase`)”. Bieżąca
-       dokumentacja VS Code
-       ([tools-reference](https://code.visualstudio.com/docs/agents/reference/tools-reference),
-       10/7/2026) opisuje plik w kontekście jako `#<file>` — znak `#` i nazwę
-       pliku wybraną z listy — i nie wymienia odwołania `#file`.
-    2. `ai-tools.md`, ramka „Cel sesji: Local”: według recenzji eksperyment
-       `chat.editor.localAgent.enabled` może w VS Code 1.141.0 ukryć pozycję
-       Local na liście celów sesji — obserwacja, niesprawdzona.
-    3. `docs/07-moduly/functools.md`, akapit po `fib-cache.py`: zdanie „Same
+    1. `docs/01-instalacja/ai-tools.md`, ramka „Cel sesji: Local”: według
+       recenzji eksperyment `chat.editor.localAgent.enabled` może w VS Code
+       1.141.0 ukryć pozycję Local na liście celów sesji — obserwacja,
+       niesprawdzona.
+    2. `docs/07-moduly/functools.md`, akapit po `fib-cache.py`: zdanie „Same
        liczby są szczegółem implementacji CPythona” jest dyskusyjne — liczby
        trafień i obliczeń wynikają z algorytmu i z gwarantowanej przez język
        kolejności obliczania `fib(n - 1) + fib(n - 2)`.
-    4. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
+    3. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
        wydobycie pierwszego wykresu `release-cycle-chart` ze strony
        devguide.python.org/versions; skrypt wykonujący tę operację istnieje
        tylko poza repozytorium.
-- **Propozycja:** 1 — „`#` — dołączenie pliku (`#` i nazwa pliku) albo całego
-  projektu (`#codebase`)”; 2 — sprawdzić w VS Code przy najbliższym przeglądzie
-  narzędzi AI; 3 — usunąć zdanie albo zastąpić je stwierdzeniem, że liczby
-  wynikają z kolejności wywołań; 4 — dodać skrypt do `scripts/` na gałęzi
+- **Propozycja:** 1 — sprawdzić w VS Code przy najbliższym przeglądzie
+  narzędzi AI; 2 — usunąć zdanie albo zastąpić je stwierdzeniem, że liczby
+  wynikają z kolejności wywołań; 3 — dodać skrypt do `scripts/` na gałęzi
   `infra/*`.
-- **Stan:** do omówienia (11 X 2026).
+- **Stan:** do omówienia (11 X 2026); dawny punkt 1 (`#file`) rozstrzygnięty
+  11 X 2026 (sekcja „Rozstrzygnięte”).
 
 ## Do wykonania przy przejściu na Pythona 3.15
 
@@ -423,3 +418,11 @@ błędu powłoki (`NativeCommandError`), a nie sam komunikat programu (sprawdzon
 11 X 2026: Windows PowerShell 5.1.26100, PowerShell 7.6.6). Bez zakładek
 i osobnego przykładu — książka zakłada PowerShell 7 (decyzja autora z 11 X 2026;
 branch `content/ps51-przekierowanie`).
+
+### Dołączanie pliku do czatu Copilota (11 X 2026)
+
+Lista przedrostków w sekcji „Czat i agenci” `docs/01-instalacja/ai-tools.md`
+opisuje dołączenie pliku jako znak `#` i nazwę pliku wybraną z listy zamiast
+odwołania `#file`, którego dokumentacja VS Code nie wymienia; `#codebase`
+pozostaje (code.visualstudio.com/docs/chat/copilot-chat-context, 10/7/2026;
+decyzja autora z 11 X 2026, branch `content/ai-tools-kontekst`).

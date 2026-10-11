@@ -77,7 +77,7 @@ Zmiany wprowadzone przez agenta edytor pokazuje jako różnice względem poprzed
 
 Kontekst zapytania wskazujemy w polu czatu:
 
-- `#` — dołączenie pliku (`#file`) albo całego projektu (`#codebase`),
+- `#` — dołączenie pliku (znak `#` i nazwa pliku wybrana z listy) albo całego projektu (`#codebase`),
 - `/` — gotowe polecenia, np. `/explain` (objaśnienie zaznaczonego kodu), `/fix` (propozycja poprawki), `/tests` (propozycja testów),
 - `@` — uczestnicy wyspecjalizowani w danej dziedzinie, np. `@terminal` (polecenia powłoki) czy `@vscode` (funkcje i ustawienia edytora).
 
