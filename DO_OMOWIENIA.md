@@ -84,20 +84,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   i laboratorium L01 autor przyjął 11 X 2026, dalsze talie powstaną na jego
   polecenie (11 X 2026).
 
-### Przekierowanie `2>` w Windows PowerShell 5.1
-
-- **Miejsce:** `docs/09-wejscie-wyjscie/print-i-strumienie.md` — opis
-  przekierowania strumienia błędów do pliku (`2> strumienie-bledy.txt`).
-- **Opis:** opis zgadza się z PowerShell 7. W Windows PowerShell 5.1 tekst,
-  który program zewnętrzny wypisuje do strumienia błędów, trafia do pliku
-  opakowany w rekord błędu PowerShell (`NativeCommandError`, numer wiersza,
-  `CategoryInfo`), a nie jako sam komunikat programu. Zauważone przy przeglądzie
-  bezpieczeństwa poleceń (4 X 2026).
-- **Propozycja:** rozpatrzyć razem z pozostałymi różnicami powłok z raportu
-  „Różnice między powłokami” (3 X 2026): jedno zdanie o Windows PowerShell 5.1
-  albo zakładki z wariantami.
-- **Stan:** do omówienia (4 X 2026).
-
 ### Scenariusz zrzutu listy wyboru interpretera
 
 - **Miejsce:** `docs/01-instalacja/img/vsc-select-interpreter.png`
@@ -428,3 +414,12 @@ Przyjęte przez autora 11 X 2026: przecinki wokół wtrąceń z „zamiast”
 i „w wielu wierszach” zamiast „wielolinijkowy” i „w wielu liniach”
 (`pierwszy-skrypt.md`) oraz wzór liczby zmiennoprzecinkowej z operatorem `**`
 zamiast `^` (`typy-proste.md`) (branch `content/drobne-poprawki-redakcyjne`).
+
+### Przekierowanie `2>` w Windows PowerShell 5.1 (11 X 2026)
+
+Ramka „Wersja PowerShell” w `docs/09-wejscie-wyjscie/print-i-strumienie.md`
+mówi, że w Windows PowerShell 5.1 przekierowanie `2>` zapisuje do pliku rekord
+błędu powłoki (`NativeCommandError`), a nie sam komunikat programu (sprawdzone
+11 X 2026: Windows PowerShell 5.1.26100, PowerShell 7.6.6). Bez zakładek
+i osobnego przykładu — książka zakłada PowerShell 7 (decyzja autora z 11 X 2026;
+branch `content/ps51-przekierowanie`).
