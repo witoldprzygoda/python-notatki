@@ -110,20 +110,15 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
        recenzji eksperyment `chat.editor.localAgent.enabled` może w VS Code
        1.141.0 ukryć pozycję Local na liście celów sesji — obserwacja,
        niesprawdzona.
-    2. `docs/07-moduly/functools.md`, akapit po `fib-cache.py`: zdanie „Same
-       liczby są szczegółem implementacji CPythona” jest dyskusyjne — liczby
-       trafień i obliczeń wynikają z algorytmu i z gwarantowanej przez język
-       kolejności obliczania `fib(n - 1) + fib(n - 2)`.
-    3. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
+    2. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
        wydobycie pierwszego wykresu `release-cycle-chart` ze strony
        devguide.python.org/versions; skrypt wykonujący tę operację istnieje
        tylko poza repozytorium.
 - **Propozycja:** 1 — sprawdzić w VS Code przy najbliższym przeglądzie
-  narzędzi AI; 2 — usunąć zdanie albo zastąpić je stwierdzeniem, że liczby
-  wynikają z kolejności wywołań; 3 — dodać skrypt do `scripts/` na gałęzi
-  `infra/*`.
-- **Stan:** do omówienia (11 X 2026); dawny punkt 1 (`#file`) rozstrzygnięty
-  11 X 2026 (sekcja „Rozstrzygnięte”).
+  narzędzi AI; 2 — dodać skrypt do `scripts/` na gałęzi `infra/*`.
+- **Stan:** do omówienia (11 X 2026); dawne punkty `#file` i zdanie
+  o liczbach w `cache_info()` rozstrzygnięte 11 X 2026 (sekcja
+  „Rozstrzygnięte”).
 
 ## Do wykonania przy przejściu na Pythona 3.15
 
@@ -426,3 +421,11 @@ opisuje dołączenie pliku jako znak `#` i nazwę pliku wybraną z listy zamiast
 odwołania `#file`, którego dokumentacja VS Code nie wymienia; `#codebase`
 pozostaje (code.visualstudio.com/docs/chat/copilot-chat-context, 10/7/2026;
 decyzja autora z 11 X 2026, branch `content/ai-tools-kontekst`).
+
+### Liczby w wyniku `cache_info()` (11 X 2026)
+
+Zdanie po `fib-cache.py` w `docs/07-moduly/functools.md` nie nazywa już liczb
+trafień i obliczeń szczegółem implementacji CPythona: wyjaśnia, że wynikają
+z kolejności obliczania `fib(n - 1) + fib(n - 2)` (101 obliczeń i 98
+trafień). Notatki talii W07 ujednolicono na gałęzi `slajdy` (decyzja autora
+z 11 X 2026, branch `content/fib-cache-liczby`).
