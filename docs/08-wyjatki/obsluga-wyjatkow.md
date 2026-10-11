@@ -330,7 +330,7 @@ Podaj wiek: 12
 Za 10 lat: 22
 ```
 
-Blok `try` obejmuje wyłącznie konwersję; wywołanie `input()` stoi przed nim, bo nie jest źródłem `ValueError`, a komunikat dla użytkownika powtarza błędny wpis w cudzysłowach dzięki `{tekst!r}`. Ten sam wzorzec obsługuje wczytywanie ciągu wartości zakończonego słowem umownym; operator `:=` z podrozdziału [Wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-przypisania-w-wyrazeniu) pozwala wczytać i sprawdzić wpis w warunku pętli, a błędne wpisy są pomijane zamiast przerywać program:
+Blok `try` obejmuje wyłącznie konwersję; wywołanie `input()` stoi przed nim, bo nie jest źródłem `ValueError`, a komunikat dla użytkownika powtarza błędny wpis w cudzysłowach dzięki `{tekst!r}`. Ten sam wzorzec obsługuje wczytywanie ciągu wartości zakończonego słowem umownym; operator `:=` z podrozdziału [Instrukcje i wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-przypisania-w-wyrazeniu) pozwala wczytać i sprawdzić wpis w warunku pętli, a błędne wpisy są pomijane zamiast przerywać program:
 
 ```python title="suma-liczb.py"
 suma = 0

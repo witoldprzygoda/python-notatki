@@ -98,25 +98,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   albo zakładki z wariantami.
 - **Stan:** do omówienia (4 X 2026).
 
-### Tytuł strony „Wyrażenia warunkowe”
-
-- **Miejsce:** `docs/04-sterowanie/wyrazenia-warunkowe.md` (H1), etykieta
-  nawigacji w `mkdocs.yml`, spis rozdziału w `docs/04-sterowanie/index.md`
-  oraz 3 odsyłacze z tekstem „Wyrażenia warunkowe” na innych stronach
-  (pozostałe odsyłacze do tej strony mają tekst „4. Sterowanie przepływem”).
-- **Opis:** pierwsza sekcja strony nosi od commita `39ce8cc` (gałąź
-  `content/poprawki-z-talii`) tytuł „Instrukcja if, elif, else”, ponieważ
-  `if`/`elif`/`else` jest instrukcją, a wyrażeniem jest wyłącznie forma
-  trójskładnikowa. Tytuł strony, obejmującej także instrukcję `match`, nadal
-  nazywa całość wyrażeniami. Zauważone przy przygotowaniu slajdów wykładowych.
-- **Propozycja:** zmiana H1 i etykiety nawigacji, np. na „Instrukcje
-  warunkowe”, bez zmiany nazwy pliku (adres strony pozostaje); zmiana
-  nawigacji wymaga zgody autora. Ćwiczenia na gałęzi `cwiczenia` są powiązane
-  z nagłówkami tej strony: zmianę identyfikatora sekcji
-  (`#wyrazenie-if-elif-else` → `#instrukcja-if-elif-else`) i ewentualnie H1
-  przejmie najbliższa synchronizacja.
-- **Stan:** do decyzji autora (4 X 2026).
-
 ### Scenariusz zrzutu listy wyboru interpretera
 
 - **Miejsce:** `docs/01-instalacja/img/vsc-select-interpreter.png`
@@ -451,3 +432,12 @@ typu (niezaliczony), budowę `pytest.raises()`, regułę wykonania jednej
 instrukcji `yield` w `@contextmanager`, działanie `basicConfig(force=True)`
 oraz zapis ścieżek w sesji pdb. Wszystkie wyniki sprawdzono na CPythonie
 3.14.8 (branch `content/uwagi-z-talii`, przyjęty przez autora 11 X 2026).
+
+### Tytuł strony „Instrukcje i wyrażenia warunkowe” (11 X 2026)
+
+Strona `docs/04-sterowanie/wyrazenia-warunkowe.md` nosi tytuł „Instrukcje
+i wyrażenia warunkowe” (decyzja autora z 11 X 2026, wariant A), ponieważ
+`if`/`elif`/`else` i `match` są instrukcjami, a wyrażeniem jest operator
+trójskładnikowy. Zmieniono H1, etykietę nawigacji, spis rozdziału 4 i trzy
+odsyłacze; nazwa pliku, adres strony i identyfikatory sekcji pozostały bez
+zmian (branch `content/instrukcje-warunkowe`).

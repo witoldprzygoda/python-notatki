@@ -1,4 +1,4 @@
-# Wyrażenia warunkowe
+# Instrukcje i wyrażenia warunkowe
 
 ## Instrukcja if, elif, else
 

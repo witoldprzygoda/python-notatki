@@ -91,7 +91,7 @@ nav:
           - Operatory: 03-nazwy-typy/operatory.md
       - 4. Sterowanie przepływem:
           - Wprowadzenie: 04-sterowanie/index.md
-          - Wyrażenia warunkowe: 04-sterowanie/wyrazenia-warunkowe.md
+          - Instrukcje i wyrażenia warunkowe: 04-sterowanie/wyrazenia-warunkowe.md
           - Pętle i iteratory: 04-sterowanie/petle-i-iteratory.md
       - 5. Typy złożone:
           - Wprowadzenie: 05-typy-zlozone/index.md

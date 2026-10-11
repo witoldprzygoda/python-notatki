@@ -73,7 +73,7 @@ W zapisie wartości domyślnej trzeba pamiętać, że `or` zastępuje każdą wa
 0
 ```
 
-Gdy zastąpić należy wyłącznie brak wartości, stosujemy jawne porównanie z `None` w operatorze trójskładnikowym (podrozdział [Wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-trojskadnikowy)).
+Gdy zastąpić należy wyłącznie brak wartości, stosujemy jawne porównanie z `None` w operatorze trójskładnikowym (podrozdział [Instrukcje i wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-trojskadnikowy)).
 
 ## Typ int
 
