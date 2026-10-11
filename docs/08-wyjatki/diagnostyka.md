@@ -176,23 +176,23 @@ python debug-pdb.py
 Program zatrzymuje się i wyświetla znak zachęty `(Pdb)`, przy którym wpisujemy polecenia. Sesja z pięcioma poleceniami — `w` (ang. *where*, stos wywołań), `p n` (ang. *print*, wartość wyrażenia), `u` (ang. *up*, przejście do ramki wyżej), ponownie `p n` i `c` (ang. *continue*, wznowienie) — wygląda tak:
 
 ```{ .text .no-copy }
-> C:\...\projekt\debug-pdb.py(4)silnia()
+> c:\...\projekt\debug-pdb.py(4)silnia()
 -> breakpoint()
 (Pdb) w
-  C:\...\projekt\debug-pdb.py(9)<module>()
+  c:\...\projekt\debug-pdb.py(9)<module>()
 -> print(silnia(4))
-  C:\...\projekt\debug-pdb.py(6)silnia()
+  c:\...\projekt\debug-pdb.py(6)silnia()
 -> return n * silnia(n - 1)
-  C:\...\projekt\debug-pdb.py(6)silnia()
+  c:\...\projekt\debug-pdb.py(6)silnia()
 -> return n * silnia(n - 1)
-  C:\...\projekt\debug-pdb.py(6)silnia()
+  c:\...\projekt\debug-pdb.py(6)silnia()
 -> return n * silnia(n - 1)
-> C:\...\projekt\debug-pdb.py(4)silnia()
+> c:\...\projekt\debug-pdb.py(4)silnia()
 -> breakpoint()
 (Pdb) p n
 1
 (Pdb) u
-> C:\...\projekt\debug-pdb.py(6)silnia()
+> c:\...\projekt\debug-pdb.py(6)silnia()
 -> return n * silnia(n - 1)
 (Pdb) p n
 2
@@ -200,7 +200,7 @@ Program zatrzymuje się i wyświetla znak zachęty `(Pdb)`, przy którym wpisuje
 24
 ```
 
-Polecenie `w` wypisuje ten sam stos, który VSC pokazuje w panelu Call Stack — znak `>` oznacza ramkę bieżącą — a `u` i `d` (ang. *down*) przechodzą między ramkami, jak kliknięcie ramki w panelu. Pozostałe podstawowe polecenia to `n` (ang. *next*, odpowiednik Step Over), `s` (ang. *step*, Step Into), `l` (ang. *list*, wypisanie kodu wokół bieżącego wiersza), `q` (ang. *quit*, przerwanie programu — pdb uruchomiony przez `breakpoint()` prosi w Pythonie 3.14 o potwierdzenie pytaniem `Quitting pdb will kill the process. Quit anyway? [y/n]`) i `h` (ang. *help*, lista poleceń). Wywołanie `breakpoint()` nie powinno trafić do wersji oddawanej użytkownikom; zmienna środowiskowa `PYTHONBREAKPOINT=0` wyłącza wszystkie takie wywołania bez zmiany kodu, co chroni przed zapomnianą pułapką. Pdb przydaje się tam, gdzie nie ma VSC — na serwerze, w terminalu zdalnym — i do szybkiego sprawdzenia stanu programu bez konfigurowania czegokolwiek; do dłuższej pracy wygodniejszy jest debugger graficzny.
+Ścieżki plików pdb wypisuje w systemie Windows w postaci znormalizowanej, małymi literami. Polecenie `w` wypisuje ten sam stos, który VSC pokazuje w panelu Call Stack — znak `>` oznacza ramkę bieżącą — a `u` i `d` (ang. *down*) przechodzą między ramkami, jak kliknięcie ramki w panelu. Pozostałe podstawowe polecenia to `n` (ang. *next*, odpowiednik Step Over), `s` (ang. *step*, Step Into), `l` (ang. *list*, wypisanie kodu wokół bieżącego wiersza), `q` (ang. *quit*, przerwanie programu — pdb uruchomiony przez `breakpoint()` prosi w Pythonie 3.14 o potwierdzenie pytaniem `Quitting pdb will kill the process. Quit anyway? [y/n]`) i `h` (ang. *help*, lista poleceń). Wywołanie `breakpoint()` nie powinno trafić do wersji oddawanej użytkownikom; zmienna środowiskowa `PYTHONBREAKPOINT=0` wyłącza wszystkie takie wywołania bez zmiany kodu, co chroni przed zapomnianą pułapką. Pdb przydaje się tam, gdzie nie ma VSC — na serwerze, w terminalu zdalnym — i do szybkiego sprawdzenia stanu programu bez konfigurowania czegokolwiek; do dłuższej pracy wygodniejszy jest debugger graficzny.
 
 !!! note "Nowości Pythona 3.14"
     Python 3.14 pozwala podłączyć debugger do już działającego procesu bez

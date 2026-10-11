@@ -1,11 +1,12 @@
 # Instalacja Pythona
 
-Klasyczny instalator `python-3.x.x-amd64.exe`, pobierany dotychczas ze strony [python.org/downloads](https://www.python.org/downloads/), został wycofany na rzecz narzędzia **Python Install Manager**, które według oficjalnej dokumentacji CPythona stanowi obecnie zalecany sposób instalowania Pythona w systemie Windows.
+Klasyczny instalator `python-3.x.x-amd64.exe`, pobierany dotychczas ze strony [python.org/downloads](https://www.python.org/downloads/), został uznany za przestarzały i jest wygaszany na rzecz narzędzia **Python Install Manager**, które według oficjalnej dokumentacji CPythona stanowi obecnie zalecany sposób instalowania Pythona w systemie Windows.
 
 !!! warning "Zmiana modelu instalacji"
     Klasyczny pełny instalator `.exe` został uznany za przestarzały (ang. *deprecated*)
-    począwszy od Pythona 3.14 i nie będzie już publikowany dla Pythona 3.16 i wersji
-    nowszych. Pełny opis nowego modelu instalacji zawiera oficjalna dokumentacja:
+    począwszy od Pythona 3.14. Dla wersji 3.14 i 3.15 jest nadal publikowany, ale nie
+    będzie już udostępniany dla Pythona 3.16 i wersji nowszych. Pełny opis nowego
+    modelu instalacji zawiera oficjalna dokumentacja:
     [docs.python.org/3/using/windows.html](https://docs.python.org/3/using/windows.html)
 
 ## Nowy model instalacji
@@ -57,24 +58,26 @@ py -V:3.14t     → free-threaded Python 3.14
 
 Nowa wersja Pythona, oznaczana dwiema liczbami (np. 3.14), ukazuje się co roku w październiku. Wydania z trzecią liczbą (3.14.1, 3.14.2, …) są **wydaniami poprawkowymi**: nie wprowadzają nowych możliwości języka, lecz usuwają błędy i luki bezpieczeństwa, dlatego warto instalować je, gdy tylko staną się dostępne (aktualizację opisuje podrozdział [Ścieżki i utrzymanie interpreterów](sciezki-i-utrzymanie.md#aktualizacja-interpreterow)). Każda wersja przechodzi kolejne fazy wsparcia, które przedstawia wykres z przewodnika dla twórców Pythona (*Python Developer's Guide*), widoczny także na stronie [python.org/downloads](https://www.python.org/downloads/) w sekcji *Active Python Releases*:
 
-![Wykres okresów wsparcia wersji Pythona od 2.7 do 3.16 na osi lat 2019–2032: wersje 2.7 i 3.7–3.10 mają czerwone paski zakończonego wsparcia, wersje 3.11–3.13 są w fazie poprawek bezpieczeństwa, 3.14 w fazie poprawek błędów, 3.15 przed premierą, 3.16 w rozwoju; pionowa linia oznacza październik 2026](img/python-cykl-wydan.svg){ width="760" }
+![Wykres okresów wsparcia wersji Pythona od 2.7 do 3.16 na osi lat 2019–2032: wersje 2.7 i 3.7–3.10 mają czerwone paski zakończonego wsparcia, wersje 3.11–3.13 są w fazie poprawek bezpieczeństwa, 3.14 i 3.15 w fazie poprawek błędów, 3.16 w rozwoju; pionowa linia oznacza 9 października 2026 roku](img/python-cykl-wydan.svg){ width="760" }
 
-Każdy pasek obejmuje pełny, planowany okres wsparcia wersji, a podpis przy nim podaje jej bieżący status:
+Każdy pasek obejmuje pełny, planowany okres wsparcia wersji, a podpis przy nim podaje jej status w dniu wygenerowania wykresu:
 
 - **rozwój** (ang. *feature*) — wersja w przygotowaniu, która przyjmuje jeszcze nowe możliwości; w tej fazie ukazują się wydania testowe alfa (na wykresie 3.16),
-- **przed premierą** (ang. *prerelease*) — od pierwszego wydania beta do premiery: wydania testowe beta i kandydaci do wydania, już bez nowych możliwości (3.15),
-- **poprawki błędów** (ang. *bugfix*, zielona część paska) — około dwóch lat od premiery (dla wersji starszych niż 3.13 — półtora roku); mniej więcej co dwa miesiące ukazuje się wydanie poprawkowe z gotowymi instalatorami (3.14),
+- **przed premierą** (ang. *prerelease*) — od pierwszego wydania beta, przypadającego w maju, do październikowej premiery: wydania testowe beta i kandydaci do wydania, już bez nowych możliwości (na wykresie żadna wersja nie jest w tej fazie),
+- **poprawki błędów** (ang. *bugfix*, zielona część paska) — około dwóch lat od premiery (dla wersji starszych niż 3.13 — półtora roku); mniej więcej co dwa miesiące ukazuje się wydanie poprawkowe z gotowymi instalatorami (3.14 i 3.15),
 - **poprawki bezpieczeństwa** (ang. *security*, żółta część paska) — do pięciu lat od premiery wyłącznie poprawki bezpieczeństwa, publikowane jako kod źródłowy, bez nowych instalatorów (3.11–3.13),
 - **koniec wsparcia** (ang. *end-of-life*, czerwony pasek) — wersja nie otrzymuje już żadnych poprawek (3.10 i starsze; wsparcie wersji 3.10 zakończyło się 1 października 2026 roku).
 
-Pionowa linia wskazuje dzień, w którym wykres pobrano do notatek (2 października 2026 roku). Bieżącą wersję wykresu oraz tabelę dat premier i końca wsparcia zawiera strona [devguide.python.org/versions](https://devguide.python.org/versions/); przewodnik udostępniono na licencji CC0, więc wykres można swobodnie powielać.
+Pionowa linia wskazuje dzień, w którym przewodnik wygenerował wykres (9 października 2026 roku, dzień premiery Pythona 3.15). Bieżącą wersję wykresu oraz tabelę dat premier i końca wsparcia zawiera strona [devguide.python.org/versions](https://devguide.python.org/versions/); przewodnik udostępniono na licencji CC0, więc wykres można swobodnie powielać.
 
 !!! info "Wersja odniesienia notatek"
-    Stanem odniesienia niniejszych notatek jest **Python 3.14** (najnowsze wydanie
-    stabilne w chwili pisania: 3.14.8 z 30 września 2026 roku). Python 3.15 jest
-    w chwili pisania wersją przedpremierową — po jego premierze świeża instalacja
-    managera będzie domyślnie proponować wersję 3.15, natomiast przykłady
-    w notatkach pozostają oparte na wersji 3.14.
+    Stanem odniesienia niniejszych notatek jest **Python 3.14**; przykłady sprawdzono
+    na wydaniu poprawkowym 3.14.8 z 30 września 2026 roku. Najnowszą wersję stabilną
+    (stan na 11 października 2026 roku: Python 3.15.0 z 9 października 2026 roku)
+    manager instaluje wtedy, gdy wersji nie wskazujemy: przy instalacji samoczynnej,
+    podczas sprawdzania konfiguracji i po poleceniu `py install default` (samo
+    `py install` bez wersji kończy się błędem). Dlatego w poleceniach instalacyjnych
+    podajemy wersję 3.14 jawnie.
 
 ## Instalacja managera
 
@@ -89,6 +92,31 @@ pymanager
 - `python` — uruchamia domyślny interpreter,
 - `py` — działa analogicznie, ale dodatkowo pozwala wybierać wersje i zarządzać interpreterami,
 - `pymanager` — jednoznaczna nazwa samego managera, przydatna zwłaszcza przy migracji ze starszego programu uruchomieniowego `py.exe`.
+
+!!! warning "Wersja instalowana bez wskazania"
+    Dopóki nie zainstalowano żadnego interpretera, polecenie uruchamiające Pythona —
+    `python` albo `py` bez polecenia managera, np. `py -c "..."` — nie kończy się
+    błędem, lecz samoczynnie, bez pytania, instaluje najnowszą wersję stabilną, a nie
+    wersję 3.14, na której opiera się książka. Przed instalacją interpretera
+    korzystamy więc wyłącznie z poleceń managera opisanych dalej (`py help`,
+    `py list`, `py install`).
+
+    Każde uruchomienie aplikacji Python Install Manager z menu Start, a także
+    polecenie `py install --configure`, otwiera sprawdzanie konfiguracji (ang.
+    *configuration checker*) — serię pytań w oknie konsoli, zadawanych tylko
+    o ustawienia odbiegające od zalecanych. Pytania o zmiany ustawień systemu kończą
+    się znacznikiem `[y/N]`, czyli odpowiedzią domyślną jest „nie”. Gdy brakuje
+    najnowszej wersji Pythona, ostatnie pytanie brzmi `Install CPython now? [Y/n]`;
+    odpowiadamy na nie `n`, ponieważ odpowiedź domyślna, wybierana samym klawiszem
+    ++enter++, zainstalowałaby najnowszą wersję stabilną, a wersję 3.14 instalujemy
+    jawnie, jak opisują dalsze sekcje. Na wszystkie pytania odpowiadamy wyłącznie
+    literą `y` albo `n` (lub samym klawiszem ++enter++) — inna odpowiedź, na
+    przykład „tak”, może zostać odczytana wbrew intencji.
+
+    Gdyby najnowsza wersja została już zainstalowana, pozostanie interpreterem
+    domyślnym — wersję 3.14 wskazujemy wtedy jawnie poleceniem `py -V:3.14`, także
+    przy tworzeniu środowiska wirtualnego (podrozdział
+    [Wirtualne środowisko venv](venv.md#utworzenie-srodowiska)).
 
 ## Aliasy wykonywania aplikacji
 
@@ -223,7 +251,7 @@ Tag            Name                           Managed By  Version  Alias
 3.14t[-64]     Python 3.14.8 (free-threaded)  PythonCore  3.14.8   python3.14t[-64].exe, python3t[-64].exe
 ```
 
-Gwiazdka `*` oznacza **interpreter domyślny**. Domyślnym interpreterem powinien być wariant standardowy 3.14, a nie 3.14t. Manager domyślnie wybiera najnowszą stabilną wersję, chyba że konfiguracja stanowi inaczej — domyślny tag można ustawić opcją konfiguracyjną `default_tag` lub zmienną środowiskową `PYTHON_MANAGER_DEFAULT`.
+Gwiazdka `*` oznacza **interpreter domyślny**. Domyślnym interpreterem powinien być wariant standardowy 3.14, a nie 3.14t. Spośród zainstalowanych interpreterów manager domyślnie wybiera najnowszą wersję stabilną, chyba że konfiguracja stanowi inaczej — domyślny tag można ustawić opcją konfiguracyjną `default_tag` lub zmienną środowiskową `PYTHON_MANAGER_DEFAULT`.
 
 ## Jawne wskazywanie wersji
 

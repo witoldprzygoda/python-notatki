@@ -48,9 +48,10 @@ Poniższe tabele zbierają moduły, które pojawiły się dotąd w książce, or
 |---|---|---|
 | `json` | zapis i odczyt danych w formacie JSON | dalsze rozdziały |
 | `pathlib`, `os` | ścieżki, pliki i katalogi, informacje o systemie | dalsze rozdziały |
-| `datetime`, `time` | daty i czas, pomiar czasu wykonania | dalsze rozdziały |
-| `statistics` | średnia, mediana, odchylenie standardowe | dalsze rozdziały |
+| `time` | pomiar czasu wykonania, wstrzymanie programu | dalsze rozdziały |
 | `re` | wyrażenia regularne | część „Python Zastosowania”, [rozdział 19](../zastosowania/19-re/index.md) |
+
+Do często używanych należą także moduły `datetime` (daty i czas) oraz `statistics` (średnia, mediana, odchylenie standardowe); część „Python Podstawy” ich nie omawia, a ich możliwości opisuje dokumentacja biblioteki standardowej.
 
 !!! note "Wyrażenia regularne"
     Moduł `re` implementuje **wyrażenia regularne** (ang. *regular expressions*)
@@ -86,7 +87,7 @@ print(sys.getrecursionlimit())
 1000
 ```
 
-Wartość `1000` jest domyślnym ustawieniem CPythona — szczegółem implementacyjnym, nie gwarancją języka — a rzeczywista głębokość dostępna dla programu jest mniejsza, bo do limitu liczą się wszystkie aktywne ramki, jak wyjaśniliśmy w rozdziale 6. Limit można zmienić funkcją `sys.setrecursionlimit(limit)`. Dokumentacja wymienia dwa zastrzeżenia: zbyt wysoki limit może doprowadzić do awarii interpretera (limit istnieje właśnie po to, by chronić stos języka C przed przepełnieniem), a limit niższy od bieżącej głębokości wywołań powoduje natychmiastowy `RecursionError`. W tej książce z funkcji tej nie korzystamy: rekurencja poprawna osiąga przypadek bazowy po liczbie kroków wynikającej z danych, a zadanie wymagające tysięcy poziomów zapisujemy iteracyjnie, jak ustaliliśmy w rozdziale 6.
+Wartość `1000` jest domyślnym ustawieniem CPythona — szczegółem implementacyjnym, nie gwarancją języka — a rzeczywista głębokość dostępna dla programu jest mniejsza, bo do limitu liczą się wszystkie aktywne ramki, jak wyjaśniliśmy w rozdziale 6. Limit można zmienić funkcją `sys.setrecursionlimit(limit)`. Dokumentacja wymienia dwa zastrzeżenia: zbyt wysoki limit może doprowadzić do awarii interpretera (limit istnieje właśnie po to, by chronić stos języka C przed przepełnieniem), a limit niższy od bieżącej głębokości wywołań powoduje natychmiastowy `RecursionError`. W CPythonie 3.14 zbyt głęboka rekurencja przechodząca przez funkcje języka C — na przykład funkcja wywołująca samą siebie za pośrednictwem `map()` przy podwyższonym limicie — kończy się zwykle wyjątkiem `RecursionError` z komunikatem `Stack overflow (used … kB)`, zamiast doprowadzić do awarii interpretera; dokumentacja nie gwarantuje jednak, że ochrona stosu języka C obejmuje każdy przypadek, dlatego pierwsze zastrzeżenie pozostaje w mocy. W tej książce z funkcji tej nie korzystamy: rekurencja poprawna osiąga przypadek bazowy po liczbie kroków wynikającej z danych, a zadanie wymagające tysięcy poziomów zapisujemy iteracyjnie, jak ustaliliśmy w rozdziale 6.
 
 ## Kolejka dwustronna `deque`
 
@@ -264,6 +265,6 @@ AttributeError: can't set attribute
 
 Do pola sięgamy przez nazwę (`p.x`) albo, jak w zwykłej krotce, przez indeks (`p[0]`); rozpakowanie `x, y = p` działa tak samo jak w sekcji [Pakowanie i rozpakowywanie](../05-typy-zlozone/krotka.md#pakowanie-i-rozpakowywanie), a reprezentacja wypisuje nazwy pól. Wynik `isinstance(p, tuple)` potwierdza, że `Punkt` jest podklasą krotki: obiekt `p` jest krotką we wszystkich kontekstach, w których krotki są wymagane — jako klucz słownika, element zbioru czy argument funkcji przyjmującej sekwencję. Z krotki dziedziczy też niemodyfikowalność: próba przypisania `p.x = 5` kończy się błędem `AttributeError`, tak jak `p[0] = 5` zakończyłoby się błędem `TypeError` dla każdej krotki. Nazwy pól można podać także jednym łańcuchem rozdzielonym spacjami, `namedtuple("Punkt", "x y")`; obie formy są równoważne. Nowy typ ma ponadto kilka metod pomocniczych o nazwach z pojedynczym podkreśleniem, wśród nich `_replace()`, zwracającą nową krotkę ze zmienionym polem, i `_asdict()`, zwracającą słownik pól; opisuje je dokumentacja.
 
-Krotka z nazwanymi polami jest najprostszym w Pythonie sposobem reprezentowania rekordu danych — niemodyfikowalnego, lekkiego, z czytelnym dostępem do pól. Język oferuje także inne mechanizmy, w szczególności **klasy danych** (ang. *data classes*) z pełną kontrolą nad polami, wartościami domyślnymi i modyfikowalnością; omawiamy je w podrozdziale [Klasy danych — dataclass, NamedTuple i Enum](../12-oop-zaawansowane/klasy-danych.md) rozdziału 12. Moduł `collections` zawiera również typ `OrderedDict` — słownik pamiętający kolejność wstawiania z czasów, gdy zwykły `dict` jej nie gwarantował — dziś potrzebny jedynie w wyspecjalizowanych zastosowaniach.
+Krotka z nazwanymi polami jest najprostszym w Pythonie sposobem reprezentowania rekordu danych — niemodyfikowalnego, lekkiego, z czytelnym dostępem do pól. Język oferuje także inne mechanizmy, w szczególności **klasy danych** (ang. *data classes*) z pełną kontrolą nad polami, wartościami domyślnymi i modyfikowalnością; omawiamy je w podrozdziale [Klasy danych — dataclass, NamedTuple i Enum](../12-oop-zaawansowane/klasy-danych.md) rozdziału 12. Moduł `collections` zawiera również typ `OrderedDict` — słownik pamiętający kolejność wstawiania z czasów, gdy zwykły `dict` jej nie gwarantował. Od Pythona 3.7 kolejność wstawiania gwarantuje także zwykły słownik, więc `OrderedDict` jest potrzebny jedynie w wyspecjalizowanych zastosowaniach.
 
 Cztery poznane typy — `deque`, `Counter`, `defaultdict` i `namedtuple` — są przykładem tego, jak biblioteka standardowa rozszerza typy wbudowane: nie zastępują listy, słownika ani krotki, lecz obsługują ich typowe zastosowania bez powtarzania tego samego kodu pomocniczego. W następnym podrozdziale tę samą rolę wobec funkcji z rozdziału 6 spełnia moduł `functools`.

@@ -80,8 +80,9 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   gałąź przyjmująca zmiany z `dev` jednokierunkowo — do rekomendacji po
   analizie metody. Katalog `slajdy/` jest już niedozwolony na `dev`
   i `master` (`scripts/check_book_only.py`).
-- **Stan:** do omówienia; prace ruszą po dalszych wskazówkach autora
-  (3 X 2026).
+- **Stan:** w toku na osieroconej gałęzi `slajdy`; talie wykładów W01–W08
+  i laboratorium L01 autor przyjął 11 X 2026, dalsze talie powstaną na jego
+  polecenie (11 X 2026).
 
 ### Przekierowanie `2>` w Windows PowerShell 5.1
 
@@ -156,134 +157,32 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   `(-1)**znak * 2**wykładnik * mantysa` albo wzór matematyczny w prozie.
 - **Stan:** do decyzji autora (4 X 2026).
 
-### Rozdział 1 a stan z 5 X 2026 (sprawdzenie przy laboratorium 1)
+### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 
-- **Miejsce:** `docs/01-instalacja/instalacja.md`, `sciezki-i-utrzymanie.md`,
-  `konfiguracja.md`, `ai-tools.md` (rewizja `67bffc8`).
-- **Opis:** przy przygotowaniu nowej wersji laboratorium 1 (talia L01 na
-  gałęzi `slajdy`) sprawdzono w źródłach pierwotnych stan narzędzi z 5 X 2026.
-  Wykryto miejsca nieaktualne albo nieścisłe:
-    1. `instalacja.md`, w. 3: klasyczny instalator „został wycofany” — jest
-       przestarzały (ang. *deprecated*) i nadal publikowany dla 3.14 i 3.15
-       (python.org: „Or get the standalone installer for Python 3.14.8”);
-       ramka ostrzeżenia poniżej jest poprawna. Propozycja: „uznany za
-       przestarzały i wygaszany”.
-    2. `instalacja.md` i `sciezki-i-utrzymanie.md`: wyniki `py list`
-       i `py list --online --one` bez kolumny Alias (manager 26.3) — poprawione
-       w commicie `39ce8cc`.
-    3. `instalacja.md`, w. 74–76, ramka „Wersja odniesienia notatek”: zdanie
-       o 3.15 jako wersji przedpremierowej zdezaktualizuje się po wydaniu
-       3.15.0, planowo 9 X 2026 (PEP 790); dotyczy też wykresu
-       `img/python-cykl-wydan.svg` i jego tekstu alternatywnego. Brak opisu
-       kreatora pierwszego uruchomienia (`py install --configure`): po
-       wydaniu 3.15 domyślna odpowiedź Y na „Install CPython now?” zainstaluje
-       3.15, a polecenie `python` bez zainstalowanego interpretera — najnowszą
-       wersję samoczynnie; `py install 3.15` instaluje do tego czasu wersję
-       kandydującą 3.15.0rc3 (znacznik `3.15-dev`).
-    4. `konfiguracja.md`, w. 153: automatyczną aktywację `.venv` w terminalu
-       reguluje od VII 2026 ustawienie
-       `python-envs.terminal.autoActivationType` (Python Environments jako
-       domyślne, VS Code 1.131); `python.terminal.activateEnvironment` działa
-       już tylko z wartością `false`.
-    5. `konfiguracja.md`, w. 135: „Terminal → New Terminal (lub
-       ++ctrl+grave++)” — ta pozycja menu ma skrót ++ctrl+shift+grave++,
-       a ++ctrl+grave++ pokazuje i ukrywa panel terminala.
-    6. `konfiguracja.md`, instalacja rozszerzeń: brak informacji, że
-       rozszerzenie „Python” doinstalowuje Pylance, Python Debugger i Python
-       Environments (pakiet rozszerzeń) — luka, nie błąd.
-    7. `ai-tools.md`, w. 47: przy sugestii następnej zmiany pierwszy ++tab++
-       przenosi kursor do proponowanego miejsca, drugi przyjmuje zmianę.
-    8. `ai-tools.md`, w. 29: „Copilot Free z miesięcznymi limitami podpowiedzi
-       i zapytań” — od 1 VI 2026 czat i agenci zużywają pulę kredytów AI, a nie
-       liczbę zapytań; plany Free i Student mają tylko model Auto.
-    9. `ai-tools.md`, sekcja „Czat i agenci”: opis Ask, Plan, Agent i Keep/Undo
-       dotyczy sesji Local; od VS Code 1.140 domyślnym celem sesji może być
-       silnik Copilot, w którym zmiany zapisują się bez Keep/Undo — wystarczy
-       zdanie o wyborze Local.
-    10. `ai-tools.md`, w. 71: odnośnik
-        `https://code.visualstudio.com/docs/copilot/overview` przekierowuje na
-        `https://code.visualstudio.com/docs/agents/overview`.
-- **Źródła:** zestawienie faktów z 5 X 2026 (dokumentacja python.org,
-  docs.python.org, code.visualstudio.com, docs.github.com, kod VS Code 1.140)
-  oraz zrzuty z VS Code 1.140 z zalogowanym Copilotem. Książka poprawnie
-  pomija `@workspace`, tryb Edit, `/optimize`, `/comment`, `/terminal`,
-  ++alt+backslash++ i ++ctrl+enter++.
-- **Propozycja:** poprawki na osobnej gałęzi `content/*`; punkt 3 najlepiej
-  po wydaniu 3.15.0, razem z pozycjami z sekcji „Do wykonania przy przejściu
-  na Pythona 3.15” (w tym „Narzędzia AI”).
-- **Stan:** do omówienia (5 X 2026).
-
-### Rozdział 7: pułapki importu i układ płaski (sprawdzenie przy talii W06)
-
-- **Miejsce:** `docs/07-moduly/moduly-i-import.md` (sekcja „Pułapki importu”),
-  `docs/07-moduly/struktura-projektu.md` (akapit o układzie `src`).
-- **Opis:** przy przygotowaniu talii W06 przykłady rozdziału uruchomiono
-  w kolejności książki na CPythonie 3.14.8:
-    1. Plik `random.py` z pierwszej pułapki importu zostaje w katalogu
-       `projekt`. Późniejsze `python -m pytest` w tym katalogu (strona
-       „Struktura projektu”) kończy się błędem `ImportError: cannot import
-       name 'Random' from 'random'`, bo pytest korzysta z modułu `tempfile`,
-       a ten importuje `random`.
-    2. Zdanie o imporcie cyklicznym („interpreter nie odróżnia obu sytuacji”)
-       jest zbyt ogólne: podpowiedź o zmianie nazwy pliku pojawia się tylko
-       wtedy, gdy moduł z cyklu leży w katalogu z pierwszej pozycji
-       `sys.path`; w pakiecie 3.14.8 wypisuje jednoznaczny komunikat
-       „partially initialized module … (most likely due to a circular
-       import)”. Tekst podpowiedzi różni się też od tego z pułapki
-       `random.py`.
-    3. Zdanie „Wystarczy uruchomić program z innego miejsca, by import
-       zawiódł” przeczy przykładowi `python projekt\program.py`, który
-       z katalogu nadrzędnego działa (katalog skryptu trafia do `sys.path`).
-       Import zawodzi przy innym katalogu bieżącym albo innym punkcie wejścia
-       (`python -c`, `python -m`, konsola, testy).
-- **Propozycja:** (1) pułapkę `random.py` wykonujemy w osobnym podkatalogu
-  (tak robi talia W06) albo dopisujemy usunięcie pliku utworzonego przez
-  przykład wraz z uzasadnieniem; (2) „podobną podpowiedź” i jedno zdanie
-  o komunikacie w pakiecie; (3) przeredagowanie zdania o katalogu roboczym.
-  Poprawki na gałęzi `content/*`.
-- **Stan:** do omówienia (10 X 2026).
-
-### Rozdziały 7 i 8: uwagi z talii W07 i W08
-
-- **Miejsce:** `docs/07-moduly/` (`biblioteka-standardowa.md`,
-  `functools.md`, `itertools.md`) i `docs/08-wyjatki/`
-  (`obsluga-wyjatkow.md`, `styl-i-testowanie.md`, `with-i-contextlib.md`,
-  `logging.md`, `diagnostyka.md`).
-- **Opis:** przy przygotowaniu talii W07 i W08 przykłady uruchomiono na
-  CPythonie 3.14.8; niezależni recenzenci potwierdzili poniższe miejsca:
-    1. `itertools.md`, `groupby()`: proza mówi, że funkcja klucza jest tą
-       samą funkcją, którą podajemy `sorted()`, a program sortuje
-       `sorted(slowa)` bez klucza (działa, bo sortowanie całych słów porządkuje
-       je także według pierwszej litery).
-    2. `functools.md`, w. 30: „kilkaset wywołań” — dla `fib(100)` jest ich
-       199 (98 trafień i 101 obliczeń).
-    3. `biblioteka-standardowa.md`: ostrzeżenie, że zbyt wysoki limit
-       rekurencji grozi awarią interpretera, jest zgodne z dokumentacją, ale
-       w 3.14.8 sprawdzone przypadki (rekurencja przez funkcje C) kończą się
-       `RecursionError: Stack overflow …`; tabela modułów wymienia
-       `statistics` i `datetime` jako omawiane w dalszych rozdziałach, choć
-       część „Python Podstawy” do nich nie wraca (obserwacja).
-    4. `obsluga-wyjatkow.md` i `styl-i-testowanie.md`: `isdigit()` nie jest
-       po prostu „węższe” od `int()` — `"²".isdigit()` daje `True`, a
-       `int("²")` zgłasza `ValueError` (podobnie `"①"`).
-    5. `styl-i-testowanie.md`, w. 158: „wyjątek innego typu … kończy test
-       błędem” — pytest zgłasza taki test jako niezaliczony (F), nie jako
-       błąd (E); opis `pytest.raises()` sugeruje menedżer oparty na
-       generatorze, a jest to klasa, której `__exit__()` zwraca wartość
-       prawdziwą.
-    6. `with-i-contextlib.md`, w. 118: „dokładnie jedną instrukcję `yield`” —
-       reguła dotyczy wykonania: `yield` w gałęziach `if`/`else` działa,
-       drugi wykonany `yield` daje `RuntimeError: generator didn't stop`,
-       brak wykonanego — `generator didn't yield`; ponowne użycie menedżera
-       zgłasza `AttributeError: '_GeneratorContextManager' object has no
-       attribute 'args'` (uzupełnienie opcjonalne).
-    7. `logging.md`: „kolejne `basicConfig()` nic nie zmienia” nie dotyczy
-       wywołania z `force=True`.
-    8. `diagnostyka.md`: pdb w Windows wypisuje ścieżkę małymi literami
-       (`c:\…`), nie `C:\…` (kosmetyczne).
-- **Propozycja:** poprawki na gałęzi `content/*`; slajdy W07 i W08 pokazują
-  już stan rzeczywisty.
-- **Stan:** do omówienia (10 X 2026).
+- **Miejsce i opis:** zauważone przy recenzji gałęzi `content/uwagi-z-talii`:
+    1. `docs/01-instalacja/ai-tools.md`, sekcja „Czat i agenci”: „`#` —
+       dołączenie pliku (`#file`) albo całego projektu (`#codebase`)”. Bieżąca
+       dokumentacja VS Code
+       ([tools-reference](https://code.visualstudio.com/docs/agents/reference/tools-reference),
+       10/7/2026) opisuje plik w kontekście jako `#<file>` — znak `#` i nazwę
+       pliku wybraną z listy — i nie wymienia odwołania `#file`.
+    2. `ai-tools.md`, ramka „Cel sesji: Local”: według recenzji eksperyment
+       `chat.editor.localAgent.enabled` może w VS Code 1.141.0 ukryć pozycję
+       Local na liście celów sesji — obserwacja, niesprawdzona.
+    3. `docs/07-moduly/functools.md`, akapit po `fib-cache.py`: zdanie „Same
+       liczby są szczegółem implementacji CPythona” jest dyskusyjne — liczby
+       trafień i obliczeń wynikają z algorytmu i z gwarantowanej przez język
+       kolejności obliczania `fib(n - 1) + fib(n - 2)`.
+    4. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
+       wydobycie pierwszego wykresu `release-cycle-chart` ze strony
+       devguide.python.org/versions; skrypt wykonujący tę operację istnieje
+       tylko poza repozytorium.
+- **Propozycja:** 1 — „`#` — dołączenie pliku (`#` i nazwa pliku) albo całego
+  projektu (`#codebase`)”; 2 — sprawdzić w VS Code przy najbliższym przeglądzie
+  narzędzi AI; 3 — usunąć zdanie albo zastąpić je stwierdzeniem, że liczby
+  wynikają z kolejności wywołań; 4 — dodać skrypt do `scripts/` na gałęzi
+  `infra/*`.
+- **Stan:** do omówienia (11 X 2026).
 
 ## Do wykonania przy przejściu na Pythona 3.15
 
@@ -515,3 +414,40 @@ pisze do panelu Output, klawisz F5 pyta najpierw o debugger, **Select Kernel**
 proponuje najpierw **Python Environments…**, mypy zgłasza błąd typu,
 a podpowiedzi Pylance pokazuje krótki listing bez adnotacji (branch
 `infra/zrzuty-ekranu`).
+
+### Rozdział 1 a stan z 5 X 2026 (11 X 2026)
+
+Rozdział 1 opisuje stan narzędzi po wydaniu Pythona 3.15.0 i managera 26.4
+(9 X 2026); bazą notatek pozostaje Python 3.14. Klasyczny instalator jest
+przestarzały i wygaszany, nadal publikowany dla 3.14 i 3.15. Ramka „Wersja
+odniesienia notatek” nie zawiera już sformułowań zależnych od daty pisania,
+a nowa ramka ostrzeżenia opisuje drogi, którymi manager instaluje najnowszą
+wersję bez jej wskazania (instalacja samoczynna, sprawdzanie konfiguracji,
+`py install default`). Wykres cyklu wydań pobrano ponownie z devguide;
+akapit o historii języka i sekcja „Python 3.15” w rozdziale 16 podają datę
+wydania 3.15, a zdania o 3.15 w rozdziałach 9 i 13 oraz w części „Python
+Zastosowania” opisują stan po premierze. Ustawienie automatycznej aktywacji
+środowiska, skróty terminala, pakiet rozszerzeń Python, sugestie następnej
+zmiany, plany Copilota (kredyty AI) i cel sesji czatu (**Local**) opisano
+według dokumentacji z 11 X 2026 (branch `content/uwagi-z-talii`, przyjęty
+przez autora 11 X 2026).
+
+### Rozdział 7: pułapki importu i układ płaski (11 X 2026)
+
+Pułapka `random.py` działa w osobnym podkatalogu `projekt\pulapka`, więc nie
+psuje późniejszego `python -m pytest`; tekst wyjaśnia, dlaczego. Zdanie
+o imporcie cyklicznym rozróżnia komunikat dla modułów z katalogu
+`sys.path[0]` i dla importu z podmodułu pakietu, a zdanie o uruchamianiu
+„z innego miejsca” wymienia przypadki, w których import rzeczywiście zawodzi
+(branch `content/uwagi-z-talii`, przyjęty przez autora 11 X 2026).
+
+### Rozdziały 7 i 8: uwagi z talii W07 i W08 (11 X 2026)
+
+Poprawiono: opis funkcji klucza w `groupby()`, liczbę wywołań `fib(100)`,
+zdanie o limicie rekurencji i tabelę modułów (`datetime` i `statistics` poza
+zakresem części), `OrderedDict` bez „dziś”, `math.prod()` jako funkcję modułu
+`math`, różnicę `isdigit()` i `int()` (`"²"`), wynik testu z wyjątkiem innego
+typu (niezaliczony), budowę `pytest.raises()`, regułę wykonania jednej
+instrukcji `yield` w `@contextmanager`, działanie `basicConfig(force=True)`
+oraz zapis ścieżek w sesji pdb. Wszystkie wyniki sprawdzono na CPythonie
+3.14.8 (branch `content/uwagi-z-talii`, przyjęty przez autora 11 X 2026).

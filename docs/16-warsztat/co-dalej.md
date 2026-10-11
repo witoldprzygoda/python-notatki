@@ -68,15 +68,15 @@ Rozdział [14. NumPy i Matplotlib](../14-numpy-matplotlib/index.md) otworzył ś
 
 ## Python 3.15
 
-Wydanie 3.15.0 zapowiedziano na 1 października 2026 roku ([PEP 790](https://peps.python.org/pep-0790/)); w chwili pisania (2 października 2026 roku) Python 3.15 jest nadal wersją przedpremierową — dostępny jest drugi kandydat do wydania, 3.15.0rc2. Zmiany, które dotykają treści książki:
+Wydanie 3.15.0 ukazało się 9 października 2026 roku ([PEP 790](https://peps.python.org/pep-0790/)); książka pozostaje przy wersji 3.14, na której sprawdzono przykłady. Zmiany, które dotykają treści książki:
 
-- **UTF-8 jako domyślne kodowanie** ([PEP 686](https://peps.python.org/pep-0686/)) — tryb UTF-8 z rozdziału [9. Wejście, wyjście i pliki](../09-wejscie-wyjscie/pliki-tekstowe.md#kodowanie) staje się domyślny; `open()` bez `encoding=` czyta i zapisuje UTF-8 także na Windows.
+- **UTF-8 jako domyślne kodowanie** ([PEP 686](https://peps.python.org/pep-0686/)) — tryb UTF-8 z rozdziału [9. Wejście, wyjście i pliki](../09-wejscie-wyjscie/pliki-tekstowe.md#kodowanie) jest domyślny; `open()` bez `encoding=` czyta i zapisuje UTF-8 także na Windows.
 - **Jawne leniwe importy** ([PEP 810](https://peps.python.org/pep-0810/)) — instrukcja `lazy import` odkłada wczytanie modułu do pierwszego użycia, skracając start programów.
 - **Rozpakowanie w złożeniach** ([PEP 798](https://peps.python.org/pep-0798/)) — `[*lista for lista in listy]` spłaszcza listę list bez zagnieżdżonej pętli.
 - **Typ `frozendict`** ([PEP 814](https://peps.python.org/pep-0814/)) — niemodyfikowalny słownik — haszowalny, gdy haszowalne są jego wartości — odpowiednik `frozenset` z rozdziału 5.
 - **Pakiet `profiling`** ([PEP 799](https://peps.python.org/pep-0799/)) — profiler próbkujący zapowiedziany w rozdziale 13.
 
-Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; po premierze nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego.
+Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego. Jako najnowsza wersja stabilna spośród zainstalowanych staje się on wtedy interpreterem domyślnym poleceń `python` i `py` poza aktywnym środowiskiem wirtualnym, dlatego do dalszej pracy z wersją 3.14 wskazujemy ją jawnie (`py -V:3.14`), jak w rozdziale 1. Istniejące środowiska wirtualne pozostają przy interpreterze, z którego je utworzono.
 
 ## Ściągawka narzędzi
 

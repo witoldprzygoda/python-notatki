@@ -20,7 +20,7 @@ Bardzo wiele osób używa obecnie **Visual Studio Code** (produktu firmy Microso
 ### Instalacja i rozszerzenia
 
 1. Instalujemy VSC: [code.visualstudio.com/download](https://code.visualstudio.com/download)
-2. Uruchamiamy i dodajemy rozszerzenia **Extensions** (++ctrl+shift+x++): **Python** (IntelliSense od Microsoft)
+2. Uruchamiamy i dodajemy rozszerzenia **Extensions** (++ctrl+shift+x++): **Python** (IntelliSense od Microsoft); rozszerzenie to zawiera pakiet rozszerzeń (ang. *extension pack*) i domyślnie instaluje razem z sobą rozszerzenia **Pylance**, **Python Debugger** i **Python Environments**
 3. W ten sam sposób instalujemy linter: w **Extensions** wyszukujemy **Pylint** (wydawca Microsoft) i instalujemy
 
 **Linter** to moduł sprawdzający i podpowiadający składnię. Dawniej wybierało się go poleceniem palety *Python: Select Linter* — polecenie to zostało wycofane, a lintery są obecnie osobnymi rozszerzeniami VSC. Po zainstalowaniu rozszerzenia Pylint linter jest od razu aktywny, bez dodatkowej konfiguracji.
@@ -131,8 +131,10 @@ pierwszy program
     w prawym górnym rogu edytora wykonuje plik w terminalu zintegrowanym.
 
 !!! tip "Terminal w VSC"
-    Jeżeli sekcja terminala w dolnej części okna zostanie zamknięta, otwieramy ją
-    ponownie: **Terminal → New Terminal** (lub skrótem klawiszowym ++ctrl+grave++).
+    Jeżeli panel terminala w dolnej części okna zostanie zamknięty, przywracamy go
+    skrótem klawiszowym ++ctrl+grave++, który pokazuje i ukrywa ten panel. Nowy
+    terminal tworzy polecenie menu **Terminal → New Terminal** (skrót
+    ++ctrl+shift+grave++).
 
 Warte odnotowania jest również uruchamianie w trybie debugowania: klawisz ++f5++ wykonuje program pod kontrolą **debuggera**, z możliwością wstawiania pułapek (ang. *breakpoint*) zatrzymujących wykonanie we wskazanej linii. Szersze omówienie debugowania zawiera sekcja [Debugger w Visual Studio Code](../08-wyjatki/diagnostyka.md#debugger-w-visual-studio-code).
 
@@ -150,7 +152,7 @@ Wybierzmy **Create Virtual Environment**, a następnie menedżera środowiska **
 
 Po wskazaniu wersji interpretera zostanie lokalnie utworzony podkatalog `.venv` wraz z wirtualnym środowiskiem dla danego projektu. Jeżeli projekt ma już katalog `.venv` — na przykład utworzony poleceniami z podrozdziału [Wirtualne środowisko venv](venv.md) — rozszerzenie pyta, co z nim zrobić: wybieramy **Use Existing**, które wskazuje istniejące środowisko bez zmian, a nie **Delete and Recreate**, które usuwa je razem z zainstalowanymi pakietami.
 
-Po wskazaniu interpretera pochodzącego ze środowiska Visual Studio Code aktywuje `.venv` automatycznie w każdym nowo otwieranym terminalu zintegrowanym — dodatkowa konfiguracja nie jest potrzebna. Odpowiada za to domyślnie włączona opcja `python.terminal.activateEnvironment`.
+Po wskazaniu interpretera pochodzącego ze środowiska Visual Studio Code aktywuje `.venv` automatycznie w każdym nowo otwieranym terminalu zintegrowanym — dodatkowa konfiguracja nie jest potrzebna. Odpowiada za to ustawienie `python-envs.terminal.autoActivationType` rozszerzenia Python Environments, którego wartość domyślna `command` oznacza aktywację przez wykonanie polecenia w terminalu, a wartość `off` wyłącza aktywację. Dawne ustawienie `python.terminal.activateEnvironment` ma znaczenie już tylko z wartością `false`, która również wyłącza aktywację.
 
 !!! note "Wygląd a wersja VSC"
     Szczegóły wyglądu okien Visual Studio Code mogą się nieznacznie różnić między

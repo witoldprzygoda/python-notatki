@@ -52,7 +52,7 @@ WARNING __main__: brak pliku z ustawieniami, przyjmuję domyślne
 ERROR __main__: nie udało się zapisać wyniku
 ```
 
-Próg `INFO` przepuścił trzy komunikaty i odrzucił `debug()`. Wpisy trafiają na strumień błędów, wprowadzony w podrozdziale [Obsługa wyjątków](obsluga-wyjatkow.md#program-bez-obsugi-i-z-obsuga), więc nie mieszają się z wynikami wypisywanymi przez `print()` na standardowe wyjście — po przekierowaniu wyjścia programu do pliku dziennik pozostaje w konsoli. Wywołanie `basicConfig()` musi poprzedzać pierwszy komunikat. Funkcje modułu, jak `logging.warning()`, przy pierwszym użyciu same wywołują `basicConfig()` bez argumentów, jeśli dziennik główny nie ma jeszcze konfiguracji, a kolejne `basicConfig()` nic już nie zmienia:
+Próg `INFO` przepuścił trzy komunikaty i odrzucił `debug()`. Wpisy trafiają na strumień błędów, wprowadzony w podrozdziale [Obsługa wyjątków](obsluga-wyjatkow.md#program-bez-obsugi-i-z-obsuga), więc nie mieszają się z wynikami wypisywanymi przez `print()` na standardowe wyjście — po przekierowaniu wyjścia programu do pliku dziennik pozostaje w konsoli. Wywołanie `basicConfig()` musi poprzedzać pierwszy komunikat. Funkcje modułu, jak `logging.warning()`, przy pierwszym użyciu same wywołują `basicConfig()` bez argumentów, jeśli dziennik główny nie ma jeszcze konfiguracji, a kolejne `basicConfig()` wywołane bez argumentu `force=True` nic już nie zmienia:
 
 ```python title="konfiguracja-za-pozno.py"
 import logging
@@ -68,7 +68,7 @@ WARNING:root:pierwszy komunikat
 WARNING:root:drugi komunikat
 ```
 
-Ani próg `DEBUG`, ani nowy format nie zadziałały — pierwszy komunikat już ustalił konfigurację domyślną; jest to najczęstsza przyczyna „niedziałającego” `basicConfig()`. Dziennik nazwany, utworzony przez `getLogger()`, nie konfiguruje niczego sam: bez `basicConfig()` wypisuje na strumień błędów sam komunikat, bez poziomu i nazwy, a późniejsze `basicConfig()` działa normalnie. Niezależnie od odmiany reguła jest jedna: konfigurację ustalamy na początku programu.
+Ani próg `DEBUG`, ani nowy format nie zadziałały — pierwszy komunikat już ustalił konfigurację domyślną; jest to najczęstsza przyczyna „niedziałającego” `basicConfig()`. Argument `force=True` sprawia, że `basicConfig()` najpierw usuwa i zamyka dotychczasowe procedury obsługi dziennika głównego (ang. *handlers*) — obiekty kierujące wpisy na przykład na strumień błędów albo do pliku — a potem konfiguruje dziennik według pozostałych argumentów; próg ważności zmienia się przy tym tylko wtedy, gdy podano argument `level=`. Programu, który konfiguruje dziennik na początku, nie trzeba w ten sposób poprawiać. Dziennik nazwany, utworzony przez `getLogger()`, nie konfiguruje niczego sam: bez `basicConfig()` wypisuje na strumień błędów sam komunikat, bez poziomu i nazwy, a późniejsze `basicConfig()` działa normalnie. Niezależnie od odmiany reguła jest jedna: konfigurację ustalamy na początku programu.
 
 ## Poziomy komunikatów
 
