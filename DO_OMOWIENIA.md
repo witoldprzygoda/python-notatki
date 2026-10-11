@@ -117,27 +117,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   rozważyć scenariusz dla `vsc-environment-manager.png`.
 - **Stan:** do wykonania na gałęzi `infra/*` (4 X 2026).
 
-### Drobne poprawki redakcyjne spoza zakresu poprawek z talii
-
-- **Miejsce i opis:**
-    1. `docs/11-model-danych/deskryptory.md`, w. 7: „Python zamiast sięgać do
-       słownika instancji wywołuje…” — brak przecinków wokół wtrącenia
-       z „zamiast” (analogiczne miejsce w `zasieg-nazw-i-domkniecia.md`
-       poprawiono w commicie `39ce8cc`);
-    2. `docs/zastosowania/07-ml-pojecia/warsztat.md`, w. 73: „estymator,
-       który zamiast przewidywać przekształca cechy” — jak wyżej;
-    3. `docs/02-konsola/pierwszy-skrypt.md`, w. 53: „wielolinijkowego
-       łańcucha znakowego” — pozostałe strony piszą „wielowierszowy”;
-    4. `docs/03-nazwy-typy/typy-proste.md`, w. 170: wzór
-       `(-1)^znak * 2^wykładnik * mantysa` używa znaku `^`, który w Pythonie
-       oznacza bitową alternatywę wykluczającą (XOR); komentarze przy `**`
-       poprawiono w `39ce8cc` z tego samego powodu.
-- **Propozycja:** 1–2 — „Python, zamiast sięgać do słownika instancji,
-  wywołuje…”, „estymator, który, zamiast przewidywać, przekształca cechy”
-  (albo przebudowa zdań bez wtrącenia); 3 — „wielowierszowego”; 4 — zapis
-  `(-1)**znak * 2**wykładnik * mantysa` albo wzór matematyczny w prozie.
-- **Stan:** do decyzji autora (4 X 2026).
-
 ### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 
 - **Miejsce i opis:** zauważone przy recenzji gałęzi `content/uwagi-z-talii`:
@@ -441,3 +420,11 @@ i wyrażenia warunkowe” (decyzja autora z 11 X 2026, wariant A), ponieważ
 trójskładnikowy. Zmieniono H1, etykietę nawigacji, spis rozdziału 4 i trzy
 odsyłacze; nazwa pliku, adres strony i identyfikatory sekcji pozostały bez
 zmian (branch `content/instrukcje-warunkowe`).
+
+### Drobne poprawki redakcyjne (11 X 2026)
+
+Przyjęte przez autora 11 X 2026: przecinki wokół wtrąceń z „zamiast”
+(`deskryptory.md`, `zastosowania/07-ml-pojecia/warsztat.md`), „wielowierszowy”
+i „w wielu wierszach” zamiast „wielolinijkowy” i „w wielu liniach”
+(`pierwszy-skrypt.md`) oraz wzór liczby zmiennoprzecinkowej z operatorem `**`
+zamiast `^` (`typy-proste.md`) (branch `content/drobne-poprawki-redakcyjne`).

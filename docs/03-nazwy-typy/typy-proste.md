@@ -167,7 +167,7 @@ True
     Ponieważ liczba znormalizowana ma zawsze postać 1.xxx…, wiodąca jedynka nie jest
     przechowywana (tzw. bit ukryty) — 52 bity zapisane jawnie dają więc 53 bity
     precyzji, wspomniane wyżej przy liczniku ułamka. Liczba to:
-    `(-1)^znak * 2^wykładnik * mantysa`. Komputer stara się przekonwertować 0.1 na
+    `(-1)**znak * 2**wykładnik * mantysa`. Komputer stara się przekonwertować 0.1 na
     najbliższy ułamek, jaki może, w postaci `J/2**N`, gdzie J i N są liczbami
     całkowitymi.
 

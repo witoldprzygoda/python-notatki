@@ -4,7 +4,7 @@ Ten podrozdział uzupełnia rozdział o mechanizm, który stoi za właściwości
 
 ## Protokół deskryptorów
 
-**Deskryptor** (ang. *descriptor*) to obiekt umieszczony jako atrybut klasy, którego własny typ definiuje przynajmniej jedną z metod `__get__(self, obiekt, wlasciciel=None)`, `__set__(self, obiekt, wartosc)` i `__delete__(self, obiekt)`. Gdy program odczytuje, przypisuje lub usuwa taki atrybut przez instancję, Python zamiast sięgać do słownika instancji wywołuje odpowiednią metodę deskryptora, przekazując jej instancję (z zastrzeżeniem dla deskryptorów bez `__set__`, omówionym w sekcji o kolejności wyszukiwania). Czwarta metoda, `__set_name__(self, wlasciciel, nazwa)`, jest wywoływana raz, przy tworzeniu klasy, i informuje deskryptor, pod jaką nazwą został w niej umieszczony:
+**Deskryptor** (ang. *descriptor*) to obiekt umieszczony jako atrybut klasy, którego własny typ definiuje przynajmniej jedną z metod `__get__(self, obiekt, wlasciciel=None)`, `__set__(self, obiekt, wartosc)` i `__delete__(self, obiekt)`. Gdy program odczytuje, przypisuje lub usuwa taki atrybut przez instancję, Python, zamiast sięgać do słownika instancji, wywołuje odpowiednią metodę deskryptora, przekazując jej instancję (z zastrzeżeniem dla deskryptorów bez `__set__`, omówionym w sekcji o kolejności wyszukiwania). Czwarta metoda, `__set_name__(self, wlasciciel, nazwa)`, jest wywoływana raz, przy tworzeniu klasy, i informuje deskryptor, pod jaką nazwą został w niej umieszczony:
 
 ```python title="sledzacy.py"
 class Sledzacy:
