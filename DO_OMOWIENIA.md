@@ -7,35 +7,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 ## Otwarte
 
-### Zależności pakietów i nowsze wersje w podrozdziale o pip
-
-- **Miejsce:** `docs/01-instalacja/pip.md` — sekcje „Przykład instalacji”
-  i „Przydatne polecenia”.
-- **Opis:** część „Python Podstawy” nie mówi, że pip instaluje razem z pakietem
-  jego zależności, ani jak sprawdzić, czy są dostępne nowsze wersje
-  zainstalowanych pakietów. Część „Python Zastosowania” omawia już numery wersji
-  i ostrzeżenia o wycofaniu (rozdział 1, `dokumentacja-bibliotek.md`, sekcja
-  „Wersje, zmiany i ostrzeżenia o wycofaniu”) oraz deklarowanie zależności
-  własnego pakietu (rozdział 17, `zaleznosci.md`).
-- **Kontekst:** przy aktualizacji do 3.14.8 nowsze wersje bibliotek zmieniły
-  swoje zależności (SQLAlchemy 2.1 nie instaluje już greenlet, FastAPI 0.142
-  dociąga opentelemetry-api). Zmiany są automatyczne i niewidoczne dla
-  czytelnika, dlatego nie opisujemy ich w treści — sprawa dotyczy wyłącznie
-  ogólnego mechanizmu.
-- **Propozycja** (szkic; liczby i wydruki do sprawdzenia na bieżącym pip przed
-  wpisaniem):
-    1. W „Przydatnych poleceniach” pozycja: `python -m pip list --outdated` —
-       wypisanie pakietów, dla których dostępne są nowsze wersje, wraz z wersją
-       zainstalowaną i najnowszą.
-    2. W „Przykładzie instalacji”, po sesji IPython, akapit: pip zainstalował
-       także kilkanaście innych pakietów — **zależności** (ang. *dependencies*)
-       IPythona; zestaw zależności należy do konkretnego wydania pakietu
-       (nowsze wydanie może z którejś zrezygnować albo wymagać nowej), a pip
-       uwzględnia to samodzielnie; dla użytkownika istotne są zmiany w działaniu
-       samego pakietu, opisywane w liście zmian (ang. *changelog*); odsyłacz do
-       rozdziału 1 części „Python Zastosowania”.
-- **Stan:** odłożone (2 X 2026).
-
 ### Zakładka „Ściągawki”
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
@@ -432,3 +403,13 @@ Rysunek `docs/01-instalacja/img/python-cykl-wydan.svg` odtwarza skrypt
 `scripts/release_cycle_chart.py`, który pobiera stronę devguide.python.org/versions
 i wycina z niej wykres bez zmian; sposób i zasadę odświeżania opisuje `ZRZUTY.md`
 (decyzja autora z 11 X 2026, branch `infra/wykres-cyklu-wydan`).
+
+### Zależności pakietów i nowsze wersje w podrozdziale o pip (12 X 2026)
+
+`docs/01-instalacja/pip.md`: po przykładzie z IPythonem akapit o zależnościach
+(pip instaluje je samodzielnie; zmiany w działaniu pakietu opisuje lista zmian)
+z odsyłaczem do „Czytania dokumentacji bibliotek” w części „Python
+Zastosowania”, a w „Przydatnych poleceniach” `python -m pip list --outdated`.
+Bez listy zależności i bez wyniku polecenia, które szybko się zmieniają
+(sprawdzone 12 X 2026: IPython 9.17.1 z 14 zależnościami, pip 26.2.1; decyzja
+autora, branch `content/pip-zaleznosci`).
