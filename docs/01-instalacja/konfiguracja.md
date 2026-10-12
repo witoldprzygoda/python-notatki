@@ -154,9 +154,9 @@ Pozycja **Quick Create** bez dalszych pytań tworzy w katalogu głównym projekt
 
 !!! warning "Projekt z istniejącym środowiskiem"
     Jeżeli projekt ma już katalog `.venv` — na przykład utworzony poleceniami z podrozdziału
-    [Wirtualne środowisko venv](venv.md) — **Quick Create** o nic nie pyta, lecz tworzy obok
-    drugie środowisko `.venv-1` i przełącza na nie projekt; pakiety zainstalowane w `.venv`
-    przestają być wtedy dostępne w VSC. Menedżer **venv** odrzuca nazwę `.venv` komunikatem
+    [Wirtualne środowisko venv](venv.md) — **Quick Create** nie zadaje pytań, lecz tworzy obok
+    drugie środowisko `.venv-1` i przełącza na nie projekt, który przestaje wtedy korzystać
+    ze środowiska `.venv`. Menedżer **venv** odrzuca nazwę `.venv` komunikatem
     *A folder with the same name already exists*. Istniejące środowisko wskazujemy więc
     na liście **Python: Select Interpreter**. Gdy rozszerzenie Python działa w dotychczasowym
     trybie (ramka „Wygląd a wersja VSC” poniżej), pyta o istniejący katalog: wybieramy
