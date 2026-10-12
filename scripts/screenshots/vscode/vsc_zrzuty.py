@@ -2,12 +2,14 @@ r"""Zrzuty ekranu Visual Studio Code do książki — sterownik działający wew
 
 Skrypt uruchamia piaskownica.py (strona hosta) jako zadanie w Piaskownicy systemu Windows;
 nie należy go uruchamiać na pulpicie hosta. Zakłada stan po wsb/przygotuj.ps1: Python 3.14
-w %LOCALAPPDATA%\Python\pythoncore-3.14-64, VS Code w %LOCALAPPDATA%\Programs\Microsoft VS Code,
+w %LOCALAPPDATA%\Python\pythoncore-3.14-64, kompilacja 3.14t zainstalowana Python Install Managerem,
+środowisko C:\projekty\moj-projekt\.venv-t, VS Code w %LOCALAPPDATA%\Programs\Microsoft VS Code,
 rozszerzenia w C:\vsc\ext, strony książki zmapowane tylko do odczytu w C:\host\docs.
 
 Użycie (w piaskownicy, interpreterem środowiska narzędzi z Playwright):
     python vsc_zrzuty.py projekty          projekty przykładowe w C:\projekty z listingów książki
-    python vsc_zrzuty.py zrzuty [ID ...]    wszystkie zrzuty albo wskazane (numery z ZRZUTY.md)
+    python vsc_zrzuty.py zrzuty [ID ...]    wszystkie zrzuty albo wskazane (klucze słownika SCENARIUSZE:
+                                            1 4 8 9 10 11 12 13 14 15 interpreter menedzer)
     python vsc_zrzuty.py proba              zrzut całego okna do C:\zrzuty-vsc\podglad (diagnostyka)
 Opcje polecenia zrzuty: --motyw="Default Light Modern" (inny motyw), --wyjscie=<katalog>
 (zamiast C:\zrzuty-vsc; obrazy trafiają do <katalog>\zrzuty i <katalog>\warianty).
@@ -19,10 +21,10 @@ przez protokół Chrome DevTools (--remote-debugging-port, Playwright connect_ov
 mysz i odczyt położenia elementów DOM. Rozmiar okna i skalę ustala emulacja metryk urządzenia:
 1280×800 punktów CSS (niektóre scenariusze — mniejsze okno) przy skali 1,5; kadry wycina
 Page.captureScreenshot. Motyw Light+ („Default Light+”), interfejs angielski, powiększenie 0 —
-tak jak wcześniejsze zrzuty VS Code w książce (vsc-select-interpreter.png,
-vsc-environment-manager.png). Ustawienia spoza książki (USTAWIENIA_BAZOWE) służą wyłącznie
-wyciszeniu powiadomień i ekranów powitalnych oraz układowi kadru; ustawienia, które podaje
-książka, dodaje dopiero scenariusz danego zrzutu.
+tak jak dwa pierwsze zrzuty VS Code w książce (vsc-select-interpreter.png,
+vsc-environment-manager.png; scenariusze interpreter i menedzer). Ustawienia spoza książki
+(USTAWIENIA_BAZOWE) służą wyłącznie wyciszeniu powiadomień i ekranów powitalnych oraz układowi
+kadru; ustawienia, które podaje książka, dodaje dopiero scenariusz danego zrzutu.
 Gotowe pliki: C:\zrzuty-vsc\zrzuty\<ścieżka względem docs>, warianty: C:\zrzuty-vsc\warianty.
 """
 import base64
@@ -137,7 +139,8 @@ def venv(katalog: Path, *pakiety: str, wymagania: Path | None = None) -> Path:
 
 
 def projekty() -> None:
-    # rozdział 1 (konfiguracja.md, venv.md): C:\projekty\moj-projekt z .venv
+    # rozdział 1 (konfiguracja.md, venv.md): C:\projekty\moj-projekt z .venv; środowisko .venv-t
+    # tworzy wcześniej wsb/przygotuj.ps1 poleceniem py z venv.md
     moj = PROJEKTY / "moj-projekt"
     moj.mkdir(parents=True, exist_ok=True)
     venv(moj)
@@ -297,21 +300,27 @@ class VSCode:
         r = self.prostokat(selektor)
         self.kadr(plik, r["x"] - margines, r["y"] - margines, r["width"] + 2 * margines, r["height"] + 2 * margines)
 
-    def kadr_listy(self, plik: Path, margines: float = 3) -> None:
+    def kadr_listy(self, plik: Path, margines: float = 3, kursor: bool = True) -> None:
         """Kadr widżetu szybkiego wyboru (quick pick) z wąskim marginesem: na czas zrzutu pod widżetem
-        leży jednolite tło w kolorze edytora, żeby w marginesie nie było fragmentów okna."""
-        self.page.evaluate("""() => {
+        leży jednolite tło w kolorze edytora, żeby w marginesie nie było fragmentów okna.
+        kursor=False ukrywa na czas zrzutu migający kursor pola tekstowego (obraz nie zależy
+        od fazy migania)."""
+        self.page.evaluate("""kursor => {
           const w = [...document.querySelectorAll('.quick-input-widget')].find(e => e.offsetParent);
           const d = document.createElement('div'); d.id = 'zrzut-tlo';
           const z = parseInt(getComputedStyle(w).zIndex) || 2550;
           d.style.cssText = `position:fixed;inset:0;background:var(--vscode-editor-background);z-index:${z - 1}`;
-          w.parentElement.insertBefore(d, w); }""")
+          w.parentElement.insertBefore(d, w);
+          if (!kursor) { const s = document.createElement('style'); s.id = 'zrzut-kursor';
+            s.textContent = '.quick-input-widget input { caret-color: transparent !important; }';
+            document.head.appendChild(s); } }""", kursor)
         self.page.wait_for_timeout(200)
         r = self.page.evaluate("""() => { const w = [...document.querySelectorAll('.quick-input-widget')]
           .find(e => e.offsetParent); const r = w.getBoundingClientRect();
           return {x: r.x, y: r.y, width: r.width, height: r.height}; }""")
         self.kadr(plik, r["x"] - margines, r["y"] - margines, r["width"] + 2 * margines, r["height"] + 2 * margines)
-        self.page.evaluate("() => document.getElementById('zrzut-tlo')?.remove()")
+        self.page.evaluate("() => { document.getElementById('zrzut-tlo')?.remove();"
+                           " document.getElementById('zrzut-kursor')?.remove(); }")
 
     def podglad(self, nazwa: str) -> None:
         self.kadr(PODGLAD / f"{nazwa}.png", 0, 0, self.szerokosc, self.wysokosc)
@@ -327,6 +336,26 @@ def proba() -> None:
         vsc.podglad("proba-okno")
         print(vsc.page.evaluate("[window.innerWidth, window.innerHeight, window.devicePixelRatio]"))
         print(vsc.page.evaluate("document.querySelector('.part.statusbar').innerText"))
+
+
+ROZGRZEWKA = DANE / "rozgrzewka.txt"
+
+
+def rozgrzewka() -> None:
+    """Sesja VS Code bez zrzutów, raz na piaskownicę, przed pierwszym scenariuszem. W pierwszej
+    sesji nowej piaskownicy rozszerzenia budują pamięci podręczne (wykrywanie interpreterów,
+    pierwsze uruchomienie linterów) i wielokrotnie odświeżają diagnostykę; w VS Code 1.141
+    dymek scenariusza 1 bywał wtedy zamykany przed zrzutem (zob. kadr_dymka)."""
+    if ROZGRZEWKA.exists():
+        return
+    folder = PROJEKTY / "moj-projekt"
+    plik = folder / "main.py"
+    zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", 'print "'))
+    with VSCode("rozgrzewka", folder, [plik], interpreter(folder), rozszerzenia=PYTHON + PYLINT + MYPY) as vsc:
+        vsc.czekaj("document.querySelector('.editor-instance .squiggly-error')", limit=180, opis="diagnostyka")
+        cisza(vsc, okres=5)
+        vsc.page.wait_for_timeout(10_000)
+    zapisz(ROZGRZEWKA, time.strftime("%Y-%m-%d %H:%M:%S\n"))
 
 
 SCENARIUSZE: dict[str, callable] = {}
@@ -386,6 +415,25 @@ def token(vsc: VSCode, tekst: str) -> dict:
     return vsc.czekaj(f"({JS_TOKEN})({json.dumps(tekst)})", opis=f"token {tekst}")
 
 
+JS_DYMEK = ("() => { const h = [...document.querySelectorAll('.monaco-hover')].find(e => e.offsetParent);"
+            " if (!h) return null; const r = h.getBoundingClientRect();"
+            " return {x: r.x, y: r.y, width: r.width, height: r.height, tekst: h.innerText}; }")
+
+# znacznik zmiany dymka: zamknięcie (klasa hidden) albo przebudowa treści po zainstalowaniu strażnika
+JS_STRAZ_DYMKA = """() => { window.__dymekZmiany = []; window.__dymekT0 = performance.now();
+  if (!window.__dymekStraz) {
+    window.__dymekStraz = new MutationObserver(zmiany => zmiany.forEach(z => {
+      const e = z.target.nodeType === 1 ? z.target : z.target.parentElement;
+      if (e?.closest('.monaco-hover') && window.__dymekZmiany.length < 10)
+        window.__dymekZmiany.push(`${(performance.now() - window.__dymekT0).toFixed(0)} ms: ${z.type}`
+          + ` ${e.className}`); }));
+    window.__dymekStraz.observe(document.body, {subtree: true, childList: true, characterData: true,
+                                                 attributes: true, attributeFilter: ['class']}); } }"""
+
+JS_POSTEP = ("!!document.querySelector('.part.statusbar .codicon-modifier-spin,"
+             " .part.statusbar .codicon-loading')")
+
+
 def najedz(vsc: VSCode, tekst: str, oczekiwane: str, limit: float = 180) -> dict:
     """Ustawia mysz nad tokenem i czeka, aż dymek podpowiedzi zawiera tekst `oczekiwane`."""
     koniec = time.monotonic() + limit
@@ -400,15 +448,69 @@ def najedz(vsc: VSCode, tekst: str, oczekiwane: str, limit: float = 180) -> dict
         except Exception:
             continue
         vsc.page.wait_for_timeout(700)
-        dymek = vsc.page.evaluate(
-            "() => { const h = [...document.querySelectorAll('.monaco-hover')].find(e => e.offsetParent);"
-            " if (!h) return null; const r = h.getBoundingClientRect();"
-            " return {x: r.x, y: r.y, width: r.width, height: r.height, tekst: h.innerText}; }")
+        dymek = vsc.page.evaluate(JS_DYMEK)
         if dymek and oczekiwane in dymek["tekst"]:
             return dymek
         vsc.page.wait_for_timeout(2000)
     vsc.podglad(f"blad-{vsc.nazwa}")
     sys.exit(f"[{vsc.nazwa}] dymek bez tekstu {oczekiwane!r}")
+
+
+def cisza(vsc: VSCode, limit: float = 120, okres: float = 2.0) -> None:
+    """Czeka, aż pasek stanu przez `okres` sekund nie pokazuje wskaźnika postępu (np. wykrywania
+    interpreterów przez rozszerzenie Python)."""
+    koniec, od = time.monotonic() + limit, None
+    while time.monotonic() < koniec:
+        if vsc.page.evaluate(JS_POSTEP):
+            od = None
+        elif od is None:
+            od = time.monotonic()
+        elif time.monotonic() - od >= okres:
+            return
+        vsc.page.wait_for_timeout(250)
+    print(f"[{vsc.nazwa}] pasek stanu nadal pokazuje postęp", flush=True)
+
+
+def dymek_ustalony(vsc: VSCode, limit: float = 15) -> dict | None:
+    """Zwraca dymek, gdy jego położenie i treść nie zmieniają się przez sekundę (np. po zastąpieniu
+    „Checking for quick fixes…”); None, gdy dymek zniknął albo się nie ustalił."""
+    poprzedni, koniec = vsc.page.evaluate(JS_DYMEK), time.monotonic() + limit
+    while poprzedni and time.monotonic() < koniec:
+        vsc.page.wait_for_timeout(1000)
+        biezacy = vsc.page.evaluate(JS_DYMEK)
+        if biezacy == poprzedni:
+            return biezacy
+        poprzedni = biezacy
+    return None
+
+
+def kadr_dymka(vsc: VSCode, plik: Path, tekst: str, oczekiwane: str, kadr_od, proby: int = 6) -> dict:
+    """Kadr z dymkiem podpowiedzi nad tokenem `tekst`; `kadr_od(dymek)` zwraca prostokąt kadru.
+    W VS Code 1.141 w części przebiegów w świeżej piaskownicy dymek był zamykany wkrótce po
+    pojawieniu się (przyczyny nie ustalono; zbiega się z pierwszymi sesjami, w których
+    rozszerzenia wykrywają interpretery i odświeżają diagnostykę), a kadr wychodził bez niego.
+    Dlatego okno jest aktywowane, najechanie następuje przy pasku stanu bez wskaźników postępu,
+    zrzut — przy ustalonym dymku, a po zrzucie sterownik sprawdza, czy dymek nie zmienił się
+    w trakcie; w razie zmiany powtarza próbę po coraz dłuższej przerwie i wypisuje stan dymka."""
+    for proba in range(1, proby + 1):
+        if proba > 1:
+            vsc.page.wait_for_timeout(5000 * (proba - 1))
+        vsc.page.bring_to_front()
+        cisza(vsc)
+        najedz(vsc, tekst, oczekiwane)
+        dymek = dymek_ustalony(vsc)
+        if dymek and oczekiwane in dymek["tekst"]:
+            vsc.page.evaluate(JS_STRAZ_DYMKA)
+            vsc.kadr(plik, *kadr_od(dymek))
+            po, zmiany = vsc.page.evaluate(JS_DYMEK), vsc.page.evaluate("window.__dymekZmiany")
+            if po == dymek and not zmiany:
+                return dymek
+            print(f"[{vsc.nazwa}] dymek zmienił się w trakcie zrzutu (próba {proba}):"
+                  f" {'widoczny' if po else 'zamknięty'}, {zmiany}", flush=True)
+        else:
+            print(f"[{vsc.nazwa}] dymek nie ustalił się (próba {proba})", flush=True)
+    vsc.podglad(f"blad-{vsc.nazwa}")
+    sys.exit(f"[{vsc.nazwa}] nie udało się zapisać kadru z dymkiem")
 
 
 def suma(*prostokaty: dict, margines: float = 8, pion: float | None = None,
@@ -473,16 +575,19 @@ def pylint_blad() -> None:
             vsc.czekaj("document.querySelector('.editor-instance .squiggly-error')", opis="podkreślenie")
             odfokusuj_edytor(vsc)
             vsc.wyczysc_powiadomienia()
-            dymek = najedz(vsc, "print", "Pylint")
-            print(f"[{vsc.nazwa}] dymek: {dymek['tekst']!r}")
             cel = (ZRZUTY / "01-instalacja/img/vsc-pylint-blad.png" if not koncowka
                    else WARIANTY / f"vsc-pylint-blad{koncowka}.png")
-            vsc.kadr(cel, *suma(linia(vsc, 1), dymek, gora=gora_edytora(vsc)))
+            wiersz, gora = linia(vsc, 1), gora_edytora(vsc)
+            dymek = kadr_dymka(vsc, cel, "print", "Pylint", lambda d: suma(wiersz, d, gora=gora))
+            print(f"[{vsc.nazwa}] dymek: {dymek['tekst']!r}")
             vsc.podglad(vsc.nazwa)
 
 
 @scenariusz("4")
 def code_runner() -> None:
+    """Wynik Code Runnera w panelu Output i w terminalu. Książka pokazuje ten wynik blokiem
+    tekstowym (decyzja autora z 4 X 2026), więc oba obrazy trafiają wyłącznie do wariantów
+    (kontrola treści bloku), a nie do katalogu kopiowanego do docs/."""
     folder = PROJEKTY / "moj-projekt"
     plik = folder / "main.py"
     zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", "pierwszy program"))
@@ -511,8 +616,7 @@ def code_runner() -> None:
             odfokusuj_edytor(vsc)
             vsc.wyczysc_powiadomienia()
             vsc.page.wait_for_timeout(500)
-            cel = (ZRZUTY / "01-instalacja/img/vsc-code-runner.png" if not koncowka
-                   else WARIANTY / f"vsc-code-runner{koncowka}.png")
+            cel = WARIANTY / f"vsc-code-runner{koncowka}.png"
             panel = vsc.prostokat(".part.panel")
             # dół kadru: ostatni niepusty wiersz wyniku (Output: wiersze edytora, terminal: kursor)
             dol = vsc.page.evaluate("""() => {
@@ -524,6 +628,109 @@ def code_runner() -> None:
             wysokosc = (dol + 14 - panel["y"]) if dol else panel["height"]
             vsc.kadr(cel, panel["x"], panel["y"], panel["width"], min(wysokosc, panel["height"]))
             vsc.podglad(vsc.nazwa)
+
+
+# ------------------------------------------------ rozdział 1: wybór interpretera i menedżera środowiska
+
+JS_POLE = "document.querySelector('.quick-input-widget input')?.placeholder || ''"
+
+# pozycje listy Python: Select Interpreter w projekcie moj-projekt: środowiska .venv i .venv-t
+# z venv.md oraz instalacje 3.14 i 3.14t (wsb/przygotuj.ps1); ścieżki są wspólne dla obu trybów
+INTERPRETERY = [r".\.venv\Scripts\python.exe", r".\.venv-t\Scripts\python.exe",
+                r"pythoncore-3.14-64\python.exe", r"pythoncore-3.14t-64\python3.14t.exe"]
+
+
+JS_LISTA = """() => [...document.querySelectorAll('.quick-input-widget .monaco-list-row')]
+  .map(r => (r.classList.contains('focused') ? '> ' : '  ') + r.innerText.replace(/\\n/g, ' ')).join('\\n')"""
+
+
+def lista_stabilna(vsc: VSCode, limit: float = 30) -> str:
+    """Czeka, aż wiersze widżetu szybkiego wyboru i zaznaczenie („> ”) przestaną się zmieniać;
+    zwraca ich tekst."""
+    poprzedni, koniec = None, time.monotonic() + limit
+    while time.monotonic() < koniec:
+        vsc.page.wait_for_timeout(1500)
+        tekst = vsc.page.evaluate(JS_LISTA)
+        if tekst == poprzedni:
+            return tekst
+        poprzedni = tekst
+    return poprzedni or ""
+
+
+def zaznacz_wiersz(vsc: VSCode, tekst: str, limit: int = 20) -> None:
+    """Przenosi zaznaczenie listy szybkiego wyboru klawiszem strzałki na wiersz zawierający `tekst`."""
+    for _ in range(limit):
+        if tekst in vsc.page.evaluate(
+                "document.querySelector('.quick-input-widget .monaco-list-row.focused')?.innerText || ''"):
+            return
+        vsc.klawisz("ArrowDown", pauza=150)
+    vsc.podglad(f"blad-{vsc.nazwa}")
+    sys.exit(f"[{vsc.nazwa}] brak wiersza {tekst!r} na liście")
+
+
+@scenariusz("interpreter")
+def wybor_interpretera() -> None:
+    """Lista Python: Select Interpreter (vsc-select-interpreter.png) i następna lista po pozycji
+    Create Virtual Environment... — wybór menedżera środowiska (vsc-environment-manager.png),
+    konfiguracja.md. Rozszerzenie Python działa w dwóch trybach: w trybie rozszerzenia Python
+    Environments (python.useEnvironmentsExtension = true), który Microsoft włącza użytkownikom
+    stopniowo przez eksperymenty, i w dotychczasowym trybie domyślnym (false; po Create Virtual
+    Environment... pyta o typ środowiska: Venv, Conda). W piaskownicy telemetria jest wyłączona,
+    więc eksperymentów nie ma i tryb wybiera ustawienie. Książka pokazuje tryb Python Environments
+    (decyzja autora z 12 X 2026); obrazy trybu domyślnego trafiają do wariantów.
+    Bez python.defaultInterpreterPath: interpreter projektu wybiera samo rozszerzenie, jak
+    u czytelnika. Zaznaczenie listy interpreterów stoi na .venv projektu — wybranym interpreterze
+    (pole „Selected Interpreter”), jak w pierwszym obrazie książki; bez tego zależy od chwili
+    odświeżenia listy. Drugą listę zamyka klawisz Esc — środowisko nie powstaje."""
+    folder = PROJEKTY / "moj-projekt"
+    plik = folder / "main.py"
+    zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", "pierwszy program"))
+    tryby = [  # nazwa sesji, ustawienia, kadr listy interpreterów, kadr następnej listy
+        ("interpreter", {"python.useEnvironmentsExtension": True},
+         ZRZUTY / "01-instalacja/img/vsc-select-interpreter.png",
+         ZRZUTY / "01-instalacja/img/vsc-environment-manager.png"),
+        ("interpreter-tryb-domyslny", {},
+         WARIANTY / "vsc-select-interpreter-tryb-domyslny.png",
+         WARIANTY / "vsc-environment-type.png"),
+    ]
+    for nazwa, ustawienia, cel_interpretery, cel_nastepna in tryby:
+        with VSCode(nazwa, folder, [plik], ustawienia, rozszerzenia=PYTHON + PYLINT + CODE_RUNNER) as vsc:
+            vsc.page.wait_for_timeout(8000)
+            vsc.wyczysc_powiadomienia()
+            vsc.paleta("Python: Select Interpreter", pauza=1500)
+            vsc.czekaj(f"(w => {{ const t = [...document.querySelectorAll('.quick-input-widget .monaco-list-row')]"
+                       f".map(r => r.innerText).join('\\n'); return w.every(s => t.includes(s)); }})"
+                       f"({json.dumps(INTERPRETERY)})", limit=180, opis="pełna lista interpreterów")
+            vsc.page.mouse.move(vsc.szerokosc / 2, vsc.wysokosc - 5)
+            lista = lista_stabilna(vsc)
+            for _ in range(3):
+                zaznacz_wiersz(vsc, INTERPRETERY[0])
+                lista = lista_stabilna(vsc)
+                if any(w.startswith("> ") and INTERPRETERY[0] in w for w in lista.splitlines()):
+                    break
+            else:
+                sys.exit(f"[{vsc.nazwa}] zaznaczenie nie zostaje na .venv: {lista!r}")
+            pole = vsc.page.evaluate(JS_POLE)
+            print(f"[{vsc.nazwa}] pole: {pole!r}")
+            print(f"[{vsc.nazwa}] lista interpreterów:\n{lista}", flush=True)
+            vsc.kadr_listy(cel_interpretery, kursor=False)
+            vsc.podglad(vsc.nazwa)
+            wybierz_z_listy(vsc, "Create Virtual Environment")
+            vsc.czekaj(f"(p => {{ const w = [...document.querySelectorAll('.quick-input-widget')]"
+                       f".find(e => e.offsetParent); return !!w && ({JS_POLE}) !== p"
+                       f" && [...w.querySelectorAll('.monaco-list-row')]"
+                       f".some(r => /\\bvenv\\b/i.test(r.innerText)); }})({json.dumps(pole)})",
+                       limit=60, opis="lista z pozycją venv po Create Virtual Environment")
+            vsc.page.mouse.move(vsc.szerokosc / 2, vsc.wysokosc - 5)
+            lista = lista_stabilna(vsc)
+            print(f"[{vsc.nazwa}] pole: {vsc.page.evaluate(JS_POLE)!r}")
+            print(f"[{vsc.nazwa}] następna lista:\n{lista}", flush=True)
+            vsc.kadr_listy(cel_nastepna, kursor=False)
+            vsc.podglad(vsc.nazwa + "-nastepna")
+            vsc.klawisz("Escape")
+
+
+SCENARIUSZE["menedzer"] = wybor_interpretera
 
 
 # ------------------------------------------------ rozdział 3: Pylance i mypy
@@ -579,10 +786,10 @@ def mypy_ostrzezenie() -> None:
                    limit=180, opis="podkreślenie mypy")
         odfokusuj_edytor(vsc)
         vsc.wyczysc_powiadomienia()
-        dymek = najedz(vsc, '"25"', "Mypy")
+        wiersz, gora = linia(vsc, 1), gora_edytora(vsc)
+        dymek = kadr_dymka(vsc, ZRZUTY / "03-nazwy-typy/img/vsc-mypy-ostrzezenie.png", '"25"', "Mypy",
+                           lambda d: suma(wiersz, d, gora=gora))
         print(f"[{vsc.nazwa}] dymek: {dymek['tekst']!r}")
-        vsc.kadr(ZRZUTY / "03-nazwy-typy/img/vsc-mypy-ostrzezenie.png",
-                 *suma(linia(vsc, 1), dymek, gora=gora_edytora(vsc)))
         vsc.podglad(vsc.nazwa)
 
 
@@ -770,7 +977,8 @@ def main() -> None:
     elif polecenie == "proba":
         proba()
     elif polecenie == "zrzuty":
-        wykonane = []  # 11 i 12 powstają w sesji 10, a 15 w sesji 14
+        rozgrzewka()
+        wykonane = []  # menedzer powstaje w scenariuszu interpreter, 11 i 12 w sesji 10, a 15 w sesji 14
         for identyfikator in reszta or list(SCENARIUSZE):
             funkcja = SCENARIUSZE[identyfikator]
             if funkcja not in wykonane:

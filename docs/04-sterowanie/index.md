@@ -8,5 +8,5 @@ Rozdział omawia również iteratory — mechanizm, na którym opiera się pętl
 
 ## W tym rozdziale
 
-1. [Wyrażenia warunkowe](wyrazenia-warunkowe.md) — if/elif/else, operator trójskładnikowy, match
+1. [Instrukcje i wyrażenia warunkowe](wyrazenia-warunkowe.md) — if/elif/else, operator trójskładnikowy, match
 2. [Pętle i iteratory](petle-i-iteratory.md) — for, while, range, iteratory

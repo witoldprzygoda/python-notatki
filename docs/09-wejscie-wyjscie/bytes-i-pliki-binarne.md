@@ -105,7 +105,7 @@ Sygnatura PNG zawiera celowo znaki `\r\n` i `\n`: program, który otworzyłby pl
 
 ### Kopiowanie w blokach
 
-Pliku binarnego nie czytamy wierszami, bo nie ma w nim wierszy; czytamy go **blokami** (ang. *chunk*) o ustalonym rozmiarze, aż `read()` zwróci pusty obiekt `bytes`. Operator `:=` z podrozdziału [Wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-przypisania-w-wyrazeniu) pozwala zapisać to w jednej pętli:
+Pliku binarnego nie czytamy wierszami, bo nie ma w nim wierszy; czytamy go **blokami** (ang. *chunk*) o ustalonym rozmiarze, aż `read()` zwróci pusty obiekt `bytes`. Operator `:=` z podrozdziału [Instrukcje i wyrażenia warunkowe](../04-sterowanie/wyrazenia-warunkowe.md#operator-przypisania-w-wyrazeniu) pozwala zapisać to w jednej pętli:
 
 ```python title="kopiowanie.py"
 import shutil

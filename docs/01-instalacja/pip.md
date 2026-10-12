@@ -87,6 +87,8 @@ In [2]:
 
 Znaki zachęty `In [1]:`, `In [2]:` … pokazują wspomnianą numerację kolejnych poleceń. Wiersz rozpoczynający się od `Tip:` zawiera losowo wybraną wskazówkę dotyczącą pracy w powłoce, dlatego przy kolejnych uruchomieniach może mieć inną treść. Powłokę opuszczamy poleceniem `exit`.
 
+Polecenie zainstalowało oprócz IPythona kilkanaście innych pakietów — jego **zależności** (ang. *dependencies*), czyli pakiety, z których IPython korzysta. Zestaw zależności należy do konkretnego wydania pakietu i pip uwzględnia go samodzielnie; dla użytkownika istotne są zmiany w działaniu samego pakietu, opisywane w jego liście zmian (ang. *changelog*) — szerzej o numerach wersji i listach zmian w podrozdziale [Czytanie dokumentacji bibliotek](../zastosowania/01-jupyter/dokumentacja-bibliotek.md#wersje-zmiany-i-ostrzezenia-o-wycofaniu) części „Python Zastosowania”.
+
 Jeżeli w PyPI dostępna jest nowsza wersja pip niż zainstalowana, sam pip informuje o tym na końcu wyniku instalacji (wiersze rozpoczynające się od `[notice]`) i zachęca do aktualizacji — wykonujemy ją poleceniem:
 
 ```powershell title="Terminal"
@@ -102,7 +104,8 @@ Na przykładzie pakietu `requests`:
 - `python -m pip uninstall requests` — usunięcie pakietu,
 - `python -m pip index versions requests` — sprawdzenie dostępnych wersji,
 - `python -m pip install --upgrade requests` — aktualizacja do najnowszej wersji,
-- `python -m pip list` — wypisanie wszystkich zainstalowanych pakietów.
+- `python -m pip list` — wypisanie wszystkich zainstalowanych pakietów,
+- `python -m pip list --outdated` — wypisanie pakietów, dla których dostępne są nowsze wersje, z wersją zainstalowaną i najnowszą.
 
 Jeżeli instalacja pakietu ulegnie uszkodzeniu (zdarza się tak np. w wyniku ręcznych manipulacji zainstalowanymi wersjami Pythona), można wymusić jego ponowną instalację w tej samej wersji. Pierwsze polecenie odczytuje zainstalowaną wersję pakietu i zapisuje ją w zmiennej powłoki `$wersja`, drugie instaluje ponownie dokładnie tę wersję, bez zależności; jeżeli pakietu nie ma, oba polecenia kończą się komunikatem o błędzie i niczego nie zmieniają:
 

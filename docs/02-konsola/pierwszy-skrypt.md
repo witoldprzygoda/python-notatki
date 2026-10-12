@@ -50,7 +50,7 @@ Nawet wizualnie dobrze sformatowany kod, jeżeli ma pomieszane tabulacje i spacj
 
 ## Komentarze
 
-Komentarz znajduje się na prawo od znaku `#`. Komentarz zapisany w wielu liniach osiąga się przez stworzenie wielolinijkowego łańcucha znakowego, bez jego przypisania. Tworzy się go za pomocą trzykrotnie powtórzonego pojedynczego `'''` lub podwójnego `"""` cudzysłowu:
+Komentarz znajduje się na prawo od znaku `#`. Komentarz zapisany w wielu wierszach osiąga się przez stworzenie wielowierszowego łańcucha znakowego, bez jego przypisania. Tworzy się go za pomocą trzykrotnie powtórzonego pojedynczego `'''` lub podwójnego `"""` cudzysłowu:
 
 ```{ .python .no-copy }
 """

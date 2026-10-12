@@ -1,6 +1,8 @@
 # Przygotowanie piaskownicy do zrzutów VS Code (wywoływane jako zadanie przez piaskownica.py).
 # 1. Python 3.14 w układzie Python Install Managera: %LOCALAPPDATA%\Python\pythoncore-3.14-64,
 #    wpis PEP 514 w HKCU i katalog w PATH użytkownika (wszystko wewnątrz piaskownicy).
+#    Python Install Manager (pakiet MSIX z python.org), kompilacja free-threaded 3.14t w tej samej
+#    wersji co 3.14 (py install) i środowisko .venv-t projektu C:\projekty\moj-projekt (venv.md).
 # 2. Kopia VS Code z katalogu zmapowanego tylko do odczytu do %LOCALAPPDATA%\Programs.
 # 3. Środowisko narzędzi C:\narzedzia\venv z Playwright (tylko sterownik CDP, bez przeglądarek).
 # 4. Rozszerzenia VS Code z Marketplace do C:\vsc\ext.
@@ -11,7 +13,10 @@ $ProgressPreference = 'SilentlyContinue'
 $Root = 'C:\zrzuty-vsc'
 $Local = $env:LOCALAPPDATA
 $Py = Join-Path $Local 'Python\pythoncore-3.14-64'
+$PyT = Join-Path $Local 'Python\pythoncore-3.14t-64'
 $PyVersion = '3.14.8'
+$PymVersion = '26.4'
+$Projekt = 'C:\projekty\moj-projekt'
 
 function Krok($tekst) { Write-Output ("[{0:HH:mm:ss}] {1}" -f (Get-Date), $tekst) }
 
@@ -45,6 +50,47 @@ if ($userPath -notlike "*$Py*") {
     [Environment]::SetEnvironmentVariable('Path', "$Py;$Py\Scripts;$userPath", 'User')
 }
 & "$Py\python.exe" -VV
+
+# Python Install Manager: w piaskownicy nie ma Microsoft Store, więc pakiet MSIX z python.org;
+# pobrany plik zostaje w katalogu wymiany i służy kolejnym przebiegom
+if (-not (Get-AppxPackage PythonSoftwareFoundation.PythonManager)) {
+    $msix = Join-Path $Root "python\python-manager-$PymVersion.msix"
+    if (-not (Test-Path $msix)) {
+        Krok "python-manager-$PymVersion.msix"
+        Invoke-WebRequest "https://www.python.org/ftp/python/pymanager/python-manager-$PymVersion.msix" -OutFile $msix -UseBasicParsing
+    }
+    Krok "Python Install Manager $PymVersion"
+    Add-AppxPackage $msix
+}
+$PyMgr = Join-Path $Local 'Microsoft\WindowsApps\py.exe'
+for ($i = 0; -not (Test-Path $PyMgr) -and $i -lt 30; $i++) { Start-Sleep -Seconds 1 }
+if (-not (Test-Path $PyMgr)) { throw "brak polecenia py: $PyMgr" }
+
+# Kompilacja free-threaded 3.14t. Archiwum z pamięci podręcznej managera na hoście (kopiuje je
+# piaskownica.py przygotuj) trafia do pamięci podręcznej managera w piaskownicy: manager sprawdza
+# jego skrót SHA-256 z indeksu python.org i nie pobiera go ponownie. Książka podaje py install 3.14t
+# (najnowsze wydanie 3.14t); dokładny znacznik 3.14.8t zachowuje wersję 3.14 także po kolejnych wydaniach.
+if (-not (Test-Path "$PyT\python3.14t.exe")) {
+    Krok "Python $PyVersion (free-threaded) -> $PyT"
+    $Cache = Join-Path $Local 'Python\_cache'
+    $zipT = "pythoncore-3.14t-64-$PyVersion.zip"
+    if ((Test-Path "$Root\python\$zipT") -and -not (Test-Path "$Cache\$zipT")) {
+        if (-not (Test-Path $Cache)) { New-Item -ItemType Directory $Cache | Out-Null }
+        Copy-Item "$Root\python\$zipT" $Cache
+    }
+    & $PyMgr install --yes "$($PyVersion)t"
+    if ($LASTEXITCODE -ne 0) { throw "py install: $LASTEXITCODE" }
+}
+& $PyMgr list
+& $PyMgr -V:3.14t -VV
+
+# Środowisko .venv-t projektu moj-projekt: polecenie z venv.md (.venv tworzy vsc_zrzuty.py projekty)
+if (-not (Test-Path $Projekt)) { New-Item -ItemType Directory -Force $Projekt | Out-Null }
+Push-Location $Projekt
+if (-not (Test-Path .venv-t)) { Krok '.venv-t'; & $PyMgr -V:3.14t -m venv .venv-t }
+Pop-Location
+if (-not (Test-Path "$Projekt\.venv-t\Scripts\python.exe")) { throw "brak środowiska $Projekt\.venv-t" }
+& "$Projekt\.venv-t\Scripts\python.exe" -VV
 
 # --- 2. VS Code ---
 $Code = Join-Path $Local 'Programs\Microsoft VS Code'

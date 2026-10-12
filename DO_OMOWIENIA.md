@@ -7,35 +7,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
 
 ## Otwarte
 
-### Zależności pakietów i nowsze wersje w podrozdziale o pip
-
-- **Miejsce:** `docs/01-instalacja/pip.md` — sekcje „Przykład instalacji”
-  i „Przydatne polecenia”.
-- **Opis:** część „Python Podstawy” nie mówi, że pip instaluje razem z pakietem
-  jego zależności, ani jak sprawdzić, czy są dostępne nowsze wersje
-  zainstalowanych pakietów. Część „Python Zastosowania” omawia już numery wersji
-  i ostrzeżenia o wycofaniu (rozdział 1, `dokumentacja-bibliotek.md`, sekcja
-  „Wersje, zmiany i ostrzeżenia o wycofaniu”) oraz deklarowanie zależności
-  własnego pakietu (rozdział 17, `zaleznosci.md`).
-- **Kontekst:** przy aktualizacji do 3.14.8 nowsze wersje bibliotek zmieniły
-  swoje zależności (SQLAlchemy 2.1 nie instaluje już greenlet, FastAPI 0.142
-  dociąga opentelemetry-api). Zmiany są automatyczne i niewidoczne dla
-  czytelnika, dlatego nie opisujemy ich w treści — sprawa dotyczy wyłącznie
-  ogólnego mechanizmu.
-- **Propozycja** (szkic; liczby i wydruki do sprawdzenia na bieżącym pip przed
-  wpisaniem):
-    1. W „Przydatnych poleceniach” pozycja: `python -m pip list --outdated` —
-       wypisanie pakietów, dla których dostępne są nowsze wersje, wraz z wersją
-       zainstalowaną i najnowszą.
-    2. W „Przykładzie instalacji”, po sesji IPython, akapit: pip zainstalował
-       także kilkanaście innych pakietów — **zależności** (ang. *dependencies*)
-       IPythona; zestaw zależności należy do konkretnego wydania pakietu
-       (nowsze wydanie może z którejś zrezygnować albo wymagać nowej), a pip
-       uwzględnia to samodzielnie; dla użytkownika istotne są zmiany w działaniu
-       samego pakietu, opisywane w liście zmian (ang. *changelog*); odsyłacz do
-       rozdziału 1 części „Python Zastosowania”.
-- **Stan:** odłożone (2 X 2026).
-
 ### Zakładka „Ściągawki”
 
 - **Opis:** pytanie z `PLAN_ZASTOSOWANIA.md` §3.2 — osobna zakładka z tabelami
@@ -64,7 +35,10 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
     4. termin etapu z postępem widocznym dla prowadzącego (Moodle) — osobny,
        późniejszy etap, wstępnie na przełomie semestrów.
 - **Propozycja:** do przygotowania w projekcie ćwiczeń.
-- **Stan:** do omówienia przed startem kursu (3 X 2026).
+- **Stan:** odłożone — decyzja autora z 12 X 2026: ćwiczenia są osobnym, dużym
+  projektem; dobre ćwiczenia wymagają starannego doboru, tak aby były ciekawe,
+  oraz przeglądu przez autora, a więc czasu. Realizujemy je później, w osobnym
+  etapie; do tego czasu projekt ćwiczeń jedynie synchronizujemy z `dev`.
 
 ### Slajdy wykładowe
 
@@ -84,105 +58,18 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   i laboratorium L01 autor przyjął 11 X 2026, dalsze talie powstaną na jego
   polecenie (11 X 2026).
 
-### Przekierowanie `2>` w Windows PowerShell 5.1
-
-- **Miejsce:** `docs/09-wejscie-wyjscie/print-i-strumienie.md` — opis
-  przekierowania strumienia błędów do pliku (`2> strumienie-bledy.txt`).
-- **Opis:** opis zgadza się z PowerShell 7. W Windows PowerShell 5.1 tekst,
-  który program zewnętrzny wypisuje do strumienia błędów, trafia do pliku
-  opakowany w rekord błędu PowerShell (`NativeCommandError`, numer wiersza,
-  `CategoryInfo`), a nie jako sam komunikat programu. Zauważone przy przeglądzie
-  bezpieczeństwa poleceń (4 X 2026).
-- **Propozycja:** rozpatrzyć razem z pozostałymi różnicami powłok z raportu
-  „Różnice między powłokami” (3 X 2026): jedno zdanie o Windows PowerShell 5.1
-  albo zakładki z wariantami.
-- **Stan:** do omówienia (4 X 2026).
-
-### Tytuł strony „Wyrażenia warunkowe”
-
-- **Miejsce:** `docs/04-sterowanie/wyrazenia-warunkowe.md` (H1), etykieta
-  nawigacji w `mkdocs.yml`, spis rozdziału w `docs/04-sterowanie/index.md`
-  oraz 3 odsyłacze z tekstem „Wyrażenia warunkowe” na innych stronach
-  (pozostałe odsyłacze do tej strony mają tekst „4. Sterowanie przepływem”).
-- **Opis:** pierwsza sekcja strony nosi od commita `39ce8cc` (gałąź
-  `content/poprawki-z-talii`) tytuł „Instrukcja if, elif, else”, ponieważ
-  `if`/`elif`/`else` jest instrukcją, a wyrażeniem jest wyłącznie forma
-  trójskładnikowa. Tytuł strony, obejmującej także instrukcję `match`, nadal
-  nazywa całość wyrażeniami. Zauważone przy przygotowaniu slajdów wykładowych.
-- **Propozycja:** zmiana H1 i etykiety nawigacji, np. na „Instrukcje
-  warunkowe”, bez zmiany nazwy pliku (adres strony pozostaje); zmiana
-  nawigacji wymaga zgody autora. Ćwiczenia na gałęzi `cwiczenia` są powiązane
-  z nagłówkami tej strony: zmianę identyfikatora sekcji
-  (`#wyrazenie-if-elif-else` → `#instrukcja-if-elif-else`) i ewentualnie H1
-  przejmie najbliższa synchronizacja.
-- **Stan:** do decyzji autora (4 X 2026).
-
-### Scenariusz zrzutu listy wyboru interpretera
-
-- **Miejsce:** `docs/01-instalacja/img/vsc-select-interpreter.png`
-  (konfiguracja.md), `ZRZUTY.md` (sekcja „Wykonane”),
-  `scripts/screenshots/vscode/`.
-- **Opis:** zrzut odświeżony 4 X 2026 (VS Code 1.140.0, rozszerzenie Python
-  2026.6.0, Python 3.14.8 i 3.14t, projekt `moj-projekt` ze środowiskami
-  `.venv` i `.venv-t`) powstał w Windows Sandbox przez wywołanie sterownika
-  `vsc_zrzuty.py` scenariuszem spoza repozytorium, więc nie da się go odtworzyć
-  skryptami z `scripts/screenshots/`, czego wymaga `ZRZUTY.md`. Skrypt
-  `wsb/przygotuj.ps1` nie instaluje kompilacji 3.14t i nie tworzy `.venv-t`.
-  Generatora nie ma także zrzut `vsc-environment-manager.png`
-  (konfiguracja.md).
-- **Propozycja:** na gałęzi `infra/*` dodać scenariusz listy wyboru
-  interpretera do `SCENARIUSZE` w `vsc_zrzuty.py` i uzupełnić
-  `wsb/przygotuj.ps1` o instalację 3.14t i środowisko `.venv-t` z venv.md;
-  rozważyć scenariusz dla `vsc-environment-manager.png`.
-- **Stan:** do wykonania na gałęzi `infra/*` (4 X 2026).
-
-### Drobne poprawki redakcyjne spoza zakresu poprawek z talii
-
-- **Miejsce i opis:**
-    1. `docs/11-model-danych/deskryptory.md`, w. 7: „Python zamiast sięgać do
-       słownika instancji wywołuje…” — brak przecinków wokół wtrącenia
-       z „zamiast” (analogiczne miejsce w `zasieg-nazw-i-domkniecia.md`
-       poprawiono w commicie `39ce8cc`);
-    2. `docs/zastosowania/07-ml-pojecia/warsztat.md`, w. 73: „estymator,
-       który zamiast przewidywać przekształca cechy” — jak wyżej;
-    3. `docs/02-konsola/pierwszy-skrypt.md`, w. 53: „wielolinijkowego
-       łańcucha znakowego” — pozostałe strony piszą „wielowierszowy”;
-    4. `docs/03-nazwy-typy/typy-proste.md`, w. 170: wzór
-       `(-1)^znak * 2^wykładnik * mantysa` używa znaku `^`, który w Pythonie
-       oznacza bitową alternatywę wykluczającą (XOR); komentarze przy `**`
-       poprawiono w `39ce8cc` z tego samego powodu.
-- **Propozycja:** 1–2 — „Python, zamiast sięgać do słownika instancji,
-  wywołuje…”, „estymator, który, zamiast przewidywać, przekształca cechy”
-  (albo przebudowa zdań bez wtrącenia); 3 — „wielowierszowego”; 4 — zapis
-  `(-1)**znak * 2**wykładnik * mantysa` albo wzór matematyczny w prozie.
-- **Stan:** do decyzji autora (4 X 2026).
-
 ### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 
-- **Miejsce i opis:** zauważone przy recenzji gałęzi `content/uwagi-z-talii`:
-    1. `docs/01-instalacja/ai-tools.md`, sekcja „Czat i agenci”: „`#` —
-       dołączenie pliku (`#file`) albo całego projektu (`#codebase`)”. Bieżąca
-       dokumentacja VS Code
-       ([tools-reference](https://code.visualstudio.com/docs/agents/reference/tools-reference),
-       10/7/2026) opisuje plik w kontekście jako `#<file>` — znak `#` i nazwę
-       pliku wybraną z listy — i nie wymienia odwołania `#file`.
-    2. `ai-tools.md`, ramka „Cel sesji: Local”: według recenzji eksperyment
-       `chat.editor.localAgent.enabled` może w VS Code 1.141.0 ukryć pozycję
-       Local na liście celów sesji — obserwacja, niesprawdzona.
-    3. `docs/07-moduly/functools.md`, akapit po `fib-cache.py`: zdanie „Same
-       liczby są szczegółem implementacji CPythona” jest dyskusyjne — liczby
-       trafień i obliczeń wynikają z algorytmu i z gwarantowanej przez język
-       kolejności obliczania `fib(n - 1) + fib(n - 2)`.
-    4. Wykres `docs/01-instalacja/img/python-cykl-wydan.svg` powstaje przez
-       wydobycie pierwszego wykresu `release-cycle-chart` ze strony
-       devguide.python.org/versions; skrypt wykonujący tę operację istnieje
-       tylko poza repozytorium.
-- **Propozycja:** 1 — „`#` — dołączenie pliku (`#` i nazwa pliku) albo całego
-  projektu (`#codebase`)”; 2 — sprawdzić w VS Code przy najbliższym przeglądzie
-  narzędzi AI; 3 — usunąć zdanie albo zastąpić je stwierdzeniem, że liczby
-  wynikają z kolejności wywołań; 4 — dodać skrypt do `scripts/` na gałęzi
-  `infra/*`.
-- **Stan:** do omówienia (11 X 2026).
+- **Miejsce i opis:** `docs/01-instalacja/ai-tools.md`, ramka „Cel sesji:
+  Local”: według recenzji gałęzi `content/uwagi-z-talii` eksperyment
+  `chat.editor.localAgent.enabled` może w VS Code 1.141.0 ukryć pozycję Local
+  na liście celów sesji — obserwacja, niesprawdzona.
+- **Propozycja:** sprawdzić w VS Code przy najbliższym przeglądzie narzędzi AI
+  (pozycja „Narzędzia AI” w sekcji „Do wykonania przy przejściu na Pythona
+  3.15”).
+- **Stan:** do sprawdzenia (11 X 2026); pozostałe punkty wpisu (`#file`,
+  liczby w `cache_info()`, skrypt wykresu cyklu wydań) rozstrzygnięte 11 X 2026
+  (sekcja „Rozstrzygnięte”).
 
 ## Do wykonania przy przejściu na Pythona 3.15
 
@@ -451,3 +338,77 @@ typu (niezaliczony), budowę `pytest.raises()`, regułę wykonania jednej
 instrukcji `yield` w `@contextmanager`, działanie `basicConfig(force=True)`
 oraz zapis ścieżek w sesji pdb. Wszystkie wyniki sprawdzono na CPythonie
 3.14.8 (branch `content/uwagi-z-talii`, przyjęty przez autora 11 X 2026).
+
+### Tytuł strony „Instrukcje i wyrażenia warunkowe” (11 X 2026)
+
+Strona `docs/04-sterowanie/wyrazenia-warunkowe.md` nosi tytuł „Instrukcje
+i wyrażenia warunkowe” (decyzja autora z 11 X 2026, wariant A), ponieważ
+`if`/`elif`/`else` i `match` są instrukcjami, a wyrażeniem jest operator
+trójskładnikowy. Zmieniono H1, etykietę nawigacji, spis rozdziału 4 i trzy
+odsyłacze; nazwa pliku, adres strony i identyfikatory sekcji pozostały bez
+zmian (branch `content/instrukcje-warunkowe`).
+
+### Drobne poprawki redakcyjne (11 X 2026)
+
+Przyjęte przez autora 11 X 2026: przecinki wokół wtrąceń z „zamiast”
+(`deskryptory.md`, `zastosowania/07-ml-pojecia/warsztat.md`), „wielowierszowy”
+i „w wielu wierszach” zamiast „wielolinijkowy” i „w wielu liniach”
+(`pierwszy-skrypt.md`) oraz wzór liczby zmiennoprzecinkowej z operatorem `**`
+zamiast `^` (`typy-proste.md`) (branch `content/drobne-poprawki-redakcyjne`).
+
+### Przekierowanie `2>` w Windows PowerShell 5.1 (11 X 2026)
+
+Ramka „Wersja PowerShell” w `docs/09-wejscie-wyjscie/print-i-strumienie.md`
+mówi, że w Windows PowerShell 5.1 przekierowanie `2>` zapisuje do pliku rekord
+błędu powłoki (`NativeCommandError`), a nie sam komunikat programu (sprawdzone
+11 X 2026: Windows PowerShell 5.1.26100, PowerShell 7.6.6). Bez zakładek
+i osobnego przykładu — książka zakłada PowerShell 7 (decyzja autora z 11 X 2026;
+branch `content/ps51-przekierowanie`).
+
+### Dołączanie pliku do czatu Copilota (11 X 2026)
+
+Lista przedrostków w sekcji „Czat i agenci” `docs/01-instalacja/ai-tools.md`
+opisuje dołączenie pliku jako znak `#` i nazwę pliku wybraną z listy zamiast
+odwołania `#file`, którego dokumentacja VS Code nie wymienia; `#codebase`
+pozostaje (code.visualstudio.com/docs/chat/copilot-chat-context, 10/7/2026;
+decyzja autora z 11 X 2026, branch `content/ai-tools-kontekst`).
+
+### Liczby w wyniku `cache_info()` (11 X 2026)
+
+Zdanie po `fib-cache.py` w `docs/07-moduly/functools.md` nie nazywa już liczb
+trafień i obliczeń szczegółem implementacji CPythona: wyjaśnia, że wynikają
+z kolejności obliczania `fib(n - 1) + fib(n - 2)` (101 obliczeń i 98
+trafień). Notatki talii W07 ujednolicono na gałęzi `slajdy` (decyzja autora
+z 11 X 2026, branch `content/fib-cache-liczby`).
+
+### Skrypt wykresu cyklu wydań (11 X 2026)
+
+Rysunek `docs/01-instalacja/img/python-cykl-wydan.svg` odtwarza skrypt
+`scripts/release_cycle_chart.py`, który pobiera stronę devguide.python.org/versions
+i wycina z niej wykres bez zmian; sposób i zasadę odświeżania opisuje `ZRZUTY.md`
+(decyzja autora z 11 X 2026, branch `infra/wykres-cyklu-wydan`).
+
+### Zależności pakietów i nowsze wersje w podrozdziale o pip (12 X 2026)
+
+`docs/01-instalacja/pip.md`: po przykładzie z IPythonem akapit o zależnościach
+(pip instaluje je samodzielnie; zmiany w działaniu pakietu opisuje lista zmian)
+z odsyłaczem do „Czytania dokumentacji bibliotek” w części „Python
+Zastosowania”, a w „Przydatnych poleceniach” `python -m pip list --outdated`.
+Bez listy zależności i bez wyniku polecenia, które szybko się zmieniają
+(sprawdzone 12 X 2026: IPython 9.17.1 z 14 zależnościami, pip 26.2.1; decyzja
+autora, branch `content/pip-zaleznosci`).
+
+### Odtwarzalne zrzuty VS Code (12 X 2026)
+
+Zrzuty `vsc-select-interpreter.png` i `vsc-environment-manager.png`
+(konfiguracja.md) powstają scenariuszami `interpreter` i `menedzer`
+z `scripts/screenshots/vscode/vsc_zrzuty.py`; `wsb/przygotuj.ps1` instaluje
+w piaskownicy 3.14t i tworzy `.venv-t`. Oba obrazy pokazują tryb rozszerzenia
+Python Environments (decyzja autora, wariant A): po **Create Virtual
+Environment...** lista menedżerów z pozycją **Quick Create**; tekst opisuje
+Quick Create, menedżer venv i zachowanie przy istniejącym `.venv` (ramka
+ostrzeżenia), a ramka „Wygląd a wersja VSC” — zależność od trybu. Naprawiono
+scenariusze pylint i mypy (dymek podpowiedzi w VS Code 1.141) oraz Code Runner
+(obraz porzucony 4 X tylko jako wariant). Obraz `vsc-notatnik-jadro.png`
+pokazuje także 3.14t (decyzja autora; branche `infra/zrzuty-scenariusze`
+i `content/notatnik-jadro`).
