@@ -2,12 +2,14 @@ r"""Zrzuty ekranu Visual Studio Code do książki — sterownik działający wew
 
 Skrypt uruchamia piaskownica.py (strona hosta) jako zadanie w Piaskownicy systemu Windows;
 nie należy go uruchamiać na pulpicie hosta. Zakłada stan po wsb/przygotuj.ps1: Python 3.14
-w %LOCALAPPDATA%\Python\pythoncore-3.14-64, VS Code w %LOCALAPPDATA%\Programs\Microsoft VS Code,
+w %LOCALAPPDATA%\Python\pythoncore-3.14-64, kompilacja 3.14t zainstalowana Python Install Managerem,
+środowisko C:\projekty\moj-projekt\.venv-t, VS Code w %LOCALAPPDATA%\Programs\Microsoft VS Code,
 rozszerzenia w C:\vsc\ext, strony książki zmapowane tylko do odczytu w C:\host\docs.
 
 Użycie (w piaskownicy, interpreterem środowiska narzędzi z Playwright):
     python vsc_zrzuty.py projekty          projekty przykładowe w C:\projekty z listingów książki
-    python vsc_zrzuty.py zrzuty [ID ...]    wszystkie zrzuty albo wskazane (numery z ZRZUTY.md)
+    python vsc_zrzuty.py zrzuty [ID ...]    wszystkie zrzuty albo wskazane (klucze słownika SCENARIUSZE:
+                                            1 4 8 9 10 11 12 13 14 15 interpreter menedzer)
     python vsc_zrzuty.py proba              zrzut całego okna do C:\zrzuty-vsc\podglad (diagnostyka)
 Opcje polecenia zrzuty: --motyw="Default Light Modern" (inny motyw), --wyjscie=<katalog>
 (zamiast C:\zrzuty-vsc; obrazy trafiają do <katalog>\zrzuty i <katalog>\warianty).
@@ -19,10 +21,10 @@ przez protokół Chrome DevTools (--remote-debugging-port, Playwright connect_ov
 mysz i odczyt położenia elementów DOM. Rozmiar okna i skalę ustala emulacja metryk urządzenia:
 1280×800 punktów CSS (niektóre scenariusze — mniejsze okno) przy skali 1,5; kadry wycina
 Page.captureScreenshot. Motyw Light+ („Default Light+”), interfejs angielski, powiększenie 0 —
-tak jak wcześniejsze zrzuty VS Code w książce (vsc-select-interpreter.png,
-vsc-environment-manager.png). Ustawienia spoza książki (USTAWIENIA_BAZOWE) służą wyłącznie
-wyciszeniu powiadomień i ekranów powitalnych oraz układowi kadru; ustawienia, które podaje
-książka, dodaje dopiero scenariusz danego zrzutu.
+tak jak dwa pierwsze zrzuty VS Code w książce (vsc-select-interpreter.png,
+vsc-environment-manager.png; scenariusze interpreter i menedzer). Ustawienia spoza książki
+(USTAWIENIA_BAZOWE) służą wyłącznie wyciszeniu powiadomień i ekranów powitalnych oraz układowi
+kadru; ustawienia, które podaje książka, dodaje dopiero scenariusz danego zrzutu.
 Gotowe pliki: C:\zrzuty-vsc\zrzuty\<ścieżka względem docs>, warianty: C:\zrzuty-vsc\warianty.
 """
 import base64
@@ -137,7 +139,8 @@ def venv(katalog: Path, *pakiety: str, wymagania: Path | None = None) -> Path:
 
 
 def projekty() -> None:
-    # rozdział 1 (konfiguracja.md, venv.md): C:\projekty\moj-projekt z .venv
+    # rozdział 1 (konfiguracja.md, venv.md): C:\projekty\moj-projekt z .venv; środowisko .venv-t
+    # tworzy wcześniej wsb/przygotuj.ps1 poleceniem py z venv.md
     moj = PROJEKTY / "moj-projekt"
     moj.mkdir(parents=True, exist_ok=True)
     venv(moj)
@@ -297,21 +300,27 @@ class VSCode:
         r = self.prostokat(selektor)
         self.kadr(plik, r["x"] - margines, r["y"] - margines, r["width"] + 2 * margines, r["height"] + 2 * margines)
 
-    def kadr_listy(self, plik: Path, margines: float = 3) -> None:
+    def kadr_listy(self, plik: Path, margines: float = 3, kursor: bool = True) -> None:
         """Kadr widżetu szybkiego wyboru (quick pick) z wąskim marginesem: na czas zrzutu pod widżetem
-        leży jednolite tło w kolorze edytora, żeby w marginesie nie było fragmentów okna."""
-        self.page.evaluate("""() => {
+        leży jednolite tło w kolorze edytora, żeby w marginesie nie było fragmentów okna.
+        kursor=False ukrywa na czas zrzutu migający kursor pola tekstowego (obraz nie zależy
+        od fazy migania)."""
+        self.page.evaluate("""kursor => {
           const w = [...document.querySelectorAll('.quick-input-widget')].find(e => e.offsetParent);
           const d = document.createElement('div'); d.id = 'zrzut-tlo';
           const z = parseInt(getComputedStyle(w).zIndex) || 2550;
           d.style.cssText = `position:fixed;inset:0;background:var(--vscode-editor-background);z-index:${z - 1}`;
-          w.parentElement.insertBefore(d, w); }""")
+          w.parentElement.insertBefore(d, w);
+          if (!kursor) { const s = document.createElement('style'); s.id = 'zrzut-kursor';
+            s.textContent = '.quick-input-widget input { caret-color: transparent !important; }';
+            document.head.appendChild(s); } }""", kursor)
         self.page.wait_for_timeout(200)
         r = self.page.evaluate("""() => { const w = [...document.querySelectorAll('.quick-input-widget')]
           .find(e => e.offsetParent); const r = w.getBoundingClientRect();
           return {x: r.x, y: r.y, width: r.width, height: r.height}; }""")
         self.kadr(plik, r["x"] - margines, r["y"] - margines, r["width"] + 2 * margines, r["height"] + 2 * margines)
-        self.page.evaluate("() => document.getElementById('zrzut-tlo')?.remove()")
+        self.page.evaluate("() => { document.getElementById('zrzut-tlo')?.remove();"
+                           " document.getElementById('zrzut-kursor')?.remove(); }")
 
     def podglad(self, nazwa: str) -> None:
         self.kadr(PODGLAD / f"{nazwa}.png", 0, 0, self.szerokosc, self.wysokosc)
@@ -524,6 +533,83 @@ def code_runner() -> None:
             wysokosc = (dol + 14 - panel["y"]) if dol else panel["height"]
             vsc.kadr(cel, panel["x"], panel["y"], panel["width"], min(wysokosc, panel["height"]))
             vsc.podglad(vsc.nazwa)
+
+
+# ------------------------------------------------ rozdział 1: wybór interpretera i menedżera środowiska
+
+JS_POLE = "document.querySelector('.quick-input-widget input')?.placeholder || ''"
+
+# pozycje listy Python: Select Interpreter w projekcie moj-projekt: środowiska .venv i .venv-t
+# z venv.md oraz instalacje 3.14 i 3.14t (wsb/przygotuj.ps1); ścieżki są wspólne dla obu trybów
+INTERPRETERY = [r".\.venv\Scripts\python.exe", r".\.venv-t\Scripts\python.exe",
+                r"pythoncore-3.14-64\python.exe", r"pythoncore-3.14t-64\python3.14t.exe"]
+
+
+def lista_stabilna(vsc: VSCode, limit: float = 30) -> str:
+    """Czeka, aż wiersze widżetu szybkiego wyboru przestaną się zmieniać; zwraca ich tekst."""
+    poprzedni, koniec = None, time.monotonic() + limit
+    while time.monotonic() < koniec:
+        vsc.page.wait_for_timeout(1500)
+        tekst = opis_quick_pick(vsc)
+        if tekst == poprzedni:
+            return tekst
+        poprzedni = tekst
+    return poprzedni or ""
+
+
+@scenariusz("interpreter")
+def wybor_interpretera() -> None:
+    """Lista Python: Select Interpreter i następny krok po pozycji Create Virtual Environment...
+    (konfiguracja.md). Rozszerzenie Python działa w dwóch trybach: domyślnym
+    (python.useEnvironmentsExtension = false, listy samego rozszerzenia Python) i w trybie
+    rozszerzenia Python Environments, który Microsoft włącza użytkownikom stopniowo przez
+    eksperymenty (w piaskownicy z wyłączoną telemetrią eksperymentów nie ma, więc tryb włącza
+    ustawienie). Po Create Virtual Environment... tryb domyślny pyta o typ środowiska (Venv, Conda),
+    a tryb Python Environments — o menedżera środowiska. Książka pokazuje listę interpreterów
+    z trybu domyślnego i listę menedżerów z trybu Python Environments; drugi obraz każdego trybu
+    trafia do wariantów. Bez python.defaultInterpreterPath: interpreter projektu wybiera samo
+    rozszerzenie, jak u czytelnika. Drugą listę zamyka klawisz Esc — środowisko nie powstaje."""
+    folder = PROJEKTY / "moj-projekt"
+    plik = folder / "main.py"
+    zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", "pierwszy program"))
+    tryby = [  # nazwa sesji, ustawienia, kadr listy interpreterów, kadr następnej listy
+        ("interpreter", {}, ZRZUTY / "01-instalacja/img/vsc-select-interpreter.png",
+         WARIANTY / "vsc-environment-type.png"),
+        ("interpreter-python-envs", {"python.useEnvironmentsExtension": True},
+         WARIANTY / "vsc-select-interpreter-python-envs.png",
+         ZRZUTY / "01-instalacja/img/vsc-environment-manager.png"),
+    ]
+    for nazwa, ustawienia, cel_interpretery, cel_nastepna in tryby:
+        with VSCode(nazwa, folder, [plik], ustawienia, rozszerzenia=PYTHON + PYLINT + CODE_RUNNER) as vsc:
+            vsc.page.wait_for_timeout(8000)
+            vsc.wyczysc_powiadomienia()
+            vsc.paleta("Python: Select Interpreter", pauza=1500)
+            vsc.czekaj(f"(w => {{ const t = [...document.querySelectorAll('.quick-input-widget .monaco-list-row')]"
+                       f".map(r => r.innerText).join('\\n'); return w.every(s => t.includes(s)); }})"
+                       f"({json.dumps(INTERPRETERY)})", limit=180, opis="pełna lista interpreterów")
+            vsc.page.mouse.move(vsc.szerokosc / 2, vsc.wysokosc - 5)
+            lista = lista_stabilna(vsc)
+            pole = vsc.page.evaluate(JS_POLE)
+            print(f"[{vsc.nazwa}] pole: {pole!r}")
+            print(f"[{vsc.nazwa}] lista interpreterów: {lista!r}", flush=True)
+            vsc.kadr_listy(cel_interpretery, kursor=False)
+            vsc.podglad(vsc.nazwa)
+            wybierz_z_listy(vsc, "Create Virtual Environment")
+            vsc.czekaj(f"(p => {{ const w = [...document.querySelectorAll('.quick-input-widget')]"
+                       f".find(e => e.offsetParent); return !!w && ({JS_POLE}) !== p"
+                       f" && [...w.querySelectorAll('.monaco-list-row')]"
+                       f".some(r => /\\bvenv\\b/i.test(r.innerText)); }})({json.dumps(pole)})",
+                       limit=60, opis="lista z pozycją venv po Create Virtual Environment")
+            vsc.page.mouse.move(vsc.szerokosc / 2, vsc.wysokosc - 5)
+            lista = lista_stabilna(vsc)
+            print(f"[{vsc.nazwa}] pole: {vsc.page.evaluate(JS_POLE)!r}")
+            print(f"[{vsc.nazwa}] następna lista: {lista!r}", flush=True)
+            vsc.kadr_listy(cel_nastepna, kursor=False)
+            vsc.podglad(vsc.nazwa + "-nastepna")
+            vsc.klawisz("Escape")
+
+
+SCENARIUSZE["menedzer"] = wybor_interpretera
 
 
 # ------------------------------------------------ rozdział 3: Pylance i mypy
@@ -770,7 +856,7 @@ def main() -> None:
     elif polecenie == "proba":
         proba()
     elif polecenie == "zrzuty":
-        wykonane = []  # 11 i 12 powstają w sesji 10, a 15 w sesji 14
+        wykonane = []  # menedzer powstaje w scenariuszu interpreter, 11 i 12 w sesji 10, a 15 w sesji 14
         for identyfikator in reszta or list(SCENARIUSZE):
             funkcja = SCENARIUSZE[identyfikator]
             if funkcja not in wykonane:

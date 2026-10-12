@@ -75,7 +75,8 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   interpretera do `SCENARIUSZE` w `vsc_zrzuty.py` i uzupełnić
   `wsb/przygotuj.ps1` o instalację 3.14t i środowisko `.venv-t` z venv.md;
   rozważyć scenariusz dla `vsc-environment-manager.png`.
-- **Stan:** do wykonania na gałęzi `infra/*` (4 X 2026).
+- **Stan:** wykonane na gałęzi `infra/zrzuty-scenariusze` (12 X 2026), czeka na
+  odbiór autora.
 
 ### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 

@@ -20,12 +20,27 @@ Brak (stan z 4 X 2026).
 
 ## Wykonane
 
-- VS Code (motyw Light+, skala 1,5 jak w dwóch pierwszych zrzutach z rozdziału 1, interfejs angielski;
-  VS Code 1.140, Python 3.14.8) — generowane w Windows Sandbox skryptami
-  `scripts/screenshots/vscode/` (`piaskownica.py` na komputerze, `vsc_zrzuty.py` w piaskownicy,
-  pomocnicze `wsb/przygotuj.ps1` i `wsb/runner.ps1`); profil i rozszerzenia VS Code użytkownika
-  pozostają nietknięte. Odświeżanie: `python scripts/screenshots/vscode/piaskownica.py
-  --katalog <katalog-wymiany> wszystko`, przegląd obrazów, potem `kopiuj`.
+- VS Code (motyw Light+, skala 1,5, interfejs angielski; VS Code 1.140, Python 3.14.8) — generowane
+  w Windows Sandbox skryptami `scripts/screenshots/vscode/` (`piaskownica.py` na komputerze,
+  `vsc_zrzuty.py` w piaskownicy, pomocnicze `wsb/przygotuj.ps1` i `wsb/runner.ps1`); profil
+  i rozszerzenia VS Code użytkownika pozostają nietknięte. Odświeżanie: `python
+  scripts/screenshots/vscode/piaskownica.py --katalog <katalog-wymiany> wszystko`, przegląd obrazów,
+  potem `kopiuj`. Wybrane zrzuty odświeża `wszystko <ID…>` (identyfikatory to klucze słownika
+  `SCENARIUSZE` w `vsc_zrzuty.py`) w nowym katalogu wymiany, ponieważ `kopiuj` kopiuje do `docs/`
+  wszystkie obrazy z jego podkatalogu `zrzuty`.
+    - `01-instalacja/img/vsc-select-interpreter.png`, `vsc-environment-manager.png` — lista
+      **Python: Select Interpreter** w projekcie `moj-projekt` ze środowiskami `.venv` i `.venv-t`
+      z venv.md oraz lista wyboru menedżera środowiska po pozycji **Create Virtual Environment...**
+      (konfiguracja.md); scenariusze `interpreter` i `menedzer`. Kompilację 3.14t instaluje
+      managerem, a środowisko `.venv-t` tworzy poleceniem z venv.md skrypt `wsb/przygotuj.ps1`.
+      Listę interpreterów pokazuje domyślny tryb rozszerzenia Python, listę menedżerów — tryb
+      rozszerzenia Python Environments (ustawienie `python.useEnvironmentsExtension`); drugi obraz
+      każdego trybu trafia do wariantów. Odświeżenie: `python scripts/screenshots/vscode/piaskownica.py
+      --katalog <katalog-wymiany> wszystko interpreter menedzer`. Lista interpreterów w książce
+      pochodzi z 4 X 2026 (VS Code 1.140.0, rozszerzenie Python 2026.6.0, Python 3.14.8 i 3.14t;
+      scenariusz odtwarza ją piksel w piksel także w VS Code 1.141.0 z rozszerzeniem Python
+      2026.8.0), lista menedżerów — z wcześniejszej wersji rozszerzenia Python Environments
+      (pozycje Global, venv i Enter Interpreter Path...);
     - `01-instalacja/img/vsc-pylint-blad.png` — `print "hello wrong"` z podkreśleniem pylinta
       i dymkiem komunikatu E0001 (konfiguracja.md);
     - `03-nazwy-typy/img/vsc-pylance-inlay-hint.png` — podpowiedzi typów Pylance dla listingu
@@ -56,10 +71,6 @@ Brak (stan z 4 X 2026).
 - `zastosowania/22-office-obrazy/img/{oryginal,znak-wodny,wykres}.png` — obrazy generowane przez skrypty
   rozdziału (`przeksztalcenia.py`, `rysowanie.py`, `wykres-slupkowy.py`) w stagingu; odświeżanie: ponowne
   uruchomienie skryptów i skopiowanie plików, nie ręcznie.
-- `01-instalacja/img/vsc-select-interpreter.png` — lista wyboru interpretera w projekcie `moj-projekt`
-  ze środowiskami `.venv` i `.venv-t` z venv.md (konfiguracja.md); VS Code 1.140.0, rozszerzenie
-  Python 2026.6.0, Python 3.14.8 i 3.14t (4 X 2026); sterownik `vsc_zrzuty.py` wywołany scenariuszem
-  spoza repozytorium — do przeniesienia do `SCENARIUSZE` (pozycja w `DO_OMOWIENIA.md`).
 - `01-instalacja/img/python-cykl-wydan.svg` — wykres okresów wsparcia wersji Pythona ze strony
   devguide.python.org/versions, wycięty bez zmian (instalacja.md); `python scripts/release_cycle_chart.py
   <wynik.svg>` pobiera stronę i zapisuje wykres (istniejącego pliku nie nadpisuje bez `--nadpisz`;
@@ -67,7 +78,6 @@ Brak (stan z 4 X 2026).
   stronę (nagłówek Last-Modified, wypisywany przez skrypt), w rysunku książki — 9 X 2026. Rysunek
   odświeżamy przy zmianie statusu którejś wersji, nie przy samym przesunięciu linii dnia; potem
   sprawdzamy tekst alternatywny i opis faz w instalacja.md.
-- `01-instalacja/img/vsc-environment-manager.png` — wybór menedżera środowiska (konfiguracja.md)
 
 ## Zrezygnowano (decyzja autora z 2 X 2026)
 

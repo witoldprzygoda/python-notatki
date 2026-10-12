@@ -12,17 +12,19 @@ Użycie (z katalogu głównego repozytorium):
     python scripts/screenshots/vscode/piaskownica.py --katalog <katalog-wymiany> kopiuj
 
 Polecenia:
-    przygotuj      tworzy katalog wymiany, kopiuje do niego skrypty i archiwum Pythona
+    przygotuj      tworzy katalog wymiany, kopiuje do niego skrypty i archiwa Pythona 3.14 i 3.14t
                    z pamięci podręcznej Python Install Managera, zapisuje plik .wsb
     start          uruchamia piaskownicę (WindowsSandbox.exe <plik.wsb>) i czeka na pętlę zadań
-    instaluj       zadanie wsb/przygotuj.ps1: Python 3.14.8, kopia VS Code, Playwright, rozszerzenia
+    instaluj       zadanie wsb/przygotuj.ps1: Python 3.14.8, Python Install Manager z kompilacją 3.14t
+                   i środowiskiem .venv-t, kopia VS Code, Playwright, rozszerzenia
     projekty       zadanie: projekty przykładowe z listingów książki i ich środowiska .venv
-    zrzuty [ID…]   zadanie: vsc_zrzuty.py — wszystkie zrzuty albo wskazane (identyfikatory
-                   jak w ZRZUTY.md: 1 4 8 9 10 11 12 13 14 15); opcje sterownika przechodzą
-                   dalej, np. --motyw="Default Light Modern" --wyjscie=C:\zrzuty-vsc\warianty\light-modern
+    zrzuty [ID…]   zadanie: vsc_zrzuty.py — wszystkie zrzuty albo wskazane (klucze słownika
+                   SCENARIUSZE: 1 4 8 9 10 11 12 13 14 15 interpreter menedzer); opcje sterownika
+                   przechodzą dalej, np. --motyw="Default Light Modern"
+                   --wyjscie=C:\zrzuty-vsc\warianty\light-modern
     zadanie NAZWA POLECENIE   dowolne polecenie PowerShell w piaskownicy (diagnostyka)
     stop           zamyka piaskownicę (shutdown w środku, w razie potrzeby wsb stop)
-    wszystko       przygotuj, start, instaluj, projekty, zrzuty, stop
+    wszystko [ID…] przygotuj, start, instaluj, projekty, zrzuty (wszystkie albo wskazane), stop
     kopiuj         kopiuje gotowe pliki z <katalog-wymiany>/zrzuty do docs/ (po obejrzeniu!)
 
 Wymagania hosta: włączona funkcja Piaskownica systemu Windows, VS Code w instalacji
@@ -46,7 +48,8 @@ TUTAJ = Path(__file__).resolve().parent
 REPO = TUTAJ.parents[2]
 KATALOG_DOMYSLNY = Path(os.environ.get("TEMP", ".")) / "zrzuty-vsc"
 VSCODE = Path(os.environ["LOCALAPPDATA"]) / "Programs" / "Microsoft VS Code"
-PYTHON_ZIP = Path(os.environ["LOCALAPPDATA"]) / "Python" / "_cache" / "pythoncore-3.14-64-3.14.8.zip"
+PAMIEC_MANAGERA = Path(os.environ["LOCALAPPDATA"]) / "Python" / "_cache"
+PYTHON_ZIPY = [PAMIEC_MANAGERA / f"pythoncore-{tag}-64-3.14.8.zip" for tag in ("3.14", "3.14t")]
 SANDBOX_EXE = Path(r"C:\Windows\System32\WindowsSandbox.exe")
 WNETRZE = r"C:\zrzuty-vsc"  # katalog wymiany widziany z piaskownicy
 PYTHON_NARZEDZI = r"C:\narzedzia\venv\Scripts\python.exe"
@@ -90,8 +93,9 @@ def przygotuj(k: Path) -> None:
     for ps1 in (TUTAJ / "wsb").glob("*.ps1"):
         (k / "wsb" / ps1.name).write_text(ps1.read_text(encoding="utf-8"), encoding="utf-8-sig")
     shutil.copy2(TUTAJ / "vsc_zrzuty.py", k / "wsb" / "vsc_zrzuty.py")
-    if PYTHON_ZIP.exists() and not (k / "python" / PYTHON_ZIP.name).exists():
-        shutil.copy2(PYTHON_ZIP, k / "python" / PYTHON_ZIP.name)
+    for archiwum in PYTHON_ZIPY:
+        if archiwum.exists() and not (k / "python" / archiwum.name).exists():
+            shutil.copy2(archiwum, k / "python" / archiwum.name)
     (k / "piaskownica.wsb").write_text(
         WSB.format(wymiana=k, wnetrze=WNETRZE, vscode=VSCODE, docs=REPO / "docs"), encoding="utf-8")
     print(f"katalog wymiany: {k}")
@@ -201,7 +205,7 @@ def main() -> None:
             start(k)
             for nazwa, tresc in (("010-instaluj", f"& '{WNETRZE}\\wsb\\przygotuj.ps1'\nexit $LASTEXITCODE\n"),
                                  ("020-projekty", sterownik("projekty")),
-                                 ("030-zrzuty", sterownik("zrzuty"))):
+                                 ("030-zrzuty", sterownik("zrzuty", *opcje_sterownika, *a.reszta))):
                 if zadanie(k, nazwa, tresc):
                     break
             stop(k)
