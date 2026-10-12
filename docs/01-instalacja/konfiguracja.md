@@ -140,17 +140,28 @@ Warte odnotowania jest również uruchamianie w trybie debugowania: klawisz ++f5
 
 ## Interpreter i środowisko venv w VSC
 
-Visual Studio Code pozwala na utworzenie wirtualnego środowiska (opisanego w podrozdziale [Wirtualne środowisko venv](venv.md)) przy okazji wyboru interpretera.
+Visual Studio Code pozwala wskazać interpreter projektu, a także utworzyć wirtualne środowisko (opisane w podrozdziale [Wirtualne środowisko venv](venv.md)) przy okazji wyboru interpretera.
 
-Po skrócie klawiszowym ++ctrl+shift+p++ wpisujemy **Python: Select Interpreter**. Pojawi się lista dostępnych interpreterów wraz z opcją utworzenia nowego środowiska:
+Po skrócie klawiszowym ++ctrl+shift+p++ wpisujemy **Python: Select Interpreter**. Pojawi się lista dostępnych interpreterów wraz z opcją utworzenia nowego środowiska. W projekcie `moj-projekt` z podrozdziału [Wirtualne środowisko venv](venv.md) lista obejmuje zainstalowane interpretery 3.14 i 3.14t (grupa **Global**) oraz środowiska projektu `.venv` i `.venv-t` (grupa **Workspace**), a interpreter wybrany obecnie dla projektu podaje pole tekstowe u góry listy (*Selected Interpreter*):
 
-![Lista wyboru interpretera w Visual Studio Code](img/vsc-select-interpreter.png)
+![Lista Select Interpreter w Visual Studio Code: pozycje Create Virtual Environment... i Enter interpreter path..., globalne interpretery Python 3.14.8 i Python 3.14.8 (free-threaded) oraz zaznaczone środowisko projektu .venv i środowisko .venv-t](img/vsc-select-interpreter.png)
 
-Wybierzmy **Create Virtual Environment**, a następnie menedżera środowiska **venv**:
+Jeżeli projekt ma już środowisko, tak jak `moj-projekt`, wystarczy wybrać je z listy. Nowe środowisko tworzy pozycja **Create Virtual Environment...**, po której rozszerzenie prosi o wybór menedżera środowiska:
 
-![Wybór menedżera środowiska w Visual Studio Code](img/vsc-environment-manager.png)
+![Lista Select an environment manager w Visual Studio Code: zalecana pozycja Quick Create, menedżery venv, Global i Conda oraz pozycja Enter Interpreter Path...](img/vsc-environment-manager.png)
 
-Po wskazaniu wersji interpretera zostanie lokalnie utworzony podkatalog `.venv` wraz z wirtualnym środowiskiem dla danego projektu. Jeżeli projekt ma już katalog `.venv` — na przykład utworzony poleceniami z podrozdziału [Wirtualne środowisko venv](venv.md) — rozszerzenie pyta, co z nim zrobić: wybieramy **Use Existing**, które wskazuje istniejące środowisko bez zmian, a nie **Delete and Recreate**, które usuwa je razem z zainstalowanymi pakietami.
+Pozycja **Quick Create** bez dalszych pytań tworzy w katalogu głównym projektu środowisko `.venv` z najnowszej zainstalowanej wersji Pythona — jej numer podaje opis pozycji, tu 3.14.8 — i instaluje w nim zależności projektu zapisane w plikach takich jak [`requirements.txt`](pip.md#plik-requirementstxt). Wybór menedżera **venv** prowadzi przez kolejne kroki: wskazanie interpretera bazowego na liście **Select a Python Environment**, podanie nazwy środowiska (domyślnie `.venv`) oraz instalację pakietów, którą pomija pozycja **Skip package installation**. Tę drogę wybieramy, gdy środowisko ma powstać z innego interpretera niż proponowany przez **Quick Create**, np. z wariantu 3.14t albo z wersji 3.14 przy zainstalowanym również Pythonie 3.15. W obu przypadkach nowe środowisko staje się interpreterem projektu.
+
+!!! warning "Projekt z istniejącym środowiskiem"
+    Jeżeli projekt ma już katalog `.venv` — na przykład utworzony poleceniami z podrozdziału
+    [Wirtualne środowisko venv](venv.md) — **Quick Create** o nic nie pyta, lecz tworzy obok
+    drugie środowisko `.venv-1` i przełącza na nie projekt; pakiety zainstalowane w `.venv`
+    przestają być wtedy dostępne w VSC. Menedżer **venv** odrzuca nazwę `.venv` komunikatem
+    *A folder with the same name already exists*. Istniejące środowisko wskazujemy więc
+    na liście **Python: Select Interpreter**. Gdy rozszerzenie Python działa w dotychczasowym
+    trybie (ramka „Wygląd a wersja VSC” poniżej), pyta o istniejący katalog: wybieramy
+    **Use Existing**, które wskazuje środowisko bez zmian, a nie **Delete and Recreate**,
+    które usuwa je razem z zainstalowanymi pakietami.
 
 Po wskazaniu interpretera pochodzącego ze środowiska Visual Studio Code aktywuje `.venv` automatycznie w każdym nowo otwieranym terminalu zintegrowanym — dodatkowa konfiguracja nie jest potrzebna. Odpowiada za to ustawienie `python-envs.terminal.autoActivationType` rozszerzenia Python Environments, którego wartość domyślna `command` oznacza aktywację przez wykonanie polecenia w terminalu, a wartość `off` wyłącza aktywację. Dawne ustawienie `python.terminal.activateEnvironment` ma znaczenie już tylko z wartością `false`, która również wyłącza aktywację.
 
@@ -158,5 +169,10 @@ Po wskazaniu interpretera pochodzącego ze środowiska Visual Studio Code aktywu
     Szczegóły wyglądu okien Visual Studio Code mogą się nieznacznie różnić między
     wersjami — stałe pozostają natomiast nazwy poleceń palety (**Python: Select
     Interpreter**, **Create Virtual Environment**) i to nimi należy się kierować.
+    Wygląd list po pozycji **Create Virtual Environment...** zależy ponadto od trybu
+    rozszerzenia Python: wybór menedżera środowiska pochodzi z rozszerzenia Python
+    Environments, które Microsoft włącza użytkownikom stopniowo (ustawienie
+    `python.useEnvironmentsExtension`), a w dotychczasowym trybie rozszerzenie pyta
+    o typ środowiska (**Venv** lub **Conda**).
 
 W ten sposób środowisko pracy w VSC jest przygotowane.

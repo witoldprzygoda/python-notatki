@@ -20,7 +20,8 @@ Brak (stan z 4 X 2026).
 
 ## Wykonane
 
-- VS Code (motyw Light+, skala 1,5, interfejs angielski; VS Code 1.140, Python 3.14.8) — generowane
+- VS Code (motyw Light+, skala 1,5, interfejs angielski; Python 3.14.8; VS Code 1.140 z 4 X 2026,
+  o ile pozycja nie podaje innej wersji) — generowane
   w Windows Sandbox skryptami `scripts/screenshots/vscode/` (`piaskownica.py` na komputerze,
   `vsc_zrzuty.py` w piaskownicy, pomocnicze `wsb/przygotuj.ps1` i `wsb/runner.ps1`); profil
   i rozszerzenia VS Code użytkownika pozostają nietknięte. Odświeżanie: `python
@@ -30,17 +31,15 @@ Brak (stan z 4 X 2026).
   wszystkie obrazy z jego podkatalogu `zrzuty`.
     - `01-instalacja/img/vsc-select-interpreter.png`, `vsc-environment-manager.png` — lista
       **Python: Select Interpreter** w projekcie `moj-projekt` ze środowiskami `.venv` i `.venv-t`
-      z venv.md oraz lista wyboru menedżera środowiska po pozycji **Create Virtual Environment...**
-      (konfiguracja.md); scenariusze `interpreter` i `menedzer`. Kompilację 3.14t instaluje
-      managerem, a środowisko `.venv-t` tworzy poleceniem z venv.md skrypt `wsb/przygotuj.ps1`.
-      Listę interpreterów pokazuje domyślny tryb rozszerzenia Python, listę menedżerów — tryb
-      rozszerzenia Python Environments (ustawienie `python.useEnvironmentsExtension`); drugi obraz
-      każdego trybu trafia do wariantów. Odświeżenie: `python scripts/screenshots/vscode/piaskownica.py
-      --katalog <katalog-wymiany> wszystko interpreter menedzer`. Lista interpreterów w książce
-      pochodzi z 4 X 2026 (VS Code 1.140.0, rozszerzenie Python 2026.6.0, Python 3.14.8 i 3.14t;
-      scenariusz odtwarza ją piksel w piksel także w VS Code 1.141.0 z rozszerzeniem Python
-      2026.8.0), lista menedżerów — z wcześniejszej wersji rozszerzenia Python Environments
-      (pozycje Global, venv i Enter Interpreter Path...);
+      z venv.md (zaznaczona pozycja `.venv`) oraz lista wyboru menedżera środowiska po pozycji
+      **Create Virtual Environment...** (konfiguracja.md); scenariusze `interpreter` i `menedzer`,
+      tryb rozszerzenia Python Environments (ustawienie `python.useEnvironmentsExtension`, decyzja
+      autora z 12 X 2026), obrazy dotychczasowego trybu rozszerzenia Python w wariantach.
+      Kompilację 3.14t instaluje managerem, a środowisko `.venv-t` tworzy poleceniem z venv.md skrypt
+      `wsb/przygotuj.ps1`. Obrazy z 12 X 2026: VS Code 1.141.0, rozszerzenia Python 2026.8.0
+      i Python Environments 1.38.0, Python 3.14.8 i 3.14t. Odświeżenie: `python
+      scripts/screenshots/vscode/piaskownica.py --katalog <katalog-wymiany> wszystko interpreter
+      menedzer`;
     - `01-instalacja/img/vsc-pylint-blad.png` — `print "hello wrong"` z podkreśleniem pylinta
       i dymkiem komunikatu E0001 (konfiguracja.md);
     - `03-nazwy-typy/img/vsc-pylance-inlay-hint.png` — podpowiedzi typów Pylance dla listingu
@@ -54,7 +53,10 @@ Brak (stan z 4 X 2026).
       (testowanie.md);
     - `zastosowania/01-jupyter/img/vsc-notatnik-nowy.png`, `vsc-notatnik-jadro.png` — nowy
       notatnik z przyciskiem Select Kernel i lista wyboru środowiska z `.venv` projektu
-      (notatnik-jupyter.md).
+      (notatnik-jupyter.md). Od 12 X 2026 piaskownica ma również kompilację 3.14t, którą
+      czytelnik instaluje w rozdziale 1, więc scenariusz pokazuje na liście dodatkowy wiersz
+      `pythoncore-3.14t-64`; obraz w książce (bez niego) i jego tekst alternatywny czekają
+      na decyzję autora.
 - `01-instalacja/img/jupyter-interfejs.png` — strona główna Jupyter Notebook (notebook.md);
   `scripts/screenshots/jupyter_interfejs.py`, przeglądarka Edge bez okna.
 - `02-konsola/img/repl-kolorowanie.png` — kolorowy nowy REPL (index.md); przechwycenie przez
@@ -84,4 +86,5 @@ Brak (stan z 4 X 2026).
 - panel Problems i otwieranie `settings.json` (konfiguracja.md), menu New → Notebook
   (notebook.md), arkusz w Excelu i dokument w Wordzie (rozdział 22 części „Python Zastosowania”);
 - wynik Code Runnera (konfiguracja.md) — zamiast zrzutu blok tekstowy z zawartością panelu
-  Output, zgodnie z zasadą bloków tekstowych z `CLAUDE.md` (4 X 2026).
+  Output, zgodnie z zasadą bloków tekstowych z `CLAUDE.md` (4 X 2026); scenariusz 4 zapisuje
+  obrazy panelu wyłącznie do wariantów, jako kontrolę treści bloku.
