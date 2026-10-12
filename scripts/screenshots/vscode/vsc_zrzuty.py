@@ -585,6 +585,9 @@ def pylint_blad() -> None:
 
 @scenariusz("4")
 def code_runner() -> None:
+    """Wynik Code Runnera w panelu Output i w terminalu. Książka pokazuje ten wynik blokiem
+    tekstowym (decyzja autora z 4 X 2026), więc oba obrazy trafiają wyłącznie do wariantów
+    (kontrola treści bloku), a nie do katalogu kopiowanego do docs/."""
     folder = PROJEKTY / "moj-projekt"
     plik = folder / "main.py"
     zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", "pierwszy program"))
@@ -613,8 +616,7 @@ def code_runner() -> None:
             odfokusuj_edytor(vsc)
             vsc.wyczysc_powiadomienia()
             vsc.page.wait_for_timeout(500)
-            cel = (ZRZUTY / "01-instalacja/img/vsc-code-runner.png" if not koncowka
-                   else WARIANTY / f"vsc-code-runner{koncowka}.png")
+            cel = WARIANTY / f"vsc-code-runner{koncowka}.png"
             panel = vsc.prostokat(".part.panel")
             # dół kadru: ostatni niepusty wiersz wyniku (Output: wiersze edytora, terminal: kursor)
             dol = vsc.page.evaluate("""() => {
