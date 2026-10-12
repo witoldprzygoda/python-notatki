@@ -35,7 +35,10 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
     4. termin etapu z postępem widocznym dla prowadzącego (Moodle) — osobny,
        późniejszy etap, wstępnie na przełomie semestrów.
 - **Propozycja:** do przygotowania w projekcie ćwiczeń.
-- **Stan:** do omówienia przed startem kursu (3 X 2026).
+- **Stan:** odłożone — decyzja autora z 12 X 2026: ćwiczenia są osobnym, dużym
+  projektem; dobre ćwiczenia wymagają starannego doboru, tak aby były ciekawe,
+  oraz przeglądu przez autora, a więc czasu. Realizujemy je później, w osobnym
+  etapie; do tego czasu projekt ćwiczeń jedynie synchronizujemy z `dev`.
 
 ### Slajdy wykładowe
 
