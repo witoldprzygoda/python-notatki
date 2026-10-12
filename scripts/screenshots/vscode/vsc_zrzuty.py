@@ -338,6 +338,26 @@ def proba() -> None:
         print(vsc.page.evaluate("document.querySelector('.part.statusbar').innerText"))
 
 
+ROZGRZEWKA = DANE / "rozgrzewka.txt"
+
+
+def rozgrzewka() -> None:
+    """Sesja VS Code bez zrzutów, raz na piaskownicę, przed pierwszym scenariuszem. W pierwszej
+    sesji nowej piaskownicy rozszerzenia budują pamięci podręczne (wykrywanie interpreterów,
+    pierwsze uruchomienie linterów) i wielokrotnie odświeżają diagnostykę; w VS Code 1.141
+    dymek scenariusza 1 bywał wtedy zamykany przed zrzutem (zob. kadr_dymka)."""
+    if ROZGRZEWKA.exists():
+        return
+    folder = PROJEKTY / "moj-projekt"
+    plik = folder / "main.py"
+    zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", 'print "'))
+    with VSCode("rozgrzewka", folder, [plik], interpreter(folder), rozszerzenia=PYTHON + PYLINT + MYPY) as vsc:
+        vsc.czekaj("document.querySelector('.editor-instance .squiggly-error')", limit=180, opis="diagnostyka")
+        cisza(vsc, okres=5)
+        vsc.page.wait_for_timeout(10_000)
+    zapisz(ROZGRZEWKA, time.strftime("%Y-%m-%d %H:%M:%S\n"))
+
+
 SCENARIUSZE: dict[str, callable] = {}
 
 
@@ -395,6 +415,25 @@ def token(vsc: VSCode, tekst: str) -> dict:
     return vsc.czekaj(f"({JS_TOKEN})({json.dumps(tekst)})", opis=f"token {tekst}")
 
 
+JS_DYMEK = ("() => { const h = [...document.querySelectorAll('.monaco-hover')].find(e => e.offsetParent);"
+            " if (!h) return null; const r = h.getBoundingClientRect();"
+            " return {x: r.x, y: r.y, width: r.width, height: r.height, tekst: h.innerText}; }")
+
+# znacznik zmiany dymka: zamknięcie (klasa hidden) albo przebudowa treści po zainstalowaniu strażnika
+JS_STRAZ_DYMKA = """() => { window.__dymekZmiany = []; window.__dymekT0 = performance.now();
+  if (!window.__dymekStraz) {
+    window.__dymekStraz = new MutationObserver(zmiany => zmiany.forEach(z => {
+      const e = z.target.nodeType === 1 ? z.target : z.target.parentElement;
+      if (e?.closest('.monaco-hover') && window.__dymekZmiany.length < 10)
+        window.__dymekZmiany.push(`${(performance.now() - window.__dymekT0).toFixed(0)} ms: ${z.type}`
+          + ` ${e.className}`); }));
+    window.__dymekStraz.observe(document.body, {subtree: true, childList: true, characterData: true,
+                                                 attributes: true, attributeFilter: ['class']}); } }"""
+
+JS_POSTEP = ("!!document.querySelector('.part.statusbar .codicon-modifier-spin,"
+             " .part.statusbar .codicon-loading')")
+
+
 def najedz(vsc: VSCode, tekst: str, oczekiwane: str, limit: float = 180) -> dict:
     """Ustawia mysz nad tokenem i czeka, aż dymek podpowiedzi zawiera tekst `oczekiwane`."""
     koniec = time.monotonic() + limit
@@ -409,15 +448,69 @@ def najedz(vsc: VSCode, tekst: str, oczekiwane: str, limit: float = 180) -> dict
         except Exception:
             continue
         vsc.page.wait_for_timeout(700)
-        dymek = vsc.page.evaluate(
-            "() => { const h = [...document.querySelectorAll('.monaco-hover')].find(e => e.offsetParent);"
-            " if (!h) return null; const r = h.getBoundingClientRect();"
-            " return {x: r.x, y: r.y, width: r.width, height: r.height, tekst: h.innerText}; }")
+        dymek = vsc.page.evaluate(JS_DYMEK)
         if dymek and oczekiwane in dymek["tekst"]:
             return dymek
         vsc.page.wait_for_timeout(2000)
     vsc.podglad(f"blad-{vsc.nazwa}")
     sys.exit(f"[{vsc.nazwa}] dymek bez tekstu {oczekiwane!r}")
+
+
+def cisza(vsc: VSCode, limit: float = 120, okres: float = 2.0) -> None:
+    """Czeka, aż pasek stanu przez `okres` sekund nie pokazuje wskaźnika postępu (np. wykrywania
+    interpreterów przez rozszerzenie Python)."""
+    koniec, od = time.monotonic() + limit, None
+    while time.monotonic() < koniec:
+        if vsc.page.evaluate(JS_POSTEP):
+            od = None
+        elif od is None:
+            od = time.monotonic()
+        elif time.monotonic() - od >= okres:
+            return
+        vsc.page.wait_for_timeout(250)
+    print(f"[{vsc.nazwa}] pasek stanu nadal pokazuje postęp", flush=True)
+
+
+def dymek_ustalony(vsc: VSCode, limit: float = 15) -> dict | None:
+    """Zwraca dymek, gdy jego położenie i treść nie zmieniają się przez sekundę (np. po zastąpieniu
+    „Checking for quick fixes…”); None, gdy dymek zniknął albo się nie ustalił."""
+    poprzedni, koniec = vsc.page.evaluate(JS_DYMEK), time.monotonic() + limit
+    while poprzedni and time.monotonic() < koniec:
+        vsc.page.wait_for_timeout(1000)
+        biezacy = vsc.page.evaluate(JS_DYMEK)
+        if biezacy == poprzedni:
+            return biezacy
+        poprzedni = biezacy
+    return None
+
+
+def kadr_dymka(vsc: VSCode, plik: Path, tekst: str, oczekiwane: str, kadr_od, proby: int = 6) -> dict:
+    """Kadr z dymkiem podpowiedzi nad tokenem `tekst`; `kadr_od(dymek)` zwraca prostokąt kadru.
+    W VS Code 1.141 w części przebiegów w świeżej piaskownicy dymek był zamykany wkrótce po
+    pojawieniu się (przyczyny nie ustalono; zbiega się z pierwszymi sesjami, w których
+    rozszerzenia wykrywają interpretery i odświeżają diagnostykę), a kadr wychodził bez niego.
+    Dlatego okno jest aktywowane, najechanie następuje przy pasku stanu bez wskaźników postępu,
+    zrzut — przy ustalonym dymku, a po zrzucie sterownik sprawdza, czy dymek nie zmienił się
+    w trakcie; w razie zmiany powtarza próbę po coraz dłuższej przerwie i wypisuje stan dymka."""
+    for proba in range(1, proby + 1):
+        if proba > 1:
+            vsc.page.wait_for_timeout(5000 * (proba - 1))
+        vsc.page.bring_to_front()
+        cisza(vsc)
+        najedz(vsc, tekst, oczekiwane)
+        dymek = dymek_ustalony(vsc)
+        if dymek and oczekiwane in dymek["tekst"]:
+            vsc.page.evaluate(JS_STRAZ_DYMKA)
+            vsc.kadr(plik, *kadr_od(dymek))
+            po, zmiany = vsc.page.evaluate(JS_DYMEK), vsc.page.evaluate("window.__dymekZmiany")
+            if po == dymek and not zmiany:
+                return dymek
+            print(f"[{vsc.nazwa}] dymek zmienił się w trakcie zrzutu (próba {proba}):"
+                  f" {'widoczny' if po else 'zamknięty'}, {zmiany}", flush=True)
+        else:
+            print(f"[{vsc.nazwa}] dymek nie ustalił się (próba {proba})", flush=True)
+    vsc.podglad(f"blad-{vsc.nazwa}")
+    sys.exit(f"[{vsc.nazwa}] nie udało się zapisać kadru z dymkiem")
 
 
 def suma(*prostokaty: dict, margines: float = 8, pion: float | None = None,
@@ -482,11 +575,11 @@ def pylint_blad() -> None:
             vsc.czekaj("document.querySelector('.editor-instance .squiggly-error')", opis="podkreślenie")
             odfokusuj_edytor(vsc)
             vsc.wyczysc_powiadomienia()
-            dymek = najedz(vsc, "print", "Pylint")
-            print(f"[{vsc.nazwa}] dymek: {dymek['tekst']!r}")
             cel = (ZRZUTY / "01-instalacja/img/vsc-pylint-blad.png" if not koncowka
                    else WARIANTY / f"vsc-pylint-blad{koncowka}.png")
-            vsc.kadr(cel, *suma(linia(vsc, 1), dymek, gora=gora_edytora(vsc)))
+            wiersz, gora = linia(vsc, 1), gora_edytora(vsc)
+            dymek = kadr_dymka(vsc, cel, "print", "Pylint", lambda d: suma(wiersz, d, gora=gora))
+            print(f"[{vsc.nazwa}] dymek: {dymek['tekst']!r}")
             vsc.podglad(vsc.nazwa)
 
 
@@ -691,10 +784,10 @@ def mypy_ostrzezenie() -> None:
                    limit=180, opis="podkreślenie mypy")
         odfokusuj_edytor(vsc)
         vsc.wyczysc_powiadomienia()
-        dymek = najedz(vsc, '"25"', "Mypy")
+        wiersz, gora = linia(vsc, 1), gora_edytora(vsc)
+        dymek = kadr_dymka(vsc, ZRZUTY / "03-nazwy-typy/img/vsc-mypy-ostrzezenie.png", '"25"', "Mypy",
+                           lambda d: suma(wiersz, d, gora=gora))
         print(f"[{vsc.nazwa}] dymek: {dymek['tekst']!r}")
-        vsc.kadr(ZRZUTY / "03-nazwy-typy/img/vsc-mypy-ostrzezenie.png",
-                 *suma(linia(vsc, 1), dymek, gora=gora_edytora(vsc)))
         vsc.podglad(vsc.nazwa)
 
 
@@ -882,6 +975,7 @@ def main() -> None:
     elif polecenie == "proba":
         proba()
     elif polecenie == "zrzuty":
+        rozgrzewka()
         wykonane = []  # menedzer powstaje w scenariuszu interpreter, 11 i 12 w sesji 10, a 15 w sesji 14
         for identyfikator in reszta or list(SCENARIUSZE):
             funkcja = SCENARIUSZE[identyfikator]
