@@ -58,26 +58,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   i laboratorium L01 autor przyjął 11 X 2026, dalsze talie powstaną na jego
   polecenie (11 X 2026).
 
-### Scenariusz zrzutu listy wyboru interpretera
-
-- **Miejsce:** `docs/01-instalacja/img/vsc-select-interpreter.png`
-  (konfiguracja.md), `ZRZUTY.md` (sekcja „Wykonane”),
-  `scripts/screenshots/vscode/`.
-- **Opis:** zrzut odświeżony 4 X 2026 (VS Code 1.140.0, rozszerzenie Python
-  2026.6.0, Python 3.14.8 i 3.14t, projekt `moj-projekt` ze środowiskami
-  `.venv` i `.venv-t`) powstał w Windows Sandbox przez wywołanie sterownika
-  `vsc_zrzuty.py` scenariuszem spoza repozytorium, więc nie da się go odtworzyć
-  skryptami z `scripts/screenshots/`, czego wymaga `ZRZUTY.md`. Skrypt
-  `wsb/przygotuj.ps1` nie instaluje kompilacji 3.14t i nie tworzy `.venv-t`.
-  Generatora nie ma także zrzut `vsc-environment-manager.png`
-  (konfiguracja.md).
-- **Propozycja:** na gałęzi `infra/*` dodać scenariusz listy wyboru
-  interpretera do `SCENARIUSZE` w `vsc_zrzuty.py` i uzupełnić
-  `wsb/przygotuj.ps1` o instalację 3.14t i środowisko `.venv-t` z venv.md;
-  rozważyć scenariusz dla `vsc-environment-manager.png`.
-- **Stan:** wykonane na gałęzi `infra/zrzuty-scenariusze` (12 X 2026), czeka na
-  odbiór autora.
-
 ### Drobiazgi spoza zakresu poprawek z talii (11 X 2026)
 
 - **Miejsce i opis:** `docs/01-instalacja/ai-tools.md`, ramka „Cel sesji:
@@ -417,3 +397,18 @@ Zastosowania”, a w „Przydatnych poleceniach” `python -m pip list --outdate
 Bez listy zależności i bez wyniku polecenia, które szybko się zmieniają
 (sprawdzone 12 X 2026: IPython 9.17.1 z 14 zależnościami, pip 26.2.1; decyzja
 autora, branch `content/pip-zaleznosci`).
+
+### Odtwarzalne zrzuty VS Code (12 X 2026)
+
+Zrzuty `vsc-select-interpreter.png` i `vsc-environment-manager.png`
+(konfiguracja.md) powstają scenariuszami `interpreter` i `menedzer`
+z `scripts/screenshots/vscode/vsc_zrzuty.py`; `wsb/przygotuj.ps1` instaluje
+w piaskownicy 3.14t i tworzy `.venv-t`. Oba obrazy pokazują tryb rozszerzenia
+Python Environments (decyzja autora, wariant A): po **Create Virtual
+Environment...** lista menedżerów z pozycją **Quick Create**; tekst opisuje
+Quick Create, menedżer venv i zachowanie przy istniejącym `.venv` (ramka
+ostrzeżenia), a ramka „Wygląd a wersja VSC” — zależność od trybu. Naprawiono
+scenariusze pylint i mypy (dymek podpowiedzi w VS Code 1.141) oraz Code Runner
+(obraz porzucony 4 X tylko jako wariant). Obraz `vsc-notatnik-jadro.png`
+pokazuje także 3.14t (decyzja autora; branche `infra/zrzuty-scenariusze`
+i `content/notatnik-jadro`).

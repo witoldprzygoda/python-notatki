@@ -18,7 +18,7 @@ W VSC potrzebne jest rozszerzenie **Jupyter** (`ms-toolsai.jupyter`) z galerii r
 
 ![Nowy notatnik Untitled-1.ipynb w VSC: pasek z przyciskami Code, Markdown i Run All, pusta komórka kodu, a w prawym górnym rogu przycisk Select Kernel](img/vsc-notatnik-nowy.png)
 
-![Lista Select a Python Environment z zalecanym interpreterem .venv projektu na pierwszym miejscu i globalnym interpreterem Pythona 3.14 poniżej](img/vsc-notatnik-jadro.png)
+![Lista Select a Python Environment z zalecanym interpreterem .venv projektu na pierwszym miejscu i globalnymi interpreterami Pythona 3.14 i 3.14t poniżej](img/vsc-notatnik-jadro.png)
 
 ## Komórki kodu i wartość ostatniego wyrażenia
 

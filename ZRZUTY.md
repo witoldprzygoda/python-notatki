@@ -53,10 +53,8 @@ Brak (stan z 4 X 2026).
       (testowanie.md);
     - `zastosowania/01-jupyter/img/vsc-notatnik-nowy.png`, `vsc-notatnik-jadro.png` — nowy
       notatnik z przyciskiem Select Kernel i lista wyboru środowiska z `.venv` projektu
-      (notatnik-jupyter.md). Od 12 X 2026 piaskownica ma również kompilację 3.14t, którą
-      czytelnik instaluje w rozdziale 1, więc scenariusz pokazuje na liście dodatkowy wiersz
-      `pythoncore-3.14t-64`; obraz w książce (bez niego) i jego tekst alternatywny czekają
-      na decyzję autora.
+      (notatnik-jupyter.md). Lista obejmuje także kompilację 3.14t, którą czytelnik instaluje
+      w rozdziale 1 (obraz odświeżony 12 X 2026, VS Code 1.141.0, decyzja autora).
 - `01-instalacja/img/jupyter-interfejs.png` — strona główna Jupyter Notebook (notebook.md);
   `scripts/screenshots/jupyter_interfejs.py`, przeglądarka Edge bez okna.
 - `02-konsola/img/repl-kolorowanie.png` — kolorowy nowy REPL (index.md); przechwycenie przez
