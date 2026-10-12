@@ -545,39 +545,58 @@ INTERPRETERY = [r".\.venv\Scripts\python.exe", r".\.venv-t\Scripts\python.exe",
                 r"pythoncore-3.14-64\python.exe", r"pythoncore-3.14t-64\python3.14t.exe"]
 
 
+JS_LISTA = """() => [...document.querySelectorAll('.quick-input-widget .monaco-list-row')]
+  .map(r => (r.classList.contains('focused') ? '> ' : '  ') + r.innerText.replace(/\\n/g, ' ')).join('\\n')"""
+
+
 def lista_stabilna(vsc: VSCode, limit: float = 30) -> str:
-    """Czeka, aż wiersze widżetu szybkiego wyboru przestaną się zmieniać; zwraca ich tekst."""
+    """Czeka, aż wiersze widżetu szybkiego wyboru i zaznaczenie („> ”) przestaną się zmieniać;
+    zwraca ich tekst."""
     poprzedni, koniec = None, time.monotonic() + limit
     while time.monotonic() < koniec:
         vsc.page.wait_for_timeout(1500)
-        tekst = opis_quick_pick(vsc)
+        tekst = vsc.page.evaluate(JS_LISTA)
         if tekst == poprzedni:
             return tekst
         poprzedni = tekst
     return poprzedni or ""
 
 
+def zaznacz_wiersz(vsc: VSCode, tekst: str, limit: int = 20) -> None:
+    """Przenosi zaznaczenie listy szybkiego wyboru klawiszem strzałki na wiersz zawierający `tekst`."""
+    for _ in range(limit):
+        if tekst in vsc.page.evaluate(
+                "document.querySelector('.quick-input-widget .monaco-list-row.focused')?.innerText || ''"):
+            return
+        vsc.klawisz("ArrowDown", pauza=150)
+    vsc.podglad(f"blad-{vsc.nazwa}")
+    sys.exit(f"[{vsc.nazwa}] brak wiersza {tekst!r} na liście")
+
+
 @scenariusz("interpreter")
 def wybor_interpretera() -> None:
-    """Lista Python: Select Interpreter i następny krok po pozycji Create Virtual Environment...
-    (konfiguracja.md). Rozszerzenie Python działa w dwóch trybach: domyślnym
-    (python.useEnvironmentsExtension = false, listy samego rozszerzenia Python) i w trybie
-    rozszerzenia Python Environments, który Microsoft włącza użytkownikom stopniowo przez
-    eksperymenty (w piaskownicy z wyłączoną telemetrią eksperymentów nie ma, więc tryb włącza
-    ustawienie). Po Create Virtual Environment... tryb domyślny pyta o typ środowiska (Venv, Conda),
-    a tryb Python Environments — o menedżera środowiska. Książka pokazuje listę interpreterów
-    z trybu domyślnego i listę menedżerów z trybu Python Environments; drugi obraz każdego trybu
-    trafia do wariantów. Bez python.defaultInterpreterPath: interpreter projektu wybiera samo
-    rozszerzenie, jak u czytelnika. Drugą listę zamyka klawisz Esc — środowisko nie powstaje."""
+    """Lista Python: Select Interpreter (vsc-select-interpreter.png) i następna lista po pozycji
+    Create Virtual Environment... — wybór menedżera środowiska (vsc-environment-manager.png),
+    konfiguracja.md. Rozszerzenie Python działa w dwóch trybach: w trybie rozszerzenia Python
+    Environments (python.useEnvironmentsExtension = true), który Microsoft włącza użytkownikom
+    stopniowo przez eksperymenty, i w dotychczasowym trybie domyślnym (false; po Create Virtual
+    Environment... pyta o typ środowiska: Venv, Conda). W piaskownicy telemetria jest wyłączona,
+    więc eksperymentów nie ma i tryb wybiera ustawienie. Książka pokazuje tryb Python Environments
+    (decyzja autora z 12 X 2026); obrazy trybu domyślnego trafiają do wariantów.
+    Bez python.defaultInterpreterPath: interpreter projektu wybiera samo rozszerzenie, jak
+    u czytelnika. Zaznaczenie listy interpreterów stoi na .venv projektu — wybranym interpreterze
+    (pole „Selected Interpreter”), jak w pierwszym obrazie książki; bez tego zależy od chwili
+    odświeżenia listy. Drugą listę zamyka klawisz Esc — środowisko nie powstaje."""
     folder = PROJEKTY / "moj-projekt"
     plik = folder / "main.py"
     zapisz(plik, listing("01-instalacja/konfiguracja.md", "main.py", "pierwszy program"))
     tryby = [  # nazwa sesji, ustawienia, kadr listy interpreterów, kadr następnej listy
-        ("interpreter", {}, ZRZUTY / "01-instalacja/img/vsc-select-interpreter.png",
-         WARIANTY / "vsc-environment-type.png"),
-        ("interpreter-python-envs", {"python.useEnvironmentsExtension": True},
-         WARIANTY / "vsc-select-interpreter-python-envs.png",
+        ("interpreter", {"python.useEnvironmentsExtension": True},
+         ZRZUTY / "01-instalacja/img/vsc-select-interpreter.png",
          ZRZUTY / "01-instalacja/img/vsc-environment-manager.png"),
+        ("interpreter-tryb-domyslny", {},
+         WARIANTY / "vsc-select-interpreter-tryb-domyslny.png",
+         WARIANTY / "vsc-environment-type.png"),
     ]
     for nazwa, ustawienia, cel_interpretery, cel_nastepna in tryby:
         with VSCode(nazwa, folder, [plik], ustawienia, rozszerzenia=PYTHON + PYLINT + CODE_RUNNER) as vsc:
@@ -589,9 +608,16 @@ def wybor_interpretera() -> None:
                        f"({json.dumps(INTERPRETERY)})", limit=180, opis="pełna lista interpreterów")
             vsc.page.mouse.move(vsc.szerokosc / 2, vsc.wysokosc - 5)
             lista = lista_stabilna(vsc)
+            for _ in range(3):
+                zaznacz_wiersz(vsc, INTERPRETERY[0])
+                lista = lista_stabilna(vsc)
+                if any(w.startswith("> ") and INTERPRETERY[0] in w for w in lista.splitlines()):
+                    break
+            else:
+                sys.exit(f"[{vsc.nazwa}] zaznaczenie nie zostaje na .venv: {lista!r}")
             pole = vsc.page.evaluate(JS_POLE)
             print(f"[{vsc.nazwa}] pole: {pole!r}")
-            print(f"[{vsc.nazwa}] lista interpreterów: {lista!r}", flush=True)
+            print(f"[{vsc.nazwa}] lista interpreterów:\n{lista}", flush=True)
             vsc.kadr_listy(cel_interpretery, kursor=False)
             vsc.podglad(vsc.nazwa)
             wybierz_z_listy(vsc, "Create Virtual Environment")
@@ -603,7 +629,7 @@ def wybor_interpretera() -> None:
             vsc.page.mouse.move(vsc.szerokosc / 2, vsc.wysokosc - 5)
             lista = lista_stabilna(vsc)
             print(f"[{vsc.nazwa}] pole: {vsc.page.evaluate(JS_POLE)!r}")
-            print(f"[{vsc.nazwa}] następna lista: {lista!r}", flush=True)
+            print(f"[{vsc.nazwa}] następna lista:\n{lista}", flush=True)
             vsc.kadr_listy(cel_nastepna, kursor=False)
             vsc.podglad(vsc.nazwa + "-nastepna")
             vsc.klawisz("Escape")
