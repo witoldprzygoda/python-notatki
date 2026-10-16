@@ -269,8 +269,8 @@ Prefiks `f` tworzy **f-string** (ang. *formatted string literal*, od Pythona 3.6
 ```{ .python .no-copy }
 >>> imie = "Anna"
 >>> wiek = 22
->>> f"Czesc {imie}, masz {wiek} lat"
-'Czesc Anna, masz 22 lat'
+>>> f"Imię: {imie}, wiek: {wiek}"
+'Imię: Anna, wiek: 22'
 ```
 
 Po dwukropku można podać specyfikację formatu — liczbę miejsc po przecinku, szerokość pola, system liczbowy czy separator tysięcy:

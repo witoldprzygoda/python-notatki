@@ -10,7 +10,7 @@ Argumenty można przekazywać na dwa sposoby. **Argument pozycyjny** (ang. *posi
 
 ```python title="przedstaw.py"
 def przedstaw(imie, wiek):
-    print(f"{imie}, {wiek} lat")
+    print(f"{imie}, wiek: {wiek}")
 
 
 przedstaw("Ala", 21)
@@ -19,16 +19,16 @@ przedstaw("Celina", wiek=22)
 ```
 
 ```{ .text .no-copy }
-Ala, 21 lat
-Bartek, 23 lat
-Celina, 22 lat
+Ala, wiek: 21
+Bartek, wiek: 23
+Celina, wiek: 22
 ```
 
 Obowiązuje jedna reguła kolejności: w wywołaniu argumenty pozycyjne wypisane wprost muszą poprzedzać argumenty nazwane. Zapis odwrotny jest błędem składni, wykrywanym jeszcze przed uruchomieniem programu:
 
 ```python title="kolejnosc-argumentow.py"
 def przedstaw(imie, wiek):
-    print(f"{imie}, {wiek} lat")
+    print(f"{imie}, wiek: {wiek}")
 
 
 przedstaw(imie="Ala", 21)
@@ -49,7 +49,7 @@ Parametr może mieć **wartość domyślną** (ang. *default value*), zapisaną 
 
 ```python title="wartosc-domyslna.py"
 def przedstaw(imie, wiek, miasto="Kraków"):
-    print(f"{imie}, {wiek} lat, {miasto}")
+    print(f"{imie}, wiek: {wiek}, {miasto}")
 
 
 przedstaw("Ala", 21)
@@ -58,9 +58,9 @@ przedstaw("Celina", 22, miasto="Toruń")
 ```
 
 ```{ .text .no-copy }
-Ala, 21 lat, Kraków
-Bartek, 23 lat, Gdańsk
-Celina, 22 lat, Toruń
+Ala, wiek: 21, Kraków
+Bartek, wiek: 23, Gdańsk
+Celina, wiek: 22, Toruń
 ```
 
 Wśród parametrów przyjmujących argumenty pozycyjne te z wartością domyślną muszą stać za parametrami bez niej — w przeciwnym razie interpreter nie mógłby ustalić, do którego parametru trafia argument pozycyjny (wyjątek dotyczący parametrów tylko nazwanych omawiamy na końcu podrozdziału). Nagłówek `def przedstaw(imie, miasto="Kraków", wiek):` kończy się błędem `SyntaxError: parameter without a default follows parameter with a default`.
@@ -298,7 +298,7 @@ Te same operatory użyte w **wywołaniu** działają odwrotnie: `*` rozpakowuje 
 
 ```python title="rozpakowanie.py"
 def przedstaw(imie, wiek, miasto="Kraków"):
-    print(f"{imie}, {wiek} lat, {miasto}")
+    print(f"{imie}, wiek: {wiek}, {miasto}")
 
 
 dane = ("Ala", 21)
@@ -309,8 +309,8 @@ print(list(range(*[3, 6])))
 ```
 
 ```{ .text .no-copy }
-Ala, 21 lat, Kraków
-Bartek, 23 lat, Toruń
+Ala, wiek: 21, Kraków
+Bartek, wiek: 23, Toruń
 [3, 4, 5]
 ```
 

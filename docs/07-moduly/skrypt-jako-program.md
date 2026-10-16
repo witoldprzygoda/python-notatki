@@ -80,7 +80,7 @@ Ta reguła wyjaśnia dwa zapisy z rozdziału 6, które wtedy pozostawiliśmy bez
 ```python title="przedstaw.py"
 def przedstaw(imie, wiek):
     """Wypisuje przedstawienie osoby."""
-    print(f"{imie}, {wiek} lat")
+    print(f"{imie}, wiek: {wiek}")
 
 
 przedstaw(**[1, 2])
@@ -102,7 +102,7 @@ Przedrostek to nazwa modułu, w którym funkcja została zdefiniowana. Ta sama f
 
 def przedstaw(imie, wiek):
     """Wypisuje przedstawienie osoby."""
-    print(f"{imie}, {wiek} lat")
+    print(f"{imie}, wiek: {wiek}")
 ```
 
 ```python title="uzyj.py"
