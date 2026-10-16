@@ -207,7 +207,7 @@ z deskryptora danych | z deskryptora niedanych
 z deskryptora danych | z instancji
 ```
 
-Wpis `a` w słowniku instancji istnieje, ale odczyt `p.a` nadal trafia do deskryptora danych — ma on pierwszeństwo przed słownikiem. Wpis `b` przesłonił deskryptor niedanych, bo ten stoi w kolejności dopiero za słownikiem instancji. O pierwszeństwie decyduje pierwszy atrybut znaleziony według `__mro__`: zwykły atrybut klasy pochodnej przesłania właściwość klasy bazowej, więc pierwszeństwo ma wtedy słownik instancji. Krok czwarty, metoda `__getattr__`, jest ostatnim etapem wyszukiwania: Python wywołuje ją tylko wtedy, gdy zwykłe wyszukiwanie zawiodło, co pozwala obsłużyć atrybuty nieistniejące:
+Wpis `a` w słowniku instancji istnieje, ale odczyt `p.a` nadal trafia do deskryptora danych — ma on pierwszeństwo przed słownikiem. Wpis `b` przesłonił deskryptor niedanych, bo ten stoi w kolejności dopiero za słownikiem instancji. Krok 1 bierze pod uwagę tylko pierwszy atrybut znaleziony według `__mro__`: zwykły atrybut klasy pochodnej przesłania właściwość klasy bazowej, więc odczyt sprawdza wtedy najpierw słownik instancji. Krok czwarty, metoda `__getattr__`, jest ostatnim etapem wyszukiwania: Python wywołuje ją tylko wtedy, gdy zwykłe wyszukiwanie zawiodło, co pozwala obsłużyć atrybuty nieistniejące:
 
 ```python title="getattr-demo.py"
 class Ustawienia:
