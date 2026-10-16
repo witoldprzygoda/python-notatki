@@ -124,7 +124,7 @@ pobieracz = Pobieracz(adres, opoznienie=0.0, pamiec="pamiec")
 pozycje = []
 for numer, (url, zupa) in enumerate(strony(pobieracz, adres + "index.html"), 1):
     znalezione = lista_produktow(zupa, url)
-    print(f"strona {numer}: {len(znalezione)} produktów")
+    print(f"strona {numer}, produkty: {len(znalezione)}")
     pozycje.extend(znalezione)
 rekordy = []
 for pozycja in pozycje:
@@ -147,8 +147,8 @@ print(f"z ceną: {len(z_cena)}, średnia: {sum(r['cena'] for r in z_cena) / len(
 ```
 
 ```{ .text .no-copy }
-strona 1: 6 produktów
-strona 2: 4 produktów
+strona 1, produkty: 6
+strona 2, produkty: 4
 10 {'sku': 'AGD-001', 'nazwa': 'Czajnik elektryczny', 'cena': 149.0, 'moc_w': 2200.0, 'pojemnosc_l': 1.7, 'ocena': 4.5}
 {'sku': 'AGD-009', 'nazwa': 'Sokowirówka', 'cena': None, 'moc_w': 800.0, 'pojemnosc_l': None, 'ocena': 3.9}
 ['sku,nazwa,cena,ocena,moc_w,pojemnosc_l', 'AGD-001,Czajnik elektryczny,149.0,4.5,2200.0,1.7', 'AGD-002,Toster dwukomorowy,199.0,4.2,850.0,']

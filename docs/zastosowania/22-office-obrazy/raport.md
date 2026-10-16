@@ -71,7 +71,7 @@ def zapisz_dokument(wiersze, sciezka, obraz_wykresu):
     dokument.add_heading("Raport sprzedaży", level=1)
     kategorie = podsumuj(wiersze, "kategoria")
     razem = f"{sum(wartosc for _, wartosc in kategorie):,.2f}".replace(",", " ").replace(".", ",")
-    dokument.add_paragraph(f"Okres {wiersze[0]['data']} – {wiersze[-1]['data']}, {len(wiersze)} transakcji, łącznie {razem} zł.")
+    dokument.add_paragraph(f"Okres {wiersze[0]['data']} – {wiersze[-1]['data']}, liczba transakcji: {len(wiersze)}, łącznie {razem} zł.")
     tabela = dokument.add_table(rows=1, cols=2)
     tabela.style = "Table Grid"
     tabela.rows[0].cells[0].text, tabela.rows[0].cells[1].text = "Kategoria", "Wartość"
@@ -143,7 +143,7 @@ Zapisano: sprzedaz.xlsx, sprzedaz-wykres.png, sprzedaz.docx w wyniki
 kod: 0
 ['sprzedaz-wykres.png', 'sprzedaz.docx', 'sprzedaz.xlsx']
 ['Sprzedaż', 'Podsumowanie'] =SUM(F2:F13) Robot planetarny
-Okres 2026-09-01 – 2026-09-06, 12 transakcji, łącznie 5 131,42 zł.
+Okres 2026-09-01 – 2026-09-06, liczba transakcji: 12, łącznie 5 131,42 zł.
 ['AGD', '3 679,90'] 1
 Zapisano: sprzedaz-wykres.png, sprzedaz.docx w wyniki\tylko-word
 kod: 0
@@ -189,7 +189,7 @@ def test_narzedzie_tworzy_oba_pliki(plik_csv, tmp_path, capsys):
     podsumowanie = load_workbook(tmp_path / "wyniki" / "dane.xlsx")["Podsumowanie"]
     assert [w for w in podsumowanie.iter_rows(min_row=2, values_only=True)] == [("Czajnik", 300.0), ("Termos", 150.0)]
     dokument = Document(tmp_path / "wyniki" / "dane.docx")
-    assert "3 transakcji, łącznie 450,00 zł" in dokument.paragraphs[1].text
+    assert "liczba transakcji: 3, łącznie 450,00 zł" in dokument.paragraphs[1].text
     assert [k.text for k in dokument.tables[0].rows[1].cells] == ["AGD", "300,00"]
     assert len(dokument.inline_shapes) == 1
 
