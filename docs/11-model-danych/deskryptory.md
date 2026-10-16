@@ -101,11 +101,14 @@ p = Produkt("rower", 1200, 2)
 print(p, p.wartosc(), vars(p))
 p.ilosc = 3
 print(p.wartosc())
-for wyrazenie in ["p.cena = -5", "Produkt('kask', 80, -1)"]:
-    try:
-        exec(wyrazenie)
-    except ValueError as e:
-        print("ValueError:", e)
+try:
+    p.cena = -5
+except ValueError as e:
+    print("ValueError:", e)
+try:
+    Produkt("kask", 80, -1)
+except ValueError as e:
+    print("ValueError:", e)
 print(type(Produkt.cena).__name__)
 ```
 
