@@ -205,7 +205,7 @@ W starszym kodzie spotyka się ręczne przypisanie `sys.stdout = plik` i przywra
 
 ## Funkcja `input()` i koniec wejścia
 
-Funkcja `input(zachęta)` wypisuje zachętę na standardowe wyjście bez znaku nowego wiersza, po czym czyta jeden wiersz ze standardowego wejścia i zwraca go bez końcowego `\n`. Gdy wejście się skończy — użytkownik nacisnął ++ctrl+z++ i ++enter++ w konsoli Windows (++ctrl+d++ w terminalach uniksowych) albo wyczerpał się plik podany potokiem — `input()` zgłasza `EOFError` (od skrótu EOF, ang. *end of file*), który obsługujemy jak każdy wyjątek:
+Funkcja `input(zachęta)` wypisuje zachętę na standardowe wyjście bez znaku nowego wiersza, po czym czyta jeden wiersz ze standardowego wejścia i zwraca go bez końcowego `\n`. Gdy wejście się skończy — użytkownik nacisnął klawisze końca wejścia (w Windows ++ctrl+z++ i ++enter++, również w Git Bash, w którym ++ctrl+d++ wprowadza zwykły znak o kodzie 4; w terminalach Linuksa i macOS ++ctrl+d++) albo wyczerpał się plik podany potokiem — `input()` zgłasza `EOFError` (od skrótu EOF, ang. *end of file*), który obsługujemy jak każdy wyjątek:
 
 ```python title="wejscie.py"
 suma = 0
