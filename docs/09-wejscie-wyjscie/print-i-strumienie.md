@@ -92,12 +92,12 @@ koniec
 Komunikat ostrzeżenia pojawił się na ekranie w trakcie pierwszego polecenia, a plik `strumienie-wynik.txt` — wypisany poleceniem `Get-Content` — zawiera tylko dwa wiersze ze standardowego wyjścia. Przekierowanie `2> strumienie-bledy.txt` działa odwrotnie: na ekranie zostają wyniki, a do pliku trafia ostrzeżenie. Dlatego komunikaty diagnostyczne piszemy na `stderr`: użytkownik, który zapisuje wynik programu do pliku, nie dostaje w nim ostrzeżeń, a ostrzeżenia nie są tracone. **Potok** (ang. *pipe*), zapisywany znakiem `|`, łączy standardowe wyjście jednego programu ze standardowym wejściem drugiego; ostrzeżenie, jako że idzie osobnym strumieniem, nie trafia do potoku:
 
 ```powershell title="Terminal"
-python strumienie.py | python -c "import sys; print(len(sys.stdin.read().splitlines()), 'wierszy')"
+python strumienie.py | python -c "import sys; print('wiersze:', len(sys.stdin.read().splitlines()))"
 ```
 
 ```{ .text .no-copy }
 UWAGA: plik nie istnieje
-2 wierszy
+wiersze: 2
 ```
 
 Drugi program policzył wiersze, które otrzymał na standardowym wejściu (metoda `splitlines()` dzieli tekst na listę wierszy) — dwa, bo ostrzeżenie do potoku nie weszło. Ten sam zapis w Git Bash i w terminalach uniksowych działa identycznie; różnica dotyczy tylko sposobu wyświetlania pliku (`cat` zamiast `Get-Content`).

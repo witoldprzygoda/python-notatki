@@ -328,16 +328,16 @@ def zapisz(zadania):
 
 
 zadania = wczytaj()
-print("wczytano:", len(zadania), "zadań")
+print("wczytane zadania:", len(zadania))
 zadania.append({"tytuł": "kupić chleb", "zrobione": False})
 zadania.append({"tytuł": "oddać książkę", "zrobione": True})
 zapisz(zadania)
 print(PLIK.read_text(encoding="utf-8"))
-print("po ponownym wczytaniu:", len(wczytaj()), "zadań")
+print("zadania po ponownym wczytaniu:", len(wczytaj()))
 ```
 
 ```{ .text .no-copy }
-wczytano: 0 zadań
+wczytane zadania: 0
 [
   {
     "tytuł": "kupić chleb",
@@ -348,7 +348,7 @@ wczytano: 0 zadań
     "zrobione": true
   }
 ]
-po ponownym wczytaniu: 2 zadań
+zadania po ponownym wczytaniu: 2
 ```
 
 Przy pierwszym uruchomieniu pliku nie ma i `wczytaj()` zwraca pustą listę; każde kolejne uruchomienie zaczyna od dwóch zapisanych zadań i dopisuje następne — w prawdziwym programie nowe zadania pochodziłyby od użytkownika. Wzorzec „wczytaj, zmień, zapisz” z jawnym `encoding` i `ensure_ascii=False` wystarcza dla danych, które mieszczą się w pamięci; przy większych zbiorach właściwa jest baza danych, na przykład wbudowany moduł `sqlite3`.
@@ -387,12 +387,12 @@ from compression import zstd
 
 dane = ("wiersz danych;" * 200).encode("utf-8")
 skompresowane = zstd.compress(dane)
-print(len(dane), "->", len(skompresowane), "bajtów")
+print("bajty:", len(dane), "->", len(skompresowane))
 print(zstd.decompress(skompresowane) == dane)
 ```
 
 ```{ .text .no-copy }
-2800 -> 32 bajtów
+bajty: 2800 -> 32
 True
 ```
 
