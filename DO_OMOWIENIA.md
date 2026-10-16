@@ -71,6 +71,27 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   liczby w `cache_info()`, skrypt wykresu cyklu wydań) rozstrzygnięte 11 X 2026
   (sekcja „Rozstrzygnięte”).
 
+### Uwagi z talii W09–W12 i L02 (16 X 2026)
+
+- **Miejsce:** rozdziały 6, 9, 11 i 13 (uwagi o książce w raportach talii W09,
+  L02, W11 i W12, `PLAN_SLAJDOW.md` na gałęzi `slajdy`, §11.10 i §11.12–11.14)
+  oraz miejsca znalezione przy przeglądzie liczebników w wynikach programów:
+  rozdziały 3, 6, 7 i 8 oraz rozdziały 21 i 22 części „Python Zastosowania”.
+- **Opis:** potok `Get-Content dane.json | python -m json` zniekształca polskie
+  litery (tryb UTF-8 `-X utf8`); koniec wejścia w Git Bash (Ctrl+Z i Enter);
+  zapis przekierowania w Windows PowerShell 5.1 (UTF-16LE ze znacznikiem BOM);
+  odmiana liczebnika w wynikach programów (etykieta z dwukropkiem);
+  `nieujemna.py` bez `exec()`; krok 1 kolejności wyszukiwania atrybutu;
+  przyczyna szybszego odczytu atrybutu w pomiarze `__slots__`; proporcja
+  z profilu `cProfile`; tabela wersji funkcji Fibonacciego; sygnatura `print()`
+  a `help(print)`; porządek łańcuchów według kodów Unicode. Liczby rozdziału 13
+  pozostają bez zmian (decyzja z 2 X 2026); jedyna nowa wartość, „około ośmiu
+  razy” bez profilera, pochodzi z uruchomienia na CPythonie 3.14.8.
+- **Propozycja:** zmiany według zestawienia przed i po, przygotowanego dla
+  autora wraz z dowodami.
+- **Stan:** wykonane na gałęzi `content/uwagi-z-talii-2`, czeka na odbiór autora
+  (16 X 2026).
+
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
