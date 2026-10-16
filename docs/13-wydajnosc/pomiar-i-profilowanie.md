@@ -271,10 +271,12 @@ fib_cache   832040     0.042 ms
 CacheInfo(hits=28, misses=31, maxsize=None, currsize=31)
 ```
 
-| Wersja | Wywołań dla `n = 30` | Czas | Uwagi |
+| Wersja | Wywołań dla `n = 30` | Czas pierwszego wywołania | Uwagi |
 |---|---|---|---|
 | `fib` (rekurencja) | 2 692 537 | ok. 78 ms | każdy wyraz liczony wielokrotnie |
-| `fib_iter` (pętla) | 1 | ok. 2 µs | 30 obrotów pętli |
+| `fib_iter` (pętla) | 1 | ok. 4 µs | 30 obrotów pętli |
 | `fib_cache` (memoizacja) | 31 obliczeń (59 wywołań, 28 z pamięci podręcznej) | ok. 40 µs | każdy wyraz liczony raz, wyniki w słowniku |
+
+Czasy w tabeli pochodzą z wydruku powyżej, czyli z jednego, pierwszego wywołania każdej wersji. Przy funkcjach trwających kilka mikrosekund taki pomiar obejmuje także jednorazowy koszt pierwszego wykonania kodu, dlatego `timeit` z wieloma powtórzeniami (dla `fib_cache` — z opróżnianiem pamięci podręcznej przed każdym wywołaniem) daje dla obu krótszych wersji czasy kilkakrotnie mniejsze.
 
 Różnica czterech rzędów wielkości nie wynika z „wolnego Pythona”, lecz z algorytmu: rekurencja bez pamięci podręcznej liczy `fib(28)` dwa razy, `fib(27)` trzy razy i tak dalej. Memoizacja z rozdziału [7. Moduły, pakiety i biblioteka standardowa](../07-moduly/functools.md#pamiec-podreczna-wynikow-cache-i-lru_cache) usuwa powtórzenia jednym wierszem, a pętla usuwa wywołania w ogóle. To najważniejsza lekcja tego rozdziału: zanim sięgniemy po narzędzia z następnych podrozdziałów, sprawdzamy algorytm.
