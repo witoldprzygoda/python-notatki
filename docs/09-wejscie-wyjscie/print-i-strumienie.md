@@ -8,7 +8,7 @@ Funkcję `print()` poznaliśmy w podrozdziale [Konsola w praktyce](../02-konsola
 print(*objects, sep=" ", end="\n", file=None, flush=False)
 ```
 
-Parametr `*objects` z podrozdziału [Argumenty i parametry](../06-funkcje/argumenty-i-parametry.md#parametr-args) zbiera dowolną liczbę argumentów pozycyjnych; każdy jest zamieniany na tekst tak, jak robi to `str()`. Cztery pozostałe parametry są tylko nazwane: `sep` rozdziela argumenty, `end` kończy wypisany tekst, `file` wskazuje strumień docelowy (domyślnie standardowe wyjście), a `flush` wymusza natychmiastowe opróżnienie bufora strumienia. Wywołanie bez argumentów wypisuje sam `end`, czyli pusty wiersz:
+Parametr `*objects` z podrozdziału [Argumenty i parametry](../06-funkcje/argumenty-i-parametry.md#parametr-args) zbiera dowolną liczbę argumentów pozycyjnych; każdy jest zamieniany na tekst tak, jak robi to `str()`. Cztery pozostałe parametry są tylko nazwane: `sep` rozdziela argumenty, `end` kończy wypisany tekst, `file` wskazuje strumień docelowy (domyślnie standardowe wyjście), a `flush` wymusza natychmiastowe opróżnienie bufora strumienia. Sygnaturę podajemy za dokumentacją Pythona; `help(print)` w Pythonie 3.14 nazywa pierwszy parametr `*args`, co dla wywołania nie ma znaczenia, bo argumenty zbierane przez parametr z gwiazdką przekazujemy wyłącznie pozycyjnie. Wywołanie bez argumentów wypisuje sam `end`, czyli pusty wiersz:
 
 ```python title="sygnatura.py"
 print("a", "b", "c")
