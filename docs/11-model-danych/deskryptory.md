@@ -166,7 +166,7 @@ AttributeError: atrybut 'wersja' jest tylko do odczytu
 
 W rozdziale 10 podaliśmy uproszczoną regułę: słownik instancji, potem słownik klasy. Pełna reguła uwzględnia deskryptory i dzieli je na dwa rodzaje. **Deskryptor danych** (ang. *data descriptor*) definiuje `__set__` lub `__delete__` (zwykle obok `__get__`); **deskryptor niedanych** (ang. *non-data descriptor*) ma tylko `__get__`. Odczyt `obiekt.atrybut` przebiega w kolejności:
 
-1. deskryptor danych o tej nazwie w klasie obiektu lub jej klasach bazowych (według `__mro__`) — wywoływane jest jego `__get__`;
+1. pierwszy atrybut o tej nazwie w klasie obiektu lub jej klasach bazowych (według `__mro__`), jeśli jest deskryptorem danych — wywoływane jest jego `__get__`;
 2. wpis w słowniku `__dict__` instancji;
 3. deskryptor niedanych albo zwykły atrybut w klasie lub klasach bazowych;
 4. metoda `__getattr__`, jeśli klasa ją definiuje;
@@ -207,7 +207,7 @@ z deskryptora danych | z deskryptora niedanych
 z deskryptora danych | z instancji
 ```
 
-Wpis `a` w słowniku instancji istnieje, ale odczyt `p.a` nadal trafia do deskryptora danych — ma on pierwszeństwo przed słownikiem. Wpis `b` przesłonił deskryptor niedanych, bo ten stoi w kolejności dopiero za słownikiem instancji. Krok czwarty, metoda `__getattr__`, jest ostatnim etapem wyszukiwania: Python wywołuje ją tylko wtedy, gdy zwykłe wyszukiwanie zawiodło, co pozwala obsłużyć atrybuty nieistniejące:
+Wpis `a` w słowniku instancji istnieje, ale odczyt `p.a` nadal trafia do deskryptora danych — ma on pierwszeństwo przed słownikiem. Wpis `b` przesłonił deskryptor niedanych, bo ten stoi w kolejności dopiero za słownikiem instancji. O pierwszeństwie decyduje pierwszy atrybut znaleziony według `__mro__`: zwykły atrybut klasy pochodnej przesłania właściwość klasy bazowej, więc pierwszeństwo ma wtedy słownik instancji. Krok czwarty, metoda `__getattr__`, jest ostatnim etapem wyszukiwania: Python wywołuje ją tylko wtedy, gdy zwykłe wyszukiwanie zawiodło, co pozwala obsłużyć atrybuty nieistniejące:
 
 ```python title="getattr-demo.py"
 class Ustawienia:
