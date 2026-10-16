@@ -299,7 +299,7 @@ python -m json --compact ustawienia.json
 {"motyw":"ciemny","rozmiar_czcionki":12,"ostatnie_pliki":["a.txt","b.txt"]}
 ```
 
-Opcja `--sort-keys` porządkuje klucze, `--no-ensure-ascii` wypisuje polskie litery wprost, a bez nazwy pliku narzędzie czyta standardowe wejście, więc nadaje się na koniec potoku: `Get-Content dane.json | python -m json`.
+Opcja `--sort-keys` porządkuje klucze, `--no-ensure-ascii` wypisuje polskie litery wprost, a bez nazwy pliku narzędzie czyta standardowe wejście, więc nadaje się na koniec potoku. Plik podany nazwą narzędzie odczytuje w UTF-8, ale standardowe wejście z potoku dekoduje — jak każdy przekierowany strumień, o czym mowa w podrozdziale [Funkcja print i strumienie](print-i-strumienie.md#kodowanie-strumieni-konsola-a-przekierowanie) — stroną kodową systemu, więc w Pythonie 3.14 polskie litery z pliku zapisanego w UTF-8 docierają do niego zniekształcone (`imię` jako `imiÄ™`). W potoku włączamy zatem tryb UTF-8: `Get-Content dane.json | python -X utf8 -m json` (w Git Bash `cat dane.json | python -X utf8 -m json`).
 
 ## Zapis stanu programu
 
