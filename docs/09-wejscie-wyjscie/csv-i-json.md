@@ -181,7 +181,7 @@ print(wczytane == dane, wczytane["oceny"][1])
 True 5.0
 ```
 
-Domyślny zapis ze znakami spoza ASCII w postaci `\u0119` jest poprawnym JSON-em i każde narzędzie go odczyta, ale dla człowieka jest nieczytelny; w plikach zapisywanych w UTF-8 stosujemy `ensure_ascii=False`. Argument `sort_keys=True` porządkuje klucze alfabetycznie, co ułatwia porównywanie plików.
+Domyślny zapis ze znakami spoza ASCII w postaci `\u0119` jest poprawnym JSON-em i każde narzędzie go odczyta, ale dla człowieka jest nieczytelny; w plikach zapisywanych w UTF-8 stosujemy `ensure_ascii=False`. Argument `sort_keys=True` porządkuje klucze według kodów znaków, tak jak `sorted()` porządkuje łańcuchy (podrozdział [Funkcje jako obiekty](../06-funkcje/funkcje-jako-obiekty.md#funkcja-klucza-w-sorted-min-i-max)), co ułatwia porównywanie plików.
 
 ### Mapowanie typów
 
