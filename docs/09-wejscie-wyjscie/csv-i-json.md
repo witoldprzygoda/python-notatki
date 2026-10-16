@@ -181,7 +181,7 @@ print(wczytane == dane, wczytane["oceny"][1])
 True 5.0
 ```
 
-Domyślny zapis ze znakami spoza ASCII w postaci `\u0119` jest poprawnym JSON-em i każde narzędzie go odczyta, ale dla człowieka jest nieczytelny; w plikach zapisywanych w UTF-8 stosujemy `ensure_ascii=False`. Argument `sort_keys=True` porządkuje klucze alfabetycznie, co ułatwia porównywanie plików.
+Domyślny zapis ze znakami spoza ASCII w postaci `\u0119` jest poprawnym JSON-em i każde narzędzie go odczyta, ale dla człowieka jest nieczytelny; w plikach zapisywanych w UTF-8 stosujemy `ensure_ascii=False`. Argument `sort_keys=True` porządkuje klucze według kodów znaków, tak jak `sorted()` porządkuje łańcuchy (podrozdział [Funkcje jako obiekty](../06-funkcje/funkcje-jako-obiekty.md#funkcja-klucza-w-sorted-min-i-max)), co ułatwia porównywanie plików.
 
 ### Mapowanie typów
 
@@ -299,7 +299,7 @@ python -m json --compact ustawienia.json
 {"motyw":"ciemny","rozmiar_czcionki":12,"ostatnie_pliki":["a.txt","b.txt"]}
 ```
 
-Opcja `--sort-keys` porządkuje klucze, `--no-ensure-ascii` wypisuje polskie litery wprost, a bez nazwy pliku narzędzie czyta standardowe wejście, więc nadaje się na koniec potoku: `Get-Content dane.json | python -m json`.
+Opcja `--sort-keys` porządkuje klucze, `--no-ensure-ascii` wypisuje polskie litery wprost, a bez nazwy pliku narzędzie czyta standardowe wejście, więc nadaje się na koniec potoku. Plik podany nazwą narzędzie odczytuje w UTF-8, ale standardowe wejście z potoku dekoduje — jak każdy przekierowany strumień, o czym mowa w podrozdziale [Funkcja print i strumienie](print-i-strumienie.md#kodowanie-strumieni-konsola-a-przekierowanie) — stroną kodową systemu, więc w Pythonie 3.14 polskie litery z pliku zapisanego w UTF-8 docierają do niego zniekształcone (`imię` jako `imiÄ™`). W potoku włączamy zatem tryb UTF-8: `Get-Content dane.json | python -X utf8 -m json` (w Git Bash `cat dane.json | python -X utf8 -m json`) albo podajemy nazwę pliku. W Windows PowerShell 5.1 potok nie pomoże nawet z `-X utf8`: powłoka przekazuje programom tekst w kodowaniu ASCII (zmienna `$OutputEncoding`), więc polskie litery docierają jako znaki zapytania — wtedy podajemy nazwę pliku.
 
 ## Zapis stanu programu
 
@@ -328,16 +328,16 @@ def zapisz(zadania):
 
 
 zadania = wczytaj()
-print("wczytano:", len(zadania), "zadań")
+print("wczytane zadania:", len(zadania))
 zadania.append({"tytuł": "kupić chleb", "zrobione": False})
 zadania.append({"tytuł": "oddać książkę", "zrobione": True})
 zapisz(zadania)
 print(PLIK.read_text(encoding="utf-8"))
-print("po ponownym wczytaniu:", len(wczytaj()), "zadań")
+print("zadania po ponownym wczytaniu:", len(wczytaj()))
 ```
 
 ```{ .text .no-copy }
-wczytano: 0 zadań
+wczytane zadania: 0
 [
   {
     "tytuł": "kupić chleb",
@@ -348,7 +348,7 @@ wczytano: 0 zadań
     "zrobione": true
   }
 ]
-po ponownym wczytaniu: 2 zadań
+zadania po ponownym wczytaniu: 2
 ```
 
 Przy pierwszym uruchomieniu pliku nie ma i `wczytaj()` zwraca pustą listę; każde kolejne uruchomienie zaczyna od dwóch zapisanych zadań i dopisuje następne — w prawdziwym programie nowe zadania pochodziłyby od użytkownika. Wzorzec „wczytaj, zmień, zapisz” z jawnym `encoding` i `ensure_ascii=False` wystarcza dla danych, które mieszczą się w pamięci; przy większych zbiorach właściwa jest baza danych, na przykład wbudowany moduł `sqlite3`.
@@ -387,12 +387,12 @@ from compression import zstd
 
 dane = ("wiersz danych;" * 200).encode("utf-8")
 skompresowane = zstd.compress(dane)
-print(len(dane), "->", len(skompresowane), "bajtów")
+print("bajty:", len(dane), "->", len(skompresowane))
 print(zstd.decompress(skompresowane) == dane)
 ```
 
 ```{ .text .no-copy }
-2800 -> 32 bajtów
+bajty: 2800 -> 32
 True
 ```
 

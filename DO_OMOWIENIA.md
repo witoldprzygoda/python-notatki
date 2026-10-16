@@ -86,6 +86,12 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   `docs/01-instalacja/ai-tools.md`: nazwy planów Copilota, sposób włączania,
   wbudowanych agentów, skróty klawiszowe, ustawienie `chat.disableAIFeatures`,
   przedrostki `#`, `/`, `@`; zaktualizować datę stanu we wstępie.
+- **Poprawki z talii W09–W12 (16 X 2026)** — sprawdzić ponownie wyjaśnienie
+  specjalizacji odczytu atrybutu po odczycie `__dict__` w pomiarze `__slots__`
+  (`optymalizacja-kodu.md`; zdanie w `10-klasy/atrybuty-i-metody.md`),
+  proporcję „około ośmiu razy” bez profilera (`pomiar-i-profilowanie.md`)
+  oraz zdania o `-X utf8` w potoku (`csv-i-json.md`, sekcja „Narzędzie
+  `python -m json`”), bo w Pythonie 3.15 tryb UTF-8 jest domyślny.
 
 ## Rozstrzygnięte
 
@@ -412,3 +418,17 @@ scenariusze pylint i mypy (dymek podpowiedzi w VS Code 1.141) oraz Code Runner
 (obraz porzucony 4 X tylko jako wariant). Obraz `vsc-notatnik-jadro.png`
 pokazuje także 3.14t (decyzja autora; branche `infra/zrzuty-scenariusze`
 i `content/notatnik-jadro`).
+
+### Uwagi z talii W09–W12 i L02 (16 X 2026)
+
+Przyjęte przez autora 16 X 2026 w trzech porcjach (branch
+`content/uwagi-z-talii-2`): rozdz. 9 – potok `python -m json` a tryb UTF-8,
+Ctrl+Z i Enter także w Git Bash, Windows PowerShell 5.1 i UTF-16 z BOM;
+liczebniki w wynikach programów (rozdz. 3, 6, 7, 8, 9 i rozdz. 19, 21, 22
+części „Python Zastosowania”) w zapisie z etykietą i dwukropkiem; rozdz. 11 –
+`nieujemna.py` bez `exec()`, krok 1 kolejności wyszukiwania atrybutu według
+`__mro__`; rozdz. 13 – `__slots__` a specjalizacja odczytu atrybutu (także
+rozdz. 10), proporcja z profilu („około ośmiu razy” bez profilera), tabela
+Fibonacciego zgodna z wydrukiem; rozdz. 6 – porządek łańcuchów według kodów
+Unicode (także `sort_keys` w rozdz. 9); `help(print)` a sygnatura z
+dokumentacji. Wszystkie wyniki sprawdzone na CPythonie 3.14.8.

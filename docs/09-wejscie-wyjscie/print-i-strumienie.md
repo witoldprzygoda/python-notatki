@@ -8,7 +8,7 @@ Funkcję `print()` poznaliśmy w podrozdziale [Konsola w praktyce](../02-konsola
 print(*objects, sep=" ", end="\n", file=None, flush=False)
 ```
 
-Parametr `*objects` z podrozdziału [Argumenty i parametry](../06-funkcje/argumenty-i-parametry.md#parametr-args) zbiera dowolną liczbę argumentów pozycyjnych; każdy jest zamieniany na tekst tak, jak robi to `str()`. Cztery pozostałe parametry są tylko nazwane: `sep` rozdziela argumenty, `end` kończy wypisany tekst, `file` wskazuje strumień docelowy (domyślnie standardowe wyjście), a `flush` wymusza natychmiastowe opróżnienie bufora strumienia. Wywołanie bez argumentów wypisuje sam `end`, czyli pusty wiersz:
+Parametr `*objects` z podrozdziału [Argumenty i parametry](../06-funkcje/argumenty-i-parametry.md#parametr-args) zbiera dowolną liczbę argumentów pozycyjnych; każdy jest zamieniany na tekst tak, jak robi to `str()`. Cztery pozostałe parametry są tylko nazwane: `sep` rozdziela argumenty, `end` kończy wypisany tekst, `file` wskazuje strumień docelowy (domyślnie standardowe wyjście), a `flush` wymusza natychmiastowe opróżnienie bufora strumienia. Sygnaturę podajemy za dokumentacją Pythona; `help(print)` w Pythonie 3.14 nazywa pierwszy parametr `*args`, co dla wywołania nie ma znaczenia, bo argumenty zbierane przez parametr z gwiazdką przekazujemy wyłącznie pozycyjnie. Wywołanie bez argumentów wypisuje sam `end`, czyli pusty wiersz:
 
 ```python title="sygnatura.py"
 print("a", "b", "c")
@@ -92,12 +92,12 @@ koniec
 Komunikat ostrzeżenia pojawił się na ekranie w trakcie pierwszego polecenia, a plik `strumienie-wynik.txt` — wypisany poleceniem `Get-Content` — zawiera tylko dwa wiersze ze standardowego wyjścia. Przekierowanie `2> strumienie-bledy.txt` działa odwrotnie: na ekranie zostają wyniki, a do pliku trafia ostrzeżenie. Dlatego komunikaty diagnostyczne piszemy na `stderr`: użytkownik, który zapisuje wynik programu do pliku, nie dostaje w nim ostrzeżeń, a ostrzeżenia nie są tracone. **Potok** (ang. *pipe*), zapisywany znakiem `|`, łączy standardowe wyjście jednego programu ze standardowym wejściem drugiego; ostrzeżenie, jako że idzie osobnym strumieniem, nie trafia do potoku:
 
 ```powershell title="Terminal"
-python strumienie.py | python -c "import sys; print(len(sys.stdin.read().splitlines()), 'wierszy')"
+python strumienie.py | python -c "import sys; print('wiersze:', len(sys.stdin.read().splitlines()))"
 ```
 
 ```{ .text .no-copy }
 UWAGA: plik nie istnieje
-2 wierszy
+wiersze: 2
 ```
 
 Drugi program policzył wiersze, które otrzymał na standardowym wejściu (metoda `splitlines()` dzieli tekst na listę wierszy) — dwa, bo ostrzeżenie do potoku nie weszło. Ten sam zapis w Git Bash i w terminalach uniksowych działa identycznie; różnica dotyczy tylko sposobu wyświetlania pliku (`cat` zamiast `Get-Content`).
@@ -139,7 +139,7 @@ zażółć gęślą jaźń
 ```
 
 !!! note "Wersja PowerShell"
-    Opisane zachowanie dotyczy PowerShell 7.4 i nowszego, gdzie przekierowanie `>` i potok `|` przekazują bajty dokładnie tak, jak wypisał je program. Wbudowany w system Windows PowerShell 5.1 oraz wersje 7.0–7.3 dekodują wyjście programu według ustawień konsoli i zapisują je ponownie we własnym kodowaniu, więc zawartość pliku może się różnić od pokazanej. W Windows PowerShell 5.1 przekierowanie `2>` zapisuje ponadto do pliku nie sam komunikat programu, lecz rekord błędu powłoki (`NativeCommandError`) z numerem wiersza polecenia i opisem kategorii. Wersję powłoki sprawdzamy poleceniem `$PSVersionTable.PSVersion`.
+    Opisane zachowanie dotyczy PowerShell 7.4 i nowszego, gdzie przekierowanie `>` i potok `|` przekazują bajty dokładnie tak, jak wypisał je program. Wbudowany w system Windows PowerShell 5.1 oraz wersje 7.0–7.3 dekodują wyjście programu według ustawień konsoli i zapisują je ponownie we własnym kodowaniu, więc zawartość pliku może się różnić od pokazanej. Windows PowerShell 5.1 dekoduje bajty UTF-8 wypisane przez `python -X utf8 polskie.py` według strony kodowej konsoli, a otrzymany tekst zapisuje w kodowaniu UTF-16, w którym każdy znak zajmuje co najmniej dwa bajty, ze [znacznikiem BOM](pliki-tekstowe.md#znacznik-bom-i-utf-8-sig), dlatego plik zawiera już zniekształcone znaki: przy stronie kodowej konsoli 437 `Get-Content polskie.txt` wypisuje `za┼╝├│┼é─ç g─Ö┼¢l─à ja┼║┼ä`. W tej wersji przekierowanie `2>` zapisuje ponadto do pliku nie sam komunikat programu, lecz rekord błędu powłoki (`NativeCommandError`) z numerem wiersza polecenia i opisem kategorii. Wersję powłoki sprawdzamy poleceniem `$PSVersionTable.PSVersion`.
 
 Od Pythona 3.15 tryb UTF-8 jest włączony domyślnie ([PEP 686](https://peps.python.org/pep-0686/)); w Pythonie 3.14 trzeba o nim pamiętać przy przekierowaniach — samo kodowanie strumieni standardowych, bez wpływu na pliki, ustala też zmienna środowiskowa `PYTHONIOENCODING` — a przy zapisie do plików z poziomu programu zawsze podawać kodowanie, o czym mowa w podrozdziale o plikach tekstowych.
 
@@ -205,7 +205,7 @@ W starszym kodzie spotyka się ręczne przypisanie `sys.stdout = plik` i przywra
 
 ## Funkcja `input()` i koniec wejścia
 
-Funkcja `input(zachęta)` wypisuje zachętę na standardowe wyjście bez znaku nowego wiersza, po czym czyta jeden wiersz ze standardowego wejścia i zwraca go bez końcowego `\n`. Gdy wejście się skończy — użytkownik nacisnął ++ctrl+z++ i ++enter++ w konsoli Windows (++ctrl+d++ w terminalach uniksowych) albo wyczerpał się plik podany potokiem — `input()` zgłasza `EOFError` (od skrótu EOF, ang. *end of file*), który obsługujemy jak każdy wyjątek:
+Funkcja `input(zachęta)` wypisuje zachętę na standardowe wyjście bez znaku nowego wiersza, po czym czyta jeden wiersz ze standardowego wejścia i zwraca go bez końcowego `\n`. Gdy wejście się skończy — użytkownik nacisnął klawisze końca wejścia (w Windows ++ctrl+z++ i ++enter++, również w Git Bash, w którym ++ctrl+d++ wprowadza zwykły znak o kodzie 4; w terminalach Linuksa i macOS ++ctrl+d++) albo wyczerpał się plik podany potokiem — `input()` zgłasza `EOFError` (od skrótu EOF, ang. *end of file*), który obsługujemy jak każdy wyjątek:
 
 ```python title="wejscie.py"
 suma = 0

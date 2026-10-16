@@ -103,7 +103,7 @@ def przetworz(wpisy):
             suma += int(wpis)
         except ValueError:
             log.exception("pomijam błędny wpis %r", wpis)
-    log.info("przetworzono %d wpisów, suma %d", len(wpisy), suma)
+    log.info("przetworzone wpisy: %d, suma: %d", len(wpisy), suma)
     return suma
 
 
@@ -117,7 +117,7 @@ Traceback (most recent call last):
     suma += int(wpis)
             ~~~^^^^^^
 ValueError: invalid literal for int() with base 10: 'x'
-INFO __main__: przetworzono 3 wpisów, suma 4
+INFO __main__: przetworzone wpisy: 3, suma: 4
 ```
 
 Ślad znalazł się w dzienniku pod komunikatem, a program dokończył pracę i odnotował podsumowanie. Gdy ślad nie jest potrzebny, wystarczy `log.error()`; gdy potrzebny jest na innym poziomie, każda z metod przyjmuje argument `exc_info=True`. Wzorzec z tego przykładu — `except` na poziomie, który decyduje o kontynuowaniu, z `exception()` zamiast `pass` — jest właściwą odpowiedzią na antywzorzec połykania wyjątków z podrozdziału o stylu.
@@ -138,13 +138,13 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-log.debug("wczytano %d wierszy", 3)
+log.debug("wczytane wiersze: %d", 3)
 log.info("początek przetwarzania")
 log.info("koniec przetwarzania")
 ```
 
 ```{ .text .no-copy }
-2026-09-13 10:15:42 DEBUG __main__: wczytano 3 wierszy
+2026-09-13 10:15:42 DEBUG __main__: wczytane wiersze: 3
 2026-09-13 10:15:42 INFO __main__: początek przetwarzania
 2026-09-13 10:15:42 INFO __main__: koniec przetwarzania
 ```

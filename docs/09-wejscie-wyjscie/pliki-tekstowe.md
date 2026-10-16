@@ -64,7 +64,7 @@ Czwarty wiersz po pustym
 with open("wiersze.txt", encoding="utf-8") as plik:
     calosc = plik.read()
 print(repr(calosc))
-print(len(calosc.splitlines()), "wierszy")
+print("liczba wierszy:", len(calosc.splitlines()))
 
 with open("wiersze.txt", encoding="utf-8") as plik:
     pierwszy = plik.readline()
@@ -78,7 +78,7 @@ print(lista)
 
 ```{ .text .no-copy }
 'Pierwszy wiersz\nDrugi wiersz\n\nCzwarty wiersz po pustym\n'
-4 wierszy
+liczba wierszy: 4
 'Pierwszy wiersz\n' 'Drugi wiersz\n'
 ['Pierwszy wiersz\n', 'Drugi wiersz\n', '\n', 'Czwarty wiersz po pustym\n']
 ```
@@ -96,11 +96,11 @@ with open("wiersze.txt", encoding="utf-8") as plik:
     for wiersz in plik:
         liczba_wierszy += 1
         liczba_slow += len(wiersz.split())
-print(liczba_wierszy, "wierszy,", liczba_slow, "słów")
+print("wiersze:", liczba_wierszy, "| słowa:", liczba_slow)
 ```
 
 ```{ .text .no-copy }
-4 wierszy, 8 słów
+wiersze: 4 | słowa: 8
 ```
 
 Pętla przetworzyła plik, którego rozmiar nie ma znaczenia — w pamięci jest zawsze jeden wiersz. Ten wzorzec łączy się z potokami generatorów z rozdziału 6: obiekt pliku może być źródłem, po którym kolejne etapy filtrują i przekształcają wiersze.

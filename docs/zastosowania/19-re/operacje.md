@@ -56,7 +56,7 @@ import re
 print(re.sub(r"\s+", " ", "wiele   spacji\ti  tabulator"))
 print(re.sub(r"(\d{4})-(\d{2})-(\d{2})", r"\3.\2.\1", "od 2026-09-23 do 2026-10-01"))
 print(re.sub(r"(?P<imie>\w+)@(?P<domena>[\w.]+)", r"\g<imie> [at] \g<domena>", "jan@firma.pl, ewa@szkola.edu.pl"))
-print(re.sub(r"\d+", lambda m: f"{int(m.group()) * 2}", "3 sztuki po 149 zł"))
+print(re.sub(r"\d+", lambda m: f"{int(m.group()) * 2}", "2 sztuki po 149 zł"))
 print(re.sub(r"\b(\w)(\w*)", lambda m: m.group(1).upper() + m.group(2), "nowy sącz nad dunajcem"))
 print(re.sub(r"\d", "#", "600 100 200", count=3))
 print(re.subn(r"[aeiouyąęó]", "", "wyrażenia regularne"))
@@ -67,7 +67,7 @@ print(re.sub(r"(\d+) zł", r"\1 PLN", "cena: 149 zł, było 199 zł"))
 wiele spacji i tabulator
 od 23.09.2026 do 01.10.2026
 jan [at] firma.pl, ewa [at] szkola.edu.pl
-6 sztuki po 298 zł
+4 sztuki po 298 zł
 Nowy Sącz Nad Dunajcem
 ### 100 200
 ('wrżn rglrn', 9)

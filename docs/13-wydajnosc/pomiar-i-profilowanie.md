@@ -163,7 +163,7 @@ pstats.Stats(profiler).strip_dirs().sort_stats("cumulative").print_stats(4)
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 ```
 
-Kolumny zestawienia: `ncalls` — liczba wywołań (zapis `146848/8` oznacza 146 848 wywołań, z których 8 to wywołania z zewnątrz, a reszta to rekurencja), `tottime` — czas spędzony w samej funkcji bez funkcji przez nią wywołanych, `cumtime` — czas łączny wraz z wywołaniami podrzędnymi, `percall` — czas na jedno wywołanie: pierwsza kolumna to `tottime` podzielone przez wszystkie wywołania, druga — `cumtime` podzielone przez wywołania pierwotne (stąd dla `fib` druga wartość `percall` to `cumtime` podzielone przez 8). Metoda `strip_dirs()` usuwa z nazw plików ścieżki katalogów, `sort_stats()` sortuje zestawienie, a `print_stats(4)` wypisuje cztery pierwsze wiersze. Sortowanie po `cumulative` pokazuje, które gałęzie programu kosztują najwięcej; sortowanie po `tottime` wskazuje funkcje, które same wykonują pracę. Wniosek z zestawienia jest jednoznaczny: osiem wywołań `fib()` kosztuje kilkadziesiąt razy więcej niż tysiąc wywołań `fib_iter()`, a przyczyną jest liczba wywołań rekurencyjnych, nie koszt pojedynczego. Profiler spowalnia mierzony program, zwykle kilkakrotnie, więc czasy bezwzględne z profilu porównujemy tylko między sobą.
+Kolumny zestawienia: `ncalls` — liczba wywołań (zapis `146848/8` oznacza 146 848 wywołań, z których 8 to wywołania z zewnątrz, a reszta to rekurencja), `tottime` — czas spędzony w samej funkcji bez funkcji przez nią wywołanych, `cumtime` — czas łączny wraz z wywołaniami podrzędnymi, `percall` — czas na jedno wywołanie: pierwsza kolumna to `tottime` podzielone przez wszystkie wywołania, druga — `cumtime` podzielone przez wywołania pierwotne (stąd dla `fib` druga wartość `percall` to `cumtime` podzielone przez 8). Metoda `strip_dirs()` usuwa z nazw plików ścieżki katalogów, `sort_stats()` sortuje zestawienie, a `print_stats(4)` wypisuje cztery pierwsze wiersze. Sortowanie po `cumulative` pokazuje, które gałęzie programu kosztują najwięcej; sortowanie po `tottime` wskazuje funkcje, które same wykonują pracę. Wniosek z zestawienia jest jednoznaczny: osiem wywołań `fib()` kosztuje wielokrotnie więcej niż tysiąc wywołań `fib_iter()`, a przyczyną jest liczba wywołań rekurencyjnych, nie koszt pojedynczego. Samej proporcji z zestawienia — tu kilkadziesiąt razy — nie należy jednak traktować dosłownie. Profiler spowalnia mierzony program, zwykle kilkakrotnie, a jego narzut przypada na każde wywołanie funkcji, więc najbardziej spowalnia funkcje wywoływane bardzo często, jak rekurencyjna `fib()`; zniekształca przez to nie tylko czasy bezwzględne, lecz także proporcje między funkcjami. Bez profilera, w pomiarze modułem `timeit`, osiem wywołań `fib()` trwa około ośmiu razy dłużej niż tysiąc wywołań `fib_iter()`. Profil wskazuje zatem miejsca, które warto zbadać, a wielkość różnic mierzymy bez profilera.
 
 Cały skrypt profilujemy bez zmian w kodzie, z wiersza poleceń. Skrypt `fib25.py` wypisuje `fib(25)`:
 
@@ -271,10 +271,12 @@ fib_cache   832040     0.042 ms
 CacheInfo(hits=28, misses=31, maxsize=None, currsize=31)
 ```
 
-| Wersja | Wywołań dla `n = 30` | Czas | Uwagi |
+| Wersja | Wywołań dla `n = 30` | Czas pierwszego wywołania | Uwagi |
 |---|---|---|---|
-| `fib` (rekurencja) | 2 692 537 | ok. 78 ms | każdy wyraz liczony wielokrotnie |
-| `fib_iter` (pętla) | 1 | ok. 2 µs | 30 obrotów pętli |
+| `fib` (rekurencja) | 2 692 537 | ok. 77 ms | każdy wyraz liczony wielokrotnie |
+| `fib_iter` (pętla) | 1 | ok. 4 µs | 30 obrotów pętli |
 | `fib_cache` (memoizacja) | 31 obliczeń (59 wywołań, 28 z pamięci podręcznej) | ok. 40 µs | każdy wyraz liczony raz, wyniki w słowniku |
+
+Czasy w tabeli pochodzą z wydruku powyżej, czyli z jednego, pierwszego wywołania każdej wersji. Przy funkcjach trwających kilka mikrosekund taki pomiar obejmuje także jednorazowy koszt pierwszego wykonania kodu, dlatego `timeit` z wieloma powtórzeniami (dla `fib_cache` — z opróżnianiem pamięci podręcznej przed każdym wywołaniem) daje dla obu krótszych wersji czasy kilkakrotnie mniejsze.
 
 Różnica czterech rzędów wielkości nie wynika z „wolnego Pythona”, lecz z algorytmu: rekurencja bez pamięci podręcznej liczy `fib(28)` dwa razy, `fib(27)` trzy razy i tak dalej. Memoizacja z rozdziału [7. Moduły, pakiety i biblioteka standardowa](../07-moduly/functools.md#pamiec-podreczna-wynikow-cache-i-lru_cache) usuwa powtórzenia jednym wierszem, a pętla usuwa wywołania w ogóle. To najważniejsza lekcja tego rozdziału: zanim sięgniemy po narzędzia z następnych podrozdziałów, sprawdzamy algorytm.

@@ -250,13 +250,13 @@ def wczytaj_wiek(tekst):
 
 
 print(wczytaj_wiek("42"))
-print(wczytaj_wiek("42 lat"))
+print(wczytaj_wiek("45 lat"))
 print(wczytaj_wiek("dużo"))
 ```
 
 ```{ .text .no-copy }
 42
-42
+45
 Traceback (most recent call last):
   File "lancuch-niejawny.py", line 4, in wczytaj_wiek
     return int(tekst)
