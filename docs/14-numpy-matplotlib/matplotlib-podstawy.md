@@ -74,7 +74,7 @@ ax.axhline(0, color="gray", linewidth=0.8)
 ax.set_xlim(0, 2 * np.pi)
 ax.set_ylim(-1.5, 1.5)
 ax.grid(True, alpha=0.3)
-ax.legend(loc="upper right")
+ax.legend(loc="lower left")
 ax.set_title("Style linii")
 fig.savefig("style-linii.png", dpi=120)
 
@@ -117,7 +117,7 @@ ax.text(np.pi / 2, 1.05, "maksimum", ha="center")
 ax.annotate(
     "minimum",
     xy=(3 * np.pi / 2, -1),
-    xytext=(5.2, -0.4),
+    xytext=(4.9, 0.2),
     arrowprops={"arrowstyle": "->"},
 )
 ax.text(
