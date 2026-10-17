@@ -71,27 +71,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   liczby w `cache_info()`, skrypt wykresu cyklu wydań) rozstrzygnięte 11 X 2026
   (sekcja „Rozstrzygnięte”).
 
-### Uwagi z talii W13–W15, część 2 (17 X 2026)
-
-- **Miejsce:** rozdział 16 (`index.md`, `testowanie.md`, `typy-statyczne.md`,
-  `styl-kodu.md`, `co-dalej.md`) i rozdział 1 części „Python Zastosowania”
-  (`index.md`); pozostałe uwagi o książce z raportów talii W13–W15
-  (pytanie 20, decyzja autora z 17 X 2026, wariant A).
-- **Opis:** wersje „stan na 17 X 2026” zamiast „w chwili pisania” we wstępie
-  rozdziału o Jupyterze (JupyterLab 4.6.4, ipykernel 7.4.0, NumPy 2.5.4)
-  i przy FastAPI w „Co dalej” (0.143 obok wersji 0.141 z rozdziału 15 części
-  „Python Zastosowania”); zdanie o wersjach we wstępie rozdziału 16 uzgodnione
-  z dopiskami „stan na 17 X 2026”; instalacja Ruff, mypy i pytest-cov
-  w wersjach przypiętych w `requirements-dev.txt` (0.16.7, 2.3.1, 7.1.0) ze
-  zdaniem o pochodzeniu wyników, a przy Ruff i mypy — porównanie z wydaniami
-  0.17.1 i 2.4; PEP 728 i PEP 747 na liście zmian Pythona 3.15. Przypięte
-  wersje bez zmian. Obserwacja trybu migracji pre-commit w Windows wpisana
-  do sekcji „Do wykonania przy przejściu na Pythona 3.15”.
-- **Propozycja:** zmiany według zestawienia przed i po, przygotowanego dla
-  autora wraz z dowodami.
-- **Stan:** wykonane na gałęzi `content/uwagi-z-talii-4`, do przeglądu autora
-  (17 X 2026).
-
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
@@ -491,3 +470,13 @@ instalacja z `requirements-dev.txt`, repozytorium hooka (`git rev-parse
 typy wyników fixture w trybie `strict`, wersje „stan na 17 X 2026”. Przypięte
 wersje i liczby pomiarów bez zmian. Wszystkie wyniki sprawdzone na CPythonie
 3.14.8.
+
+### Uwagi z talii W13–W15, część 2 (17 X 2026)
+
+Przyjęte przez autora 17 X 2026 (branch `content/uwagi-z-talii-4`): wersje
+„stan na 17 X 2026” we wstępie rozdziału o Jupyterze części „Python
+Zastosowania” i przy FastAPI w „Co dalej”; zdanie o wersjach we wstępie
+rozdziału 16; instalacja Ruff, mypy i pytest-cov w wersjach przypiętych
+w `requirements-dev.txt` ze zdaniem o pochodzeniu wyników; PEP 728 i PEP 747
+na liście zmian Pythona 3.15. Tryb migracji pre-commit w Windows – do
+obserwacji (sekcja „Do wykonania przy przejściu na Pythona 3.15”).
