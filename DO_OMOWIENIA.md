@@ -71,32 +71,6 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   liczby w `cache_info()`, skrypt wykresu cyklu wydań) rozstrzygnięte 11 X 2026
   (sekcja „Rozstrzygnięte”).
 
-### Uwagi z talii W13–W15 (17 X 2026)
-
-- **Miejsce:** rozdziały 14, 15 i 16 (uwagi o książce w raportach talii W13,
-  W14 i W15 oraz w poprawkach po ich recenzji, `PLAN_SLAJDOW.md` na gałęzi
-  `slajdy`, §11.15–11.17).
-- **Opis:** rozdz. 14 — `base` kopii i `np.shares_memory()`, maska wierszy
-  (wynik dwuwymiarowy), pusty obraz po `plt.show()` tylko z silnikiem
-  okienkowym, położenie legendy w `style-linii.py` i napisu „minimum”
-  w `adnotacje.py` (obrazy wygenerowane ponownie), wersje „stan na 17 X 2026”;
-  rozdz. 15 — współbieżność bez równoległego wykonania kodu Pythona, pętla
-  odliczania szybsza w `3.14t`, brak strażnika `__main__` przy `forkserver`
-  (`ConnectionResetError`), kod między dwoma `await`, `shutdown()` w bloku
-  `finally`, „w CPythonie 3.14” zamiast „w obecnym CPythonie”; rozdz. 16 —
-  raport `ruff format --check`, poprawki `ruff check --fix` według
-  `--show-fixes`, wiersze `[INFO]` pierwszego uruchomienia pre-commit,
-  instalacja z `requirements-dev.txt`, repozytorium hooka
-  (`git rev-parse --show-toplevel`, `pre-commit.legacy`), `pre-commit
-  autoupdate` a plik wymagań, typy wyników fixture w trybie `strict`, wersje
-  „stan na 17 X 2026”. Przypięte wersje i liczby pomiarów bez zmian (decyzja
-  autora z 17 X 2026, wariant A); zdanie o pulach procesów i interpreterów
-  („Czasy obu pul są zbliżone”) bez zmian.
-- **Propozycja:** zmiany według zestawienia przed i po, przygotowanego dla
-  autora wraz z dowodami.
-- **Stan:** wykonane na gałęzi `content/uwagi-z-talii-3`, do przeglądu autora
-  (17 X 2026).
-
 ## Do wykonania przy przejściu na Pythona 3.15
 
 - **Pomiary czasu w rozdziale 13** — powtórzyć wszystkie pomiary
@@ -466,3 +440,21 @@ rozdz. 10), proporcja z profilu („około ośmiu razy” bez profilera), tabela
 Fibonacciego zgodna z wydrukiem; rozdz. 6 – porządek łańcuchów według kodów
 Unicode (także `sort_keys` w rozdz. 9); `help(print)` a sygnatura z
 dokumentacji. Wszystkie wyniki sprawdzone na CPythonie 3.14.8.
+
+### Uwagi z talii W13–W15 (17 X 2026)
+
+Przyjęte przez autora 17 X 2026 w trzech porcjach (branch
+`content/uwagi-z-talii-3`): rozdz. 14 – `base` kopii i `np.shares_memory()`,
+maska wierszy daje wynik dwuwymiarowy, pusty obraz po `plt.show()` tylko
+z silnikiem okienkowym, legenda w `style-linii.py` i napis „minimum”
+w `adnotacje.py` bez kolizji z krzywymi (obrazy wygenerowane ponownie), wersje
+„stan na 17 X 2026”; rozdz. 15 – wątki bez równoległego wykonania kodu Pythona,
+pętla odliczania szybsza w `3.14t`, strażnik `__main__` przy `forkserver`
+(`ConnectionResetError`), kod między dwoma `await`, `shutdown()` w bloku
+`finally`, „w CPythonie 3.14”; rozdz. 16 – raport `ruff format --check`,
+poprawki `ruff check --fix` według `--show-fixes`, wiersze `[INFO]` pre-commit,
+instalacja z `requirements-dev.txt`, repozytorium hooka (`git rev-parse
+--show-toplevel`, `pre-commit.legacy`), `pre-commit autoupdate` a plik wymagań,
+typy wyników fixture w trybie `strict`, wersje „stan na 17 X 2026”. Przypięte
+wersje i liczby pomiarów bez zmian. Wszystkie wyniki sprawdzone na CPythonie
+3.14.8.
