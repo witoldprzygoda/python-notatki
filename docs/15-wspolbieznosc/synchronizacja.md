@@ -194,11 +194,13 @@ kolejka = queue.Queue()
 
 
 def producent():
-    for numer in range(1, 4):
-        time.sleep(0.1)
-        print(f"producent: dodaję zadanie {numer}")
-        kolejka.put(f"zadanie {numer}")
-    kolejka.shutdown()
+    try:
+        for numer in range(1, 4):
+            time.sleep(0.1)
+            print(f"producent: dodaję zadanie {numer}")
+            kolejka.put(f"zadanie {numer}")
+    finally:
+        kolejka.shutdown()
 
 
 def konsument():
@@ -228,7 +230,7 @@ konsument: przetwarzam zadanie 3
 konsument: kolejka zamknięta
 ```
 
-`Queue` jest bezpieczna wątkowo — jej metody mają wbudowaną blokadę — więc wątki nie odwołują się do wspólnych struktur bezpośrednio. Wzorzec **producent–konsument** (ang. *producer–consumer*) skaluje się bez zmian: wielu producentów i wielu konsumentów korzysta z tej samej kolejki. Argument `maxsize=` ogranicza jej długość, a wtedy `put()` czeka, gdy konsumenci nie nadążają; `task_done()` w parze z `kolejka.join()` pozwala poczekać na przetworzenie wszystkich zadań. Metoda `shutdown()` istnieje od Pythona 3.13 — w starszym kodzie tę rolę pełni specjalna wartość wkładana na koniec, na przykład `None`. Zasada ogólna: lepiej przekazywać dane niż dzielić je, bo kod bez wspólnego stanu nie ma wyścigów.
+`Queue` jest bezpieczna wątkowo — jej metody mają wbudowaną blokadę — więc wątki nie odwołują się do wspólnych struktur bezpośrednio. Wzorzec **producent–konsument** (ang. *producer–consumer*) skaluje się bez zmian: wielu producentów i wielu konsumentów korzysta z tej samej kolejki. Argument `maxsize=` ogranicza jej długość, a wtedy `put()` czeka, gdy konsumenci nie nadążają; `task_done()` w parze z `kolejka.join()` pozwala poczekać na przetworzenie wszystkich zadań. Metoda `shutdown()` istnieje od Pythona 3.13 — w starszym kodzie tę rolę pełni specjalna wartość wkładana na koniec, na przykład `None`. Producent wywołuje ją w bloku `finally` z rozdziału 8: gdyby zakończył się wyjątkiem przed zamknięciem kolejki, konsument czekałby w `get()` bez końca, a program — w `join()`. Zasada ogólna: lepiej przekazywać dane niż dzielić je, bo kod bez wspólnego stanu nie ma wyścigów.
 
 ## Wątki a interfejs graficzny
 
