@@ -480,3 +480,11 @@ rozdziału 16; instalacja Ruff, mypy i pytest-cov w wersjach przypiętych
 w `requirements-dev.txt` ze zdaniem o pochodzeniu wyników; PEP 728 i PEP 747
 na liście zmian Pythona 3.15. Tryb migracji pre-commit w Windows – do
 obserwacji (sekcja „Do wykonania przy przejściu na Pythona 3.15”).
+
+### Wersje odniesienia w części „Python Zastosowania” (17 X 2026)
+
+Przyjęte przez autora 17 X 2026 (branch `content/wersje-sprawdzone`):
+„Wersje w chwili pisania” w zasadzie części i we wstępach rozdziałów 13, 15,
+16 i 17 zastąpione określeniem „Wersje odniesienia”, używanym już
+w rozdziałach 2–5; wersje bez zmian. Nowsze wydania sprawdzamy przy
+przejściu na Pythona 3.15 (punkt „Wersje bibliotek”).
