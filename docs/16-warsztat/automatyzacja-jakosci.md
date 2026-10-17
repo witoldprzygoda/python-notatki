@@ -38,19 +38,44 @@ repos:
     wtedy zmienionych plików — a poprawki narzędzi przeglądamy poleceniem `git diff`,
     zanim je zatwierdzimy.
 
+!!! warning "Hook trafia do repozytorium katalogu bieżącego"
+    Polecenia pre-commit działają w repozytorium, do którego należy katalog
+    bieżący, także wtedy, gdy jest on podkatalogiem innego repozytorium:
+    `pre-commit install` zapisałby wówczas hook w repozytorium nadrzędnym,
+    a `pre-commit run --all-files` sprawdzałby i poprawiał pliki Pythona całego
+    tamtego repozytorium. Repozytorium projektu tworzymy więc w katalogu
+    przykładów poleceniem `git init`, a przed instalacją hooka sprawdzamy,
+    że polecenie `git rev-parse --show-toplevel` wypisuje ścieżkę tego katalogu.
+    Hook `pre-commit`, który repozytorium już ma, narzędzie zachowuje pod nazwą
+    `pre-commit.legacy`, a polecenie `pre-commit uninstall` usuwa hook narzędzia
+    i przywraca poprzedni.
+
+pre-commit instalujemy w środowisku projektu z pliku wymagań, w wersji w nim przypiętej:
+
 ```powershell title="Terminal"
-python -m pip install pre-commit
+python -m pip install -r requirements-dev.txt
+```
+
+Następnie sprawdzamy katalog główny repozytorium, instalujemy hook i uruchamiamy sprawdzenia na wszystkich plikach:
+
+```powershell title="Terminal"
+git rev-parse --show-toplevel
 pre-commit install
 pre-commit run --all-files
 ```
 
 ```{ .text .no-copy }
+C:/.../projekt
 pre-commit installed at .git\hooks\pre-commit
+[INFO] Initializing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Installing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
 ruff check...............................................................Passed
 ruff format..............................................................Passed
 ```
 
-Wpis `repo` wskazuje repozytorium z definicją hooków, `rev` — jego wersję (odpowiadającą wersji Ruff), a `hooks` — które z nich włączamy; hook `ruff-check` z argumentem `--fix` poprzedza `ruff-format`, bo poprawki lintera mogą wymagać ponownego sformatowania. Przy pierwszym uruchomieniu pre-commit pobiera narzędzia do własnego, odizolowanego środowiska, więc nie muszą być zainstalowane w venv projektu. Polecenie `run --all-files` sprawdza cały projekt; od tej chwili każdy commit sprawdza tylko pliki dodane do niego poleceniem `git add`. Tak wygląda commit pliku, który łamie reguły:
+Wpis `repo` wskazuje repozytorium z definicją hooków, `rev` — jego wersję (odpowiadającą wersji Ruff), a `hooks` — które z nich włączamy; hook `ruff-check` z argumentem `--fix` poprzedza `ruff-format`, bo poprawki lintera mogą wymagać ponownego sformatowania. Przy pierwszym uruchomieniu pre-commit pobiera narzędzia do własnego, odizolowanego środowiska — o tym informują wiersze `[INFO]` — więc nie muszą być zainstalowane w venv projektu; kolejne uruchomienia korzystają z gotowego środowiska i wypisują tylko wyniki hooków. W repozytorium bez plików Pythona hooki zgłaszają zamiast `Passed` wynik `(no files to check)Skipped`. Polecenie `run --all-files` sprawdza cały projekt; od tej chwili każdy commit sprawdza tylko pliki dodane do niego poleceniem `git add`. Tak wygląda commit pliku, który łamie reguły:
 
 ```python title="zly.py"
 import os
@@ -78,7 +103,7 @@ ruff format..............................................................Failed
 1 file reformatted
 ```
 
-Hooki usunęły nieużywany import i sformatowały plik, ale commit nie powstał — narzędzie zmieniło pliki, więc programista ma je obejrzeć i dodać ponownie. Drugie `git add zly.py` i `git commit` przechodzą z wynikiem `Passed`. Wersje hooków podnosimy poleceniem `pre-commit autoupdate`; opcja `git commit --no-verify` pomija hooki i jest przeznaczona na wyjątkowe sytuacje, nie na codzienną pracę.
+Hooki usunęły nieużywany import i sformatowały plik, ale commit nie powstał — narzędzie zmieniło pliki, więc programista ma je obejrzeć i dodać ponownie. Drugie `git add zly.py` i `git commit` przechodzą z wynikiem `Passed`. Wersje hooków podnosimy poleceniem `pre-commit autoupdate`, które zmienia wpisy `rev` w pliku `.pre-commit-config.yaml` na najnowsze wydania (zmianę oglądamy poleceniem `git diff`); wersje tych samych narzędzi w `requirements-dev.txt` uzgadniamy wtedy z nowymi wpisami `rev`, aby hook, środowisko projektu i serwer CI nadal używały jednej wersji. Opcja `git commit --no-verify` pomija hooki i jest przeznaczona na wyjątkowe sytuacje, nie na codzienną pracę.
 
 Do konfiguracji można dodać mypy z repozytorium `pre-commit/mirrors-mypy`:
 
@@ -89,7 +114,7 @@ Do konfiguracji można dodać mypy z repozytorium `pre-commit/mirrors-mypy`:
       - id: mypy
 ```
 
-Hook uruchamia mypy w osobnym środowisku, w którym nie ma pakietów projektu — importy zewnętrzne trzeba dopisać jako `additional_dependencies`. Wielu programistów zostawia więc mypy serwerowi CI, a w hookach trzyma tylko szybkie sprawdzenia Ruff. Niezależnie od miejsca uruchomienia tryb `strict` wymaga adnotacji także w funkcjach testowych: typu wyniku `-> None` oraz typów parametrów — fixture (`tmp_path: Path`, `capsys: pytest.CaptureFixture[str]`, `monkeypatch: pytest.MonkeyPatch`, `promienie: list[float]`) i parametrów z `parametrize`; testy z podrozdziału o pytest trzeba nimi uzupełnić, zanim `python -m mypy .` przejdzie.
+Hook uruchamia mypy w osobnym środowisku, w którym nie ma pakietów projektu — importy zewnętrzne trzeba dopisać jako `additional_dependencies`. Wielu programistów zostawia więc mypy serwerowi CI, a w hookach trzyma tylko szybkie sprawdzenia Ruff. Niezależnie od miejsca uruchomienia tryb `strict` wymaga adnotacji także w testach. Funkcje testowe potrzebują typu wyniku `-> None` oraz typów parametrów — fixture (`tmp_path: Path`, `capsys: pytest.CaptureFixture[str]`, `monkeypatch: pytest.MonkeyPatch`, `promienie: list[float]`) i parametrów z `parametrize`; same fixture potrzebują typu wyniku: `promienie() -> list[float]`, a fixture z `yield`, będąca funkcją generatorową, `plik_z_liczbami(tmp_path: Path) -> Iterator[Path]` z typem `Iterator` importowanym z modułu `collections.abc`. Testy z podrozdziału o pytest trzeba tak uzupełnić, zanim `python -m mypy .` przejdzie.
 
 ## Narzędzia w edytorze
 
