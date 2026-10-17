@@ -10,7 +10,7 @@ Oba pakiety instalujemy w środowisku wirtualnym kursu z rozdziału [1. Instalac
 python -m pip install numpy matplotlib
 ```
 
-W chwili pisania aktualne wersje to NumPy 2.5.3 i Matplotlib 3.11.2; przykłady w rozdziale wymagają NumPy 2.x. Konwencja importu — `import numpy as np` oraz, dla wykresów, `import matplotlib.pyplot as plt` — jest powszechna i nie zmieniamy jej, bo tak wyglądają wszystkie przykłady w dokumentacji i w cudzym kodzie; poniższy skrypt importuje sam pakiet `matplotlib`, aby odczytać wersję:
+Przykłady rozdziału sprawdziliśmy z NumPy 2.5.3 i Matplotlib 3.11.2 i wymagają one NumPy 2.x. Według stanu na 17 X 2026 powyższe polecenie instaluje NumPy 2.5.4 i Matplotlib 3.11.2, więc wynik skryptu `wersje.py` może podać nowszy numer wersji NumPy niż książka. Konwencja importu — `import numpy as np` oraz, dla wykresów, `import matplotlib.pyplot as plt` — jest powszechna i nie zmieniamy jej, bo tak wyglądają wszystkie przykłady w dokumentacji i w cudzym kodzie; poniższy skrypt importuje sam pakiet `matplotlib`, aby odczytać wersję:
 
 ```python title="wersje.py"
 import numpy as np
