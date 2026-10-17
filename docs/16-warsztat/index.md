@@ -10,7 +10,7 @@ Program, który działa, to dopiero początek: kod trzeba utrzymywać, zmieniać
 | uruchamiać sprawdzenia automatycznie | pre-commit i GitHub Actions | [Automatyzacja jakości — pre-commit i CI](automatyzacja-jakosci.md) |
 | wybrać kierunek dalszej nauki | asyncio, WWW, dane, Python 3.15 | [Co dalej](co-dalej.md) |
 
-Rozdział zakłada znajomość pytest z rozdziału 7, dekoratorów i generatorów z rozdziału 6, adnotacji z rozdziałów 3 i 6, klas danych i protokołów z rozdziału 12 oraz konfiguracji edytora z rozdziału 1. Podrozdział o automatyzacji zakłada też repozytorium Git; sam Git nie jest tematem książki. Wersje narzędzi podajemy według stanu z września 2026 roku — narzędzia zmieniają się szybciej niż język, więc przed instalacją warto sprawdzić aktualne wydania.
+Rozdział zakłada znajomość pytest z rozdziału 7, dekoratorów i generatorów z rozdziału 6, adnotacji z rozdziałów 3 i 6, klas danych i protokołów z rozdziału 12 oraz konfiguracji edytora z rozdziału 1. Podrozdział o automatyzacji zakłada też repozytorium Git; sam Git nie jest tematem książki. Wersje narzędzi przypięte w przykładach pochodzą z września 2026 roku i z nimi sprawdziliśmy wyniki, a najnowsze wydania podajemy według stanu na 17 X 2026 — narzędzia zmieniają się szybciej niż język, więc przed instalacją warto sprawdzić aktualne wydania.
 
 ---
 

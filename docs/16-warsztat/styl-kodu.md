@@ -51,10 +51,10 @@ Dokumenty **PEP**, wprowadzone w rozdziale [1. Instalacja i środowisko pracy](.
 
 ## Ruff — linter i formater
 
-**Linter** (ang. *linter*) wykrywa usterki bez uruchamiania kodu: nieużywane importy, niezdefiniowane nazwy, przestarzałe konstrukcje, odstępstwa od PEP 8. **Formater** (ang. *formatter*) przepisuje kod do jednolitego układu. **Ruff** łączy obie funkcje; jest napisany w języku Rust i sprawdza duży projekt w ułamku sekundy; zastępuje starsze narzędzia flake8, isort i black. Instalujemy go jak każdy pakiet:
+**Linter** (ang. *linter*) wykrywa usterki bez uruchamiania kodu: nieużywane importy, niezdefiniowane nazwy, przestarzałe konstrukcje, odstępstwa od PEP 8. **Formater** (ang. *formatter*) przepisuje kod do jednolitego układu. **Ruff** łączy obie funkcje; jest napisany w języku Rust i sprawdza duży projekt w ułamku sekundy; zastępuje starsze narzędzia flake8, isort i black. Raporty w tym podrozdziale pochodzą z wersji 0.16.7, przypiętej w pliku `requirements-dev.txt` z podrozdziału [Automatyzacja jakości](automatyzacja-jakosci.md); tę wersję instalujemy jak każdy pakiet:
 
 ```powershell title="Terminal"
-python -m pip install ruff
+python -m pip install ruff==0.16.7
 ```
 
 Zanim uruchomimy Ruff, dopisujemy jego konfigurację na końcu pliku `pyproject.toml` — pozostałe tabele pliku zostają bez zmian, a gdy pliku jeszcze nie ma, tworzymy go. Bez niej Ruff od wersji 0.16 włącza obszerny domyślny zestaw ponad czterystu reguł z kilkudziesięciu rodzin (między innymi `F`, `I`, `UP`, `B`), ale nie wszystkie reguły `E` — na przykład `E401` z poniższego raportu domyślnie nie jest zgłaszane; jawne `select` ustala zestaw niezależnie od zmian domyślnych między wydaniami:
@@ -96,7 +96,7 @@ Found 6 errors.
 [*] 5 fixable with the `--fix` option.
 ```
 
-Każda uwaga ma kod reguły — litera oznacza rodzinę, na przykład `E` to błędy stylu z PEP 8, `F` — usterki logiczne wykrywane przez pyflakes, `I` — porządek importów, `UP` — konstrukcje do unowocześnienia — a gwiazdka w nawiasie oznacza, że Ruff potrafi ją naprawić sam. Domyślny raport pokazuje dodatkowo fragment kodu z zaznaczonym miejscem; opcja `--output-format concise` skraca go do jednego wiersza na uwagę. Naprawa i formatowanie to dwa polecenia:
+Każda uwaga ma kod reguły — litera oznacza rodzinę, na przykład `E` to błędy stylu z PEP 8, `F` — usterki logiczne wykrywane przez pyflakes, `I` — porządek importów, `UP` — konstrukcje do unowocześnienia — a gwiazdka w nawiasie oznacza, że Ruff potrafi ją naprawić sam. Domyślny raport pokazuje dodatkowo fragment kodu z zaznaczonym miejscem; opcja `--output-format concise` skraca go do jednego wiersza na uwagę. Wydanie 0.17.1, najnowsze według stanu na 17 X 2026, kończy powyższy raport wierszem o nieco innym brzmieniu; pozostałe wyniki w podrozdziale są w obu wersjach jednakowe. Naprawa i formatowanie to dwa polecenia:
 
 ```powershell title="Terminal"
 python -m ruff check --fix brzydki.py

@@ -31,7 +31,7 @@ python -m pip install flask
 flask --app aplikacja run
 ```
 
-**FastAPI** (wersja 0.141) buduje na adnotacjach typów z podrozdziału [Adnotacje typów w praktyce](typy-statyczne.md): model danych to klasa Pydantic, a szkielet sam sprawdza poprawność żądań i generuje dokumentację interfejsu pod adresem `/docs`; plik zapisany jako `aplikacja.py`:
+**FastAPI** (wersja 0.141, z którą sprawdziliśmy przykłady [rozdziału o FastAPI](../zastosowania/15-fastapi/index.md) w części „Python Zastosowania”; stan na 17 X 2026: wersja 0.143) buduje na adnotacjach typów z podrozdziału [Adnotacje typów w praktyce](typy-statyczne.md): model danych to klasa Pydantic, a szkielet sam sprawdza poprawność żądań i generuje dokumentację interfejsu pod adresem `/docs`; plik zapisany jako `aplikacja.py`:
 
 ```{ .python .no-copy }
 from fastapi import FastAPI
@@ -75,6 +75,7 @@ Wydanie 3.15.0 ukazało się 9 października 2026 roku ([PEP 790](https://peps.p
 - **Rozpakowanie w złożeniach** ([PEP 798](https://peps.python.org/pep-0798/)) — `[*lista for lista in listy]` spłaszcza listę list bez zagnieżdżonej pętli.
 - **Typ `frozendict`** ([PEP 814](https://peps.python.org/pep-0814/)) — niemodyfikowalny słownik — haszowalny, gdy haszowalne są jego wartości — odpowiednik `frozenset` z rozdziału 5.
 - **Pakiet `profiling`** ([PEP 799](https://peps.python.org/pep-0799/)) — profiler próbkujący zapowiedziany w rozdziale 13.
+- **`TypedDict` z kluczami dodatkowymi i `TypeForm`** ([PEP 728](https://peps.python.org/pep-0728/), [PEP 747](https://peps.python.org/pep-0747/)) — argument `closed=True` w definicji klasy [`TypedDict`](typy-statyczne.md#typeddict-klasy-danych-i-protocol) zabrania kluczy spoza zadeklarowanych, a `extra_items=int` dopuszcza dowolne dodatkowe klucze o wartościach typu `int`; adnotacja `typing.TypeForm[T]` opisuje wartość, która sama jest wyrażeniem typu (`int`, `str | None`, `list[int]`), na przykład parametr funkcji przyjmującej typ jako argument.
 
 Pełną listę zawiera dokument „What's New In Python 3.15” w dokumentacji; nowy interpreter instalujemy managerem z rozdziału 1 poleceniem `py install 3.15`, obok istniejącego. Jako najnowsza wersja stabilna spośród zainstalowanych staje się on wtedy interpreterem domyślnym poleceń `python` i `py` poza aktywnym środowiskiem wirtualnym, dlatego do dalszej pracy z wersją 3.14 wskazujemy ją jawnie (`py -V:3.14`), jak w rozdziale 1. Istniejące środowiska wirtualne pozostają przy interpreterze, z którego je utworzono.
 
