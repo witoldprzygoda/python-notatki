@@ -178,10 +178,10 @@ python -m pytest -q -m "not wolny"
 9 passed, 1 deselected in 0.03s
 ```
 
-**Pokrycie kodu** (ang. *code coverage*) mierzy, które wiersze programu wykonały się podczas testów. Wtyczka (ang. *plugin*) pytest-cov dodaje opcję `--cov`:
+**Pokrycie kodu** (ang. *code coverage*) mierzy, które wiersze programu wykonały się podczas testów. Wtyczka (ang. *plugin*) pytest-cov dodaje opcję `--cov`. Poniższy raport pochodzi z jej wersji 7.1.0, przypiętej w pliku `requirements-dev.txt` z podrozdziału [Automatyzacja jakości](automatyzacja-jakosci.md); tę wersję instalujemy:
 
 ```powershell title="Terminal"
-python -m pip install pytest-cov
+python -m pip install pytest-cov==7.1.0
 python -m pytest -q --cov=kolo --cov-report=term-missing
 ```
 

@@ -98,8 +98,20 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   uruchomienia warto podać medianę serii); sprawdzić ślad puli bez strażnika
   `__main__` (według raportu talii W14 ślad `BrokenProcessPool` podaje
   w 3.15 PID i kod wyjścia procesu, gh-139486) i wynik przy `forkserver`;
-  zastąpić wersje „stan na 17 X 2026” w rozdziałach 14 i 16 wersjami
-  przypiętymi po aktualizacji.
+  zastąpić wersje „stan na 17 X 2026” w rozdziałach 14 i 16 oraz we wstępie
+  rozdziału 1 części „Python Zastosowania” wersjami przypiętymi po
+  aktualizacji.
+- **Tryb migracji pre-commit w Windows (17 X 2026)** — gdy repozytorium ma
+  już hook `pre-commit` w postaci skryptu `sh` (wiersz `#!/bin/sh`),
+  `pre-commit install` zachowuje go jako `pre-commit.legacy`, ale w Windows
+  każdy commit kończy się komunikatem „An unexpected error has occurred:
+  ExecutableNotFoundError: Executable `/bin/sh` not found” i nie powstaje
+  (sprawdzone 17 X 2026 w Git Bash z pre-commit 4.6.2 i 4.7.0; ze skryptem,
+  którego pierwszy wiersz to `#!/usr/bin/env sh`, commit przechodzi).
+  Książka (`16-warsztat/automatyzacja-jakosci.md`, ramka „Hook trafia do
+  repozytorium katalogu bieżącego”) mówi tylko o zachowaniu hooka jako
+  `pre-commit.legacy`. Decyzja autora z 17 X 2026: bez zmiany tekstu, do
+  obserwacji; sprawdzić ponownie po podbiciu wersji pre-commit.
 
 ## Rozstrzygnięte
 
@@ -458,3 +470,21 @@ instalacja z `requirements-dev.txt`, repozytorium hooka (`git rev-parse
 typy wyników fixture w trybie `strict`, wersje „stan na 17 X 2026”. Przypięte
 wersje i liczby pomiarów bez zmian. Wszystkie wyniki sprawdzone na CPythonie
 3.14.8.
+
+### Uwagi z talii W13–W15, część 2 (17 X 2026)
+
+Przyjęte przez autora 17 X 2026 (branch `content/uwagi-z-talii-4`): wersje
+„stan na 17 X 2026” we wstępie rozdziału o Jupyterze części „Python
+Zastosowania” i przy FastAPI w „Co dalej”; zdanie o wersjach we wstępie
+rozdziału 16; instalacja Ruff, mypy i pytest-cov w wersjach przypiętych
+w `requirements-dev.txt` ze zdaniem o pochodzeniu wyników; PEP 728 i PEP 747
+na liście zmian Pythona 3.15. Tryb migracji pre-commit w Windows – do
+obserwacji (sekcja „Do wykonania przy przejściu na Pythona 3.15”).
+
+### Wersje odniesienia w części „Python Zastosowania” (17 X 2026)
+
+Przyjęte przez autora 17 X 2026 (branch `content/wersje-sprawdzone`):
+„Wersje w chwili pisania” w zasadzie części i we wstępach rozdziałów 13, 15,
+16 i 17 zastąpione określeniem „Wersje odniesienia”, używanym już
+w rozdziałach 2–5; wersje bez zmian. Nowsze wydania sprawdzamy przy
+przejściu na Pythona 3.15 (punkt „Wersje bibliotek”).

@@ -18,7 +18,7 @@
 Ta część zakłada znajomość języka w zakresie części „Python Podstawy”: funkcji, modułów, wyjątków, plików, klas, tablic NumPy z rozdziału 14 i narzędzi z rozdziału 16. Każdy rozdział wymienia na wstępie rozdziały części „Python Podstawy”, na których buduje.
 
 - **Jedna biblioteka na rozdział.** Gdy zadanie ma kilka równorzędnych narzędzi, wybieramy jedno i wskazuje pozostałe jednym zdaniem.
-- **Wersje w chwili pisania.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, a pakiety instalujemy w środowisku projektu z rozdziału 1 według pliku wymagań z przypiętymi wersjami.
+- **Wersje odniesienia.** Biblioteki zmieniają się szybciej niż język; każdy rozdział podaje wersje, na których sprawdzono listingi, a pakiety instalujemy w środowisku projektu z rozdziału 1 według pliku wymagań z przypiętymi wersjami.
 - **Każdy listing uruchomiony.** Wyniki, wykresy i komunikaty w tekście pochodzą z rzeczywistych uruchomień; dane przykładowe są osadzone w tekście.
 - **Osobny katalog na przykłady rozdziału.** Skrypty zapisują w katalogu bieżącym pliki i katalogi o nazwach podanych w tekście, zastępując istniejące pliki o tych samych nazwach — także pliki przykładów z innych rozdziałów. Przykłady każdego rozdziału uruchamiamy więc w osobnym katalogu, przeznaczonym tylko dla nich, i w nim zapisujemy pliki danych do pobrania — nie w katalogu pobranych plików przeglądarki ani w innym katalogu z własnymi plikami. Wspólne pozostaje środowisko projektu z rozdziału 1.
 - **Najpierw biblioteka standardowa.** Pakiet zewnętrzny instalujemy wtedy, gdy zadanie tego wymaga, nie z przyzwyczajenia.
