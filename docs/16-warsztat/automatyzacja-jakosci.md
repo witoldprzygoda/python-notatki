@@ -153,7 +153,7 @@ jobs:
       - run: python -m pytest --cov
 ```
 
-Po każdym `git push` i przy każdym żądaniu scalenia (ang. *pull request*) serwis uruchamia maszynę z systemem Linux, pobiera repozytorium (`actions/checkout`), instaluje wskazaną wersję Pythona (`actions/setup-python`) i wykonuje kolejne polecenia; wynik — zielony lub czerwony znacznik — pojawia się przy commicie, a szczegóły w zakładce **Actions**. Wersje akcji (`@v7`) są aktualne w chwili pisania. Ten sam plik można rozszerzyć o macierz wersji Pythona i systemów (`windows-latest`, `macos-latest`), gdy projekt ma działać na wielu platformach.
+Po każdym `git push` i przy każdym żądaniu scalenia (ang. *pull request*) serwis uruchamia maszynę z systemem Linux, pobiera repozytorium (`actions/checkout`), instaluje wskazaną wersję Pythona (`actions/setup-python`) i wykonuje kolejne polecenia; wynik — zielony lub czerwony znacznik — pojawia się przy commicie, a szczegóły w zakładce **Actions**. Wersje akcji (`@v7`) to według stanu na 17 X 2026 najnowsze wydania główne obu akcji. Ten sam plik można rozszerzyć o macierz wersji Pythona i systemów (`windows-latest`, `macos-latest`), gdy projekt ma działać na wielu platformach.
 
 ## Instalacja narzędzi — `pipx` i `uv`
 
