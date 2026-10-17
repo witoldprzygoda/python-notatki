@@ -202,4 +202,6 @@ Bez `strict` mypy sprawdza tylko funkcje z adnotacjami, co pozwala wdrażać typ
 | Pyrefly 1.3 | Meta, Rust | szybki, z rozszerzeniem do VSC |
 | ty 0.0.x | Astral (twórcy Ruff), Rust | w wersji rozwojowej; z rozszerzeniem do VSC |
 
+Wyniki mypy w tym podrozdziale pochodzą z wersji 2.3.1, przypiętej w pliku `requirements-dev.txt` z podrozdziału o automatyzacji; według stanu na 17 X 2026 najnowsze wydania to mypy 2.4 i Pyrefly 1.4, a pyright i ty pozostają w seriach 1.1 i 0.0.x.
+
 Wszystkie czytają te same adnotacje i realizują te same dokumenty PEP o typach, choć w szczegółach różnią się wyprowadzaniem typów; w projekcie wybieramy jedno narzędzie do sprawdzeń automatycznych z podrozdziału [Automatyzacja jakości](automatyzacja-jakosci.md), a edytor może korzystać z innego. W VSC błędy typów pokazuje rozszerzenie **Mypy Type Checker** zainstalowane w rozdziale 3; Pylance, dostarczany z rozszerzeniem Python, robi to również — o ile nie wyłączyliśmy go zgodnie z podrozdziałem [Konfigurowanie narzędzi](../01-instalacja/konfiguracja.md#usuwanie-pylance) rozdziału 1.

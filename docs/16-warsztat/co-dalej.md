@@ -8,7 +8,7 @@ Zapowiedź `asyncio` z rozdziału [15. Współbieżność — wątki, procesy i 
 
 ## Aplikacje WWW — Flask i FastAPI
 
-Aplikacja WWW w Pythonie to funkcje przypisane do adresów. **Flask** (w chwili pisania wersja 3.1) jest szkieletem minimalnym; poniższy plik `aplikacja.py` jest kompletną aplikacją:
+Aplikacja WWW w Pythonie to funkcje przypisane do adresów. **Flask** (stan na 17 X 2026: wersja 3.1) jest szkieletem minimalnym; poniższy plik `aplikacja.py` jest kompletną aplikacją:
 
 ```{ .python .no-copy }
 from flask import Flask

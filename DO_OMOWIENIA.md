@@ -92,6 +92,14 @@ rozstrzygniętą przenosimy do sekcji „Rozstrzygnięte” z datą i decyzją.
   proporcję „około ośmiu razy” bez profilera (`pomiar-i-profilowanie.md`)
   oraz zdania o `-X utf8` w potoku (`csv-i-json.md`, sekcja „Narzędzie
   `python -m json`”), bo w Pythonie 3.15 tryb UTF-8 jest domyślny.
+- **Poprawki z talii W13–W15 (17 X 2026)** — powtórzyć pomiary rozdziału 15
+  (pętla odliczania na 3.14 i `3.14t` w `watki-i-gil.md`, pule procesów
+  i interpreterów w `procesy-i-executory.md`, gdzie zamiast jednego
+  uruchomienia warto podać medianę serii); sprawdzić ślad puli bez strażnika
+  `__main__` (według raportu talii W14 ślad `BrokenProcessPool` podaje
+  w 3.15 PID i kod wyjścia procesu, gh-139486) i wynik przy `forkserver`;
+  zastąpić wersje „stan na 17 X 2026” w rozdziałach 14 i 16 wersjami
+  przypiętymi po aktualizacji.
 
 ## Rozstrzygnięte
 
@@ -432,3 +440,21 @@ rozdz. 10), proporcja z profilu („około ośmiu razy” bez profilera), tabela
 Fibonacciego zgodna z wydrukiem; rozdz. 6 – porządek łańcuchów według kodów
 Unicode (także `sort_keys` w rozdz. 9); `help(print)` a sygnatura z
 dokumentacji. Wszystkie wyniki sprawdzone na CPythonie 3.14.8.
+
+### Uwagi z talii W13–W15 (17 X 2026)
+
+Przyjęte przez autora 17 X 2026 w trzech porcjach (branch
+`content/uwagi-z-talii-3`): rozdz. 14 – `base` kopii i `np.shares_memory()`,
+maska wierszy daje wynik dwuwymiarowy, pusty obraz po `plt.show()` tylko
+z silnikiem okienkowym, legenda w `style-linii.py` i napis „minimum”
+w `adnotacje.py` bez kolizji z krzywymi (obrazy wygenerowane ponownie), wersje
+„stan na 17 X 2026”; rozdz. 15 – wątki bez równoległego wykonania kodu Pythona,
+pętla odliczania szybsza w `3.14t`, strażnik `__main__` przy `forkserver`
+(`ConnectionResetError`), kod między dwoma `await`, `shutdown()` w bloku
+`finally`, „w CPythonie 3.14”; rozdz. 16 – raport `ruff format --check`,
+poprawki `ruff check --fix` według `--show-fixes`, wiersze `[INFO]` pre-commit,
+instalacja z `requirements-dev.txt`, repozytorium hooka (`git rev-parse
+--show-toplevel`, `pre-commit.legacy`), `pre-commit autoupdate` a plik wymagań,
+typy wyników fixture w trybie `strict`, wersje „stan na 17 X 2026”. Przypięte
+wersje i liczby pomiarów bez zmian. Wszystkie wyniki sprawdzone na CPythonie
+3.14.8.
