@@ -71,7 +71,7 @@ py -V:3.14t licznik.py
 oczekiwane 4000000, otrzymane 1599200 (GIL włączony: False)
 ```
 
-W standardowej kompilacji wynik jest poprawny, ale przypadkiem: interpreter przełącza wątki tylko w wybranych miejscach kodu bajtowego — w obecnym CPythonie przy skokach wstecz i wywołaniach funkcji, tu więc między obrotami pętli, nigdy między odczytem a zapisem atrybutu — więc GIL działa jak ukryta blokada. Jest to szczegół implementacji, nie gwarancja języka: wystarczy wywołanie wewnątrz tej sekwencji (właściwość zamiast atrybutu, `print()`), by okno na przełączenie wróciło. Kompilacja free-threaded takiej gwarancji nie daje i gubi ponad połowę przyrostów, za każdym uruchomieniem inną liczbę. Kod poprawny tylko dzięki GIL jest kodem błędnym.
+W standardowej kompilacji wynik jest poprawny, ale przypadkiem: interpreter przełącza wątki tylko w wybranych miejscach kodu bajtowego — w CPythonie 3.14 przy skokach wstecz i wywołaniach funkcji, tu więc między obrotami pętli, nigdy między odczytem a zapisem atrybutu — więc GIL działa jak ukryta blokada. Jest to szczegół implementacji, nie gwarancja języka: wystarczy wywołanie wewnątrz tej sekwencji (właściwość zamiast atrybutu, `print()`), by okno na przełączenie wróciło. Kompilacja free-threaded takiej gwarancji nie daje i gubi ponad połowę przyrostów, za każdym uruchomieniem inną liczbę. Kod poprawny tylko dzięki GIL jest kodem błędnym.
 
 ## Blokada `Lock` i instrukcja `with`
 
